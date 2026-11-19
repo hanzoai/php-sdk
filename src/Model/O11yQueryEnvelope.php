@@ -57,7 +57,7 @@ class O11yQueryEnvelope implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        'spec' => 'object',
+        'spec' => 'mixed',
         'type' => 'mixed'
     ];
 
@@ -79,7 +79,7 @@ class O11yQueryEnvelope implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'spec' => false,
+        'spec' => true,
         'type' => true
     ];
 
@@ -299,7 +299,7 @@ class O11yQueryEnvelope implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets spec
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getSpec()
     {
@@ -309,14 +309,21 @@ class O11yQueryEnvelope implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets spec
      *
-     * @param object|null $spec Spec is the deferred decoding of the query if any.
+     * @param mixed|null $spec spec
      *
      * @return self
      */
     public function setSpec($spec)
     {
         if (is_null($spec)) {
-            throw new \InvalidArgumentException('non-nullable spec cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'spec');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('spec', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['spec'] = $spec;
 

@@ -134,7 +134,7 @@ class TranslateApi
     /**
      * Operation getTranslateMemory
      *
-     * List returns the org&#39;s own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
+     * Returns the org&#39;s own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
      *
      * @param  string|null $target Target narrows to one target language tag (BCP-47, e.g. \&quot;es\&quot; or \&quot;pt-BR\&quot;). (optional)
      * @param  string|null $state State narrows to one position on the review ladder: machine, suggested, approved or published. (optional)
@@ -143,7 +143,7 @@ class TranslateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MemoryPage
+     * @return \Hanzo\Cloud\Model\TranslateMemoryPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTranslateMemory($target = null, $state = null, $limit = null, string $contentType = self::contentTypes['getTranslateMemory'][0])
     {
@@ -154,7 +154,7 @@ class TranslateApi
     /**
      * Operation getTranslateMemoryWithHttpInfo
      *
-     * List returns the org&#39;s own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
+     * Returns the org&#39;s own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
      *
      * @param  string|null $target Target narrows to one target language tag (BCP-47, e.g. \&quot;es\&quot; or \&quot;pt-BR\&quot;). (optional)
      * @param  string|null $state State narrows to one position on the review ladder: machine, suggested, approved or published. (optional)
@@ -163,7 +163,7 @@ class TranslateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MemoryPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TranslateMemoryPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTranslateMemoryWithHttpInfo($target = null, $state = null, $limit = null, string $contentType = self::contentTypes['getTranslateMemory'][0])
     {
@@ -195,7 +195,13 @@ class TranslateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MemoryPage',
+                        '\Hanzo\Cloud\Model\TranslateMemoryPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -217,7 +223,7 @@ class TranslateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MemoryPage',
+                '\Hanzo\Cloud\Model\TranslateMemoryPage',
                 $request,
                 $response,
             );
@@ -226,7 +232,15 @@ class TranslateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MemoryPage',
+                        '\Hanzo\Cloud\Model\TranslateMemoryPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -241,7 +255,7 @@ class TranslateApi
     /**
      * Operation getTranslateMemoryAsync
      *
-     * List returns the org&#39;s own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
+     * Returns the org&#39;s own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
      *
      * @param  string|null $target Target narrows to one target language tag (BCP-47, e.g. \&quot;es\&quot; or \&quot;pt-BR\&quot;). (optional)
      * @param  string|null $state State narrows to one position on the review ladder: machine, suggested, approved or published. (optional)
@@ -264,7 +278,7 @@ class TranslateApi
     /**
      * Operation getTranslateMemoryAsyncWithHttpInfo
      *
-     * List returns the org&#39;s own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
+     * Returns the org&#39;s own translation-memory entries, newest first, optionally narrowed to one target language and/or one position on the review ladder.
      *
      * @param  string|null $target Target narrows to one target language tag (BCP-47, e.g. \&quot;es\&quot; or \&quot;pt-BR\&quot;). (optional)
      * @param  string|null $state State narrows to one position on the review ladder: machine, suggested, approved or published. (optional)
@@ -276,7 +290,7 @@ class TranslateApi
      */
     public function getTranslateMemoryAsyncWithHttpInfo($target = null, $state = null, $limit = null, string $contentType = self::contentTypes['getTranslateMemory'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MemoryPage';
+        $returnType = '\Hanzo\Cloud\Model\TranslateMemoryPage';
         $request = $this->getTranslateMemoryRequest($target, $state, $limit, $contentType);
 
         return $this->client
@@ -372,7 +386,7 @@ class TranslateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -433,15 +447,17 @@ class TranslateApi
      *
      * Translate a string or a batch into one target language
      *
+     * @param  \Hanzo\Cloud\Model\Brief|null $brief brief (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTranslate'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\Delivery
      */
-    public function postTranslate(string $contentType = self::contentTypes['postTranslate'][0])
+    public function postTranslate($brief = null, string $contentType = self::contentTypes['postTranslate'][0])
     {
-        $this->postTranslateWithHttpInfo($contentType);
+        list($response) = $this->postTranslateWithHttpInfo($brief, $contentType);
+        return $response;
     }
 
     /**
@@ -449,15 +465,16 @@ class TranslateApi
      *
      * Translate a string or a batch into one target language
      *
+     * @param  \Hanzo\Cloud\Model\Brief|null $brief (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTranslate'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Delivery, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postTranslateWithHttpInfo(string $contentType = self::contentTypes['postTranslate'][0])
+    public function postTranslateWithHttpInfo($brief = null, string $contentType = self::contentTypes['postTranslate'][0])
     {
-        $request = $this->postTranslateRequest($contentType);
+        $request = $this->postTranslateRequest($brief, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -482,11 +499,50 @@ class TranslateApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                
+            }
+
+            if ($this->responseWithinRangeCode('2XX', $statusCode)) {
+                return $this->handleResponseWithDataType(
+                    '\Hanzo\Cloud\Model\Delivery',
+                    $request,
+                    $response,
+                );
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Delivery',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                
             }
         
+            if ($this->responseWithinRangeCode('2XX', $e->getCode())) {
+                $data = ObjectSerializer::deserialize(
+                    $e->getResponseBody(),
+                    '\Hanzo\Cloud\Model\Delivery',
+                    $e->getResponseHeaders()
+                );
+                $e->setResponseObject($data);
+                throw $e;
+            }
 
             throw $e;
         }
@@ -497,14 +553,15 @@ class TranslateApi
      *
      * Translate a string or a batch into one target language
      *
+     * @param  \Hanzo\Cloud\Model\Brief|null $brief (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTranslate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTranslateAsync(string $contentType = self::contentTypes['postTranslate'][0])
+    public function postTranslateAsync($brief = null, string $contentType = self::contentTypes['postTranslate'][0])
     {
-        return $this->postTranslateAsyncWithHttpInfo($contentType)
+        return $this->postTranslateAsyncWithHttpInfo($brief, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -517,21 +574,35 @@ class TranslateApi
      *
      * Translate a string or a batch into one target language
      *
+     * @param  \Hanzo\Cloud\Model\Brief|null $brief (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTranslate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTranslateAsyncWithHttpInfo(string $contentType = self::contentTypes['postTranslate'][0])
+    public function postTranslateAsyncWithHttpInfo($brief = null, string $contentType = self::contentTypes['postTranslate'][0])
     {
-        $returnType = '';
-        $request = $this->postTranslateRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\Delivery';
+        $request = $this->postTranslateRequest($brief, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -553,13 +624,15 @@ class TranslateApi
     /**
      * Create request for operation 'postTranslate'
      *
+     * @param  \Hanzo\Cloud\Model\Brief|null $brief (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTranslate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postTranslateRequest(string $contentType = self::contentTypes['postTranslate'][0])
+    public function postTranslateRequest($brief = null, string $contentType = self::contentTypes['postTranslate'][0])
     {
+
 
 
         $resourcePath = '/v1/translate';
@@ -574,13 +647,20 @@ class TranslateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($brief)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($brief));
+            } else {
+                $httpBody = $brief;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -633,36 +713,36 @@ class TranslateApi
     /**
      * Operation putTranslateMemory
      *
-     * Review records a human decision on one translation-memory entry, and returns the entry as stored.
+     * Records a human decision on one translation-memory entry, and returns the entry as stored.
      *
-     * @param  \Hanzo\Cloud\Model\ReviewRequest $review_request review_request (required)
+     * @param  \Hanzo\Cloud\Model\TranslateReviewRequest $translate_review_request translate_review_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTranslateMemory'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MemoryEntry
+     * @return \Hanzo\Cloud\Model\TranslateMemoryEntry|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putTranslateMemory($review_request, string $contentType = self::contentTypes['putTranslateMemory'][0])
+    public function putTranslateMemory($translate_review_request, string $contentType = self::contentTypes['putTranslateMemory'][0])
     {
-        list($response) = $this->putTranslateMemoryWithHttpInfo($review_request, $contentType);
+        list($response) = $this->putTranslateMemoryWithHttpInfo($translate_review_request, $contentType);
         return $response;
     }
 
     /**
      * Operation putTranslateMemoryWithHttpInfo
      *
-     * Review records a human decision on one translation-memory entry, and returns the entry as stored.
+     * Records a human decision on one translation-memory entry, and returns the entry as stored.
      *
-     * @param  \Hanzo\Cloud\Model\ReviewRequest $review_request (required)
+     * @param  \Hanzo\Cloud\Model\TranslateReviewRequest $translate_review_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTranslateMemory'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MemoryEntry, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TranslateMemoryEntry|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putTranslateMemoryWithHttpInfo($review_request, string $contentType = self::contentTypes['putTranslateMemory'][0])
+    public function putTranslateMemoryWithHttpInfo($translate_review_request, string $contentType = self::contentTypes['putTranslateMemory'][0])
     {
-        $request = $this->putTranslateMemoryRequest($review_request, $contentType);
+        $request = $this->putTranslateMemoryRequest($translate_review_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -690,7 +770,13 @@ class TranslateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MemoryEntry',
+                        '\Hanzo\Cloud\Model\TranslateMemoryEntry',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -712,7 +798,7 @@ class TranslateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MemoryEntry',
+                '\Hanzo\Cloud\Model\TranslateMemoryEntry',
                 $request,
                 $response,
             );
@@ -721,7 +807,15 @@ class TranslateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MemoryEntry',
+                        '\Hanzo\Cloud\Model\TranslateMemoryEntry',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -736,17 +830,17 @@ class TranslateApi
     /**
      * Operation putTranslateMemoryAsync
      *
-     * Review records a human decision on one translation-memory entry, and returns the entry as stored.
+     * Records a human decision on one translation-memory entry, and returns the entry as stored.
      *
-     * @param  \Hanzo\Cloud\Model\ReviewRequest $review_request (required)
+     * @param  \Hanzo\Cloud\Model\TranslateReviewRequest $translate_review_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTranslateMemory'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTranslateMemoryAsync($review_request, string $contentType = self::contentTypes['putTranslateMemory'][0])
+    public function putTranslateMemoryAsync($translate_review_request, string $contentType = self::contentTypes['putTranslateMemory'][0])
     {
-        return $this->putTranslateMemoryAsyncWithHttpInfo($review_request, $contentType)
+        return $this->putTranslateMemoryAsyncWithHttpInfo($translate_review_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -757,18 +851,18 @@ class TranslateApi
     /**
      * Operation putTranslateMemoryAsyncWithHttpInfo
      *
-     * Review records a human decision on one translation-memory entry, and returns the entry as stored.
+     * Records a human decision on one translation-memory entry, and returns the entry as stored.
      *
-     * @param  \Hanzo\Cloud\Model\ReviewRequest $review_request (required)
+     * @param  \Hanzo\Cloud\Model\TranslateReviewRequest $translate_review_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTranslateMemory'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTranslateMemoryAsyncWithHttpInfo($review_request, string $contentType = self::contentTypes['putTranslateMemory'][0])
+    public function putTranslateMemoryAsyncWithHttpInfo($translate_review_request, string $contentType = self::contentTypes['putTranslateMemory'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MemoryEntry';
-        $request = $this->putTranslateMemoryRequest($review_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TranslateMemoryEntry';
+        $request = $this->putTranslateMemoryRequest($translate_review_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -809,19 +903,19 @@ class TranslateApi
     /**
      * Create request for operation 'putTranslateMemory'
      *
-     * @param  \Hanzo\Cloud\Model\ReviewRequest $review_request (required)
+     * @param  \Hanzo\Cloud\Model\TranslateReviewRequest $translate_review_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTranslateMemory'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putTranslateMemoryRequest($review_request, string $contentType = self::contentTypes['putTranslateMemory'][0])
+    public function putTranslateMemoryRequest($translate_review_request, string $contentType = self::contentTypes['putTranslateMemory'][0])
     {
 
-        // verify the required parameter 'review_request' is set
-        if ($review_request === null || (is_array($review_request) && count($review_request) === 0)) {
+        // verify the required parameter 'translate_review_request' is set
+        if ($translate_review_request === null || (is_array($translate_review_request) && count($translate_review_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $review_request when calling putTranslateMemory'
+                'Missing the required parameter $translate_review_request when calling putTranslateMemory'
             );
         }
 
@@ -838,18 +932,18 @@ class TranslateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($review_request)) {
+        if (isset($translate_review_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($review_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($translate_review_request));
             } else {
-                $httpBody = $review_request;
+                $httpBody = $translate_review_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

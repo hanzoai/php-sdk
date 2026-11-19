@@ -57,7 +57,7 @@ class O11yO11yQueryRangePreviewIn implements ModelInterface, ArrayAccess, \JsonS
       * @var string[]
       */
     protected static $openAPITypes = [
-        'composite_query' => '\Hanzo\Cloud\Model\O11yQuerybuildertypesv5CompositeQuery',
+        'composite_query' => '\Hanzo\Cloud\Model\O11yCompositeQuery',
         'end' => 'int',
         'format_options' => '\Hanzo\Cloud\Model\O11yFormatOptions',
         'no_cache' => 'bool',
@@ -348,7 +348,7 @@ class O11yO11yQueryRangePreviewIn implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets composite_query
      *
-     * @return \Hanzo\Cloud\Model\O11yQuerybuildertypesv5CompositeQuery|null
+     * @return \Hanzo\Cloud\Model\O11yCompositeQuery|null
      */
     public function getCompositeQuery()
     {
@@ -358,7 +358,7 @@ class O11yO11yQueryRangePreviewIn implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets composite_query
      *
-     * @param \Hanzo\Cloud\Model\O11yQuerybuildertypesv5CompositeQuery|null $composite_query composite_query
+     * @param \Hanzo\Cloud\Model\O11yCompositeQuery|null $composite_query CompositeQuery is the composite query to use for the request.
      *
      * @return self
      */
@@ -385,7 +385,7 @@ class O11yO11yQueryRangePreviewIn implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets end
      *
-     * @param int|null $end end
+     * @param int|null $end End is the end time of the query in epoch milliseconds.
      *
      * @return self
      */
@@ -439,7 +439,7 @@ class O11yO11yQueryRangePreviewIn implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets no_cache
      *
-     * @param bool|null $no_cache no_cache
+     * @param bool|null $no_cache NoCache is a flag to disable caching for the request.
      *
      * @return self
      */
@@ -500,7 +500,7 @@ class O11yO11yQueryRangePreviewIn implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets schema_version
      *
-     * @param string|null $schema_version schema_version
+     * @param string|null $schema_version SchemaVersion is the version of the schema to use for the request payload.
      *
      * @return self
      */
@@ -527,7 +527,7 @@ class O11yO11yQueryRangePreviewIn implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets start
      *
-     * @param int|null $start start
+     * @param int|null $start Start is the start time of the query in epoch milliseconds.
      *
      * @return self
      */
@@ -554,7 +554,7 @@ class O11yO11yQueryRangePreviewIn implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets variables
      *
-     * @param array<string,\Hanzo\Cloud\Model\O11yVariableItem>|null $variables variables
+     * @param array<string,\Hanzo\Cloud\Model\O11yVariableItem>|null $variables Variables is the variables to use for the request.
      *
      * @return self
      */

@@ -226,6 +226,14 @@ class MqApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -333,7 +341,7 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -450,6 +458,14 @@ class MqApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -575,7 +591,7 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -692,6 +708,14 @@ class MqApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -817,7 +841,7 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -882,7 +906,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Health
+     * @return \Hanzo\Cloud\Model\MqHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMqHealth(string $contentType = self::contentTypes['getMqHealth'][0])
     {
@@ -899,7 +923,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Health, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMqHealthWithHttpInfo(string $contentType = self::contentTypes['getMqHealth'][0])
     {
@@ -931,7 +955,13 @@ class MqApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Health',
+                        '\Hanzo\Cloud\Model\MqHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -953,7 +983,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Health',
+                '\Hanzo\Cloud\Model\MqHealth',
                 $request,
                 $response,
             );
@@ -962,7 +992,15 @@ class MqApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Health',
+                        '\Hanzo\Cloud\Model\MqHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1006,7 +1044,7 @@ class MqApi
      */
     public function getMqHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getMqHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Health';
+        $returnType = '\Hanzo\Cloud\Model\MqHealth';
         $request = $this->getMqHealthRequest($contentType);
 
         return $this->client
@@ -1069,7 +1107,7 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1134,7 +1172,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\InfoOut
+     * @return \Hanzo\Cloud\Model\MqInfoOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMqInfo(string $contentType = self::contentTypes['getMqInfo'][0])
     {
@@ -1151,7 +1189,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\InfoOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqInfoOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMqInfoWithHttpInfo(string $contentType = self::contentTypes['getMqInfo'][0])
     {
@@ -1183,7 +1221,13 @@ class MqApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\InfoOut',
+                        '\Hanzo\Cloud\Model\MqInfoOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1205,7 +1249,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\InfoOut',
+                '\Hanzo\Cloud\Model\MqInfoOut',
                 $request,
                 $response,
             );
@@ -1214,7 +1258,15 @@ class MqApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\InfoOut',
+                        '\Hanzo\Cloud\Model\MqInfoOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1258,7 +1310,7 @@ class MqApi
      */
     public function getMqInfoAsyncWithHttpInfo(string $contentType = self::contentTypes['getMqInfo'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\InfoOut';
+        $returnType = '\Hanzo\Cloud\Model\MqInfoOut';
         $request = $this->getMqInfoRequest($contentType);
 
         return $this->client
@@ -1321,7 +1373,7 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1388,7 +1440,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Streams
+     * @return \Hanzo\Cloud\Model\MqStreams|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMqStream($limit = null, $offset = null, string $contentType = self::contentTypes['getMqStream'][0])
     {
@@ -1407,7 +1459,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Streams, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqStreams|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMqStreamWithHttpInfo($limit = null, $offset = null, string $contentType = self::contentTypes['getMqStream'][0])
     {
@@ -1439,7 +1491,13 @@ class MqApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Streams',
+                        '\Hanzo\Cloud\Model\MqStreams',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1461,7 +1519,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Streams',
+                '\Hanzo\Cloud\Model\MqStreams',
                 $request,
                 $response,
             );
@@ -1470,7 +1528,15 @@ class MqApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Streams',
+                        '\Hanzo\Cloud\Model\MqStreams',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1518,7 +1584,7 @@ class MqApi
      */
     public function getMqStreamAsyncWithHttpInfo($limit = null, $offset = null, string $contentType = self::contentTypes['getMqStream'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Streams';
+        $returnType = '\Hanzo\Cloud\Model\MqStreams';
         $request = $this->getMqStreamRequest($limit, $offset, $contentType);
 
         return $this->client
@@ -1603,7 +1669,7 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1669,7 +1735,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Stream
+     * @return \Hanzo\Cloud\Model\MqStream|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMqStreamByName($name, string $contentType = self::contentTypes['getMqStreamByName'][0])
     {
@@ -1687,7 +1753,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Stream, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqStream|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMqStreamByNameWithHttpInfo($name, string $contentType = self::contentTypes['getMqStreamByName'][0])
     {
@@ -1719,7 +1785,13 @@ class MqApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Stream',
+                        '\Hanzo\Cloud\Model\MqStream',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1741,7 +1813,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Stream',
+                '\Hanzo\Cloud\Model\MqStream',
                 $request,
                 $response,
             );
@@ -1750,7 +1822,15 @@ class MqApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Stream',
+                        '\Hanzo\Cloud\Model\MqStream',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1796,7 +1876,7 @@ class MqApi
      */
     public function getMqStreamByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getMqStreamByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Stream';
+        $returnType = '\Hanzo\Cloud\Model\MqStream';
         $request = $this->getMqStreamByNameRequest($name, $contentType);
 
         return $this->client
@@ -1875,7 +1955,7 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1945,7 +2025,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ReadOut
+     * @return \Hanzo\Cloud\Model\MqReadOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMqStreamByNameMessage($name, $seq = null, $last_by_subject = null, $next_by_subject = null, $limit = null, string $contentType = self::contentTypes['getMqStreamByNameMessage'][0])
     {
@@ -1967,7 +2047,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ReadOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqReadOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMqStreamByNameMessageWithHttpInfo($name, $seq = null, $last_by_subject = null, $next_by_subject = null, $limit = null, string $contentType = self::contentTypes['getMqStreamByNameMessage'][0])
     {
@@ -1999,7 +2079,13 @@ class MqApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ReadOut',
+                        '\Hanzo\Cloud\Model\MqReadOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2021,7 +2107,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ReadOut',
+                '\Hanzo\Cloud\Model\MqReadOut',
                 $request,
                 $response,
             );
@@ -2030,7 +2116,15 @@ class MqApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ReadOut',
+                        '\Hanzo\Cloud\Model\MqReadOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2084,7 +2178,7 @@ class MqApi
      */
     public function getMqStreamByNameMessageAsyncWithHttpInfo($name, $seq = null, $last_by_subject = null, $next_by_subject = null, $limit = null, string $contentType = self::contentTypes['getMqStreamByNameMessage'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ReadOut';
+        $returnType = '\Hanzo\Cloud\Model\MqReadOut';
         $request = $this->getMqStreamByNameMessageRequest($name, $seq, $last_by_subject, $next_by_subject, $limit, $contentType);
 
         return $this->client
@@ -2207,7 +2301,7 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2275,7 +2369,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PickOut
+     * @return \Hanzo\Cloud\Model\MqPickOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMqStreamByStreamConsumer($stream, $limit = null, $offset = null, string $contentType = self::contentTypes['getMqStreamByStreamConsumer'][0])
     {
@@ -2295,7 +2389,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PickOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqPickOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMqStreamByStreamConsumerWithHttpInfo($stream, $limit = null, $offset = null, string $contentType = self::contentTypes['getMqStreamByStreamConsumer'][0])
     {
@@ -2327,7 +2421,13 @@ class MqApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PickOut',
+                        '\Hanzo\Cloud\Model\MqPickOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2349,7 +2449,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PickOut',
+                '\Hanzo\Cloud\Model\MqPickOut',
                 $request,
                 $response,
             );
@@ -2358,7 +2458,15 @@ class MqApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PickOut',
+                        '\Hanzo\Cloud\Model\MqPickOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2408,7 +2516,7 @@ class MqApi
      */
     public function getMqStreamByStreamConsumerAsyncWithHttpInfo($stream, $limit = null, $offset = null, string $contentType = self::contentTypes['getMqStreamByStreamConsumer'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PickOut';
+        $returnType = '\Hanzo\Cloud\Model\MqPickOut';
         $request = $this->getMqStreamByStreamConsumerRequest($stream, $limit, $offset, $contentType);
 
         return $this->client
@@ -2509,7 +2617,7 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2576,7 +2684,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Consumer
+     * @return \Hanzo\Cloud\Model\MqConsumer|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMqStreamByStreamConsumerByName($stream, $name, string $contentType = self::contentTypes['getMqStreamByStreamConsumerByName'][0])
     {
@@ -2595,7 +2703,7 @@ class MqApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Consumer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqConsumer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMqStreamByStreamConsumerByNameWithHttpInfo($stream, $name, string $contentType = self::contentTypes['getMqStreamByStreamConsumerByName'][0])
     {
@@ -2627,7 +2735,13 @@ class MqApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Consumer',
+                        '\Hanzo\Cloud\Model\MqConsumer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2649,7 +2763,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Consumer',
+                '\Hanzo\Cloud\Model\MqConsumer',
                 $request,
                 $response,
             );
@@ -2658,7 +2772,15 @@ class MqApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Consumer',
+                        '\Hanzo\Cloud\Model\MqConsumer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2706,7 +2828,7 @@ class MqApi
      */
     public function getMqStreamByStreamConsumerByNameAsyncWithHttpInfo($stream, $name, string $contentType = self::contentTypes['getMqStreamByStreamConsumerByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Consumer';
+        $returnType = '\Hanzo\Cloud\Model\MqConsumer';
         $request = $this->getMqStreamByStreamConsumerByNameRequest($stream, $name, $contentType);
 
         return $this->client
@@ -2801,7 +2923,7 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2862,16 +2984,16 @@ class MqApi
      *
      * Creates a durable stream in the org&#39;s namespace and returns it.
      *
-     * @param  \Hanzo\Cloud\Model\Config $config config (required)
+     * @param  \Hanzo\Cloud\Model\MqConfig $mq_config mq_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStream'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Stream
+     * @return \Hanzo\Cloud\Model\MqStream|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMqStream($config, string $contentType = self::contentTypes['postMqStream'][0])
+    public function postMqStream($mq_config, string $contentType = self::contentTypes['postMqStream'][0])
     {
-        list($response) = $this->postMqStreamWithHttpInfo($config, $contentType);
+        list($response) = $this->postMqStreamWithHttpInfo($mq_config, $contentType);
         return $response;
     }
 
@@ -2880,16 +3002,16 @@ class MqApi
      *
      * Creates a durable stream in the org&#39;s namespace and returns it.
      *
-     * @param  \Hanzo\Cloud\Model\Config $config (required)
+     * @param  \Hanzo\Cloud\Model\MqConfig $mq_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStream'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Stream, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqStream|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMqStreamWithHttpInfo($config, string $contentType = self::contentTypes['postMqStream'][0])
+    public function postMqStreamWithHttpInfo($mq_config, string $contentType = self::contentTypes['postMqStream'][0])
     {
-        $request = $this->postMqStreamRequest($config, $contentType);
+        $request = $this->postMqStreamRequest($mq_config, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2917,7 +3039,13 @@ class MqApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Stream',
+                        '\Hanzo\Cloud\Model\MqStream',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2939,7 +3067,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Stream',
+                '\Hanzo\Cloud\Model\MqStream',
                 $request,
                 $response,
             );
@@ -2948,7 +3076,15 @@ class MqApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Stream',
+                        '\Hanzo\Cloud\Model\MqStream',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2965,15 +3101,15 @@ class MqApi
      *
      * Creates a durable stream in the org&#39;s namespace and returns it.
      *
-     * @param  \Hanzo\Cloud\Model\Config $config (required)
+     * @param  \Hanzo\Cloud\Model\MqConfig $mq_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStream'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMqStreamAsync($config, string $contentType = self::contentTypes['postMqStream'][0])
+    public function postMqStreamAsync($mq_config, string $contentType = self::contentTypes['postMqStream'][0])
     {
-        return $this->postMqStreamAsyncWithHttpInfo($config, $contentType)
+        return $this->postMqStreamAsyncWithHttpInfo($mq_config, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2986,16 +3122,16 @@ class MqApi
      *
      * Creates a durable stream in the org&#39;s namespace and returns it.
      *
-     * @param  \Hanzo\Cloud\Model\Config $config (required)
+     * @param  \Hanzo\Cloud\Model\MqConfig $mq_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStream'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMqStreamAsyncWithHttpInfo($config, string $contentType = self::contentTypes['postMqStream'][0])
+    public function postMqStreamAsyncWithHttpInfo($mq_config, string $contentType = self::contentTypes['postMqStream'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Stream';
-        $request = $this->postMqStreamRequest($config, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MqStream';
+        $request = $this->postMqStreamRequest($mq_config, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3036,19 +3172,19 @@ class MqApi
     /**
      * Create request for operation 'postMqStream'
      *
-     * @param  \Hanzo\Cloud\Model\Config $config (required)
+     * @param  \Hanzo\Cloud\Model\MqConfig $mq_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStream'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMqStreamRequest($config, string $contentType = self::contentTypes['postMqStream'][0])
+    public function postMqStreamRequest($mq_config, string $contentType = self::contentTypes['postMqStream'][0])
     {
 
-        // verify the required parameter 'config' is set
-        if ($config === null || (is_array($config) && count($config) === 0)) {
+        // verify the required parameter 'mq_config' is set
+        if ($mq_config === null || (is_array($mq_config) && count($mq_config) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $config when calling postMqStream'
+                'Missing the required parameter $mq_config when calling postMqStream'
             );
         }
 
@@ -3065,18 +3201,18 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($config)) {
+        if (isset($mq_config)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($config));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($mq_config));
             } else {
-                $httpBody = $config;
+                $httpBody = $mq_config;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3134,16 +3270,16 @@ class MqApi
      * Removes messages from a stream, leaving its consumers in place.
      *
      * @param  string $name Name is the stream name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\Purge $purge purge (required)
+     * @param  \Hanzo\Cloud\Model\MqPurge $mq_purge mq_purge (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByNamePurge'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PurgeOut
+     * @return \Hanzo\Cloud\Model\MqPurgeOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMqStreamByNamePurge($name, $purge, string $contentType = self::contentTypes['postMqStreamByNamePurge'][0])
+    public function postMqStreamByNamePurge($name, $mq_purge, string $contentType = self::contentTypes['postMqStreamByNamePurge'][0])
     {
-        list($response) = $this->postMqStreamByNamePurgeWithHttpInfo($name, $purge, $contentType);
+        list($response) = $this->postMqStreamByNamePurgeWithHttpInfo($name, $mq_purge, $contentType);
         return $response;
     }
 
@@ -3153,16 +3289,16 @@ class MqApi
      * Removes messages from a stream, leaving its consumers in place.
      *
      * @param  string $name Name is the stream name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\Purge $purge (required)
+     * @param  \Hanzo\Cloud\Model\MqPurge $mq_purge (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByNamePurge'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PurgeOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqPurgeOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMqStreamByNamePurgeWithHttpInfo($name, $purge, string $contentType = self::contentTypes['postMqStreamByNamePurge'][0])
+    public function postMqStreamByNamePurgeWithHttpInfo($name, $mq_purge, string $contentType = self::contentTypes['postMqStreamByNamePurge'][0])
     {
-        $request = $this->postMqStreamByNamePurgeRequest($name, $purge, $contentType);
+        $request = $this->postMqStreamByNamePurgeRequest($name, $mq_purge, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3190,7 +3326,13 @@ class MqApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PurgeOut',
+                        '\Hanzo\Cloud\Model\MqPurgeOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3212,7 +3354,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PurgeOut',
+                '\Hanzo\Cloud\Model\MqPurgeOut',
                 $request,
                 $response,
             );
@@ -3221,7 +3363,15 @@ class MqApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PurgeOut',
+                        '\Hanzo\Cloud\Model\MqPurgeOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3239,15 +3389,15 @@ class MqApi
      * Removes messages from a stream, leaving its consumers in place.
      *
      * @param  string $name Name is the stream name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\Purge $purge (required)
+     * @param  \Hanzo\Cloud\Model\MqPurge $mq_purge (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByNamePurge'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMqStreamByNamePurgeAsync($name, $purge, string $contentType = self::contentTypes['postMqStreamByNamePurge'][0])
+    public function postMqStreamByNamePurgeAsync($name, $mq_purge, string $contentType = self::contentTypes['postMqStreamByNamePurge'][0])
     {
-        return $this->postMqStreamByNamePurgeAsyncWithHttpInfo($name, $purge, $contentType)
+        return $this->postMqStreamByNamePurgeAsyncWithHttpInfo($name, $mq_purge, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3261,16 +3411,16 @@ class MqApi
      * Removes messages from a stream, leaving its consumers in place.
      *
      * @param  string $name Name is the stream name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\Purge $purge (required)
+     * @param  \Hanzo\Cloud\Model\MqPurge $mq_purge (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByNamePurge'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMqStreamByNamePurgeAsyncWithHttpInfo($name, $purge, string $contentType = self::contentTypes['postMqStreamByNamePurge'][0])
+    public function postMqStreamByNamePurgeAsyncWithHttpInfo($name, $mq_purge, string $contentType = self::contentTypes['postMqStreamByNamePurge'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PurgeOut';
-        $request = $this->postMqStreamByNamePurgeRequest($name, $purge, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MqPurgeOut';
+        $request = $this->postMqStreamByNamePurgeRequest($name, $mq_purge, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3312,13 +3462,13 @@ class MqApi
      * Create request for operation 'postMqStreamByNamePurge'
      *
      * @param  string $name Name is the stream name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\Purge $purge (required)
+     * @param  \Hanzo\Cloud\Model\MqPurge $mq_purge (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByNamePurge'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMqStreamByNamePurgeRequest($name, $purge, string $contentType = self::contentTypes['postMqStreamByNamePurge'][0])
+    public function postMqStreamByNamePurgeRequest($name, $mq_purge, string $contentType = self::contentTypes['postMqStreamByNamePurge'][0])
     {
 
         // verify the required parameter 'name' is set
@@ -3328,10 +3478,10 @@ class MqApi
             );
         }
 
-        // verify the required parameter 'purge' is set
-        if ($purge === null || (is_array($purge) && count($purge) === 0)) {
+        // verify the required parameter 'mq_purge' is set
+        if ($mq_purge === null || (is_array($mq_purge) && count($mq_purge) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $purge when calling postMqStreamByNamePurge'
+                'Missing the required parameter $mq_purge when calling postMqStreamByNamePurge'
             );
         }
 
@@ -3356,18 +3506,18 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($purge)) {
+        if (isset($mq_purge)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($purge));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($mq_purge));
             } else {
-                $httpBody = $purge;
+                $httpBody = $mq_purge;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3425,16 +3575,16 @@ class MqApi
      * Creates a durable pull consumer on a stream and returns it.
      *
      * @param  string $stream Stream is the stream name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\MakeIn $make_in make_in (required)
+     * @param  \Hanzo\Cloud\Model\MqMakeIn $mq_make_in mq_make_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByStreamConsumer'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Consumer
+     * @return \Hanzo\Cloud\Model\MqConsumer|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMqStreamByStreamConsumer($stream, $make_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumer'][0])
+    public function postMqStreamByStreamConsumer($stream, $mq_make_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumer'][0])
     {
-        list($response) = $this->postMqStreamByStreamConsumerWithHttpInfo($stream, $make_in, $contentType);
+        list($response) = $this->postMqStreamByStreamConsumerWithHttpInfo($stream, $mq_make_in, $contentType);
         return $response;
     }
 
@@ -3444,16 +3594,16 @@ class MqApi
      * Creates a durable pull consumer on a stream and returns it.
      *
      * @param  string $stream Stream is the stream name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\MakeIn $make_in (required)
+     * @param  \Hanzo\Cloud\Model\MqMakeIn $mq_make_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByStreamConsumer'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Consumer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqConsumer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMqStreamByStreamConsumerWithHttpInfo($stream, $make_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumer'][0])
+    public function postMqStreamByStreamConsumerWithHttpInfo($stream, $mq_make_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumer'][0])
     {
-        $request = $this->postMqStreamByStreamConsumerRequest($stream, $make_in, $contentType);
+        $request = $this->postMqStreamByStreamConsumerRequest($stream, $mq_make_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3481,7 +3631,13 @@ class MqApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Consumer',
+                        '\Hanzo\Cloud\Model\MqConsumer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3503,7 +3659,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Consumer',
+                '\Hanzo\Cloud\Model\MqConsumer',
                 $request,
                 $response,
             );
@@ -3512,7 +3668,15 @@ class MqApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Consumer',
+                        '\Hanzo\Cloud\Model\MqConsumer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3530,15 +3694,15 @@ class MqApi
      * Creates a durable pull consumer on a stream and returns it.
      *
      * @param  string $stream Stream is the stream name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\MakeIn $make_in (required)
+     * @param  \Hanzo\Cloud\Model\MqMakeIn $mq_make_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByStreamConsumer'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMqStreamByStreamConsumerAsync($stream, $make_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumer'][0])
+    public function postMqStreamByStreamConsumerAsync($stream, $mq_make_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumer'][0])
     {
-        return $this->postMqStreamByStreamConsumerAsyncWithHttpInfo($stream, $make_in, $contentType)
+        return $this->postMqStreamByStreamConsumerAsyncWithHttpInfo($stream, $mq_make_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3552,16 +3716,16 @@ class MqApi
      * Creates a durable pull consumer on a stream and returns it.
      *
      * @param  string $stream Stream is the stream name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\MakeIn $make_in (required)
+     * @param  \Hanzo\Cloud\Model\MqMakeIn $mq_make_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByStreamConsumer'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMqStreamByStreamConsumerAsyncWithHttpInfo($stream, $make_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumer'][0])
+    public function postMqStreamByStreamConsumerAsyncWithHttpInfo($stream, $mq_make_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumer'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Consumer';
-        $request = $this->postMqStreamByStreamConsumerRequest($stream, $make_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MqConsumer';
+        $request = $this->postMqStreamByStreamConsumerRequest($stream, $mq_make_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3603,13 +3767,13 @@ class MqApi
      * Create request for operation 'postMqStreamByStreamConsumer'
      *
      * @param  string $stream Stream is the stream name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\MakeIn $make_in (required)
+     * @param  \Hanzo\Cloud\Model\MqMakeIn $mq_make_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByStreamConsumer'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMqStreamByStreamConsumerRequest($stream, $make_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumer'][0])
+    public function postMqStreamByStreamConsumerRequest($stream, $mq_make_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumer'][0])
     {
 
         // verify the required parameter 'stream' is set
@@ -3619,10 +3783,10 @@ class MqApi
             );
         }
 
-        // verify the required parameter 'make_in' is set
-        if ($make_in === null || (is_array($make_in) && count($make_in) === 0)) {
+        // verify the required parameter 'mq_make_in' is set
+        if ($mq_make_in === null || (is_array($mq_make_in) && count($mq_make_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $make_in when calling postMqStreamByStreamConsumer'
+                'Missing the required parameter $mq_make_in when calling postMqStreamByStreamConsumer'
             );
         }
 
@@ -3647,18 +3811,18 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($make_in)) {
+        if (isset($mq_make_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($make_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($mq_make_in));
             } else {
-                $httpBody = $make_in;
+                $httpBody = $mq_make_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3717,16 +3881,16 @@ class MqApi
      *
      * @param  string $stream Stream is the stream name, from the path. (required)
      * @param  string $name Name is the consumer name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\NextIn $next_in next_in (required)
+     * @param  \Hanzo\Cloud\Model\MqNextIn $mq_next_in mq_next_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByStreamConsumerByNameNext'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ReadOut
+     * @return \Hanzo\Cloud\Model\MqReadOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMqStreamByStreamConsumerByNameNext($stream, $name, $next_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumerByNameNext'][0])
+    public function postMqStreamByStreamConsumerByNameNext($stream, $name, $mq_next_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumerByNameNext'][0])
     {
-        list($response) = $this->postMqStreamByStreamConsumerByNameNextWithHttpInfo($stream, $name, $next_in, $contentType);
+        list($response) = $this->postMqStreamByStreamConsumerByNameNextWithHttpInfo($stream, $name, $mq_next_in, $contentType);
         return $response;
     }
 
@@ -3737,16 +3901,16 @@ class MqApi
      *
      * @param  string $stream Stream is the stream name, from the path. (required)
      * @param  string $name Name is the consumer name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\NextIn $next_in (required)
+     * @param  \Hanzo\Cloud\Model\MqNextIn $mq_next_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByStreamConsumerByNameNext'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ReadOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqReadOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMqStreamByStreamConsumerByNameNextWithHttpInfo($stream, $name, $next_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumerByNameNext'][0])
+    public function postMqStreamByStreamConsumerByNameNextWithHttpInfo($stream, $name, $mq_next_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumerByNameNext'][0])
     {
-        $request = $this->postMqStreamByStreamConsumerByNameNextRequest($stream, $name, $next_in, $contentType);
+        $request = $this->postMqStreamByStreamConsumerByNameNextRequest($stream, $name, $mq_next_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3774,7 +3938,13 @@ class MqApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ReadOut',
+                        '\Hanzo\Cloud\Model\MqReadOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3796,7 +3966,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ReadOut',
+                '\Hanzo\Cloud\Model\MqReadOut',
                 $request,
                 $response,
             );
@@ -3805,7 +3975,15 @@ class MqApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ReadOut',
+                        '\Hanzo\Cloud\Model\MqReadOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3824,15 +4002,15 @@ class MqApi
      *
      * @param  string $stream Stream is the stream name, from the path. (required)
      * @param  string $name Name is the consumer name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\NextIn $next_in (required)
+     * @param  \Hanzo\Cloud\Model\MqNextIn $mq_next_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByStreamConsumerByNameNext'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMqStreamByStreamConsumerByNameNextAsync($stream, $name, $next_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumerByNameNext'][0])
+    public function postMqStreamByStreamConsumerByNameNextAsync($stream, $name, $mq_next_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumerByNameNext'][0])
     {
-        return $this->postMqStreamByStreamConsumerByNameNextAsyncWithHttpInfo($stream, $name, $next_in, $contentType)
+        return $this->postMqStreamByStreamConsumerByNameNextAsyncWithHttpInfo($stream, $name, $mq_next_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3847,16 +4025,16 @@ class MqApi
      *
      * @param  string $stream Stream is the stream name, from the path. (required)
      * @param  string $name Name is the consumer name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\NextIn $next_in (required)
+     * @param  \Hanzo\Cloud\Model\MqNextIn $mq_next_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByStreamConsumerByNameNext'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMqStreamByStreamConsumerByNameNextAsyncWithHttpInfo($stream, $name, $next_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumerByNameNext'][0])
+    public function postMqStreamByStreamConsumerByNameNextAsyncWithHttpInfo($stream, $name, $mq_next_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumerByNameNext'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ReadOut';
-        $request = $this->postMqStreamByStreamConsumerByNameNextRequest($stream, $name, $next_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MqReadOut';
+        $request = $this->postMqStreamByStreamConsumerByNameNextRequest($stream, $name, $mq_next_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3899,13 +4077,13 @@ class MqApi
      *
      * @param  string $stream Stream is the stream name, from the path. (required)
      * @param  string $name Name is the consumer name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\NextIn $next_in (required)
+     * @param  \Hanzo\Cloud\Model\MqNextIn $mq_next_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMqStreamByStreamConsumerByNameNext'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMqStreamByStreamConsumerByNameNextRequest($stream, $name, $next_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumerByNameNext'][0])
+    public function postMqStreamByStreamConsumerByNameNextRequest($stream, $name, $mq_next_in, string $contentType = self::contentTypes['postMqStreamByStreamConsumerByNameNext'][0])
     {
 
         // verify the required parameter 'stream' is set
@@ -3922,10 +4100,10 @@ class MqApi
             );
         }
 
-        // verify the required parameter 'next_in' is set
-        if ($next_in === null || (is_array($next_in) && count($next_in) === 0)) {
+        // verify the required parameter 'mq_next_in' is set
+        if ($mq_next_in === null || (is_array($mq_next_in) && count($mq_next_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $next_in when calling postMqStreamByStreamConsumerByNameNext'
+                'Missing the required parameter $mq_next_in when calling postMqStreamByStreamConsumerByNameNext'
             );
         }
 
@@ -3958,18 +4136,18 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($next_in)) {
+        if (isset($mq_next_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($next_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($mq_next_in));
             } else {
-                $httpBody = $next_in;
+                $httpBody = $mq_next_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4027,16 +4205,16 @@ class MqApi
      * Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
      *
      * @param  string $name Name is the stream name, unique within the org (alphanumeric, hyphens, underscores). (required)
-     * @param  \Hanzo\Cloud\Model\Config $config config (required)
+     * @param  \Hanzo\Cloud\Model\MqConfig $mq_config mq_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMqStreamByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Stream
+     * @return \Hanzo\Cloud\Model\MqStream|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putMqStreamByName($name, $config, string $contentType = self::contentTypes['putMqStreamByName'][0])
+    public function putMqStreamByName($name, $mq_config, string $contentType = self::contentTypes['putMqStreamByName'][0])
     {
-        list($response) = $this->putMqStreamByNameWithHttpInfo($name, $config, $contentType);
+        list($response) = $this->putMqStreamByNameWithHttpInfo($name, $mq_config, $contentType);
         return $response;
     }
 
@@ -4046,16 +4224,16 @@ class MqApi
      * Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
      *
      * @param  string $name Name is the stream name, unique within the org (alphanumeric, hyphens, underscores). (required)
-     * @param  \Hanzo\Cloud\Model\Config $config (required)
+     * @param  \Hanzo\Cloud\Model\MqConfig $mq_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMqStreamByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Stream, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MqStream|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putMqStreamByNameWithHttpInfo($name, $config, string $contentType = self::contentTypes['putMqStreamByName'][0])
+    public function putMqStreamByNameWithHttpInfo($name, $mq_config, string $contentType = self::contentTypes['putMqStreamByName'][0])
     {
-        $request = $this->putMqStreamByNameRequest($name, $config, $contentType);
+        $request = $this->putMqStreamByNameRequest($name, $mq_config, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4083,7 +4261,13 @@ class MqApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Stream',
+                        '\Hanzo\Cloud\Model\MqStream',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4105,7 +4289,7 @@ class MqApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Stream',
+                '\Hanzo\Cloud\Model\MqStream',
                 $request,
                 $response,
             );
@@ -4114,7 +4298,15 @@ class MqApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Stream',
+                        '\Hanzo\Cloud\Model\MqStream',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4132,15 +4324,15 @@ class MqApi
      * Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
      *
      * @param  string $name Name is the stream name, unique within the org (alphanumeric, hyphens, underscores). (required)
-     * @param  \Hanzo\Cloud\Model\Config $config (required)
+     * @param  \Hanzo\Cloud\Model\MqConfig $mq_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMqStreamByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putMqStreamByNameAsync($name, $config, string $contentType = self::contentTypes['putMqStreamByName'][0])
+    public function putMqStreamByNameAsync($name, $mq_config, string $contentType = self::contentTypes['putMqStreamByName'][0])
     {
-        return $this->putMqStreamByNameAsyncWithHttpInfo($name, $config, $contentType)
+        return $this->putMqStreamByNameAsyncWithHttpInfo($name, $mq_config, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4154,16 +4346,16 @@ class MqApi
      * Reconfigures an existing stream; the path names the stream, and the immutable fields (storage, retention) must restate what they are.
      *
      * @param  string $name Name is the stream name, unique within the org (alphanumeric, hyphens, underscores). (required)
-     * @param  \Hanzo\Cloud\Model\Config $config (required)
+     * @param  \Hanzo\Cloud\Model\MqConfig $mq_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMqStreamByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putMqStreamByNameAsyncWithHttpInfo($name, $config, string $contentType = self::contentTypes['putMqStreamByName'][0])
+    public function putMqStreamByNameAsyncWithHttpInfo($name, $mq_config, string $contentType = self::contentTypes['putMqStreamByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Stream';
-        $request = $this->putMqStreamByNameRequest($name, $config, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MqStream';
+        $request = $this->putMqStreamByNameRequest($name, $mq_config, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4205,13 +4397,13 @@ class MqApi
      * Create request for operation 'putMqStreamByName'
      *
      * @param  string $name Name is the stream name, unique within the org (alphanumeric, hyphens, underscores). (required)
-     * @param  \Hanzo\Cloud\Model\Config $config (required)
+     * @param  \Hanzo\Cloud\Model\MqConfig $mq_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMqStreamByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putMqStreamByNameRequest($name, $config, string $contentType = self::contentTypes['putMqStreamByName'][0])
+    public function putMqStreamByNameRequest($name, $mq_config, string $contentType = self::contentTypes['putMqStreamByName'][0])
     {
 
         // verify the required parameter 'name' is set
@@ -4221,10 +4413,10 @@ class MqApi
             );
         }
 
-        // verify the required parameter 'config' is set
-        if ($config === null || (is_array($config) && count($config) === 0)) {
+        // verify the required parameter 'mq_config' is set
+        if ($mq_config === null || (is_array($mq_config) && count($mq_config) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $config when calling putMqStreamByName'
+                'Missing the required parameter $mq_config when calling putMqStreamByName'
             );
         }
 
@@ -4249,18 +4441,18 @@ class MqApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($config)) {
+        if (isset($mq_config)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($config));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($mq_config));
             } else {
-                $httpBody = $config;
+                $httpBody = $mq_config;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

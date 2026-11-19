@@ -140,7 +140,7 @@ class BlueprintApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BlueprintIndex
+     * @return \Hanzo\Cloud\Model\BlueprintBlueprintIndex|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBlueprint(string $contentType = self::contentTypes['getBlueprint'][0])
     {
@@ -157,7 +157,7 @@ class BlueprintApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BlueprintIndex, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BlueprintBlueprintIndex|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBlueprintWithHttpInfo(string $contentType = self::contentTypes['getBlueprint'][0])
     {
@@ -189,7 +189,13 @@ class BlueprintApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BlueprintIndex',
+                        '\Hanzo\Cloud\Model\BlueprintBlueprintIndex',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -211,7 +217,7 @@ class BlueprintApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BlueprintIndex',
+                '\Hanzo\Cloud\Model\BlueprintBlueprintIndex',
                 $request,
                 $response,
             );
@@ -220,7 +226,15 @@ class BlueprintApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BlueprintIndex',
+                        '\Hanzo\Cloud\Model\BlueprintBlueprintIndex',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -264,7 +278,7 @@ class BlueprintApi
      */
     public function getBlueprintAsyncWithHttpInfo(string $contentType = self::contentTypes['getBlueprint'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BlueprintIndex';
+        $returnType = '\Hanzo\Cloud\Model\BlueprintBlueprintIndex';
         $request = $this->getBlueprintRequest($contentType);
 
         return $this->client
@@ -327,7 +341,7 @@ class BlueprintApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -392,7 +406,7 @@ class BlueprintApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BlueprintHealth
+     * @return \Hanzo\Cloud\Model\BlueprintBlueprintHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBlueprintHealth(string $contentType = self::contentTypes['getBlueprintHealth'][0])
     {
@@ -409,7 +423,7 @@ class BlueprintApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BlueprintHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BlueprintBlueprintHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBlueprintHealthWithHttpInfo(string $contentType = self::contentTypes['getBlueprintHealth'][0])
     {
@@ -441,7 +455,13 @@ class BlueprintApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BlueprintHealth',
+                        '\Hanzo\Cloud\Model\BlueprintBlueprintHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -463,7 +483,7 @@ class BlueprintApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BlueprintHealth',
+                '\Hanzo\Cloud\Model\BlueprintBlueprintHealth',
                 $request,
                 $response,
             );
@@ -472,7 +492,15 @@ class BlueprintApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BlueprintHealth',
+                        '\Hanzo\Cloud\Model\BlueprintBlueprintHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -516,7 +544,7 @@ class BlueprintApi
      */
     public function getBlueprintHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getBlueprintHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BlueprintHealth';
+        $returnType = '\Hanzo\Cloud\Model\BlueprintBlueprintHealth';
         $request = $this->getBlueprintHealthRequest($contentType);
 
         return $this->client
@@ -579,7 +607,7 @@ class BlueprintApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

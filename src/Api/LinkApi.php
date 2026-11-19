@@ -165,7 +165,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RevokeResp
+     * @return \Hanzo\Cloud\Model\LinkRevokeResp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteLinkById($id, string $contentType = self::contentTypes['deleteLinkById'][0])
     {
@@ -183,7 +183,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RevokeResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LinkRevokeResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteLinkByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteLinkById'][0])
     {
@@ -215,7 +215,13 @@ class LinkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RevokeResp',
+                        '\Hanzo\Cloud\Model\LinkRevokeResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -237,7 +243,7 @@ class LinkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RevokeResp',
+                '\Hanzo\Cloud\Model\LinkRevokeResp',
                 $request,
                 $response,
             );
@@ -246,7 +252,15 @@ class LinkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RevokeResp',
+                        '\Hanzo\Cloud\Model\LinkRevokeResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -292,7 +306,7 @@ class LinkApi
      */
     public function deleteLinkByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteLinkById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RevokeResp';
+        $returnType = '\Hanzo\Cloud\Model\LinkRevokeResp';
         $request = $this->deleteLinkByIdRequest($id, $contentType);
 
         return $this->client
@@ -371,7 +385,7 @@ class LinkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -436,7 +450,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LinkList
+     * @return \Hanzo\Cloud\Model\LinkLinkList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLink(string $contentType = self::contentTypes['getLink'][0])
     {
@@ -453,7 +467,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LinkList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LinkLinkList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLinkWithHttpInfo(string $contentType = self::contentTypes['getLink'][0])
     {
@@ -485,7 +499,13 @@ class LinkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\LinkList',
+                        '\Hanzo\Cloud\Model\LinkLinkList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -507,7 +527,7 @@ class LinkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\LinkList',
+                '\Hanzo\Cloud\Model\LinkLinkList',
                 $request,
                 $response,
             );
@@ -516,7 +536,15 @@ class LinkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\LinkList',
+                        '\Hanzo\Cloud\Model\LinkLinkList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -560,7 +588,7 @@ class LinkApi
      */
     public function getLinkAsyncWithHttpInfo(string $contentType = self::contentTypes['getLink'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\LinkList';
+        $returnType = '\Hanzo\Cloud\Model\LinkLinkList';
         $request = $this->getLinkRequest($contentType);
 
         return $this->client
@@ -623,7 +651,7 @@ class LinkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -689,7 +717,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LinkView
+     * @return \Hanzo\Cloud\Model\LinkLinkView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLinkById($id, string $contentType = self::contentTypes['getLinkById'][0])
     {
@@ -707,7 +735,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LinkView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LinkLinkView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLinkByIdWithHttpInfo($id, string $contentType = self::contentTypes['getLinkById'][0])
     {
@@ -739,7 +767,13 @@ class LinkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\LinkView',
+                        '\Hanzo\Cloud\Model\LinkLinkView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -761,7 +795,7 @@ class LinkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\LinkView',
+                '\Hanzo\Cloud\Model\LinkLinkView',
                 $request,
                 $response,
             );
@@ -770,7 +804,15 @@ class LinkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\LinkView',
+                        '\Hanzo\Cloud\Model\LinkLinkView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -816,7 +858,7 @@ class LinkApi
      */
     public function getLinkByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getLinkById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\LinkView';
+        $returnType = '\Hanzo\Cloud\Model\LinkLinkView';
         $request = $this->getLinkByIdRequest($id, $contentType);
 
         return $this->client
@@ -895,7 +937,7 @@ class LinkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -961,7 +1003,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeviceView
+     * @return \Hanzo\Cloud\Model\LinkDeviceView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLinkDevicesByMachine($machine, string $contentType = self::contentTypes['getLinkDevicesByMachine'][0])
     {
@@ -979,7 +1021,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeviceView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LinkDeviceView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLinkDevicesByMachineWithHttpInfo($machine, string $contentType = self::contentTypes['getLinkDevicesByMachine'][0])
     {
@@ -1011,7 +1053,13 @@ class LinkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeviceView',
+                        '\Hanzo\Cloud\Model\LinkDeviceView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1033,7 +1081,7 @@ class LinkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeviceView',
+                '\Hanzo\Cloud\Model\LinkDeviceView',
                 $request,
                 $response,
             );
@@ -1042,7 +1090,15 @@ class LinkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeviceView',
+                        '\Hanzo\Cloud\Model\LinkDeviceView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1088,7 +1144,7 @@ class LinkApi
      */
     public function getLinkDevicesByMachineAsyncWithHttpInfo($machine, string $contentType = self::contentTypes['getLinkDevicesByMachine'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeviceView';
+        $returnType = '\Hanzo\Cloud\Model\LinkDeviceView';
         $request = $this->getLinkDevicesByMachineRequest($machine, $contentType);
 
         return $this->client
@@ -1167,7 +1223,7 @@ class LinkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1232,7 +1288,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RoutePlan
+     * @return \Hanzo\Cloud\Model\LinkRoutePlan|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLinkRoute(string $contentType = self::contentTypes['getLinkRoute'][0])
     {
@@ -1249,7 +1305,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RoutePlan, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LinkRoutePlan|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLinkRouteWithHttpInfo(string $contentType = self::contentTypes['getLinkRoute'][0])
     {
@@ -1281,7 +1337,13 @@ class LinkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RoutePlan',
+                        '\Hanzo\Cloud\Model\LinkRoutePlan',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1303,7 +1365,7 @@ class LinkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RoutePlan',
+                '\Hanzo\Cloud\Model\LinkRoutePlan',
                 $request,
                 $response,
             );
@@ -1312,7 +1374,15 @@ class LinkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RoutePlan',
+                        '\Hanzo\Cloud\Model\LinkRoutePlan',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1356,7 +1426,7 @@ class LinkApi
      */
     public function getLinkRouteAsyncWithHttpInfo(string $contentType = self::contentTypes['getLinkRoute'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RoutePlan';
+        $returnType = '\Hanzo\Cloud\Model\LinkRoutePlan';
         $request = $this->getLinkRouteRequest($contentType);
 
         return $this->client
@@ -1419,7 +1489,7 @@ class LinkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1488,7 +1558,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BoardResp
+     * @return \Hanzo\Cloud\Model\LinkBoardResp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLinkUsage($provider = null, $account = null, $window = null, $range = null, string $contentType = self::contentTypes['getLinkUsage'][0])
     {
@@ -1509,7 +1579,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BoardResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LinkBoardResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLinkUsageWithHttpInfo($provider = null, $account = null, $window = null, $range = null, string $contentType = self::contentTypes['getLinkUsage'][0])
     {
@@ -1541,7 +1611,13 @@ class LinkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BoardResp',
+                        '\Hanzo\Cloud\Model\LinkBoardResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1563,7 +1639,7 @@ class LinkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BoardResp',
+                '\Hanzo\Cloud\Model\LinkBoardResp',
                 $request,
                 $response,
             );
@@ -1572,7 +1648,15 @@ class LinkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BoardResp',
+                        '\Hanzo\Cloud\Model\LinkBoardResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1624,7 +1708,7 @@ class LinkApi
      */
     public function getLinkUsageAsyncWithHttpInfo($provider = null, $account = null, $window = null, $range = null, string $contentType = self::contentTypes['getLinkUsage'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BoardResp';
+        $returnType = '\Hanzo\Cloud\Model\LinkBoardResp';
         $request = $this->getLinkUsageRequest($provider, $account, $window, $range, $contentType);
 
         return $this->client
@@ -1731,7 +1815,7 @@ class LinkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1796,7 +1880,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AccountsUsage
+     * @return \Hanzo\Cloud\Model\LinkAccountsUsage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLinkUsageAccounts(string $contentType = self::contentTypes['getLinkUsageAccounts'][0])
     {
@@ -1813,7 +1897,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AccountsUsage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LinkAccountsUsage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLinkUsageAccountsWithHttpInfo(string $contentType = self::contentTypes['getLinkUsageAccounts'][0])
     {
@@ -1845,7 +1929,13 @@ class LinkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AccountsUsage',
+                        '\Hanzo\Cloud\Model\LinkAccountsUsage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1867,7 +1957,7 @@ class LinkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AccountsUsage',
+                '\Hanzo\Cloud\Model\LinkAccountsUsage',
                 $request,
                 $response,
             );
@@ -1876,7 +1966,15 @@ class LinkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AccountsUsage',
+                        '\Hanzo\Cloud\Model\LinkAccountsUsage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1920,7 +2018,7 @@ class LinkApi
      */
     public function getLinkUsageAccountsAsyncWithHttpInfo(string $contentType = self::contentTypes['getLinkUsageAccounts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AccountsUsage';
+        $returnType = '\Hanzo\Cloud\Model\LinkAccountsUsage';
         $request = $this->getLinkUsageAccountsRequest($contentType);
 
         return $this->client
@@ -1983,7 +2081,7 @@ class LinkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2049,7 +2147,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SummaryResp
+     * @return \Hanzo\Cloud\Model\LinkSummaryResp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLinkUsageSummary($range = null, string $contentType = self::contentTypes['getLinkUsageSummary'][0])
     {
@@ -2067,7 +2165,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SummaryResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LinkSummaryResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLinkUsageSummaryWithHttpInfo($range = null, string $contentType = self::contentTypes['getLinkUsageSummary'][0])
     {
@@ -2099,7 +2197,13 @@ class LinkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SummaryResp',
+                        '\Hanzo\Cloud\Model\LinkSummaryResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2121,7 +2225,7 @@ class LinkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SummaryResp',
+                '\Hanzo\Cloud\Model\LinkSummaryResp',
                 $request,
                 $response,
             );
@@ -2130,7 +2234,15 @@ class LinkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SummaryResp',
+                        '\Hanzo\Cloud\Model\LinkSummaryResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2176,7 +2288,7 @@ class LinkApi
      */
     public function getLinkUsageSummaryAsyncWithHttpInfo($range = null, string $contentType = self::contentTypes['getLinkUsageSummary'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SummaryResp';
+        $returnType = '\Hanzo\Cloud\Model\LinkSummaryResp';
         $request = $this->getLinkUsageSummaryRequest($range, $contentType);
 
         return $this->client
@@ -2250,7 +2362,7 @@ class LinkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2311,16 +2423,16 @@ class LinkApi
      *
      * Registers a signed-in AI provider account on a machine.
      *
-     * @param  \Hanzo\Cloud\Model\EnrollReq $enroll_req enroll_req (required)
+     * @param  \Hanzo\Cloud\Model\LinkEnrollReq $link_enroll_req link_enroll_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LinkView
+     * @return \Hanzo\Cloud\Model\LinkLinkView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postLink($enroll_req, string $contentType = self::contentTypes['postLink'][0])
+    public function postLink($link_enroll_req, string $contentType = self::contentTypes['postLink'][0])
     {
-        list($response) = $this->postLinkWithHttpInfo($enroll_req, $contentType);
+        list($response) = $this->postLinkWithHttpInfo($link_enroll_req, $contentType);
         return $response;
     }
 
@@ -2329,16 +2441,16 @@ class LinkApi
      *
      * Registers a signed-in AI provider account on a machine.
      *
-     * @param  \Hanzo\Cloud\Model\EnrollReq $enroll_req (required)
+     * @param  \Hanzo\Cloud\Model\LinkEnrollReq $link_enroll_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LinkView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LinkLinkView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postLinkWithHttpInfo($enroll_req, string $contentType = self::contentTypes['postLink'][0])
+    public function postLinkWithHttpInfo($link_enroll_req, string $contentType = self::contentTypes['postLink'][0])
     {
-        $request = $this->postLinkRequest($enroll_req, $contentType);
+        $request = $this->postLinkRequest($link_enroll_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2366,7 +2478,13 @@ class LinkApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\LinkView',
+                        '\Hanzo\Cloud\Model\LinkLinkView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2388,7 +2506,7 @@ class LinkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\LinkView',
+                '\Hanzo\Cloud\Model\LinkLinkView',
                 $request,
                 $response,
             );
@@ -2397,7 +2515,15 @@ class LinkApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\LinkView',
+                        '\Hanzo\Cloud\Model\LinkLinkView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2414,15 +2540,15 @@ class LinkApi
      *
      * Registers a signed-in AI provider account on a machine.
      *
-     * @param  \Hanzo\Cloud\Model\EnrollReq $enroll_req (required)
+     * @param  \Hanzo\Cloud\Model\LinkEnrollReq $link_enroll_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLinkAsync($enroll_req, string $contentType = self::contentTypes['postLink'][0])
+    public function postLinkAsync($link_enroll_req, string $contentType = self::contentTypes['postLink'][0])
     {
-        return $this->postLinkAsyncWithHttpInfo($enroll_req, $contentType)
+        return $this->postLinkAsyncWithHttpInfo($link_enroll_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2435,16 +2561,16 @@ class LinkApi
      *
      * Registers a signed-in AI provider account on a machine.
      *
-     * @param  \Hanzo\Cloud\Model\EnrollReq $enroll_req (required)
+     * @param  \Hanzo\Cloud\Model\LinkEnrollReq $link_enroll_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLinkAsyncWithHttpInfo($enroll_req, string $contentType = self::contentTypes['postLink'][0])
+    public function postLinkAsyncWithHttpInfo($link_enroll_req, string $contentType = self::contentTypes['postLink'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\LinkView';
-        $request = $this->postLinkRequest($enroll_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LinkLinkView';
+        $request = $this->postLinkRequest($link_enroll_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2485,19 +2611,19 @@ class LinkApi
     /**
      * Create request for operation 'postLink'
      *
-     * @param  \Hanzo\Cloud\Model\EnrollReq $enroll_req (required)
+     * @param  \Hanzo\Cloud\Model\LinkEnrollReq $link_enroll_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postLinkRequest($enroll_req, string $contentType = self::contentTypes['postLink'][0])
+    public function postLinkRequest($link_enroll_req, string $contentType = self::contentTypes['postLink'][0])
     {
 
-        // verify the required parameter 'enroll_req' is set
-        if ($enroll_req === null || (is_array($enroll_req) && count($enroll_req) === 0)) {
+        // verify the required parameter 'link_enroll_req' is set
+        if ($link_enroll_req === null || (is_array($link_enroll_req) && count($link_enroll_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $enroll_req when calling postLink'
+                'Missing the required parameter $link_enroll_req when calling postLink'
             );
         }
 
@@ -2514,18 +2640,18 @@ class LinkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($enroll_req)) {
+        if (isset($link_enroll_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($enroll_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($link_enroll_req));
             } else {
-                $httpBody = $enroll_req;
+                $httpBody = $link_enroll_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2587,7 +2713,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RevokeResp
+     * @return \Hanzo\Cloud\Model\LinkRevokeResp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postLinkDevicesByMachineRevoke($machine, string $contentType = self::contentTypes['postLinkDevicesByMachineRevoke'][0])
     {
@@ -2605,7 +2731,7 @@ class LinkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RevokeResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LinkRevokeResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postLinkDevicesByMachineRevokeWithHttpInfo($machine, string $contentType = self::contentTypes['postLinkDevicesByMachineRevoke'][0])
     {
@@ -2637,7 +2763,13 @@ class LinkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RevokeResp',
+                        '\Hanzo\Cloud\Model\LinkRevokeResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2659,7 +2791,7 @@ class LinkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RevokeResp',
+                '\Hanzo\Cloud\Model\LinkRevokeResp',
                 $request,
                 $response,
             );
@@ -2668,7 +2800,15 @@ class LinkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RevokeResp',
+                        '\Hanzo\Cloud\Model\LinkRevokeResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2714,7 +2854,7 @@ class LinkApi
      */
     public function postLinkDevicesByMachineRevokeAsyncWithHttpInfo($machine, string $contentType = self::contentTypes['postLinkDevicesByMachineRevoke'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RevokeResp';
+        $returnType = '\Hanzo\Cloud\Model\LinkRevokeResp';
         $request = $this->postLinkDevicesByMachineRevokeRequest($machine, $contentType);
 
         return $this->client
@@ -2793,7 +2933,7 @@ class LinkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2854,16 +2994,16 @@ class LinkApi
      *
      * Reports usage samples from the device collector.
      *
-     * @param  \Hanzo\Cloud\Model\IngestReq $ingest_req ingest_req (required)
+     * @param  \Hanzo\Cloud\Model\LinkIngestReq $link_ingest_req link_ingest_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLinkUsage'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IngestResp
+     * @return \Hanzo\Cloud\Model\LinkIngestResp|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postLinkUsage($ingest_req, string $contentType = self::contentTypes['postLinkUsage'][0])
+    public function postLinkUsage($link_ingest_req, string $contentType = self::contentTypes['postLinkUsage'][0])
     {
-        list($response) = $this->postLinkUsageWithHttpInfo($ingest_req, $contentType);
+        list($response) = $this->postLinkUsageWithHttpInfo($link_ingest_req, $contentType);
         return $response;
     }
 
@@ -2872,16 +3012,16 @@ class LinkApi
      *
      * Reports usage samples from the device collector.
      *
-     * @param  \Hanzo\Cloud\Model\IngestReq $ingest_req (required)
+     * @param  \Hanzo\Cloud\Model\LinkIngestReq $link_ingest_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLinkUsage'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IngestResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LinkIngestResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postLinkUsageWithHttpInfo($ingest_req, string $contentType = self::contentTypes['postLinkUsage'][0])
+    public function postLinkUsageWithHttpInfo($link_ingest_req, string $contentType = self::contentTypes['postLinkUsage'][0])
     {
-        $request = $this->postLinkUsageRequest($ingest_req, $contentType);
+        $request = $this->postLinkUsageRequest($link_ingest_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2909,7 +3049,13 @@ class LinkApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IngestResp',
+                        '\Hanzo\Cloud\Model\LinkIngestResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2931,7 +3077,7 @@ class LinkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IngestResp',
+                '\Hanzo\Cloud\Model\LinkIngestResp',
                 $request,
                 $response,
             );
@@ -2940,7 +3086,15 @@ class LinkApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IngestResp',
+                        '\Hanzo\Cloud\Model\LinkIngestResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2957,15 +3111,15 @@ class LinkApi
      *
      * Reports usage samples from the device collector.
      *
-     * @param  \Hanzo\Cloud\Model\IngestReq $ingest_req (required)
+     * @param  \Hanzo\Cloud\Model\LinkIngestReq $link_ingest_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLinkUsage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLinkUsageAsync($ingest_req, string $contentType = self::contentTypes['postLinkUsage'][0])
+    public function postLinkUsageAsync($link_ingest_req, string $contentType = self::contentTypes['postLinkUsage'][0])
     {
-        return $this->postLinkUsageAsyncWithHttpInfo($ingest_req, $contentType)
+        return $this->postLinkUsageAsyncWithHttpInfo($link_ingest_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2978,16 +3132,16 @@ class LinkApi
      *
      * Reports usage samples from the device collector.
      *
-     * @param  \Hanzo\Cloud\Model\IngestReq $ingest_req (required)
+     * @param  \Hanzo\Cloud\Model\LinkIngestReq $link_ingest_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLinkUsage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLinkUsageAsyncWithHttpInfo($ingest_req, string $contentType = self::contentTypes['postLinkUsage'][0])
+    public function postLinkUsageAsyncWithHttpInfo($link_ingest_req, string $contentType = self::contentTypes['postLinkUsage'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IngestResp';
-        $request = $this->postLinkUsageRequest($ingest_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LinkIngestResp';
+        $request = $this->postLinkUsageRequest($link_ingest_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3028,19 +3182,19 @@ class LinkApi
     /**
      * Create request for operation 'postLinkUsage'
      *
-     * @param  \Hanzo\Cloud\Model\IngestReq $ingest_req (required)
+     * @param  \Hanzo\Cloud\Model\LinkIngestReq $link_ingest_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLinkUsage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postLinkUsageRequest($ingest_req, string $contentType = self::contentTypes['postLinkUsage'][0])
+    public function postLinkUsageRequest($link_ingest_req, string $contentType = self::contentTypes['postLinkUsage'][0])
     {
 
-        // verify the required parameter 'ingest_req' is set
-        if ($ingest_req === null || (is_array($ingest_req) && count($ingest_req) === 0)) {
+        // verify the required parameter 'link_ingest_req' is set
+        if ($link_ingest_req === null || (is_array($link_ingest_req) && count($link_ingest_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $ingest_req when calling postLinkUsage'
+                'Missing the required parameter $link_ingest_req when calling postLinkUsage'
             );
         }
 
@@ -3057,18 +3211,18 @@ class LinkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($ingest_req)) {
+        if (isset($link_ingest_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ingest_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($link_ingest_req));
             } else {
-                $httpBody = $ingest_req;
+                $httpBody = $link_ingest_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

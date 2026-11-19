@@ -95,6 +95,9 @@ class CodeApi
         'postCodeIndex' => [
             'application/json',
         ],
+        'postCodeReindex' => [
+            'application/json',
+        ],
     ];
 
     /**
@@ -154,7 +157,7 @@ class CodeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AskAnswer
+     * @return \Hanzo\Cloud\Model\CodeAskAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCodeAsk($q = null, $repo = null, string $contentType = self::contentTypes['getCodeAsk'][0])
     {
@@ -173,7 +176,7 @@ class CodeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AskAnswer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CodeAskAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCodeAskWithHttpInfo($q = null, $repo = null, string $contentType = self::contentTypes['getCodeAsk'][0])
     {
@@ -205,7 +208,13 @@ class CodeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AskAnswer',
+                        '\Hanzo\Cloud\Model\CodeAskAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -227,7 +236,7 @@ class CodeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AskAnswer',
+                '\Hanzo\Cloud\Model\CodeAskAnswer',
                 $request,
                 $response,
             );
@@ -236,7 +245,15 @@ class CodeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AskAnswer',
+                        '\Hanzo\Cloud\Model\CodeAskAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -284,7 +301,7 @@ class CodeApi
      */
     public function getCodeAskAsyncWithHttpInfo($q = null, $repo = null, string $contentType = self::contentTypes['getCodeAsk'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AskAnswer';
+        $returnType = '\Hanzo\Cloud\Model\CodeAskAnswer';
         $request = $this->getCodeAskRequest($q, $repo, $contentType);
 
         return $this->client
@@ -369,7 +386,7 @@ class CodeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -436,7 +453,7 @@ class CodeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FileContent
+     * @return \Hanzo\Cloud\Model\CodeFileContent|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCodeFile($path = null, $repo = null, string $contentType = self::contentTypes['getCodeFile'][0])
     {
@@ -455,7 +472,7 @@ class CodeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FileContent, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CodeFileContent|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCodeFileWithHttpInfo($path = null, $repo = null, string $contentType = self::contentTypes['getCodeFile'][0])
     {
@@ -487,7 +504,13 @@ class CodeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FileContent',
+                        '\Hanzo\Cloud\Model\CodeFileContent',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -509,7 +532,7 @@ class CodeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FileContent',
+                '\Hanzo\Cloud\Model\CodeFileContent',
                 $request,
                 $response,
             );
@@ -518,7 +541,15 @@ class CodeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FileContent',
+                        '\Hanzo\Cloud\Model\CodeFileContent',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -566,7 +597,7 @@ class CodeApi
      */
     public function getCodeFileAsyncWithHttpInfo($path = null, $repo = null, string $contentType = self::contentTypes['getCodeFile'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FileContent';
+        $returnType = '\Hanzo\Cloud\Model\CodeFileContent';
         $request = $this->getCodeFileRequest($path, $repo, $contentType);
 
         return $this->client
@@ -651,7 +682,7 @@ class CodeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -720,7 +751,7 @@ class CodeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SearchResults
+     * @return \Hanzo\Cloud\Model\CodeSearchResults|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCodeSearch($q = null, $type = null, $repo = null, $limit = null, string $contentType = self::contentTypes['getCodeSearch'][0])
     {
@@ -741,7 +772,7 @@ class CodeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SearchResults, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CodeSearchResults|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCodeSearchWithHttpInfo($q = null, $type = null, $repo = null, $limit = null, string $contentType = self::contentTypes['getCodeSearch'][0])
     {
@@ -773,7 +804,13 @@ class CodeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SearchResults',
+                        '\Hanzo\Cloud\Model\CodeSearchResults',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -795,7 +832,7 @@ class CodeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SearchResults',
+                '\Hanzo\Cloud\Model\CodeSearchResults',
                 $request,
                 $response,
             );
@@ -804,7 +841,15 @@ class CodeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SearchResults',
+                        '\Hanzo\Cloud\Model\CodeSearchResults',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -856,7 +901,7 @@ class CodeApi
      */
     public function getCodeSearchAsyncWithHttpInfo($q = null, $type = null, $repo = null, $limit = null, string $contentType = self::contentTypes['getCodeSearch'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SearchResults';
+        $returnType = '\Hanzo\Cloud\Model\CodeSearchResults';
         $request = $this->getCodeSearchRequest($q, $type, $repo, $limit, $contentType);
 
         return $this->client
@@ -963,7 +1008,7 @@ class CodeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1029,7 +1074,7 @@ class CodeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RepoTree
+     * @return \Hanzo\Cloud\Model\CodeRepoTree|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCodeTree($repo = null, string $contentType = self::contentTypes['getCodeTree'][0])
     {
@@ -1047,7 +1092,7 @@ class CodeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RepoTree, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CodeRepoTree|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCodeTreeWithHttpInfo($repo = null, string $contentType = self::contentTypes['getCodeTree'][0])
     {
@@ -1079,7 +1124,13 @@ class CodeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RepoTree',
+                        '\Hanzo\Cloud\Model\CodeRepoTree',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1101,7 +1152,7 @@ class CodeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RepoTree',
+                '\Hanzo\Cloud\Model\CodeRepoTree',
                 $request,
                 $response,
             );
@@ -1110,7 +1161,15 @@ class CodeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RepoTree',
+                        '\Hanzo\Cloud\Model\CodeRepoTree',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1156,7 +1215,7 @@ class CodeApi
      */
     public function getCodeTreeAsyncWithHttpInfo($repo = null, string $contentType = self::contentTypes['getCodeTree'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RepoTree';
+        $returnType = '\Hanzo\Cloud\Model\CodeRepoTree';
         $request = $this->getCodeTreeRequest($repo, $contentType);
 
         return $this->client
@@ -1230,7 +1289,7 @@ class CodeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1289,36 +1348,36 @@ class CodeApi
     /**
      * Operation postCodeAsk
      *
-     * Is askGet with the question in the request BODY, for a question too long or too awkward to put in a URL.
+     * Answers a question about the caller org&#39;s code with a CITED answer, taking the question from the request BODY, for a question too long or too awkward to put in a URL.
      *
-     * @param  \Hanzo\Cloud\Model\AskPostIn $ask_post_in ask_post_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeAskPostIn $code_ask_post_in code_ask_post_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeAsk'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AskAnswer
+     * @return \Hanzo\Cloud\Model\CodeAskAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCodeAsk($ask_post_in, string $contentType = self::contentTypes['postCodeAsk'][0])
+    public function postCodeAsk($code_ask_post_in, string $contentType = self::contentTypes['postCodeAsk'][0])
     {
-        list($response) = $this->postCodeAskWithHttpInfo($ask_post_in, $contentType);
+        list($response) = $this->postCodeAskWithHttpInfo($code_ask_post_in, $contentType);
         return $response;
     }
 
     /**
      * Operation postCodeAskWithHttpInfo
      *
-     * Is askGet with the question in the request BODY, for a question too long or too awkward to put in a URL.
+     * Answers a question about the caller org&#39;s code with a CITED answer, taking the question from the request BODY, for a question too long or too awkward to put in a URL.
      *
-     * @param  \Hanzo\Cloud\Model\AskPostIn $ask_post_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeAskPostIn $code_ask_post_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeAsk'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AskAnswer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CodeAskAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCodeAskWithHttpInfo($ask_post_in, string $contentType = self::contentTypes['postCodeAsk'][0])
+    public function postCodeAskWithHttpInfo($code_ask_post_in, string $contentType = self::contentTypes['postCodeAsk'][0])
     {
-        $request = $this->postCodeAskRequest($ask_post_in, $contentType);
+        $request = $this->postCodeAskRequest($code_ask_post_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1346,7 +1405,13 @@ class CodeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AskAnswer',
+                        '\Hanzo\Cloud\Model\CodeAskAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1368,7 +1433,7 @@ class CodeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AskAnswer',
+                '\Hanzo\Cloud\Model\CodeAskAnswer',
                 $request,
                 $response,
             );
@@ -1377,7 +1442,15 @@ class CodeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AskAnswer',
+                        '\Hanzo\Cloud\Model\CodeAskAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1392,17 +1465,17 @@ class CodeApi
     /**
      * Operation postCodeAskAsync
      *
-     * Is askGet with the question in the request BODY, for a question too long or too awkward to put in a URL.
+     * Answers a question about the caller org&#39;s code with a CITED answer, taking the question from the request BODY, for a question too long or too awkward to put in a URL.
      *
-     * @param  \Hanzo\Cloud\Model\AskPostIn $ask_post_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeAskPostIn $code_ask_post_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeAsk'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCodeAskAsync($ask_post_in, string $contentType = self::contentTypes['postCodeAsk'][0])
+    public function postCodeAskAsync($code_ask_post_in, string $contentType = self::contentTypes['postCodeAsk'][0])
     {
-        return $this->postCodeAskAsyncWithHttpInfo($ask_post_in, $contentType)
+        return $this->postCodeAskAsyncWithHttpInfo($code_ask_post_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1413,18 +1486,18 @@ class CodeApi
     /**
      * Operation postCodeAskAsyncWithHttpInfo
      *
-     * Is askGet with the question in the request BODY, for a question too long or too awkward to put in a URL.
+     * Answers a question about the caller org&#39;s code with a CITED answer, taking the question from the request BODY, for a question too long or too awkward to put in a URL.
      *
-     * @param  \Hanzo\Cloud\Model\AskPostIn $ask_post_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeAskPostIn $code_ask_post_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeAsk'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCodeAskAsyncWithHttpInfo($ask_post_in, string $contentType = self::contentTypes['postCodeAsk'][0])
+    public function postCodeAskAsyncWithHttpInfo($code_ask_post_in, string $contentType = self::contentTypes['postCodeAsk'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AskAnswer';
-        $request = $this->postCodeAskRequest($ask_post_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CodeAskAnswer';
+        $request = $this->postCodeAskRequest($code_ask_post_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1465,19 +1538,19 @@ class CodeApi
     /**
      * Create request for operation 'postCodeAsk'
      *
-     * @param  \Hanzo\Cloud\Model\AskPostIn $ask_post_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeAskPostIn $code_ask_post_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeAsk'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCodeAskRequest($ask_post_in, string $contentType = self::contentTypes['postCodeAsk'][0])
+    public function postCodeAskRequest($code_ask_post_in, string $contentType = self::contentTypes['postCodeAsk'][0])
     {
 
-        // verify the required parameter 'ask_post_in' is set
-        if ($ask_post_in === null || (is_array($ask_post_in) && count($ask_post_in) === 0)) {
+        // verify the required parameter 'code_ask_post_in' is set
+        if ($code_ask_post_in === null || (is_array($code_ask_post_in) && count($code_ask_post_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $ask_post_in when calling postCodeAsk'
+                'Missing the required parameter $code_ask_post_in when calling postCodeAsk'
             );
         }
 
@@ -1494,18 +1567,18 @@ class CodeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($ask_post_in)) {
+        if (isset($code_ask_post_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ask_post_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($code_ask_post_in));
             } else {
-                $httpBody = $ask_post_in;
+                $httpBody = $code_ask_post_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1562,16 +1635,16 @@ class CodeApi
      *
      * Packs the most relevant code for a query into a token budget — THE primitive for a coding agent that has to decide what to put in a prompt.
      *
-     * @param  \Hanzo\Cloud\Model\ContextIn $context_in context_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeContextIn $code_context_in code_context_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeContext'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ContextBundle
+     * @return \Hanzo\Cloud\Model\CodeContextBundle|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCodeContext($context_in, string $contentType = self::contentTypes['postCodeContext'][0])
+    public function postCodeContext($code_context_in, string $contentType = self::contentTypes['postCodeContext'][0])
     {
-        list($response) = $this->postCodeContextWithHttpInfo($context_in, $contentType);
+        list($response) = $this->postCodeContextWithHttpInfo($code_context_in, $contentType);
         return $response;
     }
 
@@ -1580,16 +1653,16 @@ class CodeApi
      *
      * Packs the most relevant code for a query into a token budget — THE primitive for a coding agent that has to decide what to put in a prompt.
      *
-     * @param  \Hanzo\Cloud\Model\ContextIn $context_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeContextIn $code_context_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeContext'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ContextBundle, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CodeContextBundle|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCodeContextWithHttpInfo($context_in, string $contentType = self::contentTypes['postCodeContext'][0])
+    public function postCodeContextWithHttpInfo($code_context_in, string $contentType = self::contentTypes['postCodeContext'][0])
     {
-        $request = $this->postCodeContextRequest($context_in, $contentType);
+        $request = $this->postCodeContextRequest($code_context_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1617,7 +1690,13 @@ class CodeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ContextBundle',
+                        '\Hanzo\Cloud\Model\CodeContextBundle',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1639,7 +1718,7 @@ class CodeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ContextBundle',
+                '\Hanzo\Cloud\Model\CodeContextBundle',
                 $request,
                 $response,
             );
@@ -1648,7 +1727,15 @@ class CodeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ContextBundle',
+                        '\Hanzo\Cloud\Model\CodeContextBundle',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1665,15 +1752,15 @@ class CodeApi
      *
      * Packs the most relevant code for a query into a token budget — THE primitive for a coding agent that has to decide what to put in a prompt.
      *
-     * @param  \Hanzo\Cloud\Model\ContextIn $context_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeContextIn $code_context_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeContext'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCodeContextAsync($context_in, string $contentType = self::contentTypes['postCodeContext'][0])
+    public function postCodeContextAsync($code_context_in, string $contentType = self::contentTypes['postCodeContext'][0])
     {
-        return $this->postCodeContextAsyncWithHttpInfo($context_in, $contentType)
+        return $this->postCodeContextAsyncWithHttpInfo($code_context_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1686,16 +1773,16 @@ class CodeApi
      *
      * Packs the most relevant code for a query into a token budget — THE primitive for a coding agent that has to decide what to put in a prompt.
      *
-     * @param  \Hanzo\Cloud\Model\ContextIn $context_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeContextIn $code_context_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeContext'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCodeContextAsyncWithHttpInfo($context_in, string $contentType = self::contentTypes['postCodeContext'][0])
+    public function postCodeContextAsyncWithHttpInfo($code_context_in, string $contentType = self::contentTypes['postCodeContext'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ContextBundle';
-        $request = $this->postCodeContextRequest($context_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CodeContextBundle';
+        $request = $this->postCodeContextRequest($code_context_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1736,19 +1823,19 @@ class CodeApi
     /**
      * Create request for operation 'postCodeContext'
      *
-     * @param  \Hanzo\Cloud\Model\ContextIn $context_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeContextIn $code_context_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeContext'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCodeContextRequest($context_in, string $contentType = self::contentTypes['postCodeContext'][0])
+    public function postCodeContextRequest($code_context_in, string $contentType = self::contentTypes['postCodeContext'][0])
     {
 
-        // verify the required parameter 'context_in' is set
-        if ($context_in === null || (is_array($context_in) && count($context_in) === 0)) {
+        // verify the required parameter 'code_context_in' is set
+        if ($code_context_in === null || (is_array($code_context_in) && count($code_context_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $context_in when calling postCodeContext'
+                'Missing the required parameter $code_context_in when calling postCodeContext'
             );
         }
 
@@ -1765,18 +1852,18 @@ class CodeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($context_in)) {
+        if (isset($code_context_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($context_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($code_context_in));
             } else {
-                $httpBody = $context_in;
+                $httpBody = $code_context_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1833,16 +1920,16 @@ class CodeApi
      *
      * (re)indexes a repository for the caller&#39;s org, incrementally: files whose content hash is unchanged are skipped, so re-sending a whole tree is cheap.
      *
-     * @param  \Hanzo\Cloud\Model\IndexIn $index_in index_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeIndexIn $code_index_in code_index_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeIndex'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexResult
+     * @return \Hanzo\Cloud\Model\CodeIndexResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCodeIndex($index_in, string $contentType = self::contentTypes['postCodeIndex'][0])
+    public function postCodeIndex($code_index_in, string $contentType = self::contentTypes['postCodeIndex'][0])
     {
-        list($response) = $this->postCodeIndexWithHttpInfo($index_in, $contentType);
+        list($response) = $this->postCodeIndexWithHttpInfo($code_index_in, $contentType);
         return $response;
     }
 
@@ -1851,16 +1938,16 @@ class CodeApi
      *
      * (re)indexes a repository for the caller&#39;s org, incrementally: files whose content hash is unchanged are skipped, so re-sending a whole tree is cheap.
      *
-     * @param  \Hanzo\Cloud\Model\IndexIn $index_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeIndexIn $code_index_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeIndex'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CodeIndexResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCodeIndexWithHttpInfo($index_in, string $contentType = self::contentTypes['postCodeIndex'][0])
+    public function postCodeIndexWithHttpInfo($code_index_in, string $contentType = self::contentTypes['postCodeIndex'][0])
     {
-        $request = $this->postCodeIndexRequest($index_in, $contentType);
+        $request = $this->postCodeIndexRequest($code_index_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1888,7 +1975,13 @@ class CodeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexResult',
+                        '\Hanzo\Cloud\Model\CodeIndexResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1910,7 +2003,7 @@ class CodeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexResult',
+                '\Hanzo\Cloud\Model\CodeIndexResult',
                 $request,
                 $response,
             );
@@ -1919,7 +2012,15 @@ class CodeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexResult',
+                        '\Hanzo\Cloud\Model\CodeIndexResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1936,15 +2037,15 @@ class CodeApi
      *
      * (re)indexes a repository for the caller&#39;s org, incrementally: files whose content hash is unchanged are skipped, so re-sending a whole tree is cheap.
      *
-     * @param  \Hanzo\Cloud\Model\IndexIn $index_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeIndexIn $code_index_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeIndex'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCodeIndexAsync($index_in, string $contentType = self::contentTypes['postCodeIndex'][0])
+    public function postCodeIndexAsync($code_index_in, string $contentType = self::contentTypes['postCodeIndex'][0])
     {
-        return $this->postCodeIndexAsyncWithHttpInfo($index_in, $contentType)
+        return $this->postCodeIndexAsyncWithHttpInfo($code_index_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1957,16 +2058,16 @@ class CodeApi
      *
      * (re)indexes a repository for the caller&#39;s org, incrementally: files whose content hash is unchanged are skipped, so re-sending a whole tree is cheap.
      *
-     * @param  \Hanzo\Cloud\Model\IndexIn $index_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeIndexIn $code_index_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeIndex'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCodeIndexAsyncWithHttpInfo($index_in, string $contentType = self::contentTypes['postCodeIndex'][0])
+    public function postCodeIndexAsyncWithHttpInfo($code_index_in, string $contentType = self::contentTypes['postCodeIndex'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexResult';
-        $request = $this->postCodeIndexRequest($index_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CodeIndexResult';
+        $request = $this->postCodeIndexRequest($code_index_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2007,19 +2108,19 @@ class CodeApi
     /**
      * Create request for operation 'postCodeIndex'
      *
-     * @param  \Hanzo\Cloud\Model\IndexIn $index_in (required)
+     * @param  \Hanzo\Cloud\Model\CodeIndexIn $code_index_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeIndex'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCodeIndexRequest($index_in, string $contentType = self::contentTypes['postCodeIndex'][0])
+    public function postCodeIndexRequest($code_index_in, string $contentType = self::contentTypes['postCodeIndex'][0])
     {
 
-        // verify the required parameter 'index_in' is set
-        if ($index_in === null || (is_array($index_in) && count($index_in) === 0)) {
+        // verify the required parameter 'code_index_in' is set
+        if ($code_index_in === null || (is_array($code_index_in) && count($code_index_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $index_in when calling postCodeIndex'
+                'Missing the required parameter $code_index_in when calling postCodeIndex'
             );
         }
 
@@ -2036,20 +2137,286 @@ class CodeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($index_in)) {
+        if (isset($code_index_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($index_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($code_index_in));
             } else {
-                $httpBody = $index_in;
+                $httpBody = $code_index_in;
             }
         } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postCodeReindex
+     *
+     * Rebuilds the caller org&#39;s code index in the embedding space this deployment embeds in, from the code the index already holds, across every repository.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeReindex'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\CodeReindexResult|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postCodeReindex(string $contentType = self::contentTypes['postCodeReindex'][0])
+    {
+        list($response) = $this->postCodeReindexWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postCodeReindexWithHttpInfo
+     *
+     * Rebuilds the caller org&#39;s code index in the embedding space this deployment embeds in, from the code the index already holds, across every repository.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeReindex'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\CodeReindexResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postCodeReindexWithHttpInfo(string $contentType = self::contentTypes['postCodeReindex'][0])
+    {
+        $request = $this->postCodeReindexRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\CodeReindexResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\CodeReindexResult',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\CodeReindexResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postCodeReindexAsync
+     *
+     * Rebuilds the caller org&#39;s code index in the embedding space this deployment embeds in, from the code the index already holds, across every repository.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeReindex'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postCodeReindexAsync(string $contentType = self::contentTypes['postCodeReindex'][0])
+    {
+        return $this->postCodeReindexAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postCodeReindexAsyncWithHttpInfo
+     *
+     * Rebuilds the caller org&#39;s code index in the embedding space this deployment embeds in, from the code the index already holds, across every repository.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeReindex'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postCodeReindexAsyncWithHttpInfo(string $contentType = self::contentTypes['postCodeReindex'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\CodeReindexResult';
+        $request = $this->postCodeReindexRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postCodeReindex'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCodeReindex'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postCodeReindexRequest(string $contentType = self::contentTypes['postCodeReindex'][0])
+    {
+
+
+        $resourcePath = '/v1/code/reindex';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {

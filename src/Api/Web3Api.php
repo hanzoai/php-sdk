@@ -143,7 +143,7 @@ class Web3Api
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ChainList
+     * @return \Hanzo\Cloud\Model\Web3ChainList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWeb3Chains(string $contentType = self::contentTypes['getWeb3Chains'][0])
     {
@@ -160,7 +160,7 @@ class Web3Api
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ChainList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Web3ChainList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWeb3ChainsWithHttpInfo(string $contentType = self::contentTypes['getWeb3Chains'][0])
     {
@@ -192,7 +192,13 @@ class Web3Api
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ChainList',
+                        '\Hanzo\Cloud\Model\Web3ChainList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -214,7 +220,7 @@ class Web3Api
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ChainList',
+                '\Hanzo\Cloud\Model\Web3ChainList',
                 $request,
                 $response,
             );
@@ -223,7 +229,15 @@ class Web3Api
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ChainList',
+                        '\Hanzo\Cloud\Model\Web3ChainList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -267,7 +281,7 @@ class Web3Api
      */
     public function getWeb3ChainsAsyncWithHttpInfo(string $contentType = self::contentTypes['getWeb3Chains'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ChainList';
+        $returnType = '\Hanzo\Cloud\Model\Web3ChainList';
         $request = $this->getWeb3ChainsRequest($contentType);
 
         return $this->client
@@ -330,7 +344,7 @@ class Web3Api
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -396,7 +410,7 @@ class Web3Api
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ChainStatus
+     * @return \Hanzo\Cloud\Model\Web3ChainStatus|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWeb3ChainsByChain($chain, string $contentType = self::contentTypes['getWeb3ChainsByChain'][0])
     {
@@ -414,7 +428,7 @@ class Web3Api
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ChainStatus, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Web3ChainStatus|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWeb3ChainsByChainWithHttpInfo($chain, string $contentType = self::contentTypes['getWeb3ChainsByChain'][0])
     {
@@ -446,7 +460,13 @@ class Web3Api
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ChainStatus',
+                        '\Hanzo\Cloud\Model\Web3ChainStatus',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -468,7 +488,7 @@ class Web3Api
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ChainStatus',
+                '\Hanzo\Cloud\Model\Web3ChainStatus',
                 $request,
                 $response,
             );
@@ -477,7 +497,15 @@ class Web3Api
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ChainStatus',
+                        '\Hanzo\Cloud\Model\Web3ChainStatus',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -523,7 +551,7 @@ class Web3Api
      */
     public function getWeb3ChainsByChainAsyncWithHttpInfo($chain, string $contentType = self::contentTypes['getWeb3ChainsByChain'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ChainStatus';
+        $returnType = '\Hanzo\Cloud\Model\Web3ChainStatus';
         $request = $this->getWeb3ChainsByChainRequest($chain, $contentType);
 
         return $this->client
@@ -602,7 +630,7 @@ class Web3Api
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -669,7 +697,7 @@ class Web3Api
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Balances
+     * @return \Hanzo\Cloud\Model\Web3Balances|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWeb3TokensByChainByAddress($chain, $address, string $contentType = self::contentTypes['getWeb3TokensByChainByAddress'][0])
     {
@@ -688,7 +716,7 @@ class Web3Api
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Balances, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Web3Balances|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWeb3TokensByChainByAddressWithHttpInfo($chain, $address, string $contentType = self::contentTypes['getWeb3TokensByChainByAddress'][0])
     {
@@ -720,7 +748,13 @@ class Web3Api
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Balances',
+                        '\Hanzo\Cloud\Model\Web3Balances',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -742,7 +776,7 @@ class Web3Api
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Balances',
+                '\Hanzo\Cloud\Model\Web3Balances',
                 $request,
                 $response,
             );
@@ -751,7 +785,15 @@ class Web3Api
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Balances',
+                        '\Hanzo\Cloud\Model\Web3Balances',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -799,7 +841,7 @@ class Web3Api
      */
     public function getWeb3TokensByChainByAddressAsyncWithHttpInfo($chain, $address, string $contentType = self::contentTypes['getWeb3TokensByChainByAddress'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Balances';
+        $returnType = '\Hanzo\Cloud\Model\Web3Balances';
         $request = $this->getWeb3TokensByChainByAddressRequest($chain, $address, $contentType);
 
         return $this->client
@@ -894,7 +936,7 @@ class Web3Api
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -956,16 +998,16 @@ class Web3Api
      * Forwards a JSON-RPC call to the named chain and returns its answer unchanged.
      *
      * @param  string $chain Chain is the registry id, from the URL. (required)
-     * @param  \Hanzo\Cloud\Model\RpcIn $rpc_in rpc_in (required)
+     * @param  \Hanzo\Cloud\Model\Web3RpcIn $web3_rpc_in web3_rpc_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWeb3RpcByChain'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RpcOut
+     * @return \Hanzo\Cloud\Model\Web3RpcOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postWeb3RpcByChain($chain, $rpc_in, string $contentType = self::contentTypes['postWeb3RpcByChain'][0])
+    public function postWeb3RpcByChain($chain, $web3_rpc_in, string $contentType = self::contentTypes['postWeb3RpcByChain'][0])
     {
-        list($response) = $this->postWeb3RpcByChainWithHttpInfo($chain, $rpc_in, $contentType);
+        list($response) = $this->postWeb3RpcByChainWithHttpInfo($chain, $web3_rpc_in, $contentType);
         return $response;
     }
 
@@ -975,16 +1017,16 @@ class Web3Api
      * Forwards a JSON-RPC call to the named chain and returns its answer unchanged.
      *
      * @param  string $chain Chain is the registry id, from the URL. (required)
-     * @param  \Hanzo\Cloud\Model\RpcIn $rpc_in (required)
+     * @param  \Hanzo\Cloud\Model\Web3RpcIn $web3_rpc_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWeb3RpcByChain'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RpcOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Web3RpcOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postWeb3RpcByChainWithHttpInfo($chain, $rpc_in, string $contentType = self::contentTypes['postWeb3RpcByChain'][0])
+    public function postWeb3RpcByChainWithHttpInfo($chain, $web3_rpc_in, string $contentType = self::contentTypes['postWeb3RpcByChain'][0])
     {
-        $request = $this->postWeb3RpcByChainRequest($chain, $rpc_in, $contentType);
+        $request = $this->postWeb3RpcByChainRequest($chain, $web3_rpc_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1012,7 +1054,13 @@ class Web3Api
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RpcOut',
+                        '\Hanzo\Cloud\Model\Web3RpcOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1034,7 +1082,7 @@ class Web3Api
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RpcOut',
+                '\Hanzo\Cloud\Model\Web3RpcOut',
                 $request,
                 $response,
             );
@@ -1043,7 +1091,15 @@ class Web3Api
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RpcOut',
+                        '\Hanzo\Cloud\Model\Web3RpcOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1061,15 +1117,15 @@ class Web3Api
      * Forwards a JSON-RPC call to the named chain and returns its answer unchanged.
      *
      * @param  string $chain Chain is the registry id, from the URL. (required)
-     * @param  \Hanzo\Cloud\Model\RpcIn $rpc_in (required)
+     * @param  \Hanzo\Cloud\Model\Web3RpcIn $web3_rpc_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWeb3RpcByChain'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWeb3RpcByChainAsync($chain, $rpc_in, string $contentType = self::contentTypes['postWeb3RpcByChain'][0])
+    public function postWeb3RpcByChainAsync($chain, $web3_rpc_in, string $contentType = self::contentTypes['postWeb3RpcByChain'][0])
     {
-        return $this->postWeb3RpcByChainAsyncWithHttpInfo($chain, $rpc_in, $contentType)
+        return $this->postWeb3RpcByChainAsyncWithHttpInfo($chain, $web3_rpc_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1083,16 +1139,16 @@ class Web3Api
      * Forwards a JSON-RPC call to the named chain and returns its answer unchanged.
      *
      * @param  string $chain Chain is the registry id, from the URL. (required)
-     * @param  \Hanzo\Cloud\Model\RpcIn $rpc_in (required)
+     * @param  \Hanzo\Cloud\Model\Web3RpcIn $web3_rpc_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWeb3RpcByChain'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWeb3RpcByChainAsyncWithHttpInfo($chain, $rpc_in, string $contentType = self::contentTypes['postWeb3RpcByChain'][0])
+    public function postWeb3RpcByChainAsyncWithHttpInfo($chain, $web3_rpc_in, string $contentType = self::contentTypes['postWeb3RpcByChain'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RpcOut';
-        $request = $this->postWeb3RpcByChainRequest($chain, $rpc_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\Web3RpcOut';
+        $request = $this->postWeb3RpcByChainRequest($chain, $web3_rpc_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1134,13 +1190,13 @@ class Web3Api
      * Create request for operation 'postWeb3RpcByChain'
      *
      * @param  string $chain Chain is the registry id, from the URL. (required)
-     * @param  \Hanzo\Cloud\Model\RpcIn $rpc_in (required)
+     * @param  \Hanzo\Cloud\Model\Web3RpcIn $web3_rpc_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWeb3RpcByChain'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postWeb3RpcByChainRequest($chain, $rpc_in, string $contentType = self::contentTypes['postWeb3RpcByChain'][0])
+    public function postWeb3RpcByChainRequest($chain, $web3_rpc_in, string $contentType = self::contentTypes['postWeb3RpcByChain'][0])
     {
 
         // verify the required parameter 'chain' is set
@@ -1150,10 +1206,10 @@ class Web3Api
             );
         }
 
-        // verify the required parameter 'rpc_in' is set
-        if ($rpc_in === null || (is_array($rpc_in) && count($rpc_in) === 0)) {
+        // verify the required parameter 'web3_rpc_in' is set
+        if ($web3_rpc_in === null || (is_array($web3_rpc_in) && count($web3_rpc_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $rpc_in when calling postWeb3RpcByChain'
+                'Missing the required parameter $web3_rpc_in when calling postWeb3RpcByChain'
             );
         }
 
@@ -1178,18 +1234,18 @@ class Web3Api
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($rpc_in)) {
+        if (isset($web3_rpc_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($rpc_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($web3_rpc_in));
             } else {
-                $httpBody = $rpc_in;
+                $httpBody = $web3_rpc_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

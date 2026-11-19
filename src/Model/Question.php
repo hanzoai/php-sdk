@@ -337,7 +337,7 @@ class Question implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets account
      *
-     * @param string|null $account Account is the chart number the questioned entry posted to, where one applies.
+     * @param string|null $account account
      *
      * @return self
      */
@@ -364,7 +364,7 @@ class Question implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets amount
      *
-     * @param string|null $amount Amount is the figure that makes the question concrete, already FORMATTED for display with its currency symbol — a string, not cents, and not for arithmetic.
+     * @param string|null $amount amount
      *
      * @return self
      */
@@ -391,7 +391,7 @@ class Question implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id ID is the source transaction the question is about, so answering it leads straight back to the entry that raised it.
+     * @param string|null $id id
      *
      * @return self
      */
@@ -418,7 +418,7 @@ class Question implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets kind
      *
-     * @param string|null $kind Kind is what looked wrong: outlier (a charge far above the usual), reversal (a posting undone), roundoff (a balancing plug big enough to be worth explaining), uncosted (revenue booked with no cost matched to it), or overdrawn (a wallet spent past its balance).
+     * @param string|null $kind kind
      *
      * @return self
      */
@@ -445,7 +445,7 @@ class Question implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets posted_at
      *
-     * @param string|null $posted_at PostedAt anchors the question in time — when the entry it concerns posted.
+     * @param string|null $posted_at posted_at
      *
      * @return self
      */
@@ -472,7 +472,7 @@ class Question implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets text
      *
-     * @param string|null $text Text is the question itself, written for a founder to answer directly.
+     * @param string|null $text text
      *
      * @return self
      */

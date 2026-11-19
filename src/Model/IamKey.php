@@ -71,11 +71,15 @@ class IamKey implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'string',
         'organization' => 'string',
         'owner' => 'string',
+        'prefix' => 'string',
+        'revoke_time' => 'string',
+        'revoker' => 'string',
         'scope' => 'string',
         'state' => 'string',
         'type' => 'string',
         'updated_at' => '\DateTime',
         'updated_time' => 'string',
+        'used_time' => 'string',
         'user' => 'string'
     ];
 
@@ -101,11 +105,15 @@ class IamKey implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'organization' => null,
         'owner' => null,
+        'prefix' => null,
+        'revoke_time' => null,
+        'revoker' => null,
         'scope' => null,
         'state' => null,
         'type' => null,
         'updated_at' => 'date-time',
         'updated_time' => null,
+        'used_time' => null,
         'user' => null
     ];
 
@@ -129,11 +137,15 @@ class IamKey implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => false,
         'organization' => false,
         'owner' => false,
+        'prefix' => false,
+        'revoke_time' => false,
+        'revoker' => false,
         'scope' => false,
         'state' => false,
         'type' => false,
         'updated_at' => false,
         'updated_time' => false,
+        'used_time' => false,
         'user' => false
     ];
 
@@ -237,11 +249,15 @@ class IamKey implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'name',
         'organization' => 'organization',
         'owner' => 'owner',
+        'prefix' => 'prefix',
+        'revoke_time' => 'revokeTime',
+        'revoker' => 'revoker',
         'scope' => 'scope',
         'state' => 'state',
         'type' => 'type',
         'updated_at' => 'updatedAt',
         'updated_time' => 'updatedTime',
+        'used_time' => 'usedTime',
         'user' => 'user'
     ];
 
@@ -265,11 +281,15 @@ class IamKey implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'setName',
         'organization' => 'setOrganization',
         'owner' => 'setOwner',
+        'prefix' => 'setPrefix',
+        'revoke_time' => 'setRevokeTime',
+        'revoker' => 'setRevoker',
         'scope' => 'setScope',
         'state' => 'setState',
         'type' => 'setType',
         'updated_at' => 'setUpdatedAt',
         'updated_time' => 'setUpdatedTime',
+        'used_time' => 'setUsedTime',
         'user' => 'setUser'
     ];
 
@@ -293,11 +313,15 @@ class IamKey implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'getName',
         'organization' => 'getOrganization',
         'owner' => 'getOwner',
+        'prefix' => 'getPrefix',
+        'revoke_time' => 'getRevokeTime',
+        'revoker' => 'getRevoker',
         'scope' => 'getScope',
         'state' => 'getState',
         'type' => 'getType',
         'updated_at' => 'getUpdatedAt',
         'updated_time' => 'getUpdatedTime',
+        'used_time' => 'getUsedTime',
         'user' => 'getUser'
     ];
 
@@ -372,11 +396,15 @@ class IamKey implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('organization', $data ?? [], null);
         $this->setIfExists('owner', $data ?? [], null);
+        $this->setIfExists('prefix', $data ?? [], null);
+        $this->setIfExists('revoke_time', $data ?? [], null);
+        $this->setIfExists('revoker', $data ?? [], null);
         $this->setIfExists('scope', $data ?? [], null);
         $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('type', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
         $this->setIfExists('updated_time', $data ?? [], null);
+        $this->setIfExists('used_time', $data ?? [], null);
         $this->setIfExists('user', $data ?? [], null);
     }
 
@@ -705,7 +733,7 @@ class IamKey implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string|null $id Persisted fields
      *
      * @return self
      */
@@ -796,6 +824,87 @@ class IamKey implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable owner cannot be null');
         }
         $this->container['owner'] = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Gets prefix
+     *
+     * @return string|null
+     */
+    public function getPrefix()
+    {
+        return $this->container['prefix'];
+    }
+
+    /**
+     * Sets prefix
+     *
+     * @param string|null $prefix Prefix is the head of the credential the holder presents — the sk- of a secret key, the pk- of a publishable one — recorded when the key is minted (PrefixOf). It lets a listing say which string a row is, and is far too short to use: the secret itself is never stored.
+     *
+     * @return self
+     */
+    public function setPrefix($prefix)
+    {
+        if (is_null($prefix)) {
+            throw new \InvalidArgumentException('non-nullable prefix cannot be null');
+        }
+        $this->container['prefix'] = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * Gets revoke_time
+     *
+     * @return string|null
+     */
+    public function getRevokeTime()
+    {
+        return $this->container['revoke_time'];
+    }
+
+    /**
+     * Sets revoke_time
+     *
+     * @param string|null $revoke_time revoke_time
+     *
+     * @return self
+     */
+    public function setRevokeTime($revoke_time)
+    {
+        if (is_null($revoke_time)) {
+            throw new \InvalidArgumentException('non-nullable revoke_time cannot be null');
+        }
+        $this->container['revoke_time'] = $revoke_time;
+
+        return $this;
+    }
+
+    /**
+     * Gets revoker
+     *
+     * @return string|null
+     */
+    public function getRevoker()
+    {
+        return $this->container['revoker'];
+    }
+
+    /**
+     * Sets revoker
+     *
+     * @param string|null $revoker Revoker is who revoked the key and RevokeTime when. Revoking sets State to KeyStateRevoked and keeps the row, so the key is still listed and its history can be read; the resolvers refuse it, and no update reopens it.
+     *
+     * @return self
+     */
+    public function setRevoker($revoker)
+    {
+        if (is_null($revoker)) {
+            throw new \InvalidArgumentException('non-nullable revoker cannot be null');
+        }
+        $this->container['revoker'] = $revoker;
 
         return $this;
     }
@@ -931,6 +1040,33 @@ class IamKey implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable updated_time cannot be null');
         }
         $this->container['updated_time'] = $updated_time;
+
+        return $this;
+    }
+
+    /**
+     * Gets used_time
+     *
+     * @return string|null
+     */
+    public function getUsedTime()
+    {
+        return $this->container['used_time'];
+    }
+
+    /**
+     * Sets used_time
+     *
+     * @param string|null $used_time UsedTime is when the key was last presented and resolved. A list read fills it from the key's Sighting; the key row itself never holds it, so recording a use never rewrites the row a person may be editing.
+     *
+     * @return self
+     */
+    public function setUsedTime($used_time)
+    {
+        if (is_null($used_time)) {
+            throw new \InvalidArgumentException('non-nullable used_time cannot be null');
+        }
+        $this->container['used_time'] = $used_time;
 
         return $this;
     }

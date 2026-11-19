@@ -80,6 +80,9 @@ class ShareApi
         'postShareEnable' => [
             'application/json',
         ],
+        'postShareRotate' => [
+            'application/json',
+        ],
     ];
 
     /**
@@ -131,13 +134,13 @@ class ShareApi
     /**
      * Operation getShare
      *
-     * Returns the tunnel shares the caller&#39;s org currently has open, across every environment that org has enabled.
+     * Returns the tunnel shares the caller&#39;s account currently has open — their org&#39;s, or in a held org their own — across every environment it has enabled.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShare'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SharesOut
+     * @return \Hanzo\Cloud\Model\ShareSharesOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getShare(string $contentType = self::contentTypes['getShare'][0])
     {
@@ -148,13 +151,13 @@ class ShareApi
     /**
      * Operation getShareWithHttpInfo
      *
-     * Returns the tunnel shares the caller&#39;s org currently has open, across every environment that org has enabled.
+     * Returns the tunnel shares the caller&#39;s account currently has open — their org&#39;s, or in a held org their own — across every environment it has enabled.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShare'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SharesOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ShareSharesOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getShareWithHttpInfo(string $contentType = self::contentTypes['getShare'][0])
     {
@@ -186,7 +189,13 @@ class ShareApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SharesOut',
+                        '\Hanzo\Cloud\Model\ShareSharesOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -208,7 +217,7 @@ class ShareApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SharesOut',
+                '\Hanzo\Cloud\Model\ShareSharesOut',
                 $request,
                 $response,
             );
@@ -217,7 +226,15 @@ class ShareApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SharesOut',
+                        '\Hanzo\Cloud\Model\ShareSharesOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -232,7 +249,7 @@ class ShareApi
     /**
      * Operation getShareAsync
      *
-     * Returns the tunnel shares the caller&#39;s org currently has open, across every environment that org has enabled.
+     * Returns the tunnel shares the caller&#39;s account currently has open — their org&#39;s, or in a held org their own — across every environment it has enabled.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShare'] to see the possible values for this operation
      *
@@ -252,7 +269,7 @@ class ShareApi
     /**
      * Operation getShareAsyncWithHttpInfo
      *
-     * Returns the tunnel shares the caller&#39;s org currently has open, across every environment that org has enabled.
+     * Returns the tunnel shares the caller&#39;s account currently has open — their org&#39;s, or in a held org their own — across every environment it has enabled.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getShare'] to see the possible values for this operation
      *
@@ -261,7 +278,7 @@ class ShareApi
      */
     public function getShareAsyncWithHttpInfo(string $contentType = self::contentTypes['getShare'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SharesOut';
+        $returnType = '\Hanzo\Cloud\Model\ShareSharesOut';
         $request = $this->getShareRequest($contentType);
 
         return $this->client
@@ -324,7 +341,7 @@ class ShareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -383,13 +400,13 @@ class ShareApi
     /**
      * Operation postShareEnable
      *
-     * Enable provisions the caller org&#39;s tunnel account and returns the credential the &#x60;hanzo share&#x60; CLI needs to run a tunnel.
+     * Provisions the caller&#39;s tunnel account — their org&#39;s, or in a held org, where every self-serve signup lands, their own — and returns the credential the &#x60;hanzo share&#x60; CLI needs to run a tunnel.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postShareEnable'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EnableResp
+     * @return \Hanzo\Cloud\Model\ShareEnableResp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postShareEnable(string $contentType = self::contentTypes['postShareEnable'][0])
     {
@@ -400,13 +417,13 @@ class ShareApi
     /**
      * Operation postShareEnableWithHttpInfo
      *
-     * Enable provisions the caller org&#39;s tunnel account and returns the credential the &#x60;hanzo share&#x60; CLI needs to run a tunnel.
+     * Provisions the caller&#39;s tunnel account — their org&#39;s, or in a held org, where every self-serve signup lands, their own — and returns the credential the &#x60;hanzo share&#x60; CLI needs to run a tunnel.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postShareEnable'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EnableResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ShareEnableResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postShareEnableWithHttpInfo(string $contentType = self::contentTypes['postShareEnable'][0])
     {
@@ -438,7 +455,13 @@ class ShareApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EnableResp',
+                        '\Hanzo\Cloud\Model\ShareEnableResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -460,7 +483,7 @@ class ShareApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EnableResp',
+                '\Hanzo\Cloud\Model\ShareEnableResp',
                 $request,
                 $response,
             );
@@ -469,7 +492,15 @@ class ShareApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EnableResp',
+                        '\Hanzo\Cloud\Model\ShareEnableResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -484,7 +515,7 @@ class ShareApi
     /**
      * Operation postShareEnableAsync
      *
-     * Enable provisions the caller org&#39;s tunnel account and returns the credential the &#x60;hanzo share&#x60; CLI needs to run a tunnel.
+     * Provisions the caller&#39;s tunnel account — their org&#39;s, or in a held org, where every self-serve signup lands, their own — and returns the credential the &#x60;hanzo share&#x60; CLI needs to run a tunnel.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postShareEnable'] to see the possible values for this operation
      *
@@ -504,7 +535,7 @@ class ShareApi
     /**
      * Operation postShareEnableAsyncWithHttpInfo
      *
-     * Enable provisions the caller org&#39;s tunnel account and returns the credential the &#x60;hanzo share&#x60; CLI needs to run a tunnel.
+     * Provisions the caller&#39;s tunnel account — their org&#39;s, or in a held org, where every self-serve signup lands, their own — and returns the credential the &#x60;hanzo share&#x60; CLI needs to run a tunnel.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postShareEnable'] to see the possible values for this operation
      *
@@ -513,7 +544,7 @@ class ShareApi
      */
     public function postShareEnableAsyncWithHttpInfo(string $contentType = self::contentTypes['postShareEnable'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EnableResp';
+        $returnType = '\Hanzo\Cloud\Model\ShareEnableResp';
         $request = $this->postShareEnableRequest($contentType);
 
         return $this->client
@@ -576,7 +607,273 @@ class ShareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postShareRotate
+     *
+     * Replaces the credential of a tunnel account and ends every environment enabled with it, shares and all, so a credential handed out before — to a member who has left, or to anyone who read it — opens nothing from now on.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postShareRotate'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\ShareRotated|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postShareRotate(string $contentType = self::contentTypes['postShareRotate'][0])
+    {
+        list($response) = $this->postShareRotateWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postShareRotateWithHttpInfo
+     *
+     * Replaces the credential of a tunnel account and ends every environment enabled with it, shares and all, so a credential handed out before — to a member who has left, or to anyone who read it — opens nothing from now on.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postShareRotate'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\ShareRotated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postShareRotateWithHttpInfo(string $contentType = self::contentTypes['postShareRotate'][0])
+    {
+        $request = $this->postShareRotateRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ShareRotated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ShareRotated',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ShareRotated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postShareRotateAsync
+     *
+     * Replaces the credential of a tunnel account and ends every environment enabled with it, shares and all, so a credential handed out before — to a member who has left, or to anyone who read it — opens nothing from now on.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postShareRotate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postShareRotateAsync(string $contentType = self::contentTypes['postShareRotate'][0])
+    {
+        return $this->postShareRotateAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postShareRotateAsyncWithHttpInfo
+     *
+     * Replaces the credential of a tunnel account and ends every environment enabled with it, shares and all, so a credential handed out before — to a member who has left, or to anyone who read it — opens nothing from now on.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postShareRotate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postShareRotateAsyncWithHttpInfo(string $contentType = self::contentTypes['postShareRotate'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\ShareRotated';
+        $request = $this->postShareRotateRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postShareRotate'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postShareRotate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postShareRotateRequest(string $contentType = self::contentTypes['postShareRotate'][0])
+    {
+
+
+        $resourcePath = '/v1/share/rotate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

@@ -73,12 +73,12 @@ class BankTally implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'ingested' => 'int64',
-        'posted' => 'int64',
-        'questions' => 'int64',
-        'reconciled' => 'int64',
-        'skipped' => 'int64',
-        'transfers' => 'int64'
+        'ingested' => null,
+        'posted' => null,
+        'questions' => null,
+        'reconciled' => null,
+        'skipped' => null,
+        'transfers' => null
     ];
 
     /**
@@ -337,7 +337,7 @@ class BankTally implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets ingested
      *
-     * @param int|null $ingested transactions seen
+     * @param int|null $ingested ingested
      *
      * @return self
      */
@@ -364,7 +364,7 @@ class BankTally implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets posted
      *
-     * @param int|null $posted vouchers newly posted (outflow + reconciled)
+     * @param int|null $posted posted
      *
      * @return self
      */
@@ -391,7 +391,7 @@ class BankTally implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets questions
      *
-     * @param int|null $questions unmatched inflows that raised a question
+     * @param int|null $questions questions
      *
      * @return self
      */
@@ -418,7 +418,7 @@ class BankTally implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets reconciled
      *
-     * @param int|null $reconciled inflows cleared against Square-clearing
+     * @param int|null $reconciled reconciled
      *
      * @return self
      */
@@ -445,7 +445,7 @@ class BankTally implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets skipped
      *
-     * @param int|null $skipped already-processed idempotent no-ops
+     * @param int|null $skipped skipped
      *
      * @return self
      */
@@ -472,7 +472,7 @@ class BankTally implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets transfers
      *
-     * @param int|null $transfers own-account moves recorded (no P&L)
+     * @param int|null $transfers transfers
      *
      * @return self
      */

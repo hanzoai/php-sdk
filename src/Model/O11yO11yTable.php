@@ -58,7 +58,7 @@ class O11yO11yTable implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'columns' => 'string[]',
-        'rows' => 'object[][]'
+        'rows' => 'mixed[][]'
     ];
 
     /**
@@ -326,7 +326,7 @@ class O11yO11yTable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets rows
      *
-     * @return object[][]|null
+     * @return mixed[][]|null
      */
     public function getRows()
     {
@@ -336,7 +336,7 @@ class O11yO11yTable implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets rows
      *
-     * @param object[][]|null $rows Rows are the result rows, each as long as Columns.
+     * @param mixed[][]|null $rows Rows are the result rows, each as long as Columns.
      *
      * @return self
      */

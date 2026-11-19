@@ -148,16 +148,16 @@ class DatasetApi
      *
      * Declare the next version of a dataset
      *
-     * @param  \Hanzo\Cloud\Model\RiskDatasetSpec $risk_dataset_spec risk_dataset_spec (required)
+     * @param  \Hanzo\Cloud\Model\DatasetRiskDatasetSpec $dataset_risk_dataset_spec dataset_risk_dataset_spec (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskCreateDataset'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskDataset
+     * @return \Hanzo\Cloud\Model\DatasetRiskDataset|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskCreateDataset($risk_dataset_spec, string $contentType = self::contentTypes['riskCreateDataset'][0])
+    public function riskCreateDataset($dataset_risk_dataset_spec, string $contentType = self::contentTypes['riskCreateDataset'][0])
     {
-        list($response) = $this->riskCreateDatasetWithHttpInfo($risk_dataset_spec, $contentType);
+        list($response) = $this->riskCreateDatasetWithHttpInfo($dataset_risk_dataset_spec, $contentType);
         return $response;
     }
 
@@ -166,16 +166,16 @@ class DatasetApi
      *
      * Declare the next version of a dataset
      *
-     * @param  \Hanzo\Cloud\Model\RiskDatasetSpec $risk_dataset_spec (required)
+     * @param  \Hanzo\Cloud\Model\DatasetRiskDatasetSpec $dataset_risk_dataset_spec (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskCreateDataset'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskDataset, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DatasetRiskDataset|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskCreateDatasetWithHttpInfo($risk_dataset_spec, string $contentType = self::contentTypes['riskCreateDataset'][0])
+    public function riskCreateDatasetWithHttpInfo($dataset_risk_dataset_spec, string $contentType = self::contentTypes['riskCreateDataset'][0])
     {
-        $request = $this->riskCreateDatasetRequest($risk_dataset_spec, $contentType);
+        $request = $this->riskCreateDatasetRequest($dataset_risk_dataset_spec, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -203,7 +203,13 @@ class DatasetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskDataset',
+                        '\Hanzo\Cloud\Model\DatasetRiskDataset',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -225,7 +231,7 @@ class DatasetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskDataset',
+                '\Hanzo\Cloud\Model\DatasetRiskDataset',
                 $request,
                 $response,
             );
@@ -234,7 +240,15 @@ class DatasetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskDataset',
+                        '\Hanzo\Cloud\Model\DatasetRiskDataset',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -251,15 +265,15 @@ class DatasetApi
      *
      * Declare the next version of a dataset
      *
-     * @param  \Hanzo\Cloud\Model\RiskDatasetSpec $risk_dataset_spec (required)
+     * @param  \Hanzo\Cloud\Model\DatasetRiskDatasetSpec $dataset_risk_dataset_spec (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskCreateDataset'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskCreateDatasetAsync($risk_dataset_spec, string $contentType = self::contentTypes['riskCreateDataset'][0])
+    public function riskCreateDatasetAsync($dataset_risk_dataset_spec, string $contentType = self::contentTypes['riskCreateDataset'][0])
     {
-        return $this->riskCreateDatasetAsyncWithHttpInfo($risk_dataset_spec, $contentType)
+        return $this->riskCreateDatasetAsyncWithHttpInfo($dataset_risk_dataset_spec, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -272,16 +286,16 @@ class DatasetApi
      *
      * Declare the next version of a dataset
      *
-     * @param  \Hanzo\Cloud\Model\RiskDatasetSpec $risk_dataset_spec (required)
+     * @param  \Hanzo\Cloud\Model\DatasetRiskDatasetSpec $dataset_risk_dataset_spec (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskCreateDataset'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskCreateDatasetAsyncWithHttpInfo($risk_dataset_spec, string $contentType = self::contentTypes['riskCreateDataset'][0])
+    public function riskCreateDatasetAsyncWithHttpInfo($dataset_risk_dataset_spec, string $contentType = self::contentTypes['riskCreateDataset'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskDataset';
-        $request = $this->riskCreateDatasetRequest($risk_dataset_spec, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DatasetRiskDataset';
+        $request = $this->riskCreateDatasetRequest($dataset_risk_dataset_spec, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -322,19 +336,19 @@ class DatasetApi
     /**
      * Create request for operation 'riskCreateDataset'
      *
-     * @param  \Hanzo\Cloud\Model\RiskDatasetSpec $risk_dataset_spec (required)
+     * @param  \Hanzo\Cloud\Model\DatasetRiskDatasetSpec $dataset_risk_dataset_spec (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskCreateDataset'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskCreateDatasetRequest($risk_dataset_spec, string $contentType = self::contentTypes['riskCreateDataset'][0])
+    public function riskCreateDatasetRequest($dataset_risk_dataset_spec, string $contentType = self::contentTypes['riskCreateDataset'][0])
     {
 
-        // verify the required parameter 'risk_dataset_spec' is set
-        if ($risk_dataset_spec === null || (is_array($risk_dataset_spec) && count($risk_dataset_spec) === 0)) {
+        // verify the required parameter 'dataset_risk_dataset_spec' is set
+        if ($dataset_risk_dataset_spec === null || (is_array($dataset_risk_dataset_spec) && count($dataset_risk_dataset_spec) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $risk_dataset_spec when calling riskCreateDataset'
+                'Missing the required parameter $dataset_risk_dataset_spec when calling riskCreateDataset'
             );
         }
 
@@ -351,18 +365,18 @@ class DatasetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($risk_dataset_spec)) {
+        if (isset($dataset_risk_dataset_spec)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_dataset_spec));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataset_risk_dataset_spec));
             } else {
-                $httpBody = $risk_dataset_spec;
+                $httpBody = $dataset_risk_dataset_spec;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -424,7 +438,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskDatasetVersions
+     * @return \Hanzo\Cloud\Model\DatasetRiskDatasetVersions|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskDataset($name, string $contentType = self::contentTypes['riskDataset'][0])
     {
@@ -442,7 +456,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskDatasetVersions, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DatasetRiskDatasetVersions|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskDatasetWithHttpInfo($name, string $contentType = self::contentTypes['riskDataset'][0])
     {
@@ -474,7 +488,13 @@ class DatasetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskDatasetVersions',
+                        '\Hanzo\Cloud\Model\DatasetRiskDatasetVersions',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -496,7 +516,7 @@ class DatasetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskDatasetVersions',
+                '\Hanzo\Cloud\Model\DatasetRiskDatasetVersions',
                 $request,
                 $response,
             );
@@ -505,7 +525,15 @@ class DatasetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskDatasetVersions',
+                        '\Hanzo\Cloud\Model\DatasetRiskDatasetVersions',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -551,7 +579,7 @@ class DatasetApi
      */
     public function riskDatasetAsyncWithHttpInfo($name, string $contentType = self::contentTypes['riskDataset'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskDatasetVersions';
+        $returnType = '\Hanzo\Cloud\Model\DatasetRiskDatasetVersions';
         $request = $this->riskDatasetRequest($name, $contentType);
 
         return $this->client
@@ -630,7 +658,7 @@ class DatasetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -697,7 +725,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskLineage
+     * @return \Hanzo\Cloud\Model\DatasetRiskLineage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskDatasetLineage($name, $version = null, string $contentType = self::contentTypes['riskDatasetLineage'][0])
     {
@@ -716,7 +744,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskLineage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DatasetRiskLineage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskDatasetLineageWithHttpInfo($name, $version = null, string $contentType = self::contentTypes['riskDatasetLineage'][0])
     {
@@ -748,7 +776,13 @@ class DatasetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskLineage',
+                        '\Hanzo\Cloud\Model\DatasetRiskLineage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -770,7 +804,7 @@ class DatasetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskLineage',
+                '\Hanzo\Cloud\Model\DatasetRiskLineage',
                 $request,
                 $response,
             );
@@ -779,7 +813,15 @@ class DatasetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskLineage',
+                        '\Hanzo\Cloud\Model\DatasetRiskLineage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -827,7 +869,7 @@ class DatasetApi
      */
     public function riskDatasetLineageAsyncWithHttpInfo($name, $version = null, string $contentType = self::contentTypes['riskDatasetLineage'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskLineage';
+        $returnType = '\Hanzo\Cloud\Model\DatasetRiskLineage';
         $request = $this->riskDatasetLineageRequest($name, $version, $contentType);
 
         return $this->client
@@ -917,7 +959,7 @@ class DatasetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -982,7 +1024,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskDatasetList
+     * @return \Hanzo\Cloud\Model\DatasetRiskDatasetList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskDatasets(string $contentType = self::contentTypes['riskDatasets'][0])
     {
@@ -999,7 +1041,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskDatasetList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DatasetRiskDatasetList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskDatasetsWithHttpInfo(string $contentType = self::contentTypes['riskDatasets'][0])
     {
@@ -1031,7 +1073,13 @@ class DatasetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskDatasetList',
+                        '\Hanzo\Cloud\Model\DatasetRiskDatasetList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1053,7 +1101,7 @@ class DatasetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskDatasetList',
+                '\Hanzo\Cloud\Model\DatasetRiskDatasetList',
                 $request,
                 $response,
             );
@@ -1062,7 +1110,15 @@ class DatasetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskDatasetList',
+                        '\Hanzo\Cloud\Model\DatasetRiskDatasetList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1106,7 +1162,7 @@ class DatasetApi
      */
     public function riskDatasetsAsyncWithHttpInfo(string $contentType = self::contentTypes['riskDatasets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskDatasetList';
+        $returnType = '\Hanzo\Cloud\Model\DatasetRiskDatasetList';
         $request = $this->riskDatasetsRequest($contentType);
 
         return $this->client
@@ -1169,7 +1225,7 @@ class DatasetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1235,7 +1291,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskDatasetDisposal
+     * @return \Hanzo\Cloud\Model\DatasetRiskDatasetDisposal|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskDeleteDataset($name, string $contentType = self::contentTypes['riskDeleteDataset'][0])
     {
@@ -1253,7 +1309,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskDatasetDisposal, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DatasetRiskDatasetDisposal|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskDeleteDatasetWithHttpInfo($name, string $contentType = self::contentTypes['riskDeleteDataset'][0])
     {
@@ -1285,7 +1341,13 @@ class DatasetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskDatasetDisposal',
+                        '\Hanzo\Cloud\Model\DatasetRiskDatasetDisposal',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1307,7 +1369,7 @@ class DatasetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskDatasetDisposal',
+                '\Hanzo\Cloud\Model\DatasetRiskDatasetDisposal',
                 $request,
                 $response,
             );
@@ -1316,7 +1378,15 @@ class DatasetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskDatasetDisposal',
+                        '\Hanzo\Cloud\Model\DatasetRiskDatasetDisposal',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1362,7 +1432,7 @@ class DatasetApi
      */
     public function riskDeleteDatasetAsyncWithHttpInfo($name, string $contentType = self::contentTypes['riskDeleteDataset'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskDatasetDisposal';
+        $returnType = '\Hanzo\Cloud\Model\DatasetRiskDatasetDisposal';
         $request = $this->riskDeleteDatasetRequest($name, $contentType);
 
         return $this->client
@@ -1441,7 +1511,7 @@ class DatasetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1511,7 +1581,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskDatasetRows
+     * @return \Hanzo\Cloud\Model\DatasetRiskDatasetRows|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskExportDataset($name, $version = null, $split = null, $offset = null, $limit = null, string $contentType = self::contentTypes['riskExportDataset'][0])
     {
@@ -1533,7 +1603,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskDatasetRows, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DatasetRiskDatasetRows|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskExportDatasetWithHttpInfo($name, $version = null, $split = null, $offset = null, $limit = null, string $contentType = self::contentTypes['riskExportDataset'][0])
     {
@@ -1565,7 +1635,13 @@ class DatasetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskDatasetRows',
+                        '\Hanzo\Cloud\Model\DatasetRiskDatasetRows',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1587,7 +1663,7 @@ class DatasetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskDatasetRows',
+                '\Hanzo\Cloud\Model\DatasetRiskDatasetRows',
                 $request,
                 $response,
             );
@@ -1596,7 +1672,15 @@ class DatasetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskDatasetRows',
+                        '\Hanzo\Cloud\Model\DatasetRiskDatasetRows',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1650,7 +1734,7 @@ class DatasetApi
      */
     public function riskExportDatasetAsyncWithHttpInfo($name, $version = null, $split = null, $offset = null, $limit = null, string $contentType = self::contentTypes['riskExportDataset'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskDatasetRows';
+        $returnType = '\Hanzo\Cloud\Model\DatasetRiskDatasetRows';
         $request = $this->riskExportDatasetRequest($name, $version, $split, $offset, $limit, $contentType);
 
         return $this->client
@@ -1773,7 +1857,7 @@ class DatasetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1839,7 +1923,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskDataset
+     * @return \Hanzo\Cloud\Model\DatasetRiskDataset|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskMaterializeDataset($name, string $contentType = self::contentTypes['riskMaterializeDataset'][0])
     {
@@ -1857,7 +1941,7 @@ class DatasetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskDataset, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DatasetRiskDataset|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskMaterializeDatasetWithHttpInfo($name, string $contentType = self::contentTypes['riskMaterializeDataset'][0])
     {
@@ -1889,7 +1973,13 @@ class DatasetApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskDataset',
+                        '\Hanzo\Cloud\Model\DatasetRiskDataset',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1911,7 +2001,7 @@ class DatasetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskDataset',
+                '\Hanzo\Cloud\Model\DatasetRiskDataset',
                 $request,
                 $response,
             );
@@ -1920,7 +2010,15 @@ class DatasetApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskDataset',
+                        '\Hanzo\Cloud\Model\DatasetRiskDataset',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1966,7 +2064,7 @@ class DatasetApi
      */
     public function riskMaterializeDatasetAsyncWithHttpInfo($name, string $contentType = self::contentTypes['riskMaterializeDataset'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskDataset';
+        $returnType = '\Hanzo\Cloud\Model\DatasetRiskDataset';
         $request = $this->riskMaterializeDatasetRequest($name, $contentType);
 
         return $this->client
@@ -2045,7 +2143,7 @@ class DatasetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

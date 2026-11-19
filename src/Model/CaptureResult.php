@@ -58,7 +58,8 @@ class CaptureResult implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'accepted' => 'int',
-        'dropped' => 'int'
+        'dropped' => 'int',
+        'withheld' => 'int'
     ];
 
     /**
@@ -70,7 +71,8 @@ class CaptureResult implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'accepted' => null,
-        'dropped' => null
+        'dropped' => null,
+        'withheld' => null
     ];
 
     /**
@@ -80,7 +82,8 @@ class CaptureResult implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'accepted' => false,
-        'dropped' => false
+        'dropped' => false,
+        'withheld' => false
     ];
 
     /**
@@ -170,7 +173,8 @@ class CaptureResult implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'accepted' => 'accepted',
-        'dropped' => 'dropped'
+        'dropped' => 'dropped',
+        'withheld' => 'withheld'
     ];
 
     /**
@@ -180,7 +184,8 @@ class CaptureResult implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'accepted' => 'setAccepted',
-        'dropped' => 'setDropped'
+        'dropped' => 'setDropped',
+        'withheld' => 'setWithheld'
     ];
 
     /**
@@ -190,7 +195,8 @@ class CaptureResult implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'accepted' => 'getAccepted',
-        'dropped' => 'getDropped'
+        'dropped' => 'getDropped',
+        'withheld' => 'getWithheld'
     ];
 
     /**
@@ -252,6 +258,7 @@ class CaptureResult implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('accepted', $data ?? [], null);
         $this->setIfExists('dropped', $data ?? [], null);
+        $this->setIfExists('withheld', $data ?? [], null);
     }
 
     /**
@@ -346,6 +353,33 @@ class CaptureResult implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable dropped cannot be null');
         }
         $this->container['dropped'] = $dropped;
+
+        return $this;
+    }
+
+    /**
+     * Gets withheld
+     *
+     * @return int|null
+     */
+    public function getWithheld()
+    {
+        return $this->container['withheld'];
+    }
+
+    /**
+     * Sets withheld
+     *
+     * @param int|null $withheld withheld
+     *
+     * @return self
+     */
+    public function setWithheld($withheld)
+    {
+        if (is_null($withheld)) {
+            throw new \InvalidArgumentException('non-nullable withheld cannot be null');
+        }
+        $this->container['withheld'] = $withheld;
 
         return $this;
     }

@@ -80,9 +80,6 @@ class ExecApi
         'postExec' => [
             'application/json',
         ],
-        'postExecProgrammatic' => [
-            'application/json',
-        ],
         'postExecUpload' => [
             'application/json',
         ],
@@ -144,7 +141,7 @@ class ExecApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Listing[]
+     * @return \Hanzo\Cloud\Model\ExecListing[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getExecFilesBySid($sid, string $contentType = self::contentTypes['getExecFilesBySid'][0])
     {
@@ -162,7 +159,7 @@ class ExecApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Listing[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ExecListing[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getExecFilesBySidWithHttpInfo($sid, string $contentType = self::contentTypes['getExecFilesBySid'][0])
     {
@@ -194,7 +191,13 @@ class ExecApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Listing[]',
+                        '\Hanzo\Cloud\Model\ExecListing[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -216,7 +219,7 @@ class ExecApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Listing[]',
+                '\Hanzo\Cloud\Model\ExecListing[]',
                 $request,
                 $response,
             );
@@ -225,7 +228,15 @@ class ExecApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Listing[]',
+                        '\Hanzo\Cloud\Model\ExecListing[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -271,7 +282,7 @@ class ExecApi
      */
     public function getExecFilesBySidAsyncWithHttpInfo($sid, string $contentType = self::contentTypes['getExecFilesBySid'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Listing[]';
+        $returnType = '\Hanzo\Cloud\Model\ExecListing[]';
         $request = $this->getExecFilesBySidRequest($sid, $contentType);
 
         return $this->client
@@ -350,7 +361,7 @@ class ExecApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -411,16 +422,16 @@ class ExecApi
      *
      * Run a code snippet in a sandboxed interpreter
      *
-     * @param  \Hanzo\Cloud\Model\CodeRun $code_run code_run (required)
+     * @param  \Hanzo\Cloud\Model\ExecCodeRun $exec_code_run exec_code_run (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExec'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CodeResult
+     * @return \Hanzo\Cloud\Model\ExecCodeResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postExec($code_run, string $contentType = self::contentTypes['postExec'][0])
+    public function postExec($exec_code_run, string $contentType = self::contentTypes['postExec'][0])
     {
-        list($response) = $this->postExecWithHttpInfo($code_run, $contentType);
+        list($response) = $this->postExecWithHttpInfo($exec_code_run, $contentType);
         return $response;
     }
 
@@ -429,16 +440,16 @@ class ExecApi
      *
      * Run a code snippet in a sandboxed interpreter
      *
-     * @param  \Hanzo\Cloud\Model\CodeRun $code_run (required)
+     * @param  \Hanzo\Cloud\Model\ExecCodeRun $exec_code_run (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExec'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CodeResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ExecCodeResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postExecWithHttpInfo($code_run, string $contentType = self::contentTypes['postExec'][0])
+    public function postExecWithHttpInfo($exec_code_run, string $contentType = self::contentTypes['postExec'][0])
     {
-        $request = $this->postExecRequest($code_run, $contentType);
+        $request = $this->postExecRequest($exec_code_run, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -466,7 +477,13 @@ class ExecApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CodeResult',
+                        '\Hanzo\Cloud\Model\ExecCodeResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -488,7 +505,7 @@ class ExecApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CodeResult',
+                '\Hanzo\Cloud\Model\ExecCodeResult',
                 $request,
                 $response,
             );
@@ -497,7 +514,15 @@ class ExecApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CodeResult',
+                        '\Hanzo\Cloud\Model\ExecCodeResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -514,15 +539,15 @@ class ExecApi
      *
      * Run a code snippet in a sandboxed interpreter
      *
-     * @param  \Hanzo\Cloud\Model\CodeRun $code_run (required)
+     * @param  \Hanzo\Cloud\Model\ExecCodeRun $exec_code_run (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExec'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postExecAsync($code_run, string $contentType = self::contentTypes['postExec'][0])
+    public function postExecAsync($exec_code_run, string $contentType = self::contentTypes['postExec'][0])
     {
-        return $this->postExecAsyncWithHttpInfo($code_run, $contentType)
+        return $this->postExecAsyncWithHttpInfo($exec_code_run, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -535,16 +560,16 @@ class ExecApi
      *
      * Run a code snippet in a sandboxed interpreter
      *
-     * @param  \Hanzo\Cloud\Model\CodeRun $code_run (required)
+     * @param  \Hanzo\Cloud\Model\ExecCodeRun $exec_code_run (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExec'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postExecAsyncWithHttpInfo($code_run, string $contentType = self::contentTypes['postExec'][0])
+    public function postExecAsyncWithHttpInfo($exec_code_run, string $contentType = self::contentTypes['postExec'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CodeResult';
-        $request = $this->postExecRequest($code_run, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ExecCodeResult';
+        $request = $this->postExecRequest($exec_code_run, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -585,19 +610,19 @@ class ExecApi
     /**
      * Create request for operation 'postExec'
      *
-     * @param  \Hanzo\Cloud\Model\CodeRun $code_run (required)
+     * @param  \Hanzo\Cloud\Model\ExecCodeRun $exec_code_run (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExec'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postExecRequest($code_run, string $contentType = self::contentTypes['postExec'][0])
+    public function postExecRequest($exec_code_run, string $contentType = self::contentTypes['postExec'][0])
     {
 
-        // verify the required parameter 'code_run' is set
-        if ($code_run === null || (is_array($code_run) && count($code_run) === 0)) {
+        // verify the required parameter 'exec_code_run' is set
+        if ($exec_code_run === null || (is_array($exec_code_run) && count($exec_code_run) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $code_run when calling postExec'
+                'Missing the required parameter $exec_code_run when calling postExec'
             );
         }
 
@@ -614,222 +639,20 @@ class ExecApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($code_run)) {
+        if (isset($exec_code_run)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($code_run));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($exec_code_run));
             } else {
-                $httpBody = $code_run;
+                $httpBody = $exec_code_run;
             }
         } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postExecProgrammatic
-     *
-     * Answers 501 — this deployment does not serve programmatic tool calling.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExecProgrammatic'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postExecProgrammatic(string $contentType = self::contentTypes['postExecProgrammatic'][0])
-    {
-        $this->postExecProgrammaticWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postExecProgrammaticWithHttpInfo
-     *
-     * Answers 501 — this deployment does not serve programmatic tool calling.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExecProgrammatic'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postExecProgrammaticWithHttpInfo(string $contentType = self::contentTypes['postExecProgrammatic'][0])
-    {
-        $request = $this->postExecProgrammaticRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postExecProgrammaticAsync
-     *
-     * Answers 501 — this deployment does not serve programmatic tool calling.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExecProgrammatic'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postExecProgrammaticAsync(string $contentType = self::contentTypes['postExecProgrammatic'][0])
-    {
-        return $this->postExecProgrammaticAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postExecProgrammaticAsyncWithHttpInfo
-     *
-     * Answers 501 — this deployment does not serve programmatic tool calling.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExecProgrammatic'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postExecProgrammaticAsyncWithHttpInfo(string $contentType = self::contentTypes['postExecProgrammatic'][0])
-    {
-        $returnType = '';
-        $request = $this->postExecProgrammaticRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postExecProgrammatic'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExecProgrammatic'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postExecProgrammaticRequest(string $contentType = self::contentTypes['postExecProgrammatic'][0])
-    {
-
-
-        $resourcePath = '/v1/exec/programmatic';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {

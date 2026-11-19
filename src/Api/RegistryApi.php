@@ -143,13 +143,13 @@ class RegistryApi
     /**
      * Operation getRegistryImages
      *
-     * Images lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
+     * Lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryImages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RegistryImageList
+     * @return \Hanzo\Cloud\Model\RegistryRegistryImageList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getRegistryImages(string $contentType = self::contentTypes['getRegistryImages'][0])
     {
@@ -160,13 +160,13 @@ class RegistryApi
     /**
      * Operation getRegistryImagesWithHttpInfo
      *
-     * Images lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
+     * Lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryImages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RegistryImageList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RegistryRegistryImageList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getRegistryImagesWithHttpInfo(string $contentType = self::contentTypes['getRegistryImages'][0])
     {
@@ -198,7 +198,13 @@ class RegistryApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RegistryImageList',
+                        '\Hanzo\Cloud\Model\RegistryRegistryImageList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -220,7 +226,7 @@ class RegistryApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RegistryImageList',
+                '\Hanzo\Cloud\Model\RegistryRegistryImageList',
                 $request,
                 $response,
             );
@@ -229,7 +235,15 @@ class RegistryApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RegistryImageList',
+                        '\Hanzo\Cloud\Model\RegistryRegistryImageList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -244,7 +258,7 @@ class RegistryApi
     /**
      * Operation getRegistryImagesAsync
      *
-     * Images lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
+     * Lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryImages'] to see the possible values for this operation
      *
@@ -264,7 +278,7 @@ class RegistryApi
     /**
      * Operation getRegistryImagesAsyncWithHttpInfo
      *
-     * Images lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
+     * Lists the org&#39;s container repositories, read live from the OCI catalog and filtered server-side to the org&#39;s namespace — the page can only ever hold the caller&#39;s own images.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryImages'] to see the possible values for this operation
      *
@@ -273,7 +287,7 @@ class RegistryApi
      */
     public function getRegistryImagesAsyncWithHttpInfo(string $contentType = self::contentTypes['getRegistryImages'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RegistryImageList';
+        $returnType = '\Hanzo\Cloud\Model\RegistryRegistryImageList';
         $request = $this->getRegistryImagesRequest($contentType);
 
         return $this->client
@@ -336,7 +350,7 @@ class RegistryApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -395,14 +409,14 @@ class RegistryApi
     /**
      * Operation getRegistryPackages
      *
-     * Packages lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
+     * Lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
      *
      * @param  string|null $query Query narrows the listing within the org&#39;s scope when present; the org boundary itself is never widened by it. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryPackages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RegistryPackageList
+     * @return \Hanzo\Cloud\Model\RegistryRegistryPackageList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getRegistryPackages($query = null, string $contentType = self::contentTypes['getRegistryPackages'][0])
     {
@@ -413,14 +427,14 @@ class RegistryApi
     /**
      * Operation getRegistryPackagesWithHttpInfo
      *
-     * Packages lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
+     * Lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
      *
      * @param  string|null $query Query narrows the listing within the org&#39;s scope when present; the org boundary itself is never widened by it. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryPackages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RegistryPackageList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RegistryRegistryPackageList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getRegistryPackagesWithHttpInfo($query = null, string $contentType = self::contentTypes['getRegistryPackages'][0])
     {
@@ -452,7 +466,13 @@ class RegistryApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RegistryPackageList',
+                        '\Hanzo\Cloud\Model\RegistryRegistryPackageList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -474,7 +494,7 @@ class RegistryApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RegistryPackageList',
+                '\Hanzo\Cloud\Model\RegistryRegistryPackageList',
                 $request,
                 $response,
             );
@@ -483,7 +503,15 @@ class RegistryApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RegistryPackageList',
+                        '\Hanzo\Cloud\Model\RegistryRegistryPackageList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -498,7 +526,7 @@ class RegistryApi
     /**
      * Operation getRegistryPackagesAsync
      *
-     * Packages lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
+     * Lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
      *
      * @param  string|null $query Query narrows the listing within the org&#39;s scope when present; the org boundary itself is never widened by it. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryPackages'] to see the possible values for this operation
@@ -519,7 +547,7 @@ class RegistryApi
     /**
      * Operation getRegistryPackagesAsyncWithHttpInfo
      *
-     * Packages lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
+     * Lists the org&#39;s npm packages — &#x60;&lt;org&gt;&#x60; and &#x60;@&lt;org&gt;/…&#x60; — from the npm registry&#39;s search index, optionally narrowed by a query within that scope.
      *
      * @param  string|null $query Query narrows the listing within the org&#39;s scope when present; the org boundary itself is never widened by it. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryPackages'] to see the possible values for this operation
@@ -529,7 +557,7 @@ class RegistryApi
      */
     public function getRegistryPackagesAsyncWithHttpInfo($query = null, string $contentType = self::contentTypes['getRegistryPackages'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RegistryPackageList';
+        $returnType = '\Hanzo\Cloud\Model\RegistryRegistryPackageList';
         $request = $this->getRegistryPackagesRequest($query, $contentType);
 
         return $this->client
@@ -603,7 +631,7 @@ class RegistryApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -662,13 +690,13 @@ class RegistryApi
     /**
      * Operation getRegistryProjects
      *
-     * Projects lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
+     * Lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryProjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RegistryProjectList
+     * @return \Hanzo\Cloud\Model\RegistryRegistryProjectList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getRegistryProjects(string $contentType = self::contentTypes['getRegistryProjects'][0])
     {
@@ -679,13 +707,13 @@ class RegistryApi
     /**
      * Operation getRegistryProjectsWithHttpInfo
      *
-     * Projects lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
+     * Lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryProjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RegistryProjectList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RegistryRegistryProjectList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getRegistryProjectsWithHttpInfo(string $contentType = self::contentTypes['getRegistryProjects'][0])
     {
@@ -717,7 +745,13 @@ class RegistryApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RegistryProjectList',
+                        '\Hanzo\Cloud\Model\RegistryRegistryProjectList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -739,7 +773,7 @@ class RegistryApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RegistryProjectList',
+                '\Hanzo\Cloud\Model\RegistryRegistryProjectList',
                 $request,
                 $response,
             );
@@ -748,7 +782,15 @@ class RegistryApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RegistryProjectList',
+                        '\Hanzo\Cloud\Model\RegistryRegistryProjectList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -763,7 +805,7 @@ class RegistryApi
     /**
      * Operation getRegistryProjectsAsync
      *
-     * Projects lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
+     * Lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryProjects'] to see the possible values for this operation
      *
@@ -783,7 +825,7 @@ class RegistryApi
     /**
      * Operation getRegistryProjectsAsyncWithHttpInfo
      *
-     * Projects lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
+     * Lists the namespaces the caller can see with what each holds: the org&#39;s slug, its repository count on the OCI catalog, and its package count on the npm registry.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryProjects'] to see the possible values for this operation
      *
@@ -792,7 +834,7 @@ class RegistryApi
      */
     public function getRegistryProjectsAsyncWithHttpInfo(string $contentType = self::contentTypes['getRegistryProjects'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RegistryProjectList';
+        $returnType = '\Hanzo\Cloud\Model\RegistryRegistryProjectList';
         $request = $this->getRegistryProjectsRequest($contentType);
 
         return $this->client
@@ -855,7 +897,7 @@ class RegistryApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -914,13 +956,13 @@ class RegistryApi
     /**
      * Operation getRegistryStatus
      *
-     * Status reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
+     * Reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryStatus'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RegistryStatus
+     * @return \Hanzo\Cloud\Model\RegistryRegistryStatus|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getRegistryStatus(string $contentType = self::contentTypes['getRegistryStatus'][0])
     {
@@ -931,13 +973,13 @@ class RegistryApi
     /**
      * Operation getRegistryStatusWithHttpInfo
      *
-     * Status reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
+     * Reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryStatus'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RegistryStatus, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RegistryRegistryStatus|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getRegistryStatusWithHttpInfo(string $contentType = self::contentTypes['getRegistryStatus'][0])
     {
@@ -969,7 +1011,13 @@ class RegistryApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RegistryStatus',
+                        '\Hanzo\Cloud\Model\RegistryRegistryStatus',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -991,7 +1039,7 @@ class RegistryApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RegistryStatus',
+                '\Hanzo\Cloud\Model\RegistryRegistryStatus',
                 $request,
                 $response,
             );
@@ -1000,7 +1048,15 @@ class RegistryApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RegistryStatus',
+                        '\Hanzo\Cloud\Model\RegistryRegistryStatus',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1015,7 +1071,7 @@ class RegistryApi
     /**
      * Operation getRegistryStatusAsync
      *
-     * Status reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
+     * Reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryStatus'] to see the possible values for this operation
      *
@@ -1035,7 +1091,7 @@ class RegistryApi
     /**
      * Operation getRegistryStatusAsyncWithHttpInfo
      *
-     * Status reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
+     * Reports whether the OCI and npm registries are reachable and, when the OCI half is auth-gated, which token realm its challenge advertises — an honest lens for \&quot;is the registry plane up\&quot;, never a fabricated ok.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryStatus'] to see the possible values for this operation
      *
@@ -1044,7 +1100,7 @@ class RegistryApi
      */
     public function getRegistryStatusAsyncWithHttpInfo(string $contentType = self::contentTypes['getRegistryStatus'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RegistryStatus';
+        $returnType = '\Hanzo\Cloud\Model\RegistryRegistryStatus';
         $request = $this->getRegistryStatusRequest($contentType);
 
         return $this->client
@@ -1107,7 +1163,7 @@ class RegistryApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1166,14 +1222,14 @@ class RegistryApi
     /**
      * Operation getRegistryTags
      *
-     * Tags lists one org-owned repository&#39;s tags, read live from the OCI registry.
+     * Lists one org-owned repository&#39;s tags, read live from the OCI registry.
      *
      * @param  string|null $image Image is the repository name inside the org&#39;s namespace, as returned by the images op. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryTags'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RegistryTagList
+     * @return \Hanzo\Cloud\Model\RegistryRegistryTagList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getRegistryTags($image = null, string $contentType = self::contentTypes['getRegistryTags'][0])
     {
@@ -1184,14 +1240,14 @@ class RegistryApi
     /**
      * Operation getRegistryTagsWithHttpInfo
      *
-     * Tags lists one org-owned repository&#39;s tags, read live from the OCI registry.
+     * Lists one org-owned repository&#39;s tags, read live from the OCI registry.
      *
      * @param  string|null $image Image is the repository name inside the org&#39;s namespace, as returned by the images op. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryTags'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RegistryTagList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RegistryRegistryTagList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getRegistryTagsWithHttpInfo($image = null, string $contentType = self::contentTypes['getRegistryTags'][0])
     {
@@ -1223,7 +1279,13 @@ class RegistryApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RegistryTagList',
+                        '\Hanzo\Cloud\Model\RegistryRegistryTagList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1245,7 +1307,7 @@ class RegistryApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RegistryTagList',
+                '\Hanzo\Cloud\Model\RegistryRegistryTagList',
                 $request,
                 $response,
             );
@@ -1254,7 +1316,15 @@ class RegistryApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RegistryTagList',
+                        '\Hanzo\Cloud\Model\RegistryRegistryTagList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1269,7 +1339,7 @@ class RegistryApi
     /**
      * Operation getRegistryTagsAsync
      *
-     * Tags lists one org-owned repository&#39;s tags, read live from the OCI registry.
+     * Lists one org-owned repository&#39;s tags, read live from the OCI registry.
      *
      * @param  string|null $image Image is the repository name inside the org&#39;s namespace, as returned by the images op. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryTags'] to see the possible values for this operation
@@ -1290,7 +1360,7 @@ class RegistryApi
     /**
      * Operation getRegistryTagsAsyncWithHttpInfo
      *
-     * Tags lists one org-owned repository&#39;s tags, read live from the OCI registry.
+     * Lists one org-owned repository&#39;s tags, read live from the OCI registry.
      *
      * @param  string|null $image Image is the repository name inside the org&#39;s namespace, as returned by the images op. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getRegistryTags'] to see the possible values for this operation
@@ -1300,7 +1370,7 @@ class RegistryApi
      */
     public function getRegistryTagsAsyncWithHttpInfo($image = null, string $contentType = self::contentTypes['getRegistryTags'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RegistryTagList';
+        $returnType = '\Hanzo\Cloud\Model\RegistryRegistryTagList';
         $request = $this->getRegistryTagsRequest($image, $contentType);
 
         return $this->client
@@ -1374,7 +1444,7 @@ class RegistryApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1433,36 +1503,36 @@ class RegistryApi
     /**
      * Operation postRegistryToken
      *
-     * Token mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
+     * Mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
      *
-     * @param  \Hanzo\Cloud\Model\RegistryMint $registry_mint registry_mint (required)
+     * @param  \Hanzo\Cloud\Model\RegistryRegistryMint $registry_registry_mint registry_registry_mint (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postRegistryToken'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RegistryToken
+     * @return \Hanzo\Cloud\Model\RegistryRegistryToken|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postRegistryToken($registry_mint, string $contentType = self::contentTypes['postRegistryToken'][0])
+    public function postRegistryToken($registry_registry_mint, string $contentType = self::contentTypes['postRegistryToken'][0])
     {
-        list($response) = $this->postRegistryTokenWithHttpInfo($registry_mint, $contentType);
+        list($response) = $this->postRegistryTokenWithHttpInfo($registry_registry_mint, $contentType);
         return $response;
     }
 
     /**
      * Operation postRegistryTokenWithHttpInfo
      *
-     * Token mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
+     * Mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
      *
-     * @param  \Hanzo\Cloud\Model\RegistryMint $registry_mint (required)
+     * @param  \Hanzo\Cloud\Model\RegistryRegistryMint $registry_registry_mint (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postRegistryToken'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RegistryToken, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RegistryRegistryToken|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postRegistryTokenWithHttpInfo($registry_mint, string $contentType = self::contentTypes['postRegistryToken'][0])
+    public function postRegistryTokenWithHttpInfo($registry_registry_mint, string $contentType = self::contentTypes['postRegistryToken'][0])
     {
-        $request = $this->postRegistryTokenRequest($registry_mint, $contentType);
+        $request = $this->postRegistryTokenRequest($registry_registry_mint, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1490,7 +1560,13 @@ class RegistryApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RegistryToken',
+                        '\Hanzo\Cloud\Model\RegistryRegistryToken',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1512,7 +1588,7 @@ class RegistryApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RegistryToken',
+                '\Hanzo\Cloud\Model\RegistryRegistryToken',
                 $request,
                 $response,
             );
@@ -1521,7 +1597,15 @@ class RegistryApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RegistryToken',
+                        '\Hanzo\Cloud\Model\RegistryRegistryToken',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1536,17 +1620,17 @@ class RegistryApi
     /**
      * Operation postRegistryTokenAsync
      *
-     * Token mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
+     * Mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
      *
-     * @param  \Hanzo\Cloud\Model\RegistryMint $registry_mint (required)
+     * @param  \Hanzo\Cloud\Model\RegistryRegistryMint $registry_registry_mint (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postRegistryToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postRegistryTokenAsync($registry_mint, string $contentType = self::contentTypes['postRegistryToken'][0])
+    public function postRegistryTokenAsync($registry_registry_mint, string $contentType = self::contentTypes['postRegistryToken'][0])
     {
-        return $this->postRegistryTokenAsyncWithHttpInfo($registry_mint, $contentType)
+        return $this->postRegistryTokenAsyncWithHttpInfo($registry_registry_mint, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1557,18 +1641,18 @@ class RegistryApi
     /**
      * Operation postRegistryTokenAsyncWithHttpInfo
      *
-     * Token mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
+     * Mints a short-lived, pull-only registry token for exactly one of the org&#39;s images, through the same IAM realm the docker CLI authenticates against.
      *
-     * @param  \Hanzo\Cloud\Model\RegistryMint $registry_mint (required)
+     * @param  \Hanzo\Cloud\Model\RegistryRegistryMint $registry_registry_mint (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postRegistryToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postRegistryTokenAsyncWithHttpInfo($registry_mint, string $contentType = self::contentTypes['postRegistryToken'][0])
+    public function postRegistryTokenAsyncWithHttpInfo($registry_registry_mint, string $contentType = self::contentTypes['postRegistryToken'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RegistryToken';
-        $request = $this->postRegistryTokenRequest($registry_mint, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\RegistryRegistryToken';
+        $request = $this->postRegistryTokenRequest($registry_registry_mint, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1609,19 +1693,19 @@ class RegistryApi
     /**
      * Create request for operation 'postRegistryToken'
      *
-     * @param  \Hanzo\Cloud\Model\RegistryMint $registry_mint (required)
+     * @param  \Hanzo\Cloud\Model\RegistryRegistryMint $registry_registry_mint (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postRegistryToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postRegistryTokenRequest($registry_mint, string $contentType = self::contentTypes['postRegistryToken'][0])
+    public function postRegistryTokenRequest($registry_registry_mint, string $contentType = self::contentTypes['postRegistryToken'][0])
     {
 
-        // verify the required parameter 'registry_mint' is set
-        if ($registry_mint === null || (is_array($registry_mint) && count($registry_mint) === 0)) {
+        // verify the required parameter 'registry_registry_mint' is set
+        if ($registry_registry_mint === null || (is_array($registry_registry_mint) && count($registry_registry_mint) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $registry_mint when calling postRegistryToken'
+                'Missing the required parameter $registry_registry_mint when calling postRegistryToken'
             );
         }
 
@@ -1638,18 +1722,18 @@ class RegistryApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($registry_mint)) {
+        if (isset($registry_registry_mint)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($registry_mint));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($registry_registry_mint));
             } else {
-                $httpBody = $registry_mint;
+                $httpBody = $registry_registry_mint;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

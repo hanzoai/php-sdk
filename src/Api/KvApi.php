@@ -199,6 +199,14 @@ class KvApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -306,7 +314,7 @@ class KvApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -423,6 +431,14 @@ class KvApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -548,7 +564,7 @@ class KvApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -607,7 +623,7 @@ class KvApi
     /**
      * Operation getKvByBucketByKey
      *
-     * Get returns one key&#39;s current value and revision.
+     * Returns one key&#39;s current value and revision.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
@@ -615,7 +631,7 @@ class KvApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KvEntry
+     * @return \Hanzo\Cloud\Model\KvKvEntry|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getKvByBucketByKey($bucket, $key, string $contentType = self::contentTypes['getKvByBucketByKey'][0])
     {
@@ -626,7 +642,7 @@ class KvApi
     /**
      * Operation getKvByBucketByKeyWithHttpInfo
      *
-     * Get returns one key&#39;s current value and revision.
+     * Returns one key&#39;s current value and revision.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
@@ -634,7 +650,7 @@ class KvApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KvEntry, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KvKvEntry|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getKvByBucketByKeyWithHttpInfo($bucket, $key, string $contentType = self::contentTypes['getKvByBucketByKey'][0])
     {
@@ -666,7 +682,13 @@ class KvApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KvEntry',
+                        '\Hanzo\Cloud\Model\KvKvEntry',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -688,7 +710,7 @@ class KvApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KvEntry',
+                '\Hanzo\Cloud\Model\KvKvEntry',
                 $request,
                 $response,
             );
@@ -697,7 +719,15 @@ class KvApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KvEntry',
+                        '\Hanzo\Cloud\Model\KvKvEntry',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -712,7 +742,7 @@ class KvApi
     /**
      * Operation getKvByBucketByKeyAsync
      *
-     * Get returns one key&#39;s current value and revision.
+     * Returns one key&#39;s current value and revision.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
@@ -734,7 +764,7 @@ class KvApi
     /**
      * Operation getKvByBucketByKeyAsyncWithHttpInfo
      *
-     * Get returns one key&#39;s current value and revision.
+     * Returns one key&#39;s current value and revision.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
@@ -745,7 +775,7 @@ class KvApi
      */
     public function getKvByBucketByKeyAsyncWithHttpInfo($bucket, $key, string $contentType = self::contentTypes['getKvByBucketByKey'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KvEntry';
+        $returnType = '\Hanzo\Cloud\Model\KvKvEntry';
         $request = $this->getKvByBucketByKeyRequest($bucket, $key, $contentType);
 
         return $this->client
@@ -840,7 +870,7 @@ class KvApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -899,7 +929,7 @@ class KvApi
     /**
      * Operation getKvByBucketByKeyHistory
      *
-     * History returns one key&#39;s retained revisions, oldest first — every put and every delete marker up to the bucket&#39;s History depth.
+     * Returns one key&#39;s retained revisions, oldest first — every put and every delete marker up to the bucket&#39;s History depth.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
@@ -907,7 +937,7 @@ class KvApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KvPage
+     * @return \Hanzo\Cloud\Model\KvKvPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getKvByBucketByKeyHistory($bucket, $key, string $contentType = self::contentTypes['getKvByBucketByKeyHistory'][0])
     {
@@ -918,7 +948,7 @@ class KvApi
     /**
      * Operation getKvByBucketByKeyHistoryWithHttpInfo
      *
-     * History returns one key&#39;s retained revisions, oldest first — every put and every delete marker up to the bucket&#39;s History depth.
+     * Returns one key&#39;s retained revisions, oldest first — every put and every delete marker up to the bucket&#39;s History depth.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
@@ -926,7 +956,7 @@ class KvApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KvPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KvKvPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getKvByBucketByKeyHistoryWithHttpInfo($bucket, $key, string $contentType = self::contentTypes['getKvByBucketByKeyHistory'][0])
     {
@@ -958,7 +988,13 @@ class KvApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KvPage',
+                        '\Hanzo\Cloud\Model\KvKvPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -980,7 +1016,7 @@ class KvApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KvPage',
+                '\Hanzo\Cloud\Model\KvKvPage',
                 $request,
                 $response,
             );
@@ -989,7 +1025,15 @@ class KvApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KvPage',
+                        '\Hanzo\Cloud\Model\KvKvPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1004,7 +1048,7 @@ class KvApi
     /**
      * Operation getKvByBucketByKeyHistoryAsync
      *
-     * History returns one key&#39;s retained revisions, oldest first — every put and every delete marker up to the bucket&#39;s History depth.
+     * Returns one key&#39;s retained revisions, oldest first — every put and every delete marker up to the bucket&#39;s History depth.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
@@ -1026,7 +1070,7 @@ class KvApi
     /**
      * Operation getKvByBucketByKeyHistoryAsyncWithHttpInfo
      *
-     * History returns one key&#39;s retained revisions, oldest first — every put and every delete marker up to the bucket&#39;s History depth.
+     * Returns one key&#39;s retained revisions, oldest first — every put and every delete marker up to the bucket&#39;s History depth.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
@@ -1037,7 +1081,7 @@ class KvApi
      */
     public function getKvByBucketByKeyHistoryAsyncWithHttpInfo($bucket, $key, string $contentType = self::contentTypes['getKvByBucketByKeyHistory'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KvPage';
+        $returnType = '\Hanzo\Cloud\Model\KvKvPage';
         $request = $this->getKvByBucketByKeyHistoryRequest($bucket, $key, $contentType);
 
         return $this->client
@@ -1132,7 +1176,7 @@ class KvApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1194,16 +1238,16 @@ class KvApi
      * Creates a KV bucket and returns it.
      *
      * @param  string $bucket Bucket is the bucket&#39;s name within the org, from the path: 1–64 of [A-Za-z0-9_], no dash. (required)
-     * @param  \Hanzo\Cloud\Model\BucketWrite $bucket_write bucket_write (required)
+     * @param  \Hanzo\Cloud\Model\KvBucketWrite $kv_bucket_write kv_bucket_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKvByBucket'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BucketRecord
+     * @return \Hanzo\Cloud\Model\KvBucketRecord|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postKvByBucket($bucket, $bucket_write, string $contentType = self::contentTypes['postKvByBucket'][0])
+    public function postKvByBucket($bucket, $kv_bucket_write, string $contentType = self::contentTypes['postKvByBucket'][0])
     {
-        list($response) = $this->postKvByBucketWithHttpInfo($bucket, $bucket_write, $contentType);
+        list($response) = $this->postKvByBucketWithHttpInfo($bucket, $kv_bucket_write, $contentType);
         return $response;
     }
 
@@ -1213,16 +1257,16 @@ class KvApi
      * Creates a KV bucket and returns it.
      *
      * @param  string $bucket Bucket is the bucket&#39;s name within the org, from the path: 1–64 of [A-Za-z0-9_], no dash. (required)
-     * @param  \Hanzo\Cloud\Model\BucketWrite $bucket_write (required)
+     * @param  \Hanzo\Cloud\Model\KvBucketWrite $kv_bucket_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKvByBucket'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BucketRecord, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KvBucketRecord|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postKvByBucketWithHttpInfo($bucket, $bucket_write, string $contentType = self::contentTypes['postKvByBucket'][0])
+    public function postKvByBucketWithHttpInfo($bucket, $kv_bucket_write, string $contentType = self::contentTypes['postKvByBucket'][0])
     {
-        $request = $this->postKvByBucketRequest($bucket, $bucket_write, $contentType);
+        $request = $this->postKvByBucketRequest($bucket, $kv_bucket_write, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1250,7 +1294,13 @@ class KvApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BucketRecord',
+                        '\Hanzo\Cloud\Model\KvBucketRecord',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1272,7 +1322,7 @@ class KvApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BucketRecord',
+                '\Hanzo\Cloud\Model\KvBucketRecord',
                 $request,
                 $response,
             );
@@ -1281,7 +1331,15 @@ class KvApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BucketRecord',
+                        '\Hanzo\Cloud\Model\KvBucketRecord',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1299,15 +1357,15 @@ class KvApi
      * Creates a KV bucket and returns it.
      *
      * @param  string $bucket Bucket is the bucket&#39;s name within the org, from the path: 1–64 of [A-Za-z0-9_], no dash. (required)
-     * @param  \Hanzo\Cloud\Model\BucketWrite $bucket_write (required)
+     * @param  \Hanzo\Cloud\Model\KvBucketWrite $kv_bucket_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKvByBucket'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postKvByBucketAsync($bucket, $bucket_write, string $contentType = self::contentTypes['postKvByBucket'][0])
+    public function postKvByBucketAsync($bucket, $kv_bucket_write, string $contentType = self::contentTypes['postKvByBucket'][0])
     {
-        return $this->postKvByBucketAsyncWithHttpInfo($bucket, $bucket_write, $contentType)
+        return $this->postKvByBucketAsyncWithHttpInfo($bucket, $kv_bucket_write, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1321,16 +1379,16 @@ class KvApi
      * Creates a KV bucket and returns it.
      *
      * @param  string $bucket Bucket is the bucket&#39;s name within the org, from the path: 1–64 of [A-Za-z0-9_], no dash. (required)
-     * @param  \Hanzo\Cloud\Model\BucketWrite $bucket_write (required)
+     * @param  \Hanzo\Cloud\Model\KvBucketWrite $kv_bucket_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKvByBucket'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postKvByBucketAsyncWithHttpInfo($bucket, $bucket_write, string $contentType = self::contentTypes['postKvByBucket'][0])
+    public function postKvByBucketAsyncWithHttpInfo($bucket, $kv_bucket_write, string $contentType = self::contentTypes['postKvByBucket'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BucketRecord';
-        $request = $this->postKvByBucketRequest($bucket, $bucket_write, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\KvBucketRecord';
+        $request = $this->postKvByBucketRequest($bucket, $kv_bucket_write, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1372,13 +1430,13 @@ class KvApi
      * Create request for operation 'postKvByBucket'
      *
      * @param  string $bucket Bucket is the bucket&#39;s name within the org, from the path: 1–64 of [A-Za-z0-9_], no dash. (required)
-     * @param  \Hanzo\Cloud\Model\BucketWrite $bucket_write (required)
+     * @param  \Hanzo\Cloud\Model\KvBucketWrite $kv_bucket_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKvByBucket'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postKvByBucketRequest($bucket, $bucket_write, string $contentType = self::contentTypes['postKvByBucket'][0])
+    public function postKvByBucketRequest($bucket, $kv_bucket_write, string $contentType = self::contentTypes['postKvByBucket'][0])
     {
 
         // verify the required parameter 'bucket' is set
@@ -1388,10 +1446,10 @@ class KvApi
             );
         }
 
-        // verify the required parameter 'bucket_write' is set
-        if ($bucket_write === null || (is_array($bucket_write) && count($bucket_write) === 0)) {
+        // verify the required parameter 'kv_bucket_write' is set
+        if ($kv_bucket_write === null || (is_array($kv_bucket_write) && count($kv_bucket_write) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $bucket_write when calling postKvByBucket'
+                'Missing the required parameter $kv_bucket_write when calling postKvByBucket'
             );
         }
 
@@ -1416,18 +1474,18 @@ class KvApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($bucket_write)) {
+        if (isset($kv_bucket_write)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($bucket_write));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($kv_bucket_write));
             } else {
-                $httpBody = $bucket_write;
+                $httpBody = $kv_bucket_write;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1482,40 +1540,40 @@ class KvApi
     /**
      * Operation putKvByBucketByKey
      *
-     * Put sets one key to one value and returns the revision the write created.
+     * Sets one key to one value and returns the revision the write created.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\KvWrite $kv_write kv_write (required)
+     * @param  \Hanzo\Cloud\Model\KvKvWrite $kv_kv_write kv_kv_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putKvByBucketByKey'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KvAck
+     * @return \Hanzo\Cloud\Model\KvKvAck|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putKvByBucketByKey($bucket, $key, $kv_write, string $contentType = self::contentTypes['putKvByBucketByKey'][0])
+    public function putKvByBucketByKey($bucket, $key, $kv_kv_write, string $contentType = self::contentTypes['putKvByBucketByKey'][0])
     {
-        list($response) = $this->putKvByBucketByKeyWithHttpInfo($bucket, $key, $kv_write, $contentType);
+        list($response) = $this->putKvByBucketByKeyWithHttpInfo($bucket, $key, $kv_kv_write, $contentType);
         return $response;
     }
 
     /**
      * Operation putKvByBucketByKeyWithHttpInfo
      *
-     * Put sets one key to one value and returns the revision the write created.
+     * Sets one key to one value and returns the revision the write created.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\KvWrite $kv_write (required)
+     * @param  \Hanzo\Cloud\Model\KvKvWrite $kv_kv_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putKvByBucketByKey'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KvAck, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KvKvAck|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putKvByBucketByKeyWithHttpInfo($bucket, $key, $kv_write, string $contentType = self::contentTypes['putKvByBucketByKey'][0])
+    public function putKvByBucketByKeyWithHttpInfo($bucket, $key, $kv_kv_write, string $contentType = self::contentTypes['putKvByBucketByKey'][0])
     {
-        $request = $this->putKvByBucketByKeyRequest($bucket, $key, $kv_write, $contentType);
+        $request = $this->putKvByBucketByKeyRequest($bucket, $key, $kv_kv_write, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1543,7 +1601,13 @@ class KvApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KvAck',
+                        '\Hanzo\Cloud\Model\KvKvAck',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1565,7 +1629,7 @@ class KvApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KvAck',
+                '\Hanzo\Cloud\Model\KvKvAck',
                 $request,
                 $response,
             );
@@ -1574,7 +1638,15 @@ class KvApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KvAck',
+                        '\Hanzo\Cloud\Model\KvKvAck',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1589,19 +1661,19 @@ class KvApi
     /**
      * Operation putKvByBucketByKeyAsync
      *
-     * Put sets one key to one value and returns the revision the write created.
+     * Sets one key to one value and returns the revision the write created.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\KvWrite $kv_write (required)
+     * @param  \Hanzo\Cloud\Model\KvKvWrite $kv_kv_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putKvByBucketByKey'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putKvByBucketByKeyAsync($bucket, $key, $kv_write, string $contentType = self::contentTypes['putKvByBucketByKey'][0])
+    public function putKvByBucketByKeyAsync($bucket, $key, $kv_kv_write, string $contentType = self::contentTypes['putKvByBucketByKey'][0])
     {
-        return $this->putKvByBucketByKeyAsyncWithHttpInfo($bucket, $key, $kv_write, $contentType)
+        return $this->putKvByBucketByKeyAsyncWithHttpInfo($bucket, $key, $kv_kv_write, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1612,20 +1684,20 @@ class KvApi
     /**
      * Operation putKvByBucketByKeyAsyncWithHttpInfo
      *
-     * Put sets one key to one value and returns the revision the write created.
+     * Sets one key to one value and returns the revision the write created.
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\KvWrite $kv_write (required)
+     * @param  \Hanzo\Cloud\Model\KvKvWrite $kv_kv_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putKvByBucketByKey'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putKvByBucketByKeyAsyncWithHttpInfo($bucket, $key, $kv_write, string $contentType = self::contentTypes['putKvByBucketByKey'][0])
+    public function putKvByBucketByKeyAsyncWithHttpInfo($bucket, $key, $kv_kv_write, string $contentType = self::contentTypes['putKvByBucketByKey'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KvAck';
-        $request = $this->putKvByBucketByKeyRequest($bucket, $key, $kv_write, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\KvKvAck';
+        $request = $this->putKvByBucketByKeyRequest($bucket, $key, $kv_kv_write, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1668,13 +1740,13 @@ class KvApi
      *
      * @param  string $bucket Bucket is the bucket, from the path. (required)
      * @param  string $key Key is the key, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\KvWrite $kv_write (required)
+     * @param  \Hanzo\Cloud\Model\KvKvWrite $kv_kv_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putKvByBucketByKey'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putKvByBucketByKeyRequest($bucket, $key, $kv_write, string $contentType = self::contentTypes['putKvByBucketByKey'][0])
+    public function putKvByBucketByKeyRequest($bucket, $key, $kv_kv_write, string $contentType = self::contentTypes['putKvByBucketByKey'][0])
     {
 
         // verify the required parameter 'bucket' is set
@@ -1691,10 +1763,10 @@ class KvApi
             );
         }
 
-        // verify the required parameter 'kv_write' is set
-        if ($kv_write === null || (is_array($kv_write) && count($kv_write) === 0)) {
+        // verify the required parameter 'kv_kv_write' is set
+        if ($kv_kv_write === null || (is_array($kv_kv_write) && count($kv_kv_write) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $kv_write when calling putKvByBucketByKey'
+                'Missing the required parameter $kv_kv_write when calling putKvByBucketByKey'
             );
         }
 
@@ -1727,18 +1799,18 @@ class KvApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($kv_write)) {
+        if (isset($kv_kv_write)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($kv_write));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($kv_kv_write));
             } else {
-                $httpBody = $kv_write;
+                $httpBody = $kv_kv_write;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

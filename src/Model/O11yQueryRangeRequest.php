@@ -57,7 +57,7 @@ class O11yQueryRangeRequest implements ModelInterface, ArrayAccess, \JsonSeriali
       * @var string[]
       */
     protected static $openAPITypes = [
-        'composite_query' => '\Hanzo\Cloud\Model\O11yQuerybuildertypesv5CompositeQuery',
+        'composite_query' => '\Hanzo\Cloud\Model\O11yCompositeQuery',
         'end' => 'int',
         'format_options' => '\Hanzo\Cloud\Model\O11yFormatOptions',
         'no_cache' => 'bool',
@@ -341,7 +341,7 @@ class O11yQueryRangeRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets composite_query
      *
-     * @return \Hanzo\Cloud\Model\O11yQuerybuildertypesv5CompositeQuery|null
+     * @return \Hanzo\Cloud\Model\O11yCompositeQuery|null
      */
     public function getCompositeQuery()
     {
@@ -351,7 +351,7 @@ class O11yQueryRangeRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets composite_query
      *
-     * @param \Hanzo\Cloud\Model\O11yQuerybuildertypesv5CompositeQuery|null $composite_query CompositeQuery is the composite query to use for the request.
+     * @param \Hanzo\Cloud\Model\O11yCompositeQuery|null $composite_query CompositeQuery is the composite query to use for the request.
      *
      * @return self
      */

@@ -202,6 +202,14 @@ class AdApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -309,7 +317,7 @@ class AdApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -376,7 +384,7 @@ class AdApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CampaignList
+     * @return \Hanzo\Cloud\Model\AdCampaignList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAdCampaigns($status = null, $limit = null, string $contentType = self::contentTypes['getAdCampaigns'][0])
     {
@@ -395,7 +403,7 @@ class AdApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CampaignList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AdCampaignList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAdCampaignsWithHttpInfo($status = null, $limit = null, string $contentType = self::contentTypes['getAdCampaigns'][0])
     {
@@ -427,7 +435,13 @@ class AdApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CampaignList',
+                        '\Hanzo\Cloud\Model\AdCampaignList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -449,7 +463,7 @@ class AdApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CampaignList',
+                '\Hanzo\Cloud\Model\AdCampaignList',
                 $request,
                 $response,
             );
@@ -458,7 +472,15 @@ class AdApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CampaignList',
+                        '\Hanzo\Cloud\Model\AdCampaignList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -506,7 +528,7 @@ class AdApi
      */
     public function getAdCampaignsAsyncWithHttpInfo($status = null, $limit = null, string $contentType = self::contentTypes['getAdCampaigns'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CampaignList';
+        $returnType = '\Hanzo\Cloud\Model\AdCampaignList';
         $request = $this->getAdCampaignsRequest($status, $limit, $contentType);
 
         return $this->client
@@ -591,7 +613,7 @@ class AdApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -657,7 +679,7 @@ class AdApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AdCampaign
+     * @return \Hanzo\Cloud\Model\AdAdCampaign|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAdCampaignsById($id, string $contentType = self::contentTypes['getAdCampaignsById'][0])
     {
@@ -675,7 +697,7 @@ class AdApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AdCampaign, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AdAdCampaign|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAdCampaignsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getAdCampaignsById'][0])
     {
@@ -707,7 +729,13 @@ class AdApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AdCampaign',
+                        '\Hanzo\Cloud\Model\AdAdCampaign',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -729,7 +757,7 @@ class AdApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AdCampaign',
+                '\Hanzo\Cloud\Model\AdAdCampaign',
                 $request,
                 $response,
             );
@@ -738,7 +766,15 @@ class AdApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AdCampaign',
+                        '\Hanzo\Cloud\Model\AdAdCampaign',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -784,7 +820,7 @@ class AdApi
      */
     public function getAdCampaignsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAdCampaignsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AdCampaign';
+        $returnType = '\Hanzo\Cloud\Model\AdAdCampaign';
         $request = $this->getAdCampaignsByIdRequest($id, $contentType);
 
         return $this->client
@@ -863,7 +899,7 @@ class AdApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -928,7 +964,7 @@ class AdApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AdSummary
+     * @return \Hanzo\Cloud\Model\AdAdSummary|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAdSummary(string $contentType = self::contentTypes['getAdSummary'][0])
     {
@@ -945,7 +981,7 @@ class AdApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AdSummary, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AdAdSummary|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAdSummaryWithHttpInfo(string $contentType = self::contentTypes['getAdSummary'][0])
     {
@@ -977,7 +1013,13 @@ class AdApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AdSummary',
+                        '\Hanzo\Cloud\Model\AdAdSummary',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -999,7 +1041,7 @@ class AdApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AdSummary',
+                '\Hanzo\Cloud\Model\AdAdSummary',
                 $request,
                 $response,
             );
@@ -1008,7 +1050,15 @@ class AdApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AdSummary',
+                        '\Hanzo\Cloud\Model\AdAdSummary',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1052,7 +1102,7 @@ class AdApi
      */
     public function getAdSummaryAsyncWithHttpInfo(string $contentType = self::contentTypes['getAdSummary'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AdSummary';
+        $returnType = '\Hanzo\Cloud\Model\AdAdSummary';
         $request = $this->getAdSummaryRequest($contentType);
 
         return $this->client
@@ -1115,7 +1165,7 @@ class AdApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1176,16 +1226,16 @@ class AdApi
      *
      * Registers a new ad campaign for the caller&#39;s org and answers 201 with the stored row.
      *
-     * @param  \Hanzo\Cloud\Model\CampaignInput $campaign_input campaign_input (required)
+     * @param  \Hanzo\Cloud\Model\AdCampaignInput $ad_campaign_input ad_campaign_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAdCampaigns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AdCampaign
+     * @return \Hanzo\Cloud\Model\AdAdCampaign|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAdCampaigns($campaign_input, string $contentType = self::contentTypes['postAdCampaigns'][0])
+    public function postAdCampaigns($ad_campaign_input, string $contentType = self::contentTypes['postAdCampaigns'][0])
     {
-        list($response) = $this->postAdCampaignsWithHttpInfo($campaign_input, $contentType);
+        list($response) = $this->postAdCampaignsWithHttpInfo($ad_campaign_input, $contentType);
         return $response;
     }
 
@@ -1194,16 +1244,16 @@ class AdApi
      *
      * Registers a new ad campaign for the caller&#39;s org and answers 201 with the stored row.
      *
-     * @param  \Hanzo\Cloud\Model\CampaignInput $campaign_input (required)
+     * @param  \Hanzo\Cloud\Model\AdCampaignInput $ad_campaign_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAdCampaigns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AdCampaign, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AdAdCampaign|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAdCampaignsWithHttpInfo($campaign_input, string $contentType = self::contentTypes['postAdCampaigns'][0])
+    public function postAdCampaignsWithHttpInfo($ad_campaign_input, string $contentType = self::contentTypes['postAdCampaigns'][0])
     {
-        $request = $this->postAdCampaignsRequest($campaign_input, $contentType);
+        $request = $this->postAdCampaignsRequest($ad_campaign_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1231,7 +1281,13 @@ class AdApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AdCampaign',
+                        '\Hanzo\Cloud\Model\AdAdCampaign',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1253,7 +1309,7 @@ class AdApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AdCampaign',
+                '\Hanzo\Cloud\Model\AdAdCampaign',
                 $request,
                 $response,
             );
@@ -1262,7 +1318,15 @@ class AdApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AdCampaign',
+                        '\Hanzo\Cloud\Model\AdAdCampaign',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1279,15 +1343,15 @@ class AdApi
      *
      * Registers a new ad campaign for the caller&#39;s org and answers 201 with the stored row.
      *
-     * @param  \Hanzo\Cloud\Model\CampaignInput $campaign_input (required)
+     * @param  \Hanzo\Cloud\Model\AdCampaignInput $ad_campaign_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAdCampaigns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAdCampaignsAsync($campaign_input, string $contentType = self::contentTypes['postAdCampaigns'][0])
+    public function postAdCampaignsAsync($ad_campaign_input, string $contentType = self::contentTypes['postAdCampaigns'][0])
     {
-        return $this->postAdCampaignsAsyncWithHttpInfo($campaign_input, $contentType)
+        return $this->postAdCampaignsAsyncWithHttpInfo($ad_campaign_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1300,16 +1364,16 @@ class AdApi
      *
      * Registers a new ad campaign for the caller&#39;s org and answers 201 with the stored row.
      *
-     * @param  \Hanzo\Cloud\Model\CampaignInput $campaign_input (required)
+     * @param  \Hanzo\Cloud\Model\AdCampaignInput $ad_campaign_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAdCampaigns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAdCampaignsAsyncWithHttpInfo($campaign_input, string $contentType = self::contentTypes['postAdCampaigns'][0])
+    public function postAdCampaignsAsyncWithHttpInfo($ad_campaign_input, string $contentType = self::contentTypes['postAdCampaigns'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AdCampaign';
-        $request = $this->postAdCampaignsRequest($campaign_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AdAdCampaign';
+        $request = $this->postAdCampaignsRequest($ad_campaign_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1350,19 +1414,19 @@ class AdApi
     /**
      * Create request for operation 'postAdCampaigns'
      *
-     * @param  \Hanzo\Cloud\Model\CampaignInput $campaign_input (required)
+     * @param  \Hanzo\Cloud\Model\AdCampaignInput $ad_campaign_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAdCampaigns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAdCampaignsRequest($campaign_input, string $contentType = self::contentTypes['postAdCampaigns'][0])
+    public function postAdCampaignsRequest($ad_campaign_input, string $contentType = self::contentTypes['postAdCampaigns'][0])
     {
 
-        // verify the required parameter 'campaign_input' is set
-        if ($campaign_input === null || (is_array($campaign_input) && count($campaign_input) === 0)) {
+        // verify the required parameter 'ad_campaign_input' is set
+        if ($ad_campaign_input === null || (is_array($ad_campaign_input) && count($ad_campaign_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $campaign_input when calling postAdCampaigns'
+                'Missing the required parameter $ad_campaign_input when calling postAdCampaigns'
             );
         }
 
@@ -1379,18 +1443,18 @@ class AdApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($campaign_input)) {
+        if (isset($ad_campaign_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($campaign_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ad_campaign_input));
             } else {
-                $httpBody = $campaign_input;
+                $httpBody = $ad_campaign_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1670,16 +1734,16 @@ class AdApi
      * Replaces the user-owned fields of one of the caller org&#39;s campaigns and answers the stored row.
      *
      * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\UpdateCampaignIn $update_campaign_in update_campaign_in (required)
+     * @param  \Hanzo\Cloud\Model\AdUpdateCampaignIn $ad_update_campaign_in ad_update_campaign_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAdCampaignsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AdCampaign
+     * @return \Hanzo\Cloud\Model\AdAdCampaign|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putAdCampaignsById($id, $update_campaign_in, string $contentType = self::contentTypes['putAdCampaignsById'][0])
+    public function putAdCampaignsById($id, $ad_update_campaign_in, string $contentType = self::contentTypes['putAdCampaignsById'][0])
     {
-        list($response) = $this->putAdCampaignsByIdWithHttpInfo($id, $update_campaign_in, $contentType);
+        list($response) = $this->putAdCampaignsByIdWithHttpInfo($id, $ad_update_campaign_in, $contentType);
         return $response;
     }
 
@@ -1689,16 +1753,16 @@ class AdApi
      * Replaces the user-owned fields of one of the caller org&#39;s campaigns and answers the stored row.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\UpdateCampaignIn $update_campaign_in (required)
+     * @param  \Hanzo\Cloud\Model\AdUpdateCampaignIn $ad_update_campaign_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAdCampaignsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AdCampaign, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AdAdCampaign|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAdCampaignsByIdWithHttpInfo($id, $update_campaign_in, string $contentType = self::contentTypes['putAdCampaignsById'][0])
+    public function putAdCampaignsByIdWithHttpInfo($id, $ad_update_campaign_in, string $contentType = self::contentTypes['putAdCampaignsById'][0])
     {
-        $request = $this->putAdCampaignsByIdRequest($id, $update_campaign_in, $contentType);
+        $request = $this->putAdCampaignsByIdRequest($id, $ad_update_campaign_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1726,7 +1790,13 @@ class AdApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AdCampaign',
+                        '\Hanzo\Cloud\Model\AdAdCampaign',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1748,7 +1818,7 @@ class AdApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AdCampaign',
+                '\Hanzo\Cloud\Model\AdAdCampaign',
                 $request,
                 $response,
             );
@@ -1757,7 +1827,15 @@ class AdApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AdCampaign',
+                        '\Hanzo\Cloud\Model\AdAdCampaign',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1775,15 +1853,15 @@ class AdApi
      * Replaces the user-owned fields of one of the caller org&#39;s campaigns and answers the stored row.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\UpdateCampaignIn $update_campaign_in (required)
+     * @param  \Hanzo\Cloud\Model\AdUpdateCampaignIn $ad_update_campaign_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAdCampaignsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAdCampaignsByIdAsync($id, $update_campaign_in, string $contentType = self::contentTypes['putAdCampaignsById'][0])
+    public function putAdCampaignsByIdAsync($id, $ad_update_campaign_in, string $contentType = self::contentTypes['putAdCampaignsById'][0])
     {
-        return $this->putAdCampaignsByIdAsyncWithHttpInfo($id, $update_campaign_in, $contentType)
+        return $this->putAdCampaignsByIdAsyncWithHttpInfo($id, $ad_update_campaign_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1797,16 +1875,16 @@ class AdApi
      * Replaces the user-owned fields of one of the caller org&#39;s campaigns and answers the stored row.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\UpdateCampaignIn $update_campaign_in (required)
+     * @param  \Hanzo\Cloud\Model\AdUpdateCampaignIn $ad_update_campaign_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAdCampaignsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAdCampaignsByIdAsyncWithHttpInfo($id, $update_campaign_in, string $contentType = self::contentTypes['putAdCampaignsById'][0])
+    public function putAdCampaignsByIdAsyncWithHttpInfo($id, $ad_update_campaign_in, string $contentType = self::contentTypes['putAdCampaignsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AdCampaign';
-        $request = $this->putAdCampaignsByIdRequest($id, $update_campaign_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AdAdCampaign';
+        $request = $this->putAdCampaignsByIdRequest($id, $ad_update_campaign_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1848,13 +1926,13 @@ class AdApi
      * Create request for operation 'putAdCampaignsById'
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\UpdateCampaignIn $update_campaign_in (required)
+     * @param  \Hanzo\Cloud\Model\AdUpdateCampaignIn $ad_update_campaign_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAdCampaignsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAdCampaignsByIdRequest($id, $update_campaign_in, string $contentType = self::contentTypes['putAdCampaignsById'][0])
+    public function putAdCampaignsByIdRequest($id, $ad_update_campaign_in, string $contentType = self::contentTypes['putAdCampaignsById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -1864,10 +1942,10 @@ class AdApi
             );
         }
 
-        // verify the required parameter 'update_campaign_in' is set
-        if ($update_campaign_in === null || (is_array($update_campaign_in) && count($update_campaign_in) === 0)) {
+        // verify the required parameter 'ad_update_campaign_in' is set
+        if ($ad_update_campaign_in === null || (is_array($ad_update_campaign_in) && count($ad_update_campaign_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $update_campaign_in when calling putAdCampaignsById'
+                'Missing the required parameter $ad_update_campaign_in when calling putAdCampaignsById'
             );
         }
 
@@ -1892,18 +1970,18 @@ class AdApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($update_campaign_in)) {
+        if (isset($ad_update_campaign_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($update_campaign_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ad_update_campaign_in));
             } else {
-                $httpBody = $update_campaign_in;
+                $httpBody = $ad_update_campaign_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

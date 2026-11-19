@@ -362,16 +362,16 @@ class RiskApi
      *
      * Put one of your organisation&#39;s own published model values in force
      *
-     * @param  \Hanzo\Cloud\Model\RiskAdoptIn $risk_adopt_in risk_adopt_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskAdoptIn $risk_risk_adopt_in risk_risk_adopt_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskAdoptModel'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskModelState
+     * @return \Hanzo\Cloud\Model\RiskRiskModelState|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskAdoptModel($risk_adopt_in, string $contentType = self::contentTypes['riskAdoptModel'][0])
+    public function riskAdoptModel($risk_risk_adopt_in, string $contentType = self::contentTypes['riskAdoptModel'][0])
     {
-        list($response) = $this->riskAdoptModelWithHttpInfo($risk_adopt_in, $contentType);
+        list($response) = $this->riskAdoptModelWithHttpInfo($risk_risk_adopt_in, $contentType);
         return $response;
     }
 
@@ -380,16 +380,16 @@ class RiskApi
      *
      * Put one of your organisation&#39;s own published model values in force
      *
-     * @param  \Hanzo\Cloud\Model\RiskAdoptIn $risk_adopt_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskAdoptIn $risk_risk_adopt_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskAdoptModel'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskModelState, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RiskRiskModelState|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskAdoptModelWithHttpInfo($risk_adopt_in, string $contentType = self::contentTypes['riskAdoptModel'][0])
+    public function riskAdoptModelWithHttpInfo($risk_risk_adopt_in, string $contentType = self::contentTypes['riskAdoptModel'][0])
     {
-        $request = $this->riskAdoptModelRequest($risk_adopt_in, $contentType);
+        $request = $this->riskAdoptModelRequest($risk_risk_adopt_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -417,7 +417,13 @@ class RiskApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskModelState',
+                        '\Hanzo\Cloud\Model\RiskRiskModelState',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -439,7 +445,7 @@ class RiskApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskModelState',
+                '\Hanzo\Cloud\Model\RiskRiskModelState',
                 $request,
                 $response,
             );
@@ -448,7 +454,15 @@ class RiskApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskModelState',
+                        '\Hanzo\Cloud\Model\RiskRiskModelState',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -465,15 +479,15 @@ class RiskApi
      *
      * Put one of your organisation&#39;s own published model values in force
      *
-     * @param  \Hanzo\Cloud\Model\RiskAdoptIn $risk_adopt_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskAdoptIn $risk_risk_adopt_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskAdoptModel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskAdoptModelAsync($risk_adopt_in, string $contentType = self::contentTypes['riskAdoptModel'][0])
+    public function riskAdoptModelAsync($risk_risk_adopt_in, string $contentType = self::contentTypes['riskAdoptModel'][0])
     {
-        return $this->riskAdoptModelAsyncWithHttpInfo($risk_adopt_in, $contentType)
+        return $this->riskAdoptModelAsyncWithHttpInfo($risk_risk_adopt_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -486,16 +500,16 @@ class RiskApi
      *
      * Put one of your organisation&#39;s own published model values in force
      *
-     * @param  \Hanzo\Cloud\Model\RiskAdoptIn $risk_adopt_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskAdoptIn $risk_risk_adopt_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskAdoptModel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskAdoptModelAsyncWithHttpInfo($risk_adopt_in, string $contentType = self::contentTypes['riskAdoptModel'][0])
+    public function riskAdoptModelAsyncWithHttpInfo($risk_risk_adopt_in, string $contentType = self::contentTypes['riskAdoptModel'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskModelState';
-        $request = $this->riskAdoptModelRequest($risk_adopt_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\RiskRiskModelState';
+        $request = $this->riskAdoptModelRequest($risk_risk_adopt_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -536,19 +550,19 @@ class RiskApi
     /**
      * Create request for operation 'riskAdoptModel'
      *
-     * @param  \Hanzo\Cloud\Model\RiskAdoptIn $risk_adopt_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskAdoptIn $risk_risk_adopt_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskAdoptModel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskAdoptModelRequest($risk_adopt_in, string $contentType = self::contentTypes['riskAdoptModel'][0])
+    public function riskAdoptModelRequest($risk_risk_adopt_in, string $contentType = self::contentTypes['riskAdoptModel'][0])
     {
 
-        // verify the required parameter 'risk_adopt_in' is set
-        if ($risk_adopt_in === null || (is_array($risk_adopt_in) && count($risk_adopt_in) === 0)) {
+        // verify the required parameter 'risk_risk_adopt_in' is set
+        if ($risk_risk_adopt_in === null || (is_array($risk_risk_adopt_in) && count($risk_risk_adopt_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $risk_adopt_in when calling riskAdoptModel'
+                'Missing the required parameter $risk_risk_adopt_in when calling riskAdoptModel'
             );
         }
 
@@ -565,18 +579,18 @@ class RiskApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($risk_adopt_in)) {
+        if (isset($risk_risk_adopt_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_adopt_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_risk_adopt_in));
             } else {
-                $httpBody = $risk_adopt_in;
+                $httpBody = $risk_risk_adopt_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -638,7 +652,7 @@ class RiskApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskCatalog
+     * @return \Hanzo\Cloud\Model\RiskRiskCatalog|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskFeatures($days = null, string $contentType = self::contentTypes['riskFeatures'][0])
     {
@@ -656,7 +670,7 @@ class RiskApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskCatalog, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RiskRiskCatalog|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskFeaturesWithHttpInfo($days = null, string $contentType = self::contentTypes['riskFeatures'][0])
     {
@@ -688,7 +702,13 @@ class RiskApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskCatalog',
+                        '\Hanzo\Cloud\Model\RiskRiskCatalog',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -710,7 +730,7 @@ class RiskApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskCatalog',
+                '\Hanzo\Cloud\Model\RiskRiskCatalog',
                 $request,
                 $response,
             );
@@ -719,7 +739,15 @@ class RiskApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskCatalog',
+                        '\Hanzo\Cloud\Model\RiskRiskCatalog',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -765,7 +793,7 @@ class RiskApi
      */
     public function riskFeaturesAsyncWithHttpInfo($days = null, string $contentType = self::contentTypes['riskFeatures'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskCatalog';
+        $returnType = '\Hanzo\Cloud\Model\RiskRiskCatalog';
         $request = $this->riskFeaturesRequest($days, $contentType);
 
         return $this->client
@@ -839,7 +867,7 @@ class RiskApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -900,16 +928,16 @@ class RiskApi
      *
      * Teach your organisation&#39;s own model from its own events
      *
-     * @param  \Hanzo\Cloud\Model\RiskLearnIn $risk_learn_in risk_learn_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskLearnIn $risk_risk_learn_in risk_risk_learn_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskLearn'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskLearnOut
+     * @return \Hanzo\Cloud\Model\RiskRiskLearnOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskLearn($risk_learn_in, string $contentType = self::contentTypes['riskLearn'][0])
+    public function riskLearn($risk_risk_learn_in, string $contentType = self::contentTypes['riskLearn'][0])
     {
-        list($response) = $this->riskLearnWithHttpInfo($risk_learn_in, $contentType);
+        list($response) = $this->riskLearnWithHttpInfo($risk_risk_learn_in, $contentType);
         return $response;
     }
 
@@ -918,16 +946,16 @@ class RiskApi
      *
      * Teach your organisation&#39;s own model from its own events
      *
-     * @param  \Hanzo\Cloud\Model\RiskLearnIn $risk_learn_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskLearnIn $risk_risk_learn_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskLearn'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskLearnOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RiskRiskLearnOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskLearnWithHttpInfo($risk_learn_in, string $contentType = self::contentTypes['riskLearn'][0])
+    public function riskLearnWithHttpInfo($risk_risk_learn_in, string $contentType = self::contentTypes['riskLearn'][0])
     {
-        $request = $this->riskLearnRequest($risk_learn_in, $contentType);
+        $request = $this->riskLearnRequest($risk_risk_learn_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -955,7 +983,13 @@ class RiskApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskLearnOut',
+                        '\Hanzo\Cloud\Model\RiskRiskLearnOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -977,7 +1011,7 @@ class RiskApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskLearnOut',
+                '\Hanzo\Cloud\Model\RiskRiskLearnOut',
                 $request,
                 $response,
             );
@@ -986,7 +1020,15 @@ class RiskApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskLearnOut',
+                        '\Hanzo\Cloud\Model\RiskRiskLearnOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1003,15 +1045,15 @@ class RiskApi
      *
      * Teach your organisation&#39;s own model from its own events
      *
-     * @param  \Hanzo\Cloud\Model\RiskLearnIn $risk_learn_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskLearnIn $risk_risk_learn_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskLearn'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskLearnAsync($risk_learn_in, string $contentType = self::contentTypes['riskLearn'][0])
+    public function riskLearnAsync($risk_risk_learn_in, string $contentType = self::contentTypes['riskLearn'][0])
     {
-        return $this->riskLearnAsyncWithHttpInfo($risk_learn_in, $contentType)
+        return $this->riskLearnAsyncWithHttpInfo($risk_risk_learn_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1024,16 +1066,16 @@ class RiskApi
      *
      * Teach your organisation&#39;s own model from its own events
      *
-     * @param  \Hanzo\Cloud\Model\RiskLearnIn $risk_learn_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskLearnIn $risk_risk_learn_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskLearn'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskLearnAsyncWithHttpInfo($risk_learn_in, string $contentType = self::contentTypes['riskLearn'][0])
+    public function riskLearnAsyncWithHttpInfo($risk_risk_learn_in, string $contentType = self::contentTypes['riskLearn'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskLearnOut';
-        $request = $this->riskLearnRequest($risk_learn_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\RiskRiskLearnOut';
+        $request = $this->riskLearnRequest($risk_risk_learn_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1074,19 +1116,19 @@ class RiskApi
     /**
      * Create request for operation 'riskLearn'
      *
-     * @param  \Hanzo\Cloud\Model\RiskLearnIn $risk_learn_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskLearnIn $risk_risk_learn_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskLearn'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskLearnRequest($risk_learn_in, string $contentType = self::contentTypes['riskLearn'][0])
+    public function riskLearnRequest($risk_risk_learn_in, string $contentType = self::contentTypes['riskLearn'][0])
     {
 
-        // verify the required parameter 'risk_learn_in' is set
-        if ($risk_learn_in === null || (is_array($risk_learn_in) && count($risk_learn_in) === 0)) {
+        // verify the required parameter 'risk_risk_learn_in' is set
+        if ($risk_risk_learn_in === null || (is_array($risk_risk_learn_in) && count($risk_risk_learn_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $risk_learn_in when calling riskLearn'
+                'Missing the required parameter $risk_risk_learn_in when calling riskLearn'
             );
         }
 
@@ -1103,18 +1145,18 @@ class RiskApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($risk_learn_in)) {
+        if (isset($risk_risk_learn_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_learn_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_risk_learn_in));
             } else {
-                $httpBody = $risk_learn_in;
+                $httpBody = $risk_risk_learn_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1175,7 +1217,7 @@ class RiskApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskPolicyOut
+     * @return \Hanzo\Cloud\Model\RiskRiskPolicyOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskPolicy(string $contentType = self::contentTypes['riskPolicy'][0])
     {
@@ -1192,7 +1234,7 @@ class RiskApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskPolicyOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RiskRiskPolicyOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskPolicyWithHttpInfo(string $contentType = self::contentTypes['riskPolicy'][0])
     {
@@ -1224,7 +1266,13 @@ class RiskApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskPolicyOut',
+                        '\Hanzo\Cloud\Model\RiskRiskPolicyOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1246,7 +1294,7 @@ class RiskApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskPolicyOut',
+                '\Hanzo\Cloud\Model\RiskRiskPolicyOut',
                 $request,
                 $response,
             );
@@ -1255,7 +1303,15 @@ class RiskApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskPolicyOut',
+                        '\Hanzo\Cloud\Model\RiskRiskPolicyOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1299,7 +1355,7 @@ class RiskApi
      */
     public function riskPolicyAsyncWithHttpInfo(string $contentType = self::contentTypes['riskPolicy'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskPolicyOut';
+        $returnType = '\Hanzo\Cloud\Model\RiskRiskPolicyOut';
         $request = $this->riskPolicyRequest($contentType);
 
         return $this->client
@@ -1362,7 +1418,7 @@ class RiskApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1427,7 +1483,7 @@ class RiskApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskPublishOut
+     * @return \Hanzo\Cloud\Model\RiskRiskPublishOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskPublishModel(string $contentType = self::contentTypes['riskPublishModel'][0])
     {
@@ -1444,7 +1500,7 @@ class RiskApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskPublishOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RiskRiskPublishOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskPublishModelWithHttpInfo(string $contentType = self::contentTypes['riskPublishModel'][0])
     {
@@ -1476,7 +1532,13 @@ class RiskApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskPublishOut',
+                        '\Hanzo\Cloud\Model\RiskRiskPublishOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1498,7 +1560,7 @@ class RiskApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskPublishOut',
+                '\Hanzo\Cloud\Model\RiskRiskPublishOut',
                 $request,
                 $response,
             );
@@ -1507,7 +1569,15 @@ class RiskApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskPublishOut',
+                        '\Hanzo\Cloud\Model\RiskRiskPublishOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1551,7 +1621,7 @@ class RiskApi
      */
     public function riskPublishModelAsyncWithHttpInfo(string $contentType = self::contentTypes['riskPublishModel'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskPublishOut';
+        $returnType = '\Hanzo\Cloud\Model\RiskRiskPublishOut';
         $request = $this->riskPublishModelRequest($contentType);
 
         return $this->client
@@ -1614,7 +1684,7 @@ class RiskApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1675,16 +1745,16 @@ class RiskApi
      *
      * Score one event against your organisation&#39;s own model
      *
-     * @param  \Hanzo\Cloud\Model\RiskScoreIn $risk_score_in risk_score_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskScoreIn $risk_risk_score_in risk_risk_score_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskScore'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskScoreOut
+     * @return \Hanzo\Cloud\Model\RiskRiskScoreOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskScore($risk_score_in, string $contentType = self::contentTypes['riskScore'][0])
+    public function riskScore($risk_risk_score_in, string $contentType = self::contentTypes['riskScore'][0])
     {
-        list($response) = $this->riskScoreWithHttpInfo($risk_score_in, $contentType);
+        list($response) = $this->riskScoreWithHttpInfo($risk_risk_score_in, $contentType);
         return $response;
     }
 
@@ -1693,16 +1763,16 @@ class RiskApi
      *
      * Score one event against your organisation&#39;s own model
      *
-     * @param  \Hanzo\Cloud\Model\RiskScoreIn $risk_score_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskScoreIn $risk_risk_score_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskScore'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskScoreOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RiskRiskScoreOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskScoreWithHttpInfo($risk_score_in, string $contentType = self::contentTypes['riskScore'][0])
+    public function riskScoreWithHttpInfo($risk_risk_score_in, string $contentType = self::contentTypes['riskScore'][0])
     {
-        $request = $this->riskScoreRequest($risk_score_in, $contentType);
+        $request = $this->riskScoreRequest($risk_risk_score_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1730,7 +1800,13 @@ class RiskApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskScoreOut',
+                        '\Hanzo\Cloud\Model\RiskRiskScoreOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1752,7 +1828,7 @@ class RiskApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskScoreOut',
+                '\Hanzo\Cloud\Model\RiskRiskScoreOut',
                 $request,
                 $response,
             );
@@ -1761,7 +1837,15 @@ class RiskApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskScoreOut',
+                        '\Hanzo\Cloud\Model\RiskRiskScoreOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1778,15 +1862,15 @@ class RiskApi
      *
      * Score one event against your organisation&#39;s own model
      *
-     * @param  \Hanzo\Cloud\Model\RiskScoreIn $risk_score_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskScoreIn $risk_risk_score_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskScore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskScoreAsync($risk_score_in, string $contentType = self::contentTypes['riskScore'][0])
+    public function riskScoreAsync($risk_risk_score_in, string $contentType = self::contentTypes['riskScore'][0])
     {
-        return $this->riskScoreAsyncWithHttpInfo($risk_score_in, $contentType)
+        return $this->riskScoreAsyncWithHttpInfo($risk_risk_score_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1799,16 +1883,16 @@ class RiskApi
      *
      * Score one event against your organisation&#39;s own model
      *
-     * @param  \Hanzo\Cloud\Model\RiskScoreIn $risk_score_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskScoreIn $risk_risk_score_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskScore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskScoreAsyncWithHttpInfo($risk_score_in, string $contentType = self::contentTypes['riskScore'][0])
+    public function riskScoreAsyncWithHttpInfo($risk_risk_score_in, string $contentType = self::contentTypes['riskScore'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskScoreOut';
-        $request = $this->riskScoreRequest($risk_score_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\RiskRiskScoreOut';
+        $request = $this->riskScoreRequest($risk_risk_score_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1849,19 +1933,19 @@ class RiskApi
     /**
      * Create request for operation 'riskScore'
      *
-     * @param  \Hanzo\Cloud\Model\RiskScoreIn $risk_score_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskScoreIn $risk_risk_score_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskScore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskScoreRequest($risk_score_in, string $contentType = self::contentTypes['riskScore'][0])
+    public function riskScoreRequest($risk_risk_score_in, string $contentType = self::contentTypes['riskScore'][0])
     {
 
-        // verify the required parameter 'risk_score_in' is set
-        if ($risk_score_in === null || (is_array($risk_score_in) && count($risk_score_in) === 0)) {
+        // verify the required parameter 'risk_risk_score_in' is set
+        if ($risk_risk_score_in === null || (is_array($risk_risk_score_in) && count($risk_risk_score_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $risk_score_in when calling riskScore'
+                'Missing the required parameter $risk_risk_score_in when calling riskScore'
             );
         }
 
@@ -1878,18 +1962,18 @@ class RiskApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($risk_score_in)) {
+        if (isset($risk_risk_score_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_score_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_risk_score_in));
             } else {
-                $httpBody = $risk_score_in;
+                $httpBody = $risk_risk_score_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1946,16 +2030,16 @@ class RiskApi
      *
      * Search exhaustively for the model shape that fits your own history
      *
-     * @param  \Hanzo\Cloud\Model\RiskSearchIn $risk_search_in risk_search_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskSearchIn $risk_risk_search_in risk_risk_search_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskSearchRun
+     * @return \Hanzo\Cloud\Model\RiskRiskSearchRun|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskSearch($risk_search_in, string $contentType = self::contentTypes['riskSearch'][0])
+    public function riskSearch($risk_risk_search_in, string $contentType = self::contentTypes['riskSearch'][0])
     {
-        list($response) = $this->riskSearchWithHttpInfo($risk_search_in, $contentType);
+        list($response) = $this->riskSearchWithHttpInfo($risk_risk_search_in, $contentType);
         return $response;
     }
 
@@ -1964,16 +2048,16 @@ class RiskApi
      *
      * Search exhaustively for the model shape that fits your own history
      *
-     * @param  \Hanzo\Cloud\Model\RiskSearchIn $risk_search_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskSearchIn $risk_risk_search_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskSearchRun, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RiskRiskSearchRun|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskSearchWithHttpInfo($risk_search_in, string $contentType = self::contentTypes['riskSearch'][0])
+    public function riskSearchWithHttpInfo($risk_risk_search_in, string $contentType = self::contentTypes['riskSearch'][0])
     {
-        $request = $this->riskSearchRequest($risk_search_in, $contentType);
+        $request = $this->riskSearchRequest($risk_risk_search_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2001,7 +2085,13 @@ class RiskApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskSearchRun',
+                        '\Hanzo\Cloud\Model\RiskRiskSearchRun',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2023,7 +2113,7 @@ class RiskApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskSearchRun',
+                '\Hanzo\Cloud\Model\RiskRiskSearchRun',
                 $request,
                 $response,
             );
@@ -2032,7 +2122,15 @@ class RiskApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskSearchRun',
+                        '\Hanzo\Cloud\Model\RiskRiskSearchRun',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2049,15 +2147,15 @@ class RiskApi
      *
      * Search exhaustively for the model shape that fits your own history
      *
-     * @param  \Hanzo\Cloud\Model\RiskSearchIn $risk_search_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskSearchIn $risk_risk_search_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskSearchAsync($risk_search_in, string $contentType = self::contentTypes['riskSearch'][0])
+    public function riskSearchAsync($risk_risk_search_in, string $contentType = self::contentTypes['riskSearch'][0])
     {
-        return $this->riskSearchAsyncWithHttpInfo($risk_search_in, $contentType)
+        return $this->riskSearchAsyncWithHttpInfo($risk_risk_search_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2070,16 +2168,16 @@ class RiskApi
      *
      * Search exhaustively for the model shape that fits your own history
      *
-     * @param  \Hanzo\Cloud\Model\RiskSearchIn $risk_search_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskSearchIn $risk_risk_search_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskSearchAsyncWithHttpInfo($risk_search_in, string $contentType = self::contentTypes['riskSearch'][0])
+    public function riskSearchAsyncWithHttpInfo($risk_risk_search_in, string $contentType = self::contentTypes['riskSearch'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskSearchRun';
-        $request = $this->riskSearchRequest($risk_search_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\RiskRiskSearchRun';
+        $request = $this->riskSearchRequest($risk_risk_search_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2120,19 +2218,19 @@ class RiskApi
     /**
      * Create request for operation 'riskSearch'
      *
-     * @param  \Hanzo\Cloud\Model\RiskSearchIn $risk_search_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskSearchIn $risk_risk_search_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskSearchRequest($risk_search_in, string $contentType = self::contentTypes['riskSearch'][0])
+    public function riskSearchRequest($risk_risk_search_in, string $contentType = self::contentTypes['riskSearch'][0])
     {
 
-        // verify the required parameter 'risk_search_in' is set
-        if ($risk_search_in === null || (is_array($risk_search_in) && count($risk_search_in) === 0)) {
+        // verify the required parameter 'risk_risk_search_in' is set
+        if ($risk_risk_search_in === null || (is_array($risk_risk_search_in) && count($risk_risk_search_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $risk_search_in when calling riskSearch'
+                'Missing the required parameter $risk_risk_search_in when calling riskSearch'
             );
         }
 
@@ -2149,18 +2247,18 @@ class RiskApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($risk_search_in)) {
+        if (isset($risk_risk_search_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_search_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_risk_search_in));
             } else {
-                $httpBody = $risk_search_in;
+                $httpBody = $risk_risk_search_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2222,7 +2320,7 @@ class RiskApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskSearchReport
+     * @return \Hanzo\Cloud\Model\RiskRiskSearchReport|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskSearchResult($id, string $contentType = self::contentTypes['riskSearchResult'][0])
     {
@@ -2240,7 +2338,7 @@ class RiskApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskSearchReport, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RiskRiskSearchReport|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskSearchResultWithHttpInfo($id, string $contentType = self::contentTypes['riskSearchResult'][0])
     {
@@ -2272,7 +2370,13 @@ class RiskApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskSearchReport',
+                        '\Hanzo\Cloud\Model\RiskRiskSearchReport',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2294,7 +2398,7 @@ class RiskApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskSearchReport',
+                '\Hanzo\Cloud\Model\RiskRiskSearchReport',
                 $request,
                 $response,
             );
@@ -2303,7 +2407,15 @@ class RiskApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskSearchReport',
+                        '\Hanzo\Cloud\Model\RiskRiskSearchReport',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2349,7 +2461,7 @@ class RiskApi
      */
     public function riskSearchResultAsyncWithHttpInfo($id, string $contentType = self::contentTypes['riskSearchResult'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskSearchReport';
+        $returnType = '\Hanzo\Cloud\Model\RiskRiskSearchReport';
         $request = $this->riskSearchResultRequest($id, $contentType);
 
         return $this->client
@@ -2428,7 +2540,7 @@ class RiskApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2489,16 +2601,16 @@ class RiskApi
      *
      * State the decision regime: the appetite, the sample, and whether the model is live
      *
-     * @param  \Hanzo\Cloud\Model\RiskAppetiteIn $risk_appetite_in risk_appetite_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskAppetiteIn $risk_risk_appetite_in risk_risk_appetite_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSetPolicy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskPolicyOut
+     * @return \Hanzo\Cloud\Model\RiskRiskPolicyOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskSetPolicy($risk_appetite_in, string $contentType = self::contentTypes['riskSetPolicy'][0])
+    public function riskSetPolicy($risk_risk_appetite_in, string $contentType = self::contentTypes['riskSetPolicy'][0])
     {
-        list($response) = $this->riskSetPolicyWithHttpInfo($risk_appetite_in, $contentType);
+        list($response) = $this->riskSetPolicyWithHttpInfo($risk_risk_appetite_in, $contentType);
         return $response;
     }
 
@@ -2507,16 +2619,16 @@ class RiskApi
      *
      * State the decision regime: the appetite, the sample, and whether the model is live
      *
-     * @param  \Hanzo\Cloud\Model\RiskAppetiteIn $risk_appetite_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskAppetiteIn $risk_risk_appetite_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSetPolicy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskPolicyOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RiskRiskPolicyOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskSetPolicyWithHttpInfo($risk_appetite_in, string $contentType = self::contentTypes['riskSetPolicy'][0])
+    public function riskSetPolicyWithHttpInfo($risk_risk_appetite_in, string $contentType = self::contentTypes['riskSetPolicy'][0])
     {
-        $request = $this->riskSetPolicyRequest($risk_appetite_in, $contentType);
+        $request = $this->riskSetPolicyRequest($risk_risk_appetite_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2544,7 +2656,13 @@ class RiskApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskPolicyOut',
+                        '\Hanzo\Cloud\Model\RiskRiskPolicyOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2566,7 +2684,7 @@ class RiskApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskPolicyOut',
+                '\Hanzo\Cloud\Model\RiskRiskPolicyOut',
                 $request,
                 $response,
             );
@@ -2575,7 +2693,15 @@ class RiskApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskPolicyOut',
+                        '\Hanzo\Cloud\Model\RiskRiskPolicyOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2592,15 +2718,15 @@ class RiskApi
      *
      * State the decision regime: the appetite, the sample, and whether the model is live
      *
-     * @param  \Hanzo\Cloud\Model\RiskAppetiteIn $risk_appetite_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskAppetiteIn $risk_risk_appetite_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSetPolicy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskSetPolicyAsync($risk_appetite_in, string $contentType = self::contentTypes['riskSetPolicy'][0])
+    public function riskSetPolicyAsync($risk_risk_appetite_in, string $contentType = self::contentTypes['riskSetPolicy'][0])
     {
-        return $this->riskSetPolicyAsyncWithHttpInfo($risk_appetite_in, $contentType)
+        return $this->riskSetPolicyAsyncWithHttpInfo($risk_risk_appetite_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2613,16 +2739,16 @@ class RiskApi
      *
      * State the decision regime: the appetite, the sample, and whether the model is live
      *
-     * @param  \Hanzo\Cloud\Model\RiskAppetiteIn $risk_appetite_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskAppetiteIn $risk_risk_appetite_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSetPolicy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskSetPolicyAsyncWithHttpInfo($risk_appetite_in, string $contentType = self::contentTypes['riskSetPolicy'][0])
+    public function riskSetPolicyAsyncWithHttpInfo($risk_risk_appetite_in, string $contentType = self::contentTypes['riskSetPolicy'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskPolicyOut';
-        $request = $this->riskSetPolicyRequest($risk_appetite_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\RiskRiskPolicyOut';
+        $request = $this->riskSetPolicyRequest($risk_risk_appetite_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2663,19 +2789,19 @@ class RiskApi
     /**
      * Create request for operation 'riskSetPolicy'
      *
-     * @param  \Hanzo\Cloud\Model\RiskAppetiteIn $risk_appetite_in (required)
+     * @param  \Hanzo\Cloud\Model\RiskRiskAppetiteIn $risk_risk_appetite_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSetPolicy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskSetPolicyRequest($risk_appetite_in, string $contentType = self::contentTypes['riskSetPolicy'][0])
+    public function riskSetPolicyRequest($risk_risk_appetite_in, string $contentType = self::contentTypes['riskSetPolicy'][0])
     {
 
-        // verify the required parameter 'risk_appetite_in' is set
-        if ($risk_appetite_in === null || (is_array($risk_appetite_in) && count($risk_appetite_in) === 0)) {
+        // verify the required parameter 'risk_risk_appetite_in' is set
+        if ($risk_risk_appetite_in === null || (is_array($risk_risk_appetite_in) && count($risk_risk_appetite_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $risk_appetite_in when calling riskSetPolicy'
+                'Missing the required parameter $risk_risk_appetite_in when calling riskSetPolicy'
             );
         }
 
@@ -2692,18 +2818,18 @@ class RiskApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($risk_appetite_in)) {
+        if (isset($risk_risk_appetite_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_appetite_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_risk_appetite_in));
             } else {
-                $httpBody = $risk_appetite_in;
+                $httpBody = $risk_risk_appetite_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2764,7 +2890,7 @@ class RiskApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskModelState
+     * @return \Hanzo\Cloud\Model\RiskRiskModelState|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskState(string $contentType = self::contentTypes['riskState'][0])
     {
@@ -2781,7 +2907,7 @@ class RiskApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskModelState, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\RiskRiskModelState|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskStateWithHttpInfo(string $contentType = self::contentTypes['riskState'][0])
     {
@@ -2813,7 +2939,13 @@ class RiskApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskModelState',
+                        '\Hanzo\Cloud\Model\RiskRiskModelState',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2835,7 +2967,7 @@ class RiskApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskModelState',
+                '\Hanzo\Cloud\Model\RiskRiskModelState',
                 $request,
                 $response,
             );
@@ -2844,7 +2976,15 @@ class RiskApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskModelState',
+                        '\Hanzo\Cloud\Model\RiskRiskModelState',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2888,7 +3028,7 @@ class RiskApi
      */
     public function riskStateAsyncWithHttpInfo(string $contentType = self::contentTypes['riskState'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskModelState';
+        $returnType = '\Hanzo\Cloud\Model\RiskRiskModelState';
         $request = $this->riskStateRequest($contentType);
 
         return $this->client
@@ -2951,7 +3091,7 @@ class RiskApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

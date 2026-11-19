@@ -205,6 +205,14 @@ class WebhookApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -312,7 +320,7 @@ class WebhookApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -377,7 +385,7 @@ class WebhookApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EndpointList
+     * @return \Hanzo\Cloud\Model\WebhookEndpointList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWebhook(string $contentType = self::contentTypes['getWebhook'][0])
     {
@@ -394,7 +402,7 @@ class WebhookApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EndpointList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WebhookEndpointList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWebhookWithHttpInfo(string $contentType = self::contentTypes['getWebhook'][0])
     {
@@ -426,7 +434,13 @@ class WebhookApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EndpointList',
+                        '\Hanzo\Cloud\Model\WebhookEndpointList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -448,7 +462,7 @@ class WebhookApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EndpointList',
+                '\Hanzo\Cloud\Model\WebhookEndpointList',
                 $request,
                 $response,
             );
@@ -457,7 +471,15 @@ class WebhookApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EndpointList',
+                        '\Hanzo\Cloud\Model\WebhookEndpointList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -501,7 +523,7 @@ class WebhookApi
      */
     public function getWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['getWebhook'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EndpointList';
+        $returnType = '\Hanzo\Cloud\Model\WebhookEndpointList';
         $request = $this->getWebhookRequest($contentType);
 
         return $this->client
@@ -564,7 +586,7 @@ class WebhookApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -630,7 +652,7 @@ class WebhookApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Endpoint
+     * @return \Hanzo\Cloud\Model\WebhookEndpoint|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWebhookById($id, string $contentType = self::contentTypes['getWebhookById'][0])
     {
@@ -648,7 +670,7 @@ class WebhookApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Endpoint, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WebhookEndpoint|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWebhookByIdWithHttpInfo($id, string $contentType = self::contentTypes['getWebhookById'][0])
     {
@@ -680,7 +702,13 @@ class WebhookApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Endpoint',
+                        '\Hanzo\Cloud\Model\WebhookEndpoint',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -702,7 +730,7 @@ class WebhookApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Endpoint',
+                '\Hanzo\Cloud\Model\WebhookEndpoint',
                 $request,
                 $response,
             );
@@ -711,7 +739,15 @@ class WebhookApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Endpoint',
+                        '\Hanzo\Cloud\Model\WebhookEndpoint',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -757,7 +793,7 @@ class WebhookApi
      */
     public function getWebhookByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getWebhookById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Endpoint';
+        $returnType = '\Hanzo\Cloud\Model\WebhookEndpoint';
         $request = $this->getWebhookByIdRequest($id, $contentType);
 
         return $this->client
@@ -836,7 +872,7 @@ class WebhookApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -904,7 +940,7 @@ class WebhookApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeliveryList
+     * @return \Hanzo\Cloud\Model\WebhookDeliveryList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWebhookByIdDeliveries($id, $limit = null, $status = null, string $contentType = self::contentTypes['getWebhookByIdDeliveries'][0])
     {
@@ -924,7 +960,7 @@ class WebhookApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeliveryList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WebhookDeliveryList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWebhookByIdDeliveriesWithHttpInfo($id, $limit = null, $status = null, string $contentType = self::contentTypes['getWebhookByIdDeliveries'][0])
     {
@@ -956,7 +992,13 @@ class WebhookApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeliveryList',
+                        '\Hanzo\Cloud\Model\WebhookDeliveryList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -978,7 +1020,7 @@ class WebhookApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeliveryList',
+                '\Hanzo\Cloud\Model\WebhookDeliveryList',
                 $request,
                 $response,
             );
@@ -987,7 +1029,15 @@ class WebhookApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeliveryList',
+                        '\Hanzo\Cloud\Model\WebhookDeliveryList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1037,7 +1087,7 @@ class WebhookApi
      */
     public function getWebhookByIdDeliveriesAsyncWithHttpInfo($id, $limit = null, $status = null, string $contentType = self::contentTypes['getWebhookByIdDeliveries'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeliveryList';
+        $returnType = '\Hanzo\Cloud\Model\WebhookDeliveryList';
         $request = $this->getWebhookByIdDeliveriesRequest($id, $limit, $status, $contentType);
 
         return $this->client
@@ -1138,7 +1188,7 @@ class WebhookApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1199,16 +1249,16 @@ class WebhookApi
      *
      * Registers a new webhook subscription for the caller&#39;s org and answers 201 with the endpoint INCLUDING its freshly minted signing secret.
      *
-     * @param  \Hanzo\Cloud\Model\CreateEndpointIn $create_endpoint_in create_endpoint_in (required)
+     * @param  \Hanzo\Cloud\Model\WebhookCreateEndpointIn $webhook_create_endpoint_in webhook_create_endpoint_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Endpoint
+     * @return \Hanzo\Cloud\Model\WebhookEndpoint|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postWebhook($create_endpoint_in, string $contentType = self::contentTypes['postWebhook'][0])
+    public function postWebhook($webhook_create_endpoint_in, string $contentType = self::contentTypes['postWebhook'][0])
     {
-        list($response) = $this->postWebhookWithHttpInfo($create_endpoint_in, $contentType);
+        list($response) = $this->postWebhookWithHttpInfo($webhook_create_endpoint_in, $contentType);
         return $response;
     }
 
@@ -1217,16 +1267,16 @@ class WebhookApi
      *
      * Registers a new webhook subscription for the caller&#39;s org and answers 201 with the endpoint INCLUDING its freshly minted signing secret.
      *
-     * @param  \Hanzo\Cloud\Model\CreateEndpointIn $create_endpoint_in (required)
+     * @param  \Hanzo\Cloud\Model\WebhookCreateEndpointIn $webhook_create_endpoint_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Endpoint, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WebhookEndpoint|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postWebhookWithHttpInfo($create_endpoint_in, string $contentType = self::contentTypes['postWebhook'][0])
+    public function postWebhookWithHttpInfo($webhook_create_endpoint_in, string $contentType = self::contentTypes['postWebhook'][0])
     {
-        $request = $this->postWebhookRequest($create_endpoint_in, $contentType);
+        $request = $this->postWebhookRequest($webhook_create_endpoint_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1254,7 +1304,13 @@ class WebhookApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Endpoint',
+                        '\Hanzo\Cloud\Model\WebhookEndpoint',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1276,7 +1332,7 @@ class WebhookApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Endpoint',
+                '\Hanzo\Cloud\Model\WebhookEndpoint',
                 $request,
                 $response,
             );
@@ -1285,7 +1341,15 @@ class WebhookApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Endpoint',
+                        '\Hanzo\Cloud\Model\WebhookEndpoint',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1302,15 +1366,15 @@ class WebhookApi
      *
      * Registers a new webhook subscription for the caller&#39;s org and answers 201 with the endpoint INCLUDING its freshly minted signing secret.
      *
-     * @param  \Hanzo\Cloud\Model\CreateEndpointIn $create_endpoint_in (required)
+     * @param  \Hanzo\Cloud\Model\WebhookCreateEndpointIn $webhook_create_endpoint_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWebhookAsync($create_endpoint_in, string $contentType = self::contentTypes['postWebhook'][0])
+    public function postWebhookAsync($webhook_create_endpoint_in, string $contentType = self::contentTypes['postWebhook'][0])
     {
-        return $this->postWebhookAsyncWithHttpInfo($create_endpoint_in, $contentType)
+        return $this->postWebhookAsyncWithHttpInfo($webhook_create_endpoint_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1323,16 +1387,16 @@ class WebhookApi
      *
      * Registers a new webhook subscription for the caller&#39;s org and answers 201 with the endpoint INCLUDING its freshly minted signing secret.
      *
-     * @param  \Hanzo\Cloud\Model\CreateEndpointIn $create_endpoint_in (required)
+     * @param  \Hanzo\Cloud\Model\WebhookCreateEndpointIn $webhook_create_endpoint_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWebhookAsyncWithHttpInfo($create_endpoint_in, string $contentType = self::contentTypes['postWebhook'][0])
+    public function postWebhookAsyncWithHttpInfo($webhook_create_endpoint_in, string $contentType = self::contentTypes['postWebhook'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Endpoint';
-        $request = $this->postWebhookRequest($create_endpoint_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\WebhookEndpoint';
+        $request = $this->postWebhookRequest($webhook_create_endpoint_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1373,19 +1437,19 @@ class WebhookApi
     /**
      * Create request for operation 'postWebhook'
      *
-     * @param  \Hanzo\Cloud\Model\CreateEndpointIn $create_endpoint_in (required)
+     * @param  \Hanzo\Cloud\Model\WebhookCreateEndpointIn $webhook_create_endpoint_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postWebhookRequest($create_endpoint_in, string $contentType = self::contentTypes['postWebhook'][0])
+    public function postWebhookRequest($webhook_create_endpoint_in, string $contentType = self::contentTypes['postWebhook'][0])
     {
 
-        // verify the required parameter 'create_endpoint_in' is set
-        if ($create_endpoint_in === null || (is_array($create_endpoint_in) && count($create_endpoint_in) === 0)) {
+        // verify the required parameter 'webhook_create_endpoint_in' is set
+        if ($webhook_create_endpoint_in === null || (is_array($webhook_create_endpoint_in) && count($webhook_create_endpoint_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_endpoint_in when calling postWebhook'
+                'Missing the required parameter $webhook_create_endpoint_in when calling postWebhook'
             );
         }
 
@@ -1402,18 +1466,18 @@ class WebhookApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($create_endpoint_in)) {
+        if (isset($webhook_create_endpoint_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_endpoint_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($webhook_create_endpoint_in));
             } else {
-                $httpBody = $create_endpoint_in;
+                $httpBody = $webhook_create_endpoint_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1475,7 +1539,7 @@ class WebhookApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Endpoint
+     * @return \Hanzo\Cloud\Model\WebhookEndpoint|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postWebhookByIdSecret($id, string $contentType = self::contentTypes['postWebhookByIdSecret'][0])
     {
@@ -1493,7 +1557,7 @@ class WebhookApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Endpoint, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WebhookEndpoint|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postWebhookByIdSecretWithHttpInfo($id, string $contentType = self::contentTypes['postWebhookByIdSecret'][0])
     {
@@ -1525,7 +1589,13 @@ class WebhookApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Endpoint',
+                        '\Hanzo\Cloud\Model\WebhookEndpoint',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1547,7 +1617,7 @@ class WebhookApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Endpoint',
+                '\Hanzo\Cloud\Model\WebhookEndpoint',
                 $request,
                 $response,
             );
@@ -1556,7 +1626,15 @@ class WebhookApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Endpoint',
+                        '\Hanzo\Cloud\Model\WebhookEndpoint',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1602,7 +1680,7 @@ class WebhookApi
      */
     public function postWebhookByIdSecretAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postWebhookByIdSecret'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Endpoint';
+        $returnType = '\Hanzo\Cloud\Model\WebhookEndpoint';
         $request = $this->postWebhookByIdSecretRequest($id, $contentType);
 
         return $this->client
@@ -1681,7 +1759,7 @@ class WebhookApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1747,7 +1825,7 @@ class WebhookApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TestResult
+     * @return \Hanzo\Cloud\Model\WebhookTestResult|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postWebhookByIdTest($id, string $contentType = self::contentTypes['postWebhookByIdTest'][0])
     {
@@ -1765,7 +1843,7 @@ class WebhookApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TestResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WebhookTestResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postWebhookByIdTestWithHttpInfo($id, string $contentType = self::contentTypes['postWebhookByIdTest'][0])
     {
@@ -1797,7 +1875,13 @@ class WebhookApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TestResult',
+                        '\Hanzo\Cloud\Model\WebhookTestResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1819,7 +1903,7 @@ class WebhookApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TestResult',
+                '\Hanzo\Cloud\Model\WebhookTestResult',
                 $request,
                 $response,
             );
@@ -1828,7 +1912,15 @@ class WebhookApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TestResult',
+                        '\Hanzo\Cloud\Model\WebhookTestResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1874,7 +1966,7 @@ class WebhookApi
      */
     public function postWebhookByIdTestAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postWebhookByIdTest'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TestResult';
+        $returnType = '\Hanzo\Cloud\Model\WebhookTestResult';
         $request = $this->postWebhookByIdTestRequest($id, $contentType);
 
         return $this->client
@@ -1953,7 +2045,7 @@ class WebhookApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2015,16 +2107,16 @@ class WebhookApi
      * Replaces the editable fields of one of the caller org&#39;s endpoints — url, events, status and description — and answers the stored row with its secret redacted.
      *
      * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\UpdateEndpointIn $update_endpoint_in update_endpoint_in (required)
+     * @param  \Hanzo\Cloud\Model\WebhookUpdateEndpointIn $webhook_update_endpoint_in webhook_update_endpoint_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWebhookById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Endpoint
+     * @return \Hanzo\Cloud\Model\WebhookEndpoint|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putWebhookById($id, $update_endpoint_in, string $contentType = self::contentTypes['putWebhookById'][0])
+    public function putWebhookById($id, $webhook_update_endpoint_in, string $contentType = self::contentTypes['putWebhookById'][0])
     {
-        list($response) = $this->putWebhookByIdWithHttpInfo($id, $update_endpoint_in, $contentType);
+        list($response) = $this->putWebhookByIdWithHttpInfo($id, $webhook_update_endpoint_in, $contentType);
         return $response;
     }
 
@@ -2034,16 +2126,16 @@ class WebhookApi
      * Replaces the editable fields of one of the caller org&#39;s endpoints — url, events, status and description — and answers the stored row with its secret redacted.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\UpdateEndpointIn $update_endpoint_in (required)
+     * @param  \Hanzo\Cloud\Model\WebhookUpdateEndpointIn $webhook_update_endpoint_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWebhookById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Endpoint, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WebhookEndpoint|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putWebhookByIdWithHttpInfo($id, $update_endpoint_in, string $contentType = self::contentTypes['putWebhookById'][0])
+    public function putWebhookByIdWithHttpInfo($id, $webhook_update_endpoint_in, string $contentType = self::contentTypes['putWebhookById'][0])
     {
-        $request = $this->putWebhookByIdRequest($id, $update_endpoint_in, $contentType);
+        $request = $this->putWebhookByIdRequest($id, $webhook_update_endpoint_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2071,7 +2163,13 @@ class WebhookApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Endpoint',
+                        '\Hanzo\Cloud\Model\WebhookEndpoint',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2093,7 +2191,7 @@ class WebhookApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Endpoint',
+                '\Hanzo\Cloud\Model\WebhookEndpoint',
                 $request,
                 $response,
             );
@@ -2102,7 +2200,15 @@ class WebhookApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Endpoint',
+                        '\Hanzo\Cloud\Model\WebhookEndpoint',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2120,15 +2226,15 @@ class WebhookApi
      * Replaces the editable fields of one of the caller org&#39;s endpoints — url, events, status and description — and answers the stored row with its secret redacted.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\UpdateEndpointIn $update_endpoint_in (required)
+     * @param  \Hanzo\Cloud\Model\WebhookUpdateEndpointIn $webhook_update_endpoint_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWebhookById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putWebhookByIdAsync($id, $update_endpoint_in, string $contentType = self::contentTypes['putWebhookById'][0])
+    public function putWebhookByIdAsync($id, $webhook_update_endpoint_in, string $contentType = self::contentTypes['putWebhookById'][0])
     {
-        return $this->putWebhookByIdAsyncWithHttpInfo($id, $update_endpoint_in, $contentType)
+        return $this->putWebhookByIdAsyncWithHttpInfo($id, $webhook_update_endpoint_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2142,16 +2248,16 @@ class WebhookApi
      * Replaces the editable fields of one of the caller org&#39;s endpoints — url, events, status and description — and answers the stored row with its secret redacted.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\UpdateEndpointIn $update_endpoint_in (required)
+     * @param  \Hanzo\Cloud\Model\WebhookUpdateEndpointIn $webhook_update_endpoint_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWebhookById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putWebhookByIdAsyncWithHttpInfo($id, $update_endpoint_in, string $contentType = self::contentTypes['putWebhookById'][0])
+    public function putWebhookByIdAsyncWithHttpInfo($id, $webhook_update_endpoint_in, string $contentType = self::contentTypes['putWebhookById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Endpoint';
-        $request = $this->putWebhookByIdRequest($id, $update_endpoint_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\WebhookEndpoint';
+        $request = $this->putWebhookByIdRequest($id, $webhook_update_endpoint_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2193,13 +2299,13 @@ class WebhookApi
      * Create request for operation 'putWebhookById'
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\UpdateEndpointIn $update_endpoint_in (required)
+     * @param  \Hanzo\Cloud\Model\WebhookUpdateEndpointIn $webhook_update_endpoint_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWebhookById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putWebhookByIdRequest($id, $update_endpoint_in, string $contentType = self::contentTypes['putWebhookById'][0])
+    public function putWebhookByIdRequest($id, $webhook_update_endpoint_in, string $contentType = self::contentTypes['putWebhookById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -2209,10 +2315,10 @@ class WebhookApi
             );
         }
 
-        // verify the required parameter 'update_endpoint_in' is set
-        if ($update_endpoint_in === null || (is_array($update_endpoint_in) && count($update_endpoint_in) === 0)) {
+        // verify the required parameter 'webhook_update_endpoint_in' is set
+        if ($webhook_update_endpoint_in === null || (is_array($webhook_update_endpoint_in) && count($webhook_update_endpoint_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $update_endpoint_in when calling putWebhookById'
+                'Missing the required parameter $webhook_update_endpoint_in when calling putWebhookById'
             );
         }
 
@@ -2237,18 +2343,18 @@ class WebhookApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($update_endpoint_in)) {
+        if (isset($webhook_update_endpoint_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($update_endpoint_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($webhook_update_endpoint_in));
             } else {
-                $httpBody = $update_endpoint_in;
+                $httpBody = $webhook_update_endpoint_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

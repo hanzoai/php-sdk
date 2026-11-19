@@ -77,6 +77,9 @@ class KnowledgeApi
         'deleteKnowledgeConnectorsByProvider' => [
             'application/json',
         ],
+        'deleteKnowledgeFilesById' => [
+            'application/json',
+        ],
         'getKnowledgeConnectors' => [
             'application/json',
         ],
@@ -89,10 +92,34 @@ class KnowledgeApi
         'getKnowledgeConnectorsCatalog' => [
             'application/json',
         ],
+        'getKnowledgeFiles' => [
+            'application/json',
+        ],
+        'getKnowledgeFilesById' => [
+            'application/json',
+        ],
+        'getKnowledgeFilesByIdGraph' => [
+            'application/json',
+        ],
+        'getKnowledgeFilesByIdSectionsBySection' => [
+            'application/json',
+        ],
+        'getKnowledgeFilesByIdToc' => [
+            'application/json',
+        ],
         'getKnowledgeGraph' => [
             'application/json',
         ],
         'postKnowledgeConnectorsByProviderSync' => [
+            'application/json',
+        ],
+        'postKnowledgeFiles' => [
+            'application/json',
+        ],
+        'postKnowledgeFilesRetrieve' => [
+            'application/json',
+        ],
+        'postKnowledgeFilesSearch' => [
             'application/json',
         ],
         'postKnowledgeImport' => [
@@ -155,14 +182,14 @@ class KnowledgeApi
     /**
      * Operation deleteKnowledgeConnectorsByProvider
      *
-     * Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, purges this provider&#39;s points from the org&#39;s vector namespace, and marks the connector disconnected.
+     * Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, removes this provider&#39;s passages from the org&#39;s store, and marks the connector disconnected.
      *
      * @param  string $provider Provider is the connector to act on: github, slack, google or notion. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKnowledgeConnectorsByProvider'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ConnectionOut
+     * @return \Hanzo\Cloud\Model\KnowledgeConnectionOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteKnowledgeConnectorsByProvider($provider, string $contentType = self::contentTypes['deleteKnowledgeConnectorsByProvider'][0])
     {
@@ -173,14 +200,14 @@ class KnowledgeApi
     /**
      * Operation deleteKnowledgeConnectorsByProviderWithHttpInfo
      *
-     * Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, purges this provider&#39;s points from the org&#39;s vector namespace, and marks the connector disconnected.
+     * Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, removes this provider&#39;s passages from the org&#39;s store, and marks the connector disconnected.
      *
      * @param  string $provider Provider is the connector to act on: github, slack, google or notion. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKnowledgeConnectorsByProvider'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ConnectionOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KnowledgeConnectionOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteKnowledgeConnectorsByProviderWithHttpInfo($provider, string $contentType = self::contentTypes['deleteKnowledgeConnectorsByProvider'][0])
     {
@@ -212,7 +239,13 @@ class KnowledgeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ConnectionOut',
+                        '\Hanzo\Cloud\Model\KnowledgeConnectionOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -234,7 +267,7 @@ class KnowledgeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ConnectionOut',
+                '\Hanzo\Cloud\Model\KnowledgeConnectionOut',
                 $request,
                 $response,
             );
@@ -243,7 +276,15 @@ class KnowledgeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ConnectionOut',
+                        '\Hanzo\Cloud\Model\KnowledgeConnectionOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -258,7 +299,7 @@ class KnowledgeApi
     /**
      * Operation deleteKnowledgeConnectorsByProviderAsync
      *
-     * Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, purges this provider&#39;s points from the org&#39;s vector namespace, and marks the connector disconnected.
+     * Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, removes this provider&#39;s passages from the org&#39;s store, and marks the connector disconnected.
      *
      * @param  string $provider Provider is the connector to act on: github, slack, google or notion. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKnowledgeConnectorsByProvider'] to see the possible values for this operation
@@ -279,7 +320,7 @@ class KnowledgeApi
     /**
      * Operation deleteKnowledgeConnectorsByProviderAsyncWithHttpInfo
      *
-     * Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, purges this provider&#39;s points from the org&#39;s vector namespace, and marks the connector disconnected.
+     * Revokes a connection: it tombstones the stored credential so a later sync cannot reuse it, removes this provider&#39;s passages from the org&#39;s store, and marks the connector disconnected.
      *
      * @param  string $provider Provider is the connector to act on: github, slack, google or notion. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKnowledgeConnectorsByProvider'] to see the possible values for this operation
@@ -289,7 +330,7 @@ class KnowledgeApi
      */
     public function deleteKnowledgeConnectorsByProviderAsyncWithHttpInfo($provider, string $contentType = self::contentTypes['deleteKnowledgeConnectorsByProvider'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ConnectionOut';
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeConnectionOut';
         $request = $this->deleteKnowledgeConnectorsByProviderRequest($provider, $contentType);
 
         return $this->client
@@ -368,7 +409,293 @@ class KnowledgeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteKnowledgeFilesById
+     *
+     * Removes one of the caller&#39;s org files from the index — its table of contents, passages, full-text rows, mentions and links — and its record.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKnowledgeFilesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\KnowledgeForgotten|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function deleteKnowledgeFilesById($id, string $contentType = self::contentTypes['deleteKnowledgeFilesById'][0])
+    {
+        list($response) = $this->deleteKnowledgeFilesByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteKnowledgeFilesByIdWithHttpInfo
+     *
+     * Removes one of the caller&#39;s org files from the index — its table of contents, passages, full-text rows, mentions and links — and its record.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKnowledgeFilesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\KnowledgeForgotten|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteKnowledgeFilesByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteKnowledgeFilesById'][0])
+    {
+        $request = $this->deleteKnowledgeFilesByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\KnowledgeForgotten',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\KnowledgeForgotten',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\KnowledgeForgotten',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteKnowledgeFilesByIdAsync
+     *
+     * Removes one of the caller&#39;s org files from the index — its table of contents, passages, full-text rows, mentions and links — and its record.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKnowledgeFilesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteKnowledgeFilesByIdAsync($id, string $contentType = self::contentTypes['deleteKnowledgeFilesById'][0])
+    {
+        return $this->deleteKnowledgeFilesByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteKnowledgeFilesByIdAsyncWithHttpInfo
+     *
+     * Removes one of the caller&#39;s org files from the index — its table of contents, passages, full-text rows, mentions and links — and its record.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKnowledgeFilesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteKnowledgeFilesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteKnowledgeFilesById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeForgotten';
+        $request = $this->deleteKnowledgeFilesByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteKnowledgeFilesById'
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKnowledgeFilesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteKnowledgeFilesByIdRequest($id, string $contentType = self::contentTypes['deleteKnowledgeFilesById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteKnowledgeFilesById'
+            );
+        }
+
+
+        $resourcePath = '/v1/knowledge/files/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -433,7 +760,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KbConnectorsOut
+     * @return \Hanzo\Cloud\Model\KnowledgeKbConnectorsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getKnowledgeConnectors(string $contentType = self::contentTypes['getKnowledgeConnectors'][0])
     {
@@ -450,7 +777,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KbConnectorsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KnowledgeKbConnectorsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getKnowledgeConnectorsWithHttpInfo(string $contentType = self::contentTypes['getKnowledgeConnectors'][0])
     {
@@ -482,7 +809,13 @@ class KnowledgeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KbConnectorsOut',
+                        '\Hanzo\Cloud\Model\KnowledgeKbConnectorsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -504,7 +837,7 @@ class KnowledgeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KbConnectorsOut',
+                '\Hanzo\Cloud\Model\KnowledgeKbConnectorsOut',
                 $request,
                 $response,
             );
@@ -513,7 +846,15 @@ class KnowledgeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KbConnectorsOut',
+                        '\Hanzo\Cloud\Model\KnowledgeKbConnectorsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -557,7 +898,7 @@ class KnowledgeApi
      */
     public function getKnowledgeConnectorsAsyncWithHttpInfo(string $contentType = self::contentTypes['getKnowledgeConnectors'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KbConnectorsOut';
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeKbConnectorsOut';
         $request = $this->getKnowledgeConnectorsRequest($contentType);
 
         return $this->client
@@ -620,7 +961,7 @@ class KnowledgeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -689,7 +1030,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ConnectionOut
+     * @return \Hanzo\Cloud\Model\KnowledgeConnectionOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getKnowledgeConnectorsByProviderCallback($provider, $code = null, $state = null, $error = null, string $contentType = self::contentTypes['getKnowledgeConnectorsByProviderCallback'][0])
     {
@@ -710,7 +1051,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ConnectionOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KnowledgeConnectionOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getKnowledgeConnectorsByProviderCallbackWithHttpInfo($provider, $code = null, $state = null, $error = null, string $contentType = self::contentTypes['getKnowledgeConnectorsByProviderCallback'][0])
     {
@@ -742,7 +1083,13 @@ class KnowledgeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ConnectionOut',
+                        '\Hanzo\Cloud\Model\KnowledgeConnectionOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -764,7 +1111,7 @@ class KnowledgeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ConnectionOut',
+                '\Hanzo\Cloud\Model\KnowledgeConnectionOut',
                 $request,
                 $response,
             );
@@ -773,7 +1120,15 @@ class KnowledgeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ConnectionOut',
+                        '\Hanzo\Cloud\Model\KnowledgeConnectionOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -825,7 +1180,7 @@ class KnowledgeApi
      */
     public function getKnowledgeConnectorsByProviderCallbackAsyncWithHttpInfo($provider, $code = null, $state = null, $error = null, string $contentType = self::contentTypes['getKnowledgeConnectorsByProviderCallback'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ConnectionOut';
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeConnectionOut';
         $request = $this->getKnowledgeConnectorsByProviderCallbackRequest($provider, $code, $state, $error, $contentType);
 
         return $this->client
@@ -937,7 +1292,7 @@ class KnowledgeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1003,7 +1358,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KbAuthorizeOut
+     * @return \Hanzo\Cloud\Model\KnowledgeKbAuthorizeOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getKnowledgeConnectorsByProviderConnect($provider, string $contentType = self::contentTypes['getKnowledgeConnectorsByProviderConnect'][0])
     {
@@ -1021,7 +1376,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KbAuthorizeOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KnowledgeKbAuthorizeOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getKnowledgeConnectorsByProviderConnectWithHttpInfo($provider, string $contentType = self::contentTypes['getKnowledgeConnectorsByProviderConnect'][0])
     {
@@ -1053,7 +1408,13 @@ class KnowledgeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KbAuthorizeOut',
+                        '\Hanzo\Cloud\Model\KnowledgeKbAuthorizeOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1075,7 +1436,7 @@ class KnowledgeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KbAuthorizeOut',
+                '\Hanzo\Cloud\Model\KnowledgeKbAuthorizeOut',
                 $request,
                 $response,
             );
@@ -1084,7 +1445,15 @@ class KnowledgeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KbAuthorizeOut',
+                        '\Hanzo\Cloud\Model\KnowledgeKbAuthorizeOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1130,7 +1499,7 @@ class KnowledgeApi
      */
     public function getKnowledgeConnectorsByProviderConnectAsyncWithHttpInfo($provider, string $contentType = self::contentTypes['getKnowledgeConnectorsByProviderConnect'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KbAuthorizeOut';
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeKbAuthorizeOut';
         $request = $this->getKnowledgeConnectorsByProviderConnectRequest($provider, $contentType);
 
         return $this->client
@@ -1209,7 +1578,7 @@ class KnowledgeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1274,7 +1643,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CatalogOut
+     * @return \Hanzo\Cloud\Model\KnowledgeCatalogOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getKnowledgeConnectorsCatalog(string $contentType = self::contentTypes['getKnowledgeConnectorsCatalog'][0])
     {
@@ -1291,7 +1660,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CatalogOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KnowledgeCatalogOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getKnowledgeConnectorsCatalogWithHttpInfo(string $contentType = self::contentTypes['getKnowledgeConnectorsCatalog'][0])
     {
@@ -1323,7 +1692,13 @@ class KnowledgeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CatalogOut',
+                        '\Hanzo\Cloud\Model\KnowledgeCatalogOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1345,7 +1720,7 @@ class KnowledgeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CatalogOut',
+                '\Hanzo\Cloud\Model\KnowledgeCatalogOut',
                 $request,
                 $response,
             );
@@ -1354,7 +1729,15 @@ class KnowledgeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CatalogOut',
+                        '\Hanzo\Cloud\Model\KnowledgeCatalogOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1398,7 +1781,7 @@ class KnowledgeApi
      */
     public function getKnowledgeConnectorsCatalogAsyncWithHttpInfo(string $contentType = self::contentTypes['getKnowledgeConnectorsCatalog'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CatalogOut';
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeCatalogOut';
         $request = $this->getKnowledgeConnectorsCatalogRequest($contentType);
 
         return $this->client
@@ -1461,7 +1844,1467 @@ class KnowledgeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getKnowledgeFiles
+     *
+     * Answers the caller&#39;s org files, most recently changed first, each with its status and stage — optionally only those in one bucket, which is how Drive shows a folder&#39;s files with their index state.
+     *
+     * @param  string|null $bucket bucket (optional)
+     * @param  string|null $limit limit (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFiles'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\KnowledgeFilesOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getKnowledgeFiles($bucket = null, $limit = null, string $contentType = self::contentTypes['getKnowledgeFiles'][0])
+    {
+        list($response) = $this->getKnowledgeFilesWithHttpInfo($bucket, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getKnowledgeFilesWithHttpInfo
+     *
+     * Answers the caller&#39;s org files, most recently changed first, each with its status and stage — optionally only those in one bucket, which is how Drive shows a folder&#39;s files with their index state.
+     *
+     * @param  string|null $bucket (optional)
+     * @param  string|null $limit (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFiles'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\KnowledgeFilesOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getKnowledgeFilesWithHttpInfo($bucket = null, $limit = null, string $contentType = self::contentTypes['getKnowledgeFiles'][0])
+    {
+        $request = $this->getKnowledgeFilesRequest($bucket, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\KnowledgeFilesOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\KnowledgeFilesOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\KnowledgeFilesOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getKnowledgeFilesAsync
+     *
+     * Answers the caller&#39;s org files, most recently changed first, each with its status and stage — optionally only those in one bucket, which is how Drive shows a folder&#39;s files with their index state.
+     *
+     * @param  string|null $bucket (optional)
+     * @param  string|null $limit (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFiles'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKnowledgeFilesAsync($bucket = null, $limit = null, string $contentType = self::contentTypes['getKnowledgeFiles'][0])
+    {
+        return $this->getKnowledgeFilesAsyncWithHttpInfo($bucket, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getKnowledgeFilesAsyncWithHttpInfo
+     *
+     * Answers the caller&#39;s org files, most recently changed first, each with its status and stage — optionally only those in one bucket, which is how Drive shows a folder&#39;s files with their index state.
+     *
+     * @param  string|null $bucket (optional)
+     * @param  string|null $limit (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFiles'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKnowledgeFilesAsyncWithHttpInfo($bucket = null, $limit = null, string $contentType = self::contentTypes['getKnowledgeFiles'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeFilesOut';
+        $request = $this->getKnowledgeFilesRequest($bucket, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getKnowledgeFiles'
+     *
+     * @param  string|null $bucket (optional)
+     * @param  string|null $limit (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFiles'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getKnowledgeFilesRequest($bucket = null, $limit = null, string $contentType = self::contentTypes['getKnowledgeFiles'][0])
+    {
+
+
+
+
+        $resourcePath = '/v1/knowledge/files';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $bucket,
+            'bucket', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getKnowledgeFilesById
+     *
+     * Answers one of the caller&#39;s org files: what it is, where its bytes are, and how far its ingest has got.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\KnowledgeFile|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getKnowledgeFilesById($id, string $contentType = self::contentTypes['getKnowledgeFilesById'][0])
+    {
+        list($response) = $this->getKnowledgeFilesByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdWithHttpInfo
+     *
+     * Answers one of the caller&#39;s org files: what it is, where its bytes are, and how far its ingest has got.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\KnowledgeFile|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getKnowledgeFilesByIdWithHttpInfo($id, string $contentType = self::contentTypes['getKnowledgeFilesById'][0])
+    {
+        $request = $this->getKnowledgeFilesByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\KnowledgeFile',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\KnowledgeFile',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\KnowledgeFile',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdAsync
+     *
+     * Answers one of the caller&#39;s org files: what it is, where its bytes are, and how far its ingest has got.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKnowledgeFilesByIdAsync($id, string $contentType = self::contentTypes['getKnowledgeFilesById'][0])
+    {
+        return $this->getKnowledgeFilesByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdAsyncWithHttpInfo
+     *
+     * Answers one of the caller&#39;s org files: what it is, where its bytes are, and how far its ingest has got.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKnowledgeFilesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getKnowledgeFilesById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeFile';
+        $request = $this->getKnowledgeFilesByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getKnowledgeFilesById'
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getKnowledgeFilesByIdRequest($id, string $contentType = self::contentTypes['getKnowledgeFilesById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getKnowledgeFilesById'
+            );
+        }
+
+
+        $resourcePath = '/v1/knowledge/files/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdGraph
+     *
+     * Answers one of the caller&#39;s org files&#39; place in the org&#39;s graph: the files it links to and is linked from (a hyperlink, a citation by name), the files that name the same entities, and the entities it names.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdGraph'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\KnowledgeFileGraph|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getKnowledgeFilesByIdGraph($id, string $contentType = self::contentTypes['getKnowledgeFilesByIdGraph'][0])
+    {
+        list($response) = $this->getKnowledgeFilesByIdGraphWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdGraphWithHttpInfo
+     *
+     * Answers one of the caller&#39;s org files&#39; place in the org&#39;s graph: the files it links to and is linked from (a hyperlink, a citation by name), the files that name the same entities, and the entities it names.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdGraph'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\KnowledgeFileGraph|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getKnowledgeFilesByIdGraphWithHttpInfo($id, string $contentType = self::contentTypes['getKnowledgeFilesByIdGraph'][0])
+    {
+        $request = $this->getKnowledgeFilesByIdGraphRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\KnowledgeFileGraph',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\KnowledgeFileGraph',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\KnowledgeFileGraph',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdGraphAsync
+     *
+     * Answers one of the caller&#39;s org files&#39; place in the org&#39;s graph: the files it links to and is linked from (a hyperlink, a citation by name), the files that name the same entities, and the entities it names.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdGraph'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKnowledgeFilesByIdGraphAsync($id, string $contentType = self::contentTypes['getKnowledgeFilesByIdGraph'][0])
+    {
+        return $this->getKnowledgeFilesByIdGraphAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdGraphAsyncWithHttpInfo
+     *
+     * Answers one of the caller&#39;s org files&#39; place in the org&#39;s graph: the files it links to and is linked from (a hyperlink, a citation by name), the files that name the same entities, and the entities it names.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdGraph'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKnowledgeFilesByIdGraphAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getKnowledgeFilesByIdGraph'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeFileGraph';
+        $request = $this->getKnowledgeFilesByIdGraphRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getKnowledgeFilesByIdGraph'
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdGraph'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getKnowledgeFilesByIdGraphRequest($id, string $contentType = self::contentTypes['getKnowledgeFilesByIdGraph'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getKnowledgeFilesByIdGraph'
+            );
+        }
+
+
+        $resourcePath = '/v1/knowledge/files/{id}/graph';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdSectionsBySection
+     *
+     * Answers one section of one of the caller&#39;s org files: its own text, its subsections, the sections it links to or shares entities with — in this file or another — and the entities it names.
+     *
+     * @param  string $id ID is the file&#39;s id. (required)
+     * @param  string $section Section is the section&#39;s number in the file&#39;s table of contents. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdSectionsBySection'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\KnowledgeSectionOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getKnowledgeFilesByIdSectionsBySection($id, $section, string $contentType = self::contentTypes['getKnowledgeFilesByIdSectionsBySection'][0])
+    {
+        list($response) = $this->getKnowledgeFilesByIdSectionsBySectionWithHttpInfo($id, $section, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdSectionsBySectionWithHttpInfo
+     *
+     * Answers one section of one of the caller&#39;s org files: its own text, its subsections, the sections it links to or shares entities with — in this file or another — and the entities it names.
+     *
+     * @param  string $id ID is the file&#39;s id. (required)
+     * @param  string $section Section is the section&#39;s number in the file&#39;s table of contents. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdSectionsBySection'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\KnowledgeSectionOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getKnowledgeFilesByIdSectionsBySectionWithHttpInfo($id, $section, string $contentType = self::contentTypes['getKnowledgeFilesByIdSectionsBySection'][0])
+    {
+        $request = $this->getKnowledgeFilesByIdSectionsBySectionRequest($id, $section, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\KnowledgeSectionOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\KnowledgeSectionOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\KnowledgeSectionOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdSectionsBySectionAsync
+     *
+     * Answers one section of one of the caller&#39;s org files: its own text, its subsections, the sections it links to or shares entities with — in this file or another — and the entities it names.
+     *
+     * @param  string $id ID is the file&#39;s id. (required)
+     * @param  string $section Section is the section&#39;s number in the file&#39;s table of contents. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdSectionsBySection'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKnowledgeFilesByIdSectionsBySectionAsync($id, $section, string $contentType = self::contentTypes['getKnowledgeFilesByIdSectionsBySection'][0])
+    {
+        return $this->getKnowledgeFilesByIdSectionsBySectionAsyncWithHttpInfo($id, $section, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdSectionsBySectionAsyncWithHttpInfo
+     *
+     * Answers one section of one of the caller&#39;s org files: its own text, its subsections, the sections it links to or shares entities with — in this file or another — and the entities it names.
+     *
+     * @param  string $id ID is the file&#39;s id. (required)
+     * @param  string $section Section is the section&#39;s number in the file&#39;s table of contents. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdSectionsBySection'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKnowledgeFilesByIdSectionsBySectionAsyncWithHttpInfo($id, $section, string $contentType = self::contentTypes['getKnowledgeFilesByIdSectionsBySection'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeSectionOut';
+        $request = $this->getKnowledgeFilesByIdSectionsBySectionRequest($id, $section, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getKnowledgeFilesByIdSectionsBySection'
+     *
+     * @param  string $id ID is the file&#39;s id. (required)
+     * @param  string $section Section is the section&#39;s number in the file&#39;s table of contents. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdSectionsBySection'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getKnowledgeFilesByIdSectionsBySectionRequest($id, $section, string $contentType = self::contentTypes['getKnowledgeFilesByIdSectionsBySection'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getKnowledgeFilesByIdSectionsBySection'
+            );
+        }
+
+        // verify the required parameter 'section' is set
+        if ($section === null || (is_array($section) && count($section) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $section when calling getKnowledgeFilesByIdSectionsBySection'
+            );
+        }
+
+
+        $resourcePath = '/v1/knowledge/files/{id}/sections/{section}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($section !== null) {
+            $resourcePath = str_replace(
+                '{' . 'section' . '}',
+                ObjectSerializer::toPathValue($section),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdToc
+     *
+     * Answers one of the caller&#39;s org files&#39; table of contents: every section in document order with its depth, its parent and a one-line summary.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdToc'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\KnowledgeTocOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getKnowledgeFilesByIdToc($id, string $contentType = self::contentTypes['getKnowledgeFilesByIdToc'][0])
+    {
+        list($response) = $this->getKnowledgeFilesByIdTocWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdTocWithHttpInfo
+     *
+     * Answers one of the caller&#39;s org files&#39; table of contents: every section in document order with its depth, its parent and a one-line summary.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdToc'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\KnowledgeTocOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getKnowledgeFilesByIdTocWithHttpInfo($id, string $contentType = self::contentTypes['getKnowledgeFilesByIdToc'][0])
+    {
+        $request = $this->getKnowledgeFilesByIdTocRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\KnowledgeTocOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\KnowledgeTocOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\KnowledgeTocOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdTocAsync
+     *
+     * Answers one of the caller&#39;s org files&#39; table of contents: every section in document order with its depth, its parent and a one-line summary.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdToc'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKnowledgeFilesByIdTocAsync($id, string $contentType = self::contentTypes['getKnowledgeFilesByIdToc'][0])
+    {
+        return $this->getKnowledgeFilesByIdTocAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getKnowledgeFilesByIdTocAsyncWithHttpInfo
+     *
+     * Answers one of the caller&#39;s org files&#39; table of contents: every section in document order with its depth, its parent and a one-line summary.
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdToc'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKnowledgeFilesByIdTocAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getKnowledgeFilesByIdToc'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeTocOut';
+        $request = $this->getKnowledgeFilesByIdTocRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getKnowledgeFilesByIdToc'
+     *
+     * @param  string $id ID is the file&#39;s id, as POST /v1/knowledge/files answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKnowledgeFilesByIdToc'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getKnowledgeFilesByIdTocRequest($id, string $contentType = self::contentTypes['getKnowledgeFilesByIdToc'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getKnowledgeFilesByIdToc'
+            );
+        }
+
+
+        $resourcePath = '/v1/knowledge/files/{id}/toc';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1527,7 +3370,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GraphOut
+     * @return \Hanzo\Cloud\Model\KnowledgeGraphOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getKnowledgeGraph($project = null, string $contentType = self::contentTypes['getKnowledgeGraph'][0])
     {
@@ -1545,7 +3388,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GraphOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KnowledgeGraphOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getKnowledgeGraphWithHttpInfo($project = null, string $contentType = self::contentTypes['getKnowledgeGraph'][0])
     {
@@ -1577,7 +3420,13 @@ class KnowledgeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GraphOut',
+                        '\Hanzo\Cloud\Model\KnowledgeGraphOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1599,7 +3448,7 @@ class KnowledgeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GraphOut',
+                '\Hanzo\Cloud\Model\KnowledgeGraphOut',
                 $request,
                 $response,
             );
@@ -1608,7 +3457,15 @@ class KnowledgeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GraphOut',
+                        '\Hanzo\Cloud\Model\KnowledgeGraphOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1654,7 +3511,7 @@ class KnowledgeApi
      */
     public function getKnowledgeGraphAsyncWithHttpInfo($project = null, string $contentType = self::contentTypes['getKnowledgeGraph'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\GraphOut';
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeGraphOut';
         $request = $this->getKnowledgeGraphRequest($project, $contentType);
 
         return $this->client
@@ -1728,7 +3585,7 @@ class KnowledgeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1794,7 +3651,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KbSyncOut
+     * @return \Hanzo\Cloud\Model\KnowledgeKbSyncOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postKnowledgeConnectorsByProviderSync($provider, string $contentType = self::contentTypes['postKnowledgeConnectorsByProviderSync'][0])
     {
@@ -1812,7 +3669,7 @@ class KnowledgeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KbSyncOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KnowledgeKbSyncOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postKnowledgeConnectorsByProviderSyncWithHttpInfo($provider, string $contentType = self::contentTypes['postKnowledgeConnectorsByProviderSync'][0])
     {
@@ -1844,7 +3701,13 @@ class KnowledgeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KbSyncOut',
+                        '\Hanzo\Cloud\Model\KnowledgeKbSyncOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1866,7 +3729,7 @@ class KnowledgeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KbSyncOut',
+                '\Hanzo\Cloud\Model\KnowledgeKbSyncOut',
                 $request,
                 $response,
             );
@@ -1875,7 +3738,15 @@ class KnowledgeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KbSyncOut',
+                        '\Hanzo\Cloud\Model\KnowledgeKbSyncOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1921,7 +3792,7 @@ class KnowledgeApi
      */
     public function postKnowledgeConnectorsByProviderSyncAsyncWithHttpInfo($provider, string $contentType = self::contentTypes['postKnowledgeConnectorsByProviderSync'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KbSyncOut';
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeKbSyncOut';
         $request = $this->postKnowledgeConnectorsByProviderSyncRequest($provider, $contentType);
 
         return $this->client
@@ -2000,13 +3871,868 @@ class KnowledgeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postKnowledgeFiles
+     *
+     * Makes an object in one of the caller&#39;s org buckets a workspace file.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeFileIn $knowledge_file_in knowledge_file_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFiles'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\KnowledgeFile|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postKnowledgeFiles($knowledge_file_in, string $contentType = self::contentTypes['postKnowledgeFiles'][0])
+    {
+        list($response) = $this->postKnowledgeFilesWithHttpInfo($knowledge_file_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postKnowledgeFilesWithHttpInfo
+     *
+     * Makes an object in one of the caller&#39;s org buckets a workspace file.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeFileIn $knowledge_file_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFiles'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\KnowledgeFile|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postKnowledgeFilesWithHttpInfo($knowledge_file_in, string $contentType = self::contentTypes['postKnowledgeFiles'][0])
+    {
+        $request = $this->postKnowledgeFilesRequest($knowledge_file_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\KnowledgeFile',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\KnowledgeFile',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\KnowledgeFile',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postKnowledgeFilesAsync
+     *
+     * Makes an object in one of the caller&#39;s org buckets a workspace file.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeFileIn $knowledge_file_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFiles'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postKnowledgeFilesAsync($knowledge_file_in, string $contentType = self::contentTypes['postKnowledgeFiles'][0])
+    {
+        return $this->postKnowledgeFilesAsyncWithHttpInfo($knowledge_file_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postKnowledgeFilesAsyncWithHttpInfo
+     *
+     * Makes an object in one of the caller&#39;s org buckets a workspace file.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeFileIn $knowledge_file_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFiles'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postKnowledgeFilesAsyncWithHttpInfo($knowledge_file_in, string $contentType = self::contentTypes['postKnowledgeFiles'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeFile';
+        $request = $this->postKnowledgeFilesRequest($knowledge_file_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postKnowledgeFiles'
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeFileIn $knowledge_file_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFiles'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postKnowledgeFilesRequest($knowledge_file_in, string $contentType = self::contentTypes['postKnowledgeFiles'][0])
+    {
+
+        // verify the required parameter 'knowledge_file_in' is set
+        if ($knowledge_file_in === null || (is_array($knowledge_file_in) && count($knowledge_file_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $knowledge_file_in when calling postKnowledgeFiles'
+            );
+        }
+
+
+        $resourcePath = '/v1/knowledge/files';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($knowledge_file_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($knowledge_file_in));
+            } else {
+                $httpBody = $knowledge_file_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postKnowledgeFilesRetrieve
+     *
+     * Grounds an answer in the caller&#39;s org files, table of contents first: candidate documents are found by searching their passages; a model reads their tables of contents — titles and one-line summaries — and picks the sections the answer is in; hybrid search drills into the passages of those sections; and the graph expands to the sections they link to or name the same entities as, in any file of the workspace.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeRetrieveIn $knowledge_retrieve_in knowledge_retrieve_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFilesRetrieve'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\KnowledgeRetrieveOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postKnowledgeFilesRetrieve($knowledge_retrieve_in, string $contentType = self::contentTypes['postKnowledgeFilesRetrieve'][0])
+    {
+        list($response) = $this->postKnowledgeFilesRetrieveWithHttpInfo($knowledge_retrieve_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postKnowledgeFilesRetrieveWithHttpInfo
+     *
+     * Grounds an answer in the caller&#39;s org files, table of contents first: candidate documents are found by searching their passages; a model reads their tables of contents — titles and one-line summaries — and picks the sections the answer is in; hybrid search drills into the passages of those sections; and the graph expands to the sections they link to or name the same entities as, in any file of the workspace.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeRetrieveIn $knowledge_retrieve_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFilesRetrieve'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\KnowledgeRetrieveOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postKnowledgeFilesRetrieveWithHttpInfo($knowledge_retrieve_in, string $contentType = self::contentTypes['postKnowledgeFilesRetrieve'][0])
+    {
+        $request = $this->postKnowledgeFilesRetrieveRequest($knowledge_retrieve_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\KnowledgeRetrieveOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\KnowledgeRetrieveOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\KnowledgeRetrieveOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postKnowledgeFilesRetrieveAsync
+     *
+     * Grounds an answer in the caller&#39;s org files, table of contents first: candidate documents are found by searching their passages; a model reads their tables of contents — titles and one-line summaries — and picks the sections the answer is in; hybrid search drills into the passages of those sections; and the graph expands to the sections they link to or name the same entities as, in any file of the workspace.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeRetrieveIn $knowledge_retrieve_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFilesRetrieve'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postKnowledgeFilesRetrieveAsync($knowledge_retrieve_in, string $contentType = self::contentTypes['postKnowledgeFilesRetrieve'][0])
+    {
+        return $this->postKnowledgeFilesRetrieveAsyncWithHttpInfo($knowledge_retrieve_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postKnowledgeFilesRetrieveAsyncWithHttpInfo
+     *
+     * Grounds an answer in the caller&#39;s org files, table of contents first: candidate documents are found by searching their passages; a model reads their tables of contents — titles and one-line summaries — and picks the sections the answer is in; hybrid search drills into the passages of those sections; and the graph expands to the sections they link to or name the same entities as, in any file of the workspace.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeRetrieveIn $knowledge_retrieve_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFilesRetrieve'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postKnowledgeFilesRetrieveAsyncWithHttpInfo($knowledge_retrieve_in, string $contentType = self::contentTypes['postKnowledgeFilesRetrieve'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeRetrieveOut';
+        $request = $this->postKnowledgeFilesRetrieveRequest($knowledge_retrieve_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postKnowledgeFilesRetrieve'
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeRetrieveIn $knowledge_retrieve_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFilesRetrieve'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postKnowledgeFilesRetrieveRequest($knowledge_retrieve_in, string $contentType = self::contentTypes['postKnowledgeFilesRetrieve'][0])
+    {
+
+        // verify the required parameter 'knowledge_retrieve_in' is set
+        if ($knowledge_retrieve_in === null || (is_array($knowledge_retrieve_in) && count($knowledge_retrieve_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $knowledge_retrieve_in when calling postKnowledgeFilesRetrieve'
+            );
+        }
+
+
+        $resourcePath = '/v1/knowledge/files/retrieve';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($knowledge_retrieve_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($knowledge_retrieve_in));
+            } else {
+                $httpBody = $knowledge_retrieve_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postKnowledgeFilesSearch
+     *
+     * Answers the passages of the caller&#39;s org files that match a query, each citing its file › section › paragraph: the search behind Drive&#39;s box, and the first step an agent takes across a workspace.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeFileSearchIn $knowledge_file_search_in knowledge_file_search_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFilesSearch'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\KnowledgeFileSearchOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postKnowledgeFilesSearch($knowledge_file_search_in, string $contentType = self::contentTypes['postKnowledgeFilesSearch'][0])
+    {
+        list($response) = $this->postKnowledgeFilesSearchWithHttpInfo($knowledge_file_search_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postKnowledgeFilesSearchWithHttpInfo
+     *
+     * Answers the passages of the caller&#39;s org files that match a query, each citing its file › section › paragraph: the search behind Drive&#39;s box, and the first step an agent takes across a workspace.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeFileSearchIn $knowledge_file_search_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFilesSearch'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\KnowledgeFileSearchOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postKnowledgeFilesSearchWithHttpInfo($knowledge_file_search_in, string $contentType = self::contentTypes['postKnowledgeFilesSearch'][0])
+    {
+        $request = $this->postKnowledgeFilesSearchRequest($knowledge_file_search_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\KnowledgeFileSearchOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\KnowledgeFileSearchOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\KnowledgeFileSearchOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postKnowledgeFilesSearchAsync
+     *
+     * Answers the passages of the caller&#39;s org files that match a query, each citing its file › section › paragraph: the search behind Drive&#39;s box, and the first step an agent takes across a workspace.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeFileSearchIn $knowledge_file_search_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFilesSearch'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postKnowledgeFilesSearchAsync($knowledge_file_search_in, string $contentType = self::contentTypes['postKnowledgeFilesSearch'][0])
+    {
+        return $this->postKnowledgeFilesSearchAsyncWithHttpInfo($knowledge_file_search_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postKnowledgeFilesSearchAsyncWithHttpInfo
+     *
+     * Answers the passages of the caller&#39;s org files that match a query, each citing its file › section › paragraph: the search behind Drive&#39;s box, and the first step an agent takes across a workspace.
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeFileSearchIn $knowledge_file_search_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFilesSearch'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postKnowledgeFilesSearchAsyncWithHttpInfo($knowledge_file_search_in, string $contentType = self::contentTypes['postKnowledgeFilesSearch'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeFileSearchOut';
+        $request = $this->postKnowledgeFilesSearchRequest($knowledge_file_search_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postKnowledgeFilesSearch'
+     *
+     * @param  \Hanzo\Cloud\Model\KnowledgeFileSearchIn $knowledge_file_search_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeFilesSearch'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postKnowledgeFilesSearchRequest($knowledge_file_search_in, string $contentType = self::contentTypes['postKnowledgeFilesSearch'][0])
+    {
+
+        // verify the required parameter 'knowledge_file_search_in' is set
+        if ($knowledge_file_search_in === null || (is_array($knowledge_file_search_in) && count($knowledge_file_search_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $knowledge_file_search_in when calling postKnowledgeFilesSearch'
+            );
+        }
+
+
+        $resourcePath = '/v1/knowledge/files/search';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($knowledge_file_search_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($knowledge_file_search_in));
+            } else {
+                $httpBody = $knowledge_file_search_in;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -2261,13 +4987,13 @@ class KnowledgeApi
     /**
      * Operation postKnowledgeReindex
      *
-     * Rebuilds the caller org&#39;s retrieval from its documents: the vector collection is dropped and created again at the configured embedding size and every page, memory and source is embedded into it; the lexical index is reconciled to the same set.
+     * Rebuilds the caller org&#39;s retrieval from its documents: every passage is removed, and every page, memory and source is cut into passages and embedded again with the configured model; the lexical index is reconciled to the same documents.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeReindex'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ReindexOut
+     * @return \Hanzo\Cloud\Model\KnowledgeReindexOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postKnowledgeReindex(string $contentType = self::contentTypes['postKnowledgeReindex'][0])
     {
@@ -2278,13 +5004,13 @@ class KnowledgeApi
     /**
      * Operation postKnowledgeReindexWithHttpInfo
      *
-     * Rebuilds the caller org&#39;s retrieval from its documents: the vector collection is dropped and created again at the configured embedding size and every page, memory and source is embedded into it; the lexical index is reconciled to the same set.
+     * Rebuilds the caller org&#39;s retrieval from its documents: every passage is removed, and every page, memory and source is cut into passages and embedded again with the configured model; the lexical index is reconciled to the same documents.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeReindex'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ReindexOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KnowledgeReindexOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postKnowledgeReindexWithHttpInfo(string $contentType = self::contentTypes['postKnowledgeReindex'][0])
     {
@@ -2316,7 +5042,13 @@ class KnowledgeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ReindexOut',
+                        '\Hanzo\Cloud\Model\KnowledgeReindexOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2338,7 +5070,7 @@ class KnowledgeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ReindexOut',
+                '\Hanzo\Cloud\Model\KnowledgeReindexOut',
                 $request,
                 $response,
             );
@@ -2347,7 +5079,15 @@ class KnowledgeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ReindexOut',
+                        '\Hanzo\Cloud\Model\KnowledgeReindexOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2362,7 +5102,7 @@ class KnowledgeApi
     /**
      * Operation postKnowledgeReindexAsync
      *
-     * Rebuilds the caller org&#39;s retrieval from its documents: the vector collection is dropped and created again at the configured embedding size and every page, memory and source is embedded into it; the lexical index is reconciled to the same set.
+     * Rebuilds the caller org&#39;s retrieval from its documents: every passage is removed, and every page, memory and source is cut into passages and embedded again with the configured model; the lexical index is reconciled to the same documents.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeReindex'] to see the possible values for this operation
      *
@@ -2382,7 +5122,7 @@ class KnowledgeApi
     /**
      * Operation postKnowledgeReindexAsyncWithHttpInfo
      *
-     * Rebuilds the caller org&#39;s retrieval from its documents: the vector collection is dropped and created again at the configured embedding size and every page, memory and source is embedded into it; the lexical index is reconciled to the same set.
+     * Rebuilds the caller org&#39;s retrieval from its documents: every passage is removed, and every page, memory and source is cut into passages and embedded again with the configured model; the lexical index is reconciled to the same documents.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeReindex'] to see the possible values for this operation
      *
@@ -2391,7 +5131,7 @@ class KnowledgeApi
      */
     public function postKnowledgeReindexAsyncWithHttpInfo(string $contentType = self::contentTypes['postKnowledgeReindex'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ReindexOut';
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeReindexOut';
         $request = $this->postKnowledgeReindexRequest($contentType);
 
         return $this->client
@@ -2454,7 +5194,7 @@ class KnowledgeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2513,36 +5253,36 @@ class KnowledgeApi
     /**
      * Operation postKnowledgeSearch
      *
-     * Runs a semantic search over the caller org&#39;s own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages.
+     * Runs a hybrid search over the caller org&#39;s own knowledge — its wiki pages, its agent memories and everything its connectors have synced.
      *
-     * @param  \Hanzo\Cloud\Model\SearchIn $search_in search_in (required)
+     * @param  \Hanzo\Cloud\Model\KnowledgeSearchIn $knowledge_search_in knowledge_search_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SearchOut
+     * @return \Hanzo\Cloud\Model\KnowledgeSearchOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postKnowledgeSearch($search_in, string $contentType = self::contentTypes['postKnowledgeSearch'][0])
+    public function postKnowledgeSearch($knowledge_search_in, string $contentType = self::contentTypes['postKnowledgeSearch'][0])
     {
-        list($response) = $this->postKnowledgeSearchWithHttpInfo($search_in, $contentType);
+        list($response) = $this->postKnowledgeSearchWithHttpInfo($knowledge_search_in, $contentType);
         return $response;
     }
 
     /**
      * Operation postKnowledgeSearchWithHttpInfo
      *
-     * Runs a semantic search over the caller org&#39;s own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages.
+     * Runs a hybrid search over the caller org&#39;s own knowledge — its wiki pages, its agent memories and everything its connectors have synced.
      *
-     * @param  \Hanzo\Cloud\Model\SearchIn $search_in (required)
+     * @param  \Hanzo\Cloud\Model\KnowledgeSearchIn $knowledge_search_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SearchOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KnowledgeSearchOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postKnowledgeSearchWithHttpInfo($search_in, string $contentType = self::contentTypes['postKnowledgeSearch'][0])
+    public function postKnowledgeSearchWithHttpInfo($knowledge_search_in, string $contentType = self::contentTypes['postKnowledgeSearch'][0])
     {
-        $request = $this->postKnowledgeSearchRequest($search_in, $contentType);
+        $request = $this->postKnowledgeSearchRequest($knowledge_search_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2570,7 +5310,13 @@ class KnowledgeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SearchOut',
+                        '\Hanzo\Cloud\Model\KnowledgeSearchOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2592,7 +5338,7 @@ class KnowledgeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SearchOut',
+                '\Hanzo\Cloud\Model\KnowledgeSearchOut',
                 $request,
                 $response,
             );
@@ -2601,7 +5347,15 @@ class KnowledgeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SearchOut',
+                        '\Hanzo\Cloud\Model\KnowledgeSearchOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2616,17 +5370,17 @@ class KnowledgeApi
     /**
      * Operation postKnowledgeSearchAsync
      *
-     * Runs a semantic search over the caller org&#39;s own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages.
+     * Runs a hybrid search over the caller org&#39;s own knowledge — its wiki pages, its agent memories and everything its connectors have synced.
      *
-     * @param  \Hanzo\Cloud\Model\SearchIn $search_in (required)
+     * @param  \Hanzo\Cloud\Model\KnowledgeSearchIn $knowledge_search_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postKnowledgeSearchAsync($search_in, string $contentType = self::contentTypes['postKnowledgeSearch'][0])
+    public function postKnowledgeSearchAsync($knowledge_search_in, string $contentType = self::contentTypes['postKnowledgeSearch'][0])
     {
-        return $this->postKnowledgeSearchAsyncWithHttpInfo($search_in, $contentType)
+        return $this->postKnowledgeSearchAsyncWithHttpInfo($knowledge_search_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2637,18 +5391,18 @@ class KnowledgeApi
     /**
      * Operation postKnowledgeSearchAsyncWithHttpInfo
      *
-     * Runs a semantic search over the caller org&#39;s own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages.
+     * Runs a hybrid search over the caller org&#39;s own knowledge — its wiki pages, its agent memories and everything its connectors have synced.
      *
-     * @param  \Hanzo\Cloud\Model\SearchIn $search_in (required)
+     * @param  \Hanzo\Cloud\Model\KnowledgeSearchIn $knowledge_search_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postKnowledgeSearchAsyncWithHttpInfo($search_in, string $contentType = self::contentTypes['postKnowledgeSearch'][0])
+    public function postKnowledgeSearchAsyncWithHttpInfo($knowledge_search_in, string $contentType = self::contentTypes['postKnowledgeSearch'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SearchOut';
-        $request = $this->postKnowledgeSearchRequest($search_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\KnowledgeSearchOut';
+        $request = $this->postKnowledgeSearchRequest($knowledge_search_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2689,19 +5443,19 @@ class KnowledgeApi
     /**
      * Create request for operation 'postKnowledgeSearch'
      *
-     * @param  \Hanzo\Cloud\Model\SearchIn $search_in (required)
+     * @param  \Hanzo\Cloud\Model\KnowledgeSearchIn $knowledge_search_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKnowledgeSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postKnowledgeSearchRequest($search_in, string $contentType = self::contentTypes['postKnowledgeSearch'][0])
+    public function postKnowledgeSearchRequest($knowledge_search_in, string $contentType = self::contentTypes['postKnowledgeSearch'][0])
     {
 
-        // verify the required parameter 'search_in' is set
-        if ($search_in === null || (is_array($search_in) && count($search_in) === 0)) {
+        // verify the required parameter 'knowledge_search_in' is set
+        if ($knowledge_search_in === null || (is_array($knowledge_search_in) && count($knowledge_search_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $search_in when calling postKnowledgeSearch'
+                'Missing the required parameter $knowledge_search_in when calling postKnowledgeSearch'
             );
         }
 
@@ -2718,18 +5472,18 @@ class KnowledgeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($search_in)) {
+        if (isset($knowledge_search_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($search_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($knowledge_search_in));
             } else {
-                $httpBody = $search_in;
+                $httpBody = $knowledge_search_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

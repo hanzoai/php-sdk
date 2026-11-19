@@ -152,13 +152,13 @@ class BenchmarkApi
     /**
      * Operation getBenchmarkCatalog
      *
-     * Is the canonical public benchmarks this arena runs — the id, title, axis, item count and upstream source of each, with native marking the ones the standardized harness runs today; the rest are registered and adapter-pending.
+     * Is the canonical benchmarks this arena reads — the id, title, axis, item count, upstream source and direction of each, with native marking the ones the standardized harness runs today.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkCatalog'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BenchmarkCatalog
+     * @return \Hanzo\Cloud\Model\BenchmarkBenchmarkCatalog|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBenchmarkCatalog(string $contentType = self::contentTypes['getBenchmarkCatalog'][0])
     {
@@ -169,13 +169,13 @@ class BenchmarkApi
     /**
      * Operation getBenchmarkCatalogWithHttpInfo
      *
-     * Is the canonical public benchmarks this arena runs — the id, title, axis, item count and upstream source of each, with native marking the ones the standardized harness runs today; the rest are registered and adapter-pending.
+     * Is the canonical benchmarks this arena reads — the id, title, axis, item count, upstream source and direction of each, with native marking the ones the standardized harness runs today.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkCatalog'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BenchmarkCatalog, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BenchmarkBenchmarkCatalog|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBenchmarkCatalogWithHttpInfo(string $contentType = self::contentTypes['getBenchmarkCatalog'][0])
     {
@@ -207,7 +207,13 @@ class BenchmarkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BenchmarkCatalog',
+                        '\Hanzo\Cloud\Model\BenchmarkBenchmarkCatalog',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -229,7 +235,7 @@ class BenchmarkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BenchmarkCatalog',
+                '\Hanzo\Cloud\Model\BenchmarkBenchmarkCatalog',
                 $request,
                 $response,
             );
@@ -238,7 +244,15 @@ class BenchmarkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BenchmarkCatalog',
+                        '\Hanzo\Cloud\Model\BenchmarkBenchmarkCatalog',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -253,7 +267,7 @@ class BenchmarkApi
     /**
      * Operation getBenchmarkCatalogAsync
      *
-     * Is the canonical public benchmarks this arena runs — the id, title, axis, item count and upstream source of each, with native marking the ones the standardized harness runs today; the rest are registered and adapter-pending.
+     * Is the canonical benchmarks this arena reads — the id, title, axis, item count, upstream source and direction of each, with native marking the ones the standardized harness runs today.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkCatalog'] to see the possible values for this operation
      *
@@ -273,7 +287,7 @@ class BenchmarkApi
     /**
      * Operation getBenchmarkCatalogAsyncWithHttpInfo
      *
-     * Is the canonical public benchmarks this arena runs — the id, title, axis, item count and upstream source of each, with native marking the ones the standardized harness runs today; the rest are registered and adapter-pending.
+     * Is the canonical benchmarks this arena reads — the id, title, axis, item count, upstream source and direction of each, with native marking the ones the standardized harness runs today.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkCatalog'] to see the possible values for this operation
      *
@@ -282,7 +296,7 @@ class BenchmarkApi
      */
     public function getBenchmarkCatalogAsyncWithHttpInfo(string $contentType = self::contentTypes['getBenchmarkCatalog'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BenchmarkCatalog';
+        $returnType = '\Hanzo\Cloud\Model\BenchmarkBenchmarkCatalog';
         $request = $this->getBenchmarkCatalogRequest($contentType);
 
         return $this->client
@@ -345,7 +359,7 @@ class BenchmarkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -404,44 +418,46 @@ class BenchmarkApi
     /**
      * Operation getBenchmarkClaims
      *
-     * Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
+     * Lists the effective claims the caller may read, each labelled with the org that made it and the user who recorded it.
      *
      * @param  string|null $benchmark Benchmark filters to one benchmark id. Empty returns every benchmark. (optional)
      * @param  string|null $model Model filters to one model. Empty returns every model. (optional)
      * @param  string|null $provider Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers. (optional)
      * @param  string|null $source Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other. (optional)
      * @param  string|null $protocol Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness. (optional)
+     * @param  string|null $org Org filters to the claims one org made; \&quot;admin\&quot; reads the platform&#39;s own. It narrows what the caller may already read and never widens it. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkClaims'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ClaimsOut
+     * @return \Hanzo\Cloud\Model\BenchmarkClaimsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getBenchmarkClaims($benchmark = null, $model = null, $provider = null, $source = null, $protocol = null, string $contentType = self::contentTypes['getBenchmarkClaims'][0])
+    public function getBenchmarkClaims($benchmark = null, $model = null, $provider = null, $source = null, $protocol = null, $org = null, string $contentType = self::contentTypes['getBenchmarkClaims'][0])
     {
-        list($response) = $this->getBenchmarkClaimsWithHttpInfo($benchmark, $model, $provider, $source, $protocol, $contentType);
+        list($response) = $this->getBenchmarkClaimsWithHttpInfo($benchmark, $model, $provider, $source, $protocol, $org, $contentType);
         return $response;
     }
 
     /**
      * Operation getBenchmarkClaimsWithHttpInfo
      *
-     * Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
+     * Lists the effective claims the caller may read, each labelled with the org that made it and the user who recorded it.
      *
      * @param  string|null $benchmark Benchmark filters to one benchmark id. Empty returns every benchmark. (optional)
      * @param  string|null $model Model filters to one model. Empty returns every model. (optional)
      * @param  string|null $provider Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers. (optional)
      * @param  string|null $source Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other. (optional)
      * @param  string|null $protocol Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness. (optional)
+     * @param  string|null $org Org filters to the claims one org made; \&quot;admin\&quot; reads the platform&#39;s own. It narrows what the caller may already read and never widens it. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkClaims'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ClaimsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BenchmarkClaimsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBenchmarkClaimsWithHttpInfo($benchmark = null, $model = null, $provider = null, $source = null, $protocol = null, string $contentType = self::contentTypes['getBenchmarkClaims'][0])
+    public function getBenchmarkClaimsWithHttpInfo($benchmark = null, $model = null, $provider = null, $source = null, $protocol = null, $org = null, string $contentType = self::contentTypes['getBenchmarkClaims'][0])
     {
-        $request = $this->getBenchmarkClaimsRequest($benchmark, $model, $provider, $source, $protocol, $contentType);
+        $request = $this->getBenchmarkClaimsRequest($benchmark, $model, $provider, $source, $protocol, $org, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -469,7 +485,13 @@ class BenchmarkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ClaimsOut',
+                        '\Hanzo\Cloud\Model\BenchmarkClaimsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -491,7 +513,7 @@ class BenchmarkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ClaimsOut',
+                '\Hanzo\Cloud\Model\BenchmarkClaimsOut',
                 $request,
                 $response,
             );
@@ -500,7 +522,15 @@ class BenchmarkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ClaimsOut',
+                        '\Hanzo\Cloud\Model\BenchmarkClaimsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -515,21 +545,22 @@ class BenchmarkApi
     /**
      * Operation getBenchmarkClaimsAsync
      *
-     * Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
+     * Lists the effective claims the caller may read, each labelled with the org that made it and the user who recorded it.
      *
      * @param  string|null $benchmark Benchmark filters to one benchmark id. Empty returns every benchmark. (optional)
      * @param  string|null $model Model filters to one model. Empty returns every model. (optional)
      * @param  string|null $provider Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers. (optional)
      * @param  string|null $source Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other. (optional)
      * @param  string|null $protocol Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness. (optional)
+     * @param  string|null $org Org filters to the claims one org made; \&quot;admin\&quot; reads the platform&#39;s own. It narrows what the caller may already read and never widens it. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkClaims'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBenchmarkClaimsAsync($benchmark = null, $model = null, $provider = null, $source = null, $protocol = null, string $contentType = self::contentTypes['getBenchmarkClaims'][0])
+    public function getBenchmarkClaimsAsync($benchmark = null, $model = null, $provider = null, $source = null, $protocol = null, $org = null, string $contentType = self::contentTypes['getBenchmarkClaims'][0])
     {
-        return $this->getBenchmarkClaimsAsyncWithHttpInfo($benchmark, $model, $provider, $source, $protocol, $contentType)
+        return $this->getBenchmarkClaimsAsyncWithHttpInfo($benchmark, $model, $provider, $source, $protocol, $org, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -540,22 +571,23 @@ class BenchmarkApi
     /**
      * Operation getBenchmarkClaimsAsyncWithHttpInfo
      *
-     * Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
+     * Lists the effective claims the caller may read, each labelled with the org that made it and the user who recorded it.
      *
      * @param  string|null $benchmark Benchmark filters to one benchmark id. Empty returns every benchmark. (optional)
      * @param  string|null $model Model filters to one model. Empty returns every model. (optional)
      * @param  string|null $provider Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers. (optional)
      * @param  string|null $source Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other. (optional)
      * @param  string|null $protocol Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness. (optional)
+     * @param  string|null $org Org filters to the claims one org made; \&quot;admin\&quot; reads the platform&#39;s own. It narrows what the caller may already read and never widens it. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkClaims'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBenchmarkClaimsAsyncWithHttpInfo($benchmark = null, $model = null, $provider = null, $source = null, $protocol = null, string $contentType = self::contentTypes['getBenchmarkClaims'][0])
+    public function getBenchmarkClaimsAsyncWithHttpInfo($benchmark = null, $model = null, $provider = null, $source = null, $protocol = null, $org = null, string $contentType = self::contentTypes['getBenchmarkClaims'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ClaimsOut';
-        $request = $this->getBenchmarkClaimsRequest($benchmark, $model, $provider, $source, $protocol, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BenchmarkClaimsOut';
+        $request = $this->getBenchmarkClaimsRequest($benchmark, $model, $provider, $source, $protocol, $org, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -601,13 +633,15 @@ class BenchmarkApi
      * @param  string|null $provider Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers. (optional)
      * @param  string|null $source Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other. (optional)
      * @param  string|null $protocol Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness. (optional)
+     * @param  string|null $org Org filters to the claims one org made; \&quot;admin\&quot; reads the platform&#39;s own. It narrows what the caller may already read and never widens it. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkClaims'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getBenchmarkClaimsRequest($benchmark = null, $model = null, $provider = null, $source = null, $protocol = null, string $contentType = self::contentTypes['getBenchmarkClaims'][0])
+    public function getBenchmarkClaimsRequest($benchmark = null, $model = null, $provider = null, $source = null, $protocol = null, $org = null, string $contentType = self::contentTypes['getBenchmarkClaims'][0])
     {
+
 
 
 
@@ -667,12 +701,21 @@ class BenchmarkApi
             true, // explode
             false // required
         ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $org,
+            'Org', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -740,7 +783,7 @@ class BenchmarkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Pairing
+     * @return \Hanzo\Cloud\Model\BenchmarkPairing|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBenchmarkCompare($a, $b, $benchmark = null, string $contentType = self::contentTypes['getBenchmarkCompare'][0])
     {
@@ -760,7 +803,7 @@ class BenchmarkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Pairing, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BenchmarkPairing|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBenchmarkCompareWithHttpInfo($a, $b, $benchmark = null, string $contentType = self::contentTypes['getBenchmarkCompare'][0])
     {
@@ -792,7 +835,13 @@ class BenchmarkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Pairing',
+                        '\Hanzo\Cloud\Model\BenchmarkPairing',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -814,7 +863,7 @@ class BenchmarkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Pairing',
+                '\Hanzo\Cloud\Model\BenchmarkPairing',
                 $request,
                 $response,
             );
@@ -823,7 +872,15 @@ class BenchmarkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Pairing',
+                        '\Hanzo\Cloud\Model\BenchmarkPairing',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -873,7 +930,7 @@ class BenchmarkApi
      */
     public function getBenchmarkCompareAsyncWithHttpInfo($a, $b, $benchmark = null, string $contentType = self::contentTypes['getBenchmarkCompare'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Pairing';
+        $returnType = '\Hanzo\Cloud\Model\BenchmarkPairing';
         $request = $this->getBenchmarkCompareRequest($a, $b, $benchmark, $contentType);
 
         return $this->client
@@ -981,7 +1038,7 @@ class BenchmarkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1048,7 +1105,7 @@ class BenchmarkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\HistoryOut
+     * @return \Hanzo\Cloud\Model\BenchmarkHistoryOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBenchmarkHistory($benchmark = null, $model = null, string $contentType = self::contentTypes['getBenchmarkHistory'][0])
     {
@@ -1067,7 +1124,7 @@ class BenchmarkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\HistoryOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BenchmarkHistoryOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBenchmarkHistoryWithHttpInfo($benchmark = null, $model = null, string $contentType = self::contentTypes['getBenchmarkHistory'][0])
     {
@@ -1099,7 +1156,13 @@ class BenchmarkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\HistoryOut',
+                        '\Hanzo\Cloud\Model\BenchmarkHistoryOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1121,7 +1184,7 @@ class BenchmarkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\HistoryOut',
+                '\Hanzo\Cloud\Model\BenchmarkHistoryOut',
                 $request,
                 $response,
             );
@@ -1130,7 +1193,15 @@ class BenchmarkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\HistoryOut',
+                        '\Hanzo\Cloud\Model\BenchmarkHistoryOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1178,7 +1249,7 @@ class BenchmarkApi
      */
     public function getBenchmarkHistoryAsyncWithHttpInfo($benchmark = null, $model = null, string $contentType = self::contentTypes['getBenchmarkHistory'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\HistoryOut';
+        $returnType = '\Hanzo\Cloud\Model\BenchmarkHistoryOut';
         $request = $this->getBenchmarkHistoryRequest($benchmark, $model, $contentType);
 
         return $this->client
@@ -1263,7 +1334,7 @@ class BenchmarkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1329,7 +1400,7 @@ class BenchmarkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Leaderboard
+     * @return \Hanzo\Cloud\Model\BenchmarkLeaderboard|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBenchmarkLeaderboard($benchmark = null, string $contentType = self::contentTypes['getBenchmarkLeaderboard'][0])
     {
@@ -1347,7 +1418,7 @@ class BenchmarkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Leaderboard, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BenchmarkLeaderboard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBenchmarkLeaderboardWithHttpInfo($benchmark = null, string $contentType = self::contentTypes['getBenchmarkLeaderboard'][0])
     {
@@ -1379,7 +1450,13 @@ class BenchmarkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Leaderboard',
+                        '\Hanzo\Cloud\Model\BenchmarkLeaderboard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1401,7 +1478,7 @@ class BenchmarkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Leaderboard',
+                '\Hanzo\Cloud\Model\BenchmarkLeaderboard',
                 $request,
                 $response,
             );
@@ -1410,7 +1487,15 @@ class BenchmarkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Leaderboard',
+                        '\Hanzo\Cloud\Model\BenchmarkLeaderboard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1456,7 +1541,7 @@ class BenchmarkApi
      */
     public function getBenchmarkLeaderboardAsyncWithHttpInfo($benchmark = null, string $contentType = self::contentTypes['getBenchmarkLeaderboard'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Leaderboard';
+        $returnType = '\Hanzo\Cloud\Model\BenchmarkLeaderboard';
         $request = $this->getBenchmarkLeaderboardRequest($benchmark, $contentType);
 
         return $this->client
@@ -1530,7 +1615,7 @@ class BenchmarkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1589,13 +1674,13 @@ class BenchmarkApi
     /**
      * Operation getBenchmarkPresets
      *
-     * Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each served by the model layer as enso-&lt;name&gt;.
+     * Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each named for the model layer as enso-&lt;name&gt;.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkPresets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PresetList
+     * @return \Hanzo\Cloud\Model\BenchmarkPresetList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBenchmarkPresets(string $contentType = self::contentTypes['getBenchmarkPresets'][0])
     {
@@ -1606,13 +1691,13 @@ class BenchmarkApi
     /**
      * Operation getBenchmarkPresetsWithHttpInfo
      *
-     * Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each served by the model layer as enso-&lt;name&gt;.
+     * Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each named for the model layer as enso-&lt;name&gt;.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkPresets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PresetList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BenchmarkPresetList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBenchmarkPresetsWithHttpInfo(string $contentType = self::contentTypes['getBenchmarkPresets'][0])
     {
@@ -1644,7 +1729,13 @@ class BenchmarkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PresetList',
+                        '\Hanzo\Cloud\Model\BenchmarkPresetList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1666,7 +1757,7 @@ class BenchmarkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PresetList',
+                '\Hanzo\Cloud\Model\BenchmarkPresetList',
                 $request,
                 $response,
             );
@@ -1675,7 +1766,15 @@ class BenchmarkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PresetList',
+                        '\Hanzo\Cloud\Model\BenchmarkPresetList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1690,7 +1789,7 @@ class BenchmarkApi
     /**
      * Operation getBenchmarkPresetsAsync
      *
-     * Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each served by the model layer as enso-&lt;name&gt;.
+     * Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each named for the model layer as enso-&lt;name&gt;.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkPresets'] to see the possible values for this operation
      *
@@ -1710,7 +1809,7 @@ class BenchmarkApi
     /**
      * Operation getBenchmarkPresetsAsyncWithHttpInfo
      *
-     * Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each served by the model layer as enso-&lt;name&gt;.
+     * Are the router blends available to compose from — a named set of model arms, the rank they escalate through and the panel width that bounds fan-out — each named for the model layer as enso-&lt;name&gt;.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBenchmarkPresets'] to see the possible values for this operation
      *
@@ -1719,7 +1818,7 @@ class BenchmarkApi
      */
     public function getBenchmarkPresetsAsyncWithHttpInfo(string $contentType = self::contentTypes['getBenchmarkPresets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PresetList';
+        $returnType = '\Hanzo\Cloud\Model\BenchmarkPresetList';
         $request = $this->getBenchmarkPresetsRequest($contentType);
 
         return $this->client
@@ -1782,7 +1881,7 @@ class BenchmarkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1841,36 +1940,36 @@ class BenchmarkApi
     /**
      * Operation postBenchmarkClaims
      *
-     * Records published claims: one to correct a number, many to import a leaderboard.
+     * Records claims for the caller&#39;s org: one to correct a number, many to import a leaderboard.
      *
-     * @param  \Hanzo\Cloud\Model\PutClaimsIn $put_claims_in put_claims_in (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkPutClaimsIn $benchmark_put_claims_in benchmark_put_claims_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkClaims'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PutClaimsOut
+     * @return \Hanzo\Cloud\Model\BenchmarkPutClaimsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postBenchmarkClaims($put_claims_in, string $contentType = self::contentTypes['postBenchmarkClaims'][0])
+    public function postBenchmarkClaims($benchmark_put_claims_in, string $contentType = self::contentTypes['postBenchmarkClaims'][0])
     {
-        list($response) = $this->postBenchmarkClaimsWithHttpInfo($put_claims_in, $contentType);
+        list($response) = $this->postBenchmarkClaimsWithHttpInfo($benchmark_put_claims_in, $contentType);
         return $response;
     }
 
     /**
      * Operation postBenchmarkClaimsWithHttpInfo
      *
-     * Records published claims: one to correct a number, many to import a leaderboard.
+     * Records claims for the caller&#39;s org: one to correct a number, many to import a leaderboard.
      *
-     * @param  \Hanzo\Cloud\Model\PutClaimsIn $put_claims_in (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkPutClaimsIn $benchmark_put_claims_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkClaims'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PutClaimsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BenchmarkPutClaimsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBenchmarkClaimsWithHttpInfo($put_claims_in, string $contentType = self::contentTypes['postBenchmarkClaims'][0])
+    public function postBenchmarkClaimsWithHttpInfo($benchmark_put_claims_in, string $contentType = self::contentTypes['postBenchmarkClaims'][0])
     {
-        $request = $this->postBenchmarkClaimsRequest($put_claims_in, $contentType);
+        $request = $this->postBenchmarkClaimsRequest($benchmark_put_claims_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1898,7 +1997,13 @@ class BenchmarkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PutClaimsOut',
+                        '\Hanzo\Cloud\Model\BenchmarkPutClaimsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1920,7 +2025,7 @@ class BenchmarkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PutClaimsOut',
+                '\Hanzo\Cloud\Model\BenchmarkPutClaimsOut',
                 $request,
                 $response,
             );
@@ -1929,7 +2034,15 @@ class BenchmarkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PutClaimsOut',
+                        '\Hanzo\Cloud\Model\BenchmarkPutClaimsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1944,17 +2057,17 @@ class BenchmarkApi
     /**
      * Operation postBenchmarkClaimsAsync
      *
-     * Records published claims: one to correct a number, many to import a leaderboard.
+     * Records claims for the caller&#39;s org: one to correct a number, many to import a leaderboard.
      *
-     * @param  \Hanzo\Cloud\Model\PutClaimsIn $put_claims_in (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkPutClaimsIn $benchmark_put_claims_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkClaims'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBenchmarkClaimsAsync($put_claims_in, string $contentType = self::contentTypes['postBenchmarkClaims'][0])
+    public function postBenchmarkClaimsAsync($benchmark_put_claims_in, string $contentType = self::contentTypes['postBenchmarkClaims'][0])
     {
-        return $this->postBenchmarkClaimsAsyncWithHttpInfo($put_claims_in, $contentType)
+        return $this->postBenchmarkClaimsAsyncWithHttpInfo($benchmark_put_claims_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1965,18 +2078,18 @@ class BenchmarkApi
     /**
      * Operation postBenchmarkClaimsAsyncWithHttpInfo
      *
-     * Records published claims: one to correct a number, many to import a leaderboard.
+     * Records claims for the caller&#39;s org: one to correct a number, many to import a leaderboard.
      *
-     * @param  \Hanzo\Cloud\Model\PutClaimsIn $put_claims_in (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkPutClaimsIn $benchmark_put_claims_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkClaims'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBenchmarkClaimsAsyncWithHttpInfo($put_claims_in, string $contentType = self::contentTypes['postBenchmarkClaims'][0])
+    public function postBenchmarkClaimsAsyncWithHttpInfo($benchmark_put_claims_in, string $contentType = self::contentTypes['postBenchmarkClaims'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PutClaimsOut';
-        $request = $this->postBenchmarkClaimsRequest($put_claims_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BenchmarkPutClaimsOut';
+        $request = $this->postBenchmarkClaimsRequest($benchmark_put_claims_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2017,19 +2130,19 @@ class BenchmarkApi
     /**
      * Create request for operation 'postBenchmarkClaims'
      *
-     * @param  \Hanzo\Cloud\Model\PutClaimsIn $put_claims_in (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkPutClaimsIn $benchmark_put_claims_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkClaims'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBenchmarkClaimsRequest($put_claims_in, string $contentType = self::contentTypes['postBenchmarkClaims'][0])
+    public function postBenchmarkClaimsRequest($benchmark_put_claims_in, string $contentType = self::contentTypes['postBenchmarkClaims'][0])
     {
 
-        // verify the required parameter 'put_claims_in' is set
-        if ($put_claims_in === null || (is_array($put_claims_in) && count($put_claims_in) === 0)) {
+        // verify the required parameter 'benchmark_put_claims_in' is set
+        if ($benchmark_put_claims_in === null || (is_array($benchmark_put_claims_in) && count($benchmark_put_claims_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $put_claims_in when calling postBenchmarkClaims'
+                'Missing the required parameter $benchmark_put_claims_in when calling postBenchmarkClaims'
             );
         }
 
@@ -2046,18 +2159,18 @@ class BenchmarkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($put_claims_in)) {
+        if (isset($benchmark_put_claims_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($put_claims_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($benchmark_put_claims_in));
             } else {
-                $httpBody = $put_claims_in;
+                $httpBody = $benchmark_put_claims_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2112,36 +2225,36 @@ class BenchmarkApi
     /**
      * Operation postBenchmarkPresets
      *
-     * Validates a router blend — its name, its arms, the rank they escalate through and the panel fan-out width — and answers 202 with the preset and the enso-&lt;name&gt; it would be served as.
+     * Stores a router blend for the caller&#39;s org — its name, its arms, the rank they escalate through and the panel fan-out width — and answers with the stored blend and the enso-&lt;name&gt; it would be resolved under.
      *
-     * @param  \Hanzo\Cloud\Model\Preset $preset preset (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkPreset $benchmark_preset benchmark_preset (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkPresets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PresetAccepted
+     * @return \Hanzo\Cloud\Model\BenchmarkPresetStored|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postBenchmarkPresets($preset, string $contentType = self::contentTypes['postBenchmarkPresets'][0])
+    public function postBenchmarkPresets($benchmark_preset, string $contentType = self::contentTypes['postBenchmarkPresets'][0])
     {
-        list($response) = $this->postBenchmarkPresetsWithHttpInfo($preset, $contentType);
+        list($response) = $this->postBenchmarkPresetsWithHttpInfo($benchmark_preset, $contentType);
         return $response;
     }
 
     /**
      * Operation postBenchmarkPresetsWithHttpInfo
      *
-     * Validates a router blend — its name, its arms, the rank they escalate through and the panel fan-out width — and answers 202 with the preset and the enso-&lt;name&gt; it would be served as.
+     * Stores a router blend for the caller&#39;s org — its name, its arms, the rank they escalate through and the panel fan-out width — and answers with the stored blend and the enso-&lt;name&gt; it would be resolved under.
      *
-     * @param  \Hanzo\Cloud\Model\Preset $preset (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkPreset $benchmark_preset (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkPresets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PresetAccepted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BenchmarkPresetStored|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBenchmarkPresetsWithHttpInfo($preset, string $contentType = self::contentTypes['postBenchmarkPresets'][0])
+    public function postBenchmarkPresetsWithHttpInfo($benchmark_preset, string $contentType = self::contentTypes['postBenchmarkPresets'][0])
     {
-        $request = $this->postBenchmarkPresetsRequest($preset, $contentType);
+        $request = $this->postBenchmarkPresetsRequest($benchmark_preset, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2167,9 +2280,15 @@ class BenchmarkApi
 
 
             switch($statusCode) {
-                case 202:
+                case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PresetAccepted',
+                        '\Hanzo\Cloud\Model\BenchmarkPresetStored',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2191,16 +2310,24 @@ class BenchmarkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PresetAccepted',
+                '\Hanzo\Cloud\Model\BenchmarkPresetStored',
                 $request,
                 $response,
             );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 202:
+                case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PresetAccepted',
+                        '\Hanzo\Cloud\Model\BenchmarkPresetStored',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2215,17 +2342,17 @@ class BenchmarkApi
     /**
      * Operation postBenchmarkPresetsAsync
      *
-     * Validates a router blend — its name, its arms, the rank they escalate through and the panel fan-out width — and answers 202 with the preset and the enso-&lt;name&gt; it would be served as.
+     * Stores a router blend for the caller&#39;s org — its name, its arms, the rank they escalate through and the panel fan-out width — and answers with the stored blend and the enso-&lt;name&gt; it would be resolved under.
      *
-     * @param  \Hanzo\Cloud\Model\Preset $preset (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkPreset $benchmark_preset (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkPresets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBenchmarkPresetsAsync($preset, string $contentType = self::contentTypes['postBenchmarkPresets'][0])
+    public function postBenchmarkPresetsAsync($benchmark_preset, string $contentType = self::contentTypes['postBenchmarkPresets'][0])
     {
-        return $this->postBenchmarkPresetsAsyncWithHttpInfo($preset, $contentType)
+        return $this->postBenchmarkPresetsAsyncWithHttpInfo($benchmark_preset, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2236,18 +2363,18 @@ class BenchmarkApi
     /**
      * Operation postBenchmarkPresetsAsyncWithHttpInfo
      *
-     * Validates a router blend — its name, its arms, the rank they escalate through and the panel fan-out width — and answers 202 with the preset and the enso-&lt;name&gt; it would be served as.
+     * Stores a router blend for the caller&#39;s org — its name, its arms, the rank they escalate through and the panel fan-out width — and answers with the stored blend and the enso-&lt;name&gt; it would be resolved under.
      *
-     * @param  \Hanzo\Cloud\Model\Preset $preset (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkPreset $benchmark_preset (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkPresets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBenchmarkPresetsAsyncWithHttpInfo($preset, string $contentType = self::contentTypes['postBenchmarkPresets'][0])
+    public function postBenchmarkPresetsAsyncWithHttpInfo($benchmark_preset, string $contentType = self::contentTypes['postBenchmarkPresets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PresetAccepted';
-        $request = $this->postBenchmarkPresetsRequest($preset, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BenchmarkPresetStored';
+        $request = $this->postBenchmarkPresetsRequest($benchmark_preset, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2288,19 +2415,19 @@ class BenchmarkApi
     /**
      * Create request for operation 'postBenchmarkPresets'
      *
-     * @param  \Hanzo\Cloud\Model\Preset $preset (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkPreset $benchmark_preset (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkPresets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBenchmarkPresetsRequest($preset, string $contentType = self::contentTypes['postBenchmarkPresets'][0])
+    public function postBenchmarkPresetsRequest($benchmark_preset, string $contentType = self::contentTypes['postBenchmarkPresets'][0])
     {
 
-        // verify the required parameter 'preset' is set
-        if ($preset === null || (is_array($preset) && count($preset) === 0)) {
+        // verify the required parameter 'benchmark_preset' is set
+        if ($benchmark_preset === null || (is_array($benchmark_preset) && count($benchmark_preset) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $preset when calling postBenchmarkPresets'
+                'Missing the required parameter $benchmark_preset when calling postBenchmarkPresets'
             );
         }
 
@@ -2317,18 +2444,18 @@ class BenchmarkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($preset)) {
+        if (isset($benchmark_preset)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($preset));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($benchmark_preset));
             } else {
-                $httpBody = $preset;
+                $httpBody = $benchmark_preset;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2383,36 +2510,36 @@ class BenchmarkApi
     /**
      * Operation postBenchmarkRuns
      *
-     * Admits and queues a benchmark run against a model or your own endpoint, and answers 202 with the receipt.
+     * Answers what the arena already holds for a model on each benchmark asked about, and spends nothing.
      *
-     * @param  \Hanzo\Cloud\Model\Suite $suite suite (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkSuite $benchmark_suite benchmark_suite (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Admission
+     * @return \Hanzo\Cloud\Model\BenchmarkMeasurements|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postBenchmarkRuns($suite, string $contentType = self::contentTypes['postBenchmarkRuns'][0])
+    public function postBenchmarkRuns($benchmark_suite, string $contentType = self::contentTypes['postBenchmarkRuns'][0])
     {
-        list($response) = $this->postBenchmarkRunsWithHttpInfo($suite, $contentType);
+        list($response) = $this->postBenchmarkRunsWithHttpInfo($benchmark_suite, $contentType);
         return $response;
     }
 
     /**
      * Operation postBenchmarkRunsWithHttpInfo
      *
-     * Admits and queues a benchmark run against a model or your own endpoint, and answers 202 with the receipt.
+     * Answers what the arena already holds for a model on each benchmark asked about, and spends nothing.
      *
-     * @param  \Hanzo\Cloud\Model\Suite $suite (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkSuite $benchmark_suite (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Admission, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BenchmarkMeasurements|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBenchmarkRunsWithHttpInfo($suite, string $contentType = self::contentTypes['postBenchmarkRuns'][0])
+    public function postBenchmarkRunsWithHttpInfo($benchmark_suite, string $contentType = self::contentTypes['postBenchmarkRuns'][0])
     {
-        $request = $this->postBenchmarkRunsRequest($suite, $contentType);
+        $request = $this->postBenchmarkRunsRequest($benchmark_suite, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2438,9 +2565,15 @@ class BenchmarkApi
 
 
             switch($statusCode) {
-                case 202:
+                case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Admission',
+                        '\Hanzo\Cloud\Model\BenchmarkMeasurements',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2462,16 +2595,24 @@ class BenchmarkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Admission',
+                '\Hanzo\Cloud\Model\BenchmarkMeasurements',
                 $request,
                 $response,
             );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 202:
+                case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Admission',
+                        '\Hanzo\Cloud\Model\BenchmarkMeasurements',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2486,17 +2627,17 @@ class BenchmarkApi
     /**
      * Operation postBenchmarkRunsAsync
      *
-     * Admits and queues a benchmark run against a model or your own endpoint, and answers 202 with the receipt.
+     * Answers what the arena already holds for a model on each benchmark asked about, and spends nothing.
      *
-     * @param  \Hanzo\Cloud\Model\Suite $suite (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkSuite $benchmark_suite (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBenchmarkRunsAsync($suite, string $contentType = self::contentTypes['postBenchmarkRuns'][0])
+    public function postBenchmarkRunsAsync($benchmark_suite, string $contentType = self::contentTypes['postBenchmarkRuns'][0])
     {
-        return $this->postBenchmarkRunsAsyncWithHttpInfo($suite, $contentType)
+        return $this->postBenchmarkRunsAsyncWithHttpInfo($benchmark_suite, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2507,18 +2648,18 @@ class BenchmarkApi
     /**
      * Operation postBenchmarkRunsAsyncWithHttpInfo
      *
-     * Admits and queues a benchmark run against a model or your own endpoint, and answers 202 with the receipt.
+     * Answers what the arena already holds for a model on each benchmark asked about, and spends nothing.
      *
-     * @param  \Hanzo\Cloud\Model\Suite $suite (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkSuite $benchmark_suite (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBenchmarkRunsAsyncWithHttpInfo($suite, string $contentType = self::contentTypes['postBenchmarkRuns'][0])
+    public function postBenchmarkRunsAsyncWithHttpInfo($benchmark_suite, string $contentType = self::contentTypes['postBenchmarkRuns'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Admission';
-        $request = $this->postBenchmarkRunsRequest($suite, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BenchmarkMeasurements';
+        $request = $this->postBenchmarkRunsRequest($benchmark_suite, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2559,19 +2700,19 @@ class BenchmarkApi
     /**
      * Create request for operation 'postBenchmarkRuns'
      *
-     * @param  \Hanzo\Cloud\Model\Suite $suite (required)
+     * @param  \Hanzo\Cloud\Model\BenchmarkSuite $benchmark_suite (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBenchmarkRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBenchmarkRunsRequest($suite, string $contentType = self::contentTypes['postBenchmarkRuns'][0])
+    public function postBenchmarkRunsRequest($benchmark_suite, string $contentType = self::contentTypes['postBenchmarkRuns'][0])
     {
 
-        // verify the required parameter 'suite' is set
-        if ($suite === null || (is_array($suite) && count($suite) === 0)) {
+        // verify the required parameter 'benchmark_suite' is set
+        if ($benchmark_suite === null || (is_array($benchmark_suite) && count($benchmark_suite) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $suite when calling postBenchmarkRuns'
+                'Missing the required parameter $benchmark_suite when calling postBenchmarkRuns'
             );
         }
 
@@ -2588,18 +2729,18 @@ class BenchmarkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($suite)) {
+        if (isset($benchmark_suite)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($suite));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($benchmark_suite));
             } else {
-                $httpBody = $suite;
+                $httpBody = $benchmark_suite;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

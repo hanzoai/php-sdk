@@ -147,7 +147,7 @@ class TaxonomyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Deleted
+     * @return \Hanzo\Cloud\Model\TaxonomyDeleted|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteTaxonomyCategoriesById($id, string $contentType = self::contentTypes['deleteTaxonomyCategoriesById'][0])
     {
@@ -165,7 +165,7 @@ class TaxonomyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Deleted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TaxonomyDeleted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteTaxonomyCategoriesByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteTaxonomyCategoriesById'][0])
     {
@@ -197,7 +197,13 @@ class TaxonomyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Deleted',
+                        '\Hanzo\Cloud\Model\TaxonomyDeleted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -219,7 +225,7 @@ class TaxonomyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Deleted',
+                '\Hanzo\Cloud\Model\TaxonomyDeleted',
                 $request,
                 $response,
             );
@@ -228,7 +234,15 @@ class TaxonomyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Deleted',
+                        '\Hanzo\Cloud\Model\TaxonomyDeleted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -274,7 +288,7 @@ class TaxonomyApi
      */
     public function deleteTaxonomyCategoriesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteTaxonomyCategoriesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Deleted';
+        $returnType = '\Hanzo\Cloud\Model\TaxonomyDeleted';
         $request = $this->deleteTaxonomyCategoriesByIdRequest($id, $contentType);
 
         return $this->client
@@ -353,7 +367,7 @@ class TaxonomyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -419,7 +433,7 @@ class TaxonomyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Deleted
+     * @return \Hanzo\Cloud\Model\TaxonomyDeleted|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteTaxonomyTaxaById($id, string $contentType = self::contentTypes['deleteTaxonomyTaxaById'][0])
     {
@@ -437,7 +451,7 @@ class TaxonomyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Deleted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TaxonomyDeleted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteTaxonomyTaxaByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteTaxonomyTaxaById'][0])
     {
@@ -469,7 +483,13 @@ class TaxonomyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Deleted',
+                        '\Hanzo\Cloud\Model\TaxonomyDeleted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -491,7 +511,7 @@ class TaxonomyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Deleted',
+                '\Hanzo\Cloud\Model\TaxonomyDeleted',
                 $request,
                 $response,
             );
@@ -500,7 +520,15 @@ class TaxonomyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Deleted',
+                        '\Hanzo\Cloud\Model\TaxonomyDeleted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -546,7 +574,7 @@ class TaxonomyApi
      */
     public function deleteTaxonomyTaxaByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteTaxonomyTaxaById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Deleted';
+        $returnType = '\Hanzo\Cloud\Model\TaxonomyDeleted';
         $request = $this->deleteTaxonomyTaxaByIdRequest($id, $contentType);
 
         return $this->client
@@ -625,7 +653,7 @@ class TaxonomyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -684,14 +712,14 @@ class TaxonomyApi
     /**
      * Operation getTaxonomy
      *
-     * Read returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo&#39;s own products, the part that is true for everyone — plus the caller&#39;s own org&#39;s rows, every category in display order and each carrying the products filed under it in theirs.
+     * Returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo&#39;s own products, the part that is true for everyone — plus the caller&#39;s own org&#39;s rows, every category in display order and each carrying the products filed under it in theirs.
      *
      * @param  string|null $brand Brand returns only what that brand&#39;s console shows — the categories it admits, and within them the taxa scoped to it. Empty returns everything. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTaxonomy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Taxonomy
+     * @return \Hanzo\Cloud\Model\TaxonomyTaxonomy|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTaxonomy($brand = null, string $contentType = self::contentTypes['getTaxonomy'][0])
     {
@@ -702,14 +730,14 @@ class TaxonomyApi
     /**
      * Operation getTaxonomyWithHttpInfo
      *
-     * Read returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo&#39;s own products, the part that is true for everyone — plus the caller&#39;s own org&#39;s rows, every category in display order and each carrying the products filed under it in theirs.
+     * Returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo&#39;s own products, the part that is true for everyone — plus the caller&#39;s own org&#39;s rows, every category in display order and each carrying the products filed under it in theirs.
      *
      * @param  string|null $brand Brand returns only what that brand&#39;s console shows — the categories it admits, and within them the taxa scoped to it. Empty returns everything. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTaxonomy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Taxonomy, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TaxonomyTaxonomy|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTaxonomyWithHttpInfo($brand = null, string $contentType = self::contentTypes['getTaxonomy'][0])
     {
@@ -741,7 +769,13 @@ class TaxonomyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Taxonomy',
+                        '\Hanzo\Cloud\Model\TaxonomyTaxonomy',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -763,7 +797,7 @@ class TaxonomyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Taxonomy',
+                '\Hanzo\Cloud\Model\TaxonomyTaxonomy',
                 $request,
                 $response,
             );
@@ -772,7 +806,15 @@ class TaxonomyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Taxonomy',
+                        '\Hanzo\Cloud\Model\TaxonomyTaxonomy',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -787,7 +829,7 @@ class TaxonomyApi
     /**
      * Operation getTaxonomyAsync
      *
-     * Read returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo&#39;s own products, the part that is true for everyone — plus the caller&#39;s own org&#39;s rows, every category in display order and each carrying the products filed under it in theirs.
+     * Returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo&#39;s own products, the part that is true for everyone — plus the caller&#39;s own org&#39;s rows, every category in display order and each carrying the products filed under it in theirs.
      *
      * @param  string|null $brand Brand returns only what that brand&#39;s console shows — the categories it admits, and within them the taxa scoped to it. Empty returns everything. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTaxonomy'] to see the possible values for this operation
@@ -808,7 +850,7 @@ class TaxonomyApi
     /**
      * Operation getTaxonomyAsyncWithHttpInfo
      *
-     * Read returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo&#39;s own products, the part that is true for everyone — plus the caller&#39;s own org&#39;s rows, every category in display order and each carrying the products filed under it in theirs.
+     * Returns the product catalogue as this caller sees it: the PLATFORM catalogue — Hanzo&#39;s own products, the part that is true for everyone — plus the caller&#39;s own org&#39;s rows, every category in display order and each carrying the products filed under it in theirs.
      *
      * @param  string|null $brand Brand returns only what that brand&#39;s console shows — the categories it admits, and within them the taxa scoped to it. Empty returns everything. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTaxonomy'] to see the possible values for this operation
@@ -818,7 +860,7 @@ class TaxonomyApi
      */
     public function getTaxonomyAsyncWithHttpInfo($brand = null, string $contentType = self::contentTypes['getTaxonomy'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Taxonomy';
+        $returnType = '\Hanzo\Cloud\Model\TaxonomyTaxonomy';
         $request = $this->getTaxonomyRequest($brand, $contentType);
 
         return $this->client
@@ -892,7 +934,7 @@ class TaxonomyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -954,16 +996,16 @@ class TaxonomyApi
      * Creates or replaces one category and returns it as stored.
      *
      * @param  string $id ID is the category slug to write, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CategoryIn $category_in category_in (required)
+     * @param  \Hanzo\Cloud\Model\TaxonomyCategoryIn $taxonomy_category_in taxonomy_category_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTaxonomyCategoriesById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Category
+     * @return \Hanzo\Cloud\Model\TaxonomyCategory|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putTaxonomyCategoriesById($id, $category_in, string $contentType = self::contentTypes['putTaxonomyCategoriesById'][0])
+    public function putTaxonomyCategoriesById($id, $taxonomy_category_in, string $contentType = self::contentTypes['putTaxonomyCategoriesById'][0])
     {
-        list($response) = $this->putTaxonomyCategoriesByIdWithHttpInfo($id, $category_in, $contentType);
+        list($response) = $this->putTaxonomyCategoriesByIdWithHttpInfo($id, $taxonomy_category_in, $contentType);
         return $response;
     }
 
@@ -973,16 +1015,16 @@ class TaxonomyApi
      * Creates or replaces one category and returns it as stored.
      *
      * @param  string $id ID is the category slug to write, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CategoryIn $category_in (required)
+     * @param  \Hanzo\Cloud\Model\TaxonomyCategoryIn $taxonomy_category_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTaxonomyCategoriesById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Category, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TaxonomyCategory|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putTaxonomyCategoriesByIdWithHttpInfo($id, $category_in, string $contentType = self::contentTypes['putTaxonomyCategoriesById'][0])
+    public function putTaxonomyCategoriesByIdWithHttpInfo($id, $taxonomy_category_in, string $contentType = self::contentTypes['putTaxonomyCategoriesById'][0])
     {
-        $request = $this->putTaxonomyCategoriesByIdRequest($id, $category_in, $contentType);
+        $request = $this->putTaxonomyCategoriesByIdRequest($id, $taxonomy_category_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1010,7 +1052,13 @@ class TaxonomyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Category',
+                        '\Hanzo\Cloud\Model\TaxonomyCategory',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1032,7 +1080,7 @@ class TaxonomyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Category',
+                '\Hanzo\Cloud\Model\TaxonomyCategory',
                 $request,
                 $response,
             );
@@ -1041,7 +1089,15 @@ class TaxonomyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Category',
+                        '\Hanzo\Cloud\Model\TaxonomyCategory',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1059,15 +1115,15 @@ class TaxonomyApi
      * Creates or replaces one category and returns it as stored.
      *
      * @param  string $id ID is the category slug to write, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CategoryIn $category_in (required)
+     * @param  \Hanzo\Cloud\Model\TaxonomyCategoryIn $taxonomy_category_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTaxonomyCategoriesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTaxonomyCategoriesByIdAsync($id, $category_in, string $contentType = self::contentTypes['putTaxonomyCategoriesById'][0])
+    public function putTaxonomyCategoriesByIdAsync($id, $taxonomy_category_in, string $contentType = self::contentTypes['putTaxonomyCategoriesById'][0])
     {
-        return $this->putTaxonomyCategoriesByIdAsyncWithHttpInfo($id, $category_in, $contentType)
+        return $this->putTaxonomyCategoriesByIdAsyncWithHttpInfo($id, $taxonomy_category_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1081,16 +1137,16 @@ class TaxonomyApi
      * Creates or replaces one category and returns it as stored.
      *
      * @param  string $id ID is the category slug to write, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CategoryIn $category_in (required)
+     * @param  \Hanzo\Cloud\Model\TaxonomyCategoryIn $taxonomy_category_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTaxonomyCategoriesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTaxonomyCategoriesByIdAsyncWithHttpInfo($id, $category_in, string $contentType = self::contentTypes['putTaxonomyCategoriesById'][0])
+    public function putTaxonomyCategoriesByIdAsyncWithHttpInfo($id, $taxonomy_category_in, string $contentType = self::contentTypes['putTaxonomyCategoriesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Category';
-        $request = $this->putTaxonomyCategoriesByIdRequest($id, $category_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TaxonomyCategory';
+        $request = $this->putTaxonomyCategoriesByIdRequest($id, $taxonomy_category_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1132,13 +1188,13 @@ class TaxonomyApi
      * Create request for operation 'putTaxonomyCategoriesById'
      *
      * @param  string $id ID is the category slug to write, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CategoryIn $category_in (required)
+     * @param  \Hanzo\Cloud\Model\TaxonomyCategoryIn $taxonomy_category_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTaxonomyCategoriesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putTaxonomyCategoriesByIdRequest($id, $category_in, string $contentType = self::contentTypes['putTaxonomyCategoriesById'][0])
+    public function putTaxonomyCategoriesByIdRequest($id, $taxonomy_category_in, string $contentType = self::contentTypes['putTaxonomyCategoriesById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -1148,10 +1204,10 @@ class TaxonomyApi
             );
         }
 
-        // verify the required parameter 'category_in' is set
-        if ($category_in === null || (is_array($category_in) && count($category_in) === 0)) {
+        // verify the required parameter 'taxonomy_category_in' is set
+        if ($taxonomy_category_in === null || (is_array($taxonomy_category_in) && count($taxonomy_category_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $category_in when calling putTaxonomyCategoriesById'
+                'Missing the required parameter $taxonomy_category_in when calling putTaxonomyCategoriesById'
             );
         }
 
@@ -1176,18 +1232,18 @@ class TaxonomyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($category_in)) {
+        if (isset($taxonomy_category_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($category_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($taxonomy_category_in));
             } else {
-                $httpBody = $category_in;
+                $httpBody = $taxonomy_category_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1245,16 +1301,16 @@ class TaxonomyApi
      * Creates or replaces one product and returns it as stored.
      *
      * @param  string $id ID is the taxon slug to write, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TaxonIn $taxon_in taxon_in (required)
+     * @param  \Hanzo\Cloud\Model\TaxonomyTaxonIn $taxonomy_taxon_in taxonomy_taxon_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTaxonomyTaxaById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Taxon
+     * @return \Hanzo\Cloud\Model\TaxonomyTaxon|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putTaxonomyTaxaById($id, $taxon_in, string $contentType = self::contentTypes['putTaxonomyTaxaById'][0])
+    public function putTaxonomyTaxaById($id, $taxonomy_taxon_in, string $contentType = self::contentTypes['putTaxonomyTaxaById'][0])
     {
-        list($response) = $this->putTaxonomyTaxaByIdWithHttpInfo($id, $taxon_in, $contentType);
+        list($response) = $this->putTaxonomyTaxaByIdWithHttpInfo($id, $taxonomy_taxon_in, $contentType);
         return $response;
     }
 
@@ -1264,16 +1320,16 @@ class TaxonomyApi
      * Creates or replaces one product and returns it as stored.
      *
      * @param  string $id ID is the taxon slug to write, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TaxonIn $taxon_in (required)
+     * @param  \Hanzo\Cloud\Model\TaxonomyTaxonIn $taxonomy_taxon_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTaxonomyTaxaById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Taxon, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TaxonomyTaxon|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putTaxonomyTaxaByIdWithHttpInfo($id, $taxon_in, string $contentType = self::contentTypes['putTaxonomyTaxaById'][0])
+    public function putTaxonomyTaxaByIdWithHttpInfo($id, $taxonomy_taxon_in, string $contentType = self::contentTypes['putTaxonomyTaxaById'][0])
     {
-        $request = $this->putTaxonomyTaxaByIdRequest($id, $taxon_in, $contentType);
+        $request = $this->putTaxonomyTaxaByIdRequest($id, $taxonomy_taxon_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1301,7 +1357,13 @@ class TaxonomyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Taxon',
+                        '\Hanzo\Cloud\Model\TaxonomyTaxon',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1323,7 +1385,7 @@ class TaxonomyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Taxon',
+                '\Hanzo\Cloud\Model\TaxonomyTaxon',
                 $request,
                 $response,
             );
@@ -1332,7 +1394,15 @@ class TaxonomyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Taxon',
+                        '\Hanzo\Cloud\Model\TaxonomyTaxon',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1350,15 +1420,15 @@ class TaxonomyApi
      * Creates or replaces one product and returns it as stored.
      *
      * @param  string $id ID is the taxon slug to write, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TaxonIn $taxon_in (required)
+     * @param  \Hanzo\Cloud\Model\TaxonomyTaxonIn $taxonomy_taxon_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTaxonomyTaxaById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTaxonomyTaxaByIdAsync($id, $taxon_in, string $contentType = self::contentTypes['putTaxonomyTaxaById'][0])
+    public function putTaxonomyTaxaByIdAsync($id, $taxonomy_taxon_in, string $contentType = self::contentTypes['putTaxonomyTaxaById'][0])
     {
-        return $this->putTaxonomyTaxaByIdAsyncWithHttpInfo($id, $taxon_in, $contentType)
+        return $this->putTaxonomyTaxaByIdAsyncWithHttpInfo($id, $taxonomy_taxon_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1372,16 +1442,16 @@ class TaxonomyApi
      * Creates or replaces one product and returns it as stored.
      *
      * @param  string $id ID is the taxon slug to write, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TaxonIn $taxon_in (required)
+     * @param  \Hanzo\Cloud\Model\TaxonomyTaxonIn $taxonomy_taxon_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTaxonomyTaxaById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTaxonomyTaxaByIdAsyncWithHttpInfo($id, $taxon_in, string $contentType = self::contentTypes['putTaxonomyTaxaById'][0])
+    public function putTaxonomyTaxaByIdAsyncWithHttpInfo($id, $taxonomy_taxon_in, string $contentType = self::contentTypes['putTaxonomyTaxaById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Taxon';
-        $request = $this->putTaxonomyTaxaByIdRequest($id, $taxon_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TaxonomyTaxon';
+        $request = $this->putTaxonomyTaxaByIdRequest($id, $taxonomy_taxon_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1423,13 +1493,13 @@ class TaxonomyApi
      * Create request for operation 'putTaxonomyTaxaById'
      *
      * @param  string $id ID is the taxon slug to write, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TaxonIn $taxon_in (required)
+     * @param  \Hanzo\Cloud\Model\TaxonomyTaxonIn $taxonomy_taxon_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTaxonomyTaxaById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putTaxonomyTaxaByIdRequest($id, $taxon_in, string $contentType = self::contentTypes['putTaxonomyTaxaById'][0])
+    public function putTaxonomyTaxaByIdRequest($id, $taxonomy_taxon_in, string $contentType = self::contentTypes['putTaxonomyTaxaById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -1439,10 +1509,10 @@ class TaxonomyApi
             );
         }
 
-        // verify the required parameter 'taxon_in' is set
-        if ($taxon_in === null || (is_array($taxon_in) && count($taxon_in) === 0)) {
+        // verify the required parameter 'taxonomy_taxon_in' is set
+        if ($taxonomy_taxon_in === null || (is_array($taxonomy_taxon_in) && count($taxonomy_taxon_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $taxon_in when calling putTaxonomyTaxaById'
+                'Missing the required parameter $taxonomy_taxon_in when calling putTaxonomyTaxaById'
             );
         }
 
@@ -1467,18 +1537,18 @@ class TaxonomyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($taxon_in)) {
+        if (isset($taxonomy_taxon_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($taxon_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($taxonomy_taxon_in));
             } else {
-                $httpBody = $taxon_in;
+                $httpBody = $taxonomy_taxon_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

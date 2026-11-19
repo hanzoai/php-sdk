@@ -58,10 +58,11 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'description' => 'string',
-        'format' => 'string',
+        'format' => 'mixed',
         'name' => 'string',
-        'parameters' => 'string',
+        'parameters' => 'mixed',
         'strict' => 'bool',
+        'tools' => '\Hanzo\Cloud\Model\AiResponsesTool[]',
         'type' => 'string'
     ];
 
@@ -74,10 +75,11 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'description' => null,
-        'format' => 'byte',
+        'format' => null,
         'name' => null,
-        'parameters' => 'byte',
+        'parameters' => null,
         'strict' => null,
+        'tools' => null,
         'type' => null
     ];
 
@@ -88,10 +90,11 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'description' => false,
-        'format' => false,
+        'format' => true,
         'name' => false,
-        'parameters' => false,
+        'parameters' => true,
         'strict' => false,
+        'tools' => false,
         'type' => false
     ];
 
@@ -186,6 +189,7 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'name',
         'parameters' => 'parameters',
         'strict' => 'strict',
+        'tools' => 'tools',
         'type' => 'type'
     ];
 
@@ -200,6 +204,7 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'setName',
         'parameters' => 'setParameters',
         'strict' => 'setStrict',
+        'tools' => 'setTools',
         'type' => 'setType'
     ];
 
@@ -214,6 +219,7 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'getName',
         'parameters' => 'getParameters',
         'strict' => 'getStrict',
+        'tools' => 'getTools',
         'type' => 'getType'
     ];
 
@@ -279,6 +285,7 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('parameters', $data ?? [], null);
         $this->setIfExists('strict', $data ?? [], null);
+        $this->setIfExists('tools', $data ?? [], null);
         $this->setIfExists('type', $data ?? [], null);
     }
 
@@ -354,7 +361,7 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets format
      *
-     * @return string|null
+     * @return mixed|null
      */
     public function getFormat()
     {
@@ -364,14 +371,21 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets format
      *
-     * @param string|null $format format
+     * @param mixed|null $format format
      *
      * @return self
      */
     public function setFormat($format)
     {
         if (is_null($format)) {
-            throw new \InvalidArgumentException('non-nullable format cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'format');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('format', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['format'] = $format;
 
@@ -408,7 +422,7 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets parameters
      *
-     * @return string|null
+     * @return mixed|null
      */
     public function getParameters()
     {
@@ -418,14 +432,21 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets parameters
      *
-     * @param string|null $parameters parameters
+     * @param mixed|null $parameters parameters
      *
      * @return self
      */
     public function setParameters($parameters)
     {
         if (is_null($parameters)) {
-            throw new \InvalidArgumentException('non-nullable parameters cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'parameters');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('parameters', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['parameters'] = $parameters;
 
@@ -455,6 +476,33 @@ class AiResponsesTool implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable strict cannot be null');
         }
         $this->container['strict'] = $strict;
+
+        return $this;
+    }
+
+    /**
+     * Gets tools
+     *
+     * @return \Hanzo\Cloud\Model\AiResponsesTool[]|null
+     */
+    public function getTools()
+    {
+        return $this->container['tools'];
+    }
+
+    /**
+     * Sets tools
+     *
+     * @param \Hanzo\Cloud\Model\AiResponsesTool[]|null $tools tools
+     *
+     * @return self
+     */
+    public function setTools($tools)
+    {
+        if (is_null($tools)) {
+            throw new \InvalidArgumentException('non-nullable tools cannot be null');
+        }
+        $this->container['tools'] = $tools;
 
         return $this;
     }

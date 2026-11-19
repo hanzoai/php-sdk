@@ -153,7 +153,7 @@ class DomainApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\QuoteList
+     * @return \Hanzo\Cloud\Model\DomainQuoteList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDomainAvailability($domain, string $contentType = self::contentTypes['getDomainAvailability'][0])
     {
@@ -171,7 +171,7 @@ class DomainApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\QuoteList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DomainQuoteList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDomainAvailabilityWithHttpInfo($domain, string $contentType = self::contentTypes['getDomainAvailability'][0])
     {
@@ -203,7 +203,13 @@ class DomainApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\QuoteList',
+                        '\Hanzo\Cloud\Model\DomainQuoteList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -225,7 +231,7 @@ class DomainApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\QuoteList',
+                '\Hanzo\Cloud\Model\DomainQuoteList',
                 $request,
                 $response,
             );
@@ -234,7 +240,15 @@ class DomainApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\QuoteList',
+                        '\Hanzo\Cloud\Model\DomainQuoteList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -280,7 +294,7 @@ class DomainApi
      */
     public function getDomainAvailabilityAsyncWithHttpInfo($domain, string $contentType = self::contentTypes['getDomainAvailability'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\QuoteList';
+        $returnType = '\Hanzo\Cloud\Model\DomainQuoteList';
         $request = $this->getDomainAvailabilityRequest($domain, $contentType);
 
         return $this->client
@@ -360,7 +374,7 @@ class DomainApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -425,7 +439,7 @@ class DomainApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Holdings
+     * @return \Hanzo\Cloud\Model\DomainHoldings|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDomainDomains(string $contentType = self::contentTypes['getDomainDomains'][0])
     {
@@ -442,7 +456,7 @@ class DomainApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Holdings, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DomainHoldings|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDomainDomainsWithHttpInfo(string $contentType = self::contentTypes['getDomainDomains'][0])
     {
@@ -474,7 +488,13 @@ class DomainApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Holdings',
+                        '\Hanzo\Cloud\Model\DomainHoldings',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -496,7 +516,7 @@ class DomainApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Holdings',
+                '\Hanzo\Cloud\Model\DomainHoldings',
                 $request,
                 $response,
             );
@@ -505,7 +525,15 @@ class DomainApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Holdings',
+                        '\Hanzo\Cloud\Model\DomainHoldings',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -549,7 +577,7 @@ class DomainApi
      */
     public function getDomainDomainsAsyncWithHttpInfo(string $contentType = self::contentTypes['getDomainDomains'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Holdings';
+        $returnType = '\Hanzo\Cloud\Model\DomainHoldings';
         $request = $this->getDomainDomainsRequest($contentType);
 
         return $this->client
@@ -612,7 +640,7 @@ class DomainApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -677,7 +705,7 @@ class DomainApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Reachability|\Hanzo\Cloud\Model\Reachability
+     * @return \Hanzo\Cloud\Model\DomainReachability|\Hanzo\Cloud\Model\DomainReachability|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDomainHealth(string $contentType = self::contentTypes['getDomainHealth'][0])
     {
@@ -694,7 +722,7 @@ class DomainApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Reachability|\Hanzo\Cloud\Model\Reachability, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DomainReachability|\Hanzo\Cloud\Model\DomainReachability|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDomainHealthWithHttpInfo(string $contentType = self::contentTypes['getDomainHealth'][0])
     {
@@ -726,13 +754,19 @@ class DomainApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Reachability',
+                        '\Hanzo\Cloud\Model\DomainReachability',
                         $request,
                         $response,
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Reachability',
+                        '\Hanzo\Cloud\Model\DomainReachability',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -754,7 +788,7 @@ class DomainApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Reachability',
+                '\Hanzo\Cloud\Model\DomainReachability',
                 $request,
                 $response,
             );
@@ -763,7 +797,7 @@ class DomainApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Reachability',
+                        '\Hanzo\Cloud\Model\DomainReachability',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -771,7 +805,15 @@ class DomainApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Reachability',
+                        '\Hanzo\Cloud\Model\DomainReachability',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -815,7 +857,7 @@ class DomainApi
      */
     public function getDomainHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getDomainHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Reachability';
+        $returnType = '\Hanzo\Cloud\Model\DomainReachability';
         $request = $this->getDomainHealthRequest($contentType);
 
         return $this->client
@@ -878,7 +920,7 @@ class DomainApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -945,7 +987,7 @@ class DomainApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\QuoteList
+     * @return \Hanzo\Cloud\Model\DomainQuoteList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDomainSearch($q, $tld = null, string $contentType = self::contentTypes['getDomainSearch'][0])
     {
@@ -964,7 +1006,7 @@ class DomainApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\QuoteList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DomainQuoteList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDomainSearchWithHttpInfo($q, $tld = null, string $contentType = self::contentTypes['getDomainSearch'][0])
     {
@@ -996,7 +1038,13 @@ class DomainApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\QuoteList',
+                        '\Hanzo\Cloud\Model\DomainQuoteList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1018,7 +1066,7 @@ class DomainApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\QuoteList',
+                '\Hanzo\Cloud\Model\DomainQuoteList',
                 $request,
                 $response,
             );
@@ -1027,7 +1075,15 @@ class DomainApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\QuoteList',
+                        '\Hanzo\Cloud\Model\DomainQuoteList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1075,7 +1131,7 @@ class DomainApi
      */
     public function getDomainSearchAsyncWithHttpInfo($q, $tld = null, string $contentType = self::contentTypes['getDomainSearch'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\QuoteList';
+        $returnType = '\Hanzo\Cloud\Model\DomainQuoteList';
         $request = $this->getDomainSearchRequest($q, $tld, $contentType);
 
         return $this->client
@@ -1166,7 +1222,7 @@ class DomainApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1227,16 +1283,16 @@ class DomainApi
      *
      * Buys a domain for your org and answers the ownership record together with the quote it was bought at.
      *
-     * @param  \Hanzo\Cloud\Model\Order $order order (required)
+     * @param  \Hanzo\Cloud\Model\DomainOrder $domain_order domain_order (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainRegister'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RegisterResult
+     * @return \Hanzo\Cloud\Model\DomainRegisterResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postDomainRegister($order, string $contentType = self::contentTypes['postDomainRegister'][0])
+    public function postDomainRegister($domain_order, string $contentType = self::contentTypes['postDomainRegister'][0])
     {
-        list($response) = $this->postDomainRegisterWithHttpInfo($order, $contentType);
+        list($response) = $this->postDomainRegisterWithHttpInfo($domain_order, $contentType);
         return $response;
     }
 
@@ -1245,16 +1301,16 @@ class DomainApi
      *
      * Buys a domain for your org and answers the ownership record together with the quote it was bought at.
      *
-     * @param  \Hanzo\Cloud\Model\Order $order (required)
+     * @param  \Hanzo\Cloud\Model\DomainOrder $domain_order (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainRegister'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RegisterResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DomainRegisterResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postDomainRegisterWithHttpInfo($order, string $contentType = self::contentTypes['postDomainRegister'][0])
+    public function postDomainRegisterWithHttpInfo($domain_order, string $contentType = self::contentTypes['postDomainRegister'][0])
     {
-        $request = $this->postDomainRegisterRequest($order, $contentType);
+        $request = $this->postDomainRegisterRequest($domain_order, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1282,7 +1338,13 @@ class DomainApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RegisterResult',
+                        '\Hanzo\Cloud\Model\DomainRegisterResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1304,7 +1366,7 @@ class DomainApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RegisterResult',
+                '\Hanzo\Cloud\Model\DomainRegisterResult',
                 $request,
                 $response,
             );
@@ -1313,7 +1375,15 @@ class DomainApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RegisterResult',
+                        '\Hanzo\Cloud\Model\DomainRegisterResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1330,15 +1400,15 @@ class DomainApi
      *
      * Buys a domain for your org and answers the ownership record together with the quote it was bought at.
      *
-     * @param  \Hanzo\Cloud\Model\Order $order (required)
+     * @param  \Hanzo\Cloud\Model\DomainOrder $domain_order (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainRegister'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDomainRegisterAsync($order, string $contentType = self::contentTypes['postDomainRegister'][0])
+    public function postDomainRegisterAsync($domain_order, string $contentType = self::contentTypes['postDomainRegister'][0])
     {
-        return $this->postDomainRegisterAsyncWithHttpInfo($order, $contentType)
+        return $this->postDomainRegisterAsyncWithHttpInfo($domain_order, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1351,16 +1421,16 @@ class DomainApi
      *
      * Buys a domain for your org and answers the ownership record together with the quote it was bought at.
      *
-     * @param  \Hanzo\Cloud\Model\Order $order (required)
+     * @param  \Hanzo\Cloud\Model\DomainOrder $domain_order (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainRegister'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDomainRegisterAsyncWithHttpInfo($order, string $contentType = self::contentTypes['postDomainRegister'][0])
+    public function postDomainRegisterAsyncWithHttpInfo($domain_order, string $contentType = self::contentTypes['postDomainRegister'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RegisterResult';
-        $request = $this->postDomainRegisterRequest($order, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DomainRegisterResult';
+        $request = $this->postDomainRegisterRequest($domain_order, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1401,19 +1471,19 @@ class DomainApi
     /**
      * Create request for operation 'postDomainRegister'
      *
-     * @param  \Hanzo\Cloud\Model\Order $order (required)
+     * @param  \Hanzo\Cloud\Model\DomainOrder $domain_order (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainRegister'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postDomainRegisterRequest($order, string $contentType = self::contentTypes['postDomainRegister'][0])
+    public function postDomainRegisterRequest($domain_order, string $contentType = self::contentTypes['postDomainRegister'][0])
     {
 
-        // verify the required parameter 'order' is set
-        if ($order === null || (is_array($order) && count($order) === 0)) {
+        // verify the required parameter 'domain_order' is set
+        if ($domain_order === null || (is_array($domain_order) && count($domain_order) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $order when calling postDomainRegister'
+                'Missing the required parameter $domain_order when calling postDomainRegister'
             );
         }
 
@@ -1430,18 +1500,18 @@ class DomainApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($order)) {
+        if (isset($domain_order)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($order));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($domain_order));
             } else {
-                $httpBody = $order;
+                $httpBody = $domain_order;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1498,16 +1568,16 @@ class DomainApi
      *
      * Extends a domain your org already owns and answers the updated record with its new expiry alongside what was paid.
      *
-     * @param  \Hanzo\Cloud\Model\RenewReq $renew_req renew_req (required)
+     * @param  \Hanzo\Cloud\Model\DomainRenewReq $domain_renew_req domain_renew_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainRenew'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RenewResult
+     * @return \Hanzo\Cloud\Model\DomainRenewResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postDomainRenew($renew_req, string $contentType = self::contentTypes['postDomainRenew'][0])
+    public function postDomainRenew($domain_renew_req, string $contentType = self::contentTypes['postDomainRenew'][0])
     {
-        list($response) = $this->postDomainRenewWithHttpInfo($renew_req, $contentType);
+        list($response) = $this->postDomainRenewWithHttpInfo($domain_renew_req, $contentType);
         return $response;
     }
 
@@ -1516,16 +1586,16 @@ class DomainApi
      *
      * Extends a domain your org already owns and answers the updated record with its new expiry alongside what was paid.
      *
-     * @param  \Hanzo\Cloud\Model\RenewReq $renew_req (required)
+     * @param  \Hanzo\Cloud\Model\DomainRenewReq $domain_renew_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainRenew'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RenewResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DomainRenewResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postDomainRenewWithHttpInfo($renew_req, string $contentType = self::contentTypes['postDomainRenew'][0])
+    public function postDomainRenewWithHttpInfo($domain_renew_req, string $contentType = self::contentTypes['postDomainRenew'][0])
     {
-        $request = $this->postDomainRenewRequest($renew_req, $contentType);
+        $request = $this->postDomainRenewRequest($domain_renew_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1553,7 +1623,13 @@ class DomainApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RenewResult',
+                        '\Hanzo\Cloud\Model\DomainRenewResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1575,7 +1651,7 @@ class DomainApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RenewResult',
+                '\Hanzo\Cloud\Model\DomainRenewResult',
                 $request,
                 $response,
             );
@@ -1584,7 +1660,15 @@ class DomainApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RenewResult',
+                        '\Hanzo\Cloud\Model\DomainRenewResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1601,15 +1685,15 @@ class DomainApi
      *
      * Extends a domain your org already owns and answers the updated record with its new expiry alongside what was paid.
      *
-     * @param  \Hanzo\Cloud\Model\RenewReq $renew_req (required)
+     * @param  \Hanzo\Cloud\Model\DomainRenewReq $domain_renew_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainRenew'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDomainRenewAsync($renew_req, string $contentType = self::contentTypes['postDomainRenew'][0])
+    public function postDomainRenewAsync($domain_renew_req, string $contentType = self::contentTypes['postDomainRenew'][0])
     {
-        return $this->postDomainRenewAsyncWithHttpInfo($renew_req, $contentType)
+        return $this->postDomainRenewAsyncWithHttpInfo($domain_renew_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1622,16 +1706,16 @@ class DomainApi
      *
      * Extends a domain your org already owns and answers the updated record with its new expiry alongside what was paid.
      *
-     * @param  \Hanzo\Cloud\Model\RenewReq $renew_req (required)
+     * @param  \Hanzo\Cloud\Model\DomainRenewReq $domain_renew_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainRenew'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDomainRenewAsyncWithHttpInfo($renew_req, string $contentType = self::contentTypes['postDomainRenew'][0])
+    public function postDomainRenewAsyncWithHttpInfo($domain_renew_req, string $contentType = self::contentTypes['postDomainRenew'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RenewResult';
-        $request = $this->postDomainRenewRequest($renew_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DomainRenewResult';
+        $request = $this->postDomainRenewRequest($domain_renew_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1672,19 +1756,19 @@ class DomainApi
     /**
      * Create request for operation 'postDomainRenew'
      *
-     * @param  \Hanzo\Cloud\Model\RenewReq $renew_req (required)
+     * @param  \Hanzo\Cloud\Model\DomainRenewReq $domain_renew_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainRenew'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postDomainRenewRequest($renew_req, string $contentType = self::contentTypes['postDomainRenew'][0])
+    public function postDomainRenewRequest($domain_renew_req, string $contentType = self::contentTypes['postDomainRenew'][0])
     {
 
-        // verify the required parameter 'renew_req' is set
-        if ($renew_req === null || (is_array($renew_req) && count($renew_req) === 0)) {
+        // verify the required parameter 'domain_renew_req' is set
+        if ($domain_renew_req === null || (is_array($domain_renew_req) && count($domain_renew_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $renew_req when calling postDomainRenew'
+                'Missing the required parameter $domain_renew_req when calling postDomainRenew'
             );
         }
 
@@ -1701,18 +1785,18 @@ class DomainApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($renew_req)) {
+        if (isset($domain_renew_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($renew_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($domain_renew_req));
             } else {
-                $httpBody = $renew_req;
+                $httpBody = $domain_renew_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1769,16 +1853,16 @@ class DomainApi
      *
      * Moves a domain you own at another registrar onto your org here, using its authCode, and answers the same record-plus-quote a purchase does.
      *
-     * @param  \Hanzo\Cloud\Model\TransferReq $transfer_req transfer_req (required)
+     * @param  \Hanzo\Cloud\Model\DomainTransferReq $domain_transfer_req domain_transfer_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainTransfer'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RegisterResult
+     * @return \Hanzo\Cloud\Model\DomainRegisterResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postDomainTransfer($transfer_req, string $contentType = self::contentTypes['postDomainTransfer'][0])
+    public function postDomainTransfer($domain_transfer_req, string $contentType = self::contentTypes['postDomainTransfer'][0])
     {
-        list($response) = $this->postDomainTransferWithHttpInfo($transfer_req, $contentType);
+        list($response) = $this->postDomainTransferWithHttpInfo($domain_transfer_req, $contentType);
         return $response;
     }
 
@@ -1787,16 +1871,16 @@ class DomainApi
      *
      * Moves a domain you own at another registrar onto your org here, using its authCode, and answers the same record-plus-quote a purchase does.
      *
-     * @param  \Hanzo\Cloud\Model\TransferReq $transfer_req (required)
+     * @param  \Hanzo\Cloud\Model\DomainTransferReq $domain_transfer_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainTransfer'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RegisterResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DomainRegisterResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postDomainTransferWithHttpInfo($transfer_req, string $contentType = self::contentTypes['postDomainTransfer'][0])
+    public function postDomainTransferWithHttpInfo($domain_transfer_req, string $contentType = self::contentTypes['postDomainTransfer'][0])
     {
-        $request = $this->postDomainTransferRequest($transfer_req, $contentType);
+        $request = $this->postDomainTransferRequest($domain_transfer_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1824,7 +1908,13 @@ class DomainApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RegisterResult',
+                        '\Hanzo\Cloud\Model\DomainRegisterResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1846,7 +1936,7 @@ class DomainApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RegisterResult',
+                '\Hanzo\Cloud\Model\DomainRegisterResult',
                 $request,
                 $response,
             );
@@ -1855,7 +1945,15 @@ class DomainApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RegisterResult',
+                        '\Hanzo\Cloud\Model\DomainRegisterResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1872,15 +1970,15 @@ class DomainApi
      *
      * Moves a domain you own at another registrar onto your org here, using its authCode, and answers the same record-plus-quote a purchase does.
      *
-     * @param  \Hanzo\Cloud\Model\TransferReq $transfer_req (required)
+     * @param  \Hanzo\Cloud\Model\DomainTransferReq $domain_transfer_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainTransfer'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDomainTransferAsync($transfer_req, string $contentType = self::contentTypes['postDomainTransfer'][0])
+    public function postDomainTransferAsync($domain_transfer_req, string $contentType = self::contentTypes['postDomainTransfer'][0])
     {
-        return $this->postDomainTransferAsyncWithHttpInfo($transfer_req, $contentType)
+        return $this->postDomainTransferAsyncWithHttpInfo($domain_transfer_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1893,16 +1991,16 @@ class DomainApi
      *
      * Moves a domain you own at another registrar onto your org here, using its authCode, and answers the same record-plus-quote a purchase does.
      *
-     * @param  \Hanzo\Cloud\Model\TransferReq $transfer_req (required)
+     * @param  \Hanzo\Cloud\Model\DomainTransferReq $domain_transfer_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainTransfer'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDomainTransferAsyncWithHttpInfo($transfer_req, string $contentType = self::contentTypes['postDomainTransfer'][0])
+    public function postDomainTransferAsyncWithHttpInfo($domain_transfer_req, string $contentType = self::contentTypes['postDomainTransfer'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RegisterResult';
-        $request = $this->postDomainTransferRequest($transfer_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DomainRegisterResult';
+        $request = $this->postDomainTransferRequest($domain_transfer_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1943,19 +2041,19 @@ class DomainApi
     /**
      * Create request for operation 'postDomainTransfer'
      *
-     * @param  \Hanzo\Cloud\Model\TransferReq $transfer_req (required)
+     * @param  \Hanzo\Cloud\Model\DomainTransferReq $domain_transfer_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDomainTransfer'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postDomainTransferRequest($transfer_req, string $contentType = self::contentTypes['postDomainTransfer'][0])
+    public function postDomainTransferRequest($domain_transfer_req, string $contentType = self::contentTypes['postDomainTransfer'][0])
     {
 
-        // verify the required parameter 'transfer_req' is set
-        if ($transfer_req === null || (is_array($transfer_req) && count($transfer_req) === 0)) {
+        // verify the required parameter 'domain_transfer_req' is set
+        if ($domain_transfer_req === null || (is_array($domain_transfer_req) && count($domain_transfer_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $transfer_req when calling postDomainTransfer'
+                'Missing the required parameter $domain_transfer_req when calling postDomainTransfer'
             );
         }
 
@@ -1972,18 +2070,18 @@ class DomainApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($transfer_req)) {
+        if (isset($domain_transfer_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($transfer_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($domain_transfer_req));
             } else {
-                $httpBody = $transfer_req;
+                $httpBody = $domain_transfer_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

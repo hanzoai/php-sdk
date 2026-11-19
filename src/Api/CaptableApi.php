@@ -225,7 +225,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableDeleted
+     * @return \Hanzo\Cloud\Model\CaptableCaptableDeleted|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCaptableConvertiblesById($id, string $contentType = self::contentTypes['deleteCaptableConvertiblesById'][0])
     {
@@ -243,7 +243,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableDeleted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableDeleted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCaptableConvertiblesByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteCaptableConvertiblesById'][0])
     {
@@ -275,7 +275,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableDeleted',
+                        '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -297,7 +303,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableDeleted',
+                '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
                 $request,
                 $response,
             );
@@ -306,7 +312,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableDeleted',
+                        '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -352,7 +366,7 @@ class CaptableApi
      */
     public function deleteCaptableConvertiblesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteCaptableConvertiblesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableDeleted';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableDeleted';
         $request = $this->deleteCaptableConvertiblesByIdRequest($id, $contentType);
 
         return $this->client
@@ -431,7 +445,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -497,7 +511,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableDeleted
+     * @return \Hanzo\Cloud\Model\CaptableCaptableDeleted|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCaptableOptionsById($id, string $contentType = self::contentTypes['deleteCaptableOptionsById'][0])
     {
@@ -515,7 +529,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableDeleted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableDeleted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCaptableOptionsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteCaptableOptionsById'][0])
     {
@@ -547,7 +561,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableDeleted',
+                        '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -569,7 +589,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableDeleted',
+                '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
                 $request,
                 $response,
             );
@@ -578,7 +598,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableDeleted',
+                        '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -624,7 +652,7 @@ class CaptableApi
      */
     public function deleteCaptableOptionsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteCaptableOptionsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableDeleted';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableDeleted';
         $request = $this->deleteCaptableOptionsByIdRequest($id, $contentType);
 
         return $this->client
@@ -703,7 +731,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -769,7 +797,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableDeleted
+     * @return \Hanzo\Cloud\Model\CaptableCaptableDeleted|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCaptableSafesById($id, string $contentType = self::contentTypes['deleteCaptableSafesById'][0])
     {
@@ -787,7 +815,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableDeleted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableDeleted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCaptableSafesByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteCaptableSafesById'][0])
     {
@@ -819,7 +847,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableDeleted',
+                        '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -841,7 +875,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableDeleted',
+                '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
                 $request,
                 $response,
             );
@@ -850,7 +884,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableDeleted',
+                        '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -896,7 +938,7 @@ class CaptableApi
      */
     public function deleteCaptableSafesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteCaptableSafesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableDeleted';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableDeleted';
         $request = $this->deleteCaptableSafesByIdRequest($id, $contentType);
 
         return $this->client
@@ -975,7 +1017,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1041,7 +1083,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableDeleted
+     * @return \Hanzo\Cloud\Model\CaptableCaptableDeleted|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCaptableSharesById($id, string $contentType = self::contentTypes['deleteCaptableSharesById'][0])
     {
@@ -1059,7 +1101,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableDeleted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableDeleted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCaptableSharesByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteCaptableSharesById'][0])
     {
@@ -1091,7 +1133,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableDeleted',
+                        '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1113,7 +1161,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableDeleted',
+                '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
                 $request,
                 $response,
             );
@@ -1122,7 +1170,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableDeleted',
+                        '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1168,7 +1224,7 @@ class CaptableApi
      */
     public function deleteCaptableSharesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteCaptableSharesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableDeleted';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableDeleted';
         $request = $this->deleteCaptableSharesByIdRequest($id, $contentType);
 
         return $this->client
@@ -1247,7 +1303,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1313,7 +1369,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableDeleted
+     * @return \Hanzo\Cloud\Model\CaptableCaptableDeleted|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCaptableStakeholdersById($id, string $contentType = self::contentTypes['deleteCaptableStakeholdersById'][0])
     {
@@ -1331,7 +1387,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableDeleted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableDeleted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCaptableStakeholdersByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteCaptableStakeholdersById'][0])
     {
@@ -1363,7 +1419,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableDeleted',
+                        '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1385,7 +1447,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableDeleted',
+                '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
                 $request,
                 $response,
             );
@@ -1394,7 +1456,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableDeleted',
+                        '\Hanzo\Cloud\Model\CaptableCaptableDeleted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1440,7 +1510,7 @@ class CaptableApi
      */
     public function deleteCaptableStakeholdersByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteCaptableStakeholdersById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableDeleted';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableDeleted';
         $request = $this->deleteCaptableStakeholdersByIdRequest($id, $contentType);
 
         return $this->client
@@ -1519,7 +1589,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1584,7 +1654,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableShareClass[]
+     * @return \Hanzo\Cloud\Model\CaptableCaptableShareClass[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptableClasses(string $contentType = self::contentTypes['getCaptableClasses'][0])
     {
@@ -1601,7 +1671,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableShareClass[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableShareClass[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptableClassesWithHttpInfo(string $contentType = self::contentTypes['getCaptableClasses'][0])
     {
@@ -1633,7 +1703,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableShareClass[]',
+                        '\Hanzo\Cloud\Model\CaptableCaptableShareClass[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1655,7 +1731,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableShareClass[]',
+                '\Hanzo\Cloud\Model\CaptableCaptableShareClass[]',
                 $request,
                 $response,
             );
@@ -1664,7 +1740,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableShareClass[]',
+                        '\Hanzo\Cloud\Model\CaptableCaptableShareClass[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1708,7 +1792,7 @@ class CaptableApi
      */
     public function getCaptableClassesAsyncWithHttpInfo(string $contentType = self::contentTypes['getCaptableClasses'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableShareClass[]';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableShareClass[]';
         $request = $this->getCaptableClassesRequest($contentType);
 
         return $this->client
@@ -1771,7 +1855,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1836,7 +1920,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableCompany
+     * @return \Hanzo\Cloud\Model\CaptableCaptableCompany|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptableCompany(string $contentType = self::contentTypes['getCaptableCompany'][0])
     {
@@ -1853,7 +1937,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableCompany, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableCompany|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptableCompanyWithHttpInfo(string $contentType = self::contentTypes['getCaptableCompany'][0])
     {
@@ -1885,7 +1969,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableCompany',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCompany',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1907,7 +1997,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableCompany',
+                '\Hanzo\Cloud\Model\CaptableCaptableCompany',
                 $request,
                 $response,
             );
@@ -1916,7 +2006,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableCompany',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCompany',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1960,7 +2058,7 @@ class CaptableApi
      */
     public function getCaptableCompanyAsyncWithHttpInfo(string $contentType = self::contentTypes['getCaptableCompany'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableCompany';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableCompany';
         $request = $this->getCaptableCompanyRequest($contentType);
 
         return $this->client
@@ -2023,7 +2121,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2088,7 +2186,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableNotes
+     * @return \Hanzo\Cloud\Model\CaptableCaptableNotes|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptableConvertibles(string $contentType = self::contentTypes['getCaptableConvertibles'][0])
     {
@@ -2105,7 +2203,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableNotes, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableNotes|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptableConvertiblesWithHttpInfo(string $contentType = self::contentTypes['getCaptableConvertibles'][0])
     {
@@ -2137,7 +2235,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableNotes',
+                        '\Hanzo\Cloud\Model\CaptableCaptableNotes',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2159,7 +2263,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableNotes',
+                '\Hanzo\Cloud\Model\CaptableCaptableNotes',
                 $request,
                 $response,
             );
@@ -2168,7 +2272,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableNotes',
+                        '\Hanzo\Cloud\Model\CaptableCaptableNotes',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2212,7 +2324,7 @@ class CaptableApi
      */
     public function getCaptableConvertiblesAsyncWithHttpInfo(string $contentType = self::contentTypes['getCaptableConvertibles'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableNotes';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableNotes';
         $request = $this->getCaptableConvertiblesRequest($contentType);
 
         return $this->client
@@ -2275,7 +2387,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2340,7 +2452,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableInvestments
+     * @return \Hanzo\Cloud\Model\CaptableCaptableInvestments|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptableInvestments(string $contentType = self::contentTypes['getCaptableInvestments'][0])
     {
@@ -2357,7 +2469,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableInvestments, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableInvestments|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptableInvestmentsWithHttpInfo(string $contentType = self::contentTypes['getCaptableInvestments'][0])
     {
@@ -2389,7 +2501,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableInvestments',
+                        '\Hanzo\Cloud\Model\CaptableCaptableInvestments',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2411,7 +2529,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableInvestments',
+                '\Hanzo\Cloud\Model\CaptableCaptableInvestments',
                 $request,
                 $response,
             );
@@ -2420,7 +2538,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableInvestments',
+                        '\Hanzo\Cloud\Model\CaptableCaptableInvestments',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2464,7 +2590,7 @@ class CaptableApi
      */
     public function getCaptableInvestmentsAsyncWithHttpInfo(string $contentType = self::contentTypes['getCaptableInvestments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableInvestments';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableInvestments';
         $request = $this->getCaptableInvestmentsRequest($contentType);
 
         return $this->client
@@ -2527,7 +2653,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2592,7 +2718,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableOptions
+     * @return \Hanzo\Cloud\Model\CaptableCaptableOptions|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptableOptions(string $contentType = self::contentTypes['getCaptableOptions'][0])
     {
@@ -2609,7 +2735,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableOptions, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableOptions|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptableOptionsWithHttpInfo(string $contentType = self::contentTypes['getCaptableOptions'][0])
     {
@@ -2641,7 +2767,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableOptions',
+                        '\Hanzo\Cloud\Model\CaptableCaptableOptions',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2663,7 +2795,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableOptions',
+                '\Hanzo\Cloud\Model\CaptableCaptableOptions',
                 $request,
                 $response,
             );
@@ -2672,7 +2804,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableOptions',
+                        '\Hanzo\Cloud\Model\CaptableCaptableOptions',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2716,7 +2856,7 @@ class CaptableApi
      */
     public function getCaptableOptionsAsyncWithHttpInfo(string $contentType = self::contentTypes['getCaptableOptions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableOptions';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableOptions';
         $request = $this->getCaptableOptionsRequest($contentType);
 
         return $this->client
@@ -2779,7 +2919,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2844,7 +2984,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableEquityPlans
+     * @return \Hanzo\Cloud\Model\CaptableCaptableEquityPlans|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptablePlans(string $contentType = self::contentTypes['getCaptablePlans'][0])
     {
@@ -2861,7 +3001,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableEquityPlans, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableEquityPlans|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptablePlansWithHttpInfo(string $contentType = self::contentTypes['getCaptablePlans'][0])
     {
@@ -2893,7 +3033,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableEquityPlans',
+                        '\Hanzo\Cloud\Model\CaptableCaptableEquityPlans',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2915,7 +3061,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableEquityPlans',
+                '\Hanzo\Cloud\Model\CaptableCaptableEquityPlans',
                 $request,
                 $response,
             );
@@ -2924,7 +3070,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableEquityPlans',
+                        '\Hanzo\Cloud\Model\CaptableCaptableEquityPlans',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2968,7 +3122,7 @@ class CaptableApi
      */
     public function getCaptablePlansAsyncWithHttpInfo(string $contentType = self::contentTypes['getCaptablePlans'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableEquityPlans';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableEquityPlans';
         $request = $this->getCaptablePlansRequest($contentType);
 
         return $this->client
@@ -3031,7 +3185,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3096,7 +3250,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableRounds
+     * @return \Hanzo\Cloud\Model\CaptableCaptableRounds|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptableRounds(string $contentType = self::contentTypes['getCaptableRounds'][0])
     {
@@ -3113,7 +3267,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableRounds, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableRounds|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptableRoundsWithHttpInfo(string $contentType = self::contentTypes['getCaptableRounds'][0])
     {
@@ -3145,7 +3299,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableRounds',
+                        '\Hanzo\Cloud\Model\CaptableCaptableRounds',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3167,7 +3327,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableRounds',
+                '\Hanzo\Cloud\Model\CaptableCaptableRounds',
                 $request,
                 $response,
             );
@@ -3176,7 +3336,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableRounds',
+                        '\Hanzo\Cloud\Model\CaptableCaptableRounds',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3220,7 +3388,7 @@ class CaptableApi
      */
     public function getCaptableRoundsAsyncWithHttpInfo(string $contentType = self::contentTypes['getCaptableRounds'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableRounds';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableRounds';
         $request = $this->getCaptableRoundsRequest($contentType);
 
         return $this->client
@@ -3283,7 +3451,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3349,7 +3517,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableRoundDetail
+     * @return \Hanzo\Cloud\Model\CaptableCaptableRoundDetail|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptableRoundsById($id, string $contentType = self::contentTypes['getCaptableRoundsById'][0])
     {
@@ -3367,7 +3535,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableRoundDetail, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableRoundDetail|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptableRoundsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getCaptableRoundsById'][0])
     {
@@ -3399,7 +3567,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableRoundDetail',
+                        '\Hanzo\Cloud\Model\CaptableCaptableRoundDetail',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3421,7 +3595,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableRoundDetail',
+                '\Hanzo\Cloud\Model\CaptableCaptableRoundDetail',
                 $request,
                 $response,
             );
@@ -3430,7 +3604,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableRoundDetail',
+                        '\Hanzo\Cloud\Model\CaptableCaptableRoundDetail',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3476,7 +3658,7 @@ class CaptableApi
      */
     public function getCaptableRoundsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getCaptableRoundsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableRoundDetail';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableRoundDetail';
         $request = $this->getCaptableRoundsByIdRequest($id, $contentType);
 
         return $this->client
@@ -3555,7 +3737,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3620,7 +3802,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableSafes
+     * @return \Hanzo\Cloud\Model\CaptableCaptableSafes|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptableSafes(string $contentType = self::contentTypes['getCaptableSafes'][0])
     {
@@ -3637,7 +3819,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableSafes, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableSafes|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptableSafesWithHttpInfo(string $contentType = self::contentTypes['getCaptableSafes'][0])
     {
@@ -3669,7 +3851,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableSafes',
+                        '\Hanzo\Cloud\Model\CaptableCaptableSafes',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3691,7 +3879,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableSafes',
+                '\Hanzo\Cloud\Model\CaptableCaptableSafes',
                 $request,
                 $response,
             );
@@ -3700,7 +3888,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableSafes',
+                        '\Hanzo\Cloud\Model\CaptableCaptableSafes',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3744,7 +3940,7 @@ class CaptableApi
      */
     public function getCaptableSafesAsyncWithHttpInfo(string $contentType = self::contentTypes['getCaptableSafes'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableSafes';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableSafes';
         $request = $this->getCaptableSafesRequest($contentType);
 
         return $this->client
@@ -3807,7 +4003,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3872,7 +4068,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableShares
+     * @return \Hanzo\Cloud\Model\CaptableCaptableShares|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptableShares(string $contentType = self::contentTypes['getCaptableShares'][0])
     {
@@ -3889,7 +4085,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableShares, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableShares|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptableSharesWithHttpInfo(string $contentType = self::contentTypes['getCaptableShares'][0])
     {
@@ -3921,7 +4117,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableShares',
+                        '\Hanzo\Cloud\Model\CaptableCaptableShares',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3943,7 +4145,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableShares',
+                '\Hanzo\Cloud\Model\CaptableCaptableShares',
                 $request,
                 $response,
             );
@@ -3952,7 +4154,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableShares',
+                        '\Hanzo\Cloud\Model\CaptableCaptableShares',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3996,7 +4206,7 @@ class CaptableApi
      */
     public function getCaptableSharesAsyncWithHttpInfo(string $contentType = self::contentTypes['getCaptableShares'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableShares';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableShares';
         $request = $this->getCaptableSharesRequest($contentType);
 
         return $this->client
@@ -4059,7 +4269,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4124,7 +4334,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableStakeholder[]
+     * @return \Hanzo\Cloud\Model\CaptableCaptableStakeholder[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptableStakeholders(string $contentType = self::contentTypes['getCaptableStakeholders'][0])
     {
@@ -4141,7 +4351,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableStakeholder[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableStakeholder[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptableStakeholdersWithHttpInfo(string $contentType = self::contentTypes['getCaptableStakeholders'][0])
     {
@@ -4173,7 +4383,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableStakeholder[]',
+                        '\Hanzo\Cloud\Model\CaptableCaptableStakeholder[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4195,7 +4411,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableStakeholder[]',
+                '\Hanzo\Cloud\Model\CaptableCaptableStakeholder[]',
                 $request,
                 $response,
             );
@@ -4204,7 +4420,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableStakeholder[]',
+                        '\Hanzo\Cloud\Model\CaptableCaptableStakeholder[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4248,7 +4472,7 @@ class CaptableApi
      */
     public function getCaptableStakeholdersAsyncWithHttpInfo(string $contentType = self::contentTypes['getCaptableStakeholders'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableStakeholder[]';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableStakeholder[]';
         $request = $this->getCaptableStakeholdersRequest($contentType);
 
         return $this->client
@@ -4311,7 +4535,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4376,7 +4600,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableSummary
+     * @return \Hanzo\Cloud\Model\CaptableCaptableSummary|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCaptableSummary(string $contentType = self::contentTypes['getCaptableSummary'][0])
     {
@@ -4393,7 +4617,7 @@ class CaptableApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableSummary, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableSummary|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCaptableSummaryWithHttpInfo(string $contentType = self::contentTypes['getCaptableSummary'][0])
     {
@@ -4425,7 +4649,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableSummary',
+                        '\Hanzo\Cloud\Model\CaptableCaptableSummary',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4447,7 +4677,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableSummary',
+                '\Hanzo\Cloud\Model\CaptableCaptableSummary',
                 $request,
                 $response,
             );
@@ -4456,7 +4686,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableSummary',
+                        '\Hanzo\Cloud\Model\CaptableCaptableSummary',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4500,7 +4738,7 @@ class CaptableApi
      */
     public function getCaptableSummaryAsyncWithHttpInfo(string $contentType = self::contentTypes['getCaptableSummary'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableSummary';
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableSummary';
         $request = $this->getCaptableSummaryRequest($contentType);
 
         return $this->client
@@ -4563,7 +4801,7 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4625,16 +4863,16 @@ class CaptableApi
      * Replaces one share class&#39;s terms.
      *
      * @param  string $id ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableShareClassAmend $captable_share_class_amend captable_share_class_amend (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareClassAmend $captable_captable_share_class_amend captable_captable_share_class_amend (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCaptableClassesById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableUpdated
+     * @return \Hanzo\Cloud\Model\CaptableCaptableUpdated|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function patchCaptableClassesById($id, $captable_share_class_amend, string $contentType = self::contentTypes['patchCaptableClassesById'][0])
+    public function patchCaptableClassesById($id, $captable_captable_share_class_amend, string $contentType = self::contentTypes['patchCaptableClassesById'][0])
     {
-        list($response) = $this->patchCaptableClassesByIdWithHttpInfo($id, $captable_share_class_amend, $contentType);
+        list($response) = $this->patchCaptableClassesByIdWithHttpInfo($id, $captable_captable_share_class_amend, $contentType);
         return $response;
     }
 
@@ -4644,16 +4882,16 @@ class CaptableApi
      * Replaces one share class&#39;s terms.
      *
      * @param  string $id ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableShareClassAmend $captable_share_class_amend (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareClassAmend $captable_captable_share_class_amend (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCaptableClassesById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableUpdated, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableUpdated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchCaptableClassesByIdWithHttpInfo($id, $captable_share_class_amend, string $contentType = self::contentTypes['patchCaptableClassesById'][0])
+    public function patchCaptableClassesByIdWithHttpInfo($id, $captable_captable_share_class_amend, string $contentType = self::contentTypes['patchCaptableClassesById'][0])
     {
-        $request = $this->patchCaptableClassesByIdRequest($id, $captable_share_class_amend, $contentType);
+        $request = $this->patchCaptableClassesByIdRequest($id, $captable_captable_share_class_amend, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4681,7 +4919,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableUpdated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4703,7 +4947,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableUpdated',
+                '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
                 $request,
                 $response,
             );
@@ -4712,7 +4956,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableUpdated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4730,15 +4982,15 @@ class CaptableApi
      * Replaces one share class&#39;s terms.
      *
      * @param  string $id ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableShareClassAmend $captable_share_class_amend (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareClassAmend $captable_captable_share_class_amend (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCaptableClassesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchCaptableClassesByIdAsync($id, $captable_share_class_amend, string $contentType = self::contentTypes['patchCaptableClassesById'][0])
+    public function patchCaptableClassesByIdAsync($id, $captable_captable_share_class_amend, string $contentType = self::contentTypes['patchCaptableClassesById'][0])
     {
-        return $this->patchCaptableClassesByIdAsyncWithHttpInfo($id, $captable_share_class_amend, $contentType)
+        return $this->patchCaptableClassesByIdAsyncWithHttpInfo($id, $captable_captable_share_class_amend, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4752,16 +5004,16 @@ class CaptableApi
      * Replaces one share class&#39;s terms.
      *
      * @param  string $id ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableShareClassAmend $captable_share_class_amend (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareClassAmend $captable_captable_share_class_amend (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCaptableClassesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchCaptableClassesByIdAsyncWithHttpInfo($id, $captable_share_class_amend, string $contentType = self::contentTypes['patchCaptableClassesById'][0])
+    public function patchCaptableClassesByIdAsyncWithHttpInfo($id, $captable_captable_share_class_amend, string $contentType = self::contentTypes['patchCaptableClassesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableUpdated';
-        $request = $this->patchCaptableClassesByIdRequest($id, $captable_share_class_amend, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableUpdated';
+        $request = $this->patchCaptableClassesByIdRequest($id, $captable_captable_share_class_amend, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4803,13 +5055,13 @@ class CaptableApi
      * Create request for operation 'patchCaptableClassesById'
      *
      * @param  string $id ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableShareClassAmend $captable_share_class_amend (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareClassAmend $captable_captable_share_class_amend (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCaptableClassesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchCaptableClassesByIdRequest($id, $captable_share_class_amend, string $contentType = self::contentTypes['patchCaptableClassesById'][0])
+    public function patchCaptableClassesByIdRequest($id, $captable_captable_share_class_amend, string $contentType = self::contentTypes['patchCaptableClassesById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -4819,10 +5071,10 @@ class CaptableApi
             );
         }
 
-        // verify the required parameter 'captable_share_class_amend' is set
-        if ($captable_share_class_amend === null || (is_array($captable_share_class_amend) && count($captable_share_class_amend) === 0)) {
+        // verify the required parameter 'captable_captable_share_class_amend' is set
+        if ($captable_captable_share_class_amend === null || (is_array($captable_captable_share_class_amend) && count($captable_captable_share_class_amend) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_share_class_amend when calling patchCaptableClassesById'
+                'Missing the required parameter $captable_captable_share_class_amend when calling patchCaptableClassesById'
             );
         }
 
@@ -4847,18 +5099,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_share_class_amend)) {
+        if (isset($captable_captable_share_class_amend)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_share_class_amend));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_share_class_amend));
             } else {
-                $httpBody = $captable_share_class_amend;
+                $httpBody = $captable_captable_share_class_amend;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4916,16 +5168,16 @@ class CaptableApi
      * Changes one of the caller org&#39;s stakeholders.
      *
      * @param  string $id ID is the stakeholder to update. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableStakeholderPatch $captable_stakeholder_patch captable_stakeholder_patch (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableStakeholderPatch $captable_captable_stakeholder_patch captable_captable_stakeholder_patch (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCaptableStakeholdersById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableUpdated
+     * @return \Hanzo\Cloud\Model\CaptableCaptableUpdated|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function patchCaptableStakeholdersById($id, $captable_stakeholder_patch, string $contentType = self::contentTypes['patchCaptableStakeholdersById'][0])
+    public function patchCaptableStakeholdersById($id, $captable_captable_stakeholder_patch, string $contentType = self::contentTypes['patchCaptableStakeholdersById'][0])
     {
-        list($response) = $this->patchCaptableStakeholdersByIdWithHttpInfo($id, $captable_stakeholder_patch, $contentType);
+        list($response) = $this->patchCaptableStakeholdersByIdWithHttpInfo($id, $captable_captable_stakeholder_patch, $contentType);
         return $response;
     }
 
@@ -4935,16 +5187,16 @@ class CaptableApi
      * Changes one of the caller org&#39;s stakeholders.
      *
      * @param  string $id ID is the stakeholder to update. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableStakeholderPatch $captable_stakeholder_patch (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableStakeholderPatch $captable_captable_stakeholder_patch (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCaptableStakeholdersById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableUpdated, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableUpdated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchCaptableStakeholdersByIdWithHttpInfo($id, $captable_stakeholder_patch, string $contentType = self::contentTypes['patchCaptableStakeholdersById'][0])
+    public function patchCaptableStakeholdersByIdWithHttpInfo($id, $captable_captable_stakeholder_patch, string $contentType = self::contentTypes['patchCaptableStakeholdersById'][0])
     {
-        $request = $this->patchCaptableStakeholdersByIdRequest($id, $captable_stakeholder_patch, $contentType);
+        $request = $this->patchCaptableStakeholdersByIdRequest($id, $captable_captable_stakeholder_patch, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4972,7 +5224,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableUpdated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4994,7 +5252,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableUpdated',
+                '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
                 $request,
                 $response,
             );
@@ -5003,7 +5261,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableUpdated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5021,15 +5287,15 @@ class CaptableApi
      * Changes one of the caller org&#39;s stakeholders.
      *
      * @param  string $id ID is the stakeholder to update. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableStakeholderPatch $captable_stakeholder_patch (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableStakeholderPatch $captable_captable_stakeholder_patch (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCaptableStakeholdersById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchCaptableStakeholdersByIdAsync($id, $captable_stakeholder_patch, string $contentType = self::contentTypes['patchCaptableStakeholdersById'][0])
+    public function patchCaptableStakeholdersByIdAsync($id, $captable_captable_stakeholder_patch, string $contentType = self::contentTypes['patchCaptableStakeholdersById'][0])
     {
-        return $this->patchCaptableStakeholdersByIdAsyncWithHttpInfo($id, $captable_stakeholder_patch, $contentType)
+        return $this->patchCaptableStakeholdersByIdAsyncWithHttpInfo($id, $captable_captable_stakeholder_patch, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5043,16 +5309,16 @@ class CaptableApi
      * Changes one of the caller org&#39;s stakeholders.
      *
      * @param  string $id ID is the stakeholder to update. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableStakeholderPatch $captable_stakeholder_patch (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableStakeholderPatch $captable_captable_stakeholder_patch (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCaptableStakeholdersById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchCaptableStakeholdersByIdAsyncWithHttpInfo($id, $captable_stakeholder_patch, string $contentType = self::contentTypes['patchCaptableStakeholdersById'][0])
+    public function patchCaptableStakeholdersByIdAsyncWithHttpInfo($id, $captable_captable_stakeholder_patch, string $contentType = self::contentTypes['patchCaptableStakeholdersById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableUpdated';
-        $request = $this->patchCaptableStakeholdersByIdRequest($id, $captable_stakeholder_patch, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableUpdated';
+        $request = $this->patchCaptableStakeholdersByIdRequest($id, $captable_captable_stakeholder_patch, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5094,13 +5360,13 @@ class CaptableApi
      * Create request for operation 'patchCaptableStakeholdersById'
      *
      * @param  string $id ID is the stakeholder to update. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableStakeholderPatch $captable_stakeholder_patch (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableStakeholderPatch $captable_captable_stakeholder_patch (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCaptableStakeholdersById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchCaptableStakeholdersByIdRequest($id, $captable_stakeholder_patch, string $contentType = self::contentTypes['patchCaptableStakeholdersById'][0])
+    public function patchCaptableStakeholdersByIdRequest($id, $captable_captable_stakeholder_patch, string $contentType = self::contentTypes['patchCaptableStakeholdersById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -5110,10 +5376,10 @@ class CaptableApi
             );
         }
 
-        // verify the required parameter 'captable_stakeholder_patch' is set
-        if ($captable_stakeholder_patch === null || (is_array($captable_stakeholder_patch) && count($captable_stakeholder_patch) === 0)) {
+        // verify the required parameter 'captable_captable_stakeholder_patch' is set
+        if ($captable_captable_stakeholder_patch === null || (is_array($captable_captable_stakeholder_patch) && count($captable_captable_stakeholder_patch) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_stakeholder_patch when calling patchCaptableStakeholdersById'
+                'Missing the required parameter $captable_captable_stakeholder_patch when calling patchCaptableStakeholdersById'
             );
         }
 
@@ -5138,18 +5404,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_stakeholder_patch)) {
+        if (isset($captable_captable_stakeholder_patch)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_stakeholder_patch));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_stakeholder_patch));
             } else {
-                $httpBody = $captable_stakeholder_patch;
+                $httpBody = $captable_captable_stakeholder_patch;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5206,16 +5472,16 @@ class CaptableApi
      *
      * Defines a new class of shares.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareClassIn $captable_share_class_in captable_share_class_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareClassIn $captable_captable_share_class_in captable_captable_share_class_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableClasses'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableCreated
+     * @return \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCaptableClasses($captable_share_class_in, string $contentType = self::contentTypes['postCaptableClasses'][0])
+    public function postCaptableClasses($captable_captable_share_class_in, string $contentType = self::contentTypes['postCaptableClasses'][0])
     {
-        list($response) = $this->postCaptableClassesWithHttpInfo($captable_share_class_in, $contentType);
+        list($response) = $this->postCaptableClassesWithHttpInfo($captable_captable_share_class_in, $contentType);
         return $response;
     }
 
@@ -5224,16 +5490,16 @@ class CaptableApi
      *
      * Defines a new class of shares.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareClassIn $captable_share_class_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareClassIn $captable_captable_share_class_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableClasses'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableCreated, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCaptableClassesWithHttpInfo($captable_share_class_in, string $contentType = self::contentTypes['postCaptableClasses'][0])
+    public function postCaptableClassesWithHttpInfo($captable_captable_share_class_in, string $contentType = self::contentTypes['postCaptableClasses'][0])
     {
-        $request = $this->postCaptableClassesRequest($captable_share_class_in, $contentType);
+        $request = $this->postCaptableClassesRequest($captable_captable_share_class_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5261,7 +5527,13 @@ class CaptableApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5283,7 +5555,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableCreated',
+                '\Hanzo\Cloud\Model\CaptableCaptableCreated',
                 $request,
                 $response,
             );
@@ -5292,7 +5564,15 @@ class CaptableApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5309,15 +5589,15 @@ class CaptableApi
      *
      * Defines a new class of shares.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareClassIn $captable_share_class_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareClassIn $captable_captable_share_class_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableClasses'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableClassesAsync($captable_share_class_in, string $contentType = self::contentTypes['postCaptableClasses'][0])
+    public function postCaptableClassesAsync($captable_captable_share_class_in, string $contentType = self::contentTypes['postCaptableClasses'][0])
     {
-        return $this->postCaptableClassesAsyncWithHttpInfo($captable_share_class_in, $contentType)
+        return $this->postCaptableClassesAsyncWithHttpInfo($captable_captable_share_class_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5330,16 +5610,16 @@ class CaptableApi
      *
      * Defines a new class of shares.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareClassIn $captable_share_class_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareClassIn $captable_captable_share_class_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableClasses'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableClassesAsyncWithHttpInfo($captable_share_class_in, string $contentType = self::contentTypes['postCaptableClasses'][0])
+    public function postCaptableClassesAsyncWithHttpInfo($captable_captable_share_class_in, string $contentType = self::contentTypes['postCaptableClasses'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableCreated';
-        $request = $this->postCaptableClassesRequest($captable_share_class_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableCreated';
+        $request = $this->postCaptableClassesRequest($captable_captable_share_class_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5380,19 +5660,19 @@ class CaptableApi
     /**
      * Create request for operation 'postCaptableClasses'
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareClassIn $captable_share_class_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareClassIn $captable_captable_share_class_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableClasses'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCaptableClassesRequest($captable_share_class_in, string $contentType = self::contentTypes['postCaptableClasses'][0])
+    public function postCaptableClassesRequest($captable_captable_share_class_in, string $contentType = self::contentTypes['postCaptableClasses'][0])
     {
 
-        // verify the required parameter 'captable_share_class_in' is set
-        if ($captable_share_class_in === null || (is_array($captable_share_class_in) && count($captable_share_class_in) === 0)) {
+        // verify the required parameter 'captable_captable_share_class_in' is set
+        if ($captable_captable_share_class_in === null || (is_array($captable_captable_share_class_in) && count($captable_captable_share_class_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_share_class_in when calling postCaptableClasses'
+                'Missing the required parameter $captable_captable_share_class_in when calling postCaptableClasses'
             );
         }
 
@@ -5409,18 +5689,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_share_class_in)) {
+        if (isset($captable_captable_share_class_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_share_class_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_share_class_in));
             } else {
-                $httpBody = $captable_share_class_in;
+                $httpBody = $captable_captable_share_class_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5477,16 +5757,16 @@ class CaptableApi
      *
      * Records a convertible note.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableConvertibleIn $captable_convertible_in captable_convertible_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableConvertibleIn $captable_captable_convertible_in captable_captable_convertible_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableConvertibles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableCreated
+     * @return \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCaptableConvertibles($captable_convertible_in, string $contentType = self::contentTypes['postCaptableConvertibles'][0])
+    public function postCaptableConvertibles($captable_captable_convertible_in, string $contentType = self::contentTypes['postCaptableConvertibles'][0])
     {
-        list($response) = $this->postCaptableConvertiblesWithHttpInfo($captable_convertible_in, $contentType);
+        list($response) = $this->postCaptableConvertiblesWithHttpInfo($captable_captable_convertible_in, $contentType);
         return $response;
     }
 
@@ -5495,16 +5775,16 @@ class CaptableApi
      *
      * Records a convertible note.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableConvertibleIn $captable_convertible_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableConvertibleIn $captable_captable_convertible_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableConvertibles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableCreated, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCaptableConvertiblesWithHttpInfo($captable_convertible_in, string $contentType = self::contentTypes['postCaptableConvertibles'][0])
+    public function postCaptableConvertiblesWithHttpInfo($captable_captable_convertible_in, string $contentType = self::contentTypes['postCaptableConvertibles'][0])
     {
-        $request = $this->postCaptableConvertiblesRequest($captable_convertible_in, $contentType);
+        $request = $this->postCaptableConvertiblesRequest($captable_captable_convertible_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5532,7 +5812,13 @@ class CaptableApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5554,7 +5840,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableCreated',
+                '\Hanzo\Cloud\Model\CaptableCaptableCreated',
                 $request,
                 $response,
             );
@@ -5563,7 +5849,15 @@ class CaptableApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5580,15 +5874,15 @@ class CaptableApi
      *
      * Records a convertible note.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableConvertibleIn $captable_convertible_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableConvertibleIn $captable_captable_convertible_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableConvertibles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableConvertiblesAsync($captable_convertible_in, string $contentType = self::contentTypes['postCaptableConvertibles'][0])
+    public function postCaptableConvertiblesAsync($captable_captable_convertible_in, string $contentType = self::contentTypes['postCaptableConvertibles'][0])
     {
-        return $this->postCaptableConvertiblesAsyncWithHttpInfo($captable_convertible_in, $contentType)
+        return $this->postCaptableConvertiblesAsyncWithHttpInfo($captable_captable_convertible_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5601,16 +5895,16 @@ class CaptableApi
      *
      * Records a convertible note.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableConvertibleIn $captable_convertible_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableConvertibleIn $captable_captable_convertible_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableConvertibles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableConvertiblesAsyncWithHttpInfo($captable_convertible_in, string $contentType = self::contentTypes['postCaptableConvertibles'][0])
+    public function postCaptableConvertiblesAsyncWithHttpInfo($captable_captable_convertible_in, string $contentType = self::contentTypes['postCaptableConvertibles'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableCreated';
-        $request = $this->postCaptableConvertiblesRequest($captable_convertible_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableCreated';
+        $request = $this->postCaptableConvertiblesRequest($captable_captable_convertible_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5651,19 +5945,19 @@ class CaptableApi
     /**
      * Create request for operation 'postCaptableConvertibles'
      *
-     * @param  \Hanzo\Cloud\Model\CaptableConvertibleIn $captable_convertible_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableConvertibleIn $captable_captable_convertible_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableConvertibles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCaptableConvertiblesRequest($captable_convertible_in, string $contentType = self::contentTypes['postCaptableConvertibles'][0])
+    public function postCaptableConvertiblesRequest($captable_captable_convertible_in, string $contentType = self::contentTypes['postCaptableConvertibles'][0])
     {
 
-        // verify the required parameter 'captable_convertible_in' is set
-        if ($captable_convertible_in === null || (is_array($captable_convertible_in) && count($captable_convertible_in) === 0)) {
+        // verify the required parameter 'captable_captable_convertible_in' is set
+        if ($captable_captable_convertible_in === null || (is_array($captable_captable_convertible_in) && count($captable_captable_convertible_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_convertible_in when calling postCaptableConvertibles'
+                'Missing the required parameter $captable_captable_convertible_in when calling postCaptableConvertibles'
             );
         }
 
@@ -5680,18 +5974,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_convertible_in)) {
+        if (isset($captable_captable_convertible_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_convertible_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_convertible_in));
             } else {
-                $httpBody = $captable_convertible_in;
+                $httpBody = $captable_captable_convertible_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5748,16 +6042,16 @@ class CaptableApi
      *
      * Grants options to a stakeholder from an equity plan.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableOptionIn $captable_option_in captable_option_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableOptionIn $captable_captable_option_in captable_captable_option_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableOptions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableCreated
+     * @return \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCaptableOptions($captable_option_in, string $contentType = self::contentTypes['postCaptableOptions'][0])
+    public function postCaptableOptions($captable_captable_option_in, string $contentType = self::contentTypes['postCaptableOptions'][0])
     {
-        list($response) = $this->postCaptableOptionsWithHttpInfo($captable_option_in, $contentType);
+        list($response) = $this->postCaptableOptionsWithHttpInfo($captable_captable_option_in, $contentType);
         return $response;
     }
 
@@ -5766,16 +6060,16 @@ class CaptableApi
      *
      * Grants options to a stakeholder from an equity plan.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableOptionIn $captable_option_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableOptionIn $captable_captable_option_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableOptions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableCreated, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCaptableOptionsWithHttpInfo($captable_option_in, string $contentType = self::contentTypes['postCaptableOptions'][0])
+    public function postCaptableOptionsWithHttpInfo($captable_captable_option_in, string $contentType = self::contentTypes['postCaptableOptions'][0])
     {
-        $request = $this->postCaptableOptionsRequest($captable_option_in, $contentType);
+        $request = $this->postCaptableOptionsRequest($captable_captable_option_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5803,7 +6097,13 @@ class CaptableApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5825,7 +6125,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableCreated',
+                '\Hanzo\Cloud\Model\CaptableCaptableCreated',
                 $request,
                 $response,
             );
@@ -5834,7 +6134,15 @@ class CaptableApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5851,15 +6159,15 @@ class CaptableApi
      *
      * Grants options to a stakeholder from an equity plan.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableOptionIn $captable_option_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableOptionIn $captable_captable_option_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableOptions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableOptionsAsync($captable_option_in, string $contentType = self::contentTypes['postCaptableOptions'][0])
+    public function postCaptableOptionsAsync($captable_captable_option_in, string $contentType = self::contentTypes['postCaptableOptions'][0])
     {
-        return $this->postCaptableOptionsAsyncWithHttpInfo($captable_option_in, $contentType)
+        return $this->postCaptableOptionsAsyncWithHttpInfo($captable_captable_option_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5872,16 +6180,16 @@ class CaptableApi
      *
      * Grants options to a stakeholder from an equity plan.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableOptionIn $captable_option_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableOptionIn $captable_captable_option_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableOptions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableOptionsAsyncWithHttpInfo($captable_option_in, string $contentType = self::contentTypes['postCaptableOptions'][0])
+    public function postCaptableOptionsAsyncWithHttpInfo($captable_captable_option_in, string $contentType = self::contentTypes['postCaptableOptions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableCreated';
-        $request = $this->postCaptableOptionsRequest($captable_option_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableCreated';
+        $request = $this->postCaptableOptionsRequest($captable_captable_option_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5922,19 +6230,19 @@ class CaptableApi
     /**
      * Create request for operation 'postCaptableOptions'
      *
-     * @param  \Hanzo\Cloud\Model\CaptableOptionIn $captable_option_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableOptionIn $captable_captable_option_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableOptions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCaptableOptionsRequest($captable_option_in, string $contentType = self::contentTypes['postCaptableOptions'][0])
+    public function postCaptableOptionsRequest($captable_captable_option_in, string $contentType = self::contentTypes['postCaptableOptions'][0])
     {
 
-        // verify the required parameter 'captable_option_in' is set
-        if ($captable_option_in === null || (is_array($captable_option_in) && count($captable_option_in) === 0)) {
+        // verify the required parameter 'captable_captable_option_in' is set
+        if ($captable_captable_option_in === null || (is_array($captable_captable_option_in) && count($captable_captable_option_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_option_in when calling postCaptableOptions'
+                'Missing the required parameter $captable_captable_option_in when calling postCaptableOptions'
             );
         }
 
@@ -5951,18 +6259,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_option_in)) {
+        if (isset($captable_captable_option_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_option_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_option_in));
             } else {
-                $httpBody = $captable_option_in;
+                $httpBody = $captable_captable_option_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6019,16 +6327,16 @@ class CaptableApi
      *
      * Opens an equity plan that options are granted from.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableEquityPlanIn $captable_equity_plan_in captable_equity_plan_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableEquityPlanIn $captable_captable_equity_plan_in captable_captable_equity_plan_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptablePlans'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableCreated
+     * @return \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCaptablePlans($captable_equity_plan_in, string $contentType = self::contentTypes['postCaptablePlans'][0])
+    public function postCaptablePlans($captable_captable_equity_plan_in, string $contentType = self::contentTypes['postCaptablePlans'][0])
     {
-        list($response) = $this->postCaptablePlansWithHttpInfo($captable_equity_plan_in, $contentType);
+        list($response) = $this->postCaptablePlansWithHttpInfo($captable_captable_equity_plan_in, $contentType);
         return $response;
     }
 
@@ -6037,16 +6345,16 @@ class CaptableApi
      *
      * Opens an equity plan that options are granted from.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableEquityPlanIn $captable_equity_plan_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableEquityPlanIn $captable_captable_equity_plan_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptablePlans'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableCreated, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCaptablePlansWithHttpInfo($captable_equity_plan_in, string $contentType = self::contentTypes['postCaptablePlans'][0])
+    public function postCaptablePlansWithHttpInfo($captable_captable_equity_plan_in, string $contentType = self::contentTypes['postCaptablePlans'][0])
     {
-        $request = $this->postCaptablePlansRequest($captable_equity_plan_in, $contentType);
+        $request = $this->postCaptablePlansRequest($captable_captable_equity_plan_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6074,7 +6382,13 @@ class CaptableApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6096,7 +6410,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableCreated',
+                '\Hanzo\Cloud\Model\CaptableCaptableCreated',
                 $request,
                 $response,
             );
@@ -6105,7 +6419,15 @@ class CaptableApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6122,15 +6444,15 @@ class CaptableApi
      *
      * Opens an equity plan that options are granted from.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableEquityPlanIn $captable_equity_plan_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableEquityPlanIn $captable_captable_equity_plan_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptablePlans'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptablePlansAsync($captable_equity_plan_in, string $contentType = self::contentTypes['postCaptablePlans'][0])
+    public function postCaptablePlansAsync($captable_captable_equity_plan_in, string $contentType = self::contentTypes['postCaptablePlans'][0])
     {
-        return $this->postCaptablePlansAsyncWithHttpInfo($captable_equity_plan_in, $contentType)
+        return $this->postCaptablePlansAsyncWithHttpInfo($captable_captable_equity_plan_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6143,16 +6465,16 @@ class CaptableApi
      *
      * Opens an equity plan that options are granted from.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableEquityPlanIn $captable_equity_plan_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableEquityPlanIn $captable_captable_equity_plan_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptablePlans'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptablePlansAsyncWithHttpInfo($captable_equity_plan_in, string $contentType = self::contentTypes['postCaptablePlans'][0])
+    public function postCaptablePlansAsyncWithHttpInfo($captable_captable_equity_plan_in, string $contentType = self::contentTypes['postCaptablePlans'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableCreated';
-        $request = $this->postCaptablePlansRequest($captable_equity_plan_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableCreated';
+        $request = $this->postCaptablePlansRequest($captable_captable_equity_plan_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6193,19 +6515,19 @@ class CaptableApi
     /**
      * Create request for operation 'postCaptablePlans'
      *
-     * @param  \Hanzo\Cloud\Model\CaptableEquityPlanIn $captable_equity_plan_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableEquityPlanIn $captable_captable_equity_plan_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptablePlans'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCaptablePlansRequest($captable_equity_plan_in, string $contentType = self::contentTypes['postCaptablePlans'][0])
+    public function postCaptablePlansRequest($captable_captable_equity_plan_in, string $contentType = self::contentTypes['postCaptablePlans'][0])
     {
 
-        // verify the required parameter 'captable_equity_plan_in' is set
-        if ($captable_equity_plan_in === null || (is_array($captable_equity_plan_in) && count($captable_equity_plan_in) === 0)) {
+        // verify the required parameter 'captable_captable_equity_plan_in' is set
+        if ($captable_captable_equity_plan_in === null || (is_array($captable_captable_equity_plan_in) && count($captable_captable_equity_plan_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_equity_plan_in when calling postCaptablePlans'
+                'Missing the required parameter $captable_captable_equity_plan_in when calling postCaptablePlans'
             );
         }
 
@@ -6222,18 +6544,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_equity_plan_in)) {
+        if (isset($captable_captable_equity_plan_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_equity_plan_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_equity_plan_in));
             } else {
-                $httpBody = $captable_equity_plan_in;
+                $httpBody = $captable_captable_equity_plan_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6290,16 +6612,16 @@ class CaptableApi
      *
      * Opens a priced round that investments can be added to.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableRoundIn $captable_round_in captable_round_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableRoundIn $captable_captable_round_in captable_captable_round_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRounds'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableCreated
+     * @return \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCaptableRounds($captable_round_in, string $contentType = self::contentTypes['postCaptableRounds'][0])
+    public function postCaptableRounds($captable_captable_round_in, string $contentType = self::contentTypes['postCaptableRounds'][0])
     {
-        list($response) = $this->postCaptableRoundsWithHttpInfo($captable_round_in, $contentType);
+        list($response) = $this->postCaptableRoundsWithHttpInfo($captable_captable_round_in, $contentType);
         return $response;
     }
 
@@ -6308,16 +6630,16 @@ class CaptableApi
      *
      * Opens a priced round that investments can be added to.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableRoundIn $captable_round_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableRoundIn $captable_captable_round_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRounds'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableCreated, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCaptableRoundsWithHttpInfo($captable_round_in, string $contentType = self::contentTypes['postCaptableRounds'][0])
+    public function postCaptableRoundsWithHttpInfo($captable_captable_round_in, string $contentType = self::contentTypes['postCaptableRounds'][0])
     {
-        $request = $this->postCaptableRoundsRequest($captable_round_in, $contentType);
+        $request = $this->postCaptableRoundsRequest($captable_captable_round_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6345,7 +6667,13 @@ class CaptableApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6367,7 +6695,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableCreated',
+                '\Hanzo\Cloud\Model\CaptableCaptableCreated',
                 $request,
                 $response,
             );
@@ -6376,7 +6704,15 @@ class CaptableApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6393,15 +6729,15 @@ class CaptableApi
      *
      * Opens a priced round that investments can be added to.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableRoundIn $captable_round_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableRoundIn $captable_captable_round_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRounds'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableRoundsAsync($captable_round_in, string $contentType = self::contentTypes['postCaptableRounds'][0])
+    public function postCaptableRoundsAsync($captable_captable_round_in, string $contentType = self::contentTypes['postCaptableRounds'][0])
     {
-        return $this->postCaptableRoundsAsyncWithHttpInfo($captable_round_in, $contentType)
+        return $this->postCaptableRoundsAsyncWithHttpInfo($captable_captable_round_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6414,16 +6750,16 @@ class CaptableApi
      *
      * Opens a priced round that investments can be added to.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableRoundIn $captable_round_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableRoundIn $captable_captable_round_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRounds'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableRoundsAsyncWithHttpInfo($captable_round_in, string $contentType = self::contentTypes['postCaptableRounds'][0])
+    public function postCaptableRoundsAsyncWithHttpInfo($captable_captable_round_in, string $contentType = self::contentTypes['postCaptableRounds'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableCreated';
-        $request = $this->postCaptableRoundsRequest($captable_round_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableCreated';
+        $request = $this->postCaptableRoundsRequest($captable_captable_round_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6464,19 +6800,19 @@ class CaptableApi
     /**
      * Create request for operation 'postCaptableRounds'
      *
-     * @param  \Hanzo\Cloud\Model\CaptableRoundIn $captable_round_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableRoundIn $captable_captable_round_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRounds'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCaptableRoundsRequest($captable_round_in, string $contentType = self::contentTypes['postCaptableRounds'][0])
+    public function postCaptableRoundsRequest($captable_captable_round_in, string $contentType = self::contentTypes['postCaptableRounds'][0])
     {
 
-        // verify the required parameter 'captable_round_in' is set
-        if ($captable_round_in === null || (is_array($captable_round_in) && count($captable_round_in) === 0)) {
+        // verify the required parameter 'captable_captable_round_in' is set
+        if ($captable_captable_round_in === null || (is_array($captable_captable_round_in) && count($captable_captable_round_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_round_in when calling postCaptableRounds'
+                'Missing the required parameter $captable_captable_round_in when calling postCaptableRounds'
             );
         }
 
@@ -6493,18 +6829,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_round_in)) {
+        if (isset($captable_captable_round_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_round_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_round_in));
             } else {
-                $httpBody = $captable_round_in;
+                $httpBody = $captable_captable_round_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6562,16 +6898,16 @@ class CaptableApi
      * Closes one of the caller org&#39;s fundraising rounds, recording the close date and moving its status to CLOSED.
      *
      * @param  string $id ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableRoundCloseRequest $captable_round_close_request captable_round_close_request (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableRoundCloseRequest $captable_captable_round_close_request captable_captable_round_close_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRoundsByIdClose'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableUpdated
+     * @return \Hanzo\Cloud\Model\CaptableCaptableUpdated|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCaptableRoundsByIdClose($id, $captable_round_close_request, string $contentType = self::contentTypes['postCaptableRoundsByIdClose'][0])
+    public function postCaptableRoundsByIdClose($id, $captable_captable_round_close_request, string $contentType = self::contentTypes['postCaptableRoundsByIdClose'][0])
     {
-        list($response) = $this->postCaptableRoundsByIdCloseWithHttpInfo($id, $captable_round_close_request, $contentType);
+        list($response) = $this->postCaptableRoundsByIdCloseWithHttpInfo($id, $captable_captable_round_close_request, $contentType);
         return $response;
     }
 
@@ -6581,16 +6917,16 @@ class CaptableApi
      * Closes one of the caller org&#39;s fundraising rounds, recording the close date and moving its status to CLOSED.
      *
      * @param  string $id ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableRoundCloseRequest $captable_round_close_request (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableRoundCloseRequest $captable_captable_round_close_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRoundsByIdClose'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableUpdated, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableUpdated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCaptableRoundsByIdCloseWithHttpInfo($id, $captable_round_close_request, string $contentType = self::contentTypes['postCaptableRoundsByIdClose'][0])
+    public function postCaptableRoundsByIdCloseWithHttpInfo($id, $captable_captable_round_close_request, string $contentType = self::contentTypes['postCaptableRoundsByIdClose'][0])
     {
-        $request = $this->postCaptableRoundsByIdCloseRequest($id, $captable_round_close_request, $contentType);
+        $request = $this->postCaptableRoundsByIdCloseRequest($id, $captable_captable_round_close_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6618,7 +6954,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableUpdated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6640,7 +6982,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableUpdated',
+                '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
                 $request,
                 $response,
             );
@@ -6649,7 +6991,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableUpdated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6667,15 +7017,15 @@ class CaptableApi
      * Closes one of the caller org&#39;s fundraising rounds, recording the close date and moving its status to CLOSED.
      *
      * @param  string $id ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableRoundCloseRequest $captable_round_close_request (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableRoundCloseRequest $captable_captable_round_close_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRoundsByIdClose'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableRoundsByIdCloseAsync($id, $captable_round_close_request, string $contentType = self::contentTypes['postCaptableRoundsByIdClose'][0])
+    public function postCaptableRoundsByIdCloseAsync($id, $captable_captable_round_close_request, string $contentType = self::contentTypes['postCaptableRoundsByIdClose'][0])
     {
-        return $this->postCaptableRoundsByIdCloseAsyncWithHttpInfo($id, $captable_round_close_request, $contentType)
+        return $this->postCaptableRoundsByIdCloseAsyncWithHttpInfo($id, $captable_captable_round_close_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6689,16 +7039,16 @@ class CaptableApi
      * Closes one of the caller org&#39;s fundraising rounds, recording the close date and moving its status to CLOSED.
      *
      * @param  string $id ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableRoundCloseRequest $captable_round_close_request (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableRoundCloseRequest $captable_captable_round_close_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRoundsByIdClose'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableRoundsByIdCloseAsyncWithHttpInfo($id, $captable_round_close_request, string $contentType = self::contentTypes['postCaptableRoundsByIdClose'][0])
+    public function postCaptableRoundsByIdCloseAsyncWithHttpInfo($id, $captable_captable_round_close_request, string $contentType = self::contentTypes['postCaptableRoundsByIdClose'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableUpdated';
-        $request = $this->postCaptableRoundsByIdCloseRequest($id, $captable_round_close_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableUpdated';
+        $request = $this->postCaptableRoundsByIdCloseRequest($id, $captable_captable_round_close_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6740,13 +7090,13 @@ class CaptableApi
      * Create request for operation 'postCaptableRoundsByIdClose'
      *
      * @param  string $id ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableRoundCloseRequest $captable_round_close_request (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableRoundCloseRequest $captable_captable_round_close_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRoundsByIdClose'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCaptableRoundsByIdCloseRequest($id, $captable_round_close_request, string $contentType = self::contentTypes['postCaptableRoundsByIdClose'][0])
+    public function postCaptableRoundsByIdCloseRequest($id, $captable_captable_round_close_request, string $contentType = self::contentTypes['postCaptableRoundsByIdClose'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -6756,10 +7106,10 @@ class CaptableApi
             );
         }
 
-        // verify the required parameter 'captable_round_close_request' is set
-        if ($captable_round_close_request === null || (is_array($captable_round_close_request) && count($captable_round_close_request) === 0)) {
+        // verify the required parameter 'captable_captable_round_close_request' is set
+        if ($captable_captable_round_close_request === null || (is_array($captable_captable_round_close_request) && count($captable_captable_round_close_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_round_close_request when calling postCaptableRoundsByIdClose'
+                'Missing the required parameter $captable_captable_round_close_request when calling postCaptableRoundsByIdClose'
             );
         }
 
@@ -6784,18 +7134,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_round_close_request)) {
+        if (isset($captable_captable_round_close_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_round_close_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_round_close_request));
             } else {
-                $httpBody = $captable_round_close_request;
+                $httpBody = $captable_captable_round_close_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6853,16 +7203,16 @@ class CaptableApi
      * Records one investor&#39;s money into an open round.
      *
      * @param  string $id ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableInvestmentIn $captable_investment_in captable_investment_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableInvestmentIn $captable_captable_investment_in captable_captable_investment_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRoundsByIdInvestments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableInvested
+     * @return \Hanzo\Cloud\Model\CaptableCaptableInvested|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCaptableRoundsByIdInvestments($id, $captable_investment_in, string $contentType = self::contentTypes['postCaptableRoundsByIdInvestments'][0])
+    public function postCaptableRoundsByIdInvestments($id, $captable_captable_investment_in, string $contentType = self::contentTypes['postCaptableRoundsByIdInvestments'][0])
     {
-        list($response) = $this->postCaptableRoundsByIdInvestmentsWithHttpInfo($id, $captable_investment_in, $contentType);
+        list($response) = $this->postCaptableRoundsByIdInvestmentsWithHttpInfo($id, $captable_captable_investment_in, $contentType);
         return $response;
     }
 
@@ -6872,16 +7222,16 @@ class CaptableApi
      * Records one investor&#39;s money into an open round.
      *
      * @param  string $id ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableInvestmentIn $captable_investment_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableInvestmentIn $captable_captable_investment_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRoundsByIdInvestments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableInvested, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableInvested|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCaptableRoundsByIdInvestmentsWithHttpInfo($id, $captable_investment_in, string $contentType = self::contentTypes['postCaptableRoundsByIdInvestments'][0])
+    public function postCaptableRoundsByIdInvestmentsWithHttpInfo($id, $captable_captable_investment_in, string $contentType = self::contentTypes['postCaptableRoundsByIdInvestments'][0])
     {
-        $request = $this->postCaptableRoundsByIdInvestmentsRequest($id, $captable_investment_in, $contentType);
+        $request = $this->postCaptableRoundsByIdInvestmentsRequest($id, $captable_captable_investment_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6909,7 +7259,13 @@ class CaptableApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableInvested',
+                        '\Hanzo\Cloud\Model\CaptableCaptableInvested',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6931,7 +7287,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableInvested',
+                '\Hanzo\Cloud\Model\CaptableCaptableInvested',
                 $request,
                 $response,
             );
@@ -6940,7 +7296,15 @@ class CaptableApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableInvested',
+                        '\Hanzo\Cloud\Model\CaptableCaptableInvested',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6958,15 +7322,15 @@ class CaptableApi
      * Records one investor&#39;s money into an open round.
      *
      * @param  string $id ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableInvestmentIn $captable_investment_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableInvestmentIn $captable_captable_investment_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRoundsByIdInvestments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableRoundsByIdInvestmentsAsync($id, $captable_investment_in, string $contentType = self::contentTypes['postCaptableRoundsByIdInvestments'][0])
+    public function postCaptableRoundsByIdInvestmentsAsync($id, $captable_captable_investment_in, string $contentType = self::contentTypes['postCaptableRoundsByIdInvestments'][0])
     {
-        return $this->postCaptableRoundsByIdInvestmentsAsyncWithHttpInfo($id, $captable_investment_in, $contentType)
+        return $this->postCaptableRoundsByIdInvestmentsAsyncWithHttpInfo($id, $captable_captable_investment_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6980,16 +7344,16 @@ class CaptableApi
      * Records one investor&#39;s money into an open round.
      *
      * @param  string $id ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableInvestmentIn $captable_investment_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableInvestmentIn $captable_captable_investment_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRoundsByIdInvestments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableRoundsByIdInvestmentsAsyncWithHttpInfo($id, $captable_investment_in, string $contentType = self::contentTypes['postCaptableRoundsByIdInvestments'][0])
+    public function postCaptableRoundsByIdInvestmentsAsyncWithHttpInfo($id, $captable_captable_investment_in, string $contentType = self::contentTypes['postCaptableRoundsByIdInvestments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableInvested';
-        $request = $this->postCaptableRoundsByIdInvestmentsRequest($id, $captable_investment_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableInvested';
+        $request = $this->postCaptableRoundsByIdInvestmentsRequest($id, $captable_captable_investment_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7031,13 +7395,13 @@ class CaptableApi
      * Create request for operation 'postCaptableRoundsByIdInvestments'
      *
      * @param  string $id ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims. (required)
-     * @param  \Hanzo\Cloud\Model\CaptableInvestmentIn $captable_investment_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableInvestmentIn $captable_captable_investment_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableRoundsByIdInvestments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCaptableRoundsByIdInvestmentsRequest($id, $captable_investment_in, string $contentType = self::contentTypes['postCaptableRoundsByIdInvestments'][0])
+    public function postCaptableRoundsByIdInvestmentsRequest($id, $captable_captable_investment_in, string $contentType = self::contentTypes['postCaptableRoundsByIdInvestments'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -7047,10 +7411,10 @@ class CaptableApi
             );
         }
 
-        // verify the required parameter 'captable_investment_in' is set
-        if ($captable_investment_in === null || (is_array($captable_investment_in) && count($captable_investment_in) === 0)) {
+        // verify the required parameter 'captable_captable_investment_in' is set
+        if ($captable_captable_investment_in === null || (is_array($captable_captable_investment_in) && count($captable_captable_investment_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_investment_in when calling postCaptableRoundsByIdInvestments'
+                'Missing the required parameter $captable_captable_investment_in when calling postCaptableRoundsByIdInvestments'
             );
         }
 
@@ -7075,18 +7439,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_investment_in)) {
+        if (isset($captable_captable_investment_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_investment_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_investment_in));
             } else {
-                $httpBody = $captable_investment_in;
+                $httpBody = $captable_captable_investment_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7143,16 +7507,16 @@ class CaptableApi
      *
      * Records a SAFE — a simple agreement for future equity.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableSafeIn $captable_safe_in captable_safe_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableSafeIn $captable_captable_safe_in captable_captable_safe_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableSafes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableCreated
+     * @return \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCaptableSafes($captable_safe_in, string $contentType = self::contentTypes['postCaptableSafes'][0])
+    public function postCaptableSafes($captable_captable_safe_in, string $contentType = self::contentTypes['postCaptableSafes'][0])
     {
-        list($response) = $this->postCaptableSafesWithHttpInfo($captable_safe_in, $contentType);
+        list($response) = $this->postCaptableSafesWithHttpInfo($captable_captable_safe_in, $contentType);
         return $response;
     }
 
@@ -7161,16 +7525,16 @@ class CaptableApi
      *
      * Records a SAFE — a simple agreement for future equity.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableSafeIn $captable_safe_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableSafeIn $captable_captable_safe_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableSafes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableCreated, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCaptableSafesWithHttpInfo($captable_safe_in, string $contentType = self::contentTypes['postCaptableSafes'][0])
+    public function postCaptableSafesWithHttpInfo($captable_captable_safe_in, string $contentType = self::contentTypes['postCaptableSafes'][0])
     {
-        $request = $this->postCaptableSafesRequest($captable_safe_in, $contentType);
+        $request = $this->postCaptableSafesRequest($captable_captable_safe_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7198,7 +7562,13 @@ class CaptableApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7220,7 +7590,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableCreated',
+                '\Hanzo\Cloud\Model\CaptableCaptableCreated',
                 $request,
                 $response,
             );
@@ -7229,7 +7599,15 @@ class CaptableApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7246,15 +7624,15 @@ class CaptableApi
      *
      * Records a SAFE — a simple agreement for future equity.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableSafeIn $captable_safe_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableSafeIn $captable_captable_safe_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableSafes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableSafesAsync($captable_safe_in, string $contentType = self::contentTypes['postCaptableSafes'][0])
+    public function postCaptableSafesAsync($captable_captable_safe_in, string $contentType = self::contentTypes['postCaptableSafes'][0])
     {
-        return $this->postCaptableSafesAsyncWithHttpInfo($captable_safe_in, $contentType)
+        return $this->postCaptableSafesAsyncWithHttpInfo($captable_captable_safe_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7267,16 +7645,16 @@ class CaptableApi
      *
      * Records a SAFE — a simple agreement for future equity.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableSafeIn $captable_safe_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableSafeIn $captable_captable_safe_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableSafes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableSafesAsyncWithHttpInfo($captable_safe_in, string $contentType = self::contentTypes['postCaptableSafes'][0])
+    public function postCaptableSafesAsyncWithHttpInfo($captable_captable_safe_in, string $contentType = self::contentTypes['postCaptableSafes'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableCreated';
-        $request = $this->postCaptableSafesRequest($captable_safe_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableCreated';
+        $request = $this->postCaptableSafesRequest($captable_captable_safe_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7317,19 +7695,19 @@ class CaptableApi
     /**
      * Create request for operation 'postCaptableSafes'
      *
-     * @param  \Hanzo\Cloud\Model\CaptableSafeIn $captable_safe_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableSafeIn $captable_captable_safe_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableSafes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCaptableSafesRequest($captable_safe_in, string $contentType = self::contentTypes['postCaptableSafes'][0])
+    public function postCaptableSafesRequest($captable_captable_safe_in, string $contentType = self::contentTypes['postCaptableSafes'][0])
     {
 
-        // verify the required parameter 'captable_safe_in' is set
-        if ($captable_safe_in === null || (is_array($captable_safe_in) && count($captable_safe_in) === 0)) {
+        // verify the required parameter 'captable_captable_safe_in' is set
+        if ($captable_captable_safe_in === null || (is_array($captable_captable_safe_in) && count($captable_captable_safe_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_safe_in when calling postCaptableSafes'
+                'Missing the required parameter $captable_captable_safe_in when calling postCaptableSafes'
             );
         }
 
@@ -7346,18 +7724,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_safe_in)) {
+        if (isset($captable_captable_safe_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_safe_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_safe_in));
             } else {
-                $httpBody = $captable_safe_in;
+                $httpBody = $captable_captable_safe_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7414,16 +7792,16 @@ class CaptableApi
      *
      * Issues a share certificate to a stakeholder.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareIn $captable_share_in captable_share_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareIn $captable_captable_share_in captable_captable_share_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableShares'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableCreated
+     * @return \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCaptableShares($captable_share_in, string $contentType = self::contentTypes['postCaptableShares'][0])
+    public function postCaptableShares($captable_captable_share_in, string $contentType = self::contentTypes['postCaptableShares'][0])
     {
-        list($response) = $this->postCaptableSharesWithHttpInfo($captable_share_in, $contentType);
+        list($response) = $this->postCaptableSharesWithHttpInfo($captable_captable_share_in, $contentType);
         return $response;
     }
 
@@ -7432,16 +7810,16 @@ class CaptableApi
      *
      * Issues a share certificate to a stakeholder.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareIn $captable_share_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareIn $captable_captable_share_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableShares'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableCreated, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableCreated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCaptableSharesWithHttpInfo($captable_share_in, string $contentType = self::contentTypes['postCaptableShares'][0])
+    public function postCaptableSharesWithHttpInfo($captable_captable_share_in, string $contentType = self::contentTypes['postCaptableShares'][0])
     {
-        $request = $this->postCaptableSharesRequest($captable_share_in, $contentType);
+        $request = $this->postCaptableSharesRequest($captable_captable_share_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7469,7 +7847,13 @@ class CaptableApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7491,7 +7875,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableCreated',
+                '\Hanzo\Cloud\Model\CaptableCaptableCreated',
                 $request,
                 $response,
             );
@@ -7500,7 +7884,15 @@ class CaptableApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableCreated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableCreated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7517,15 +7909,15 @@ class CaptableApi
      *
      * Issues a share certificate to a stakeholder.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareIn $captable_share_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareIn $captable_captable_share_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableShares'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableSharesAsync($captable_share_in, string $contentType = self::contentTypes['postCaptableShares'][0])
+    public function postCaptableSharesAsync($captable_captable_share_in, string $contentType = self::contentTypes['postCaptableShares'][0])
     {
-        return $this->postCaptableSharesAsyncWithHttpInfo($captable_share_in, $contentType)
+        return $this->postCaptableSharesAsyncWithHttpInfo($captable_captable_share_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7538,16 +7930,16 @@ class CaptableApi
      *
      * Issues a share certificate to a stakeholder.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareIn $captable_share_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareIn $captable_captable_share_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableShares'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableSharesAsyncWithHttpInfo($captable_share_in, string $contentType = self::contentTypes['postCaptableShares'][0])
+    public function postCaptableSharesAsyncWithHttpInfo($captable_captable_share_in, string $contentType = self::contentTypes['postCaptableShares'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableCreated';
-        $request = $this->postCaptableSharesRequest($captable_share_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableCreated';
+        $request = $this->postCaptableSharesRequest($captable_captable_share_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7588,19 +7980,19 @@ class CaptableApi
     /**
      * Create request for operation 'postCaptableShares'
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareIn $captable_share_in (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareIn $captable_captable_share_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableShares'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCaptableSharesRequest($captable_share_in, string $contentType = self::contentTypes['postCaptableShares'][0])
+    public function postCaptableSharesRequest($captable_captable_share_in, string $contentType = self::contentTypes['postCaptableShares'][0])
     {
 
-        // verify the required parameter 'captable_share_in' is set
-        if ($captable_share_in === null || (is_array($captable_share_in) && count($captable_share_in) === 0)) {
+        // verify the required parameter 'captable_captable_share_in' is set
+        if ($captable_captable_share_in === null || (is_array($captable_captable_share_in) && count($captable_captable_share_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_share_in when calling postCaptableShares'
+                'Missing the required parameter $captable_captable_share_in when calling postCaptableShares'
             );
         }
 
@@ -7617,18 +8009,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_share_in)) {
+        if (isset($captable_captable_share_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_share_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_share_in));
             } else {
-                $httpBody = $captable_share_in;
+                $httpBody = $captable_captable_share_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7685,16 +8077,16 @@ class CaptableApi
      *
      * Moves shares from one stakeholder to another.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareTransfer $captable_share_transfer captable_share_transfer (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareTransfer $captable_captable_share_transfer captable_captable_share_transfer (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableSharesTransfer'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableTransferred
+     * @return \Hanzo\Cloud\Model\CaptableCaptableTransferred|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCaptableSharesTransfer($captable_share_transfer, string $contentType = self::contentTypes['postCaptableSharesTransfer'][0])
+    public function postCaptableSharesTransfer($captable_captable_share_transfer, string $contentType = self::contentTypes['postCaptableSharesTransfer'][0])
     {
-        list($response) = $this->postCaptableSharesTransferWithHttpInfo($captable_share_transfer, $contentType);
+        list($response) = $this->postCaptableSharesTransferWithHttpInfo($captable_captable_share_transfer, $contentType);
         return $response;
     }
 
@@ -7703,16 +8095,16 @@ class CaptableApi
      *
      * Moves shares from one stakeholder to another.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareTransfer $captable_share_transfer (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareTransfer $captable_captable_share_transfer (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableSharesTransfer'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableTransferred, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableTransferred|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCaptableSharesTransferWithHttpInfo($captable_share_transfer, string $contentType = self::contentTypes['postCaptableSharesTransfer'][0])
+    public function postCaptableSharesTransferWithHttpInfo($captable_captable_share_transfer, string $contentType = self::contentTypes['postCaptableSharesTransfer'][0])
     {
-        $request = $this->postCaptableSharesTransferRequest($captable_share_transfer, $contentType);
+        $request = $this->postCaptableSharesTransferRequest($captable_captable_share_transfer, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7740,7 +8132,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableTransferred',
+                        '\Hanzo\Cloud\Model\CaptableCaptableTransferred',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7762,7 +8160,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableTransferred',
+                '\Hanzo\Cloud\Model\CaptableCaptableTransferred',
                 $request,
                 $response,
             );
@@ -7771,7 +8169,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableTransferred',
+                        '\Hanzo\Cloud\Model\CaptableCaptableTransferred',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7788,15 +8194,15 @@ class CaptableApi
      *
      * Moves shares from one stakeholder to another.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareTransfer $captable_share_transfer (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareTransfer $captable_captable_share_transfer (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableSharesTransfer'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableSharesTransferAsync($captable_share_transfer, string $contentType = self::contentTypes['postCaptableSharesTransfer'][0])
+    public function postCaptableSharesTransferAsync($captable_captable_share_transfer, string $contentType = self::contentTypes['postCaptableSharesTransfer'][0])
     {
-        return $this->postCaptableSharesTransferAsyncWithHttpInfo($captable_share_transfer, $contentType)
+        return $this->postCaptableSharesTransferAsyncWithHttpInfo($captable_captable_share_transfer, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7809,16 +8215,16 @@ class CaptableApi
      *
      * Moves shares from one stakeholder to another.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareTransfer $captable_share_transfer (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareTransfer $captable_captable_share_transfer (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableSharesTransfer'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCaptableSharesTransferAsyncWithHttpInfo($captable_share_transfer, string $contentType = self::contentTypes['postCaptableSharesTransfer'][0])
+    public function postCaptableSharesTransferAsyncWithHttpInfo($captable_captable_share_transfer, string $contentType = self::contentTypes['postCaptableSharesTransfer'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableTransferred';
-        $request = $this->postCaptableSharesTransferRequest($captable_share_transfer, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableTransferred';
+        $request = $this->postCaptableSharesTransferRequest($captable_captable_share_transfer, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7859,19 +8265,19 @@ class CaptableApi
     /**
      * Create request for operation 'postCaptableSharesTransfer'
      *
-     * @param  \Hanzo\Cloud\Model\CaptableShareTransfer $captable_share_transfer (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableShareTransfer $captable_captable_share_transfer (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCaptableSharesTransfer'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCaptableSharesTransferRequest($captable_share_transfer, string $contentType = self::contentTypes['postCaptableSharesTransfer'][0])
+    public function postCaptableSharesTransferRequest($captable_captable_share_transfer, string $contentType = self::contentTypes['postCaptableSharesTransfer'][0])
     {
 
-        // verify the required parameter 'captable_share_transfer' is set
-        if ($captable_share_transfer === null || (is_array($captable_share_transfer) && count($captable_share_transfer) === 0)) {
+        // verify the required parameter 'captable_captable_share_transfer' is set
+        if ($captable_captable_share_transfer === null || (is_array($captable_captable_share_transfer) && count($captable_captable_share_transfer) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_share_transfer when calling postCaptableSharesTransfer'
+                'Missing the required parameter $captable_captable_share_transfer when calling postCaptableSharesTransfer'
             );
         }
 
@@ -7888,18 +8294,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_share_transfer)) {
+        if (isset($captable_captable_share_transfer)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_share_transfer));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_share_transfer));
             } else {
-                $httpBody = $captable_share_transfer;
+                $httpBody = $captable_captable_share_transfer;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -8158,16 +8564,16 @@ class CaptableApi
      *
      * Sets the caller org&#39;s company name and incorporation details.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableCompanyUpdate $captable_company_update captable_company_update (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableCompanyUpdate $captable_captable_company_update captable_captable_company_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCaptableCompany'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CaptableUpdated
+     * @return \Hanzo\Cloud\Model\CaptableCaptableUpdated|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putCaptableCompany($captable_company_update, string $contentType = self::contentTypes['putCaptableCompany'][0])
+    public function putCaptableCompany($captable_captable_company_update, string $contentType = self::contentTypes['putCaptableCompany'][0])
     {
-        list($response) = $this->putCaptableCompanyWithHttpInfo($captable_company_update, $contentType);
+        list($response) = $this->putCaptableCompanyWithHttpInfo($captable_captable_company_update, $contentType);
         return $response;
     }
 
@@ -8176,16 +8582,16 @@ class CaptableApi
      *
      * Sets the caller org&#39;s company name and incorporation details.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableCompanyUpdate $captable_company_update (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableCompanyUpdate $captable_captable_company_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCaptableCompany'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CaptableUpdated, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CaptableCaptableUpdated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putCaptableCompanyWithHttpInfo($captable_company_update, string $contentType = self::contentTypes['putCaptableCompany'][0])
+    public function putCaptableCompanyWithHttpInfo($captable_captable_company_update, string $contentType = self::contentTypes['putCaptableCompany'][0])
     {
-        $request = $this->putCaptableCompanyRequest($captable_company_update, $contentType);
+        $request = $this->putCaptableCompanyRequest($captable_captable_company_update, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8213,7 +8619,13 @@ class CaptableApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CaptableUpdated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8235,7 +8647,7 @@ class CaptableApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CaptableUpdated',
+                '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
                 $request,
                 $response,
             );
@@ -8244,7 +8656,15 @@ class CaptableApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CaptableUpdated',
+                        '\Hanzo\Cloud\Model\CaptableCaptableUpdated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8261,15 +8681,15 @@ class CaptableApi
      *
      * Sets the caller org&#39;s company name and incorporation details.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableCompanyUpdate $captable_company_update (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableCompanyUpdate $captable_captable_company_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCaptableCompany'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putCaptableCompanyAsync($captable_company_update, string $contentType = self::contentTypes['putCaptableCompany'][0])
+    public function putCaptableCompanyAsync($captable_captable_company_update, string $contentType = self::contentTypes['putCaptableCompany'][0])
     {
-        return $this->putCaptableCompanyAsyncWithHttpInfo($captable_company_update, $contentType)
+        return $this->putCaptableCompanyAsyncWithHttpInfo($captable_captable_company_update, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8282,16 +8702,16 @@ class CaptableApi
      *
      * Sets the caller org&#39;s company name and incorporation details.
      *
-     * @param  \Hanzo\Cloud\Model\CaptableCompanyUpdate $captable_company_update (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableCompanyUpdate $captable_captable_company_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCaptableCompany'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putCaptableCompanyAsyncWithHttpInfo($captable_company_update, string $contentType = self::contentTypes['putCaptableCompany'][0])
+    public function putCaptableCompanyAsyncWithHttpInfo($captable_captable_company_update, string $contentType = self::contentTypes['putCaptableCompany'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CaptableUpdated';
-        $request = $this->putCaptableCompanyRequest($captable_company_update, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CaptableCaptableUpdated';
+        $request = $this->putCaptableCompanyRequest($captable_captable_company_update, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8332,19 +8752,19 @@ class CaptableApi
     /**
      * Create request for operation 'putCaptableCompany'
      *
-     * @param  \Hanzo\Cloud\Model\CaptableCompanyUpdate $captable_company_update (required)
+     * @param  \Hanzo\Cloud\Model\CaptableCaptableCompanyUpdate $captable_captable_company_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCaptableCompany'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putCaptableCompanyRequest($captable_company_update, string $contentType = self::contentTypes['putCaptableCompany'][0])
+    public function putCaptableCompanyRequest($captable_captable_company_update, string $contentType = self::contentTypes['putCaptableCompany'][0])
     {
 
-        // verify the required parameter 'captable_company_update' is set
-        if ($captable_company_update === null || (is_array($captable_company_update) && count($captable_company_update) === 0)) {
+        // verify the required parameter 'captable_captable_company_update' is set
+        if ($captable_captable_company_update === null || (is_array($captable_captable_company_update) && count($captable_captable_company_update) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $captable_company_update when calling putCaptableCompany'
+                'Missing the required parameter $captable_captable_company_update when calling putCaptableCompany'
             );
         }
 
@@ -8361,18 +8781,18 @@ class CaptableApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($captable_company_update)) {
+        if (isset($captable_captable_company_update)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_company_update));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($captable_captable_company_update));
             } else {
-                $httpBody = $captable_company_update;
+                $httpBody = $captable_captable_company_update;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

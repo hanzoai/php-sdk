@@ -108,6 +108,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
         'password_options' => 'string[]',
         'password_salt' => 'string',
         'password_type' => 'string',
+        'platform' => 'bool',
         'tags' => 'string[]',
         'theme_data' => '\Hanzo\Cloud\Model\IamThemeData',
         'updated_at' => '\DateTime',
@@ -179,6 +180,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
         'password_options' => null,
         'password_salt' => null,
         'password_type' => null,
+        'platform' => null,
         'tags' => null,
         'theme_data' => null,
         'updated_at' => 'date-time',
@@ -248,6 +250,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
         'password_options' => false,
         'password_salt' => false,
         'password_type' => false,
+        'platform' => false,
         'tags' => false,
         'theme_data' => false,
         'updated_at' => false,
@@ -397,6 +400,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
         'password_options' => 'passwordOptions',
         'password_salt' => 'passwordSalt',
         'password_type' => 'passwordType',
+        'platform' => 'platform',
         'tags' => 'tags',
         'theme_data' => 'themeData',
         'updated_at' => 'updatedAt',
@@ -466,6 +470,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
         'password_options' => 'setPasswordOptions',
         'password_salt' => 'setPasswordSalt',
         'password_type' => 'setPasswordType',
+        'platform' => 'setPlatform',
         'tags' => 'setTags',
         'theme_data' => 'setThemeData',
         'updated_at' => 'setUpdatedAt',
@@ -535,6 +540,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
         'password_options' => 'getPasswordOptions',
         'password_salt' => 'getPasswordSalt',
         'password_type' => 'getPasswordType',
+        'platform' => 'getPlatform',
         'tags' => 'getTags',
         'theme_data' => 'getThemeData',
         'updated_at' => 'getUpdatedAt',
@@ -655,6 +661,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
         $this->setIfExists('password_options', $data ?? [], null);
         $this->setIfExists('password_salt', $data ?? [], null);
         $this->setIfExists('password_type', $data ?? [], null);
+        $this->setIfExists('platform', $data ?? [], null);
         $this->setIfExists('tags', $data ?? [], null);
         $this->setIfExists('theme_data', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
@@ -776,7 +783,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets avatar
      *
-     * @param string|null $avatar avatar
+     * @param string|null $avatar How the organization appears across Hanzo — the square mark beside its name — as an image or as one emoji, never both. It is the pair a person carries (User.Avatar) under the same names, resolved the same way, so a screen draws a subject without asking which kind of subject it has. Both halves live on the row: a mark that appears everywhere cannot be kept on one device. Written through schema.MarkOf; Logo and LogoDark above are a different thing, the wordmark a login screen draws.
      *
      * @return self
      */
@@ -1235,7 +1242,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets failed_signin_limit
      *
-     * @param int|null $failed_signin_limit failed_signin_limit
+     * @param int|null $failed_signin_limit Per-organization signin throttle. Zero means \"inherit the application default\"; a non-zero value overrides it. Safe bounds are clamped by the resource service before persistence.
      *
      * @return self
      */
@@ -1289,7 +1296,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets founder
      *
-     * @param string|null $founder founder
+     * @param string|null $founder Founder is the stable storage id of the identity that provisioned this org (self-service onboarding). It is the resume token that makes provisioning converge on a backend where each write autocommits independently (no transaction rollback): after a partial failure that created the org but did not move the founder in, a retry recognises the org as the founder's own and completes it, instead of refusing it as \"already taken\". It also fences the org to ONE tenant — a different identity can never complete or join it.
      *
      * @return self
      */
@@ -1343,7 +1350,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string|null $id Persisted fields
      *
      * @return self
      */
@@ -1883,7 +1890,7 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets org_balance
      *
-     * @param float|null $org_balance org_balance
+     * @param float|null $org_balance Balance fields are read-only mirrors; authoritative balances live in Commerce (billing.hanzo.ai). Carried for field-complete v1 parity.
      *
      * @return self
      */
@@ -2082,6 +2089,33 @@ class IamUpdateOrganizationInput implements ModelInterface, ArrayAccess, \JsonSe
             throw new \InvalidArgumentException('non-nullable password_type cannot be null');
         }
         $this->container['password_type'] = $password_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets platform
+     *
+     * @return bool|null
+     */
+    public function getPlatform()
+    {
+        return $this->container['platform'];
+    }
+
+    /**
+     * Sets platform
+     *
+     * @param bool|null $platform Platform marks an organization the platform itself declares (init_data.json): the brand orgs and the others the seed creates, never one a customer made. The seed stamps it on every declared organization at boot, and no request sets or clears it. Only a SuperAdmin may delete an organization that carries it.
+     *
+     * @return self
+     */
+    public function setPlatform($platform)
+    {
+        if (is_null($platform)) {
+            throw new \InvalidArgumentException('non-nullable platform cannot be null');
+        }
+        $this->container['platform'] = $platform;
 
         return $this;
     }

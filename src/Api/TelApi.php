@@ -211,6 +211,14 @@ class TelApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -318,7 +326,7 @@ class TelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -433,6 +441,14 @@ class TelApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -540,7 +556,7 @@ class TelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -605,7 +621,7 @@ class TelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CallList
+     * @return \Hanzo\Cloud\Model\TelCallList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTelCalls(string $contentType = self::contentTypes['getTelCalls'][0])
     {
@@ -622,7 +638,7 @@ class TelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CallList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TelCallList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTelCallsWithHttpInfo(string $contentType = self::contentTypes['getTelCalls'][0])
     {
@@ -654,7 +670,13 @@ class TelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CallList',
+                        '\Hanzo\Cloud\Model\TelCallList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -676,7 +698,7 @@ class TelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CallList',
+                '\Hanzo\Cloud\Model\TelCallList',
                 $request,
                 $response,
             );
@@ -685,7 +707,15 @@ class TelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CallList',
+                        '\Hanzo\Cloud\Model\TelCallList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -729,7 +759,7 @@ class TelApi
      */
     public function getTelCallsAsyncWithHttpInfo(string $contentType = self::contentTypes['getTelCalls'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CallList';
+        $returnType = '\Hanzo\Cloud\Model\TelCallList';
         $request = $this->getTelCallsRequest($contentType);
 
         return $this->client
@@ -792,7 +822,7 @@ class TelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -857,7 +887,7 @@ class TelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MessageList
+     * @return \Hanzo\Cloud\Model\TelMessageList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTelMessages(string $contentType = self::contentTypes['getTelMessages'][0])
     {
@@ -874,7 +904,7 @@ class TelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MessageList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TelMessageList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTelMessagesWithHttpInfo(string $contentType = self::contentTypes['getTelMessages'][0])
     {
@@ -906,7 +936,13 @@ class TelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MessageList',
+                        '\Hanzo\Cloud\Model\TelMessageList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -928,7 +964,7 @@ class TelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MessageList',
+                '\Hanzo\Cloud\Model\TelMessageList',
                 $request,
                 $response,
             );
@@ -937,7 +973,15 @@ class TelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MessageList',
+                        '\Hanzo\Cloud\Model\TelMessageList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -981,7 +1025,7 @@ class TelApi
      */
     public function getTelMessagesAsyncWithHttpInfo(string $contentType = self::contentTypes['getTelMessages'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MessageList';
+        $returnType = '\Hanzo\Cloud\Model\TelMessageList';
         $request = $this->getTelMessagesRequest($contentType);
 
         return $this->client
@@ -1044,7 +1088,7 @@ class TelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1109,7 +1153,7 @@ class TelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\NumberList
+     * @return \Hanzo\Cloud\Model\TelNumberList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTelNumbers(string $contentType = self::contentTypes['getTelNumbers'][0])
     {
@@ -1126,7 +1170,7 @@ class TelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\NumberList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TelNumberList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTelNumbersWithHttpInfo(string $contentType = self::contentTypes['getTelNumbers'][0])
     {
@@ -1158,7 +1202,13 @@ class TelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\NumberList',
+                        '\Hanzo\Cloud\Model\TelNumberList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1180,7 +1230,7 @@ class TelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\NumberList',
+                '\Hanzo\Cloud\Model\TelNumberList',
                 $request,
                 $response,
             );
@@ -1189,7 +1239,15 @@ class TelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\NumberList',
+                        '\Hanzo\Cloud\Model\TelNumberList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1233,7 +1291,7 @@ class TelApi
      */
     public function getTelNumbersAsyncWithHttpInfo(string $contentType = self::contentTypes['getTelNumbers'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\NumberList';
+        $returnType = '\Hanzo\Cloud\Model\TelNumberList';
         $request = $this->getTelNumbersRequest($contentType);
 
         return $this->client
@@ -1296,7 +1354,7 @@ class TelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1365,7 +1423,7 @@ class TelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\NumberList
+     * @return \Hanzo\Cloud\Model\TelNumberList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTelNumbersAvailable($country = null, $area = null, $type = null, $limit = null, string $contentType = self::contentTypes['getTelNumbersAvailable'][0])
     {
@@ -1386,7 +1444,7 @@ class TelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\NumberList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TelNumberList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTelNumbersAvailableWithHttpInfo($country = null, $area = null, $type = null, $limit = null, string $contentType = self::contentTypes['getTelNumbersAvailable'][0])
     {
@@ -1418,7 +1476,13 @@ class TelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\NumberList',
+                        '\Hanzo\Cloud\Model\TelNumberList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1440,7 +1504,7 @@ class TelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\NumberList',
+                '\Hanzo\Cloud\Model\TelNumberList',
                 $request,
                 $response,
             );
@@ -1449,7 +1513,15 @@ class TelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\NumberList',
+                        '\Hanzo\Cloud\Model\TelNumberList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1501,7 +1573,7 @@ class TelApi
      */
     public function getTelNumbersAvailableAsyncWithHttpInfo($country = null, $area = null, $type = null, $limit = null, string $contentType = self::contentTypes['getTelNumbersAvailable'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\NumberList';
+        $returnType = '\Hanzo\Cloud\Model\TelNumberList';
         $request = $this->getTelNumbersAvailableRequest($country, $area, $type, $limit, $contentType);
 
         return $this->client
@@ -1608,7 +1680,7 @@ class TelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1673,7 +1745,7 @@ class TelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Summary
+     * @return \Hanzo\Cloud\Model\TelSummary|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTelSummary(string $contentType = self::contentTypes['getTelSummary'][0])
     {
@@ -1690,7 +1762,7 @@ class TelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Summary, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TelSummary|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTelSummaryWithHttpInfo(string $contentType = self::contentTypes['getTelSummary'][0])
     {
@@ -1722,7 +1794,13 @@ class TelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Summary',
+                        '\Hanzo\Cloud\Model\TelSummary',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1744,7 +1822,7 @@ class TelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Summary',
+                '\Hanzo\Cloud\Model\TelSummary',
                 $request,
                 $response,
             );
@@ -1753,7 +1831,15 @@ class TelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Summary',
+                        '\Hanzo\Cloud\Model\TelSummary',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1797,7 +1883,7 @@ class TelApi
      */
     public function getTelSummaryAsyncWithHttpInfo(string $contentType = self::contentTypes['getTelSummary'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Summary';
+        $returnType = '\Hanzo\Cloud\Model\TelSummary';
         $request = $this->getTelSummaryRequest($contentType);
 
         return $this->client
@@ -1860,7 +1946,7 @@ class TelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1921,16 +2007,16 @@ class TelApi
      *
      * Dials.
      *
-     * @param  \Hanzo\Cloud\Model\CallInput $call_input call_input (required)
+     * @param  \Hanzo\Cloud\Model\TelCallInput $tel_call_input tel_call_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelCalls'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Call
+     * @return \Hanzo\Cloud\Model\TelCall|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postTelCalls($call_input, string $contentType = self::contentTypes['postTelCalls'][0])
+    public function postTelCalls($tel_call_input, string $contentType = self::contentTypes['postTelCalls'][0])
     {
-        list($response) = $this->postTelCallsWithHttpInfo($call_input, $contentType);
+        list($response) = $this->postTelCallsWithHttpInfo($tel_call_input, $contentType);
         return $response;
     }
 
@@ -1939,16 +2025,16 @@ class TelApi
      *
      * Dials.
      *
-     * @param  \Hanzo\Cloud\Model\CallInput $call_input (required)
+     * @param  \Hanzo\Cloud\Model\TelCallInput $tel_call_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelCalls'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Call, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TelCall|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postTelCallsWithHttpInfo($call_input, string $contentType = self::contentTypes['postTelCalls'][0])
+    public function postTelCallsWithHttpInfo($tel_call_input, string $contentType = self::contentTypes['postTelCalls'][0])
     {
-        $request = $this->postTelCallsRequest($call_input, $contentType);
+        $request = $this->postTelCallsRequest($tel_call_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1976,7 +2062,13 @@ class TelApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Call',
+                        '\Hanzo\Cloud\Model\TelCall',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1998,7 +2090,7 @@ class TelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Call',
+                '\Hanzo\Cloud\Model\TelCall',
                 $request,
                 $response,
             );
@@ -2007,7 +2099,15 @@ class TelApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Call',
+                        '\Hanzo\Cloud\Model\TelCall',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2024,15 +2124,15 @@ class TelApi
      *
      * Dials.
      *
-     * @param  \Hanzo\Cloud\Model\CallInput $call_input (required)
+     * @param  \Hanzo\Cloud\Model\TelCallInput $tel_call_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelCalls'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTelCallsAsync($call_input, string $contentType = self::contentTypes['postTelCalls'][0])
+    public function postTelCallsAsync($tel_call_input, string $contentType = self::contentTypes['postTelCalls'][0])
     {
-        return $this->postTelCallsAsyncWithHttpInfo($call_input, $contentType)
+        return $this->postTelCallsAsyncWithHttpInfo($tel_call_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2045,16 +2145,16 @@ class TelApi
      *
      * Dials.
      *
-     * @param  \Hanzo\Cloud\Model\CallInput $call_input (required)
+     * @param  \Hanzo\Cloud\Model\TelCallInput $tel_call_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelCalls'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTelCallsAsyncWithHttpInfo($call_input, string $contentType = self::contentTypes['postTelCalls'][0])
+    public function postTelCallsAsyncWithHttpInfo($tel_call_input, string $contentType = self::contentTypes['postTelCalls'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Call';
-        $request = $this->postTelCallsRequest($call_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TelCall';
+        $request = $this->postTelCallsRequest($tel_call_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2095,19 +2195,19 @@ class TelApi
     /**
      * Create request for operation 'postTelCalls'
      *
-     * @param  \Hanzo\Cloud\Model\CallInput $call_input (required)
+     * @param  \Hanzo\Cloud\Model\TelCallInput $tel_call_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelCalls'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postTelCallsRequest($call_input, string $contentType = self::contentTypes['postTelCalls'][0])
+    public function postTelCallsRequest($tel_call_input, string $contentType = self::contentTypes['postTelCalls'][0])
     {
 
-        // verify the required parameter 'call_input' is set
-        if ($call_input === null || (is_array($call_input) && count($call_input) === 0)) {
+        // verify the required parameter 'tel_call_input' is set
+        if ($tel_call_input === null || (is_array($tel_call_input) && count($tel_call_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $call_input when calling postTelCalls'
+                'Missing the required parameter $tel_call_input when calling postTelCalls'
             );
         }
 
@@ -2124,18 +2224,18 @@ class TelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($call_input)) {
+        if (isset($tel_call_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($call_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tel_call_input));
             } else {
-                $httpBody = $call_input;
+                $httpBody = $tel_call_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2192,16 +2292,16 @@ class TelApi
      *
      * Sends a message from one of this org&#39;s own numbers.
      *
-     * @param  \Hanzo\Cloud\Model\MessageInput $message_input message_input (required)
+     * @param  \Hanzo\Cloud\Model\TelMessageInput $tel_message_input tel_message_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelMessages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SMS
+     * @return \Hanzo\Cloud\Model\TelSMS|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postTelMessages($message_input, string $contentType = self::contentTypes['postTelMessages'][0])
+    public function postTelMessages($tel_message_input, string $contentType = self::contentTypes['postTelMessages'][0])
     {
-        list($response) = $this->postTelMessagesWithHttpInfo($message_input, $contentType);
+        list($response) = $this->postTelMessagesWithHttpInfo($tel_message_input, $contentType);
         return $response;
     }
 
@@ -2210,16 +2310,16 @@ class TelApi
      *
      * Sends a message from one of this org&#39;s own numbers.
      *
-     * @param  \Hanzo\Cloud\Model\MessageInput $message_input (required)
+     * @param  \Hanzo\Cloud\Model\TelMessageInput $tel_message_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelMessages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SMS, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TelSMS|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postTelMessagesWithHttpInfo($message_input, string $contentType = self::contentTypes['postTelMessages'][0])
+    public function postTelMessagesWithHttpInfo($tel_message_input, string $contentType = self::contentTypes['postTelMessages'][0])
     {
-        $request = $this->postTelMessagesRequest($message_input, $contentType);
+        $request = $this->postTelMessagesRequest($tel_message_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2247,7 +2347,13 @@ class TelApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SMS',
+                        '\Hanzo\Cloud\Model\TelSMS',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2269,7 +2375,7 @@ class TelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SMS',
+                '\Hanzo\Cloud\Model\TelSMS',
                 $request,
                 $response,
             );
@@ -2278,7 +2384,15 @@ class TelApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SMS',
+                        '\Hanzo\Cloud\Model\TelSMS',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2295,15 +2409,15 @@ class TelApi
      *
      * Sends a message from one of this org&#39;s own numbers.
      *
-     * @param  \Hanzo\Cloud\Model\MessageInput $message_input (required)
+     * @param  \Hanzo\Cloud\Model\TelMessageInput $tel_message_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelMessages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTelMessagesAsync($message_input, string $contentType = self::contentTypes['postTelMessages'][0])
+    public function postTelMessagesAsync($tel_message_input, string $contentType = self::contentTypes['postTelMessages'][0])
     {
-        return $this->postTelMessagesAsyncWithHttpInfo($message_input, $contentType)
+        return $this->postTelMessagesAsyncWithHttpInfo($tel_message_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2316,16 +2430,16 @@ class TelApi
      *
      * Sends a message from one of this org&#39;s own numbers.
      *
-     * @param  \Hanzo\Cloud\Model\MessageInput $message_input (required)
+     * @param  \Hanzo\Cloud\Model\TelMessageInput $tel_message_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelMessages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTelMessagesAsyncWithHttpInfo($message_input, string $contentType = self::contentTypes['postTelMessages'][0])
+    public function postTelMessagesAsyncWithHttpInfo($tel_message_input, string $contentType = self::contentTypes['postTelMessages'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SMS';
-        $request = $this->postTelMessagesRequest($message_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TelSMS';
+        $request = $this->postTelMessagesRequest($tel_message_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2366,19 +2480,19 @@ class TelApi
     /**
      * Create request for operation 'postTelMessages'
      *
-     * @param  \Hanzo\Cloud\Model\MessageInput $message_input (required)
+     * @param  \Hanzo\Cloud\Model\TelMessageInput $tel_message_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelMessages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postTelMessagesRequest($message_input, string $contentType = self::contentTypes['postTelMessages'][0])
+    public function postTelMessagesRequest($tel_message_input, string $contentType = self::contentTypes['postTelMessages'][0])
     {
 
-        // verify the required parameter 'message_input' is set
-        if ($message_input === null || (is_array($message_input) && count($message_input) === 0)) {
+        // verify the required parameter 'tel_message_input' is set
+        if ($tel_message_input === null || (is_array($tel_message_input) && count($tel_message_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $message_input when calling postTelMessages'
+                'Missing the required parameter $tel_message_input when calling postTelMessages'
             );
         }
 
@@ -2395,18 +2509,18 @@ class TelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($message_input)) {
+        if (isset($tel_message_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($message_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tel_message_input));
             } else {
-                $httpBody = $message_input;
+                $httpBody = $tel_message_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2463,16 +2577,16 @@ class TelApi
      *
      * Provisions with the carrier FIRST and records second.
      *
-     * @param  \Hanzo\Cloud\Model\BuyInput $buy_input buy_input (required)
+     * @param  \Hanzo\Cloud\Model\TelBuyInput $tel_buy_input tel_buy_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelNumbers'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Number
+     * @return \Hanzo\Cloud\Model\TelNumber|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postTelNumbers($buy_input, string $contentType = self::contentTypes['postTelNumbers'][0])
+    public function postTelNumbers($tel_buy_input, string $contentType = self::contentTypes['postTelNumbers'][0])
     {
-        list($response) = $this->postTelNumbersWithHttpInfo($buy_input, $contentType);
+        list($response) = $this->postTelNumbersWithHttpInfo($tel_buy_input, $contentType);
         return $response;
     }
 
@@ -2481,16 +2595,16 @@ class TelApi
      *
      * Provisions with the carrier FIRST and records second.
      *
-     * @param  \Hanzo\Cloud\Model\BuyInput $buy_input (required)
+     * @param  \Hanzo\Cloud\Model\TelBuyInput $tel_buy_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelNumbers'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Number, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TelNumber|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postTelNumbersWithHttpInfo($buy_input, string $contentType = self::contentTypes['postTelNumbers'][0])
+    public function postTelNumbersWithHttpInfo($tel_buy_input, string $contentType = self::contentTypes['postTelNumbers'][0])
     {
-        $request = $this->postTelNumbersRequest($buy_input, $contentType);
+        $request = $this->postTelNumbersRequest($tel_buy_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2518,7 +2632,13 @@ class TelApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Number',
+                        '\Hanzo\Cloud\Model\TelNumber',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2540,7 +2660,7 @@ class TelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Number',
+                '\Hanzo\Cloud\Model\TelNumber',
                 $request,
                 $response,
             );
@@ -2549,7 +2669,15 @@ class TelApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Number',
+                        '\Hanzo\Cloud\Model\TelNumber',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2566,15 +2694,15 @@ class TelApi
      *
      * Provisions with the carrier FIRST and records second.
      *
-     * @param  \Hanzo\Cloud\Model\BuyInput $buy_input (required)
+     * @param  \Hanzo\Cloud\Model\TelBuyInput $tel_buy_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelNumbers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTelNumbersAsync($buy_input, string $contentType = self::contentTypes['postTelNumbers'][0])
+    public function postTelNumbersAsync($tel_buy_input, string $contentType = self::contentTypes['postTelNumbers'][0])
     {
-        return $this->postTelNumbersAsyncWithHttpInfo($buy_input, $contentType)
+        return $this->postTelNumbersAsyncWithHttpInfo($tel_buy_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2587,16 +2715,16 @@ class TelApi
      *
      * Provisions with the carrier FIRST and records second.
      *
-     * @param  \Hanzo\Cloud\Model\BuyInput $buy_input (required)
+     * @param  \Hanzo\Cloud\Model\TelBuyInput $tel_buy_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelNumbers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTelNumbersAsyncWithHttpInfo($buy_input, string $contentType = self::contentTypes['postTelNumbers'][0])
+    public function postTelNumbersAsyncWithHttpInfo($tel_buy_input, string $contentType = self::contentTypes['postTelNumbers'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Number';
-        $request = $this->postTelNumbersRequest($buy_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TelNumber';
+        $request = $this->postTelNumbersRequest($tel_buy_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2637,19 +2765,19 @@ class TelApi
     /**
      * Create request for operation 'postTelNumbers'
      *
-     * @param  \Hanzo\Cloud\Model\BuyInput $buy_input (required)
+     * @param  \Hanzo\Cloud\Model\TelBuyInput $tel_buy_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTelNumbers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postTelNumbersRequest($buy_input, string $contentType = self::contentTypes['postTelNumbers'][0])
+    public function postTelNumbersRequest($tel_buy_input, string $contentType = self::contentTypes['postTelNumbers'][0])
     {
 
-        // verify the required parameter 'buy_input' is set
-        if ($buy_input === null || (is_array($buy_input) && count($buy_input) === 0)) {
+        // verify the required parameter 'tel_buy_input' is set
+        if ($tel_buy_input === null || (is_array($tel_buy_input) && count($tel_buy_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $buy_input when calling postTelNumbers'
+                'Missing the required parameter $tel_buy_input when calling postTelNumbers'
             );
         }
 
@@ -2666,18 +2794,18 @@ class TelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($buy_input)) {
+        if (isset($tel_buy_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($buy_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tel_buy_input));
             } else {
-                $httpBody = $buy_input;
+                $httpBody = $tel_buy_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

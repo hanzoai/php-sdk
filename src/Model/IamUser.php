@@ -179,6 +179,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'microsoftonline' => 'string',
         'multi_factor_auths' => '\Hanzo\Cloud\Model\IamMfaProps[]',
         'name' => 'string',
+        'name_key' => 'string',
         'naver' => 'string',
         'need_update_password' => 'bool',
         'nextcloud' => 'string',
@@ -373,6 +374,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'microsoftonline' => null,
         'multi_factor_auths' => null,
         'name' => null,
+        'name_key' => null,
         'naver' => null,
         'need_update_password' => null,
         'nextcloud' => null,
@@ -565,6 +567,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'microsoftonline' => false,
         'multi_factor_auths' => false,
         'name' => false,
+        'name_key' => false,
         'naver' => false,
         'need_update_password' => false,
         'nextcloud' => false,
@@ -837,6 +840,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'microsoftonline' => 'microsoftonline',
         'multi_factor_auths' => 'multiFactorAuths',
         'name' => 'name',
+        'name_key' => 'nameKey',
         'naver' => 'naver',
         'need_update_password' => 'needUpdatePassword',
         'nextcloud' => 'nextcloud',
@@ -1029,6 +1033,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'microsoftonline' => 'setMicrosoftonline',
         'multi_factor_auths' => 'setMultiFactorAuths',
         'name' => 'setName',
+        'name_key' => 'setNameKey',
         'naver' => 'setNaver',
         'need_update_password' => 'setNeedUpdatePassword',
         'nextcloud' => 'setNextcloud',
@@ -1221,6 +1226,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'microsoftonline' => 'getMicrosoftonline',
         'multi_factor_auths' => 'getMultiFactorAuths',
         'name' => 'getName',
+        'name_key' => 'getNameKey',
         'naver' => 'getNaver',
         'need_update_password' => 'getNeedUpdatePassword',
         'nextcloud' => 'getNextcloud',
@@ -1464,6 +1470,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('microsoftonline', $data ?? [], null);
         $this->setIfExists('multi_factor_auths', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
+        $this->setIfExists('name_key', $data ?? [], null);
         $this->setIfExists('naver', $data ?? [], null);
         $this->setIfExists('need_update_password', $data ?? [], null);
         $this->setIfExists('nextcloud', $data ?? [], null);
@@ -4860,6 +4867,33 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets name_key
+     *
+     * @return string|null
+     */
+    public function getNameKey()
+    {
+        return $this->container['name_key'];
+    }
+
+    /**
+     * Sets name_key
+     *
+     * @param string|null $name_key NameKey is Fold(Name), derived on every save (BeforeCreate, BeforeUpdate) and on every open for a row saved without it (store.Prepare): the indexed key a case-insensitive username lookup reads (store.GetUserByName). It is always written, empty or not, so a row that has been keyed is never mistaken for one that has not.
+     *
+     * @return self
+     */
+    public function setNameKey($name_key)
+    {
+        if (is_null($name_key)) {
+            throw new \InvalidArgumentException('non-nullable name_key cannot be null');
+        }
+        $this->container['name_key'] = $name_key;
 
         return $this;
     }

@@ -98,12 +98,6 @@ class LicensingApi
         'postLicensingIssue' => [
             'application/json',
         ],
-        'postLicensingReleases' => [
-            'application/json',
-        ],
-        'postLicensingRevoke' => [
-            'application/json',
-        ],
         'postLicensingVerify' => [
             'application/json',
         ],
@@ -167,7 +161,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LicensingReleaseAsset
+     * @return \Hanzo\Cloud\Model\LicensingReleaseAsset|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLicensingDownloadByRelease($release, $x_license_token = null, $token = null, string $contentType = self::contentTypes['getLicensingDownloadByRelease'][0])
     {
@@ -187,7 +181,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LicensingReleaseAsset, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LicensingReleaseAsset|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLicensingDownloadByReleaseWithHttpInfo($release, $x_license_token = null, $token = null, string $contentType = self::contentTypes['getLicensingDownloadByRelease'][0])
     {
@@ -223,6 +217,12 @@ class LicensingApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -251,6 +251,14 @@ class LicensingApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\LicensingReleaseAsset',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -396,7 +404,7 @@ class LicensingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -461,7 +469,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LicensingHealthView
+     * @return \Hanzo\Cloud\Model\LicensingHealthView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLicensingHealthz(string $contentType = self::contentTypes['getLicensingHealthz'][0])
     {
@@ -478,7 +486,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LicensingHealthView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LicensingHealthView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLicensingHealthzWithHttpInfo(string $contentType = self::contentTypes['getLicensingHealthz'][0])
     {
@@ -514,6 +522,12 @@ class LicensingApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -542,6 +556,14 @@ class LicensingApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\LicensingHealthView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -648,7 +670,7 @@ class LicensingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -713,7 +735,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LicensingPubkeyView
+     * @return \Hanzo\Cloud\Model\LicensingPubkeyView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLicensingJwks(string $contentType = self::contentTypes['getLicensingJwks'][0])
     {
@@ -730,7 +752,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LicensingPubkeyView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LicensingPubkeyView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLicensingJwksWithHttpInfo(string $contentType = self::contentTypes['getLicensingJwks'][0])
     {
@@ -766,6 +788,12 @@ class LicensingApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -794,6 +822,14 @@ class LicensingApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\LicensingPubkeyView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -900,7 +936,7 @@ class LicensingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -965,7 +1001,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LicensingPubkeyView
+     * @return \Hanzo\Cloud\Model\LicensingPubkeyView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLicensingPubkey(string $contentType = self::contentTypes['getLicensingPubkey'][0])
     {
@@ -982,7 +1018,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LicensingPubkeyView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LicensingPubkeyView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLicensingPubkeyWithHttpInfo(string $contentType = self::contentTypes['getLicensingPubkey'][0])
     {
@@ -1018,6 +1054,12 @@ class LicensingApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1046,6 +1088,14 @@ class LicensingApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\LicensingPubkeyView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1152,7 +1202,7 @@ class LicensingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1217,7 +1267,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LicensingReleaseList
+     * @return \Hanzo\Cloud\Model\LicensingReleaseList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLicensingReleases(string $contentType = self::contentTypes['getLicensingReleases'][0])
     {
@@ -1234,7 +1284,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LicensingReleaseList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LicensingReleaseList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLicensingReleasesWithHttpInfo(string $contentType = self::contentTypes['getLicensingReleases'][0])
     {
@@ -1270,6 +1320,12 @@ class LicensingApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1298,6 +1354,14 @@ class LicensingApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\LicensingReleaseList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1404,7 +1468,7 @@ class LicensingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1470,7 +1534,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LicensingRelease
+     * @return \Hanzo\Cloud\Model\LicensingRelease|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLicensingReleasesByRelease($release, string $contentType = self::contentTypes['getLicensingReleasesByRelease'][0])
     {
@@ -1488,7 +1552,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LicensingRelease, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LicensingRelease|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLicensingReleasesByReleaseWithHttpInfo($release, string $contentType = self::contentTypes['getLicensingReleasesByRelease'][0])
     {
@@ -1524,6 +1588,12 @@ class LicensingApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1552,6 +1622,14 @@ class LicensingApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\LicensingRelease',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1676,7 +1754,7 @@ class LicensingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1742,7 +1820,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LicensingFingerprintResponse
+     * @return \Hanzo\Cloud\Model\LicensingFingerprintResponse|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postLicensingFingerprint($licensing_fingerprint_request, string $contentType = self::contentTypes['postLicensingFingerprint'][0])
     {
@@ -1760,7 +1838,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LicensingFingerprintResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LicensingFingerprintResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postLicensingFingerprintWithHttpInfo($licensing_fingerprint_request, string $contentType = self::contentTypes['postLicensingFingerprint'][0])
     {
@@ -1796,6 +1874,12 @@ class LicensingApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1824,6 +1908,14 @@ class LicensingApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\LicensingFingerprintResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1940,7 +2032,7 @@ class LicensingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2013,7 +2105,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LicensingIssueResponse
+     * @return \Hanzo\Cloud\Model\LicensingIssueResponse|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postLicensingIssue($licensing_issue_request, string $contentType = self::contentTypes['postLicensingIssue'][0])
     {
@@ -2031,7 +2123,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LicensingIssueResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LicensingIssueResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postLicensingIssueWithHttpInfo($licensing_issue_request, string $contentType = self::contentTypes['postLicensingIssue'][0])
     {
@@ -2067,6 +2159,12 @@ class LicensingApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2095,6 +2193,14 @@ class LicensingApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\LicensingIssueResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2211,7 +2317,7 @@ class LicensingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2275,548 +2381,6 @@ class LicensingApi
     }
 
     /**
-     * Operation postLicensingReleases
-     *
-     * Publishes a signed binary release, answering 201 Created.
-     *
-     * @param  \Hanzo\Cloud\Model\LicensingRelease $licensing_release licensing_release (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLicensingReleases'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LicensingRelease
-     */
-    public function postLicensingReleases($licensing_release, string $contentType = self::contentTypes['postLicensingReleases'][0])
-    {
-        list($response) = $this->postLicensingReleasesWithHttpInfo($licensing_release, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postLicensingReleasesWithHttpInfo
-     *
-     * Publishes a signed binary release, answering 201 Created.
-     *
-     * @param  \Hanzo\Cloud\Model\LicensingRelease $licensing_release (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLicensingReleases'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LicensingRelease, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postLicensingReleasesWithHttpInfo($licensing_release, string $contentType = self::contentTypes['postLicensingReleases'][0])
-    {
-        $request = $this->postLicensingReleasesRequest($licensing_release, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 201:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\LicensingRelease',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\LicensingRelease',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 201:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\LicensingRelease',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postLicensingReleasesAsync
-     *
-     * Publishes a signed binary release, answering 201 Created.
-     *
-     * @param  \Hanzo\Cloud\Model\LicensingRelease $licensing_release (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLicensingReleases'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postLicensingReleasesAsync($licensing_release, string $contentType = self::contentTypes['postLicensingReleases'][0])
-    {
-        return $this->postLicensingReleasesAsyncWithHttpInfo($licensing_release, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postLicensingReleasesAsyncWithHttpInfo
-     *
-     * Publishes a signed binary release, answering 201 Created.
-     *
-     * @param  \Hanzo\Cloud\Model\LicensingRelease $licensing_release (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLicensingReleases'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postLicensingReleasesAsyncWithHttpInfo($licensing_release, string $contentType = self::contentTypes['postLicensingReleases'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\LicensingRelease';
-        $request = $this->postLicensingReleasesRequest($licensing_release, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postLicensingReleases'
-     *
-     * @param  \Hanzo\Cloud\Model\LicensingRelease $licensing_release (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLicensingReleases'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postLicensingReleasesRequest($licensing_release, string $contentType = self::contentTypes['postLicensingReleases'][0])
-    {
-
-        // verify the required parameter 'licensing_release' is set
-        if ($licensing_release === null || (is_array($licensing_release) && count($licensing_release) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $licensing_release when calling postLicensingReleases'
-            );
-        }
-
-
-        $resourcePath = '/v1/licensing/releases';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($licensing_release)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($licensing_release));
-            } else {
-                $httpBody = $licensing_release;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postLicensingRevoke
-     *
-     * Revoke turns off tokens that have already been issued.
-     *
-     * @param  \Hanzo\Cloud\Model\LicensingRevokeRequest $licensing_revoke_request licensing_revoke_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLicensingRevoke'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LicensingRevokeResponse
-     */
-    public function postLicensingRevoke($licensing_revoke_request, string $contentType = self::contentTypes['postLicensingRevoke'][0])
-    {
-        list($response) = $this->postLicensingRevokeWithHttpInfo($licensing_revoke_request, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postLicensingRevokeWithHttpInfo
-     *
-     * Revoke turns off tokens that have already been issued.
-     *
-     * @param  \Hanzo\Cloud\Model\LicensingRevokeRequest $licensing_revoke_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLicensingRevoke'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LicensingRevokeResponse, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postLicensingRevokeWithHttpInfo($licensing_revoke_request, string $contentType = self::contentTypes['postLicensingRevoke'][0])
-    {
-        $request = $this->postLicensingRevokeRequest($licensing_revoke_request, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\LicensingRevokeResponse',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\LicensingRevokeResponse',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\LicensingRevokeResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postLicensingRevokeAsync
-     *
-     * Revoke turns off tokens that have already been issued.
-     *
-     * @param  \Hanzo\Cloud\Model\LicensingRevokeRequest $licensing_revoke_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLicensingRevoke'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postLicensingRevokeAsync($licensing_revoke_request, string $contentType = self::contentTypes['postLicensingRevoke'][0])
-    {
-        return $this->postLicensingRevokeAsyncWithHttpInfo($licensing_revoke_request, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postLicensingRevokeAsyncWithHttpInfo
-     *
-     * Revoke turns off tokens that have already been issued.
-     *
-     * @param  \Hanzo\Cloud\Model\LicensingRevokeRequest $licensing_revoke_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLicensingRevoke'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postLicensingRevokeAsyncWithHttpInfo($licensing_revoke_request, string $contentType = self::contentTypes['postLicensingRevoke'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\LicensingRevokeResponse';
-        $request = $this->postLicensingRevokeRequest($licensing_revoke_request, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postLicensingRevoke'
-     *
-     * @param  \Hanzo\Cloud\Model\LicensingRevokeRequest $licensing_revoke_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLicensingRevoke'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postLicensingRevokeRequest($licensing_revoke_request, string $contentType = self::contentTypes['postLicensingRevoke'][0])
-    {
-
-        // verify the required parameter 'licensing_revoke_request' is set
-        if ($licensing_revoke_request === null || (is_array($licensing_revoke_request) && count($licensing_revoke_request) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $licensing_revoke_request when calling postLicensingRevoke'
-            );
-        }
-
-
-        $resourcePath = '/v1/licensing/revoke';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($licensing_revoke_request)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($licensing_revoke_request));
-            } else {
-                $httpBody = $licensing_revoke_request;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation postLicensingVerify
      *
      * Verify checks a license token online: signature, schema, expiry, app_id and the revocation list.
@@ -2826,7 +2390,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LicensingVerifyResponse
+     * @return \Hanzo\Cloud\Model\LicensingVerifyResponse|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postLicensingVerify($licensing_verify_request, string $contentType = self::contentTypes['postLicensingVerify'][0])
     {
@@ -2844,7 +2408,7 @@ class LicensingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LicensingVerifyResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LicensingVerifyResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postLicensingVerifyWithHttpInfo($licensing_verify_request, string $contentType = self::contentTypes['postLicensingVerify'][0])
     {
@@ -2880,6 +2444,12 @@ class LicensingApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2908,6 +2478,14 @@ class LicensingApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\LicensingVerifyResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3024,7 +2602,7 @@ class LicensingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

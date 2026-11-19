@@ -77,10 +77,16 @@ class SpaceApi
         'deleteSpaceBySpaceDrivesByDrive' => [
             'application/json',
         ],
+        'deleteSpaceBySpaceDrivesByDriveFilesByWildcard1' => [
+            'application/json',
+        ],
         'getSpaceBySpaceDrives' => [
             'application/json',
         ],
         'getSpaceBySpaceDrivesByDriveFiles' => [
+            'application/json',
+        ],
+        'getSpaceBySpaceDrivesByDriveFilesByWildcard1' => [
             'application/json',
         ],
         'getSpaceHealth' => [
@@ -93,6 +99,9 @@ class SpaceApi
             'application/json',
         ],
         'postSpaceSpaces' => [
+            'application/json',
+        ],
+        'putSpaceBySpaceDrivesByDriveFilesByWildcard1' => [
             'application/json',
         ],
     ];
@@ -204,6 +213,14 @@ class SpaceApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -329,7 +346,277 @@ class SpaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteSpaceBySpaceDrivesByDriveFilesByWildcard1
+     *
+     * Removes one file and answers 204.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteSpaceBySpaceDrivesByDriveFilesByWildcard1($space, $drive, $wildcard1, string $contentType = self::contentTypes['deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        $this->deleteSpaceBySpaceDrivesByDriveFilesByWildcard1WithHttpInfo($space, $drive, $wildcard1, $contentType);
+    }
+
+    /**
+     * Operation deleteSpaceBySpaceDrivesByDriveFilesByWildcard1WithHttpInfo
+     *
+     * Removes one file and answers 204.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteSpaceBySpaceDrivesByDriveFilesByWildcard1WithHttpInfo($space, $drive, $wildcard1, string $contentType = self::contentTypes['deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        $request = $this->deleteSpaceBySpaceDrivesByDriveFilesByWildcard1Request($space, $drive, $wildcard1, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteSpaceBySpaceDrivesByDriveFilesByWildcard1Async
+     *
+     * Removes one file and answers 204.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteSpaceBySpaceDrivesByDriveFilesByWildcard1Async($space, $drive, $wildcard1, string $contentType = self::contentTypes['deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        return $this->deleteSpaceBySpaceDrivesByDriveFilesByWildcard1AsyncWithHttpInfo($space, $drive, $wildcard1, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteSpaceBySpaceDrivesByDriveFilesByWildcard1AsyncWithHttpInfo
+     *
+     * Removes one file and answers 204.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteSpaceBySpaceDrivesByDriveFilesByWildcard1AsyncWithHttpInfo($space, $drive, $wildcard1, string $contentType = self::contentTypes['deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteSpaceBySpaceDrivesByDriveFilesByWildcard1Request($space, $drive, $wildcard1, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteSpaceBySpaceDrivesByDriveFilesByWildcard1Request($space, $drive, $wildcard1, string $contentType = self::contentTypes['deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+
+        // verify the required parameter 'space' is set
+        if ($space === null || (is_array($space) && count($space) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $space when calling deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'
+            );
+        }
+
+        // verify the required parameter 'drive' is set
+        if ($drive === null || (is_array($drive) && count($drive) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $drive when calling deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'
+            );
+        }
+
+        // verify the required parameter 'wildcard1' is set
+        if ($wildcard1 === null || (is_array($wildcard1) && count($wildcard1) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $wildcard1 when calling deleteSpaceBySpaceDrivesByDriveFilesByWildcard1'
+            );
+        }
+
+
+        $resourcePath = '/v1/space/{space}/drives/{drive}/files/{wildcard1}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($space !== null) {
+            $resourcePath = str_replace(
+                '{' . 'space' . '}',
+                ObjectSerializer::toPathValue($space),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($drive !== null) {
+            $resourcePath = str_replace(
+                '{' . 'drive' . '}',
+                ObjectSerializer::toPathValue($drive),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($wildcard1 !== null) {
+            $resourcePath = str_replace(
+                '{' . 'wildcard1' . '}',
+                ObjectSerializer::toPathValue($wildcard1),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -395,7 +682,7 @@ class SpaceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DriveList
+     * @return \Hanzo\Cloud\Model\SpaceDriveList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSpaceBySpaceDrives($space, string $contentType = self::contentTypes['getSpaceBySpaceDrives'][0])
     {
@@ -413,7 +700,7 @@ class SpaceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DriveList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SpaceDriveList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSpaceBySpaceDrivesWithHttpInfo($space, string $contentType = self::contentTypes['getSpaceBySpaceDrives'][0])
     {
@@ -445,7 +732,13 @@ class SpaceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DriveList',
+                        '\Hanzo\Cloud\Model\SpaceDriveList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -467,7 +760,7 @@ class SpaceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DriveList',
+                '\Hanzo\Cloud\Model\SpaceDriveList',
                 $request,
                 $response,
             );
@@ -476,7 +769,15 @@ class SpaceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DriveList',
+                        '\Hanzo\Cloud\Model\SpaceDriveList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -522,7 +823,7 @@ class SpaceApi
      */
     public function getSpaceBySpaceDrivesAsyncWithHttpInfo($space, string $contentType = self::contentTypes['getSpaceBySpaceDrives'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DriveList';
+        $returnType = '\Hanzo\Cloud\Model\SpaceDriveList';
         $request = $this->getSpaceBySpaceDrivesRequest($space, $contentType);
 
         return $this->client
@@ -601,7 +902,7 @@ class SpaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -670,7 +971,7 @@ class SpaceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FileList
+     * @return \Hanzo\Cloud\Model\SpaceFileList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSpaceBySpaceDrivesByDriveFiles($space, $drive, $folder = null, $recursive = null, string $contentType = self::contentTypes['getSpaceBySpaceDrivesByDriveFiles'][0])
     {
@@ -691,7 +992,7 @@ class SpaceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FileList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SpaceFileList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSpaceBySpaceDrivesByDriveFilesWithHttpInfo($space, $drive, $folder = null, $recursive = null, string $contentType = self::contentTypes['getSpaceBySpaceDrivesByDriveFiles'][0])
     {
@@ -723,7 +1024,13 @@ class SpaceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FileList',
+                        '\Hanzo\Cloud\Model\SpaceFileList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -745,7 +1052,7 @@ class SpaceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FileList',
+                '\Hanzo\Cloud\Model\SpaceFileList',
                 $request,
                 $response,
             );
@@ -754,7 +1061,15 @@ class SpaceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FileList',
+                        '\Hanzo\Cloud\Model\SpaceFileList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -806,7 +1121,7 @@ class SpaceApi
      */
     public function getSpaceBySpaceDrivesByDriveFilesAsyncWithHttpInfo($space, $drive, $folder = null, $recursive = null, string $contentType = self::contentTypes['getSpaceBySpaceDrivesByDriveFiles'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FileList';
+        $returnType = '\Hanzo\Cloud\Model\SpaceFileList';
         $request = $this->getSpaceBySpaceDrivesByDriveFilesRequest($space, $drive, $folder, $recursive, $contentType);
 
         return $this->client
@@ -923,7 +1238,333 @@ class SpaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getSpaceBySpaceDrivesByDriveFilesByWildcard1
+     *
+     * Mints a URL the caller downloads the file from DIRECTLY.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SpaceFileURL|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getSpaceBySpaceDrivesByDriveFilesByWildcard1($space, $drive, $wildcard1, string $contentType = self::contentTypes['getSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        list($response) = $this->getSpaceBySpaceDrivesByDriveFilesByWildcard1WithHttpInfo($space, $drive, $wildcard1, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getSpaceBySpaceDrivesByDriveFilesByWildcard1WithHttpInfo
+     *
+     * Mints a URL the caller downloads the file from DIRECTLY.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SpaceFileURL|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getSpaceBySpaceDrivesByDriveFilesByWildcard1WithHttpInfo($space, $drive, $wildcard1, string $contentType = self::contentTypes['getSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        $request = $this->getSpaceBySpaceDrivesByDriveFilesByWildcard1Request($space, $drive, $wildcard1, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SpaceFileURL',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SpaceFileURL',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SpaceFileURL',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getSpaceBySpaceDrivesByDriveFilesByWildcard1Async
+     *
+     * Mints a URL the caller downloads the file from DIRECTLY.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSpaceBySpaceDrivesByDriveFilesByWildcard1Async($space, $drive, $wildcard1, string $contentType = self::contentTypes['getSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        return $this->getSpaceBySpaceDrivesByDriveFilesByWildcard1AsyncWithHttpInfo($space, $drive, $wildcard1, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getSpaceBySpaceDrivesByDriveFilesByWildcard1AsyncWithHttpInfo
+     *
+     * Mints a URL the caller downloads the file from DIRECTLY.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSpaceBySpaceDrivesByDriveFilesByWildcard1AsyncWithHttpInfo($space, $drive, $wildcard1, string $contentType = self::contentTypes['getSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SpaceFileURL';
+        $request = $this->getSpaceBySpaceDrivesByDriveFilesByWildcard1Request($space, $drive, $wildcard1, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getSpaceBySpaceDrivesByDriveFilesByWildcard1'
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getSpaceBySpaceDrivesByDriveFilesByWildcard1Request($space, $drive, $wildcard1, string $contentType = self::contentTypes['getSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+
+        // verify the required parameter 'space' is set
+        if ($space === null || (is_array($space) && count($space) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $space when calling getSpaceBySpaceDrivesByDriveFilesByWildcard1'
+            );
+        }
+
+        // verify the required parameter 'drive' is set
+        if ($drive === null || (is_array($drive) && count($drive) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $drive when calling getSpaceBySpaceDrivesByDriveFilesByWildcard1'
+            );
+        }
+
+        // verify the required parameter 'wildcard1' is set
+        if ($wildcard1 === null || (is_array($wildcard1) && count($wildcard1) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $wildcard1 when calling getSpaceBySpaceDrivesByDriveFilesByWildcard1'
+            );
+        }
+
+
+        $resourcePath = '/v1/space/{space}/drives/{drive}/files/{wildcard1}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($space !== null) {
+            $resourcePath = str_replace(
+                '{' . 'space' . '}',
+                ObjectSerializer::toPathValue($space),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($drive !== null) {
+            $resourcePath = str_replace(
+                '{' . 'drive' . '}',
+                ObjectSerializer::toPathValue($drive),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($wildcard1 !== null) {
+            $resourcePath = str_replace(
+                '{' . 'wildcard1' . '}',
+                ObjectSerializer::toPathValue($wildcard1),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -982,13 +1623,13 @@ class SpaceApi
     /**
      * Operation getSpaceHealth
      *
-     * Health reports whether this deployment can serve spaces, drives and files.
+     * Reports whether this deployment can serve spaces, drives and files.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpaceHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SpaceHealth|\Hanzo\Cloud\Model\SpaceHealth
+     * @return \Hanzo\Cloud\Model\SpaceSpaceHealth|\Hanzo\Cloud\Model\SpaceSpaceHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSpaceHealth(string $contentType = self::contentTypes['getSpaceHealth'][0])
     {
@@ -999,13 +1640,13 @@ class SpaceApi
     /**
      * Operation getSpaceHealthWithHttpInfo
      *
-     * Health reports whether this deployment can serve spaces, drives and files.
+     * Reports whether this deployment can serve spaces, drives and files.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpaceHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SpaceHealth|\Hanzo\Cloud\Model\SpaceHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SpaceSpaceHealth|\Hanzo\Cloud\Model\SpaceSpaceHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSpaceHealthWithHttpInfo(string $contentType = self::contentTypes['getSpaceHealth'][0])
     {
@@ -1037,13 +1678,19 @@ class SpaceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SpaceHealth',
+                        '\Hanzo\Cloud\Model\SpaceSpaceHealth',
                         $request,
                         $response,
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SpaceHealth',
+                        '\Hanzo\Cloud\Model\SpaceSpaceHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1065,7 +1712,7 @@ class SpaceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SpaceHealth',
+                '\Hanzo\Cloud\Model\SpaceSpaceHealth',
                 $request,
                 $response,
             );
@@ -1074,7 +1721,7 @@ class SpaceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SpaceHealth',
+                        '\Hanzo\Cloud\Model\SpaceSpaceHealth',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1082,7 +1729,15 @@ class SpaceApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SpaceHealth',
+                        '\Hanzo\Cloud\Model\SpaceSpaceHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1097,7 +1752,7 @@ class SpaceApi
     /**
      * Operation getSpaceHealthAsync
      *
-     * Health reports whether this deployment can serve spaces, drives and files.
+     * Reports whether this deployment can serve spaces, drives and files.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpaceHealth'] to see the possible values for this operation
      *
@@ -1117,7 +1772,7 @@ class SpaceApi
     /**
      * Operation getSpaceHealthAsyncWithHttpInfo
      *
-     * Health reports whether this deployment can serve spaces, drives and files.
+     * Reports whether this deployment can serve spaces, drives and files.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpaceHealth'] to see the possible values for this operation
      *
@@ -1126,7 +1781,7 @@ class SpaceApi
      */
     public function getSpaceHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getSpaceHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SpaceHealth';
+        $returnType = '\Hanzo\Cloud\Model\SpaceSpaceHealth';
         $request = $this->getSpaceHealthRequest($contentType);
 
         return $this->client
@@ -1189,7 +1844,7 @@ class SpaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1254,7 +1909,7 @@ class SpaceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SpaceList
+     * @return \Hanzo\Cloud\Model\SpaceSpaceList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSpaceSpaces(string $contentType = self::contentTypes['getSpaceSpaces'][0])
     {
@@ -1271,7 +1926,7 @@ class SpaceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SpaceList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SpaceSpaceList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSpaceSpacesWithHttpInfo(string $contentType = self::contentTypes['getSpaceSpaces'][0])
     {
@@ -1303,7 +1958,13 @@ class SpaceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SpaceList',
+                        '\Hanzo\Cloud\Model\SpaceSpaceList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1325,7 +1986,7 @@ class SpaceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SpaceList',
+                '\Hanzo\Cloud\Model\SpaceSpaceList',
                 $request,
                 $response,
             );
@@ -1334,7 +1995,15 @@ class SpaceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SpaceList',
+                        '\Hanzo\Cloud\Model\SpaceSpaceList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1378,7 +2047,7 @@ class SpaceApi
      */
     public function getSpaceSpacesAsyncWithHttpInfo(string $contentType = self::contentTypes['getSpaceSpaces'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SpaceList';
+        $returnType = '\Hanzo\Cloud\Model\SpaceSpaceList';
         $request = $this->getSpaceSpacesRequest($contentType);
 
         return $this->client
@@ -1441,7 +2110,7 @@ class SpaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1503,16 +2172,16 @@ class SpaceApi
      * Makes a new drive in a space and answers 201 with it.
      *
      * @param  string $space Space is the space to create the drive in, from the path. It carries NO &#x60;url:\&quot;-\&quot;&#x60;, unlike the field below it, and the difference is the whole reason both tags are written out: zip&#39;s binder skips a field tagged \&quot;-\&quot; for EVERY URL source, path params included, so a path-borne value that carried it would arrive empty and the create would refuse a perfectly good address. (required)
-     * @param  \Hanzo\Cloud\Model\DriveIn $drive_in drive_in (required)
+     * @param  \Hanzo\Cloud\Model\SpaceDriveIn $space_drive_in space_drive_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSpaceBySpaceDrives'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DriveItem
+     * @return \Hanzo\Cloud\Model\SpaceDriveItem|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postSpaceBySpaceDrives($space, $drive_in, string $contentType = self::contentTypes['postSpaceBySpaceDrives'][0])
+    public function postSpaceBySpaceDrives($space, $space_drive_in, string $contentType = self::contentTypes['postSpaceBySpaceDrives'][0])
     {
-        list($response) = $this->postSpaceBySpaceDrivesWithHttpInfo($space, $drive_in, $contentType);
+        list($response) = $this->postSpaceBySpaceDrivesWithHttpInfo($space, $space_drive_in, $contentType);
         return $response;
     }
 
@@ -1522,16 +2191,16 @@ class SpaceApi
      * Makes a new drive in a space and answers 201 with it.
      *
      * @param  string $space Space is the space to create the drive in, from the path. It carries NO &#x60;url:\&quot;-\&quot;&#x60;, unlike the field below it, and the difference is the whole reason both tags are written out: zip&#39;s binder skips a field tagged \&quot;-\&quot; for EVERY URL source, path params included, so a path-borne value that carried it would arrive empty and the create would refuse a perfectly good address. (required)
-     * @param  \Hanzo\Cloud\Model\DriveIn $drive_in (required)
+     * @param  \Hanzo\Cloud\Model\SpaceDriveIn $space_drive_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSpaceBySpaceDrives'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DriveItem, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SpaceDriveItem|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postSpaceBySpaceDrivesWithHttpInfo($space, $drive_in, string $contentType = self::contentTypes['postSpaceBySpaceDrives'][0])
+    public function postSpaceBySpaceDrivesWithHttpInfo($space, $space_drive_in, string $contentType = self::contentTypes['postSpaceBySpaceDrives'][0])
     {
-        $request = $this->postSpaceBySpaceDrivesRequest($space, $drive_in, $contentType);
+        $request = $this->postSpaceBySpaceDrivesRequest($space, $space_drive_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1559,7 +2228,13 @@ class SpaceApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DriveItem',
+                        '\Hanzo\Cloud\Model\SpaceDriveItem',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1581,7 +2256,7 @@ class SpaceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DriveItem',
+                '\Hanzo\Cloud\Model\SpaceDriveItem',
                 $request,
                 $response,
             );
@@ -1590,7 +2265,15 @@ class SpaceApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DriveItem',
+                        '\Hanzo\Cloud\Model\SpaceDriveItem',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1608,15 +2291,15 @@ class SpaceApi
      * Makes a new drive in a space and answers 201 with it.
      *
      * @param  string $space Space is the space to create the drive in, from the path. It carries NO &#x60;url:\&quot;-\&quot;&#x60;, unlike the field below it, and the difference is the whole reason both tags are written out: zip&#39;s binder skips a field tagged \&quot;-\&quot; for EVERY URL source, path params included, so a path-borne value that carried it would arrive empty and the create would refuse a perfectly good address. (required)
-     * @param  \Hanzo\Cloud\Model\DriveIn $drive_in (required)
+     * @param  \Hanzo\Cloud\Model\SpaceDriveIn $space_drive_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSpaceBySpaceDrives'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSpaceBySpaceDrivesAsync($space, $drive_in, string $contentType = self::contentTypes['postSpaceBySpaceDrives'][0])
+    public function postSpaceBySpaceDrivesAsync($space, $space_drive_in, string $contentType = self::contentTypes['postSpaceBySpaceDrives'][0])
     {
-        return $this->postSpaceBySpaceDrivesAsyncWithHttpInfo($space, $drive_in, $contentType)
+        return $this->postSpaceBySpaceDrivesAsyncWithHttpInfo($space, $space_drive_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1630,16 +2313,16 @@ class SpaceApi
      * Makes a new drive in a space and answers 201 with it.
      *
      * @param  string $space Space is the space to create the drive in, from the path. It carries NO &#x60;url:\&quot;-\&quot;&#x60;, unlike the field below it, and the difference is the whole reason both tags are written out: zip&#39;s binder skips a field tagged \&quot;-\&quot; for EVERY URL source, path params included, so a path-borne value that carried it would arrive empty and the create would refuse a perfectly good address. (required)
-     * @param  \Hanzo\Cloud\Model\DriveIn $drive_in (required)
+     * @param  \Hanzo\Cloud\Model\SpaceDriveIn $space_drive_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSpaceBySpaceDrives'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSpaceBySpaceDrivesAsyncWithHttpInfo($space, $drive_in, string $contentType = self::contentTypes['postSpaceBySpaceDrives'][0])
+    public function postSpaceBySpaceDrivesAsyncWithHttpInfo($space, $space_drive_in, string $contentType = self::contentTypes['postSpaceBySpaceDrives'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DriveItem';
-        $request = $this->postSpaceBySpaceDrivesRequest($space, $drive_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SpaceDriveItem';
+        $request = $this->postSpaceBySpaceDrivesRequest($space, $space_drive_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1681,13 +2364,13 @@ class SpaceApi
      * Create request for operation 'postSpaceBySpaceDrives'
      *
      * @param  string $space Space is the space to create the drive in, from the path. It carries NO &#x60;url:\&quot;-\&quot;&#x60;, unlike the field below it, and the difference is the whole reason both tags are written out: zip&#39;s binder skips a field tagged \&quot;-\&quot; for EVERY URL source, path params included, so a path-borne value that carried it would arrive empty and the create would refuse a perfectly good address. (required)
-     * @param  \Hanzo\Cloud\Model\DriveIn $drive_in (required)
+     * @param  \Hanzo\Cloud\Model\SpaceDriveIn $space_drive_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSpaceBySpaceDrives'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postSpaceBySpaceDrivesRequest($space, $drive_in, string $contentType = self::contentTypes['postSpaceBySpaceDrives'][0])
+    public function postSpaceBySpaceDrivesRequest($space, $space_drive_in, string $contentType = self::contentTypes['postSpaceBySpaceDrives'][0])
     {
 
         // verify the required parameter 'space' is set
@@ -1697,10 +2380,10 @@ class SpaceApi
             );
         }
 
-        // verify the required parameter 'drive_in' is set
-        if ($drive_in === null || (is_array($drive_in) && count($drive_in) === 0)) {
+        // verify the required parameter 'space_drive_in' is set
+        if ($space_drive_in === null || (is_array($space_drive_in) && count($space_drive_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $drive_in when calling postSpaceBySpaceDrives'
+                'Missing the required parameter $space_drive_in when calling postSpaceBySpaceDrives'
             );
         }
 
@@ -1725,18 +2408,18 @@ class SpaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($drive_in)) {
+        if (isset($space_drive_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($drive_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($space_drive_in));
             } else {
-                $httpBody = $drive_in;
+                $httpBody = $space_drive_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1793,16 +2476,16 @@ class SpaceApi
      *
      * Makes a new space for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\SpaceIn $space_in space_in (required)
+     * @param  \Hanzo\Cloud\Model\SpaceSpaceIn $space_space_in space_space_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSpaceSpaces'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SpaceItem
+     * @return \Hanzo\Cloud\Model\SpaceSpaceItem|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postSpaceSpaces($space_in, string $contentType = self::contentTypes['postSpaceSpaces'][0])
+    public function postSpaceSpaces($space_space_in, string $contentType = self::contentTypes['postSpaceSpaces'][0])
     {
-        list($response) = $this->postSpaceSpacesWithHttpInfo($space_in, $contentType);
+        list($response) = $this->postSpaceSpacesWithHttpInfo($space_space_in, $contentType);
         return $response;
     }
 
@@ -1811,16 +2494,16 @@ class SpaceApi
      *
      * Makes a new space for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\SpaceIn $space_in (required)
+     * @param  \Hanzo\Cloud\Model\SpaceSpaceIn $space_space_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSpaceSpaces'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SpaceItem, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SpaceSpaceItem|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postSpaceSpacesWithHttpInfo($space_in, string $contentType = self::contentTypes['postSpaceSpaces'][0])
+    public function postSpaceSpacesWithHttpInfo($space_space_in, string $contentType = self::contentTypes['postSpaceSpaces'][0])
     {
-        $request = $this->postSpaceSpacesRequest($space_in, $contentType);
+        $request = $this->postSpaceSpacesRequest($space_space_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1848,7 +2531,13 @@ class SpaceApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SpaceItem',
+                        '\Hanzo\Cloud\Model\SpaceSpaceItem',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1870,7 +2559,7 @@ class SpaceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SpaceItem',
+                '\Hanzo\Cloud\Model\SpaceSpaceItem',
                 $request,
                 $response,
             );
@@ -1879,7 +2568,15 @@ class SpaceApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SpaceItem',
+                        '\Hanzo\Cloud\Model\SpaceSpaceItem',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1896,15 +2593,15 @@ class SpaceApi
      *
      * Makes a new space for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\SpaceIn $space_in (required)
+     * @param  \Hanzo\Cloud\Model\SpaceSpaceIn $space_space_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSpaceSpaces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSpaceSpacesAsync($space_in, string $contentType = self::contentTypes['postSpaceSpaces'][0])
+    public function postSpaceSpacesAsync($space_space_in, string $contentType = self::contentTypes['postSpaceSpaces'][0])
     {
-        return $this->postSpaceSpacesAsyncWithHttpInfo($space_in, $contentType)
+        return $this->postSpaceSpacesAsyncWithHttpInfo($space_space_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1917,16 +2614,16 @@ class SpaceApi
      *
      * Makes a new space for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\SpaceIn $space_in (required)
+     * @param  \Hanzo\Cloud\Model\SpaceSpaceIn $space_space_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSpaceSpaces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSpaceSpacesAsyncWithHttpInfo($space_in, string $contentType = self::contentTypes['postSpaceSpaces'][0])
+    public function postSpaceSpacesAsyncWithHttpInfo($space_space_in, string $contentType = self::contentTypes['postSpaceSpaces'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SpaceItem';
-        $request = $this->postSpaceSpacesRequest($space_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SpaceSpaceItem';
+        $request = $this->postSpaceSpacesRequest($space_space_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1967,19 +2664,19 @@ class SpaceApi
     /**
      * Create request for operation 'postSpaceSpaces'
      *
-     * @param  \Hanzo\Cloud\Model\SpaceIn $space_in (required)
+     * @param  \Hanzo\Cloud\Model\SpaceSpaceIn $space_space_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSpaceSpaces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postSpaceSpacesRequest($space_in, string $contentType = self::contentTypes['postSpaceSpaces'][0])
+    public function postSpaceSpacesRequest($space_space_in, string $contentType = self::contentTypes['postSpaceSpaces'][0])
     {
 
-        // verify the required parameter 'space_in' is set
-        if ($space_in === null || (is_array($space_in) && count($space_in) === 0)) {
+        // verify the required parameter 'space_space_in' is set
+        if ($space_space_in === null || (is_array($space_space_in) && count($space_space_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $space_in when calling postSpaceSpaces'
+                'Missing the required parameter $space_space_in when calling postSpaceSpaces'
             );
         }
 
@@ -1996,18 +2693,18 @@ class SpaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($space_in)) {
+        if (isset($space_space_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($space_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($space_space_in));
             } else {
-                $httpBody = $space_in;
+                $httpBody = $space_space_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2053,6 +2750,332 @@ class SpaceApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putSpaceBySpaceDrivesByDriveFilesByWildcard1
+     *
+     * Mints a URL the caller uploads the file to DIRECTLY.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SpaceFileURL|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putSpaceBySpaceDrivesByDriveFilesByWildcard1($space, $drive, $wildcard1, string $contentType = self::contentTypes['putSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        list($response) = $this->putSpaceBySpaceDrivesByDriveFilesByWildcard1WithHttpInfo($space, $drive, $wildcard1, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putSpaceBySpaceDrivesByDriveFilesByWildcard1WithHttpInfo
+     *
+     * Mints a URL the caller uploads the file to DIRECTLY.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SpaceFileURL|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putSpaceBySpaceDrivesByDriveFilesByWildcard1WithHttpInfo($space, $drive, $wildcard1, string $contentType = self::contentTypes['putSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        $request = $this->putSpaceBySpaceDrivesByDriveFilesByWildcard1Request($space, $drive, $wildcard1, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SpaceFileURL',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SpaceFileURL',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SpaceFileURL',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putSpaceBySpaceDrivesByDriveFilesByWildcard1Async
+     *
+     * Mints a URL the caller uploads the file to DIRECTLY.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putSpaceBySpaceDrivesByDriveFilesByWildcard1Async($space, $drive, $wildcard1, string $contentType = self::contentTypes['putSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        return $this->putSpaceBySpaceDrivesByDriveFilesByWildcard1AsyncWithHttpInfo($space, $drive, $wildcard1, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putSpaceBySpaceDrivesByDriveFilesByWildcard1AsyncWithHttpInfo
+     *
+     * Mints a URL the caller uploads the file to DIRECTLY.
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putSpaceBySpaceDrivesByDriveFilesByWildcard1AsyncWithHttpInfo($space, $drive, $wildcard1, string $contentType = self::contentTypes['putSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SpaceFileURL';
+        $request = $this->putSpaceBySpaceDrivesByDriveFilesByWildcard1Request($space, $drive, $wildcard1, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putSpaceBySpaceDrivesByDriveFilesByWildcard1'
+     *
+     * @param  string $space Space is the space&#39;s name, from the path. (required)
+     * @param  string $drive Drive is the drive&#39;s name, from the path. (required)
+     * @param  string $wildcard1 File is the file&#39;s name within the drive — everything after that drive&#39;s /files/. It MAY contain \&quot;/\&quot;, because a folder is emergent from the name and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one file in two folders, not three names. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the drive, and a name that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSpaceBySpaceDrivesByDriveFilesByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putSpaceBySpaceDrivesByDriveFilesByWildcard1Request($space, $drive, $wildcard1, string $contentType = self::contentTypes['putSpaceBySpaceDrivesByDriveFilesByWildcard1'][0])
+    {
+
+        // verify the required parameter 'space' is set
+        if ($space === null || (is_array($space) && count($space) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $space when calling putSpaceBySpaceDrivesByDriveFilesByWildcard1'
+            );
+        }
+
+        // verify the required parameter 'drive' is set
+        if ($drive === null || (is_array($drive) && count($drive) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $drive when calling putSpaceBySpaceDrivesByDriveFilesByWildcard1'
+            );
+        }
+
+        // verify the required parameter 'wildcard1' is set
+        if ($wildcard1 === null || (is_array($wildcard1) && count($wildcard1) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $wildcard1 when calling putSpaceBySpaceDrivesByDriveFilesByWildcard1'
+            );
+        }
+
+
+        $resourcePath = '/v1/space/{space}/drives/{drive}/files/{wildcard1}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($space !== null) {
+            $resourcePath = str_replace(
+                '{' . 'space' . '}',
+                ObjectSerializer::toPathValue($space),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($drive !== null) {
+            $resourcePath = str_replace(
+                '{' . 'drive' . '}',
+                ObjectSerializer::toPathValue($drive),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($wildcard1 !== null) {
+            $resourcePath = str_replace(
+                '{' . 'wildcard1' . '}',
+                ObjectSerializer::toPathValue($wildcard1),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

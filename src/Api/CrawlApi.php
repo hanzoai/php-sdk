@@ -130,16 +130,16 @@ class CrawlApi
      *
      * Fetch one URL and read it back as markdown
      *
-     * @param  \Hanzo\Cloud\Model\CrawlRequest $crawl_request crawl_request (required)
+     * @param  \Hanzo\Cloud\Model\CrawlCrawlRequest $crawl_crawl_request crawl_crawl_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readPage'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CrawlResult|\Hanzo\Cloud\Model\CrawlResult
+     * @return \Hanzo\Cloud\Model\CrawlCrawlResult|\Hanzo\Cloud\Model\CrawlCrawlResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function readPage($crawl_request, string $contentType = self::contentTypes['readPage'][0])
+    public function readPage($crawl_crawl_request, string $contentType = self::contentTypes['readPage'][0])
     {
-        list($response) = $this->readPageWithHttpInfo($crawl_request, $contentType);
+        list($response) = $this->readPageWithHttpInfo($crawl_crawl_request, $contentType);
         return $response;
     }
 
@@ -148,16 +148,16 @@ class CrawlApi
      *
      * Fetch one URL and read it back as markdown
      *
-     * @param  \Hanzo\Cloud\Model\CrawlRequest $crawl_request (required)
+     * @param  \Hanzo\Cloud\Model\CrawlCrawlRequest $crawl_crawl_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readPage'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CrawlResult|\Hanzo\Cloud\Model\CrawlResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CrawlCrawlResult|\Hanzo\Cloud\Model\CrawlCrawlResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function readPageWithHttpInfo($crawl_request, string $contentType = self::contentTypes['readPage'][0])
+    public function readPageWithHttpInfo($crawl_crawl_request, string $contentType = self::contentTypes['readPage'][0])
     {
-        $request = $this->readPageRequest($crawl_request, $contentType);
+        $request = $this->readPageRequest($crawl_crawl_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -185,13 +185,19 @@ class CrawlApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CrawlResult',
+                        '\Hanzo\Cloud\Model\CrawlCrawlResult',
                         $request,
                         $response,
                     );
                 case 400:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CrawlResult',
+                        '\Hanzo\Cloud\Model\CrawlCrawlResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -213,7 +219,7 @@ class CrawlApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CrawlResult',
+                '\Hanzo\Cloud\Model\CrawlCrawlResult',
                 $request,
                 $response,
             );
@@ -222,7 +228,7 @@ class CrawlApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CrawlResult',
+                        '\Hanzo\Cloud\Model\CrawlCrawlResult',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -230,7 +236,15 @@ class CrawlApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CrawlResult',
+                        '\Hanzo\Cloud\Model\CrawlCrawlResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -247,15 +261,15 @@ class CrawlApi
      *
      * Fetch one URL and read it back as markdown
      *
-     * @param  \Hanzo\Cloud\Model\CrawlRequest $crawl_request (required)
+     * @param  \Hanzo\Cloud\Model\CrawlCrawlRequest $crawl_crawl_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readPage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function readPageAsync($crawl_request, string $contentType = self::contentTypes['readPage'][0])
+    public function readPageAsync($crawl_crawl_request, string $contentType = self::contentTypes['readPage'][0])
     {
-        return $this->readPageAsyncWithHttpInfo($crawl_request, $contentType)
+        return $this->readPageAsyncWithHttpInfo($crawl_crawl_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -268,16 +282,16 @@ class CrawlApi
      *
      * Fetch one URL and read it back as markdown
      *
-     * @param  \Hanzo\Cloud\Model\CrawlRequest $crawl_request (required)
+     * @param  \Hanzo\Cloud\Model\CrawlCrawlRequest $crawl_crawl_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readPage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function readPageAsyncWithHttpInfo($crawl_request, string $contentType = self::contentTypes['readPage'][0])
+    public function readPageAsyncWithHttpInfo($crawl_crawl_request, string $contentType = self::contentTypes['readPage'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CrawlResult';
-        $request = $this->readPageRequest($crawl_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CrawlCrawlResult';
+        $request = $this->readPageRequest($crawl_crawl_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -318,19 +332,19 @@ class CrawlApi
     /**
      * Create request for operation 'readPage'
      *
-     * @param  \Hanzo\Cloud\Model\CrawlRequest $crawl_request (required)
+     * @param  \Hanzo\Cloud\Model\CrawlCrawlRequest $crawl_crawl_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readPage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function readPageRequest($crawl_request, string $contentType = self::contentTypes['readPage'][0])
+    public function readPageRequest($crawl_crawl_request, string $contentType = self::contentTypes['readPage'][0])
     {
 
-        // verify the required parameter 'crawl_request' is set
-        if ($crawl_request === null || (is_array($crawl_request) && count($crawl_request) === 0)) {
+        // verify the required parameter 'crawl_crawl_request' is set
+        if ($crawl_crawl_request === null || (is_array($crawl_crawl_request) && count($crawl_crawl_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $crawl_request when calling readPage'
+                'Missing the required parameter $crawl_crawl_request when calling readPage'
             );
         }
 
@@ -347,18 +361,18 @@ class CrawlApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($crawl_request)) {
+        if (isset($crawl_crawl_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($crawl_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($crawl_crawl_request));
             } else {
-                $httpBody = $crawl_request;
+                $httpBody = $crawl_crawl_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

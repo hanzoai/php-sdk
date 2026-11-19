@@ -57,7 +57,7 @@ class O11yO11yDashboardVarValues implements ModelInterface, ArrayAccess, \JsonSe
       * @var string[]
       */
     protected static $openAPITypes = [
-        'variable_values' => 'object[]'
+        'variable_values' => 'mixed[]'
     ];
 
     /**
@@ -292,7 +292,7 @@ class O11yO11yDashboardVarValues implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Gets variable_values
      *
-     * @return object[]|null
+     * @return mixed[]|null
      */
     public function getVariableValues()
     {
@@ -302,7 +302,7 @@ class O11yO11yDashboardVarValues implements ModelInterface, ArrayAccess, \JsonSe
     /**
      * Sets variable_values
      *
-     * @param object[]|null $variable_values VariableValues are the values, in the order the query produced them.
+     * @param mixed[]|null $variable_values VariableValues are the values, in the order the query produced them.
      *
      * @return self
      */

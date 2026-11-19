@@ -210,7 +210,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DataroomStats
+     * @return \Hanzo\Cloud\Model\DataroomDataroomStats|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDataroomAnalyticsDataroomByDataroomid($dataroom_id, string $contentType = self::contentTypes['getDataroomAnalyticsDataroomByDataroomid'][0])
     {
@@ -228,7 +228,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DataroomStats, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomDataroomStats|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDataroomAnalyticsDataroomByDataroomidWithHttpInfo($dataroom_id, string $contentType = self::contentTypes['getDataroomAnalyticsDataroomByDataroomid'][0])
     {
@@ -260,7 +260,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DataroomStats',
+                        '\Hanzo\Cloud\Model\DataroomDataroomStats',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -282,7 +288,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DataroomStats',
+                '\Hanzo\Cloud\Model\DataroomDataroomStats',
                 $request,
                 $response,
             );
@@ -291,7 +297,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DataroomStats',
+                        '\Hanzo\Cloud\Model\DataroomDataroomStats',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -337,7 +351,7 @@ class DataroomApi
      */
     public function getDataroomAnalyticsDataroomByDataroomidAsyncWithHttpInfo($dataroom_id, string $contentType = self::contentTypes['getDataroomAnalyticsDataroomByDataroomid'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DataroomStats';
+        $returnType = '\Hanzo\Cloud\Model\DataroomDataroomStats';
         $request = $this->getDataroomAnalyticsDataroomByDataroomidRequest($dataroom_id, $contentType);
 
         return $this->client
@@ -416,7 +430,7 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -482,7 +496,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DataroomLinkStats
+     * @return \Hanzo\Cloud\Model\DataroomDataroomLinkStats|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDataroomAnalyticsLinkByLinkid($link_id, string $contentType = self::contentTypes['getDataroomAnalyticsLinkByLinkid'][0])
     {
@@ -500,7 +514,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DataroomLinkStats, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomDataroomLinkStats|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDataroomAnalyticsLinkByLinkidWithHttpInfo($link_id, string $contentType = self::contentTypes['getDataroomAnalyticsLinkByLinkid'][0])
     {
@@ -532,7 +546,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DataroomLinkStats',
+                        '\Hanzo\Cloud\Model\DataroomDataroomLinkStats',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -554,7 +574,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DataroomLinkStats',
+                '\Hanzo\Cloud\Model\DataroomDataroomLinkStats',
                 $request,
                 $response,
             );
@@ -563,7 +583,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DataroomLinkStats',
+                        '\Hanzo\Cloud\Model\DataroomDataroomLinkStats',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -609,7 +637,7 @@ class DataroomApi
      */
     public function getDataroomAnalyticsLinkByLinkidAsyncWithHttpInfo($link_id, string $contentType = self::contentTypes['getDataroomAnalyticsLinkByLinkid'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DataroomLinkStats';
+        $returnType = '\Hanzo\Cloud\Model\DataroomDataroomLinkStats';
         $request = $this->getDataroomAnalyticsLinkByLinkidRequest($link_id, $contentType);
 
         return $this->client
@@ -688,7 +716,7 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -753,7 +781,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DataroomRooms
+     * @return \Hanzo\Cloud\Model\DataroomDataroomRooms|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDataroomDatarooms(string $contentType = self::contentTypes['getDataroomDatarooms'][0])
     {
@@ -770,7 +798,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DataroomRooms, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomDataroomRooms|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDataroomDataroomsWithHttpInfo(string $contentType = self::contentTypes['getDataroomDatarooms'][0])
     {
@@ -802,7 +830,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DataroomRooms',
+                        '\Hanzo\Cloud\Model\DataroomDataroomRooms',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -824,7 +858,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DataroomRooms',
+                '\Hanzo\Cloud\Model\DataroomDataroomRooms',
                 $request,
                 $response,
             );
@@ -833,7 +867,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DataroomRooms',
+                        '\Hanzo\Cloud\Model\DataroomDataroomRooms',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -877,7 +919,7 @@ class DataroomApi
      */
     public function getDataroomDataroomsAsyncWithHttpInfo(string $contentType = self::contentTypes['getDataroomDatarooms'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DataroomRooms';
+        $returnType = '\Hanzo\Cloud\Model\DataroomDataroomRooms';
         $request = $this->getDataroomDataroomsRequest($contentType);
 
         return $this->client
@@ -940,7 +982,7 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1006,7 +1048,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DataroomRoomDetailOne
+     * @return \Hanzo\Cloud\Model\DataroomDataroomRoomDetailOne|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDataroomDataroomsById($id, string $contentType = self::contentTypes['getDataroomDataroomsById'][0])
     {
@@ -1024,7 +1066,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DataroomRoomDetailOne, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomDataroomRoomDetailOne|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDataroomDataroomsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getDataroomDataroomsById'][0])
     {
@@ -1056,7 +1098,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DataroomRoomDetailOne',
+                        '\Hanzo\Cloud\Model\DataroomDataroomRoomDetailOne',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1078,7 +1126,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DataroomRoomDetailOne',
+                '\Hanzo\Cloud\Model\DataroomDataroomRoomDetailOne',
                 $request,
                 $response,
             );
@@ -1087,7 +1135,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DataroomRoomDetailOne',
+                        '\Hanzo\Cloud\Model\DataroomDataroomRoomDetailOne',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1133,7 +1189,7 @@ class DataroomApi
      */
     public function getDataroomDataroomsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getDataroomDataroomsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DataroomRoomDetailOne';
+        $returnType = '\Hanzo\Cloud\Model\DataroomDataroomRoomDetailOne';
         $request = $this->getDataroomDataroomsByIdRequest($id, $contentType);
 
         return $this->client
@@ -1212,7 +1268,7 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1277,7 +1333,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DataroomDocuments
+     * @return \Hanzo\Cloud\Model\DataroomDataroomDocuments|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDataroomDocuments(string $contentType = self::contentTypes['getDataroomDocuments'][0])
     {
@@ -1294,7 +1350,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DataroomDocuments, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomDataroomDocuments|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDataroomDocumentsWithHttpInfo(string $contentType = self::contentTypes['getDataroomDocuments'][0])
     {
@@ -1326,7 +1382,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DataroomDocuments',
+                        '\Hanzo\Cloud\Model\DataroomDataroomDocuments',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1348,7 +1410,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DataroomDocuments',
+                '\Hanzo\Cloud\Model\DataroomDataroomDocuments',
                 $request,
                 $response,
             );
@@ -1357,7 +1419,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DataroomDocuments',
+                        '\Hanzo\Cloud\Model\DataroomDataroomDocuments',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1401,7 +1471,7 @@ class DataroomApi
      */
     public function getDataroomDocumentsAsyncWithHttpInfo(string $contentType = self::contentTypes['getDataroomDocuments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DataroomDocuments';
+        $returnType = '\Hanzo\Cloud\Model\DataroomDataroomDocuments';
         $request = $this->getDataroomDocumentsRequest($contentType);
 
         return $this->client
@@ -1464,7 +1534,7 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1530,7 +1600,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DataroomDocumentOne
+     * @return \Hanzo\Cloud\Model\DataroomDataroomDocumentOne|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDataroomDocumentsById($id, string $contentType = self::contentTypes['getDataroomDocumentsById'][0])
     {
@@ -1548,7 +1618,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DataroomDocumentOne, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomDataroomDocumentOne|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDataroomDocumentsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getDataroomDocumentsById'][0])
     {
@@ -1580,7 +1650,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DataroomDocumentOne',
+                        '\Hanzo\Cloud\Model\DataroomDataroomDocumentOne',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1602,7 +1678,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DataroomDocumentOne',
+                '\Hanzo\Cloud\Model\DataroomDataroomDocumentOne',
                 $request,
                 $response,
             );
@@ -1611,7 +1687,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DataroomDocumentOne',
+                        '\Hanzo\Cloud\Model\DataroomDataroomDocumentOne',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1657,7 +1741,7 @@ class DataroomApi
      */
     public function getDataroomDocumentsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getDataroomDocumentsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DataroomDocumentOne';
+        $returnType = '\Hanzo\Cloud\Model\DataroomDataroomDocumentOne';
         $request = $this->getDataroomDocumentsByIdRequest($id, $contentType);
 
         return $this->client
@@ -1736,7 +1820,7 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2017,13 +2101,13 @@ class DataroomApi
     /**
      * Operation getDataroomHealth
      *
-     * Health reports that the data room subsystem is up.
+     * Reports that the data room subsystem is up.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDataroomHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DataroomLiveness
+     * @return \Hanzo\Cloud\Model\DataroomDataroomLiveness|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDataroomHealth(string $contentType = self::contentTypes['getDataroomHealth'][0])
     {
@@ -2034,13 +2118,13 @@ class DataroomApi
     /**
      * Operation getDataroomHealthWithHttpInfo
      *
-     * Health reports that the data room subsystem is up.
+     * Reports that the data room subsystem is up.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDataroomHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DataroomLiveness, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomDataroomLiveness|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDataroomHealthWithHttpInfo(string $contentType = self::contentTypes['getDataroomHealth'][0])
     {
@@ -2072,7 +2156,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DataroomLiveness',
+                        '\Hanzo\Cloud\Model\DataroomDataroomLiveness',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2094,7 +2184,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DataroomLiveness',
+                '\Hanzo\Cloud\Model\DataroomDataroomLiveness',
                 $request,
                 $response,
             );
@@ -2103,7 +2193,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DataroomLiveness',
+                        '\Hanzo\Cloud\Model\DataroomDataroomLiveness',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2118,7 +2216,7 @@ class DataroomApi
     /**
      * Operation getDataroomHealthAsync
      *
-     * Health reports that the data room subsystem is up.
+     * Reports that the data room subsystem is up.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDataroomHealth'] to see the possible values for this operation
      *
@@ -2138,7 +2236,7 @@ class DataroomApi
     /**
      * Operation getDataroomHealthAsyncWithHttpInfo
      *
-     * Health reports that the data room subsystem is up.
+     * Reports that the data room subsystem is up.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDataroomHealth'] to see the possible values for this operation
      *
@@ -2147,7 +2245,7 @@ class DataroomApi
      */
     public function getDataroomHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getDataroomHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DataroomLiveness';
+        $returnType = '\Hanzo\Cloud\Model\DataroomDataroomLiveness';
         $request = $this->getDataroomHealthRequest($contentType);
 
         return $this->client
@@ -2210,7 +2308,7 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2275,7 +2373,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DataroomLinks
+     * @return \Hanzo\Cloud\Model\DataroomDataroomLinks|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDataroomLinks(string $contentType = self::contentTypes['getDataroomLinks'][0])
     {
@@ -2292,7 +2390,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DataroomLinks, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomDataroomLinks|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDataroomLinksWithHttpInfo(string $contentType = self::contentTypes['getDataroomLinks'][0])
     {
@@ -2324,7 +2422,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DataroomLinks',
+                        '\Hanzo\Cloud\Model\DataroomDataroomLinks',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2346,7 +2450,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DataroomLinks',
+                '\Hanzo\Cloud\Model\DataroomDataroomLinks',
                 $request,
                 $response,
             );
@@ -2355,7 +2459,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DataroomLinks',
+                        '\Hanzo\Cloud\Model\DataroomDataroomLinks',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2399,7 +2511,7 @@ class DataroomApi
      */
     public function getDataroomLinksAsyncWithHttpInfo(string $contentType = self::contentTypes['getDataroomLinks'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DataroomLinks';
+        $returnType = '\Hanzo\Cloud\Model\DataroomDataroomLinks';
         $request = $this->getDataroomLinksRequest($contentType);
 
         return $this->client
@@ -2462,7 +2574,7 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2527,7 +2639,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrustDesk
+     * @return \Hanzo\Cloud\Model\DataroomTrustDesk|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDataroomTrust(string $contentType = self::contentTypes['getDataroomTrust'][0])
     {
@@ -2544,7 +2656,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrustDesk, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomTrustDesk|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDataroomTrustWithHttpInfo(string $contentType = self::contentTypes['getDataroomTrust'][0])
     {
@@ -2576,7 +2688,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrustDesk',
+                        '\Hanzo\Cloud\Model\DataroomTrustDesk',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2598,7 +2716,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrustDesk',
+                '\Hanzo\Cloud\Model\DataroomTrustDesk',
                 $request,
                 $response,
             );
@@ -2607,7 +2725,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrustDesk',
+                        '\Hanzo\Cloud\Model\DataroomTrustDesk',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2651,7 +2777,7 @@ class DataroomApi
      */
     public function getDataroomTrustAsyncWithHttpInfo(string $contentType = self::contentTypes['getDataroomTrust'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrustDesk';
+        $returnType = '\Hanzo\Cloud\Model\DataroomTrustDesk';
         $request = $this->getDataroomTrustRequest($contentType);
 
         return $this->client
@@ -2714,7 +2840,7 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2780,7 +2906,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrustPage
+     * @return \Hanzo\Cloud\Model\DataroomTrustPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDataroomTrustCenterBySlug($slug, string $contentType = self::contentTypes['getDataroomTrustCenterBySlug'][0])
     {
@@ -2798,7 +2924,7 @@ class DataroomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrustPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomTrustPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDataroomTrustCenterBySlugWithHttpInfo($slug, string $contentType = self::contentTypes['getDataroomTrustCenterBySlug'][0])
     {
@@ -2830,7 +2956,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrustPage',
+                        '\Hanzo\Cloud\Model\DataroomTrustPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2852,7 +2984,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrustPage',
+                '\Hanzo\Cloud\Model\DataroomTrustPage',
                 $request,
                 $response,
             );
@@ -2861,7 +2993,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrustPage',
+                        '\Hanzo\Cloud\Model\DataroomTrustPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2907,7 +3047,7 @@ class DataroomApi
      */
     public function getDataroomTrustCenterBySlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getDataroomTrustCenterBySlug'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrustPage';
+        $returnType = '\Hanzo\Cloud\Model\DataroomTrustPage';
         $request = $this->getDataroomTrustCenterBySlugRequest($slug, $contentType);
 
         return $this->client
@@ -2986,7 +3126,7 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3751,38 +3891,38 @@ class DataroomApi
     /**
      * Operation patchDataroomTrustArtifactsById
      *
-     * Amend changes an item on the caller org&#39;s trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
+     * Changes an item on the caller org&#39;s trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
      *
      * @param  string $id ID is the item to change, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustEdit $trust_edit trust_edit (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustEdit $dataroom_trust_edit dataroom_trust_edit (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchDataroomTrustArtifactsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrustItemView
+     * @return \Hanzo\Cloud\Model\DataroomTrustItemView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function patchDataroomTrustArtifactsById($id, $trust_edit, string $contentType = self::contentTypes['patchDataroomTrustArtifactsById'][0])
+    public function patchDataroomTrustArtifactsById($id, $dataroom_trust_edit, string $contentType = self::contentTypes['patchDataroomTrustArtifactsById'][0])
     {
-        list($response) = $this->patchDataroomTrustArtifactsByIdWithHttpInfo($id, $trust_edit, $contentType);
+        list($response) = $this->patchDataroomTrustArtifactsByIdWithHttpInfo($id, $dataroom_trust_edit, $contentType);
         return $response;
     }
 
     /**
      * Operation patchDataroomTrustArtifactsByIdWithHttpInfo
      *
-     * Amend changes an item on the caller org&#39;s trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
+     * Changes an item on the caller org&#39;s trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
      *
      * @param  string $id ID is the item to change, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustEdit $trust_edit (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustEdit $dataroom_trust_edit (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchDataroomTrustArtifactsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrustItemView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomTrustItemView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchDataroomTrustArtifactsByIdWithHttpInfo($id, $trust_edit, string $contentType = self::contentTypes['patchDataroomTrustArtifactsById'][0])
+    public function patchDataroomTrustArtifactsByIdWithHttpInfo($id, $dataroom_trust_edit, string $contentType = self::contentTypes['patchDataroomTrustArtifactsById'][0])
     {
-        $request = $this->patchDataroomTrustArtifactsByIdRequest($id, $trust_edit, $contentType);
+        $request = $this->patchDataroomTrustArtifactsByIdRequest($id, $dataroom_trust_edit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3810,7 +3950,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrustItemView',
+                        '\Hanzo\Cloud\Model\DataroomTrustItemView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3832,7 +3978,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrustItemView',
+                '\Hanzo\Cloud\Model\DataroomTrustItemView',
                 $request,
                 $response,
             );
@@ -3841,7 +3987,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrustItemView',
+                        '\Hanzo\Cloud\Model\DataroomTrustItemView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3856,18 +4010,18 @@ class DataroomApi
     /**
      * Operation patchDataroomTrustArtifactsByIdAsync
      *
-     * Amend changes an item on the caller org&#39;s trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
+     * Changes an item on the caller org&#39;s trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
      *
      * @param  string $id ID is the item to change, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustEdit $trust_edit (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustEdit $dataroom_trust_edit (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchDataroomTrustArtifactsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchDataroomTrustArtifactsByIdAsync($id, $trust_edit, string $contentType = self::contentTypes['patchDataroomTrustArtifactsById'][0])
+    public function patchDataroomTrustArtifactsByIdAsync($id, $dataroom_trust_edit, string $contentType = self::contentTypes['patchDataroomTrustArtifactsById'][0])
     {
-        return $this->patchDataroomTrustArtifactsByIdAsyncWithHttpInfo($id, $trust_edit, $contentType)
+        return $this->patchDataroomTrustArtifactsByIdAsyncWithHttpInfo($id, $dataroom_trust_edit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3878,19 +4032,19 @@ class DataroomApi
     /**
      * Operation patchDataroomTrustArtifactsByIdAsyncWithHttpInfo
      *
-     * Amend changes an item on the caller org&#39;s trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
+     * Changes an item on the caller org&#39;s trust centre — replace its file with a newer edition, move it between public and gated, rewrite what it says, or retire it — and answers with the item as it now stands.
      *
      * @param  string $id ID is the item to change, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustEdit $trust_edit (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustEdit $dataroom_trust_edit (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchDataroomTrustArtifactsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchDataroomTrustArtifactsByIdAsyncWithHttpInfo($id, $trust_edit, string $contentType = self::contentTypes['patchDataroomTrustArtifactsById'][0])
+    public function patchDataroomTrustArtifactsByIdAsyncWithHttpInfo($id, $dataroom_trust_edit, string $contentType = self::contentTypes['patchDataroomTrustArtifactsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrustItemView';
-        $request = $this->patchDataroomTrustArtifactsByIdRequest($id, $trust_edit, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DataroomTrustItemView';
+        $request = $this->patchDataroomTrustArtifactsByIdRequest($id, $dataroom_trust_edit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3932,13 +4086,13 @@ class DataroomApi
      * Create request for operation 'patchDataroomTrustArtifactsById'
      *
      * @param  string $id ID is the item to change, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustEdit $trust_edit (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustEdit $dataroom_trust_edit (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchDataroomTrustArtifactsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchDataroomTrustArtifactsByIdRequest($id, $trust_edit, string $contentType = self::contentTypes['patchDataroomTrustArtifactsById'][0])
+    public function patchDataroomTrustArtifactsByIdRequest($id, $dataroom_trust_edit, string $contentType = self::contentTypes['patchDataroomTrustArtifactsById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -3948,10 +4102,10 @@ class DataroomApi
             );
         }
 
-        // verify the required parameter 'trust_edit' is set
-        if ($trust_edit === null || (is_array($trust_edit) && count($trust_edit) === 0)) {
+        // verify the required parameter 'dataroom_trust_edit' is set
+        if ($dataroom_trust_edit === null || (is_array($dataroom_trust_edit) && count($dataroom_trust_edit) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $trust_edit when calling patchDataroomTrustArtifactsById'
+                'Missing the required parameter $dataroom_trust_edit when calling patchDataroomTrustArtifactsById'
             );
         }
 
@@ -3976,18 +4130,18 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($trust_edit)) {
+        if (isset($dataroom_trust_edit)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($trust_edit));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_trust_edit));
             } else {
-                $httpBody = $trust_edit;
+                $httpBody = $dataroom_trust_edit;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4044,16 +4198,16 @@ class DataroomApi
      *
      * Opens a new data room for the caller org and answers with it, including the short public id it is addressed by.
      *
-     * @param  \Hanzo\Cloud\Model\DataroomCreate $dataroom_create dataroom_create (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomCreate $dataroom_dataroom_create dataroom_dataroom_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomDatarooms'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DataroomRoomOne
+     * @return \Hanzo\Cloud\Model\DataroomDataroomRoomOne|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postDataroomDatarooms($dataroom_create, string $contentType = self::contentTypes['postDataroomDatarooms'][0])
+    public function postDataroomDatarooms($dataroom_dataroom_create, string $contentType = self::contentTypes['postDataroomDatarooms'][0])
     {
-        list($response) = $this->postDataroomDataroomsWithHttpInfo($dataroom_create, $contentType);
+        list($response) = $this->postDataroomDataroomsWithHttpInfo($dataroom_dataroom_create, $contentType);
         return $response;
     }
 
@@ -4062,16 +4216,16 @@ class DataroomApi
      *
      * Opens a new data room for the caller org and answers with it, including the short public id it is addressed by.
      *
-     * @param  \Hanzo\Cloud\Model\DataroomCreate $dataroom_create (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomCreate $dataroom_dataroom_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomDatarooms'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DataroomRoomOne, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomDataroomRoomOne|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postDataroomDataroomsWithHttpInfo($dataroom_create, string $contentType = self::contentTypes['postDataroomDatarooms'][0])
+    public function postDataroomDataroomsWithHttpInfo($dataroom_dataroom_create, string $contentType = self::contentTypes['postDataroomDatarooms'][0])
     {
-        $request = $this->postDataroomDataroomsRequest($dataroom_create, $contentType);
+        $request = $this->postDataroomDataroomsRequest($dataroom_dataroom_create, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4099,7 +4253,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DataroomRoomOne',
+                        '\Hanzo\Cloud\Model\DataroomDataroomRoomOne',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4121,7 +4281,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DataroomRoomOne',
+                '\Hanzo\Cloud\Model\DataroomDataroomRoomOne',
                 $request,
                 $response,
             );
@@ -4130,7 +4290,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DataroomRoomOne',
+                        '\Hanzo\Cloud\Model\DataroomDataroomRoomOne',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4147,15 +4315,15 @@ class DataroomApi
      *
      * Opens a new data room for the caller org and answers with it, including the short public id it is addressed by.
      *
-     * @param  \Hanzo\Cloud\Model\DataroomCreate $dataroom_create (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomCreate $dataroom_dataroom_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomDatarooms'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomDataroomsAsync($dataroom_create, string $contentType = self::contentTypes['postDataroomDatarooms'][0])
+    public function postDataroomDataroomsAsync($dataroom_dataroom_create, string $contentType = self::contentTypes['postDataroomDatarooms'][0])
     {
-        return $this->postDataroomDataroomsAsyncWithHttpInfo($dataroom_create, $contentType)
+        return $this->postDataroomDataroomsAsyncWithHttpInfo($dataroom_dataroom_create, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4168,16 +4336,16 @@ class DataroomApi
      *
      * Opens a new data room for the caller org and answers with it, including the short public id it is addressed by.
      *
-     * @param  \Hanzo\Cloud\Model\DataroomCreate $dataroom_create (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomCreate $dataroom_dataroom_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomDatarooms'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomDataroomsAsyncWithHttpInfo($dataroom_create, string $contentType = self::contentTypes['postDataroomDatarooms'][0])
+    public function postDataroomDataroomsAsyncWithHttpInfo($dataroom_dataroom_create, string $contentType = self::contentTypes['postDataroomDatarooms'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DataroomRoomOne';
-        $request = $this->postDataroomDataroomsRequest($dataroom_create, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DataroomDataroomRoomOne';
+        $request = $this->postDataroomDataroomsRequest($dataroom_dataroom_create, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4218,19 +4386,19 @@ class DataroomApi
     /**
      * Create request for operation 'postDataroomDatarooms'
      *
-     * @param  \Hanzo\Cloud\Model\DataroomCreate $dataroom_create (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomCreate $dataroom_dataroom_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomDatarooms'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postDataroomDataroomsRequest($dataroom_create, string $contentType = self::contentTypes['postDataroomDatarooms'][0])
+    public function postDataroomDataroomsRequest($dataroom_dataroom_create, string $contentType = self::contentTypes['postDataroomDatarooms'][0])
     {
 
-        // verify the required parameter 'dataroom_create' is set
-        if ($dataroom_create === null || (is_array($dataroom_create) && count($dataroom_create) === 0)) {
+        // verify the required parameter 'dataroom_dataroom_create' is set
+        if ($dataroom_dataroom_create === null || (is_array($dataroom_dataroom_create) && count($dataroom_dataroom_create) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $dataroom_create when calling postDataroomDatarooms'
+                'Missing the required parameter $dataroom_dataroom_create when calling postDataroomDatarooms'
             );
         }
 
@@ -4247,18 +4415,18 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($dataroom_create)) {
+        if (isset($dataroom_dataroom_create)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_create));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_dataroom_create));
             } else {
-                $httpBody = $dataroom_create;
+                $httpBody = $dataroom_dataroom_create;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4316,16 +4484,16 @@ class DataroomApi
      * Puts an already-uploaded document into one of the caller org&#39;s data rooms and answers with the new membership id.
      *
      * @param  string $id ID is the room to add to. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\DataroomAddDocument $dataroom_add_document dataroom_add_document (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomAddDocument $dataroom_dataroom_add_document dataroom_dataroom_add_document (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomDataroomsByIdDocuments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DataroomMembership
+     * @return \Hanzo\Cloud\Model\DataroomDataroomMembership|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postDataroomDataroomsByIdDocuments($id, $dataroom_add_document, string $contentType = self::contentTypes['postDataroomDataroomsByIdDocuments'][0])
+    public function postDataroomDataroomsByIdDocuments($id, $dataroom_dataroom_add_document, string $contentType = self::contentTypes['postDataroomDataroomsByIdDocuments'][0])
     {
-        list($response) = $this->postDataroomDataroomsByIdDocumentsWithHttpInfo($id, $dataroom_add_document, $contentType);
+        list($response) = $this->postDataroomDataroomsByIdDocumentsWithHttpInfo($id, $dataroom_dataroom_add_document, $contentType);
         return $response;
     }
 
@@ -4335,16 +4503,16 @@ class DataroomApi
      * Puts an already-uploaded document into one of the caller org&#39;s data rooms and answers with the new membership id.
      *
      * @param  string $id ID is the room to add to. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\DataroomAddDocument $dataroom_add_document (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomAddDocument $dataroom_dataroom_add_document (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomDataroomsByIdDocuments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DataroomMembership, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomDataroomMembership|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postDataroomDataroomsByIdDocumentsWithHttpInfo($id, $dataroom_add_document, string $contentType = self::contentTypes['postDataroomDataroomsByIdDocuments'][0])
+    public function postDataroomDataroomsByIdDocumentsWithHttpInfo($id, $dataroom_dataroom_add_document, string $contentType = self::contentTypes['postDataroomDataroomsByIdDocuments'][0])
     {
-        $request = $this->postDataroomDataroomsByIdDocumentsRequest($id, $dataroom_add_document, $contentType);
+        $request = $this->postDataroomDataroomsByIdDocumentsRequest($id, $dataroom_dataroom_add_document, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4372,7 +4540,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DataroomMembership',
+                        '\Hanzo\Cloud\Model\DataroomDataroomMembership',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4394,7 +4568,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DataroomMembership',
+                '\Hanzo\Cloud\Model\DataroomDataroomMembership',
                 $request,
                 $response,
             );
@@ -4403,7 +4577,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DataroomMembership',
+                        '\Hanzo\Cloud\Model\DataroomDataroomMembership',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4421,15 +4603,15 @@ class DataroomApi
      * Puts an already-uploaded document into one of the caller org&#39;s data rooms and answers with the new membership id.
      *
      * @param  string $id ID is the room to add to. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\DataroomAddDocument $dataroom_add_document (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomAddDocument $dataroom_dataroom_add_document (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomDataroomsByIdDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomDataroomsByIdDocumentsAsync($id, $dataroom_add_document, string $contentType = self::contentTypes['postDataroomDataroomsByIdDocuments'][0])
+    public function postDataroomDataroomsByIdDocumentsAsync($id, $dataroom_dataroom_add_document, string $contentType = self::contentTypes['postDataroomDataroomsByIdDocuments'][0])
     {
-        return $this->postDataroomDataroomsByIdDocumentsAsyncWithHttpInfo($id, $dataroom_add_document, $contentType)
+        return $this->postDataroomDataroomsByIdDocumentsAsyncWithHttpInfo($id, $dataroom_dataroom_add_document, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4443,16 +4625,16 @@ class DataroomApi
      * Puts an already-uploaded document into one of the caller org&#39;s data rooms and answers with the new membership id.
      *
      * @param  string $id ID is the room to add to. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\DataroomAddDocument $dataroom_add_document (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomAddDocument $dataroom_dataroom_add_document (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomDataroomsByIdDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomDataroomsByIdDocumentsAsyncWithHttpInfo($id, $dataroom_add_document, string $contentType = self::contentTypes['postDataroomDataroomsByIdDocuments'][0])
+    public function postDataroomDataroomsByIdDocumentsAsyncWithHttpInfo($id, $dataroom_dataroom_add_document, string $contentType = self::contentTypes['postDataroomDataroomsByIdDocuments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DataroomMembership';
-        $request = $this->postDataroomDataroomsByIdDocumentsRequest($id, $dataroom_add_document, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DataroomDataroomMembership';
+        $request = $this->postDataroomDataroomsByIdDocumentsRequest($id, $dataroom_dataroom_add_document, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4494,13 +4676,13 @@ class DataroomApi
      * Create request for operation 'postDataroomDataroomsByIdDocuments'
      *
      * @param  string $id ID is the room to add to. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller&#39;s principal, so an id from another tenant is simply not found. (required)
-     * @param  \Hanzo\Cloud\Model\DataroomAddDocument $dataroom_add_document (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomAddDocument $dataroom_dataroom_add_document (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomDataroomsByIdDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postDataroomDataroomsByIdDocumentsRequest($id, $dataroom_add_document, string $contentType = self::contentTypes['postDataroomDataroomsByIdDocuments'][0])
+    public function postDataroomDataroomsByIdDocumentsRequest($id, $dataroom_dataroom_add_document, string $contentType = self::contentTypes['postDataroomDataroomsByIdDocuments'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -4510,10 +4692,10 @@ class DataroomApi
             );
         }
 
-        // verify the required parameter 'dataroom_add_document' is set
-        if ($dataroom_add_document === null || (is_array($dataroom_add_document) && count($dataroom_add_document) === 0)) {
+        // verify the required parameter 'dataroom_dataroom_add_document' is set
+        if ($dataroom_dataroom_add_document === null || (is_array($dataroom_dataroom_add_document) && count($dataroom_dataroom_add_document) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $dataroom_add_document when calling postDataroomDataroomsByIdDocuments'
+                'Missing the required parameter $dataroom_dataroom_add_document when calling postDataroomDataroomsByIdDocuments'
             );
         }
 
@@ -4538,18 +4720,18 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($dataroom_add_document)) {
+        if (isset($dataroom_dataroom_add_document)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_add_document));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_dataroom_add_document));
             } else {
-                $httpBody = $dataroom_add_document;
+                $httpBody = $dataroom_dataroom_add_document;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4808,16 +4990,16 @@ class DataroomApi
      *
      * Grants access: it mints a public share link over one data room (&#x60;dataroomId&#x60;) or one document (&#x60;documentId&#x60;) — one of the two is required — and answers with the link, whose &#x60;id&#x60; is the token a visitor opens it with.
      *
-     * @param  \Hanzo\Cloud\Model\DataroomLinkCreate $dataroom_link_create dataroom_link_create (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomLinkCreate $dataroom_dataroom_link_create dataroom_dataroom_link_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomLinks'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DataroomLinkOne
+     * @return \Hanzo\Cloud\Model\DataroomDataroomLinkOne|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postDataroomLinks($dataroom_link_create, string $contentType = self::contentTypes['postDataroomLinks'][0])
+    public function postDataroomLinks($dataroom_dataroom_link_create, string $contentType = self::contentTypes['postDataroomLinks'][0])
     {
-        list($response) = $this->postDataroomLinksWithHttpInfo($dataroom_link_create, $contentType);
+        list($response) = $this->postDataroomLinksWithHttpInfo($dataroom_dataroom_link_create, $contentType);
         return $response;
     }
 
@@ -4826,16 +5008,16 @@ class DataroomApi
      *
      * Grants access: it mints a public share link over one data room (&#x60;dataroomId&#x60;) or one document (&#x60;documentId&#x60;) — one of the two is required — and answers with the link, whose &#x60;id&#x60; is the token a visitor opens it with.
      *
-     * @param  \Hanzo\Cloud\Model\DataroomLinkCreate $dataroom_link_create (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomLinkCreate $dataroom_dataroom_link_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomLinks'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DataroomLinkOne, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomDataroomLinkOne|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postDataroomLinksWithHttpInfo($dataroom_link_create, string $contentType = self::contentTypes['postDataroomLinks'][0])
+    public function postDataroomLinksWithHttpInfo($dataroom_dataroom_link_create, string $contentType = self::contentTypes['postDataroomLinks'][0])
     {
-        $request = $this->postDataroomLinksRequest($dataroom_link_create, $contentType);
+        $request = $this->postDataroomLinksRequest($dataroom_dataroom_link_create, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4863,7 +5045,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DataroomLinkOne',
+                        '\Hanzo\Cloud\Model\DataroomDataroomLinkOne',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4885,7 +5073,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DataroomLinkOne',
+                '\Hanzo\Cloud\Model\DataroomDataroomLinkOne',
                 $request,
                 $response,
             );
@@ -4894,7 +5082,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DataroomLinkOne',
+                        '\Hanzo\Cloud\Model\DataroomDataroomLinkOne',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4911,15 +5107,15 @@ class DataroomApi
      *
      * Grants access: it mints a public share link over one data room (&#x60;dataroomId&#x60;) or one document (&#x60;documentId&#x60;) — one of the two is required — and answers with the link, whose &#x60;id&#x60; is the token a visitor opens it with.
      *
-     * @param  \Hanzo\Cloud\Model\DataroomLinkCreate $dataroom_link_create (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomLinkCreate $dataroom_dataroom_link_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomLinks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomLinksAsync($dataroom_link_create, string $contentType = self::contentTypes['postDataroomLinks'][0])
+    public function postDataroomLinksAsync($dataroom_dataroom_link_create, string $contentType = self::contentTypes['postDataroomLinks'][0])
     {
-        return $this->postDataroomLinksAsyncWithHttpInfo($dataroom_link_create, $contentType)
+        return $this->postDataroomLinksAsyncWithHttpInfo($dataroom_dataroom_link_create, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4932,16 +5128,16 @@ class DataroomApi
      *
      * Grants access: it mints a public share link over one data room (&#x60;dataroomId&#x60;) or one document (&#x60;documentId&#x60;) — one of the two is required — and answers with the link, whose &#x60;id&#x60; is the token a visitor opens it with.
      *
-     * @param  \Hanzo\Cloud\Model\DataroomLinkCreate $dataroom_link_create (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomLinkCreate $dataroom_dataroom_link_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomLinks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomLinksAsyncWithHttpInfo($dataroom_link_create, string $contentType = self::contentTypes['postDataroomLinks'][0])
+    public function postDataroomLinksAsyncWithHttpInfo($dataroom_dataroom_link_create, string $contentType = self::contentTypes['postDataroomLinks'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DataroomLinkOne';
-        $request = $this->postDataroomLinksRequest($dataroom_link_create, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DataroomDataroomLinkOne';
+        $request = $this->postDataroomLinksRequest($dataroom_dataroom_link_create, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4982,19 +5178,19 @@ class DataroomApi
     /**
      * Create request for operation 'postDataroomLinks'
      *
-     * @param  \Hanzo\Cloud\Model\DataroomLinkCreate $dataroom_link_create (required)
+     * @param  \Hanzo\Cloud\Model\DataroomDataroomLinkCreate $dataroom_dataroom_link_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomLinks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postDataroomLinksRequest($dataroom_link_create, string $contentType = self::contentTypes['postDataroomLinks'][0])
+    public function postDataroomLinksRequest($dataroom_dataroom_link_create, string $contentType = self::contentTypes['postDataroomLinks'][0])
     {
 
-        // verify the required parameter 'dataroom_link_create' is set
-        if ($dataroom_link_create === null || (is_array($dataroom_link_create) && count($dataroom_link_create) === 0)) {
+        // verify the required parameter 'dataroom_dataroom_link_create' is set
+        if ($dataroom_dataroom_link_create === null || (is_array($dataroom_dataroom_link_create) && count($dataroom_dataroom_link_create) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $dataroom_link_create when calling postDataroomLinks'
+                'Missing the required parameter $dataroom_dataroom_link_create when calling postDataroomLinks'
             );
         }
 
@@ -5011,18 +5207,18 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($dataroom_link_create)) {
+        if (isset($dataroom_dataroom_link_create)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_link_create));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_dataroom_link_create));
             } else {
-                $httpBody = $dataroom_link_create;
+                $httpBody = $dataroom_dataroom_link_create;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5077,36 +5273,36 @@ class DataroomApi
     /**
      * Operation postDataroomTrustArtifacts
      *
-     * Publish puts an item on the caller org&#39;s trust centre and answers with it.
+     * Puts an item on the caller org&#39;s trust centre and answers with it.
      *
-     * @param  \Hanzo\Cloud\Model\TrustPublish $trust_publish trust_publish (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustPublish $dataroom_trust_publish dataroom_trust_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustArtifacts'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrustItemView
+     * @return \Hanzo\Cloud\Model\DataroomTrustItemView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postDataroomTrustArtifacts($trust_publish, string $contentType = self::contentTypes['postDataroomTrustArtifacts'][0])
+    public function postDataroomTrustArtifacts($dataroom_trust_publish, string $contentType = self::contentTypes['postDataroomTrustArtifacts'][0])
     {
-        list($response) = $this->postDataroomTrustArtifactsWithHttpInfo($trust_publish, $contentType);
+        list($response) = $this->postDataroomTrustArtifactsWithHttpInfo($dataroom_trust_publish, $contentType);
         return $response;
     }
 
     /**
      * Operation postDataroomTrustArtifactsWithHttpInfo
      *
-     * Publish puts an item on the caller org&#39;s trust centre and answers with it.
+     * Puts an item on the caller org&#39;s trust centre and answers with it.
      *
-     * @param  \Hanzo\Cloud\Model\TrustPublish $trust_publish (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustPublish $dataroom_trust_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustArtifacts'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrustItemView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomTrustItemView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postDataroomTrustArtifactsWithHttpInfo($trust_publish, string $contentType = self::contentTypes['postDataroomTrustArtifacts'][0])
+    public function postDataroomTrustArtifactsWithHttpInfo($dataroom_trust_publish, string $contentType = self::contentTypes['postDataroomTrustArtifacts'][0])
     {
-        $request = $this->postDataroomTrustArtifactsRequest($trust_publish, $contentType);
+        $request = $this->postDataroomTrustArtifactsRequest($dataroom_trust_publish, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5134,7 +5330,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrustItemView',
+                        '\Hanzo\Cloud\Model\DataroomTrustItemView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5156,7 +5358,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrustItemView',
+                '\Hanzo\Cloud\Model\DataroomTrustItemView',
                 $request,
                 $response,
             );
@@ -5165,7 +5367,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrustItemView',
+                        '\Hanzo\Cloud\Model\DataroomTrustItemView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5180,17 +5390,17 @@ class DataroomApi
     /**
      * Operation postDataroomTrustArtifactsAsync
      *
-     * Publish puts an item on the caller org&#39;s trust centre and answers with it.
+     * Puts an item on the caller org&#39;s trust centre and answers with it.
      *
-     * @param  \Hanzo\Cloud\Model\TrustPublish $trust_publish (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustPublish $dataroom_trust_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustArtifacts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomTrustArtifactsAsync($trust_publish, string $contentType = self::contentTypes['postDataroomTrustArtifacts'][0])
+    public function postDataroomTrustArtifactsAsync($dataroom_trust_publish, string $contentType = self::contentTypes['postDataroomTrustArtifacts'][0])
     {
-        return $this->postDataroomTrustArtifactsAsyncWithHttpInfo($trust_publish, $contentType)
+        return $this->postDataroomTrustArtifactsAsyncWithHttpInfo($dataroom_trust_publish, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5201,18 +5411,18 @@ class DataroomApi
     /**
      * Operation postDataroomTrustArtifactsAsyncWithHttpInfo
      *
-     * Publish puts an item on the caller org&#39;s trust centre and answers with it.
+     * Puts an item on the caller org&#39;s trust centre and answers with it.
      *
-     * @param  \Hanzo\Cloud\Model\TrustPublish $trust_publish (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustPublish $dataroom_trust_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustArtifacts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomTrustArtifactsAsyncWithHttpInfo($trust_publish, string $contentType = self::contentTypes['postDataroomTrustArtifacts'][0])
+    public function postDataroomTrustArtifactsAsyncWithHttpInfo($dataroom_trust_publish, string $contentType = self::contentTypes['postDataroomTrustArtifacts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrustItemView';
-        $request = $this->postDataroomTrustArtifactsRequest($trust_publish, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DataroomTrustItemView';
+        $request = $this->postDataroomTrustArtifactsRequest($dataroom_trust_publish, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5253,19 +5463,19 @@ class DataroomApi
     /**
      * Create request for operation 'postDataroomTrustArtifacts'
      *
-     * @param  \Hanzo\Cloud\Model\TrustPublish $trust_publish (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustPublish $dataroom_trust_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustArtifacts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postDataroomTrustArtifactsRequest($trust_publish, string $contentType = self::contentTypes['postDataroomTrustArtifacts'][0])
+    public function postDataroomTrustArtifactsRequest($dataroom_trust_publish, string $contentType = self::contentTypes['postDataroomTrustArtifacts'][0])
     {
 
-        // verify the required parameter 'trust_publish' is set
-        if ($trust_publish === null || (is_array($trust_publish) && count($trust_publish) === 0)) {
+        // verify the required parameter 'dataroom_trust_publish' is set
+        if ($dataroom_trust_publish === null || (is_array($dataroom_trust_publish) && count($dataroom_trust_publish) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $trust_publish when calling postDataroomTrustArtifacts'
+                'Missing the required parameter $dataroom_trust_publish when calling postDataroomTrustArtifacts'
             );
         }
 
@@ -5282,18 +5492,18 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($trust_publish)) {
+        if (isset($dataroom_trust_publish)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($trust_publish));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_trust_publish));
             } else {
-                $httpBody = $trust_publish;
+                $httpBody = $dataroom_trust_publish;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5351,16 +5561,16 @@ class DataroomApi
      * Records a request to read what an independent auditor signed, and answers with its id.
      *
      * @param  string $slug Slug is the centre&#39;s public address, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustAsk $trust_ask trust_ask (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustAsk $dataroom_trust_ask dataroom_trust_ask (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustCenterBySlugRequests'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrustAsked
+     * @return \Hanzo\Cloud\Model\DataroomTrustAsked|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postDataroomTrustCenterBySlugRequests($slug, $trust_ask, string $contentType = self::contentTypes['postDataroomTrustCenterBySlugRequests'][0])
+    public function postDataroomTrustCenterBySlugRequests($slug, $dataroom_trust_ask, string $contentType = self::contentTypes['postDataroomTrustCenterBySlugRequests'][0])
     {
-        list($response) = $this->postDataroomTrustCenterBySlugRequestsWithHttpInfo($slug, $trust_ask, $contentType);
+        list($response) = $this->postDataroomTrustCenterBySlugRequestsWithHttpInfo($slug, $dataroom_trust_ask, $contentType);
         return $response;
     }
 
@@ -5370,16 +5580,16 @@ class DataroomApi
      * Records a request to read what an independent auditor signed, and answers with its id.
      *
      * @param  string $slug Slug is the centre&#39;s public address, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustAsk $trust_ask (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustAsk $dataroom_trust_ask (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustCenterBySlugRequests'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrustAsked, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomTrustAsked|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postDataroomTrustCenterBySlugRequestsWithHttpInfo($slug, $trust_ask, string $contentType = self::contentTypes['postDataroomTrustCenterBySlugRequests'][0])
+    public function postDataroomTrustCenterBySlugRequestsWithHttpInfo($slug, $dataroom_trust_ask, string $contentType = self::contentTypes['postDataroomTrustCenterBySlugRequests'][0])
     {
-        $request = $this->postDataroomTrustCenterBySlugRequestsRequest($slug, $trust_ask, $contentType);
+        $request = $this->postDataroomTrustCenterBySlugRequestsRequest($slug, $dataroom_trust_ask, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5407,7 +5617,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrustAsked',
+                        '\Hanzo\Cloud\Model\DataroomTrustAsked',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5429,7 +5645,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrustAsked',
+                '\Hanzo\Cloud\Model\DataroomTrustAsked',
                 $request,
                 $response,
             );
@@ -5438,7 +5654,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrustAsked',
+                        '\Hanzo\Cloud\Model\DataroomTrustAsked',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5456,15 +5680,15 @@ class DataroomApi
      * Records a request to read what an independent auditor signed, and answers with its id.
      *
      * @param  string $slug Slug is the centre&#39;s public address, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustAsk $trust_ask (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustAsk $dataroom_trust_ask (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustCenterBySlugRequests'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomTrustCenterBySlugRequestsAsync($slug, $trust_ask, string $contentType = self::contentTypes['postDataroomTrustCenterBySlugRequests'][0])
+    public function postDataroomTrustCenterBySlugRequestsAsync($slug, $dataroom_trust_ask, string $contentType = self::contentTypes['postDataroomTrustCenterBySlugRequests'][0])
     {
-        return $this->postDataroomTrustCenterBySlugRequestsAsyncWithHttpInfo($slug, $trust_ask, $contentType)
+        return $this->postDataroomTrustCenterBySlugRequestsAsyncWithHttpInfo($slug, $dataroom_trust_ask, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5478,16 +5702,16 @@ class DataroomApi
      * Records a request to read what an independent auditor signed, and answers with its id.
      *
      * @param  string $slug Slug is the centre&#39;s public address, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustAsk $trust_ask (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustAsk $dataroom_trust_ask (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustCenterBySlugRequests'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomTrustCenterBySlugRequestsAsyncWithHttpInfo($slug, $trust_ask, string $contentType = self::contentTypes['postDataroomTrustCenterBySlugRequests'][0])
+    public function postDataroomTrustCenterBySlugRequestsAsyncWithHttpInfo($slug, $dataroom_trust_ask, string $contentType = self::contentTypes['postDataroomTrustCenterBySlugRequests'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrustAsked';
-        $request = $this->postDataroomTrustCenterBySlugRequestsRequest($slug, $trust_ask, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DataroomTrustAsked';
+        $request = $this->postDataroomTrustCenterBySlugRequestsRequest($slug, $dataroom_trust_ask, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5529,13 +5753,13 @@ class DataroomApi
      * Create request for operation 'postDataroomTrustCenterBySlugRequests'
      *
      * @param  string $slug Slug is the centre&#39;s public address, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustAsk $trust_ask (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustAsk $dataroom_trust_ask (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustCenterBySlugRequests'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postDataroomTrustCenterBySlugRequestsRequest($slug, $trust_ask, string $contentType = self::contentTypes['postDataroomTrustCenterBySlugRequests'][0])
+    public function postDataroomTrustCenterBySlugRequestsRequest($slug, $dataroom_trust_ask, string $contentType = self::contentTypes['postDataroomTrustCenterBySlugRequests'][0])
     {
 
         // verify the required parameter 'slug' is set
@@ -5545,10 +5769,10 @@ class DataroomApi
             );
         }
 
-        // verify the required parameter 'trust_ask' is set
-        if ($trust_ask === null || (is_array($trust_ask) && count($trust_ask) === 0)) {
+        // verify the required parameter 'dataroom_trust_ask' is set
+        if ($dataroom_trust_ask === null || (is_array($dataroom_trust_ask) && count($dataroom_trust_ask) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $trust_ask when calling postDataroomTrustCenterBySlugRequests'
+                'Missing the required parameter $dataroom_trust_ask when calling postDataroomTrustCenterBySlugRequests'
             );
         }
 
@@ -5573,18 +5797,18 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($trust_ask)) {
+        if (isset($dataroom_trust_ask)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($trust_ask));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_trust_ask));
             } else {
-                $httpBody = $trust_ask;
+                $httpBody = $dataroom_trust_ask;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5639,38 +5863,38 @@ class DataroomApi
     /**
      * Operation postDataroomTrustRequestsByIdGrant
      *
-     * Grant answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
+     * Answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
      *
      * @param  string $id ID is the request to answer, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustDecision $trust_decision trust_decision (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustDecision $dataroom_trust_decision dataroom_trust_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustRequestsByIdGrant'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrustGranted
+     * @return \Hanzo\Cloud\Model\DataroomTrustGranted|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postDataroomTrustRequestsByIdGrant($id, $trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdGrant'][0])
+    public function postDataroomTrustRequestsByIdGrant($id, $dataroom_trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdGrant'][0])
     {
-        list($response) = $this->postDataroomTrustRequestsByIdGrantWithHttpInfo($id, $trust_decision, $contentType);
+        list($response) = $this->postDataroomTrustRequestsByIdGrantWithHttpInfo($id, $dataroom_trust_decision, $contentType);
         return $response;
     }
 
     /**
      * Operation postDataroomTrustRequestsByIdGrantWithHttpInfo
      *
-     * Grant answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
+     * Answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
      *
      * @param  string $id ID is the request to answer, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustDecision $trust_decision (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustDecision $dataroom_trust_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustRequestsByIdGrant'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrustGranted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomTrustGranted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postDataroomTrustRequestsByIdGrantWithHttpInfo($id, $trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdGrant'][0])
+    public function postDataroomTrustRequestsByIdGrantWithHttpInfo($id, $dataroom_trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdGrant'][0])
     {
-        $request = $this->postDataroomTrustRequestsByIdGrantRequest($id, $trust_decision, $contentType);
+        $request = $this->postDataroomTrustRequestsByIdGrantRequest($id, $dataroom_trust_decision, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5698,7 +5922,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrustGranted',
+                        '\Hanzo\Cloud\Model\DataroomTrustGranted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5720,7 +5950,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrustGranted',
+                '\Hanzo\Cloud\Model\DataroomTrustGranted',
                 $request,
                 $response,
             );
@@ -5729,7 +5959,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrustGranted',
+                        '\Hanzo\Cloud\Model\DataroomTrustGranted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5744,18 +5982,18 @@ class DataroomApi
     /**
      * Operation postDataroomTrustRequestsByIdGrantAsync
      *
-     * Grant answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
+     * Answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
      *
      * @param  string $id ID is the request to answer, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustDecision $trust_decision (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustDecision $dataroom_trust_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustRequestsByIdGrant'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomTrustRequestsByIdGrantAsync($id, $trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdGrant'][0])
+    public function postDataroomTrustRequestsByIdGrantAsync($id, $dataroom_trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdGrant'][0])
     {
-        return $this->postDataroomTrustRequestsByIdGrantAsyncWithHttpInfo($id, $trust_decision, $contentType)
+        return $this->postDataroomTrustRequestsByIdGrantAsyncWithHttpInfo($id, $dataroom_trust_decision, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5766,19 +6004,19 @@ class DataroomApi
     /**
      * Operation postDataroomTrustRequestsByIdGrantAsyncWithHttpInfo
      *
-     * Grant answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
+     * Answers a request by opening access: it mints a share link over what was asked for, addressed to the address that asked and closing at expiry, records the decision, and mails the asker.
      *
      * @param  string $id ID is the request to answer, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustDecision $trust_decision (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustDecision $dataroom_trust_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustRequestsByIdGrant'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomTrustRequestsByIdGrantAsyncWithHttpInfo($id, $trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdGrant'][0])
+    public function postDataroomTrustRequestsByIdGrantAsyncWithHttpInfo($id, $dataroom_trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdGrant'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrustGranted';
-        $request = $this->postDataroomTrustRequestsByIdGrantRequest($id, $trust_decision, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DataroomTrustGranted';
+        $request = $this->postDataroomTrustRequestsByIdGrantRequest($id, $dataroom_trust_decision, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5820,13 +6058,13 @@ class DataroomApi
      * Create request for operation 'postDataroomTrustRequestsByIdGrant'
      *
      * @param  string $id ID is the request to answer, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustDecision $trust_decision (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustDecision $dataroom_trust_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustRequestsByIdGrant'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postDataroomTrustRequestsByIdGrantRequest($id, $trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdGrant'][0])
+    public function postDataroomTrustRequestsByIdGrantRequest($id, $dataroom_trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdGrant'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -5836,10 +6074,10 @@ class DataroomApi
             );
         }
 
-        // verify the required parameter 'trust_decision' is set
-        if ($trust_decision === null || (is_array($trust_decision) && count($trust_decision) === 0)) {
+        // verify the required parameter 'dataroom_trust_decision' is set
+        if ($dataroom_trust_decision === null || (is_array($dataroom_trust_decision) && count($dataroom_trust_decision) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $trust_decision when calling postDataroomTrustRequestsByIdGrant'
+                'Missing the required parameter $dataroom_trust_decision when calling postDataroomTrustRequestsByIdGrant'
             );
         }
 
@@ -5864,18 +6102,18 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($trust_decision)) {
+        if (isset($dataroom_trust_decision)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($trust_decision));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_trust_decision));
             } else {
-                $httpBody = $trust_decision;
+                $httpBody = $dataroom_trust_decision;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5930,38 +6168,38 @@ class DataroomApi
     /**
      * Operation postDataroomTrustRequestsByIdRefuse
      *
-     * Refuse answers a request by declining it, recording who declined and why.
+     * Answers a request by declining it, recording who declined and why.
      *
      * @param  string $id ID is the request to answer, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustDecision $trust_decision trust_decision (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustDecision $dataroom_trust_decision dataroom_trust_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustRequestsByIdRefuse'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrustRefused
+     * @return \Hanzo\Cloud\Model\DataroomTrustRefused|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postDataroomTrustRequestsByIdRefuse($id, $trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdRefuse'][0])
+    public function postDataroomTrustRequestsByIdRefuse($id, $dataroom_trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdRefuse'][0])
     {
-        list($response) = $this->postDataroomTrustRequestsByIdRefuseWithHttpInfo($id, $trust_decision, $contentType);
+        list($response) = $this->postDataroomTrustRequestsByIdRefuseWithHttpInfo($id, $dataroom_trust_decision, $contentType);
         return $response;
     }
 
     /**
      * Operation postDataroomTrustRequestsByIdRefuseWithHttpInfo
      *
-     * Refuse answers a request by declining it, recording who declined and why.
+     * Answers a request by declining it, recording who declined and why.
      *
      * @param  string $id ID is the request to answer, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustDecision $trust_decision (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustDecision $dataroom_trust_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustRequestsByIdRefuse'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrustRefused, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomTrustRefused|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postDataroomTrustRequestsByIdRefuseWithHttpInfo($id, $trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdRefuse'][0])
+    public function postDataroomTrustRequestsByIdRefuseWithHttpInfo($id, $dataroom_trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdRefuse'][0])
     {
-        $request = $this->postDataroomTrustRequestsByIdRefuseRequest($id, $trust_decision, $contentType);
+        $request = $this->postDataroomTrustRequestsByIdRefuseRequest($id, $dataroom_trust_decision, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5989,7 +6227,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrustRefused',
+                        '\Hanzo\Cloud\Model\DataroomTrustRefused',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6011,7 +6255,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrustRefused',
+                '\Hanzo\Cloud\Model\DataroomTrustRefused',
                 $request,
                 $response,
             );
@@ -6020,7 +6264,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrustRefused',
+                        '\Hanzo\Cloud\Model\DataroomTrustRefused',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6035,18 +6287,18 @@ class DataroomApi
     /**
      * Operation postDataroomTrustRequestsByIdRefuseAsync
      *
-     * Refuse answers a request by declining it, recording who declined and why.
+     * Answers a request by declining it, recording who declined and why.
      *
      * @param  string $id ID is the request to answer, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustDecision $trust_decision (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustDecision $dataroom_trust_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustRequestsByIdRefuse'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomTrustRequestsByIdRefuseAsync($id, $trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdRefuse'][0])
+    public function postDataroomTrustRequestsByIdRefuseAsync($id, $dataroom_trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdRefuse'][0])
     {
-        return $this->postDataroomTrustRequestsByIdRefuseAsyncWithHttpInfo($id, $trust_decision, $contentType)
+        return $this->postDataroomTrustRequestsByIdRefuseAsyncWithHttpInfo($id, $dataroom_trust_decision, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6057,19 +6309,19 @@ class DataroomApi
     /**
      * Operation postDataroomTrustRequestsByIdRefuseAsyncWithHttpInfo
      *
-     * Refuse answers a request by declining it, recording who declined and why.
+     * Answers a request by declining it, recording who declined and why.
      *
      * @param  string $id ID is the request to answer, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustDecision $trust_decision (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustDecision $dataroom_trust_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustRequestsByIdRefuse'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postDataroomTrustRequestsByIdRefuseAsyncWithHttpInfo($id, $trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdRefuse'][0])
+    public function postDataroomTrustRequestsByIdRefuseAsyncWithHttpInfo($id, $dataroom_trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdRefuse'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrustRefused';
-        $request = $this->postDataroomTrustRequestsByIdRefuseRequest($id, $trust_decision, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DataroomTrustRefused';
+        $request = $this->postDataroomTrustRequestsByIdRefuseRequest($id, $dataroom_trust_decision, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6111,13 +6363,13 @@ class DataroomApi
      * Create request for operation 'postDataroomTrustRequestsByIdRefuse'
      *
      * @param  string $id ID is the request to answer, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TrustDecision $trust_decision (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustDecision $dataroom_trust_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDataroomTrustRequestsByIdRefuse'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postDataroomTrustRequestsByIdRefuseRequest($id, $trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdRefuse'][0])
+    public function postDataroomTrustRequestsByIdRefuseRequest($id, $dataroom_trust_decision, string $contentType = self::contentTypes['postDataroomTrustRequestsByIdRefuse'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -6127,10 +6379,10 @@ class DataroomApi
             );
         }
 
-        // verify the required parameter 'trust_decision' is set
-        if ($trust_decision === null || (is_array($trust_decision) && count($trust_decision) === 0)) {
+        // verify the required parameter 'dataroom_trust_decision' is set
+        if ($dataroom_trust_decision === null || (is_array($dataroom_trust_decision) && count($dataroom_trust_decision) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $trust_decision when calling postDataroomTrustRequestsByIdRefuse'
+                'Missing the required parameter $dataroom_trust_decision when calling postDataroomTrustRequestsByIdRefuse'
             );
         }
 
@@ -6155,18 +6407,18 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($trust_decision)) {
+        if (isset($dataroom_trust_decision)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($trust_decision));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_trust_decision));
             } else {
-                $httpBody = $trust_decision;
+                $httpBody = $dataroom_trust_decision;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6667,16 +6919,16 @@ class DataroomApi
      *
      * SetCenter opens, publishes or withdraws the caller org&#39;s trust centre and answers with the centre as it now stands.
      *
-     * @param  \Hanzo\Cloud\Model\TrustSettings $trust_settings trust_settings (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustSettings $dataroom_trust_settings dataroom_trust_settings (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putDataroomTrust'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrustDesk
+     * @return \Hanzo\Cloud\Model\DataroomTrustDesk|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putDataroomTrust($trust_settings, string $contentType = self::contentTypes['putDataroomTrust'][0])
+    public function putDataroomTrust($dataroom_trust_settings, string $contentType = self::contentTypes['putDataroomTrust'][0])
     {
-        list($response) = $this->putDataroomTrustWithHttpInfo($trust_settings, $contentType);
+        list($response) = $this->putDataroomTrustWithHttpInfo($dataroom_trust_settings, $contentType);
         return $response;
     }
 
@@ -6685,16 +6937,16 @@ class DataroomApi
      *
      * SetCenter opens, publishes or withdraws the caller org&#39;s trust centre and answers with the centre as it now stands.
      *
-     * @param  \Hanzo\Cloud\Model\TrustSettings $trust_settings (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustSettings $dataroom_trust_settings (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putDataroomTrust'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrustDesk, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomTrustDesk|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putDataroomTrustWithHttpInfo($trust_settings, string $contentType = self::contentTypes['putDataroomTrust'][0])
+    public function putDataroomTrustWithHttpInfo($dataroom_trust_settings, string $contentType = self::contentTypes['putDataroomTrust'][0])
     {
-        $request = $this->putDataroomTrustRequest($trust_settings, $contentType);
+        $request = $this->putDataroomTrustRequest($dataroom_trust_settings, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6722,7 +6974,13 @@ class DataroomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrustDesk',
+                        '\Hanzo\Cloud\Model\DataroomTrustDesk',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6744,7 +7002,7 @@ class DataroomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrustDesk',
+                '\Hanzo\Cloud\Model\DataroomTrustDesk',
                 $request,
                 $response,
             );
@@ -6753,7 +7011,15 @@ class DataroomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrustDesk',
+                        '\Hanzo\Cloud\Model\DataroomTrustDesk',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6770,15 +7036,15 @@ class DataroomApi
      *
      * SetCenter opens, publishes or withdraws the caller org&#39;s trust centre and answers with the centre as it now stands.
      *
-     * @param  \Hanzo\Cloud\Model\TrustSettings $trust_settings (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustSettings $dataroom_trust_settings (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putDataroomTrust'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putDataroomTrustAsync($trust_settings, string $contentType = self::contentTypes['putDataroomTrust'][0])
+    public function putDataroomTrustAsync($dataroom_trust_settings, string $contentType = self::contentTypes['putDataroomTrust'][0])
     {
-        return $this->putDataroomTrustAsyncWithHttpInfo($trust_settings, $contentType)
+        return $this->putDataroomTrustAsyncWithHttpInfo($dataroom_trust_settings, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6791,16 +7057,16 @@ class DataroomApi
      *
      * SetCenter opens, publishes or withdraws the caller org&#39;s trust centre and answers with the centre as it now stands.
      *
-     * @param  \Hanzo\Cloud\Model\TrustSettings $trust_settings (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustSettings $dataroom_trust_settings (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putDataroomTrust'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putDataroomTrustAsyncWithHttpInfo($trust_settings, string $contentType = self::contentTypes['putDataroomTrust'][0])
+    public function putDataroomTrustAsyncWithHttpInfo($dataroom_trust_settings, string $contentType = self::contentTypes['putDataroomTrust'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrustDesk';
-        $request = $this->putDataroomTrustRequest($trust_settings, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DataroomTrustDesk';
+        $request = $this->putDataroomTrustRequest($dataroom_trust_settings, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6841,19 +7107,19 @@ class DataroomApi
     /**
      * Create request for operation 'putDataroomTrust'
      *
-     * @param  \Hanzo\Cloud\Model\TrustSettings $trust_settings (required)
+     * @param  \Hanzo\Cloud\Model\DataroomTrustSettings $dataroom_trust_settings (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putDataroomTrust'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putDataroomTrustRequest($trust_settings, string $contentType = self::contentTypes['putDataroomTrust'][0])
+    public function putDataroomTrustRequest($dataroom_trust_settings, string $contentType = self::contentTypes['putDataroomTrust'][0])
     {
 
-        // verify the required parameter 'trust_settings' is set
-        if ($trust_settings === null || (is_array($trust_settings) && count($trust_settings) === 0)) {
+        // verify the required parameter 'dataroom_trust_settings' is set
+        if ($dataroom_trust_settings === null || (is_array($dataroom_trust_settings) && count($dataroom_trust_settings) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $trust_settings when calling putDataroomTrust'
+                'Missing the required parameter $dataroom_trust_settings when calling putDataroomTrust'
             );
         }
 
@@ -6870,18 +7136,18 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($trust_settings)) {
+        if (isset($dataroom_trust_settings)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($trust_settings));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataroom_trust_settings));
             } else {
-                $httpBody = $trust_settings;
+                $httpBody = $dataroom_trust_settings;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

@@ -555,7 +555,7 @@ class IamRole implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string|null $id Persisted fields
      *
      * @return self
      */

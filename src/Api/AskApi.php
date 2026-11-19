@@ -348,16 +348,16 @@ class AskApi
      *
      * Research a question on the live web and answer it with sources cited
      *
-     * @param  \Hanzo\Cloud\Model\WebQuestion $web_question web_question (required)
+     * @param  \Hanzo\Cloud\Model\AskWebQuestion $ask_web_question ask_web_question (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['researchWeb'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Report
+     * @return \Hanzo\Cloud\Model\AskReport|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function researchWeb($web_question, string $contentType = self::contentTypes['researchWeb'][0])
+    public function researchWeb($ask_web_question, string $contentType = self::contentTypes['researchWeb'][0])
     {
-        list($response) = $this->researchWebWithHttpInfo($web_question, $contentType);
+        list($response) = $this->researchWebWithHttpInfo($ask_web_question, $contentType);
         return $response;
     }
 
@@ -366,16 +366,16 @@ class AskApi
      *
      * Research a question on the live web and answer it with sources cited
      *
-     * @param  \Hanzo\Cloud\Model\WebQuestion $web_question (required)
+     * @param  \Hanzo\Cloud\Model\AskWebQuestion $ask_web_question (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['researchWeb'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Report, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AskReport|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function researchWebWithHttpInfo($web_question, string $contentType = self::contentTypes['researchWeb'][0])
+    public function researchWebWithHttpInfo($ask_web_question, string $contentType = self::contentTypes['researchWeb'][0])
     {
-        $request = $this->researchWebRequest($web_question, $contentType);
+        $request = $this->researchWebRequest($ask_web_question, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -403,7 +403,13 @@ class AskApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Report',
+                        '\Hanzo\Cloud\Model\AskReport',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -425,7 +431,7 @@ class AskApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Report',
+                '\Hanzo\Cloud\Model\AskReport',
                 $request,
                 $response,
             );
@@ -434,7 +440,15 @@ class AskApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Report',
+                        '\Hanzo\Cloud\Model\AskReport',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -451,15 +465,15 @@ class AskApi
      *
      * Research a question on the live web and answer it with sources cited
      *
-     * @param  \Hanzo\Cloud\Model\WebQuestion $web_question (required)
+     * @param  \Hanzo\Cloud\Model\AskWebQuestion $ask_web_question (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['researchWeb'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function researchWebAsync($web_question, string $contentType = self::contentTypes['researchWeb'][0])
+    public function researchWebAsync($ask_web_question, string $contentType = self::contentTypes['researchWeb'][0])
     {
-        return $this->researchWebAsyncWithHttpInfo($web_question, $contentType)
+        return $this->researchWebAsyncWithHttpInfo($ask_web_question, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -472,16 +486,16 @@ class AskApi
      *
      * Research a question on the live web and answer it with sources cited
      *
-     * @param  \Hanzo\Cloud\Model\WebQuestion $web_question (required)
+     * @param  \Hanzo\Cloud\Model\AskWebQuestion $ask_web_question (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['researchWeb'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function researchWebAsyncWithHttpInfo($web_question, string $contentType = self::contentTypes['researchWeb'][0])
+    public function researchWebAsyncWithHttpInfo($ask_web_question, string $contentType = self::contentTypes['researchWeb'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Report';
-        $request = $this->researchWebRequest($web_question, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AskReport';
+        $request = $this->researchWebRequest($ask_web_question, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -522,19 +536,19 @@ class AskApi
     /**
      * Create request for operation 'researchWeb'
      *
-     * @param  \Hanzo\Cloud\Model\WebQuestion $web_question (required)
+     * @param  \Hanzo\Cloud\Model\AskWebQuestion $ask_web_question (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['researchWeb'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function researchWebRequest($web_question, string $contentType = self::contentTypes['researchWeb'][0])
+    public function researchWebRequest($ask_web_question, string $contentType = self::contentTypes['researchWeb'][0])
     {
 
-        // verify the required parameter 'web_question' is set
-        if ($web_question === null || (is_array($web_question) && count($web_question) === 0)) {
+        // verify the required parameter 'ask_web_question' is set
+        if ($ask_web_question === null || (is_array($ask_web_question) && count($ask_web_question) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $web_question when calling researchWeb'
+                'Missing the required parameter $ask_web_question when calling researchWeb'
             );
         }
 
@@ -551,18 +565,18 @@ class AskApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($web_question)) {
+        if (isset($ask_web_question)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($web_question));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ask_web_question));
             } else {
-                $httpBody = $web_question;
+                $httpBody = $ask_web_question;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

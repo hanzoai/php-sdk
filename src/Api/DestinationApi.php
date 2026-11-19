@@ -142,12 +142,12 @@ class DestinationApi
      *
      * Forgets a destination for the caller&#39;s org: every credential held in KMS, then the stored config.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDestinationByPlatform'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DestinationDisconnected
+     * @return \Hanzo\Cloud\Model\DestinationDestinationDisconnected|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteDestinationByPlatform($platform, string $contentType = self::contentTypes['deleteDestinationByPlatform'][0])
     {
@@ -160,12 +160,12 @@ class DestinationApi
      *
      * Forgets a destination for the caller&#39;s org: every credential held in KMS, then the stored config.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDestinationByPlatform'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DestinationDisconnected, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DestinationDestinationDisconnected|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteDestinationByPlatformWithHttpInfo($platform, string $contentType = self::contentTypes['deleteDestinationByPlatform'][0])
     {
@@ -197,7 +197,13 @@ class DestinationApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DestinationDisconnected',
+                        '\Hanzo\Cloud\Model\DestinationDestinationDisconnected',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -219,7 +225,7 @@ class DestinationApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DestinationDisconnected',
+                '\Hanzo\Cloud\Model\DestinationDestinationDisconnected',
                 $request,
                 $response,
             );
@@ -228,7 +234,15 @@ class DestinationApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DestinationDisconnected',
+                        '\Hanzo\Cloud\Model\DestinationDestinationDisconnected',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -245,7 +259,7 @@ class DestinationApi
      *
      * Forgets a destination for the caller&#39;s org: every credential held in KMS, then the stored config.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDestinationByPlatform'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -266,7 +280,7 @@ class DestinationApi
      *
      * Forgets a destination for the caller&#39;s org: every credential held in KMS, then the stored config.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDestinationByPlatform'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -274,7 +288,7 @@ class DestinationApi
      */
     public function deleteDestinationByPlatformAsyncWithHttpInfo($platform, string $contentType = self::contentTypes['deleteDestinationByPlatform'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DestinationDisconnected';
+        $returnType = '\Hanzo\Cloud\Model\DestinationDestinationDisconnected';
         $request = $this->deleteDestinationByPlatformRequest($platform, $contentType);
 
         return $this->client
@@ -316,7 +330,7 @@ class DestinationApi
     /**
      * Create request for operation 'deleteDestinationByPlatform'
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDestinationByPlatform'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -353,7 +367,7 @@ class DestinationApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -418,7 +432,7 @@ class DestinationApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DestinationList
+     * @return \Hanzo\Cloud\Model\DestinationDestinationList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDestination(string $contentType = self::contentTypes['getDestination'][0])
     {
@@ -435,7 +449,7 @@ class DestinationApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DestinationList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DestinationDestinationList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDestinationWithHttpInfo(string $contentType = self::contentTypes['getDestination'][0])
     {
@@ -467,7 +481,13 @@ class DestinationApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DestinationList',
+                        '\Hanzo\Cloud\Model\DestinationDestinationList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -489,7 +509,7 @@ class DestinationApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DestinationList',
+                '\Hanzo\Cloud\Model\DestinationDestinationList',
                 $request,
                 $response,
             );
@@ -498,7 +518,15 @@ class DestinationApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DestinationList',
+                        '\Hanzo\Cloud\Model\DestinationDestinationList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -542,7 +570,7 @@ class DestinationApi
      */
     public function getDestinationAsyncWithHttpInfo(string $contentType = self::contentTypes['getDestination'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DestinationList';
+        $returnType = '\Hanzo\Cloud\Model\DestinationDestinationList';
         $request = $this->getDestinationRequest($contentType);
 
         return $this->client
@@ -605,7 +633,7 @@ class DestinationApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -666,12 +694,12 @@ class DestinationApi
      *
      * Reports one destination&#39;s card for the caller&#39;s org — its config fields, its connection state, and whether a credential resolves right now.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDestinationByPlatform'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DestinationStatus
+     * @return \Hanzo\Cloud\Model\DestinationDestinationStatus|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDestinationByPlatform($platform, string $contentType = self::contentTypes['getDestinationByPlatform'][0])
     {
@@ -684,12 +712,12 @@ class DestinationApi
      *
      * Reports one destination&#39;s card for the caller&#39;s org — its config fields, its connection state, and whether a credential resolves right now.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDestinationByPlatform'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DestinationStatus, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DestinationDestinationStatus|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDestinationByPlatformWithHttpInfo($platform, string $contentType = self::contentTypes['getDestinationByPlatform'][0])
     {
@@ -721,7 +749,13 @@ class DestinationApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DestinationStatus',
+                        '\Hanzo\Cloud\Model\DestinationDestinationStatus',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -743,7 +777,7 @@ class DestinationApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DestinationStatus',
+                '\Hanzo\Cloud\Model\DestinationDestinationStatus',
                 $request,
                 $response,
             );
@@ -752,7 +786,15 @@ class DestinationApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DestinationStatus',
+                        '\Hanzo\Cloud\Model\DestinationDestinationStatus',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -769,7 +811,7 @@ class DestinationApi
      *
      * Reports one destination&#39;s card for the caller&#39;s org — its config fields, its connection state, and whether a credential resolves right now.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDestinationByPlatform'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -790,7 +832,7 @@ class DestinationApi
      *
      * Reports one destination&#39;s card for the caller&#39;s org — its config fields, its connection state, and whether a credential resolves right now.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDestinationByPlatform'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -798,7 +840,7 @@ class DestinationApi
      */
     public function getDestinationByPlatformAsyncWithHttpInfo($platform, string $contentType = self::contentTypes['getDestinationByPlatform'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DestinationStatus';
+        $returnType = '\Hanzo\Cloud\Model\DestinationDestinationStatus';
         $request = $this->getDestinationByPlatformRequest($platform, $contentType);
 
         return $this->client
@@ -840,7 +882,7 @@ class DestinationApi
     /**
      * Create request for operation 'getDestinationByPlatform'
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDestinationByPlatform'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -877,7 +919,7 @@ class DestinationApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1224,14 +1266,14 @@ class DestinationApi
     /**
      * Operation postDestinationByPlatformTest
      *
-     * Sends ONE synthetic pageview through the connected destination end to end and reports what the platform said.
+     * Sends ONE synthetic conversion through the connected destination end to end and reports what the platform said.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDestinationByPlatformTest'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DestinationTest
+     * @return \Hanzo\Cloud\Model\DestinationDestinationTest|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postDestinationByPlatformTest($platform, string $contentType = self::contentTypes['postDestinationByPlatformTest'][0])
     {
@@ -1242,14 +1284,14 @@ class DestinationApi
     /**
      * Operation postDestinationByPlatformTestWithHttpInfo
      *
-     * Sends ONE synthetic pageview through the connected destination end to end and reports what the platform said.
+     * Sends ONE synthetic conversion through the connected destination end to end and reports what the platform said.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDestinationByPlatformTest'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DestinationTest, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DestinationDestinationTest|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postDestinationByPlatformTestWithHttpInfo($platform, string $contentType = self::contentTypes['postDestinationByPlatformTest'][0])
     {
@@ -1281,7 +1323,13 @@ class DestinationApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DestinationTest',
+                        '\Hanzo\Cloud\Model\DestinationDestinationTest',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1303,7 +1351,7 @@ class DestinationApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DestinationTest',
+                '\Hanzo\Cloud\Model\DestinationDestinationTest',
                 $request,
                 $response,
             );
@@ -1312,7 +1360,15 @@ class DestinationApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DestinationTest',
+                        '\Hanzo\Cloud\Model\DestinationDestinationTest',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1327,9 +1383,9 @@ class DestinationApi
     /**
      * Operation postDestinationByPlatformTestAsync
      *
-     * Sends ONE synthetic pageview through the connected destination end to end and reports what the platform said.
+     * Sends ONE synthetic conversion through the connected destination end to end and reports what the platform said.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDestinationByPlatformTest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1348,9 +1404,9 @@ class DestinationApi
     /**
      * Operation postDestinationByPlatformTestAsyncWithHttpInfo
      *
-     * Sends ONE synthetic pageview through the connected destination end to end and reports what the platform said.
+     * Sends ONE synthetic conversion through the connected destination end to end and reports what the platform said.
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDestinationByPlatformTest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1358,7 +1414,7 @@ class DestinationApi
      */
     public function postDestinationByPlatformTestAsyncWithHttpInfo($platform, string $contentType = self::contentTypes['postDestinationByPlatformTest'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DestinationTest';
+        $returnType = '\Hanzo\Cloud\Model\DestinationDestinationTest';
         $request = $this->postDestinationByPlatformTestRequest($platform, $contentType);
 
         return $this->client
@@ -1400,7 +1456,7 @@ class DestinationApi
     /**
      * Create request for operation 'postDestinationByPlatformTest'
      *
-     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights | analytics. (required)
+     * @param  string $platform Platform is the destination to act on, from the path: ga4 | meta | tiktok | linkedin | x | reddit | insights. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDestinationByPlatformTest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1437,7 +1493,7 @@ class DestinationApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

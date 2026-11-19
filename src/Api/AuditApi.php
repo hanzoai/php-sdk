@@ -128,7 +128,7 @@ class AuditApi
     /**
      * Operation getAudit
      *
-     * List reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
+     * Reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
      *
      * @param  string|null $sub Sub narrows the trail to one actor — the validated subject that made the request. Blank means every actor in the org. (optional)
      * @param  string|null $action Action narrows it to one action name, e.g. \&quot;machine.create\&quot;. (optional)
@@ -143,7 +143,7 @@ class AuditApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrailPage
+     * @return \Hanzo\Cloud\Model\AuditTrailPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAudit($sub = null, $action = null, $resource = null, $resource_id = null, $result = null, $since = null, $until = null, $page_size = null, $p = null, string $contentType = self::contentTypes['getAudit'][0])
     {
@@ -154,7 +154,7 @@ class AuditApi
     /**
      * Operation getAuditWithHttpInfo
      *
-     * List reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
+     * Reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
      *
      * @param  string|null $sub Sub narrows the trail to one actor — the validated subject that made the request. Blank means every actor in the org. (optional)
      * @param  string|null $action Action narrows it to one action name, e.g. \&quot;machine.create\&quot;. (optional)
@@ -169,7 +169,7 @@ class AuditApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrailPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AuditTrailPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAuditWithHttpInfo($sub = null, $action = null, $resource = null, $resource_id = null, $result = null, $since = null, $until = null, $page_size = null, $p = null, string $contentType = self::contentTypes['getAudit'][0])
     {
@@ -201,7 +201,13 @@ class AuditApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrailPage',
+                        '\Hanzo\Cloud\Model\AuditTrailPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -223,7 +229,7 @@ class AuditApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrailPage',
+                '\Hanzo\Cloud\Model\AuditTrailPage',
                 $request,
                 $response,
             );
@@ -232,7 +238,15 @@ class AuditApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrailPage',
+                        '\Hanzo\Cloud\Model\AuditTrailPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -247,7 +261,7 @@ class AuditApi
     /**
      * Operation getAuditAsync
      *
-     * List reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
+     * Reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
      *
      * @param  string|null $sub Sub narrows the trail to one actor — the validated subject that made the request. Blank means every actor in the org. (optional)
      * @param  string|null $action Action narrows it to one action name, e.g. \&quot;machine.create\&quot;. (optional)
@@ -276,7 +290,7 @@ class AuditApi
     /**
      * Operation getAuditAsyncWithHttpInfo
      *
-     * List reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
+     * Reads the caller&#39;s OWN org audit trail, newest first, with the total the filter matched so a console can page it.
      *
      * @param  string|null $sub Sub narrows the trail to one actor — the validated subject that made the request. Blank means every actor in the org. (optional)
      * @param  string|null $action Action narrows it to one action name, e.g. \&quot;machine.create\&quot;. (optional)
@@ -294,7 +308,7 @@ class AuditApi
      */
     public function getAuditAsyncWithHttpInfo($sub = null, $action = null, $resource = null, $resource_id = null, $result = null, $since = null, $until = null, $page_size = null, $p = null, string $contentType = self::contentTypes['getAudit'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrailPage';
+        $returnType = '\Hanzo\Cloud\Model\AuditTrailPage';
         $request = $this->getAuditRequest($sub, $action, $resource, $resource_id, $result, $since, $until, $page_size, $p, $contentType);
 
         return $this->client
@@ -456,7 +470,7 @@ class AuditApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

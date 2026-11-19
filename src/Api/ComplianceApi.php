@@ -183,7 +183,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AccList
+     * @return \Hanzo\Cloud\Model\ComplianceAccList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComplianceAccreditation($limit = null, string $contentType = self::contentTypes['getComplianceAccreditation'][0])
     {
@@ -201,7 +201,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AccList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceAccList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComplianceAccreditationWithHttpInfo($limit = null, string $contentType = self::contentTypes['getComplianceAccreditation'][0])
     {
@@ -233,7 +233,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AccList',
+                        '\Hanzo\Cloud\Model\ComplianceAccList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -255,7 +261,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AccList',
+                '\Hanzo\Cloud\Model\ComplianceAccList',
                 $request,
                 $response,
             );
@@ -264,7 +270,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AccList',
+                        '\Hanzo\Cloud\Model\ComplianceAccList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -310,7 +324,7 @@ class ComplianceApi
      */
     public function getComplianceAccreditationAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getComplianceAccreditation'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AccList';
+        $returnType = '\Hanzo\Cloud\Model\ComplianceAccList';
         $request = $this->getComplianceAccreditationRequest($limit, $contentType);
 
         return $this->client
@@ -384,7 +398,7 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -450,7 +464,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AccView
+     * @return \Hanzo\Cloud\Model\ComplianceAccView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComplianceAccreditationById($id, string $contentType = self::contentTypes['getComplianceAccreditationById'][0])
     {
@@ -468,7 +482,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AccView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceAccView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComplianceAccreditationByIdWithHttpInfo($id, string $contentType = self::contentTypes['getComplianceAccreditationById'][0])
     {
@@ -500,7 +514,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AccView',
+                        '\Hanzo\Cloud\Model\ComplianceAccView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -522,7 +542,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AccView',
+                '\Hanzo\Cloud\Model\ComplianceAccView',
                 $request,
                 $response,
             );
@@ -531,7 +551,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AccView',
+                        '\Hanzo\Cloud\Model\ComplianceAccView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -577,7 +605,7 @@ class ComplianceApi
      */
     public function getComplianceAccreditationByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getComplianceAccreditationById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AccView';
+        $returnType = '\Hanzo\Cloud\Model\ComplianceAccView';
         $request = $this->getComplianceAccreditationByIdRequest($id, $contentType);
 
         return $this->client
@@ -656,7 +684,7 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -722,7 +750,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AuditList
+     * @return \Hanzo\Cloud\Model\ComplianceAuditList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComplianceAudit($result = null, string $contentType = self::contentTypes['getComplianceAudit'][0])
     {
@@ -740,7 +768,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AuditList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceAuditList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComplianceAuditWithHttpInfo($result = null, string $contentType = self::contentTypes['getComplianceAudit'][0])
     {
@@ -772,7 +800,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AuditList',
+                        '\Hanzo\Cloud\Model\ComplianceAuditList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -794,7 +828,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AuditList',
+                '\Hanzo\Cloud\Model\ComplianceAuditList',
                 $request,
                 $response,
             );
@@ -803,7 +837,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AuditList',
+                        '\Hanzo\Cloud\Model\ComplianceAuditList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -849,7 +891,7 @@ class ComplianceApi
      */
     public function getComplianceAuditAsyncWithHttpInfo($result = null, string $contentType = self::contentTypes['getComplianceAudit'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AuditList';
+        $returnType = '\Hanzo\Cloud\Model\ComplianceAuditList';
         $request = $this->getComplianceAuditRequest($result, $contentType);
 
         return $this->client
@@ -923,7 +965,7 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -982,13 +1024,13 @@ class ComplianceApi
     /**
      * Operation getComplianceHealth
      *
-     * Health reports subsystem liveness and the wired verification provider.
+     * Reports subsystem liveness and the wired verification provider.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComplianceHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\HealthView
+     * @return \Hanzo\Cloud\Model\ComplianceHealthView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComplianceHealth(string $contentType = self::contentTypes['getComplianceHealth'][0])
     {
@@ -999,13 +1041,13 @@ class ComplianceApi
     /**
      * Operation getComplianceHealthWithHttpInfo
      *
-     * Health reports subsystem liveness and the wired verification provider.
+     * Reports subsystem liveness and the wired verification provider.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComplianceHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\HealthView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceHealthView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComplianceHealthWithHttpInfo(string $contentType = self::contentTypes['getComplianceHealth'][0])
     {
@@ -1037,7 +1079,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\HealthView',
+                        '\Hanzo\Cloud\Model\ComplianceHealthView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1059,7 +1107,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\HealthView',
+                '\Hanzo\Cloud\Model\ComplianceHealthView',
                 $request,
                 $response,
             );
@@ -1068,7 +1116,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\HealthView',
+                        '\Hanzo\Cloud\Model\ComplianceHealthView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1083,7 +1139,7 @@ class ComplianceApi
     /**
      * Operation getComplianceHealthAsync
      *
-     * Health reports subsystem liveness and the wired verification provider.
+     * Reports subsystem liveness and the wired verification provider.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComplianceHealth'] to see the possible values for this operation
      *
@@ -1103,7 +1159,7 @@ class ComplianceApi
     /**
      * Operation getComplianceHealthAsyncWithHttpInfo
      *
-     * Health reports subsystem liveness and the wired verification provider.
+     * Reports subsystem liveness and the wired verification provider.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComplianceHealth'] to see the possible values for this operation
      *
@@ -1112,7 +1168,7 @@ class ComplianceApi
      */
     public function getComplianceHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getComplianceHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\HealthView';
+        $returnType = '\Hanzo\Cloud\Model\ComplianceHealthView';
         $request = $this->getComplianceHealthRequest($contentType);
 
         return $this->client
@@ -1175,7 +1231,7 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1241,7 +1297,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RecordList
+     * @return \Hanzo\Cloud\Model\ComplianceRecordList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComplianceRecords($limit = null, string $contentType = self::contentTypes['getComplianceRecords'][0])
     {
@@ -1259,7 +1315,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RecordList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceRecordList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComplianceRecordsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getComplianceRecords'][0])
     {
@@ -1291,7 +1347,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RecordList',
+                        '\Hanzo\Cloud\Model\ComplianceRecordList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1313,7 +1375,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RecordList',
+                '\Hanzo\Cloud\Model\ComplianceRecordList',
                 $request,
                 $response,
             );
@@ -1322,7 +1384,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RecordList',
+                        '\Hanzo\Cloud\Model\ComplianceRecordList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1368,7 +1438,7 @@ class ComplianceApi
      */
     public function getComplianceRecordsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getComplianceRecords'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RecordList';
+        $returnType = '\Hanzo\Cloud\Model\ComplianceRecordList';
         $request = $this->getComplianceRecordsRequest($limit, $contentType);
 
         return $this->client
@@ -1442,7 +1512,7 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1507,7 +1577,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\StatusView
+     * @return \Hanzo\Cloud\Model\ComplianceStatusView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComplianceStatus(string $contentType = self::contentTypes['getComplianceStatus'][0])
     {
@@ -1524,7 +1594,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\StatusView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceStatusView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComplianceStatusWithHttpInfo(string $contentType = self::contentTypes['getComplianceStatus'][0])
     {
@@ -1556,7 +1626,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\StatusView',
+                        '\Hanzo\Cloud\Model\ComplianceStatusView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1578,7 +1654,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\StatusView',
+                '\Hanzo\Cloud\Model\ComplianceStatusView',
                 $request,
                 $response,
             );
@@ -1587,7 +1663,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\StatusView',
+                        '\Hanzo\Cloud\Model\ComplianceStatusView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1631,7 +1715,7 @@ class ComplianceApi
      */
     public function getComplianceStatusAsyncWithHttpInfo(string $contentType = self::contentTypes['getComplianceStatus'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\StatusView';
+        $returnType = '\Hanzo\Cloud\Model\ComplianceStatusView';
         $request = $this->getComplianceStatusRequest($contentType);
 
         return $this->client
@@ -1694,7 +1778,7 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1760,7 +1844,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SubjectList
+     * @return \Hanzo\Cloud\Model\ComplianceSubjectList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComplianceSubjects($limit = null, string $contentType = self::contentTypes['getComplianceSubjects'][0])
     {
@@ -1778,7 +1862,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SubjectList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceSubjectList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComplianceSubjectsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getComplianceSubjects'][0])
     {
@@ -1810,7 +1894,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SubjectList',
+                        '\Hanzo\Cloud\Model\ComplianceSubjectList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1832,7 +1922,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SubjectList',
+                '\Hanzo\Cloud\Model\ComplianceSubjectList',
                 $request,
                 $response,
             );
@@ -1841,7 +1931,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SubjectList',
+                        '\Hanzo\Cloud\Model\ComplianceSubjectList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1887,7 +1985,7 @@ class ComplianceApi
      */
     public function getComplianceSubjectsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getComplianceSubjects'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SubjectList';
+        $returnType = '\Hanzo\Cloud\Model\ComplianceSubjectList';
         $request = $this->getComplianceSubjectsRequest($limit, $contentType);
 
         return $this->client
@@ -1961,7 +2059,7 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2027,7 +2125,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Subject
+     * @return \Hanzo\Cloud\Model\ComplianceSubject|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComplianceSubjectsById($id, string $contentType = self::contentTypes['getComplianceSubjectsById'][0])
     {
@@ -2045,7 +2143,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Subject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceSubject|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComplianceSubjectsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getComplianceSubjectsById'][0])
     {
@@ -2077,7 +2175,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Subject',
+                        '\Hanzo\Cloud\Model\ComplianceSubject',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2099,7 +2203,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Subject',
+                '\Hanzo\Cloud\Model\ComplianceSubject',
                 $request,
                 $response,
             );
@@ -2108,7 +2212,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Subject',
+                        '\Hanzo\Cloud\Model\ComplianceSubject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2154,7 +2266,7 @@ class ComplianceApi
      */
     public function getComplianceSubjectsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getComplianceSubjectsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Subject';
+        $returnType = '\Hanzo\Cloud\Model\ComplianceSubject';
         $request = $this->getComplianceSubjectsByIdRequest($id, $contentType);
 
         return $this->client
@@ -2233,7 +2345,7 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2299,7 +2411,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CheckList
+     * @return \Hanzo\Cloud\Model\ComplianceCheckList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComplianceVerifications($limit = null, string $contentType = self::contentTypes['getComplianceVerifications'][0])
     {
@@ -2317,7 +2429,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CheckList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceCheckList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComplianceVerificationsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getComplianceVerifications'][0])
     {
@@ -2349,7 +2461,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CheckList',
+                        '\Hanzo\Cloud\Model\ComplianceCheckList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2371,7 +2489,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CheckList',
+                '\Hanzo\Cloud\Model\ComplianceCheckList',
                 $request,
                 $response,
             );
@@ -2380,7 +2498,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CheckList',
+                        '\Hanzo\Cloud\Model\ComplianceCheckList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2426,7 +2552,7 @@ class ComplianceApi
      */
     public function getComplianceVerificationsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getComplianceVerifications'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CheckList';
+        $returnType = '\Hanzo\Cloud\Model\ComplianceCheckList';
         $request = $this->getComplianceVerificationsRequest($limit, $contentType);
 
         return $this->client
@@ -2500,7 +2626,7 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2566,7 +2692,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CheckView
+     * @return \Hanzo\Cloud\Model\ComplianceCheckView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComplianceVerificationsById($id, string $contentType = self::contentTypes['getComplianceVerificationsById'][0])
     {
@@ -2584,7 +2710,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CheckView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceCheckView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComplianceVerificationsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getComplianceVerificationsById'][0])
     {
@@ -2616,7 +2742,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CheckView',
+                        '\Hanzo\Cloud\Model\ComplianceCheckView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2638,7 +2770,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CheckView',
+                '\Hanzo\Cloud\Model\ComplianceCheckView',
                 $request,
                 $response,
             );
@@ -2647,7 +2779,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CheckView',
+                        '\Hanzo\Cloud\Model\ComplianceCheckView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2693,7 +2833,7 @@ class ComplianceApi
      */
     public function getComplianceVerificationsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getComplianceVerificationsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CheckView';
+        $returnType = '\Hanzo\Cloud\Model\ComplianceCheckView';
         $request = $this->getComplianceVerificationsByIdRequest($id, $contentType);
 
         return $this->client
@@ -2772,7 +2912,7 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2833,16 +2973,16 @@ class ComplianceApi
      *
      * Records an ASSERTED accreditation state for a subject — the subject&#39;s own assertion, with no verifier.
      *
-     * @param  \Hanzo\Cloud\Model\AccreditationReq $accreditation_req accreditation_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceAccreditationReq $compliance_accreditation_req compliance_accreditation_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceAccreditation'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AccView
+     * @return \Hanzo\Cloud\Model\ComplianceAccView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postComplianceAccreditation($accreditation_req, string $contentType = self::contentTypes['postComplianceAccreditation'][0])
+    public function postComplianceAccreditation($compliance_accreditation_req, string $contentType = self::contentTypes['postComplianceAccreditation'][0])
     {
-        list($response) = $this->postComplianceAccreditationWithHttpInfo($accreditation_req, $contentType);
+        list($response) = $this->postComplianceAccreditationWithHttpInfo($compliance_accreditation_req, $contentType);
         return $response;
     }
 
@@ -2851,16 +2991,16 @@ class ComplianceApi
      *
      * Records an ASSERTED accreditation state for a subject — the subject&#39;s own assertion, with no verifier.
      *
-     * @param  \Hanzo\Cloud\Model\AccreditationReq $accreditation_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceAccreditationReq $compliance_accreditation_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceAccreditation'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AccView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceAccView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postComplianceAccreditationWithHttpInfo($accreditation_req, string $contentType = self::contentTypes['postComplianceAccreditation'][0])
+    public function postComplianceAccreditationWithHttpInfo($compliance_accreditation_req, string $contentType = self::contentTypes['postComplianceAccreditation'][0])
     {
-        $request = $this->postComplianceAccreditationRequest($accreditation_req, $contentType);
+        $request = $this->postComplianceAccreditationRequest($compliance_accreditation_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2888,7 +3028,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AccView',
+                        '\Hanzo\Cloud\Model\ComplianceAccView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2910,7 +3056,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AccView',
+                '\Hanzo\Cloud\Model\ComplianceAccView',
                 $request,
                 $response,
             );
@@ -2919,7 +3065,15 @@ class ComplianceApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AccView',
+                        '\Hanzo\Cloud\Model\ComplianceAccView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2936,15 +3090,15 @@ class ComplianceApi
      *
      * Records an ASSERTED accreditation state for a subject — the subject&#39;s own assertion, with no verifier.
      *
-     * @param  \Hanzo\Cloud\Model\AccreditationReq $accreditation_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceAccreditationReq $compliance_accreditation_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceAccreditation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postComplianceAccreditationAsync($accreditation_req, string $contentType = self::contentTypes['postComplianceAccreditation'][0])
+    public function postComplianceAccreditationAsync($compliance_accreditation_req, string $contentType = self::contentTypes['postComplianceAccreditation'][0])
     {
-        return $this->postComplianceAccreditationAsyncWithHttpInfo($accreditation_req, $contentType)
+        return $this->postComplianceAccreditationAsyncWithHttpInfo($compliance_accreditation_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2957,16 +3111,16 @@ class ComplianceApi
      *
      * Records an ASSERTED accreditation state for a subject — the subject&#39;s own assertion, with no verifier.
      *
-     * @param  \Hanzo\Cloud\Model\AccreditationReq $accreditation_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceAccreditationReq $compliance_accreditation_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceAccreditation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postComplianceAccreditationAsyncWithHttpInfo($accreditation_req, string $contentType = self::contentTypes['postComplianceAccreditation'][0])
+    public function postComplianceAccreditationAsyncWithHttpInfo($compliance_accreditation_req, string $contentType = self::contentTypes['postComplianceAccreditation'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AccView';
-        $request = $this->postComplianceAccreditationRequest($accreditation_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComplianceAccView';
+        $request = $this->postComplianceAccreditationRequest($compliance_accreditation_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3007,19 +3161,19 @@ class ComplianceApi
     /**
      * Create request for operation 'postComplianceAccreditation'
      *
-     * @param  \Hanzo\Cloud\Model\AccreditationReq $accreditation_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceAccreditationReq $compliance_accreditation_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceAccreditation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postComplianceAccreditationRequest($accreditation_req, string $contentType = self::contentTypes['postComplianceAccreditation'][0])
+    public function postComplianceAccreditationRequest($compliance_accreditation_req, string $contentType = self::contentTypes['postComplianceAccreditation'][0])
     {
 
-        // verify the required parameter 'accreditation_req' is set
-        if ($accreditation_req === null || (is_array($accreditation_req) && count($accreditation_req) === 0)) {
+        // verify the required parameter 'compliance_accreditation_req' is set
+        if ($compliance_accreditation_req === null || (is_array($compliance_accreditation_req) && count($compliance_accreditation_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $accreditation_req when calling postComplianceAccreditation'
+                'Missing the required parameter $compliance_accreditation_req when calling postComplianceAccreditation'
             );
         }
 
@@ -3036,18 +3190,18 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($accreditation_req)) {
+        if (isset($compliance_accreditation_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($accreditation_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compliance_accreditation_req));
             } else {
-                $httpBody = $accreditation_req;
+                $httpBody = $compliance_accreditation_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3105,16 +3259,16 @@ class ComplianceApi
      * Records an org reviewer&#39;s decision on an accreditation record — a reviewer confirmation, a provider verification the reviewer has evidence of (a CPA/attorney letter, a verifier report), a rejection, or an expiry.
      *
      * @param  string $id ID is the accreditation record to decide, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\AccreditationDecision $accreditation_decision accreditation_decision (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceAccreditationDecision $compliance_accreditation_decision compliance_accreditation_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceAccreditationByIdDecision'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AccView
+     * @return \Hanzo\Cloud\Model\ComplianceAccView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postComplianceAccreditationByIdDecision($id, $accreditation_decision, string $contentType = self::contentTypes['postComplianceAccreditationByIdDecision'][0])
+    public function postComplianceAccreditationByIdDecision($id, $compliance_accreditation_decision, string $contentType = self::contentTypes['postComplianceAccreditationByIdDecision'][0])
     {
-        list($response) = $this->postComplianceAccreditationByIdDecisionWithHttpInfo($id, $accreditation_decision, $contentType);
+        list($response) = $this->postComplianceAccreditationByIdDecisionWithHttpInfo($id, $compliance_accreditation_decision, $contentType);
         return $response;
     }
 
@@ -3124,16 +3278,16 @@ class ComplianceApi
      * Records an org reviewer&#39;s decision on an accreditation record — a reviewer confirmation, a provider verification the reviewer has evidence of (a CPA/attorney letter, a verifier report), a rejection, or an expiry.
      *
      * @param  string $id ID is the accreditation record to decide, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\AccreditationDecision $accreditation_decision (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceAccreditationDecision $compliance_accreditation_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceAccreditationByIdDecision'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AccView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceAccView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postComplianceAccreditationByIdDecisionWithHttpInfo($id, $accreditation_decision, string $contentType = self::contentTypes['postComplianceAccreditationByIdDecision'][0])
+    public function postComplianceAccreditationByIdDecisionWithHttpInfo($id, $compliance_accreditation_decision, string $contentType = self::contentTypes['postComplianceAccreditationByIdDecision'][0])
     {
-        $request = $this->postComplianceAccreditationByIdDecisionRequest($id, $accreditation_decision, $contentType);
+        $request = $this->postComplianceAccreditationByIdDecisionRequest($id, $compliance_accreditation_decision, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3161,7 +3315,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AccView',
+                        '\Hanzo\Cloud\Model\ComplianceAccView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3183,7 +3343,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AccView',
+                '\Hanzo\Cloud\Model\ComplianceAccView',
                 $request,
                 $response,
             );
@@ -3192,7 +3352,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AccView',
+                        '\Hanzo\Cloud\Model\ComplianceAccView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3210,15 +3378,15 @@ class ComplianceApi
      * Records an org reviewer&#39;s decision on an accreditation record — a reviewer confirmation, a provider verification the reviewer has evidence of (a CPA/attorney letter, a verifier report), a rejection, or an expiry.
      *
      * @param  string $id ID is the accreditation record to decide, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\AccreditationDecision $accreditation_decision (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceAccreditationDecision $compliance_accreditation_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceAccreditationByIdDecision'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postComplianceAccreditationByIdDecisionAsync($id, $accreditation_decision, string $contentType = self::contentTypes['postComplianceAccreditationByIdDecision'][0])
+    public function postComplianceAccreditationByIdDecisionAsync($id, $compliance_accreditation_decision, string $contentType = self::contentTypes['postComplianceAccreditationByIdDecision'][0])
     {
-        return $this->postComplianceAccreditationByIdDecisionAsyncWithHttpInfo($id, $accreditation_decision, $contentType)
+        return $this->postComplianceAccreditationByIdDecisionAsyncWithHttpInfo($id, $compliance_accreditation_decision, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3232,16 +3400,16 @@ class ComplianceApi
      * Records an org reviewer&#39;s decision on an accreditation record — a reviewer confirmation, a provider verification the reviewer has evidence of (a CPA/attorney letter, a verifier report), a rejection, or an expiry.
      *
      * @param  string $id ID is the accreditation record to decide, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\AccreditationDecision $accreditation_decision (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceAccreditationDecision $compliance_accreditation_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceAccreditationByIdDecision'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postComplianceAccreditationByIdDecisionAsyncWithHttpInfo($id, $accreditation_decision, string $contentType = self::contentTypes['postComplianceAccreditationByIdDecision'][0])
+    public function postComplianceAccreditationByIdDecisionAsyncWithHttpInfo($id, $compliance_accreditation_decision, string $contentType = self::contentTypes['postComplianceAccreditationByIdDecision'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AccView';
-        $request = $this->postComplianceAccreditationByIdDecisionRequest($id, $accreditation_decision, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComplianceAccView';
+        $request = $this->postComplianceAccreditationByIdDecisionRequest($id, $compliance_accreditation_decision, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3283,13 +3451,13 @@ class ComplianceApi
      * Create request for operation 'postComplianceAccreditationByIdDecision'
      *
      * @param  string $id ID is the accreditation record to decide, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\AccreditationDecision $accreditation_decision (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceAccreditationDecision $compliance_accreditation_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceAccreditationByIdDecision'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postComplianceAccreditationByIdDecisionRequest($id, $accreditation_decision, string $contentType = self::contentTypes['postComplianceAccreditationByIdDecision'][0])
+    public function postComplianceAccreditationByIdDecisionRequest($id, $compliance_accreditation_decision, string $contentType = self::contentTypes['postComplianceAccreditationByIdDecision'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -3299,10 +3467,10 @@ class ComplianceApi
             );
         }
 
-        // verify the required parameter 'accreditation_decision' is set
-        if ($accreditation_decision === null || (is_array($accreditation_decision) && count($accreditation_decision) === 0)) {
+        // verify the required parameter 'compliance_accreditation_decision' is set
+        if ($compliance_accreditation_decision === null || (is_array($compliance_accreditation_decision) && count($compliance_accreditation_decision) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $accreditation_decision when calling postComplianceAccreditationByIdDecision'
+                'Missing the required parameter $compliance_accreditation_decision when calling postComplianceAccreditationByIdDecision'
             );
         }
 
@@ -3327,18 +3495,18 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($accreditation_decision)) {
+        if (isset($compliance_accreditation_decision)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($accreditation_decision));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compliance_accreditation_decision));
             } else {
-                $httpBody = $accreditation_decision;
+                $httpBody = $compliance_accreditation_decision;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3395,16 +3563,16 @@ class ComplianceApi
      *
      * Records a party the org is verifying as part of its own onboarding/compliance — a team member, vendor, customer, or counterparty.
      *
-     * @param  \Hanzo\Cloud\Model\SubjectReq $subject_req subject_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceSubjectReq $compliance_subject_req compliance_subject_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceSubjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Subject
+     * @return \Hanzo\Cloud\Model\ComplianceSubject|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postComplianceSubjects($subject_req, string $contentType = self::contentTypes['postComplianceSubjects'][0])
+    public function postComplianceSubjects($compliance_subject_req, string $contentType = self::contentTypes['postComplianceSubjects'][0])
     {
-        list($response) = $this->postComplianceSubjectsWithHttpInfo($subject_req, $contentType);
+        list($response) = $this->postComplianceSubjectsWithHttpInfo($compliance_subject_req, $contentType);
         return $response;
     }
 
@@ -3413,16 +3581,16 @@ class ComplianceApi
      *
      * Records a party the org is verifying as part of its own onboarding/compliance — a team member, vendor, customer, or counterparty.
      *
-     * @param  \Hanzo\Cloud\Model\SubjectReq $subject_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceSubjectReq $compliance_subject_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceSubjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Subject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceSubject|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postComplianceSubjectsWithHttpInfo($subject_req, string $contentType = self::contentTypes['postComplianceSubjects'][0])
+    public function postComplianceSubjectsWithHttpInfo($compliance_subject_req, string $contentType = self::contentTypes['postComplianceSubjects'][0])
     {
-        $request = $this->postComplianceSubjectsRequest($subject_req, $contentType);
+        $request = $this->postComplianceSubjectsRequest($compliance_subject_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3450,7 +3618,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Subject',
+                        '\Hanzo\Cloud\Model\ComplianceSubject',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3472,7 +3646,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Subject',
+                '\Hanzo\Cloud\Model\ComplianceSubject',
                 $request,
                 $response,
             );
@@ -3481,7 +3655,15 @@ class ComplianceApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Subject',
+                        '\Hanzo\Cloud\Model\ComplianceSubject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3498,15 +3680,15 @@ class ComplianceApi
      *
      * Records a party the org is verifying as part of its own onboarding/compliance — a team member, vendor, customer, or counterparty.
      *
-     * @param  \Hanzo\Cloud\Model\SubjectReq $subject_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceSubjectReq $compliance_subject_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceSubjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postComplianceSubjectsAsync($subject_req, string $contentType = self::contentTypes['postComplianceSubjects'][0])
+    public function postComplianceSubjectsAsync($compliance_subject_req, string $contentType = self::contentTypes['postComplianceSubjects'][0])
     {
-        return $this->postComplianceSubjectsAsyncWithHttpInfo($subject_req, $contentType)
+        return $this->postComplianceSubjectsAsyncWithHttpInfo($compliance_subject_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3519,16 +3701,16 @@ class ComplianceApi
      *
      * Records a party the org is verifying as part of its own onboarding/compliance — a team member, vendor, customer, or counterparty.
      *
-     * @param  \Hanzo\Cloud\Model\SubjectReq $subject_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceSubjectReq $compliance_subject_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceSubjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postComplianceSubjectsAsyncWithHttpInfo($subject_req, string $contentType = self::contentTypes['postComplianceSubjects'][0])
+    public function postComplianceSubjectsAsyncWithHttpInfo($compliance_subject_req, string $contentType = self::contentTypes['postComplianceSubjects'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Subject';
-        $request = $this->postComplianceSubjectsRequest($subject_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComplianceSubject';
+        $request = $this->postComplianceSubjectsRequest($compliance_subject_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3569,19 +3751,19 @@ class ComplianceApi
     /**
      * Create request for operation 'postComplianceSubjects'
      *
-     * @param  \Hanzo\Cloud\Model\SubjectReq $subject_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceSubjectReq $compliance_subject_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceSubjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postComplianceSubjectsRequest($subject_req, string $contentType = self::contentTypes['postComplianceSubjects'][0])
+    public function postComplianceSubjectsRequest($compliance_subject_req, string $contentType = self::contentTypes['postComplianceSubjects'][0])
     {
 
-        // verify the required parameter 'subject_req' is set
-        if ($subject_req === null || (is_array($subject_req) && count($subject_req) === 0)) {
+        // verify the required parameter 'compliance_subject_req' is set
+        if ($compliance_subject_req === null || (is_array($compliance_subject_req) && count($compliance_subject_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $subject_req when calling postComplianceSubjects'
+                'Missing the required parameter $compliance_subject_req when calling postComplianceSubjects'
             );
         }
 
@@ -3598,18 +3780,18 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($subject_req)) {
+        if (isset($compliance_subject_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($subject_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compliance_subject_req));
             } else {
-                $httpBody = $subject_req;
+                $httpBody = $compliance_subject_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3666,16 +3848,16 @@ class ComplianceApi
      *
      * Begins a KYC/KYB verification of a subject through the wired provider — an existing subject by id, or one created inline from the request.
      *
-     * @param  \Hanzo\Cloud\Model\VerificationReq $verification_req verification_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceVerificationReq $compliance_verification_req compliance_verification_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceVerifications'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CheckView
+     * @return \Hanzo\Cloud\Model\ComplianceCheckView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postComplianceVerifications($verification_req, string $contentType = self::contentTypes['postComplianceVerifications'][0])
+    public function postComplianceVerifications($compliance_verification_req, string $contentType = self::contentTypes['postComplianceVerifications'][0])
     {
-        list($response) = $this->postComplianceVerificationsWithHttpInfo($verification_req, $contentType);
+        list($response) = $this->postComplianceVerificationsWithHttpInfo($compliance_verification_req, $contentType);
         return $response;
     }
 
@@ -3684,16 +3866,16 @@ class ComplianceApi
      *
      * Begins a KYC/KYB verification of a subject through the wired provider — an existing subject by id, or one created inline from the request.
      *
-     * @param  \Hanzo\Cloud\Model\VerificationReq $verification_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceVerificationReq $compliance_verification_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceVerifications'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CheckView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceCheckView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postComplianceVerificationsWithHttpInfo($verification_req, string $contentType = self::contentTypes['postComplianceVerifications'][0])
+    public function postComplianceVerificationsWithHttpInfo($compliance_verification_req, string $contentType = self::contentTypes['postComplianceVerifications'][0])
     {
-        $request = $this->postComplianceVerificationsRequest($verification_req, $contentType);
+        $request = $this->postComplianceVerificationsRequest($compliance_verification_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3721,7 +3903,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CheckView',
+                        '\Hanzo\Cloud\Model\ComplianceCheckView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3743,7 +3931,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CheckView',
+                '\Hanzo\Cloud\Model\ComplianceCheckView',
                 $request,
                 $response,
             );
@@ -3752,7 +3940,15 @@ class ComplianceApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CheckView',
+                        '\Hanzo\Cloud\Model\ComplianceCheckView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3769,15 +3965,15 @@ class ComplianceApi
      *
      * Begins a KYC/KYB verification of a subject through the wired provider — an existing subject by id, or one created inline from the request.
      *
-     * @param  \Hanzo\Cloud\Model\VerificationReq $verification_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceVerificationReq $compliance_verification_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceVerifications'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postComplianceVerificationsAsync($verification_req, string $contentType = self::contentTypes['postComplianceVerifications'][0])
+    public function postComplianceVerificationsAsync($compliance_verification_req, string $contentType = self::contentTypes['postComplianceVerifications'][0])
     {
-        return $this->postComplianceVerificationsAsyncWithHttpInfo($verification_req, $contentType)
+        return $this->postComplianceVerificationsAsyncWithHttpInfo($compliance_verification_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3790,16 +3986,16 @@ class ComplianceApi
      *
      * Begins a KYC/KYB verification of a subject through the wired provider — an existing subject by id, or one created inline from the request.
      *
-     * @param  \Hanzo\Cloud\Model\VerificationReq $verification_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceVerificationReq $compliance_verification_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceVerifications'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postComplianceVerificationsAsyncWithHttpInfo($verification_req, string $contentType = self::contentTypes['postComplianceVerifications'][0])
+    public function postComplianceVerificationsAsyncWithHttpInfo($compliance_verification_req, string $contentType = self::contentTypes['postComplianceVerifications'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CheckView';
-        $request = $this->postComplianceVerificationsRequest($verification_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComplianceCheckView';
+        $request = $this->postComplianceVerificationsRequest($compliance_verification_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3840,19 +4036,19 @@ class ComplianceApi
     /**
      * Create request for operation 'postComplianceVerifications'
      *
-     * @param  \Hanzo\Cloud\Model\VerificationReq $verification_req (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceVerificationReq $compliance_verification_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceVerifications'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postComplianceVerificationsRequest($verification_req, string $contentType = self::contentTypes['postComplianceVerifications'][0])
+    public function postComplianceVerificationsRequest($compliance_verification_req, string $contentType = self::contentTypes['postComplianceVerifications'][0])
     {
 
-        // verify the required parameter 'verification_req' is set
-        if ($verification_req === null || (is_array($verification_req) && count($verification_req) === 0)) {
+        // verify the required parameter 'compliance_verification_req' is set
+        if ($compliance_verification_req === null || (is_array($compliance_verification_req) && count($compliance_verification_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $verification_req when calling postComplianceVerifications'
+                'Missing the required parameter $compliance_verification_req when calling postComplianceVerifications'
             );
         }
 
@@ -3869,18 +4065,18 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($verification_req)) {
+        if (isset($compliance_verification_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($verification_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compliance_verification_req));
             } else {
-                $httpBody = $verification_req;
+                $httpBody = $compliance_verification_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3938,16 +4134,16 @@ class ComplianceApi
      * Records a privileged reviewer&#39;s MANUAL decision on a verification — the human-in-the-loop path, and the ONLY route to a passing status when no real provider is wired.
      *
      * @param  string $id ID is the verification to decide, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\VerificationDecision $verification_decision verification_decision (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceVerificationDecision $compliance_verification_decision compliance_verification_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceVerificationsByIdDecision'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CheckView
+     * @return \Hanzo\Cloud\Model\ComplianceCheckView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postComplianceVerificationsByIdDecision($id, $verification_decision, string $contentType = self::contentTypes['postComplianceVerificationsByIdDecision'][0])
+    public function postComplianceVerificationsByIdDecision($id, $compliance_verification_decision, string $contentType = self::contentTypes['postComplianceVerificationsByIdDecision'][0])
     {
-        list($response) = $this->postComplianceVerificationsByIdDecisionWithHttpInfo($id, $verification_decision, $contentType);
+        list($response) = $this->postComplianceVerificationsByIdDecisionWithHttpInfo($id, $compliance_verification_decision, $contentType);
         return $response;
     }
 
@@ -3957,16 +4153,16 @@ class ComplianceApi
      * Records a privileged reviewer&#39;s MANUAL decision on a verification — the human-in-the-loop path, and the ONLY route to a passing status when no real provider is wired.
      *
      * @param  string $id ID is the verification to decide, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\VerificationDecision $verification_decision (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceVerificationDecision $compliance_verification_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceVerificationsByIdDecision'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CheckView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceCheckView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postComplianceVerificationsByIdDecisionWithHttpInfo($id, $verification_decision, string $contentType = self::contentTypes['postComplianceVerificationsByIdDecision'][0])
+    public function postComplianceVerificationsByIdDecisionWithHttpInfo($id, $compliance_verification_decision, string $contentType = self::contentTypes['postComplianceVerificationsByIdDecision'][0])
     {
-        $request = $this->postComplianceVerificationsByIdDecisionRequest($id, $verification_decision, $contentType);
+        $request = $this->postComplianceVerificationsByIdDecisionRequest($id, $compliance_verification_decision, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3994,7 +4190,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CheckView',
+                        '\Hanzo\Cloud\Model\ComplianceCheckView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4016,7 +4218,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CheckView',
+                '\Hanzo\Cloud\Model\ComplianceCheckView',
                 $request,
                 $response,
             );
@@ -4025,7 +4227,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CheckView',
+                        '\Hanzo\Cloud\Model\ComplianceCheckView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4043,15 +4253,15 @@ class ComplianceApi
      * Records a privileged reviewer&#39;s MANUAL decision on a verification — the human-in-the-loop path, and the ONLY route to a passing status when no real provider is wired.
      *
      * @param  string $id ID is the verification to decide, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\VerificationDecision $verification_decision (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceVerificationDecision $compliance_verification_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceVerificationsByIdDecision'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postComplianceVerificationsByIdDecisionAsync($id, $verification_decision, string $contentType = self::contentTypes['postComplianceVerificationsByIdDecision'][0])
+    public function postComplianceVerificationsByIdDecisionAsync($id, $compliance_verification_decision, string $contentType = self::contentTypes['postComplianceVerificationsByIdDecision'][0])
     {
-        return $this->postComplianceVerificationsByIdDecisionAsyncWithHttpInfo($id, $verification_decision, $contentType)
+        return $this->postComplianceVerificationsByIdDecisionAsyncWithHttpInfo($id, $compliance_verification_decision, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4065,16 +4275,16 @@ class ComplianceApi
      * Records a privileged reviewer&#39;s MANUAL decision on a verification — the human-in-the-loop path, and the ONLY route to a passing status when no real provider is wired.
      *
      * @param  string $id ID is the verification to decide, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\VerificationDecision $verification_decision (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceVerificationDecision $compliance_verification_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceVerificationsByIdDecision'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postComplianceVerificationsByIdDecisionAsyncWithHttpInfo($id, $verification_decision, string $contentType = self::contentTypes['postComplianceVerificationsByIdDecision'][0])
+    public function postComplianceVerificationsByIdDecisionAsyncWithHttpInfo($id, $compliance_verification_decision, string $contentType = self::contentTypes['postComplianceVerificationsByIdDecision'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CheckView';
-        $request = $this->postComplianceVerificationsByIdDecisionRequest($id, $verification_decision, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComplianceCheckView';
+        $request = $this->postComplianceVerificationsByIdDecisionRequest($id, $compliance_verification_decision, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4116,13 +4326,13 @@ class ComplianceApi
      * Create request for operation 'postComplianceVerificationsByIdDecision'
      *
      * @param  string $id ID is the verification to decide, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\VerificationDecision $verification_decision (required)
+     * @param  \Hanzo\Cloud\Model\ComplianceVerificationDecision $compliance_verification_decision (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postComplianceVerificationsByIdDecision'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postComplianceVerificationsByIdDecisionRequest($id, $verification_decision, string $contentType = self::contentTypes['postComplianceVerificationsByIdDecision'][0])
+    public function postComplianceVerificationsByIdDecisionRequest($id, $compliance_verification_decision, string $contentType = self::contentTypes['postComplianceVerificationsByIdDecision'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -4132,10 +4342,10 @@ class ComplianceApi
             );
         }
 
-        // verify the required parameter 'verification_decision' is set
-        if ($verification_decision === null || (is_array($verification_decision) && count($verification_decision) === 0)) {
+        // verify the required parameter 'compliance_verification_decision' is set
+        if ($compliance_verification_decision === null || (is_array($compliance_verification_decision) && count($compliance_verification_decision) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $verification_decision when calling postComplianceVerificationsByIdDecision'
+                'Missing the required parameter $compliance_verification_decision when calling postComplianceVerificationsByIdDecision'
             );
         }
 
@@ -4160,18 +4370,18 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($verification_decision)) {
+        if (isset($compliance_verification_decision)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($verification_decision));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compliance_verification_decision));
             } else {
-                $httpBody = $verification_decision;
+                $httpBody = $compliance_verification_decision;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4233,7 +4443,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CheckView
+     * @return \Hanzo\Cloud\Model\ComplianceCheckView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postComplianceVerificationsByIdRefresh($id, string $contentType = self::contentTypes['postComplianceVerificationsByIdRefresh'][0])
     {
@@ -4251,7 +4461,7 @@ class ComplianceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CheckView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComplianceCheckView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postComplianceVerificationsByIdRefreshWithHttpInfo($id, string $contentType = self::contentTypes['postComplianceVerificationsByIdRefresh'][0])
     {
@@ -4283,7 +4493,13 @@ class ComplianceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CheckView',
+                        '\Hanzo\Cloud\Model\ComplianceCheckView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4305,7 +4521,7 @@ class ComplianceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CheckView',
+                '\Hanzo\Cloud\Model\ComplianceCheckView',
                 $request,
                 $response,
             );
@@ -4314,7 +4530,15 @@ class ComplianceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CheckView',
+                        '\Hanzo\Cloud\Model\ComplianceCheckView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4360,7 +4584,7 @@ class ComplianceApi
      */
     public function postComplianceVerificationsByIdRefreshAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postComplianceVerificationsByIdRefresh'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CheckView';
+        $returnType = '\Hanzo\Cloud\Model\ComplianceCheckView';
         $request = $this->postComplianceVerificationsByIdRefreshRequest($id, $contentType);
 
         return $this->client
@@ -4439,7 +4663,7 @@ class ComplianceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

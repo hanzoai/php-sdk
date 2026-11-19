@@ -58,18 +58,30 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'access' => '\Hanzo\Cloud\Model\AiModelAccessInfo',
+        'canonical_slug' => 'string',
+        'class' => 'string',
         'context_window' => 'int',
         'created' => 'int',
+        'description' => 'string',
+        'endpoint' => 'string',
+        'expires' => 'string',
+        'family' => 'string',
+        'free' => 'bool',
         'id' => 'string',
+        'inputs' => 'string[]',
         'max_output_tokens' => 'int',
+        'name' => 'string',
         'object' => 'string',
         'outputs' => 'string[]',
         'owned_by' => 'string',
         'premium' => 'bool',
         'pricing' => '\Hanzo\Cloud\Model\AiModelPricingInfo',
         'provider' => 'string',
+        'supports_reasoning' => 'bool',
         'supports_tools' => 'bool',
-        'supports_vision' => 'bool'
+        'supports_vision' => 'bool',
+        'video' => '\Hanzo\Cloud\Model\AiVideoSpec',
+        'voice' => '\Hanzo\Cloud\Model\AiVoiceSpec'
     ];
 
     /**
@@ -81,18 +93,30 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'access' => null,
+        'canonical_slug' => null,
+        'class' => null,
         'context_window' => null,
         'created' => null,
+        'description' => null,
+        'endpoint' => null,
+        'expires' => null,
+        'family' => null,
+        'free' => null,
         'id' => null,
+        'inputs' => null,
         'max_output_tokens' => null,
+        'name' => null,
         'object' => null,
         'outputs' => null,
         'owned_by' => null,
         'premium' => null,
         'pricing' => null,
         'provider' => null,
+        'supports_reasoning' => null,
         'supports_tools' => null,
-        'supports_vision' => null
+        'supports_vision' => null,
+        'video' => null,
+        'voice' => null
     ];
 
     /**
@@ -102,18 +126,30 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'access' => false,
+        'canonical_slug' => false,
+        'class' => false,
         'context_window' => false,
         'created' => false,
+        'description' => false,
+        'endpoint' => false,
+        'expires' => false,
+        'family' => false,
+        'free' => false,
         'id' => false,
+        'inputs' => false,
         'max_output_tokens' => false,
+        'name' => false,
         'object' => false,
         'outputs' => false,
         'owned_by' => false,
         'premium' => false,
         'pricing' => false,
         'provider' => false,
+        'supports_reasoning' => false,
         'supports_tools' => false,
-        'supports_vision' => false
+        'supports_vision' => false,
+        'video' => false,
+        'voice' => false
     ];
 
     /**
@@ -203,18 +239,30 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'access' => 'access',
+        'canonical_slug' => 'canonical_slug',
+        'class' => 'class',
         'context_window' => 'context_window',
         'created' => 'created',
+        'description' => 'description',
+        'endpoint' => 'endpoint',
+        'expires' => 'expires',
+        'family' => 'family',
+        'free' => 'free',
         'id' => 'id',
+        'inputs' => 'inputs',
         'max_output_tokens' => 'max_output_tokens',
+        'name' => 'name',
         'object' => 'object',
         'outputs' => 'outputs',
         'owned_by' => 'owned_by',
         'premium' => 'premium',
         'pricing' => 'pricing',
         'provider' => 'provider',
+        'supports_reasoning' => 'supports_reasoning',
         'supports_tools' => 'supports_tools',
-        'supports_vision' => 'supports_vision'
+        'supports_vision' => 'supports_vision',
+        'video' => 'video',
+        'voice' => 'voice'
     ];
 
     /**
@@ -224,18 +272,30 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'access' => 'setAccess',
+        'canonical_slug' => 'setCanonicalSlug',
+        'class' => 'setClass',
         'context_window' => 'setContextWindow',
         'created' => 'setCreated',
+        'description' => 'setDescription',
+        'endpoint' => 'setEndpoint',
+        'expires' => 'setExpires',
+        'family' => 'setFamily',
+        'free' => 'setFree',
         'id' => 'setId',
+        'inputs' => 'setInputs',
         'max_output_tokens' => 'setMaxOutputTokens',
+        'name' => 'setName',
         'object' => 'setObject',
         'outputs' => 'setOutputs',
         'owned_by' => 'setOwnedBy',
         'premium' => 'setPremium',
         'pricing' => 'setPricing',
         'provider' => 'setProvider',
+        'supports_reasoning' => 'setSupportsReasoning',
         'supports_tools' => 'setSupportsTools',
-        'supports_vision' => 'setSupportsVision'
+        'supports_vision' => 'setSupportsVision',
+        'video' => 'setVideo',
+        'voice' => 'setVoice'
     ];
 
     /**
@@ -245,18 +305,30 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'access' => 'getAccess',
+        'canonical_slug' => 'getCanonicalSlug',
+        'class' => 'getClass',
         'context_window' => 'getContextWindow',
         'created' => 'getCreated',
+        'description' => 'getDescription',
+        'endpoint' => 'getEndpoint',
+        'expires' => 'getExpires',
+        'family' => 'getFamily',
+        'free' => 'getFree',
         'id' => 'getId',
+        'inputs' => 'getInputs',
         'max_output_tokens' => 'getMaxOutputTokens',
+        'name' => 'getName',
         'object' => 'getObject',
         'outputs' => 'getOutputs',
         'owned_by' => 'getOwnedBy',
         'premium' => 'getPremium',
         'pricing' => 'getPricing',
         'provider' => 'getProvider',
+        'supports_reasoning' => 'getSupportsReasoning',
         'supports_tools' => 'getSupportsTools',
-        'supports_vision' => 'getSupportsVision'
+        'supports_vision' => 'getSupportsVision',
+        'video' => 'getVideo',
+        'voice' => 'getVoice'
     ];
 
     /**
@@ -317,18 +389,30 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('access', $data ?? [], null);
+        $this->setIfExists('canonical_slug', $data ?? [], null);
+        $this->setIfExists('class', $data ?? [], null);
         $this->setIfExists('context_window', $data ?? [], null);
         $this->setIfExists('created', $data ?? [], null);
+        $this->setIfExists('description', $data ?? [], null);
+        $this->setIfExists('endpoint', $data ?? [], null);
+        $this->setIfExists('expires', $data ?? [], null);
+        $this->setIfExists('family', $data ?? [], null);
+        $this->setIfExists('free', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('inputs', $data ?? [], null);
         $this->setIfExists('max_output_tokens', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('object', $data ?? [], null);
         $this->setIfExists('outputs', $data ?? [], null);
         $this->setIfExists('owned_by', $data ?? [], null);
         $this->setIfExists('premium', $data ?? [], null);
         $this->setIfExists('pricing', $data ?? [], null);
         $this->setIfExists('provider', $data ?? [], null);
+        $this->setIfExists('supports_reasoning', $data ?? [], null);
         $this->setIfExists('supports_tools', $data ?? [], null);
         $this->setIfExists('supports_vision', $data ?? [], null);
+        $this->setIfExists('video', $data ?? [], null);
+        $this->setIfExists('voice', $data ?? [], null);
     }
 
     /**
@@ -401,6 +485,60 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets canonical_slug
+     *
+     * @return string|null
+     */
+    public function getCanonicalSlug()
+    {
+        return $this->container['canonical_slug'];
+    }
+
+    /**
+     * Sets canonical_slug
+     *
+     * @param string|null $canonical_slug canonical_slug
+     *
+     * @return self
+     */
+    public function setCanonicalSlug($canonical_slug)
+    {
+        if (is_null($canonical_slug)) {
+            throw new \InvalidArgumentException('non-nullable canonical_slug cannot be null');
+        }
+        $this->container['canonical_slug'] = $canonical_slug;
+
+        return $this;
+    }
+
+    /**
+     * Gets class
+     *
+     * @return string|null
+     */
+    public function getClass()
+    {
+        return $this->container['class'];
+    }
+
+    /**
+     * Sets class
+     *
+     * @param string|null $class class
+     *
+     * @return self
+     */
+    public function setClass($class)
+    {
+        if (is_null($class)) {
+            throw new \InvalidArgumentException('non-nullable class cannot be null');
+        }
+        $this->container['class'] = $class;
+
+        return $this;
+    }
+
+    /**
      * Gets context_window
      *
      * @return int|null
@@ -455,6 +593,141 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets description
+     *
+     * @return string|null
+     */
+    public function getDescription()
+    {
+        return $this->container['description'];
+    }
+
+    /**
+     * Sets description
+     *
+     * @param string|null $description description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        if (is_null($description)) {
+            throw new \InvalidArgumentException('non-nullable description cannot be null');
+        }
+        $this->container['description'] = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets endpoint
+     *
+     * @return string|null
+     */
+    public function getEndpoint()
+    {
+        return $this->container['endpoint'];
+    }
+
+    /**
+     * Sets endpoint
+     *
+     * @param string|null $endpoint endpoint
+     *
+     * @return self
+     */
+    public function setEndpoint($endpoint)
+    {
+        if (is_null($endpoint)) {
+            throw new \InvalidArgumentException('non-nullable endpoint cannot be null');
+        }
+        $this->container['endpoint'] = $endpoint;
+
+        return $this;
+    }
+
+    /**
+     * Gets expires
+     *
+     * @return string|null
+     */
+    public function getExpires()
+    {
+        return $this->container['expires'];
+    }
+
+    /**
+     * Sets expires
+     *
+     * @param string|null $expires expires
+     *
+     * @return self
+     */
+    public function setExpires($expires)
+    {
+        if (is_null($expires)) {
+            throw new \InvalidArgumentException('non-nullable expires cannot be null');
+        }
+        $this->container['expires'] = $expires;
+
+        return $this;
+    }
+
+    /**
+     * Gets family
+     *
+     * @return string|null
+     */
+    public function getFamily()
+    {
+        return $this->container['family'];
+    }
+
+    /**
+     * Sets family
+     *
+     * @param string|null $family family
+     *
+     * @return self
+     */
+    public function setFamily($family)
+    {
+        if (is_null($family)) {
+            throw new \InvalidArgumentException('non-nullable family cannot be null');
+        }
+        $this->container['family'] = $family;
+
+        return $this;
+    }
+
+    /**
+     * Gets free
+     *
+     * @return bool|null
+     */
+    public function getFree()
+    {
+        return $this->container['free'];
+    }
+
+    /**
+     * Sets free
+     *
+     * @param bool|null $free free
+     *
+     * @return self
+     */
+    public function setFree($free)
+    {
+        if (is_null($free)) {
+            throw new \InvalidArgumentException('non-nullable free cannot be null');
+        }
+        $this->container['free'] = $free;
+
+        return $this;
+    }
+
+    /**
      * Gets id
      *
      * @return string|null
@@ -482,6 +755,33 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets inputs
+     *
+     * @return string[]|null
+     */
+    public function getInputs()
+    {
+        return $this->container['inputs'];
+    }
+
+    /**
+     * Sets inputs
+     *
+     * @param string[]|null $inputs inputs
+     *
+     * @return self
+     */
+    public function setInputs($inputs)
+    {
+        if (is_null($inputs)) {
+            throw new \InvalidArgumentException('non-nullable inputs cannot be null');
+        }
+        $this->container['inputs'] = $inputs;
+
+        return $this;
+    }
+
+    /**
      * Gets max_output_tokens
      *
      * @return int|null
@@ -504,6 +804,33 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable max_output_tokens cannot be null');
         }
         $this->container['max_output_tokens'] = $max_output_tokens;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return string|null
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param string|null $name name
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
+        }
+        $this->container['name'] = $name;
 
         return $this;
     }
@@ -671,6 +998,33 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets supports_reasoning
+     *
+     * @return bool|null
+     */
+    public function getSupportsReasoning()
+    {
+        return $this->container['supports_reasoning'];
+    }
+
+    /**
+     * Sets supports_reasoning
+     *
+     * @param bool|null $supports_reasoning supports_reasoning
+     *
+     * @return self
+     */
+    public function setSupportsReasoning($supports_reasoning)
+    {
+        if (is_null($supports_reasoning)) {
+            throw new \InvalidArgumentException('non-nullable supports_reasoning cannot be null');
+        }
+        $this->container['supports_reasoning'] = $supports_reasoning;
+
+        return $this;
+    }
+
+    /**
      * Gets supports_tools
      *
      * @return bool|null
@@ -720,6 +1074,60 @@ class AiModelInfo implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable supports_vision cannot be null');
         }
         $this->container['supports_vision'] = $supports_vision;
+
+        return $this;
+    }
+
+    /**
+     * Gets video
+     *
+     * @return \Hanzo\Cloud\Model\AiVideoSpec|null
+     */
+    public function getVideo()
+    {
+        return $this->container['video'];
+    }
+
+    /**
+     * Sets video
+     *
+     * @param \Hanzo\Cloud\Model\AiVideoSpec|null $video video
+     *
+     * @return self
+     */
+    public function setVideo($video)
+    {
+        if (is_null($video)) {
+            throw new \InvalidArgumentException('non-nullable video cannot be null');
+        }
+        $this->container['video'] = $video;
+
+        return $this;
+    }
+
+    /**
+     * Gets voice
+     *
+     * @return \Hanzo\Cloud\Model\AiVoiceSpec|null
+     */
+    public function getVoice()
+    {
+        return $this->container['voice'];
+    }
+
+    /**
+     * Sets voice
+     *
+     * @param \Hanzo\Cloud\Model\AiVoiceSpec|null $voice voice
+     *
+     * @return self
+     */
+    public function setVoice($voice)
+    {
+        if (is_null($voice)) {
+            throw new \InvalidArgumentException('non-nullable voice cannot be null');
+        }
+        $this->container['voice'] = $voice;
 
         return $this;
     }

@@ -89,13 +89,7 @@ class CommerceApi
         'deleteCommerceNoteByNoteid' => [
             'application/json',
         ],
-        'deleteCommercePlansEntriesBySlug' => [
-            'application/json',
-        ],
         'deleteCommerceProductByProductid' => [
-            'application/json',
-        ],
-        'deleteCommerceRatesEntriesByProductByMeter' => [
             'application/json',
         ],
         'deleteCommerceReturnByReturnid' => [
@@ -134,22 +128,13 @@ class CommerceApi
         'deleteCommerceWatchlistByWatchlistid' => [
             'application/json',
         ],
-        'deleteCommerceWebhookByWebhookid' => [
-            'application/json',
-        ],
         'discardCart' => [
             'application/json',
         ],
         'getCart' => [
             'application/json',
         ],
-        'getCommerceAdminCatalog' => [
-            'application/json',
-        ],
         'getCommerceCatalog' => [
-            'application/json',
-        ],
-        'getCommerceCatalogEntries' => [
             'application/json',
         ],
         'getCommerceCollection' => [
@@ -159,9 +144,6 @@ class CommerceApi
             'application/json',
         ],
         'getCommerceCurrencies' => [
-            'application/json',
-        ],
-        'getCommerceDeposits' => [
             'application/json',
         ],
         'getCommerceDisclosure' => [
@@ -194,16 +176,10 @@ class CommerceApi
         'getCommerceOrg' => [
             'application/json',
         ],
-        'getCommercePlansEntries' => [
-            'application/json',
-        ],
         'getCommerceProduct' => [
             'application/json',
         ],
         'getCommerceProductByProductid' => [
-            'application/json',
-        ],
-        'getCommerceRatesEntries' => [
             'application/json',
         ],
         'getCommerceReturn' => [
@@ -293,12 +269,6 @@ class CommerceApi
         'getCommerceWatchlistByWatchlistid' => [
             'application/json',
         ],
-        'getCommerceWebhook' => [
-            'application/json',
-        ],
-        'getCommerceWebhookByWebhookid' => [
-            'application/json',
-        ],
         'openCart' => [
             'application/json',
         ],
@@ -356,19 +326,10 @@ class CommerceApi
         'patchCommerceWatchlistByWatchlistid' => [
             'application/json',
         ],
-        'patchCommerceWebhookByWebhookid' => [
-            'application/json',
-        ],
-        'postCommerceCatalogEntries' => [
-            'application/json',
-        ],
         'postCommerceCatalogModels' => [
             'application/json',
         ],
         'postCommerceCatalogModelsRefresh' => [
-            'application/json',
-        ],
-        'postCommerceCatalogSeed' => [
             'application/json',
         ],
         'postCommerceCollection' => [
@@ -401,22 +362,10 @@ class CommerceApi
         'postCommerceNoteByNoteid' => [
             'application/json',
         ],
-        'postCommercePlansEntries' => [
-            'application/json',
-        ],
-        'postCommercePlansSeed' => [
-            'application/json',
-        ],
         'postCommerceProduct' => [
             'application/json',
         ],
         'postCommerceProductByProductid' => [
-            'application/json',
-        ],
-        'postCommerceRatesEntries' => [
-            'application/json',
-        ],
-        'postCommerceRatesImport' => [
             'application/json',
         ],
         'postCommerceReturn' => [
@@ -488,9 +437,6 @@ class CommerceApi
         'postCommerceStoreByStoreidPaypalPay' => [
             'application/json',
         ],
-        'postCommerceStoreByStoreidTrial' => [
-            'application/json',
-        ],
         'postCommerceStoreToken' => [
             'application/json',
         ],
@@ -536,12 +482,6 @@ class CommerceApi
         'postCommerceWatchlistByWatchlistid' => [
             'application/json',
         ],
-        'postCommerceWebhook' => [
-            'application/json',
-        ],
-        'postCommerceWebhookByWebhookid' => [
-            'application/json',
-        ],
         'postCommerceWebhooksByProvider' => [
             'application/json',
         ],
@@ -560,13 +500,7 @@ class CommerceApi
         'putCommerceNoteByNoteid' => [
             'application/json',
         ],
-        'putCommercePlansEntriesBySlug' => [
-            'application/json',
-        ],
         'putCommerceProductByProductid' => [
-            'application/json',
-        ],
-        'putCommerceRatesEntriesByProductByMeter' => [
             'application/json',
         ],
         'putCommerceReturnByReturnid' => [
@@ -603,9 +537,6 @@ class CommerceApi
             'application/json',
         ],
         'putCommerceWatchlistByWatchlistid' => [
-            'application/json',
-        ],
-        'putCommerceWebhookByWebhookid' => [
             'application/json',
         ],
         'setCartItem' => [
@@ -1770,228 +1701,6 @@ class CommerceApi
     }
 
     /**
-     * Operation deleteCommercePlansEntriesBySlug
-     *
-     * Remove a plan from the authority
-     *
-     * @param  string $slug slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommercePlansEntriesBySlug'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function deleteCommercePlansEntriesBySlug($slug, string $contentType = self::contentTypes['deleteCommercePlansEntriesBySlug'][0])
-    {
-        $this->deleteCommercePlansEntriesBySlugWithHttpInfo($slug, $contentType);
-    }
-
-    /**
-     * Operation deleteCommercePlansEntriesBySlugWithHttpInfo
-     *
-     * Remove a plan from the authority
-     *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommercePlansEntriesBySlug'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function deleteCommercePlansEntriesBySlugWithHttpInfo($slug, string $contentType = self::contentTypes['deleteCommercePlansEntriesBySlug'][0])
-    {
-        $request = $this->deleteCommercePlansEntriesBySlugRequest($slug, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation deleteCommercePlansEntriesBySlugAsync
-     *
-     * Remove a plan from the authority
-     *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommercePlansEntriesBySlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function deleteCommercePlansEntriesBySlugAsync($slug, string $contentType = self::contentTypes['deleteCommercePlansEntriesBySlug'][0])
-    {
-        return $this->deleteCommercePlansEntriesBySlugAsyncWithHttpInfo($slug, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation deleteCommercePlansEntriesBySlugAsyncWithHttpInfo
-     *
-     * Remove a plan from the authority
-     *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommercePlansEntriesBySlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function deleteCommercePlansEntriesBySlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['deleteCommercePlansEntriesBySlug'][0])
-    {
-        $returnType = '';
-        $request = $this->deleteCommercePlansEntriesBySlugRequest($slug, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'deleteCommercePlansEntriesBySlug'
-     *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommercePlansEntriesBySlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function deleteCommercePlansEntriesBySlugRequest($slug, string $contentType = self::contentTypes['deleteCommercePlansEntriesBySlug'][0])
-    {
-
-        // verify the required parameter 'slug' is set
-        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling deleteCommercePlansEntriesBySlug'
-            );
-        }
-
-
-        $resourcePath = '/v1/commerce/plans/entries/{slug}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($slug !== null) {
-            $resourcePath = str_replace(
-                '{' . 'slug' . '}',
-                ObjectSerializer::toPathValue($slug),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'DELETE',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation deleteCommerceProductByProductid
      *
      * Delete a product, keeping a recoverable copy
@@ -2151,248 +1860,6 @@ class CommerceApi
             $resourcePath = str_replace(
                 '{' . 'productid' . '}',
                 ObjectSerializer::toPathValue($productid),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'DELETE',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation deleteCommerceRatesEntriesByProductByMeter
-     *
-     * Remove a rate outright
-     *
-     * @param  string $product product (required)
-     * @param  string $meter meter (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function deleteCommerceRatesEntriesByProductByMeter($product, $meter, string $contentType = self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'][0])
-    {
-        $this->deleteCommerceRatesEntriesByProductByMeterWithHttpInfo($product, $meter, $contentType);
-    }
-
-    /**
-     * Operation deleteCommerceRatesEntriesByProductByMeterWithHttpInfo
-     *
-     * Remove a rate outright
-     *
-     * @param  string $product (required)
-     * @param  string $meter (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function deleteCommerceRatesEntriesByProductByMeterWithHttpInfo($product, $meter, string $contentType = self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'][0])
-    {
-        $request = $this->deleteCommerceRatesEntriesByProductByMeterRequest($product, $meter, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation deleteCommerceRatesEntriesByProductByMeterAsync
-     *
-     * Remove a rate outright
-     *
-     * @param  string $product (required)
-     * @param  string $meter (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function deleteCommerceRatesEntriesByProductByMeterAsync($product, $meter, string $contentType = self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'][0])
-    {
-        return $this->deleteCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo($product, $meter, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation deleteCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo
-     *
-     * Remove a rate outright
-     *
-     * @param  string $product (required)
-     * @param  string $meter (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function deleteCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo($product, $meter, string $contentType = self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'][0])
-    {
-        $returnType = '';
-        $request = $this->deleteCommerceRatesEntriesByProductByMeterRequest($product, $meter, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'deleteCommerceRatesEntriesByProductByMeter'
-     *
-     * @param  string $product (required)
-     * @param  string $meter (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function deleteCommerceRatesEntriesByProductByMeterRequest($product, $meter, string $contentType = self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'][0])
-    {
-
-        // verify the required parameter 'product' is set
-        if ($product === null || (is_array($product) && count($product) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $product when calling deleteCommerceRatesEntriesByProductByMeter'
-            );
-        }
-
-        // verify the required parameter 'meter' is set
-        if ($meter === null || (is_array($meter) && count($meter) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $meter when calling deleteCommerceRatesEntriesByProductByMeter'
-            );
-        }
-
-
-        $resourcePath = '/v1/commerce/rates/entries/{product}/{meter}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($product !== null) {
-            $resourcePath = str_replace(
-                '{' . 'product' . '}',
-                ObjectSerializer::toPathValue($product),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($meter !== null) {
-            $resourcePath = str_replace(
-                '{' . 'meter' . '}',
-                ObjectSerializer::toPathValue($meter),
                 $resourcePath
             );
         }
@@ -5140,228 +4607,6 @@ class CommerceApi
     }
 
     /**
-     * Operation deleteCommerceWebhookByWebhookid
-     *
-     * Delete a webhook, keeping a recoverable copy
-     *
-     * @param  string $webhookid webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function deleteCommerceWebhookByWebhookid($webhookid, string $contentType = self::contentTypes['deleteCommerceWebhookByWebhookid'][0])
-    {
-        $this->deleteCommerceWebhookByWebhookidWithHttpInfo($webhookid, $contentType);
-    }
-
-    /**
-     * Operation deleteCommerceWebhookByWebhookidWithHttpInfo
-     *
-     * Delete a webhook, keeping a recoverable copy
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function deleteCommerceWebhookByWebhookidWithHttpInfo($webhookid, string $contentType = self::contentTypes['deleteCommerceWebhookByWebhookid'][0])
-    {
-        $request = $this->deleteCommerceWebhookByWebhookidRequest($webhookid, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation deleteCommerceWebhookByWebhookidAsync
-     *
-     * Delete a webhook, keeping a recoverable copy
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function deleteCommerceWebhookByWebhookidAsync($webhookid, string $contentType = self::contentTypes['deleteCommerceWebhookByWebhookid'][0])
-    {
-        return $this->deleteCommerceWebhookByWebhookidAsyncWithHttpInfo($webhookid, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation deleteCommerceWebhookByWebhookidAsyncWithHttpInfo
-     *
-     * Delete a webhook, keeping a recoverable copy
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function deleteCommerceWebhookByWebhookidAsyncWithHttpInfo($webhookid, string $contentType = self::contentTypes['deleteCommerceWebhookByWebhookid'][0])
-    {
-        $returnType = '';
-        $request = $this->deleteCommerceWebhookByWebhookidRequest($webhookid, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'deleteCommerceWebhookByWebhookid'
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function deleteCommerceWebhookByWebhookidRequest($webhookid, string $contentType = self::contentTypes['deleteCommerceWebhookByWebhookid'][0])
-    {
-
-        // verify the required parameter 'webhookid' is set
-        if ($webhookid === null || (is_array($webhookid) && count($webhookid) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $webhookid when calling deleteCommerceWebhookByWebhookid'
-            );
-        }
-
-
-        $resourcePath = '/v1/commerce/webhook/{webhookid}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($webhookid !== null) {
-            $resourcePath = str_replace(
-                '{' . 'webhookid' . '}',
-                ObjectSerializer::toPathValue($webhookid),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'DELETE',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation discardCart
      *
      * Discard a cart the shopper abandoned
@@ -5371,7 +4616,7 @@ class CommerceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Cart
+     * @return \Hanzo\Cloud\Model\Cart|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function discardCart($id, string $contentType = self::contentTypes['discardCart'][0])
     {
@@ -5389,7 +4634,7 @@ class CommerceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Cart, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Cart|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function discardCartWithHttpInfo($id, string $contentType = self::contentTypes['discardCart'][0])
     {
@@ -5425,6 +4670,12 @@ class CommerceApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -5453,6 +4704,14 @@ class CommerceApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\Cart',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5577,7 +4836,7 @@ class CommerceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5643,7 +4902,7 @@ class CommerceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Cart
+     * @return \Hanzo\Cloud\Model\Cart|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCart($id, string $contentType = self::contentTypes['getCart'][0])
     {
@@ -5661,7 +4920,7 @@ class CommerceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Cart, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Cart|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCartWithHttpInfo($id, string $contentType = self::contentTypes['getCart'][0])
     {
@@ -5697,6 +4956,12 @@ class CommerceApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -5725,6 +4990,14 @@ class CommerceApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\Cart',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5849,209 +5122,7 @@ class CommerceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getCommerceAdminCatalog
-     *
-     * The catalog projection with cost and margin included
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceAdminCatalog'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function getCommerceAdminCatalog(string $contentType = self::contentTypes['getCommerceAdminCatalog'][0])
-    {
-        $this->getCommerceAdminCatalogWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation getCommerceAdminCatalogWithHttpInfo
-     *
-     * The catalog projection with cost and margin included
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceAdminCatalog'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getCommerceAdminCatalogWithHttpInfo(string $contentType = self::contentTypes['getCommerceAdminCatalog'][0])
-    {
-        $request = $this->getCommerceAdminCatalogRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getCommerceAdminCatalogAsync
-     *
-     * The catalog projection with cost and margin included
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceAdminCatalog'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceAdminCatalogAsync(string $contentType = self::contentTypes['getCommerceAdminCatalog'][0])
-    {
-        return $this->getCommerceAdminCatalogAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getCommerceAdminCatalogAsyncWithHttpInfo
-     *
-     * The catalog projection with cost and margin included
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceAdminCatalog'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceAdminCatalogAsyncWithHttpInfo(string $contentType = self::contentTypes['getCommerceAdminCatalog'][0])
-    {
-        $returnType = '';
-        $request = $this->getCommerceAdminCatalogRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getCommerceAdminCatalog'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceAdminCatalog'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getCommerceAdminCatalogRequest(string $contentType = self::contentTypes['getCommerceAdminCatalog'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/admin/catalog';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6310,208 +5381,6 @@ class CommerceApi
     }
 
     /**
-     * Operation getCommerceCatalogEntries
-     *
-     * The raw catalog entries, including the unpublished ones
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceCatalogEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function getCommerceCatalogEntries(string $contentType = self::contentTypes['getCommerceCatalogEntries'][0])
-    {
-        $this->getCommerceCatalogEntriesWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation getCommerceCatalogEntriesWithHttpInfo
-     *
-     * The raw catalog entries, including the unpublished ones
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceCatalogEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getCommerceCatalogEntriesWithHttpInfo(string $contentType = self::contentTypes['getCommerceCatalogEntries'][0])
-    {
-        $request = $this->getCommerceCatalogEntriesRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getCommerceCatalogEntriesAsync
-     *
-     * The raw catalog entries, including the unpublished ones
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceCatalogEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceCatalogEntriesAsync(string $contentType = self::contentTypes['getCommerceCatalogEntries'][0])
-    {
-        return $this->getCommerceCatalogEntriesAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getCommerceCatalogEntriesAsyncWithHttpInfo
-     *
-     * The raw catalog entries, including the unpublished ones
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceCatalogEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceCatalogEntriesAsyncWithHttpInfo(string $contentType = self::contentTypes['getCommerceCatalogEntries'][0])
-    {
-        $returnType = '';
-        $request = $this->getCommerceCatalogEntriesRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getCommerceCatalogEntries'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceCatalogEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getCommerceCatalogEntriesRequest(string $contentType = self::contentTypes['getCommerceCatalogEntries'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/catalog/entries';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation getCommerceCollection
      *
      * List your org&#39;s collections, as a page
@@ -6645,7 +5514,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/collection/';
+        $resourcePath = '/v1/commerce/collection';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7138,208 +6007,6 @@ class CommerceApi
     }
 
     /**
-     * Operation getCommerceDeposits
-     *
-     * Read the crypto deposit watcher&#39;s runtime state, asset by asset
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceDeposits'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function getCommerceDeposits(string $contentType = self::contentTypes['getCommerceDeposits'][0])
-    {
-        $this->getCommerceDepositsWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation getCommerceDepositsWithHttpInfo
-     *
-     * Read the crypto deposit watcher&#39;s runtime state, asset by asset
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceDeposits'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getCommerceDepositsWithHttpInfo(string $contentType = self::contentTypes['getCommerceDeposits'][0])
-    {
-        $request = $this->getCommerceDepositsRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getCommerceDepositsAsync
-     *
-     * Read the crypto deposit watcher&#39;s runtime state, asset by asset
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceDeposits'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceDepositsAsync(string $contentType = self::contentTypes['getCommerceDeposits'][0])
-    {
-        return $this->getCommerceDepositsAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getCommerceDepositsAsyncWithHttpInfo
-     *
-     * Read the crypto deposit watcher&#39;s runtime state, asset by asset
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceDeposits'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceDepositsAsyncWithHttpInfo(string $contentType = self::contentTypes['getCommerceDeposits'][0])
-    {
-        $returnType = '';
-        $request = $this->getCommerceDepositsRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getCommerceDeposits'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceDeposits'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getCommerceDepositsRequest(string $contentType = self::contentTypes['getCommerceDeposits'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/deposits';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation getCommerceDisclosure
      *
      * List your org&#39;s disclosures, as a page
@@ -7473,7 +6140,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/disclosure/';
+        $resourcePath = '/v1/commerce/disclosure';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7897,7 +6564,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/discount/';
+        $resourcePath = '/v1/commerce/discount';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8196,7 +6863,7 @@ class CommerceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Liveness
+     * @return \Hanzo\Cloud\Model\Liveness|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCommerceHealth(string $contentType = self::contentTypes['getCommerceHealth'][0])
     {
@@ -8213,7 +6880,7 @@ class CommerceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Liveness, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Liveness|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCommerceHealthWithHttpInfo(string $contentType = self::contentTypes['getCommerceHealth'][0])
     {
@@ -8249,6 +6916,12 @@ class CommerceApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -8277,6 +6950,14 @@ class CommerceApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\Liveness',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8383,7 +7064,7 @@ class CommerceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -8573,7 +7254,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/movie/';
+        $resourcePath = '/v1/commerce/movie';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8997,7 +7678,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/note/';
+        $resourcePath = '/v1/commerce/note';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -9490,208 +8171,6 @@ class CommerceApi
     }
 
     /**
-     * Operation getCommercePlansEntries
-     *
-     * The raw plan authority rows
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommercePlansEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function getCommercePlansEntries(string $contentType = self::contentTypes['getCommercePlansEntries'][0])
-    {
-        $this->getCommercePlansEntriesWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation getCommercePlansEntriesWithHttpInfo
-     *
-     * The raw plan authority rows
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommercePlansEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getCommercePlansEntriesWithHttpInfo(string $contentType = self::contentTypes['getCommercePlansEntries'][0])
-    {
-        $request = $this->getCommercePlansEntriesRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getCommercePlansEntriesAsync
-     *
-     * The raw plan authority rows
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommercePlansEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommercePlansEntriesAsync(string $contentType = self::contentTypes['getCommercePlansEntries'][0])
-    {
-        return $this->getCommercePlansEntriesAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getCommercePlansEntriesAsyncWithHttpInfo
-     *
-     * The raw plan authority rows
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommercePlansEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommercePlansEntriesAsyncWithHttpInfo(string $contentType = self::contentTypes['getCommercePlansEntries'][0])
-    {
-        $returnType = '';
-        $request = $this->getCommercePlansEntriesRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getCommercePlansEntries'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommercePlansEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getCommercePlansEntriesRequest(string $contentType = self::contentTypes['getCommercePlansEntries'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/plans/entries';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation getCommerceProduct
      *
      * List your org&#39;s products, as a page
@@ -9825,7 +8304,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/product/';
+        $resourcePath = '/v1/commerce/product';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -10116,208 +8595,6 @@ class CommerceApi
     }
 
     /**
-     * Operation getCommerceRatesEntries
-     *
-     * List what one unit of each metered thing costs
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceRatesEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function getCommerceRatesEntries(string $contentType = self::contentTypes['getCommerceRatesEntries'][0])
-    {
-        $this->getCommerceRatesEntriesWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation getCommerceRatesEntriesWithHttpInfo
-     *
-     * List what one unit of each metered thing costs
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceRatesEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getCommerceRatesEntriesWithHttpInfo(string $contentType = self::contentTypes['getCommerceRatesEntries'][0])
-    {
-        $request = $this->getCommerceRatesEntriesRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getCommerceRatesEntriesAsync
-     *
-     * List what one unit of each metered thing costs
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceRatesEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceRatesEntriesAsync(string $contentType = self::contentTypes['getCommerceRatesEntries'][0])
-    {
-        return $this->getCommerceRatesEntriesAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getCommerceRatesEntriesAsyncWithHttpInfo
-     *
-     * List what one unit of each metered thing costs
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceRatesEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceRatesEntriesAsyncWithHttpInfo(string $contentType = self::contentTypes['getCommerceRatesEntries'][0])
-    {
-        $returnType = '';
-        $request = $this->getCommerceRatesEntriesRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getCommerceRatesEntries'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceRatesEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getCommerceRatesEntriesRequest(string $contentType = self::contentTypes['getCommerceRatesEntries'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/rates/entries';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation getCommerceReturn
      *
      * List your org&#39;s returns, as a page
@@ -10451,7 +8728,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/return/';
+        $resourcePath = '/v1/commerce/return';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -10875,7 +9152,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/saleschannel/';
+        $resourcePath = '/v1/commerce/saleschannel';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -11299,7 +9576,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/stocklocation/';
+        $resourcePath = '/v1/commerce/stocklocation';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -11723,7 +10000,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/store/';
+        $resourcePath = '/v1/commerce/store';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -13741,7 +12018,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/submission/';
+        $resourcePath = '/v1/commerce/submission';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -14165,7 +12442,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/subscriber/';
+        $resourcePath = '/v1/commerce/subscriber';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -14589,7 +12866,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/tokentransaction/';
+        $resourcePath = '/v1/commerce/tokentransaction';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -15013,7 +13290,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/transfer/';
+        $resourcePath = '/v1/commerce/transfer';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -15437,7 +13714,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/variant/';
+        $resourcePath = '/v1/commerce/variant';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -15861,7 +14138,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/wallet/';
+        $resourcePath = '/v1/commerce/wallet';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -16285,7 +14562,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/watchlist/';
+        $resourcePath = '/v1/commerce/watchlist';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -16576,430 +14853,6 @@ class CommerceApi
     }
 
     /**
-     * Operation getCommerceWebhook
-     *
-     * List your org&#39;s webhooks, as a page
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceWebhook'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function getCommerceWebhook(string $contentType = self::contentTypes['getCommerceWebhook'][0])
-    {
-        $this->getCommerceWebhookWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation getCommerceWebhookWithHttpInfo
-     *
-     * List your org&#39;s webhooks, as a page
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceWebhook'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getCommerceWebhookWithHttpInfo(string $contentType = self::contentTypes['getCommerceWebhook'][0])
-    {
-        $request = $this->getCommerceWebhookRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getCommerceWebhookAsync
-     *
-     * List your org&#39;s webhooks, as a page
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceWebhook'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceWebhookAsync(string $contentType = self::contentTypes['getCommerceWebhook'][0])
-    {
-        return $this->getCommerceWebhookAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getCommerceWebhookAsyncWithHttpInfo
-     *
-     * List your org&#39;s webhooks, as a page
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceWebhook'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['getCommerceWebhook'][0])
-    {
-        $returnType = '';
-        $request = $this->getCommerceWebhookRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getCommerceWebhook'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceWebhook'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getCommerceWebhookRequest(string $contentType = self::contentTypes['getCommerceWebhook'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/webhook/';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getCommerceWebhookByWebhookid
-     *
-     * Fetch one webhook
-     *
-     * @param  string $webhookid webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function getCommerceWebhookByWebhookid($webhookid, string $contentType = self::contentTypes['getCommerceWebhookByWebhookid'][0])
-    {
-        $this->getCommerceWebhookByWebhookidWithHttpInfo($webhookid, $contentType);
-    }
-
-    /**
-     * Operation getCommerceWebhookByWebhookidWithHttpInfo
-     *
-     * Fetch one webhook
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getCommerceWebhookByWebhookidWithHttpInfo($webhookid, string $contentType = self::contentTypes['getCommerceWebhookByWebhookid'][0])
-    {
-        $request = $this->getCommerceWebhookByWebhookidRequest($webhookid, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getCommerceWebhookByWebhookidAsync
-     *
-     * Fetch one webhook
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceWebhookByWebhookidAsync($webhookid, string $contentType = self::contentTypes['getCommerceWebhookByWebhookid'][0])
-    {
-        return $this->getCommerceWebhookByWebhookidAsyncWithHttpInfo($webhookid, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getCommerceWebhookByWebhookidAsyncWithHttpInfo
-     *
-     * Fetch one webhook
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getCommerceWebhookByWebhookidAsyncWithHttpInfo($webhookid, string $contentType = self::contentTypes['getCommerceWebhookByWebhookid'][0])
-    {
-        $returnType = '';
-        $request = $this->getCommerceWebhookByWebhookidRequest($webhookid, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getCommerceWebhookByWebhookid'
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getCommerceWebhookByWebhookidRequest($webhookid, string $contentType = self::contentTypes['getCommerceWebhookByWebhookid'][0])
-    {
-
-        // verify the required parameter 'webhookid' is set
-        if ($webhookid === null || (is_array($webhookid) && count($webhookid) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $webhookid when calling getCommerceWebhookByWebhookid'
-            );
-        }
-
-
-        $resourcePath = '/v1/commerce/webhook/{webhookid}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($webhookid !== null) {
-            $resourcePath = str_replace(
-                '{' . 'webhookid' . '}',
-                ObjectSerializer::toPathValue($webhookid),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation openCart
      *
      * Open a cart for a shopper to fill
@@ -17009,7 +14862,7 @@ class CommerceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Cart
+     * @return \Hanzo\Cloud\Model\Cart|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function openCart($cart_open, string $contentType = self::contentTypes['openCart'][0])
     {
@@ -17027,7 +14880,7 @@ class CommerceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Cart, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Cart|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function openCartWithHttpInfo($cart_open, string $contentType = self::contentTypes['openCart'][0])
     {
@@ -17063,6 +14916,12 @@ class CommerceApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -17091,6 +14950,14 @@ class CommerceApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\Cart',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -17207,7 +15074,7 @@ class CommerceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -21287,430 +19154,6 @@ class CommerceApi
     }
 
     /**
-     * Operation patchCommerceWebhookByWebhookid
-     *
-     * Change part of a webhook
-     *
-     * @param  string $webhookid webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function patchCommerceWebhookByWebhookid($webhookid, string $contentType = self::contentTypes['patchCommerceWebhookByWebhookid'][0])
-    {
-        $this->patchCommerceWebhookByWebhookidWithHttpInfo($webhookid, $contentType);
-    }
-
-    /**
-     * Operation patchCommerceWebhookByWebhookidWithHttpInfo
-     *
-     * Change part of a webhook
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function patchCommerceWebhookByWebhookidWithHttpInfo($webhookid, string $contentType = self::contentTypes['patchCommerceWebhookByWebhookid'][0])
-    {
-        $request = $this->patchCommerceWebhookByWebhookidRequest($webhookid, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation patchCommerceWebhookByWebhookidAsync
-     *
-     * Change part of a webhook
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function patchCommerceWebhookByWebhookidAsync($webhookid, string $contentType = self::contentTypes['patchCommerceWebhookByWebhookid'][0])
-    {
-        return $this->patchCommerceWebhookByWebhookidAsyncWithHttpInfo($webhookid, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation patchCommerceWebhookByWebhookidAsyncWithHttpInfo
-     *
-     * Change part of a webhook
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function patchCommerceWebhookByWebhookidAsyncWithHttpInfo($webhookid, string $contentType = self::contentTypes['patchCommerceWebhookByWebhookid'][0])
-    {
-        $returnType = '';
-        $request = $this->patchCommerceWebhookByWebhookidRequest($webhookid, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'patchCommerceWebhookByWebhookid'
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function patchCommerceWebhookByWebhookidRequest($webhookid, string $contentType = self::contentTypes['patchCommerceWebhookByWebhookid'][0])
-    {
-
-        // verify the required parameter 'webhookid' is set
-        if ($webhookid === null || (is_array($webhookid) && count($webhookid) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $webhookid when calling patchCommerceWebhookByWebhookid'
-            );
-        }
-
-
-        $resourcePath = '/v1/commerce/webhook/{webhookid}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($webhookid !== null) {
-            $resourcePath = str_replace(
-                '{' . 'webhookid' . '}',
-                ObjectSerializer::toPathValue($webhookid),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'PATCH',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postCommerceCatalogEntries
-     *
-     * Add a catalog entry
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceCatalogEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postCommerceCatalogEntries(string $contentType = self::contentTypes['postCommerceCatalogEntries'][0])
-    {
-        $this->postCommerceCatalogEntriesWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postCommerceCatalogEntriesWithHttpInfo
-     *
-     * Add a catalog entry
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceCatalogEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postCommerceCatalogEntriesWithHttpInfo(string $contentType = self::contentTypes['postCommerceCatalogEntries'][0])
-    {
-        $request = $this->postCommerceCatalogEntriesRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postCommerceCatalogEntriesAsync
-     *
-     * Add a catalog entry
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceCatalogEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceCatalogEntriesAsync(string $contentType = self::contentTypes['postCommerceCatalogEntries'][0])
-    {
-        return $this->postCommerceCatalogEntriesAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postCommerceCatalogEntriesAsyncWithHttpInfo
-     *
-     * Add a catalog entry
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceCatalogEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceCatalogEntriesAsyncWithHttpInfo(string $contentType = self::contentTypes['postCommerceCatalogEntries'][0])
-    {
-        $returnType = '';
-        $request = $this->postCommerceCatalogEntriesRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postCommerceCatalogEntries'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceCatalogEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postCommerceCatalogEntriesRequest(string $contentType = self::contentTypes['postCommerceCatalogEntries'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/catalog/entries';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation postCommerceCatalogModels
      *
      * Land a syncer&#39;s view of the model catalog: upstream costs and machine facts
@@ -22115,208 +19558,6 @@ class CommerceApi
     }
 
     /**
-     * Operation postCommerceCatalogSeed
-     *
-     * Seed the embedded catalog, without disturbing edits already made
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceCatalogSeed'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postCommerceCatalogSeed(string $contentType = self::contentTypes['postCommerceCatalogSeed'][0])
-    {
-        $this->postCommerceCatalogSeedWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postCommerceCatalogSeedWithHttpInfo
-     *
-     * Seed the embedded catalog, without disturbing edits already made
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceCatalogSeed'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postCommerceCatalogSeedWithHttpInfo(string $contentType = self::contentTypes['postCommerceCatalogSeed'][0])
-    {
-        $request = $this->postCommerceCatalogSeedRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postCommerceCatalogSeedAsync
-     *
-     * Seed the embedded catalog, without disturbing edits already made
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceCatalogSeed'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceCatalogSeedAsync(string $contentType = self::contentTypes['postCommerceCatalogSeed'][0])
-    {
-        return $this->postCommerceCatalogSeedAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postCommerceCatalogSeedAsyncWithHttpInfo
-     *
-     * Seed the embedded catalog, without disturbing edits already made
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceCatalogSeed'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceCatalogSeedAsyncWithHttpInfo(string $contentType = self::contentTypes['postCommerceCatalogSeed'][0])
-    {
-        $returnType = '';
-        $request = $this->postCommerceCatalogSeedRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postCommerceCatalogSeed'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceCatalogSeed'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postCommerceCatalogSeedRequest(string $contentType = self::contentTypes['postCommerceCatalogSeed'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/catalog/seed';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation postCommerceCollection
      *
      * Create a collection
@@ -22450,7 +19691,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/collection/';
+        $resourcePath = '/v1/commerce/collection';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -22874,7 +20115,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/disclosure/';
+        $resourcePath = '/v1/commerce/disclosure';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -23298,7 +20539,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/discount/';
+        $resourcePath = '/v1/commerce/discount';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -23722,7 +20963,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/movie/';
+        $resourcePath = '/v1/commerce/movie';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -24146,7 +21387,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/note/';
+        $resourcePath = '/v1/commerce/note';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -24437,410 +21678,6 @@ class CommerceApi
     }
 
     /**
-     * Operation postCommercePlansEntries
-     *
-     * Add a subscription plan
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommercePlansEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postCommercePlansEntries(string $contentType = self::contentTypes['postCommercePlansEntries'][0])
-    {
-        $this->postCommercePlansEntriesWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postCommercePlansEntriesWithHttpInfo
-     *
-     * Add a subscription plan
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommercePlansEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postCommercePlansEntriesWithHttpInfo(string $contentType = self::contentTypes['postCommercePlansEntries'][0])
-    {
-        $request = $this->postCommercePlansEntriesRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postCommercePlansEntriesAsync
-     *
-     * Add a subscription plan
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommercePlansEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommercePlansEntriesAsync(string $contentType = self::contentTypes['postCommercePlansEntries'][0])
-    {
-        return $this->postCommercePlansEntriesAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postCommercePlansEntriesAsyncWithHttpInfo
-     *
-     * Add a subscription plan
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommercePlansEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommercePlansEntriesAsyncWithHttpInfo(string $contentType = self::contentTypes['postCommercePlansEntries'][0])
-    {
-        $returnType = '';
-        $request = $this->postCommercePlansEntriesRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postCommercePlansEntries'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommercePlansEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postCommercePlansEntriesRequest(string $contentType = self::contentTypes['postCommercePlansEntries'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/plans/entries';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postCommercePlansSeed
-     *
-     * Seed the embedded plan catalog, without overwriting administrative edits
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommercePlansSeed'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postCommercePlansSeed(string $contentType = self::contentTypes['postCommercePlansSeed'][0])
-    {
-        $this->postCommercePlansSeedWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postCommercePlansSeedWithHttpInfo
-     *
-     * Seed the embedded plan catalog, without overwriting administrative edits
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommercePlansSeed'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postCommercePlansSeedWithHttpInfo(string $contentType = self::contentTypes['postCommercePlansSeed'][0])
-    {
-        $request = $this->postCommercePlansSeedRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postCommercePlansSeedAsync
-     *
-     * Seed the embedded plan catalog, without overwriting administrative edits
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommercePlansSeed'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommercePlansSeedAsync(string $contentType = self::contentTypes['postCommercePlansSeed'][0])
-    {
-        return $this->postCommercePlansSeedAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postCommercePlansSeedAsyncWithHttpInfo
-     *
-     * Seed the embedded plan catalog, without overwriting administrative edits
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommercePlansSeed'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommercePlansSeedAsyncWithHttpInfo(string $contentType = self::contentTypes['postCommercePlansSeed'][0])
-    {
-        $returnType = '';
-        $request = $this->postCommercePlansSeedRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postCommercePlansSeed'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommercePlansSeed'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postCommercePlansSeedRequest(string $contentType = self::contentTypes['postCommercePlansSeed'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/plans/seed';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation postCommerceProduct
      *
      * Create a product
@@ -24974,7 +21811,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/product/';
+        $resourcePath = '/v1/commerce/product';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -25265,410 +22102,6 @@ class CommerceApi
     }
 
     /**
-     * Operation postCommerceRatesEntries
-     *
-     * Add a rate
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceRatesEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postCommerceRatesEntries(string $contentType = self::contentTypes['postCommerceRatesEntries'][0])
-    {
-        $this->postCommerceRatesEntriesWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postCommerceRatesEntriesWithHttpInfo
-     *
-     * Add a rate
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceRatesEntries'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postCommerceRatesEntriesWithHttpInfo(string $contentType = self::contentTypes['postCommerceRatesEntries'][0])
-    {
-        $request = $this->postCommerceRatesEntriesRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postCommerceRatesEntriesAsync
-     *
-     * Add a rate
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceRatesEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceRatesEntriesAsync(string $contentType = self::contentTypes['postCommerceRatesEntries'][0])
-    {
-        return $this->postCommerceRatesEntriesAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postCommerceRatesEntriesAsyncWithHttpInfo
-     *
-     * Add a rate
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceRatesEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceRatesEntriesAsyncWithHttpInfo(string $contentType = self::contentTypes['postCommerceRatesEntries'][0])
-    {
-        $returnType = '';
-        $request = $this->postCommerceRatesEntriesRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postCommerceRatesEntries'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceRatesEntries'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postCommerceRatesEntriesRequest(string $contentType = self::contentTypes['postCommerceRatesEntries'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/rates/entries';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postCommerceRatesImport
-     *
-     * Load the published price document, reconciling rather than replacing
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceRatesImport'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postCommerceRatesImport(string $contentType = self::contentTypes['postCommerceRatesImport'][0])
-    {
-        $this->postCommerceRatesImportWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postCommerceRatesImportWithHttpInfo
-     *
-     * Load the published price document, reconciling rather than replacing
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceRatesImport'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postCommerceRatesImportWithHttpInfo(string $contentType = self::contentTypes['postCommerceRatesImport'][0])
-    {
-        $request = $this->postCommerceRatesImportRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postCommerceRatesImportAsync
-     *
-     * Load the published price document, reconciling rather than replacing
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceRatesImport'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceRatesImportAsync(string $contentType = self::contentTypes['postCommerceRatesImport'][0])
-    {
-        return $this->postCommerceRatesImportAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postCommerceRatesImportAsyncWithHttpInfo
-     *
-     * Load the published price document, reconciling rather than replacing
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceRatesImport'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceRatesImportAsyncWithHttpInfo(string $contentType = self::contentTypes['postCommerceRatesImport'][0])
-    {
-        $returnType = '';
-        $request = $this->postCommerceRatesImportRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postCommerceRatesImport'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceRatesImport'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postCommerceRatesImportRequest(string $contentType = self::contentTypes['postCommerceRatesImport'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/rates/import';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation postCommerceReturn
      *
      * Create a return
@@ -25802,7 +22235,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/return/';
+        $resourcePath = '/v1/commerce/return';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -26226,7 +22659,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/saleschannel/';
+        $resourcePath = '/v1/commerce/saleschannel';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -26650,7 +23083,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/stocklocation/';
+        $resourcePath = '/v1/commerce/stocklocation';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -27074,7 +23507,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/store/';
+        $resourcePath = '/v1/commerce/store';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -30875,228 +27308,6 @@ class CommerceApi
     }
 
     /**
-     * Operation postCommerceStoreByStoreidTrial
-     *
-     * Start this store&#39;s no-card trial on the entry plan
-     *
-     * @param  string $storeid storeid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceStoreByStoreidTrial'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postCommerceStoreByStoreidTrial($storeid, string $contentType = self::contentTypes['postCommerceStoreByStoreidTrial'][0])
-    {
-        $this->postCommerceStoreByStoreidTrialWithHttpInfo($storeid, $contentType);
-    }
-
-    /**
-     * Operation postCommerceStoreByStoreidTrialWithHttpInfo
-     *
-     * Start this store&#39;s no-card trial on the entry plan
-     *
-     * @param  string $storeid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceStoreByStoreidTrial'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postCommerceStoreByStoreidTrialWithHttpInfo($storeid, string $contentType = self::contentTypes['postCommerceStoreByStoreidTrial'][0])
-    {
-        $request = $this->postCommerceStoreByStoreidTrialRequest($storeid, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postCommerceStoreByStoreidTrialAsync
-     *
-     * Start this store&#39;s no-card trial on the entry plan
-     *
-     * @param  string $storeid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceStoreByStoreidTrial'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceStoreByStoreidTrialAsync($storeid, string $contentType = self::contentTypes['postCommerceStoreByStoreidTrial'][0])
-    {
-        return $this->postCommerceStoreByStoreidTrialAsyncWithHttpInfo($storeid, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postCommerceStoreByStoreidTrialAsyncWithHttpInfo
-     *
-     * Start this store&#39;s no-card trial on the entry plan
-     *
-     * @param  string $storeid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceStoreByStoreidTrial'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceStoreByStoreidTrialAsyncWithHttpInfo($storeid, string $contentType = self::contentTypes['postCommerceStoreByStoreidTrial'][0])
-    {
-        $returnType = '';
-        $request = $this->postCommerceStoreByStoreidTrialRequest($storeid, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postCommerceStoreByStoreidTrial'
-     *
-     * @param  string $storeid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceStoreByStoreidTrial'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postCommerceStoreByStoreidTrialRequest($storeid, string $contentType = self::contentTypes['postCommerceStoreByStoreidTrial'][0])
-    {
-
-        // verify the required parameter 'storeid' is set
-        if ($storeid === null || (is_array($storeid) && count($storeid) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $storeid when calling postCommerceStoreByStoreidTrial'
-            );
-        }
-
-
-        $resourcePath = '/v1/commerce/store/{storeid}/trial';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($storeid !== null) {
-            $resourcePath = str_replace(
-                '{' . 'storeid' . '}',
-                ObjectSerializer::toPathValue($storeid),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation postCommerceStoreToken
      *
      * Mint your org&#39;s least-privilege storefront read key
@@ -31432,7 +27643,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/submission/';
+        $resourcePath = '/v1/commerce/submission';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -31856,7 +28067,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/subscriber/';
+        $resourcePath = '/v1/commerce/subscriber';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -32280,7 +28491,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/tokentransaction/';
+        $resourcePath = '/v1/commerce/tokentransaction';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -32704,7 +28915,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/transfer/';
+        $resourcePath = '/v1/commerce/transfer';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -33128,7 +29339,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/variant/';
+        $resourcePath = '/v1/commerce/variant';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -33552,7 +29763,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/wallet/';
+        $resourcePath = '/v1/commerce/wallet';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -33976,7 +30187,7 @@ class CommerceApi
     {
 
 
-        $resourcePath = '/v1/commerce/watchlist/';
+        $resourcePath = '/v1/commerce/watchlist';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -34204,430 +30415,6 @@ class CommerceApi
             $resourcePath = str_replace(
                 '{' . 'watchlistid' . '}',
                 ObjectSerializer::toPathValue($watchlistid),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postCommerceWebhook
-     *
-     * Create a webhook
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceWebhook'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postCommerceWebhook(string $contentType = self::contentTypes['postCommerceWebhook'][0])
-    {
-        $this->postCommerceWebhookWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postCommerceWebhookWithHttpInfo
-     *
-     * Create a webhook
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceWebhook'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postCommerceWebhookWithHttpInfo(string $contentType = self::contentTypes['postCommerceWebhook'][0])
-    {
-        $request = $this->postCommerceWebhookRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postCommerceWebhookAsync
-     *
-     * Create a webhook
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceWebhook'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceWebhookAsync(string $contentType = self::contentTypes['postCommerceWebhook'][0])
-    {
-        return $this->postCommerceWebhookAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postCommerceWebhookAsyncWithHttpInfo
-     *
-     * Create a webhook
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceWebhook'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['postCommerceWebhook'][0])
-    {
-        $returnType = '';
-        $request = $this->postCommerceWebhookRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postCommerceWebhook'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceWebhook'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postCommerceWebhookRequest(string $contentType = self::contentTypes['postCommerceWebhook'][0])
-    {
-
-
-        $resourcePath = '/v1/commerce/webhook/';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postCommerceWebhookByWebhookid
-     *
-     * Method-override tunnel for a webhook — for clients that cannot send PUT, PATCH or DELETE
-     *
-     * @param  string $webhookid webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postCommerceWebhookByWebhookid($webhookid, string $contentType = self::contentTypes['postCommerceWebhookByWebhookid'][0])
-    {
-        $this->postCommerceWebhookByWebhookidWithHttpInfo($webhookid, $contentType);
-    }
-
-    /**
-     * Operation postCommerceWebhookByWebhookidWithHttpInfo
-     *
-     * Method-override tunnel for a webhook — for clients that cannot send PUT, PATCH or DELETE
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postCommerceWebhookByWebhookidWithHttpInfo($webhookid, string $contentType = self::contentTypes['postCommerceWebhookByWebhookid'][0])
-    {
-        $request = $this->postCommerceWebhookByWebhookidRequest($webhookid, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postCommerceWebhookByWebhookidAsync
-     *
-     * Method-override tunnel for a webhook — for clients that cannot send PUT, PATCH or DELETE
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceWebhookByWebhookidAsync($webhookid, string $contentType = self::contentTypes['postCommerceWebhookByWebhookid'][0])
-    {
-        return $this->postCommerceWebhookByWebhookidAsyncWithHttpInfo($webhookid, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postCommerceWebhookByWebhookidAsyncWithHttpInfo
-     *
-     * Method-override tunnel for a webhook — for clients that cannot send PUT, PATCH or DELETE
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCommerceWebhookByWebhookidAsyncWithHttpInfo($webhookid, string $contentType = self::contentTypes['postCommerceWebhookByWebhookid'][0])
-    {
-        $returnType = '';
-        $request = $this->postCommerceWebhookByWebhookidRequest($webhookid, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postCommerceWebhookByWebhookid'
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postCommerceWebhookByWebhookidRequest($webhookid, string $contentType = self::contentTypes['postCommerceWebhookByWebhookid'][0])
-    {
-
-        // verify the required parameter 'webhookid' is set
-        if ($webhookid === null || (is_array($webhookid) && count($webhookid) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $webhookid when calling postCommerceWebhookByWebhookid'
-            );
-        }
-
-
-        $resourcePath = '/v1/commerce/webhook/{webhookid}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($webhookid !== null) {
-            $resourcePath = str_replace(
-                '{' . 'webhookid' . '}',
-                ObjectSerializer::toPathValue($webhookid),
                 $resourcePath
             );
         }
@@ -36023,228 +31810,6 @@ class CommerceApi
     }
 
     /**
-     * Operation putCommercePlansEntriesBySlug
-     *
-     * Edit a plan, leaving the fields you omit alone
-     *
-     * @param  string $slug slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommercePlansEntriesBySlug'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function putCommercePlansEntriesBySlug($slug, string $contentType = self::contentTypes['putCommercePlansEntriesBySlug'][0])
-    {
-        $this->putCommercePlansEntriesBySlugWithHttpInfo($slug, $contentType);
-    }
-
-    /**
-     * Operation putCommercePlansEntriesBySlugWithHttpInfo
-     *
-     * Edit a plan, leaving the fields you omit alone
-     *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommercePlansEntriesBySlug'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function putCommercePlansEntriesBySlugWithHttpInfo($slug, string $contentType = self::contentTypes['putCommercePlansEntriesBySlug'][0])
-    {
-        $request = $this->putCommercePlansEntriesBySlugRequest($slug, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation putCommercePlansEntriesBySlugAsync
-     *
-     * Edit a plan, leaving the fields you omit alone
-     *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommercePlansEntriesBySlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function putCommercePlansEntriesBySlugAsync($slug, string $contentType = self::contentTypes['putCommercePlansEntriesBySlug'][0])
-    {
-        return $this->putCommercePlansEntriesBySlugAsyncWithHttpInfo($slug, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation putCommercePlansEntriesBySlugAsyncWithHttpInfo
-     *
-     * Edit a plan, leaving the fields you omit alone
-     *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommercePlansEntriesBySlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function putCommercePlansEntriesBySlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['putCommercePlansEntriesBySlug'][0])
-    {
-        $returnType = '';
-        $request = $this->putCommercePlansEntriesBySlugRequest($slug, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'putCommercePlansEntriesBySlug'
-     *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommercePlansEntriesBySlug'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function putCommercePlansEntriesBySlugRequest($slug, string $contentType = self::contentTypes['putCommercePlansEntriesBySlug'][0])
-    {
-
-        // verify the required parameter 'slug' is set
-        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling putCommercePlansEntriesBySlug'
-            );
-        }
-
-
-        $resourcePath = '/v1/commerce/plans/entries/{slug}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($slug !== null) {
-            $resourcePath = str_replace(
-                '{' . 'slug' . '}',
-                ObjectSerializer::toPathValue($slug),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'PUT',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation putCommerceProductByProductid
      *
      * Replace a product outright
@@ -36404,248 +31969,6 @@ class CommerceApi
             $resourcePath = str_replace(
                 '{' . 'productid' . '}',
                 ObjectSerializer::toPathValue($productid),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'PUT',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation putCommerceRatesEntriesByProductByMeter
-     *
-     * Edit a rate, and mark it as operator-set
-     *
-     * @param  string $product product (required)
-     * @param  string $meter meter (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function putCommerceRatesEntriesByProductByMeter($product, $meter, string $contentType = self::contentTypes['putCommerceRatesEntriesByProductByMeter'][0])
-    {
-        $this->putCommerceRatesEntriesByProductByMeterWithHttpInfo($product, $meter, $contentType);
-    }
-
-    /**
-     * Operation putCommerceRatesEntriesByProductByMeterWithHttpInfo
-     *
-     * Edit a rate, and mark it as operator-set
-     *
-     * @param  string $product (required)
-     * @param  string $meter (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function putCommerceRatesEntriesByProductByMeterWithHttpInfo($product, $meter, string $contentType = self::contentTypes['putCommerceRatesEntriesByProductByMeter'][0])
-    {
-        $request = $this->putCommerceRatesEntriesByProductByMeterRequest($product, $meter, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation putCommerceRatesEntriesByProductByMeterAsync
-     *
-     * Edit a rate, and mark it as operator-set
-     *
-     * @param  string $product (required)
-     * @param  string $meter (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function putCommerceRatesEntriesByProductByMeterAsync($product, $meter, string $contentType = self::contentTypes['putCommerceRatesEntriesByProductByMeter'][0])
-    {
-        return $this->putCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo($product, $meter, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation putCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo
-     *
-     * Edit a rate, and mark it as operator-set
-     *
-     * @param  string $product (required)
-     * @param  string $meter (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function putCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo($product, $meter, string $contentType = self::contentTypes['putCommerceRatesEntriesByProductByMeter'][0])
-    {
-        $returnType = '';
-        $request = $this->putCommerceRatesEntriesByProductByMeterRequest($product, $meter, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'putCommerceRatesEntriesByProductByMeter'
-     *
-     * @param  string $product (required)
-     * @param  string $meter (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function putCommerceRatesEntriesByProductByMeterRequest($product, $meter, string $contentType = self::contentTypes['putCommerceRatesEntriesByProductByMeter'][0])
-    {
-
-        // verify the required parameter 'product' is set
-        if ($product === null || (is_array($product) && count($product) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $product when calling putCommerceRatesEntriesByProductByMeter'
-            );
-        }
-
-        // verify the required parameter 'meter' is set
-        if ($meter === null || (is_array($meter) && count($meter) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $meter when calling putCommerceRatesEntriesByProductByMeter'
-            );
-        }
-
-
-        $resourcePath = '/v1/commerce/rates/entries/{product}/{meter}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($product !== null) {
-            $resourcePath = str_replace(
-                '{' . 'product' . '}',
-                ObjectSerializer::toPathValue($product),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($meter !== null) {
-            $resourcePath = str_replace(
-                '{' . 'meter' . '}',
-                ObjectSerializer::toPathValue($meter),
                 $resourcePath
             );
         }
@@ -39393,228 +34716,6 @@ class CommerceApi
     }
 
     /**
-     * Operation putCommerceWebhookByWebhookid
-     *
-     * Replace a webhook outright
-     *
-     * @param  string $webhookid webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function putCommerceWebhookByWebhookid($webhookid, string $contentType = self::contentTypes['putCommerceWebhookByWebhookid'][0])
-    {
-        $this->putCommerceWebhookByWebhookidWithHttpInfo($webhookid, $contentType);
-    }
-
-    /**
-     * Operation putCommerceWebhookByWebhookidWithHttpInfo
-     *
-     * Replace a webhook outright
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function putCommerceWebhookByWebhookidWithHttpInfo($webhookid, string $contentType = self::contentTypes['putCommerceWebhookByWebhookid'][0])
-    {
-        $request = $this->putCommerceWebhookByWebhookidRequest($webhookid, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation putCommerceWebhookByWebhookidAsync
-     *
-     * Replace a webhook outright
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function putCommerceWebhookByWebhookidAsync($webhookid, string $contentType = self::contentTypes['putCommerceWebhookByWebhookid'][0])
-    {
-        return $this->putCommerceWebhookByWebhookidAsyncWithHttpInfo($webhookid, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation putCommerceWebhookByWebhookidAsyncWithHttpInfo
-     *
-     * Replace a webhook outright
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function putCommerceWebhookByWebhookidAsyncWithHttpInfo($webhookid, string $contentType = self::contentTypes['putCommerceWebhookByWebhookid'][0])
-    {
-        $returnType = '';
-        $request = $this->putCommerceWebhookByWebhookidRequest($webhookid, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'putCommerceWebhookByWebhookid'
-     *
-     * @param  string $webhookid (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceWebhookByWebhookid'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function putCommerceWebhookByWebhookidRequest($webhookid, string $contentType = self::contentTypes['putCommerceWebhookByWebhookid'][0])
-    {
-
-        // verify the required parameter 'webhookid' is set
-        if ($webhookid === null || (is_array($webhookid) && count($webhookid) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $webhookid when calling putCommerceWebhookByWebhookid'
-            );
-        }
-
-
-        $resourcePath = '/v1/commerce/webhook/{webhookid}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($webhookid !== null) {
-            $resourcePath = str_replace(
-                '{' . 'webhookid' . '}',
-                ObjectSerializer::toPathValue($webhookid),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'PUT',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation setCartItem
      *
      * Set one item&#39;s quantity in a cart; zero removes it
@@ -39625,7 +34726,7 @@ class CommerceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Cart
+     * @return \Hanzo\Cloud\Model\Cart|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function setCartItem($id, $cart_item_set, string $contentType = self::contentTypes['setCartItem'][0])
     {
@@ -39644,7 +34745,7 @@ class CommerceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Cart, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Cart|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function setCartItemWithHttpInfo($id, $cart_item_set, string $contentType = self::contentTypes['setCartItem'][0])
     {
@@ -39680,6 +34781,12 @@ class CommerceApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -39708,6 +34815,14 @@ class CommerceApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\Cart',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -39842,7 +34957,7 @@ class CommerceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

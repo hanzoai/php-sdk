@@ -364,7 +364,7 @@ class O11yIntegrationsListItem implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets description
      *
-     * @param string|null $description description
+     * @param string|null $description A short description
      *
      * @return self
      */

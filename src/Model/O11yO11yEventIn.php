@@ -57,7 +57,7 @@ class O11yO11yEventIn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'attributes' => 'array<string,object>',
+        'attributes' => 'array<string,mixed>',
         'event_name' => 'string',
         'event_type' => 'string',
         'rate_limited' => 'bool'
@@ -316,7 +316,7 @@ class O11yO11yEventIn implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets attributes
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getAttributes()
     {
@@ -326,7 +326,7 @@ class O11yO11yEventIn implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets attributes
      *
-     * @param array<string,object>|null $attributes Attributes are free-form event properties.
+     * @param array<string,mixed>|null $attributes Attributes are free-form event properties.
      *
      * @return self
      */

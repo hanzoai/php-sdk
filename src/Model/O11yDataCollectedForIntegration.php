@@ -57,8 +57,8 @@ class O11yDataCollectedForIntegration implements ModelInterface, ArrayAccess, \J
       * @var string[]
       */
     protected static $openAPITypes = [
-        'logs' => '\Hanzo\Cloud\Model\O11yIntegrationsCollectedLogAttribute[]',
-        'metrics' => '\Hanzo\Cloud\Model\O11yIntegrationsCollectedMetric[]'
+        'logs' => '\Hanzo\Cloud\Model\O11yCollectedLogAttribute[]',
+        'metrics' => '\Hanzo\Cloud\Model\O11yCollectedMetric[]'
     ];
 
     /**
@@ -299,7 +299,7 @@ class O11yDataCollectedForIntegration implements ModelInterface, ArrayAccess, \J
     /**
      * Gets logs
      *
-     * @return \Hanzo\Cloud\Model\O11yIntegrationsCollectedLogAttribute[]|null
+     * @return \Hanzo\Cloud\Model\O11yCollectedLogAttribute[]|null
      */
     public function getLogs()
     {
@@ -309,7 +309,7 @@ class O11yDataCollectedForIntegration implements ModelInterface, ArrayAccess, \J
     /**
      * Sets logs
      *
-     * @param \Hanzo\Cloud\Model\O11yIntegrationsCollectedLogAttribute[]|null $logs logs
+     * @param \Hanzo\Cloud\Model\O11yCollectedLogAttribute[]|null $logs logs
      *
      * @return self
      */
@@ -326,7 +326,7 @@ class O11yDataCollectedForIntegration implements ModelInterface, ArrayAccess, \J
     /**
      * Gets metrics
      *
-     * @return \Hanzo\Cloud\Model\O11yIntegrationsCollectedMetric[]|null
+     * @return \Hanzo\Cloud\Model\O11yCollectedMetric[]|null
      */
     public function getMetrics()
     {
@@ -336,7 +336,7 @@ class O11yDataCollectedForIntegration implements ModelInterface, ArrayAccess, \J
     /**
      * Sets metrics
      *
-     * @param \Hanzo\Cloud\Model\O11yIntegrationsCollectedMetric[]|null $metrics metrics
+     * @param \Hanzo\Cloud\Model\O11yCollectedMetric[]|null $metrics metrics
      *
      * @return self
      */

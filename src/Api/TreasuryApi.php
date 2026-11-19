@@ -137,7 +137,7 @@ class TreasuryApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TreasuryReport
+     * @return \Hanzo\Cloud\Model\TreasuryTreasuryReport|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTreasury(string $contentType = self::contentTypes['getTreasury'][0])
     {
@@ -154,7 +154,7 @@ class TreasuryApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TreasuryReport, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TreasuryTreasuryReport|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTreasuryWithHttpInfo(string $contentType = self::contentTypes['getTreasury'][0])
     {
@@ -186,7 +186,13 @@ class TreasuryApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TreasuryReport',
+                        '\Hanzo\Cloud\Model\TreasuryTreasuryReport',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -208,7 +214,7 @@ class TreasuryApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TreasuryReport',
+                '\Hanzo\Cloud\Model\TreasuryTreasuryReport',
                 $request,
                 $response,
             );
@@ -217,7 +223,15 @@ class TreasuryApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TreasuryReport',
+                        '\Hanzo\Cloud\Model\TreasuryTreasuryReport',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -261,7 +275,7 @@ class TreasuryApi
      */
     public function getTreasuryAsyncWithHttpInfo(string $contentType = self::contentTypes['getTreasury'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TreasuryReport';
+        $returnType = '\Hanzo\Cloud\Model\TreasuryTreasuryReport';
         $request = $this->getTreasuryRequest($contentType);
 
         return $this->client
@@ -324,7 +338,7 @@ class TreasuryApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -391,7 +405,7 @@ class TreasuryApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AccountsOut
+     * @return \Hanzo\Cloud\Model\TreasuryAccountsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTreasuryAccounts($scope = null, $org = null, string $contentType = self::contentTypes['getTreasuryAccounts'][0])
     {
@@ -410,7 +424,7 @@ class TreasuryApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AccountsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TreasuryAccountsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTreasuryAccountsWithHttpInfo($scope = null, $org = null, string $contentType = self::contentTypes['getTreasuryAccounts'][0])
     {
@@ -442,7 +456,13 @@ class TreasuryApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AccountsOut',
+                        '\Hanzo\Cloud\Model\TreasuryAccountsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -464,7 +484,7 @@ class TreasuryApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AccountsOut',
+                '\Hanzo\Cloud\Model\TreasuryAccountsOut',
                 $request,
                 $response,
             );
@@ -473,7 +493,15 @@ class TreasuryApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AccountsOut',
+                        '\Hanzo\Cloud\Model\TreasuryAccountsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -521,7 +549,7 @@ class TreasuryApi
      */
     public function getTreasuryAccountsAsyncWithHttpInfo($scope = null, $org = null, string $contentType = self::contentTypes['getTreasuryAccounts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AccountsOut';
+        $returnType = '\Hanzo\Cloud\Model\TreasuryAccountsOut';
         $request = $this->getTreasuryAccountsRequest($scope, $org, $contentType);
 
         return $this->client
@@ -606,7 +634,7 @@ class TreasuryApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

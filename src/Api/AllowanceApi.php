@@ -128,13 +128,13 @@ class AllowanceApi
     /**
      * Operation getAllowance
      *
-     * Answers what the CALLER has left of their plan&#39;s free-call allowance this period, and the instant the count starts again.
+     * Answers what the CALLER has left of their plan&#39;s free-call allowance in the window that holds them, and the instant that window reopens.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAllowance'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Allowance
+     * @return \Hanzo\Cloud\Model\AllowanceAllowance|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAllowance(string $contentType = self::contentTypes['getAllowance'][0])
     {
@@ -145,13 +145,13 @@ class AllowanceApi
     /**
      * Operation getAllowanceWithHttpInfo
      *
-     * Answers what the CALLER has left of their plan&#39;s free-call allowance this period, and the instant the count starts again.
+     * Answers what the CALLER has left of their plan&#39;s free-call allowance in the window that holds them, and the instant that window reopens.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAllowance'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Allowance, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AllowanceAllowance|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAllowanceWithHttpInfo(string $contentType = self::contentTypes['getAllowance'][0])
     {
@@ -183,7 +183,13 @@ class AllowanceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Allowance',
+                        '\Hanzo\Cloud\Model\AllowanceAllowance',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -205,7 +211,7 @@ class AllowanceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Allowance',
+                '\Hanzo\Cloud\Model\AllowanceAllowance',
                 $request,
                 $response,
             );
@@ -214,7 +220,15 @@ class AllowanceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Allowance',
+                        '\Hanzo\Cloud\Model\AllowanceAllowance',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -229,7 +243,7 @@ class AllowanceApi
     /**
      * Operation getAllowanceAsync
      *
-     * Answers what the CALLER has left of their plan&#39;s free-call allowance this period, and the instant the count starts again.
+     * Answers what the CALLER has left of their plan&#39;s free-call allowance in the window that holds them, and the instant that window reopens.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAllowance'] to see the possible values for this operation
      *
@@ -249,7 +263,7 @@ class AllowanceApi
     /**
      * Operation getAllowanceAsyncWithHttpInfo
      *
-     * Answers what the CALLER has left of their plan&#39;s free-call allowance this period, and the instant the count starts again.
+     * Answers what the CALLER has left of their plan&#39;s free-call allowance in the window that holds them, and the instant that window reopens.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAllowance'] to see the possible values for this operation
      *
@@ -258,7 +272,7 @@ class AllowanceApi
      */
     public function getAllowanceAsyncWithHttpInfo(string $contentType = self::contentTypes['getAllowance'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Allowance';
+        $returnType = '\Hanzo\Cloud\Model\AllowanceAllowance';
         $request = $this->getAllowanceRequest($contentType);
 
         return $this->client
@@ -321,7 +335,7 @@ class AllowanceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

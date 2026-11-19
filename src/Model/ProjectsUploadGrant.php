@@ -57,6 +57,7 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
       * @var string[]
       */
     protected static $openAPITypes = [
+        'copy' => 'bool',
         'expires_at' => 'int',
         'fields' => 'array<string,string>',
         'max_bytes' => 'int',
@@ -72,9 +73,10 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'expires_at' => 'int64',
+        'copy' => null,
+        'expires_at' => null,
         'fields' => null,
-        'max_bytes' => 'int64',
+        'max_bytes' => null,
         'prefix' => null,
         'url' => null
     ];
@@ -85,6 +87,7 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'copy' => false,
         'expires_at' => false,
         'fields' => false,
         'max_bytes' => false,
@@ -178,6 +181,7 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var string[]
      */
     protected static $attributeMap = [
+        'copy' => 'copy',
         'expires_at' => 'expiresAt',
         'fields' => 'fields',
         'max_bytes' => 'maxBytes',
@@ -191,6 +195,7 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var string[]
      */
     protected static $setters = [
+        'copy' => 'setCopy',
         'expires_at' => 'setExpiresAt',
         'fields' => 'setFields',
         'max_bytes' => 'setMaxBytes',
@@ -204,6 +209,7 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var string[]
      */
     protected static $getters = [
+        'copy' => 'getCopy',
         'expires_at' => 'getExpiresAt',
         'fields' => 'getFields',
         'max_bytes' => 'getMaxBytes',
@@ -268,6 +274,7 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('copy', $data ?? [], null);
         $this->setIfExists('expires_at', $data ?? [], null);
         $this->setIfExists('fields', $data ?? [], null);
         $this->setIfExists('max_bytes', $data ?? [], null);
@@ -318,6 +325,33 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
 
 
     /**
+     * Gets copy
+     *
+     * @return bool|null
+     */
+    public function getCopy()
+    {
+        return $this->container['copy'];
+    }
+
+    /**
+     * Sets copy
+     *
+     * @param bool|null $copy copy
+     *
+     * @return self
+     */
+    public function setCopy($copy)
+    {
+        if (is_null($copy)) {
+            throw new \InvalidArgumentException('non-nullable copy cannot be null');
+        }
+        $this->container['copy'] = $copy;
+
+        return $this;
+    }
+
+    /**
      * Gets expires_at
      *
      * @return int|null
@@ -330,7 +364,7 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets expires_at
      *
-     * @param int|null $expires_at ExpiresAt is when the grant stops being accepted, as Unix seconds. It is short-lived by design and is handed out ONCE, on the response that queues the deployment — a later read of that deployment does not carry it, so a grant cannot be fetched again after the build it was minted for.
+     * @param int|null $expires_at expires_at
      *
      * @return self
      */
@@ -357,7 +391,7 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets fields
      *
-     * @param array<string,string>|null $fields Fields are form values every POST must carry VERBATIM, alongside `key` and `file`. The signature covers them, so altering any one of them — including widening the key to reach outside the prefix — invalidates the grant rather than extending it.
+     * @param array<string,string>|null $fields fields
      *
      * @return self
      */
@@ -384,7 +418,7 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets max_bytes
      *
-     * @param int|null $max_bytes MaxBytes bounds ONE object, not the upload as a whole.
+     * @param int|null $max_bytes max_bytes
      *
      * @return self
      */
@@ -411,7 +445,7 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets prefix
      *
-     * @param string|null $prefix Prefix is the only place this grant can write: the deployment's own key prefix. It authorizes WRITES ONLY, which is why completing a deployment reconciles the prefix against a manifest instead of letting CI delete.
+     * @param string|null $prefix prefix
      *
      * @return self
      */
@@ -438,7 +472,7 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets url
      *
-     * @param string|null $url URL is the address to POST each object to. It is signed for the PUBLIC endpoint, because the signature covers the host and CI posts from outside the cluster.
+     * @param string|null $url url
      *
      * @return self
      */

@@ -74,6 +74,9 @@ class X402Api
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'getX402Settlements' => [
+            'application/json',
+        ],
         'getX402SettlementsById' => [
             'application/json',
         ],
@@ -126,16 +129,312 @@ class X402Api
     }
 
     /**
+     * Operation getX402Settlements
+     *
+     * Lists the caller&#39;s x402 receipts, newest first: as payer, what its wallet paid; as payee, what its org was paid — each settled payment with what it bought, both parties, the exact amount and when.
+     *
+     * @param  string|null $role Role is payer — what the caller&#39;s org paid — or payee — what it was paid. Payer when empty. (optional)
+     * @param  int|null $year Year keeps the calendar year (UTC) the payments settled in. Zero keeps every year. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getX402Settlements'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\X402SettlementList|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getX402Settlements($role = null, $year = null, string $contentType = self::contentTypes['getX402Settlements'][0])
+    {
+        list($response) = $this->getX402SettlementsWithHttpInfo($role, $year, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getX402SettlementsWithHttpInfo
+     *
+     * Lists the caller&#39;s x402 receipts, newest first: as payer, what its wallet paid; as payee, what its org was paid — each settled payment with what it bought, both parties, the exact amount and when.
+     *
+     * @param  string|null $role Role is payer — what the caller&#39;s org paid — or payee — what it was paid. Payer when empty. (optional)
+     * @param  int|null $year Year keeps the calendar year (UTC) the payments settled in. Zero keeps every year. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getX402Settlements'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\X402SettlementList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getX402SettlementsWithHttpInfo($role = null, $year = null, string $contentType = self::contentTypes['getX402Settlements'][0])
+    {
+        $request = $this->getX402SettlementsRequest($role, $year, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\X402SettlementList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\X402SettlementList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\X402SettlementList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getX402SettlementsAsync
+     *
+     * Lists the caller&#39;s x402 receipts, newest first: as payer, what its wallet paid; as payee, what its org was paid — each settled payment with what it bought, both parties, the exact amount and when.
+     *
+     * @param  string|null $role Role is payer — what the caller&#39;s org paid — or payee — what it was paid. Payer when empty. (optional)
+     * @param  int|null $year Year keeps the calendar year (UTC) the payments settled in. Zero keeps every year. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getX402Settlements'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getX402SettlementsAsync($role = null, $year = null, string $contentType = self::contentTypes['getX402Settlements'][0])
+    {
+        return $this->getX402SettlementsAsyncWithHttpInfo($role, $year, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getX402SettlementsAsyncWithHttpInfo
+     *
+     * Lists the caller&#39;s x402 receipts, newest first: as payer, what its wallet paid; as payee, what its org was paid — each settled payment with what it bought, both parties, the exact amount and when.
+     *
+     * @param  string|null $role Role is payer — what the caller&#39;s org paid — or payee — what it was paid. Payer when empty. (optional)
+     * @param  int|null $year Year keeps the calendar year (UTC) the payments settled in. Zero keeps every year. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getX402Settlements'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getX402SettlementsAsyncWithHttpInfo($role = null, $year = null, string $contentType = self::contentTypes['getX402Settlements'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\X402SettlementList';
+        $request = $this->getX402SettlementsRequest($role, $year, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getX402Settlements'
+     *
+     * @param  string|null $role Role is payer — what the caller&#39;s org paid — or payee — what it was paid. Payer when empty. (optional)
+     * @param  int|null $year Year keeps the calendar year (UTC) the payments settled in. Zero keeps every year. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getX402Settlements'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getX402SettlementsRequest($role = null, $year = null, string $contentType = self::contentTypes['getX402Settlements'][0])
+    {
+
+
+
+
+        $resourcePath = '/v1/x402/settlements';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $role,
+            'role', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $year,
+            'year', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getX402SettlementsById
      *
-     * Settlement reads one x402 payment receipt by id.
+     * Reads one x402 payment receipt by id.
      *
      * @param  string $id ID is the settlement id from the URL — the deterministic keccak(from|nonce) key an x402 receipt is issued under (the &#x60;id&#x60; field of a Receipt, and the &#x60;transaction&#x60; of the SettlementResponse on the PAYMENT-RESPONSE header a paid request answers with). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getX402SettlementsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Receipt
+     * @return \Hanzo\Cloud\Model\X402Receipt|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getX402SettlementsById($id, string $contentType = self::contentTypes['getX402SettlementsById'][0])
     {
@@ -146,14 +445,14 @@ class X402Api
     /**
      * Operation getX402SettlementsByIdWithHttpInfo
      *
-     * Settlement reads one x402 payment receipt by id.
+     * Reads one x402 payment receipt by id.
      *
      * @param  string $id ID is the settlement id from the URL — the deterministic keccak(from|nonce) key an x402 receipt is issued under (the &#x60;id&#x60; field of a Receipt, and the &#x60;transaction&#x60; of the SettlementResponse on the PAYMENT-RESPONSE header a paid request answers with). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getX402SettlementsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Receipt, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\X402Receipt|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getX402SettlementsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getX402SettlementsById'][0])
     {
@@ -185,7 +484,13 @@ class X402Api
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Receipt',
+                        '\Hanzo\Cloud\Model\X402Receipt',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -207,7 +512,7 @@ class X402Api
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Receipt',
+                '\Hanzo\Cloud\Model\X402Receipt',
                 $request,
                 $response,
             );
@@ -216,7 +521,15 @@ class X402Api
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Receipt',
+                        '\Hanzo\Cloud\Model\X402Receipt',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -231,7 +544,7 @@ class X402Api
     /**
      * Operation getX402SettlementsByIdAsync
      *
-     * Settlement reads one x402 payment receipt by id.
+     * Reads one x402 payment receipt by id.
      *
      * @param  string $id ID is the settlement id from the URL — the deterministic keccak(from|nonce) key an x402 receipt is issued under (the &#x60;id&#x60; field of a Receipt, and the &#x60;transaction&#x60; of the SettlementResponse on the PAYMENT-RESPONSE header a paid request answers with). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getX402SettlementsById'] to see the possible values for this operation
@@ -252,7 +565,7 @@ class X402Api
     /**
      * Operation getX402SettlementsByIdAsyncWithHttpInfo
      *
-     * Settlement reads one x402 payment receipt by id.
+     * Reads one x402 payment receipt by id.
      *
      * @param  string $id ID is the settlement id from the URL — the deterministic keccak(from|nonce) key an x402 receipt is issued under (the &#x60;id&#x60; field of a Receipt, and the &#x60;transaction&#x60; of the SettlementResponse on the PAYMENT-RESPONSE header a paid request answers with). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getX402SettlementsById'] to see the possible values for this operation
@@ -262,7 +575,7 @@ class X402Api
      */
     public function getX402SettlementsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getX402SettlementsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Receipt';
+        $returnType = '\Hanzo\Cloud\Model\X402Receipt';
         $request = $this->getX402SettlementsByIdRequest($id, $contentType);
 
         return $this->client
@@ -341,7 +654,7 @@ class X402Api
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

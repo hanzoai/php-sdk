@@ -77,10 +77,22 @@ class S3Api
         'deleteS3BucketsByBucket' => [
             'application/json',
         ],
+        'deleteS3BucketsByBucketObjectsByWildcard1' => [
+            'application/json',
+        ],
+        'deleteS3BucketsByBucketUploadsByUpload' => [
+            'application/json',
+        ],
         'getS3Buckets' => [
             'application/json',
         ],
         'getS3BucketsByBucketObjects' => [
+            'application/json',
+        ],
+        'getS3BucketsByBucketObjectsByWildcard1' => [
+            'application/json',
+        ],
+        'getS3BucketsByBucketUploadsByUpload' => [
             'application/json',
         ],
         'getS3Health' => [
@@ -90,6 +102,15 @@ class S3Api
             'application/json',
         ],
         'postS3BucketsByBucketObjects' => [
+            'application/json',
+        ],
+        'postS3BucketsByBucketUploads' => [
+            'application/json',
+        ],
+        'postS3BucketsByBucketUploadsByUploadComplete' => [
+            'application/json',
+        ],
+        'postS3BucketsByBucketUploadsByUploadParts' => [
             'application/json',
         ],
     ];
@@ -199,6 +220,14 @@ class S3Api
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -306,7 +335,578 @@ class S3Api
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteS3BucketsByBucketObjectsByWildcard1
+     *
+     * Removes one object and answers 204.
+     *
+     * @param  string $bucket Bucket is the bucket&#39;s friendly name, from the path. (required)
+     * @param  string $wildcard1 Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteS3BucketsByBucketObjectsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteS3BucketsByBucketObjectsByWildcard1($bucket, $wildcard1, string $contentType = self::contentTypes['deleteS3BucketsByBucketObjectsByWildcard1'][0])
+    {
+        $this->deleteS3BucketsByBucketObjectsByWildcard1WithHttpInfo($bucket, $wildcard1, $contentType);
+    }
+
+    /**
+     * Operation deleteS3BucketsByBucketObjectsByWildcard1WithHttpInfo
+     *
+     * Removes one object and answers 204.
+     *
+     * @param  string $bucket Bucket is the bucket&#39;s friendly name, from the path. (required)
+     * @param  string $wildcard1 Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteS3BucketsByBucketObjectsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteS3BucketsByBucketObjectsByWildcard1WithHttpInfo($bucket, $wildcard1, string $contentType = self::contentTypes['deleteS3BucketsByBucketObjectsByWildcard1'][0])
+    {
+        $request = $this->deleteS3BucketsByBucketObjectsByWildcard1Request($bucket, $wildcard1, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteS3BucketsByBucketObjectsByWildcard1Async
+     *
+     * Removes one object and answers 204.
+     *
+     * @param  string $bucket Bucket is the bucket&#39;s friendly name, from the path. (required)
+     * @param  string $wildcard1 Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteS3BucketsByBucketObjectsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteS3BucketsByBucketObjectsByWildcard1Async($bucket, $wildcard1, string $contentType = self::contentTypes['deleteS3BucketsByBucketObjectsByWildcard1'][0])
+    {
+        return $this->deleteS3BucketsByBucketObjectsByWildcard1AsyncWithHttpInfo($bucket, $wildcard1, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteS3BucketsByBucketObjectsByWildcard1AsyncWithHttpInfo
+     *
+     * Removes one object and answers 204.
+     *
+     * @param  string $bucket Bucket is the bucket&#39;s friendly name, from the path. (required)
+     * @param  string $wildcard1 Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteS3BucketsByBucketObjectsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteS3BucketsByBucketObjectsByWildcard1AsyncWithHttpInfo($bucket, $wildcard1, string $contentType = self::contentTypes['deleteS3BucketsByBucketObjectsByWildcard1'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteS3BucketsByBucketObjectsByWildcard1Request($bucket, $wildcard1, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteS3BucketsByBucketObjectsByWildcard1'
+     *
+     * @param  string $bucket Bucket is the bucket&#39;s friendly name, from the path. (required)
+     * @param  string $wildcard1 Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteS3BucketsByBucketObjectsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteS3BucketsByBucketObjectsByWildcard1Request($bucket, $wildcard1, string $contentType = self::contentTypes['deleteS3BucketsByBucketObjectsByWildcard1'][0])
+    {
+
+        // verify the required parameter 'bucket' is set
+        if ($bucket === null || (is_array($bucket) && count($bucket) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $bucket when calling deleteS3BucketsByBucketObjectsByWildcard1'
+            );
+        }
+
+        // verify the required parameter 'wildcard1' is set
+        if ($wildcard1 === null || (is_array($wildcard1) && count($wildcard1) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $wildcard1 when calling deleteS3BucketsByBucketObjectsByWildcard1'
+            );
+        }
+
+
+        $resourcePath = '/v1/s3/buckets/{bucket}/objects/{wildcard1}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($bucket !== null) {
+            $resourcePath = str_replace(
+                '{' . 'bucket' . '}',
+                ObjectSerializer::toPathValue($bucket),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($wildcard1 !== null) {
+            $resourcePath = str_replace(
+                '{' . 'wildcard1' . '}',
+                ObjectSerializer::toPathValue($wildcard1),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteS3BucketsByBucketUploadsByUpload
+     *
+     * Aborts a multipart upload and deletes the parts it stored.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  string|null $key Key is the object key the upload was started on. In the query for a read or an abandon, in the body to complete. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteS3BucketsByBucketUploadsByUpload'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\S3UploadGone|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function deleteS3BucketsByBucketUploadsByUpload($bucket, $upload, $key = null, string $contentType = self::contentTypes['deleteS3BucketsByBucketUploadsByUpload'][0])
+    {
+        list($response) = $this->deleteS3BucketsByBucketUploadsByUploadWithHttpInfo($bucket, $upload, $key, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteS3BucketsByBucketUploadsByUploadWithHttpInfo
+     *
+     * Aborts a multipart upload and deletes the parts it stored.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  string|null $key Key is the object key the upload was started on. In the query for a read or an abandon, in the body to complete. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteS3BucketsByBucketUploadsByUpload'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\S3UploadGone|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteS3BucketsByBucketUploadsByUploadWithHttpInfo($bucket, $upload, $key = null, string $contentType = self::contentTypes['deleteS3BucketsByBucketUploadsByUpload'][0])
+    {
+        $request = $this->deleteS3BucketsByBucketUploadsByUploadRequest($bucket, $upload, $key, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\S3UploadGone',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\S3UploadGone',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\S3UploadGone',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteS3BucketsByBucketUploadsByUploadAsync
+     *
+     * Aborts a multipart upload and deletes the parts it stored.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  string|null $key Key is the object key the upload was started on. In the query for a read or an abandon, in the body to complete. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteS3BucketsByBucketUploadsByUpload'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteS3BucketsByBucketUploadsByUploadAsync($bucket, $upload, $key = null, string $contentType = self::contentTypes['deleteS3BucketsByBucketUploadsByUpload'][0])
+    {
+        return $this->deleteS3BucketsByBucketUploadsByUploadAsyncWithHttpInfo($bucket, $upload, $key, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteS3BucketsByBucketUploadsByUploadAsyncWithHttpInfo
+     *
+     * Aborts a multipart upload and deletes the parts it stored.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  string|null $key Key is the object key the upload was started on. In the query for a read or an abandon, in the body to complete. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteS3BucketsByBucketUploadsByUpload'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteS3BucketsByBucketUploadsByUploadAsyncWithHttpInfo($bucket, $upload, $key = null, string $contentType = self::contentTypes['deleteS3BucketsByBucketUploadsByUpload'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\S3UploadGone';
+        $request = $this->deleteS3BucketsByBucketUploadsByUploadRequest($bucket, $upload, $key, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteS3BucketsByBucketUploadsByUpload'
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  string|null $key Key is the object key the upload was started on. In the query for a read or an abandon, in the body to complete. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteS3BucketsByBucketUploadsByUpload'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteS3BucketsByBucketUploadsByUploadRequest($bucket, $upload, $key = null, string $contentType = self::contentTypes['deleteS3BucketsByBucketUploadsByUpload'][0])
+    {
+
+        // verify the required parameter 'bucket' is set
+        if ($bucket === null || (is_array($bucket) && count($bucket) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $bucket when calling deleteS3BucketsByBucketUploadsByUpload'
+            );
+        }
+
+        // verify the required parameter 'upload' is set
+        if ($upload === null || (is_array($upload) && count($upload) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $upload when calling deleteS3BucketsByBucketUploadsByUpload'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/s3/buckets/{bucket}/uploads/{upload}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $key,
+            'key', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($bucket !== null) {
+            $resourcePath = str_replace(
+                '{' . 'bucket' . '}',
+                ObjectSerializer::toPathValue($bucket),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($upload !== null) {
+            $resourcePath = str_replace(
+                '{' . 'upload' . '}',
+                ObjectSerializer::toPathValue($upload),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -371,7 +971,7 @@ class S3Api
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BucketList
+     * @return \Hanzo\Cloud\Model\S3BucketList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getS3Buckets(string $contentType = self::contentTypes['getS3Buckets'][0])
     {
@@ -388,7 +988,7 @@ class S3Api
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BucketList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\S3BucketList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getS3BucketsWithHttpInfo(string $contentType = self::contentTypes['getS3Buckets'][0])
     {
@@ -420,7 +1020,13 @@ class S3Api
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BucketList',
+                        '\Hanzo\Cloud\Model\S3BucketList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -442,7 +1048,7 @@ class S3Api
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BucketList',
+                '\Hanzo\Cloud\Model\S3BucketList',
                 $request,
                 $response,
             );
@@ -451,7 +1057,15 @@ class S3Api
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BucketList',
+                        '\Hanzo\Cloud\Model\S3BucketList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -495,7 +1109,7 @@ class S3Api
      */
     public function getS3BucketsAsyncWithHttpInfo(string $contentType = self::contentTypes['getS3Buckets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BucketList';
+        $returnType = '\Hanzo\Cloud\Model\S3BucketList';
         $request = $this->getS3BucketsRequest($contentType);
 
         return $this->client
@@ -558,7 +1172,7 @@ class S3Api
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -626,7 +1240,7 @@ class S3Api
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ObjectList
+     * @return \Hanzo\Cloud\Model\S3ObjectList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getS3BucketsByBucketObjects($bucket, $prefix = null, $recursive = null, string $contentType = self::contentTypes['getS3BucketsByBucketObjects'][0])
     {
@@ -646,7 +1260,7 @@ class S3Api
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ObjectList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\S3ObjectList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getS3BucketsByBucketObjectsWithHttpInfo($bucket, $prefix = null, $recursive = null, string $contentType = self::contentTypes['getS3BucketsByBucketObjects'][0])
     {
@@ -678,7 +1292,13 @@ class S3Api
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ObjectList',
+                        '\Hanzo\Cloud\Model\S3ObjectList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -700,7 +1320,7 @@ class S3Api
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ObjectList',
+                '\Hanzo\Cloud\Model\S3ObjectList',
                 $request,
                 $response,
             );
@@ -709,7 +1329,15 @@ class S3Api
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ObjectList',
+                        '\Hanzo\Cloud\Model\S3ObjectList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -759,7 +1387,7 @@ class S3Api
      */
     public function getS3BucketsByBucketObjectsAsyncWithHttpInfo($bucket, $prefix = null, $recursive = null, string $contentType = self::contentTypes['getS3BucketsByBucketObjects'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ObjectList';
+        $returnType = '\Hanzo\Cloud\Model\S3ObjectList';
         $request = $this->getS3BucketsByBucketObjectsRequest($bucket, $prefix, $recursive, $contentType);
 
         return $this->client
@@ -860,7 +1488,634 @@ class S3Api
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getS3BucketsByBucketObjectsByWildcard1
+     *
+     * Mints a presigned GET URL the caller downloads from DIRECTLY.
+     *
+     * @param  string $bucket Bucket is the bucket&#39;s friendly name, from the path. (required)
+     * @param  string $wildcard1 Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3BucketsByBucketObjectsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\S3PresignResponse|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getS3BucketsByBucketObjectsByWildcard1($bucket, $wildcard1, string $contentType = self::contentTypes['getS3BucketsByBucketObjectsByWildcard1'][0])
+    {
+        list($response) = $this->getS3BucketsByBucketObjectsByWildcard1WithHttpInfo($bucket, $wildcard1, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getS3BucketsByBucketObjectsByWildcard1WithHttpInfo
+     *
+     * Mints a presigned GET URL the caller downloads from DIRECTLY.
+     *
+     * @param  string $bucket Bucket is the bucket&#39;s friendly name, from the path. (required)
+     * @param  string $wildcard1 Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3BucketsByBucketObjectsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\S3PresignResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getS3BucketsByBucketObjectsByWildcard1WithHttpInfo($bucket, $wildcard1, string $contentType = self::contentTypes['getS3BucketsByBucketObjectsByWildcard1'][0])
+    {
+        $request = $this->getS3BucketsByBucketObjectsByWildcard1Request($bucket, $wildcard1, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\S3PresignResponse',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\S3PresignResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\S3PresignResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getS3BucketsByBucketObjectsByWildcard1Async
+     *
+     * Mints a presigned GET URL the caller downloads from DIRECTLY.
+     *
+     * @param  string $bucket Bucket is the bucket&#39;s friendly name, from the path. (required)
+     * @param  string $wildcard1 Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3BucketsByBucketObjectsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getS3BucketsByBucketObjectsByWildcard1Async($bucket, $wildcard1, string $contentType = self::contentTypes['getS3BucketsByBucketObjectsByWildcard1'][0])
+    {
+        return $this->getS3BucketsByBucketObjectsByWildcard1AsyncWithHttpInfo($bucket, $wildcard1, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getS3BucketsByBucketObjectsByWildcard1AsyncWithHttpInfo
+     *
+     * Mints a presigned GET URL the caller downloads from DIRECTLY.
+     *
+     * @param  string $bucket Bucket is the bucket&#39;s friendly name, from the path. (required)
+     * @param  string $wildcard1 Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3BucketsByBucketObjectsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getS3BucketsByBucketObjectsByWildcard1AsyncWithHttpInfo($bucket, $wildcard1, string $contentType = self::contentTypes['getS3BucketsByBucketObjectsByWildcard1'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\S3PresignResponse';
+        $request = $this->getS3BucketsByBucketObjectsByWildcard1Request($bucket, $wildcard1, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getS3BucketsByBucketObjectsByWildcard1'
+     *
+     * @param  string $bucket Bucket is the bucket&#39;s friendly name, from the path. (required)
+     * @param  string $wildcard1 Key is the object&#39;s key within the bucket — everything after that bucket&#39;s /objects/. It MAY contain \&quot;/\&quot;, because a key is a path and this segment is captured whole: \&quot;2019/summer/a.jpg\&quot; is one key, not three. It is path-cleaned before use, so \&quot;../\&quot; reaches nothing outside the bucket, and a key that is empty, absolute or a bare folder marker is refused 400. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3BucketsByBucketObjectsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getS3BucketsByBucketObjectsByWildcard1Request($bucket, $wildcard1, string $contentType = self::contentTypes['getS3BucketsByBucketObjectsByWildcard1'][0])
+    {
+
+        // verify the required parameter 'bucket' is set
+        if ($bucket === null || (is_array($bucket) && count($bucket) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $bucket when calling getS3BucketsByBucketObjectsByWildcard1'
+            );
+        }
+
+        // verify the required parameter 'wildcard1' is set
+        if ($wildcard1 === null || (is_array($wildcard1) && count($wildcard1) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $wildcard1 when calling getS3BucketsByBucketObjectsByWildcard1'
+            );
+        }
+
+
+        $resourcePath = '/v1/s3/buckets/{bucket}/objects/{wildcard1}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($bucket !== null) {
+            $resourcePath = str_replace(
+                '{' . 'bucket' . '}',
+                ObjectSerializer::toPathValue($bucket),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($wildcard1 !== null) {
+            $resourcePath = str_replace(
+                '{' . 'wildcard1' . '}',
+                ObjectSerializer::toPathValue($wildcard1),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getS3BucketsByBucketUploadsByUpload
+     *
+     * Answers the parts a multipart upload already holds, in order: what a client resuming after a dropped connection reads to send only the rest.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  string|null $key Key is the object key the upload was started on. In the query for a read or an abandon, in the body to complete. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3BucketsByBucketUploadsByUpload'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\S3StoredParts|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getS3BucketsByBucketUploadsByUpload($bucket, $upload, $key = null, string $contentType = self::contentTypes['getS3BucketsByBucketUploadsByUpload'][0])
+    {
+        list($response) = $this->getS3BucketsByBucketUploadsByUploadWithHttpInfo($bucket, $upload, $key, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getS3BucketsByBucketUploadsByUploadWithHttpInfo
+     *
+     * Answers the parts a multipart upload already holds, in order: what a client resuming after a dropped connection reads to send only the rest.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  string|null $key Key is the object key the upload was started on. In the query for a read or an abandon, in the body to complete. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3BucketsByBucketUploadsByUpload'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\S3StoredParts|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getS3BucketsByBucketUploadsByUploadWithHttpInfo($bucket, $upload, $key = null, string $contentType = self::contentTypes['getS3BucketsByBucketUploadsByUpload'][0])
+    {
+        $request = $this->getS3BucketsByBucketUploadsByUploadRequest($bucket, $upload, $key, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\S3StoredParts',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\S3StoredParts',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\S3StoredParts',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getS3BucketsByBucketUploadsByUploadAsync
+     *
+     * Answers the parts a multipart upload already holds, in order: what a client resuming after a dropped connection reads to send only the rest.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  string|null $key Key is the object key the upload was started on. In the query for a read or an abandon, in the body to complete. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3BucketsByBucketUploadsByUpload'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getS3BucketsByBucketUploadsByUploadAsync($bucket, $upload, $key = null, string $contentType = self::contentTypes['getS3BucketsByBucketUploadsByUpload'][0])
+    {
+        return $this->getS3BucketsByBucketUploadsByUploadAsyncWithHttpInfo($bucket, $upload, $key, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getS3BucketsByBucketUploadsByUploadAsyncWithHttpInfo
+     *
+     * Answers the parts a multipart upload already holds, in order: what a client resuming after a dropped connection reads to send only the rest.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  string|null $key Key is the object key the upload was started on. In the query for a read or an abandon, in the body to complete. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3BucketsByBucketUploadsByUpload'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getS3BucketsByBucketUploadsByUploadAsyncWithHttpInfo($bucket, $upload, $key = null, string $contentType = self::contentTypes['getS3BucketsByBucketUploadsByUpload'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\S3StoredParts';
+        $request = $this->getS3BucketsByBucketUploadsByUploadRequest($bucket, $upload, $key, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getS3BucketsByBucketUploadsByUpload'
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  string|null $key Key is the object key the upload was started on. In the query for a read or an abandon, in the body to complete. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3BucketsByBucketUploadsByUpload'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getS3BucketsByBucketUploadsByUploadRequest($bucket, $upload, $key = null, string $contentType = self::contentTypes['getS3BucketsByBucketUploadsByUpload'][0])
+    {
+
+        // verify the required parameter 'bucket' is set
+        if ($bucket === null || (is_array($bucket) && count($bucket) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $bucket when calling getS3BucketsByBucketUploadsByUpload'
+            );
+        }
+
+        // verify the required parameter 'upload' is set
+        if ($upload === null || (is_array($upload) && count($upload) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $upload when calling getS3BucketsByBucketUploadsByUpload'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/s3/buckets/{bucket}/uploads/{upload}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $key,
+            'key', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($bucket !== null) {
+            $resourcePath = str_replace(
+                '{' . 'bucket' . '}',
+                ObjectSerializer::toPathValue($bucket),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($upload !== null) {
+            $resourcePath = str_replace(
+                '{' . 'upload' . '}',
+                ObjectSerializer::toPathValue($upload),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -919,13 +2174,13 @@ class S3Api
     /**
      * Operation getS3Health
      *
-     * Health reports whether this deployment can serve object storage.
+     * Reports whether this deployment can serve object storage.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3Health'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\S3Health|\Hanzo\Cloud\Model\S3Health
+     * @return \Hanzo\Cloud\Model\S3S3Health|\Hanzo\Cloud\Model\S3S3Health|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getS3Health(string $contentType = self::contentTypes['getS3Health'][0])
     {
@@ -936,13 +2191,13 @@ class S3Api
     /**
      * Operation getS3HealthWithHttpInfo
      *
-     * Health reports whether this deployment can serve object storage.
+     * Reports whether this deployment can serve object storage.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3Health'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\S3Health|\Hanzo\Cloud\Model\S3Health, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\S3S3Health|\Hanzo\Cloud\Model\S3S3Health|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getS3HealthWithHttpInfo(string $contentType = self::contentTypes['getS3Health'][0])
     {
@@ -974,13 +2229,19 @@ class S3Api
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\S3Health',
+                        '\Hanzo\Cloud\Model\S3S3Health',
                         $request,
                         $response,
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\S3Health',
+                        '\Hanzo\Cloud\Model\S3S3Health',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1002,7 +2263,7 @@ class S3Api
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\S3Health',
+                '\Hanzo\Cloud\Model\S3S3Health',
                 $request,
                 $response,
             );
@@ -1011,7 +2272,7 @@ class S3Api
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\S3Health',
+                        '\Hanzo\Cloud\Model\S3S3Health',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1019,7 +2280,15 @@ class S3Api
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\S3Health',
+                        '\Hanzo\Cloud\Model\S3S3Health',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1034,7 +2303,7 @@ class S3Api
     /**
      * Operation getS3HealthAsync
      *
-     * Health reports whether this deployment can serve object storage.
+     * Reports whether this deployment can serve object storage.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3Health'] to see the possible values for this operation
      *
@@ -1054,7 +2323,7 @@ class S3Api
     /**
      * Operation getS3HealthAsyncWithHttpInfo
      *
-     * Health reports whether this deployment can serve object storage.
+     * Reports whether this deployment can serve object storage.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getS3Health'] to see the possible values for this operation
      *
@@ -1063,7 +2332,7 @@ class S3Api
      */
     public function getS3HealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getS3Health'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\S3Health';
+        $returnType = '\Hanzo\Cloud\Model\S3S3Health';
         $request = $this->getS3HealthRequest($contentType);
 
         return $this->client
@@ -1126,7 +2395,7 @@ class S3Api
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1187,16 +2456,16 @@ class S3Api
      *
      * Makes a new bucket for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\BucketIn $bucket_in bucket_in (required)
+     * @param  \Hanzo\Cloud\Model\S3BucketIn $s3_bucket_in s3_bucket_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3Buckets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BucketItem
+     * @return \Hanzo\Cloud\Model\S3BucketItem|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postS3Buckets($bucket_in, string $contentType = self::contentTypes['postS3Buckets'][0])
+    public function postS3Buckets($s3_bucket_in, string $contentType = self::contentTypes['postS3Buckets'][0])
     {
-        list($response) = $this->postS3BucketsWithHttpInfo($bucket_in, $contentType);
+        list($response) = $this->postS3BucketsWithHttpInfo($s3_bucket_in, $contentType);
         return $response;
     }
 
@@ -1205,16 +2474,16 @@ class S3Api
      *
      * Makes a new bucket for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\BucketIn $bucket_in (required)
+     * @param  \Hanzo\Cloud\Model\S3BucketIn $s3_bucket_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3Buckets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BucketItem, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\S3BucketItem|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postS3BucketsWithHttpInfo($bucket_in, string $contentType = self::contentTypes['postS3Buckets'][0])
+    public function postS3BucketsWithHttpInfo($s3_bucket_in, string $contentType = self::contentTypes['postS3Buckets'][0])
     {
-        $request = $this->postS3BucketsRequest($bucket_in, $contentType);
+        $request = $this->postS3BucketsRequest($s3_bucket_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1242,7 +2511,13 @@ class S3Api
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BucketItem',
+                        '\Hanzo\Cloud\Model\S3BucketItem',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1264,7 +2539,7 @@ class S3Api
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BucketItem',
+                '\Hanzo\Cloud\Model\S3BucketItem',
                 $request,
                 $response,
             );
@@ -1273,7 +2548,15 @@ class S3Api
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BucketItem',
+                        '\Hanzo\Cloud\Model\S3BucketItem',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1290,15 +2573,15 @@ class S3Api
      *
      * Makes a new bucket for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\BucketIn $bucket_in (required)
+     * @param  \Hanzo\Cloud\Model\S3BucketIn $s3_bucket_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3Buckets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postS3BucketsAsync($bucket_in, string $contentType = self::contentTypes['postS3Buckets'][0])
+    public function postS3BucketsAsync($s3_bucket_in, string $contentType = self::contentTypes['postS3Buckets'][0])
     {
-        return $this->postS3BucketsAsyncWithHttpInfo($bucket_in, $contentType)
+        return $this->postS3BucketsAsyncWithHttpInfo($s3_bucket_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1311,16 +2594,16 @@ class S3Api
      *
      * Makes a new bucket for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\BucketIn $bucket_in (required)
+     * @param  \Hanzo\Cloud\Model\S3BucketIn $s3_bucket_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3Buckets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postS3BucketsAsyncWithHttpInfo($bucket_in, string $contentType = self::contentTypes['postS3Buckets'][0])
+    public function postS3BucketsAsyncWithHttpInfo($s3_bucket_in, string $contentType = self::contentTypes['postS3Buckets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BucketItem';
-        $request = $this->postS3BucketsRequest($bucket_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\S3BucketItem';
+        $request = $this->postS3BucketsRequest($s3_bucket_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1361,19 +2644,19 @@ class S3Api
     /**
      * Create request for operation 'postS3Buckets'
      *
-     * @param  \Hanzo\Cloud\Model\BucketIn $bucket_in (required)
+     * @param  \Hanzo\Cloud\Model\S3BucketIn $s3_bucket_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3Buckets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postS3BucketsRequest($bucket_in, string $contentType = self::contentTypes['postS3Buckets'][0])
+    public function postS3BucketsRequest($s3_bucket_in, string $contentType = self::contentTypes['postS3Buckets'][0])
     {
 
-        // verify the required parameter 'bucket_in' is set
-        if ($bucket_in === null || (is_array($bucket_in) && count($bucket_in) === 0)) {
+        // verify the required parameter 's3_bucket_in' is set
+        if ($s3_bucket_in === null || (is_array($s3_bucket_in) && count($s3_bucket_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $bucket_in when calling postS3Buckets'
+                'Missing the required parameter $s3_bucket_in when calling postS3Buckets'
             );
         }
 
@@ -1390,18 +2673,18 @@ class S3Api
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($bucket_in)) {
+        if (isset($s3_bucket_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($bucket_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($s3_bucket_in));
             } else {
-                $httpBody = $bucket_in;
+                $httpBody = $s3_bucket_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1459,16 +2742,16 @@ class S3Api
      * Mints a presigned PUT URL the caller uploads to DIRECTLY.
      *
      * @param  string $bucket Bucket is the bucket to upload into, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\UploadIn $upload_in upload_in (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadIn $s3_upload_in s3_upload_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketObjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PresignResponse
+     * @return \Hanzo\Cloud\Model\S3PresignResponse|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postS3BucketsByBucketObjects($bucket, $upload_in, string $contentType = self::contentTypes['postS3BucketsByBucketObjects'][0])
+    public function postS3BucketsByBucketObjects($bucket, $s3_upload_in, string $contentType = self::contentTypes['postS3BucketsByBucketObjects'][0])
     {
-        list($response) = $this->postS3BucketsByBucketObjectsWithHttpInfo($bucket, $upload_in, $contentType);
+        list($response) = $this->postS3BucketsByBucketObjectsWithHttpInfo($bucket, $s3_upload_in, $contentType);
         return $response;
     }
 
@@ -1478,16 +2761,16 @@ class S3Api
      * Mints a presigned PUT URL the caller uploads to DIRECTLY.
      *
      * @param  string $bucket Bucket is the bucket to upload into, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\UploadIn $upload_in (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadIn $s3_upload_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketObjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PresignResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\S3PresignResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postS3BucketsByBucketObjectsWithHttpInfo($bucket, $upload_in, string $contentType = self::contentTypes['postS3BucketsByBucketObjects'][0])
+    public function postS3BucketsByBucketObjectsWithHttpInfo($bucket, $s3_upload_in, string $contentType = self::contentTypes['postS3BucketsByBucketObjects'][0])
     {
-        $request = $this->postS3BucketsByBucketObjectsRequest($bucket, $upload_in, $contentType);
+        $request = $this->postS3BucketsByBucketObjectsRequest($bucket, $s3_upload_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1515,7 +2798,13 @@ class S3Api
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PresignResponse',
+                        '\Hanzo\Cloud\Model\S3PresignResponse',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1537,7 +2826,7 @@ class S3Api
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PresignResponse',
+                '\Hanzo\Cloud\Model\S3PresignResponse',
                 $request,
                 $response,
             );
@@ -1546,7 +2835,15 @@ class S3Api
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PresignResponse',
+                        '\Hanzo\Cloud\Model\S3PresignResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1564,15 +2861,15 @@ class S3Api
      * Mints a presigned PUT URL the caller uploads to DIRECTLY.
      *
      * @param  string $bucket Bucket is the bucket to upload into, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\UploadIn $upload_in (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadIn $s3_upload_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketObjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postS3BucketsByBucketObjectsAsync($bucket, $upload_in, string $contentType = self::contentTypes['postS3BucketsByBucketObjects'][0])
+    public function postS3BucketsByBucketObjectsAsync($bucket, $s3_upload_in, string $contentType = self::contentTypes['postS3BucketsByBucketObjects'][0])
     {
-        return $this->postS3BucketsByBucketObjectsAsyncWithHttpInfo($bucket, $upload_in, $contentType)
+        return $this->postS3BucketsByBucketObjectsAsyncWithHttpInfo($bucket, $s3_upload_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1586,16 +2883,16 @@ class S3Api
      * Mints a presigned PUT URL the caller uploads to DIRECTLY.
      *
      * @param  string $bucket Bucket is the bucket to upload into, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\UploadIn $upload_in (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadIn $s3_upload_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketObjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postS3BucketsByBucketObjectsAsyncWithHttpInfo($bucket, $upload_in, string $contentType = self::contentTypes['postS3BucketsByBucketObjects'][0])
+    public function postS3BucketsByBucketObjectsAsyncWithHttpInfo($bucket, $s3_upload_in, string $contentType = self::contentTypes['postS3BucketsByBucketObjects'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PresignResponse';
-        $request = $this->postS3BucketsByBucketObjectsRequest($bucket, $upload_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\S3PresignResponse';
+        $request = $this->postS3BucketsByBucketObjectsRequest($bucket, $s3_upload_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1637,13 +2934,13 @@ class S3Api
      * Create request for operation 'postS3BucketsByBucketObjects'
      *
      * @param  string $bucket Bucket is the bucket to upload into, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\UploadIn $upload_in (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadIn $s3_upload_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketObjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postS3BucketsByBucketObjectsRequest($bucket, $upload_in, string $contentType = self::contentTypes['postS3BucketsByBucketObjects'][0])
+    public function postS3BucketsByBucketObjectsRequest($bucket, $s3_upload_in, string $contentType = self::contentTypes['postS3BucketsByBucketObjects'][0])
     {
 
         // verify the required parameter 'bucket' is set
@@ -1653,10 +2950,10 @@ class S3Api
             );
         }
 
-        // verify the required parameter 'upload_in' is set
-        if ($upload_in === null || (is_array($upload_in) && count($upload_in) === 0)) {
+        // verify the required parameter 's3_upload_in' is set
+        if ($s3_upload_in === null || (is_array($s3_upload_in) && count($s3_upload_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $upload_in when calling postS3BucketsByBucketObjects'
+                'Missing the required parameter $s3_upload_in when calling postS3BucketsByBucketObjects'
             );
         }
 
@@ -1681,18 +2978,973 @@ class S3Api
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($upload_in)) {
+        if (isset($s3_upload_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($upload_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($s3_upload_in));
             } else {
-                $httpBody = $upload_in;
+                $httpBody = $s3_upload_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploads
+     *
+     * Begins a multipart upload of a large file into one of the caller&#39;s org buckets.
+     *
+     * @param  string $bucket Bucket is the bucket to upload into, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadStart $s3_upload_start s3_upload_start (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploads'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\S3UploadStarted|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postS3BucketsByBucketUploads($bucket, $s3_upload_start, string $contentType = self::contentTypes['postS3BucketsByBucketUploads'][0])
+    {
+        list($response) = $this->postS3BucketsByBucketUploadsWithHttpInfo($bucket, $s3_upload_start, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploadsWithHttpInfo
+     *
+     * Begins a multipart upload of a large file into one of the caller&#39;s org buckets.
+     *
+     * @param  string $bucket Bucket is the bucket to upload into, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadStart $s3_upload_start (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploads'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\S3UploadStarted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postS3BucketsByBucketUploadsWithHttpInfo($bucket, $s3_upload_start, string $contentType = self::contentTypes['postS3BucketsByBucketUploads'][0])
+    {
+        $request = $this->postS3BucketsByBucketUploadsRequest($bucket, $s3_upload_start, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\S3UploadStarted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\S3UploadStarted',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\S3UploadStarted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploadsAsync
+     *
+     * Begins a multipart upload of a large file into one of the caller&#39;s org buckets.
+     *
+     * @param  string $bucket Bucket is the bucket to upload into, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadStart $s3_upload_start (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploads'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postS3BucketsByBucketUploadsAsync($bucket, $s3_upload_start, string $contentType = self::contentTypes['postS3BucketsByBucketUploads'][0])
+    {
+        return $this->postS3BucketsByBucketUploadsAsyncWithHttpInfo($bucket, $s3_upload_start, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploadsAsyncWithHttpInfo
+     *
+     * Begins a multipart upload of a large file into one of the caller&#39;s org buckets.
+     *
+     * @param  string $bucket Bucket is the bucket to upload into, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadStart $s3_upload_start (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploads'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postS3BucketsByBucketUploadsAsyncWithHttpInfo($bucket, $s3_upload_start, string $contentType = self::contentTypes['postS3BucketsByBucketUploads'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\S3UploadStarted';
+        $request = $this->postS3BucketsByBucketUploadsRequest($bucket, $s3_upload_start, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postS3BucketsByBucketUploads'
+     *
+     * @param  string $bucket Bucket is the bucket to upload into, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadStart $s3_upload_start (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploads'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postS3BucketsByBucketUploadsRequest($bucket, $s3_upload_start, string $contentType = self::contentTypes['postS3BucketsByBucketUploads'][0])
+    {
+
+        // verify the required parameter 'bucket' is set
+        if ($bucket === null || (is_array($bucket) && count($bucket) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $bucket when calling postS3BucketsByBucketUploads'
+            );
+        }
+
+        // verify the required parameter 's3_upload_start' is set
+        if ($s3_upload_start === null || (is_array($s3_upload_start) && count($s3_upload_start) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $s3_upload_start when calling postS3BucketsByBucketUploads'
+            );
+        }
+
+
+        $resourcePath = '/v1/s3/buckets/{bucket}/uploads';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($bucket !== null) {
+            $resourcePath = str_replace(
+                '{' . 'bucket' . '}',
+                ObjectSerializer::toPathValue($bucket),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($s3_upload_start)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($s3_upload_start));
+            } else {
+                $httpBody = $s3_upload_start;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploadsByUploadComplete
+     *
+     * Assembles a multipart upload into its object from every part the store holds, in order.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadRef $s3_upload_ref s3_upload_ref (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploadsByUploadComplete'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\S3UploadDone|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postS3BucketsByBucketUploadsByUploadComplete($bucket, $upload, $s3_upload_ref, string $contentType = self::contentTypes['postS3BucketsByBucketUploadsByUploadComplete'][0])
+    {
+        list($response) = $this->postS3BucketsByBucketUploadsByUploadCompleteWithHttpInfo($bucket, $upload, $s3_upload_ref, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploadsByUploadCompleteWithHttpInfo
+     *
+     * Assembles a multipart upload into its object from every part the store holds, in order.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadRef $s3_upload_ref (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploadsByUploadComplete'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\S3UploadDone|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postS3BucketsByBucketUploadsByUploadCompleteWithHttpInfo($bucket, $upload, $s3_upload_ref, string $contentType = self::contentTypes['postS3BucketsByBucketUploadsByUploadComplete'][0])
+    {
+        $request = $this->postS3BucketsByBucketUploadsByUploadCompleteRequest($bucket, $upload, $s3_upload_ref, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\S3UploadDone',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\S3UploadDone',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\S3UploadDone',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploadsByUploadCompleteAsync
+     *
+     * Assembles a multipart upload into its object from every part the store holds, in order.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadRef $s3_upload_ref (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploadsByUploadComplete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postS3BucketsByBucketUploadsByUploadCompleteAsync($bucket, $upload, $s3_upload_ref, string $contentType = self::contentTypes['postS3BucketsByBucketUploadsByUploadComplete'][0])
+    {
+        return $this->postS3BucketsByBucketUploadsByUploadCompleteAsyncWithHttpInfo($bucket, $upload, $s3_upload_ref, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploadsByUploadCompleteAsyncWithHttpInfo
+     *
+     * Assembles a multipart upload into its object from every part the store holds, in order.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadRef $s3_upload_ref (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploadsByUploadComplete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postS3BucketsByBucketUploadsByUploadCompleteAsyncWithHttpInfo($bucket, $upload, $s3_upload_ref, string $contentType = self::contentTypes['postS3BucketsByBucketUploadsByUploadComplete'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\S3UploadDone';
+        $request = $this->postS3BucketsByBucketUploadsByUploadCompleteRequest($bucket, $upload, $s3_upload_ref, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postS3BucketsByBucketUploadsByUploadComplete'
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadRef $s3_upload_ref (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploadsByUploadComplete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postS3BucketsByBucketUploadsByUploadCompleteRequest($bucket, $upload, $s3_upload_ref, string $contentType = self::contentTypes['postS3BucketsByBucketUploadsByUploadComplete'][0])
+    {
+
+        // verify the required parameter 'bucket' is set
+        if ($bucket === null || (is_array($bucket) && count($bucket) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $bucket when calling postS3BucketsByBucketUploadsByUploadComplete'
+            );
+        }
+
+        // verify the required parameter 'upload' is set
+        if ($upload === null || (is_array($upload) && count($upload) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $upload when calling postS3BucketsByBucketUploadsByUploadComplete'
+            );
+        }
+
+        // verify the required parameter 's3_upload_ref' is set
+        if ($s3_upload_ref === null || (is_array($s3_upload_ref) && count($s3_upload_ref) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $s3_upload_ref when calling postS3BucketsByBucketUploadsByUploadComplete'
+            );
+        }
+
+
+        $resourcePath = '/v1/s3/buckets/{bucket}/uploads/{upload}/complete';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($bucket !== null) {
+            $resourcePath = str_replace(
+                '{' . 'bucket' . '}',
+                ObjectSerializer::toPathValue($bucket),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($upload !== null) {
+            $resourcePath = str_replace(
+                '{' . 'upload' . '}',
+                ObjectSerializer::toPathValue($upload),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($s3_upload_ref)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($s3_upload_ref));
+            } else {
+                $httpBody = $s3_upload_ref;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploadsByUploadParts
+     *
+     * Answers presigned PUT URLs for some parts of a multipart upload, at most 64 a call, each valid for minutes: mint them as the upload reaches them.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadParts $s3_upload_parts s3_upload_parts (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploadsByUploadParts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\S3PartURLs|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postS3BucketsByBucketUploadsByUploadParts($bucket, $upload, $s3_upload_parts, string $contentType = self::contentTypes['postS3BucketsByBucketUploadsByUploadParts'][0])
+    {
+        list($response) = $this->postS3BucketsByBucketUploadsByUploadPartsWithHttpInfo($bucket, $upload, $s3_upload_parts, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploadsByUploadPartsWithHttpInfo
+     *
+     * Answers presigned PUT URLs for some parts of a multipart upload, at most 64 a call, each valid for minutes: mint them as the upload reaches them.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadParts $s3_upload_parts (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploadsByUploadParts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\S3PartURLs|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postS3BucketsByBucketUploadsByUploadPartsWithHttpInfo($bucket, $upload, $s3_upload_parts, string $contentType = self::contentTypes['postS3BucketsByBucketUploadsByUploadParts'][0])
+    {
+        $request = $this->postS3BucketsByBucketUploadsByUploadPartsRequest($bucket, $upload, $s3_upload_parts, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\S3PartURLs',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\S3PartURLs',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\S3PartURLs',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploadsByUploadPartsAsync
+     *
+     * Answers presigned PUT URLs for some parts of a multipart upload, at most 64 a call, each valid for minutes: mint them as the upload reaches them.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadParts $s3_upload_parts (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploadsByUploadParts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postS3BucketsByBucketUploadsByUploadPartsAsync($bucket, $upload, $s3_upload_parts, string $contentType = self::contentTypes['postS3BucketsByBucketUploadsByUploadParts'][0])
+    {
+        return $this->postS3BucketsByBucketUploadsByUploadPartsAsyncWithHttpInfo($bucket, $upload, $s3_upload_parts, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postS3BucketsByBucketUploadsByUploadPartsAsyncWithHttpInfo
+     *
+     * Answers presigned PUT URLs for some parts of a multipart upload, at most 64 a call, each valid for minutes: mint them as the upload reaches them.
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadParts $s3_upload_parts (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploadsByUploadParts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postS3BucketsByBucketUploadsByUploadPartsAsyncWithHttpInfo($bucket, $upload, $s3_upload_parts, string $contentType = self::contentTypes['postS3BucketsByBucketUploadsByUploadParts'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\S3PartURLs';
+        $request = $this->postS3BucketsByBucketUploadsByUploadPartsRequest($bucket, $upload, $s3_upload_parts, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postS3BucketsByBucketUploadsByUploadParts'
+     *
+     * @param  string $bucket Bucket is the bucket, from the path. (required)
+     * @param  string $upload Upload is the upload&#39;s id, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\S3UploadParts $s3_upload_parts (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postS3BucketsByBucketUploadsByUploadParts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postS3BucketsByBucketUploadsByUploadPartsRequest($bucket, $upload, $s3_upload_parts, string $contentType = self::contentTypes['postS3BucketsByBucketUploadsByUploadParts'][0])
+    {
+
+        // verify the required parameter 'bucket' is set
+        if ($bucket === null || (is_array($bucket) && count($bucket) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $bucket when calling postS3BucketsByBucketUploadsByUploadParts'
+            );
+        }
+
+        // verify the required parameter 'upload' is set
+        if ($upload === null || (is_array($upload) && count($upload) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $upload when calling postS3BucketsByBucketUploadsByUploadParts'
+            );
+        }
+
+        // verify the required parameter 's3_upload_parts' is set
+        if ($s3_upload_parts === null || (is_array($s3_upload_parts) && count($s3_upload_parts) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $s3_upload_parts when calling postS3BucketsByBucketUploadsByUploadParts'
+            );
+        }
+
+
+        $resourcePath = '/v1/s3/buckets/{bucket}/uploads/{upload}/parts';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($bucket !== null) {
+            $resourcePath = str_replace(
+                '{' . 'bucket' . '}',
+                ObjectSerializer::toPathValue($bucket),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($upload !== null) {
+            $resourcePath = str_replace(
+                '{' . 'upload' . '}',
+                ObjectSerializer::toPathValue($upload),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($s3_upload_parts)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($s3_upload_parts));
+            } else {
+                $httpBody = $s3_upload_parts;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

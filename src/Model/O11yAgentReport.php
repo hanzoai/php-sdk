@@ -57,7 +57,7 @@ class O11yAgentReport implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'data' => 'array<string,object>',
+        'data' => 'array<string,mixed>',
         'timestamp_millis' => 'int'
     ];
 
@@ -299,7 +299,7 @@ class O11yAgentReport implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets data
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getData()
     {
@@ -309,7 +309,7 @@ class O11yAgentReport implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets data
      *
-     * @param array<string,object>|null $data data
+     * @param array<string,mixed>|null $data data
      *
      * @return self
      */

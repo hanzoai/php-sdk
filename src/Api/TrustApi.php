@@ -184,7 +184,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Dropped
+     * @return \Hanzo\Cloud\Model\TrustDropped|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteTrustByKindById($kind, $id, string $contentType = self::contentTypes['deleteTrustByKindById'][0])
     {
@@ -203,7 +203,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Dropped, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustDropped|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteTrustByKindByIdWithHttpInfo($kind, $id, string $contentType = self::contentTypes['deleteTrustByKindById'][0])
     {
@@ -235,7 +235,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Dropped',
+                        '\Hanzo\Cloud\Model\TrustDropped',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -257,7 +263,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Dropped',
+                '\Hanzo\Cloud\Model\TrustDropped',
                 $request,
                 $response,
             );
@@ -266,7 +272,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Dropped',
+                        '\Hanzo\Cloud\Model\TrustDropped',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -314,7 +328,7 @@ class TrustApi
      */
     public function deleteTrustByKindByIdAsyncWithHttpInfo($kind, $id, string $contentType = self::contentTypes['deleteTrustByKindById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Dropped';
+        $returnType = '\Hanzo\Cloud\Model\TrustDropped';
         $request = $this->deleteTrustByKindByIdRequest($kind, $id, $contentType);
 
         return $this->client
@@ -409,7 +423,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -474,7 +488,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Centre
+     * @return \Hanzo\Cloud\Model\TrustCentre|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrust(string $contentType = self::contentTypes['getTrust'][0])
     {
@@ -491,7 +505,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Centre, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustCentre|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustWithHttpInfo(string $contentType = self::contentTypes['getTrust'][0])
     {
@@ -523,7 +537,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Centre',
+                        '\Hanzo\Cloud\Model\TrustCentre',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -545,7 +565,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Centre',
+                '\Hanzo\Cloud\Model\TrustCentre',
                 $request,
                 $response,
             );
@@ -554,7 +574,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Centre',
+                        '\Hanzo\Cloud\Model\TrustCentre',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -598,7 +626,7 @@ class TrustApi
      */
     public function getTrustAsyncWithHttpInfo(string $contentType = self::contentTypes['getTrust'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Centre';
+        $returnType = '\Hanzo\Cloud\Model\TrustCentre';
         $request = $this->getTrustRequest($contentType);
 
         return $this->client
@@ -661,7 +689,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -726,7 +754,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ControlList
+     * @return \Hanzo\Cloud\Model\TrustControlList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustControls(string $contentType = self::contentTypes['getTrustControls'][0])
     {
@@ -743,7 +771,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ControlList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustControlList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustControlsWithHttpInfo(string $contentType = self::contentTypes['getTrustControls'][0])
     {
@@ -775,7 +803,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ControlList',
+                        '\Hanzo\Cloud\Model\TrustControlList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -797,7 +831,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ControlList',
+                '\Hanzo\Cloud\Model\TrustControlList',
                 $request,
                 $response,
             );
@@ -806,7 +840,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ControlList',
+                        '\Hanzo\Cloud\Model\TrustControlList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -850,7 +892,7 @@ class TrustApi
      */
     public function getTrustControlsAsyncWithHttpInfo(string $contentType = self::contentTypes['getTrustControls'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ControlList';
+        $returnType = '\Hanzo\Cloud\Model\TrustControlList';
         $request = $this->getTrustControlsRequest($contentType);
 
         return $this->client
@@ -913,7 +955,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -979,7 +1021,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustControlsById($id, string $contentType = self::contentTypes['getTrustControlsById'][0])
     {
@@ -997,7 +1039,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustControlsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getTrustControlsById'][0])
     {
@@ -1033,6 +1075,12 @@ class TrustApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1061,6 +1109,14 @@ class TrustApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1185,7 +1241,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1250,7 +1306,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrustCoverage
+     * @return \Hanzo\Cloud\Model\TrustTrustCoverage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustCoverage(string $contentType = self::contentTypes['getTrustCoverage'][0])
     {
@@ -1267,7 +1323,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrustCoverage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustTrustCoverage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustCoverageWithHttpInfo(string $contentType = self::contentTypes['getTrustCoverage'][0])
     {
@@ -1299,7 +1355,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrustCoverage',
+                        '\Hanzo\Cloud\Model\TrustTrustCoverage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1321,7 +1383,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrustCoverage',
+                '\Hanzo\Cloud\Model\TrustTrustCoverage',
                 $request,
                 $response,
             );
@@ -1330,7 +1392,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrustCoverage',
+                        '\Hanzo\Cloud\Model\TrustTrustCoverage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1374,7 +1444,7 @@ class TrustApi
      */
     public function getTrustCoverageAsyncWithHttpInfo(string $contentType = self::contentTypes['getTrustCoverage'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrustCoverage';
+        $returnType = '\Hanzo\Cloud\Model\TrustTrustCoverage';
         $request = $this->getTrustCoverageRequest($contentType);
 
         return $this->client
@@ -1437,7 +1507,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1503,7 +1573,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ClauseCoverage
+     * @return \Hanzo\Cloud\Model\TrustClauseCoverage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustCoverageByFramework($framework, string $contentType = self::contentTypes['getTrustCoverageByFramework'][0])
     {
@@ -1521,7 +1591,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ClauseCoverage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustClauseCoverage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustCoverageByFrameworkWithHttpInfo($framework, string $contentType = self::contentTypes['getTrustCoverageByFramework'][0])
     {
@@ -1553,7 +1623,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ClauseCoverage',
+                        '\Hanzo\Cloud\Model\TrustClauseCoverage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1575,7 +1651,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ClauseCoverage',
+                '\Hanzo\Cloud\Model\TrustClauseCoverage',
                 $request,
                 $response,
             );
@@ -1584,7 +1660,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ClauseCoverage',
+                        '\Hanzo\Cloud\Model\TrustClauseCoverage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1630,7 +1714,7 @@ class TrustApi
      */
     public function getTrustCoverageByFrameworkAsyncWithHttpInfo($framework, string $contentType = self::contentTypes['getTrustCoverageByFramework'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ClauseCoverage';
+        $returnType = '\Hanzo\Cloud\Model\TrustClauseCoverage';
         $request = $this->getTrustCoverageByFrameworkRequest($framework, $contentType);
 
         return $this->client
@@ -1709,7 +1793,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1774,7 +1858,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrustDocuments
+     * @return \Hanzo\Cloud\Model\TrustTrustDocuments|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustDocuments(string $contentType = self::contentTypes['getTrustDocuments'][0])
     {
@@ -1791,7 +1875,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrustDocuments, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustTrustDocuments|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustDocumentsWithHttpInfo(string $contentType = self::contentTypes['getTrustDocuments'][0])
     {
@@ -1823,7 +1907,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrustDocuments',
+                        '\Hanzo\Cloud\Model\TrustTrustDocuments',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1845,7 +1935,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrustDocuments',
+                '\Hanzo\Cloud\Model\TrustTrustDocuments',
                 $request,
                 $response,
             );
@@ -1854,7 +1944,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrustDocuments',
+                        '\Hanzo\Cloud\Model\TrustTrustDocuments',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1898,7 +1996,7 @@ class TrustApi
      */
     public function getTrustDocumentsAsyncWithHttpInfo(string $contentType = self::contentTypes['getTrustDocuments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrustDocuments';
+        $returnType = '\Hanzo\Cloud\Model\TrustTrustDocuments';
         $request = $this->getTrustDocumentsRequest($contentType);
 
         return $this->client
@@ -1961,7 +2059,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2030,7 +2128,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustEvidence($control = null, $from = null, $to = null, $limit = null, string $contentType = self::contentTypes['getTrustEvidence'][0])
     {
@@ -2051,7 +2149,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustEvidenceWithHttpInfo($control = null, $from = null, $to = null, $limit = null, string $contentType = self::contentTypes['getTrustEvidence'][0])
     {
@@ -2087,6 +2185,12 @@ class TrustApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2115,6 +2219,14 @@ class TrustApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2273,7 +2385,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2338,7 +2450,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FaqList
+     * @return \Hanzo\Cloud\Model\TrustFaqList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustFaq(string $contentType = self::contentTypes['getTrustFaq'][0])
     {
@@ -2355,7 +2467,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FaqList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustFaqList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustFaqWithHttpInfo(string $contentType = self::contentTypes['getTrustFaq'][0])
     {
@@ -2387,7 +2499,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FaqList',
+                        '\Hanzo\Cloud\Model\TrustFaqList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2409,7 +2527,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FaqList',
+                '\Hanzo\Cloud\Model\TrustFaqList',
                 $request,
                 $response,
             );
@@ -2418,7 +2536,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FaqList',
+                        '\Hanzo\Cloud\Model\TrustFaqList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2462,7 +2588,7 @@ class TrustApi
      */
     public function getTrustFaqAsyncWithHttpInfo(string $contentType = self::contentTypes['getTrustFaq'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FaqList';
+        $returnType = '\Hanzo\Cloud\Model\TrustFaqList';
         $request = $this->getTrustFaqRequest($contentType);
 
         return $this->client
@@ -2525,7 +2651,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2590,7 +2716,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FrameworkList
+     * @return \Hanzo\Cloud\Model\TrustFrameworkList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustFrameworks(string $contentType = self::contentTypes['getTrustFrameworks'][0])
     {
@@ -2607,7 +2733,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FrameworkList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustFrameworkList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustFrameworksWithHttpInfo(string $contentType = self::contentTypes['getTrustFrameworks'][0])
     {
@@ -2639,7 +2765,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FrameworkList',
+                        '\Hanzo\Cloud\Model\TrustFrameworkList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2661,7 +2793,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FrameworkList',
+                '\Hanzo\Cloud\Model\TrustFrameworkList',
                 $request,
                 $response,
             );
@@ -2670,7 +2802,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FrameworkList',
+                        '\Hanzo\Cloud\Model\TrustFrameworkList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2714,7 +2854,7 @@ class TrustApi
      */
     public function getTrustFrameworksAsyncWithHttpInfo(string $contentType = self::contentTypes['getTrustFrameworks'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FrameworkList';
+        $returnType = '\Hanzo\Cloud\Model\TrustFrameworkList';
         $request = $this->getTrustFrameworksRequest($contentType);
 
         return $this->client
@@ -2777,7 +2917,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2842,7 +2982,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PolicyList
+     * @return \Hanzo\Cloud\Model\TrustPolicyList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustPolicies(string $contentType = self::contentTypes['getTrustPolicies'][0])
     {
@@ -2859,7 +2999,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PolicyList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustPolicyList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustPoliciesWithHttpInfo(string $contentType = self::contentTypes['getTrustPolicies'][0])
     {
@@ -2891,7 +3031,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PolicyList',
+                        '\Hanzo\Cloud\Model\TrustPolicyList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2913,7 +3059,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PolicyList',
+                '\Hanzo\Cloud\Model\TrustPolicyList',
                 $request,
                 $response,
             );
@@ -2922,7 +3068,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PolicyList',
+                        '\Hanzo\Cloud\Model\TrustPolicyList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2966,7 +3120,7 @@ class TrustApi
      */
     public function getTrustPoliciesAsyncWithHttpInfo(string $contentType = self::contentTypes['getTrustPolicies'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PolicyList';
+        $returnType = '\Hanzo\Cloud\Model\TrustPolicyList';
         $request = $this->getTrustPoliciesRequest($contentType);
 
         return $this->client
@@ -3029,7 +3183,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3094,7 +3248,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustProfile(string $contentType = self::contentTypes['getTrustProfile'][0])
     {
@@ -3111,7 +3265,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustProfileWithHttpInfo(string $contentType = self::contentTypes['getTrustProfile'][0])
     {
@@ -3147,6 +3301,12 @@ class TrustApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -3175,6 +3335,14 @@ class TrustApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3281,7 +3449,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3347,7 +3515,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Centre
+     * @return \Hanzo\Cloud\Model\TrustCentre|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustPublishedByOrg($org, string $contentType = self::contentTypes['getTrustPublishedByOrg'][0])
     {
@@ -3365,7 +3533,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Centre, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustCentre|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustPublishedByOrgWithHttpInfo($org, string $contentType = self::contentTypes['getTrustPublishedByOrg'][0])
     {
@@ -3397,7 +3565,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Centre',
+                        '\Hanzo\Cloud\Model\TrustCentre',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3419,7 +3593,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Centre',
+                '\Hanzo\Cloud\Model\TrustCentre',
                 $request,
                 $response,
             );
@@ -3428,7 +3602,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Centre',
+                        '\Hanzo\Cloud\Model\TrustCentre',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3474,7 +3656,7 @@ class TrustApi
      */
     public function getTrustPublishedByOrgAsyncWithHttpInfo($org, string $contentType = self::contentTypes['getTrustPublishedByOrg'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Centre';
+        $returnType = '\Hanzo\Cloud\Model\TrustCentre';
         $request = $this->getTrustPublishedByOrgRequest($org, $contentType);
 
         return $this->client
@@ -3553,7 +3735,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3614,7 +3796,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustRisk(string $contentType = self::contentTypes['getTrustRisk'][0])
     {
@@ -3631,7 +3813,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustRiskWithHttpInfo(string $contentType = self::contentTypes['getTrustRisk'][0])
     {
@@ -3667,6 +3849,12 @@ class TrustApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -3695,6 +3883,14 @@ class TrustApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3801,7 +3997,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3866,7 +4062,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SubprocessorList
+     * @return \Hanzo\Cloud\Model\TrustSubprocessorList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustSubprocessors(string $contentType = self::contentTypes['getTrustSubprocessors'][0])
     {
@@ -3883,7 +4079,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SubprocessorList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustSubprocessorList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustSubprocessorsWithHttpInfo(string $contentType = self::contentTypes['getTrustSubprocessors'][0])
     {
@@ -3915,7 +4111,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SubprocessorList',
+                        '\Hanzo\Cloud\Model\TrustSubprocessorList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3937,7 +4139,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SubprocessorList',
+                '\Hanzo\Cloud\Model\TrustSubprocessorList',
                 $request,
                 $response,
             );
@@ -3946,7 +4148,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SubprocessorList',
+                        '\Hanzo\Cloud\Model\TrustSubprocessorList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3990,7 +4200,7 @@ class TrustApi
      */
     public function getTrustSubprocessorsAsyncWithHttpInfo(string $contentType = self::contentTypes['getTrustSubprocessors'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SubprocessorList';
+        $returnType = '\Hanzo\Cloud\Model\TrustSubprocessorList';
         $request = $this->getTrustSubprocessorsRequest($contentType);
 
         return $this->client
@@ -4053,7 +4263,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4118,7 +4328,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\UpdateList
+     * @return \Hanzo\Cloud\Model\TrustUpdateList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTrustUpdates(string $contentType = self::contentTypes['getTrustUpdates'][0])
     {
@@ -4135,7 +4345,7 @@ class TrustApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\UpdateList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustUpdateList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTrustUpdatesWithHttpInfo(string $contentType = self::contentTypes['getTrustUpdates'][0])
     {
@@ -4167,7 +4377,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\UpdateList',
+                        '\Hanzo\Cloud\Model\TrustUpdateList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4189,7 +4405,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\UpdateList',
+                '\Hanzo\Cloud\Model\TrustUpdateList',
                 $request,
                 $response,
             );
@@ -4198,7 +4414,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\UpdateList',
+                        '\Hanzo\Cloud\Model\TrustUpdateList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4242,7 +4466,7 @@ class TrustApi
      */
     public function getTrustUpdatesAsyncWithHttpInfo(string $contentType = self::contentTypes['getTrustUpdates'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\UpdateList';
+        $returnType = '\Hanzo\Cloud\Model\TrustUpdateList';
         $request = $this->getTrustUpdatesRequest($contentType);
 
         return $this->client
@@ -4305,7 +4529,7 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4368,16 +4592,16 @@ class TrustApi
      *
      * @param  string $kind Kind is the section being written. The URL is the authority. (required)
      * @param  string $id ID is the record&#39;s id. Omit it on a create and one is minted; the single-valued sections (profile, risk) hold one record whatever is named. (required)
-     * @param  \Hanzo\Cloud\Model\SectionWrite $section_write section_write (required)
+     * @param  \Hanzo\Cloud\Model\TrustSectionWrite $trust_section_write trust_section_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTrustByKindById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Written
+     * @return \Hanzo\Cloud\Model\TrustWritten|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putTrustByKindById($kind, $id, $section_write, string $contentType = self::contentTypes['putTrustByKindById'][0])
+    public function putTrustByKindById($kind, $id, $trust_section_write, string $contentType = self::contentTypes['putTrustByKindById'][0])
     {
-        list($response) = $this->putTrustByKindByIdWithHttpInfo($kind, $id, $section_write, $contentType);
+        list($response) = $this->putTrustByKindByIdWithHttpInfo($kind, $id, $trust_section_write, $contentType);
         return $response;
     }
 
@@ -4388,16 +4612,16 @@ class TrustApi
      *
      * @param  string $kind Kind is the section being written. The URL is the authority. (required)
      * @param  string $id ID is the record&#39;s id. Omit it on a create and one is minted; the single-valued sections (profile, risk) hold one record whatever is named. (required)
-     * @param  \Hanzo\Cloud\Model\SectionWrite $section_write (required)
+     * @param  \Hanzo\Cloud\Model\TrustSectionWrite $trust_section_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTrustByKindById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Written, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TrustWritten|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putTrustByKindByIdWithHttpInfo($kind, $id, $section_write, string $contentType = self::contentTypes['putTrustByKindById'][0])
+    public function putTrustByKindByIdWithHttpInfo($kind, $id, $trust_section_write, string $contentType = self::contentTypes['putTrustByKindById'][0])
     {
-        $request = $this->putTrustByKindByIdRequest($kind, $id, $section_write, $contentType);
+        $request = $this->putTrustByKindByIdRequest($kind, $id, $trust_section_write, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4425,7 +4649,13 @@ class TrustApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Written',
+                        '\Hanzo\Cloud\Model\TrustWritten',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4447,7 +4677,7 @@ class TrustApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Written',
+                '\Hanzo\Cloud\Model\TrustWritten',
                 $request,
                 $response,
             );
@@ -4456,7 +4686,15 @@ class TrustApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Written',
+                        '\Hanzo\Cloud\Model\TrustWritten',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4475,15 +4713,15 @@ class TrustApi
      *
      * @param  string $kind Kind is the section being written. The URL is the authority. (required)
      * @param  string $id ID is the record&#39;s id. Omit it on a create and one is minted; the single-valued sections (profile, risk) hold one record whatever is named. (required)
-     * @param  \Hanzo\Cloud\Model\SectionWrite $section_write (required)
+     * @param  \Hanzo\Cloud\Model\TrustSectionWrite $trust_section_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTrustByKindById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTrustByKindByIdAsync($kind, $id, $section_write, string $contentType = self::contentTypes['putTrustByKindById'][0])
+    public function putTrustByKindByIdAsync($kind, $id, $trust_section_write, string $contentType = self::contentTypes['putTrustByKindById'][0])
     {
-        return $this->putTrustByKindByIdAsyncWithHttpInfo($kind, $id, $section_write, $contentType)
+        return $this->putTrustByKindByIdAsyncWithHttpInfo($kind, $id, $trust_section_write, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4498,16 +4736,16 @@ class TrustApi
      *
      * @param  string $kind Kind is the section being written. The URL is the authority. (required)
      * @param  string $id ID is the record&#39;s id. Omit it on a create and one is minted; the single-valued sections (profile, risk) hold one record whatever is named. (required)
-     * @param  \Hanzo\Cloud\Model\SectionWrite $section_write (required)
+     * @param  \Hanzo\Cloud\Model\TrustSectionWrite $trust_section_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTrustByKindById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTrustByKindByIdAsyncWithHttpInfo($kind, $id, $section_write, string $contentType = self::contentTypes['putTrustByKindById'][0])
+    public function putTrustByKindByIdAsyncWithHttpInfo($kind, $id, $trust_section_write, string $contentType = self::contentTypes['putTrustByKindById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Written';
-        $request = $this->putTrustByKindByIdRequest($kind, $id, $section_write, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TrustWritten';
+        $request = $this->putTrustByKindByIdRequest($kind, $id, $trust_section_write, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4550,13 +4788,13 @@ class TrustApi
      *
      * @param  string $kind Kind is the section being written. The URL is the authority. (required)
      * @param  string $id ID is the record&#39;s id. Omit it on a create and one is minted; the single-valued sections (profile, risk) hold one record whatever is named. (required)
-     * @param  \Hanzo\Cloud\Model\SectionWrite $section_write (required)
+     * @param  \Hanzo\Cloud\Model\TrustSectionWrite $trust_section_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTrustByKindById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putTrustByKindByIdRequest($kind, $id, $section_write, string $contentType = self::contentTypes['putTrustByKindById'][0])
+    public function putTrustByKindByIdRequest($kind, $id, $trust_section_write, string $contentType = self::contentTypes['putTrustByKindById'][0])
     {
 
         // verify the required parameter 'kind' is set
@@ -4573,10 +4811,10 @@ class TrustApi
             );
         }
 
-        // verify the required parameter 'section_write' is set
-        if ($section_write === null || (is_array($section_write) && count($section_write) === 0)) {
+        // verify the required parameter 'trust_section_write' is set
+        if ($trust_section_write === null || (is_array($trust_section_write) && count($trust_section_write) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $section_write when calling putTrustByKindById'
+                'Missing the required parameter $trust_section_write when calling putTrustByKindById'
             );
         }
 
@@ -4609,18 +4847,18 @@ class TrustApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($section_write)) {
+        if (isset($trust_section_write)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($section_write));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($trust_section_write));
             } else {
-                $httpBody = $section_write;
+                $httpBody = $trust_section_write;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

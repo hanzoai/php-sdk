@@ -74,6 +74,9 @@ class CloudflareApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'deleteCloudflareAiSearchInstancesByInstance' => [
+            'application/json',
+        ],
         'deleteCloudflareD1DatabasesByDatabase' => [
             'application/json',
         ],
@@ -98,6 +101,15 @@ class CloudflareApi
         'deleteCloudflareWorkersZonesByZoneRoutesByRoute' => [
             'application/json',
         ],
+        'getCloudflareAiSearchInstances' => [
+            'application/json',
+        ],
+        'getCloudflareAiSearchInstancesByInstance' => [
+            'application/json',
+        ],
+        'getCloudflareAiSearchNamespace' => [
+            'application/json',
+        ],
         'getCloudflareD1Databases' => [
             'application/json',
         ],
@@ -116,6 +128,9 @@ class CloudflareApi
         'getCloudflareR2Buckets' => [
             'application/json',
         ],
+        'getCloudflareSpendLimits' => [
+            'application/json',
+        ],
         'getCloudflareWorkersScripts' => [
             'application/json',
         ],
@@ -132,6 +147,12 @@ class CloudflareApi
             'application/json',
         ],
         'getCloudflareZonesByZoneAnalytics' => [
+            'application/json',
+        ],
+        'postCloudflareAiSearchInstances' => [
+            'application/json',
+        ],
+        'postCloudflareAiSearchNamespace' => [
             'application/json',
         ],
         'postCloudflareD1Databases' => [
@@ -162,6 +183,9 @@ class CloudflareApi
             'application/json',
         ],
         'postCloudflareZonesByZonePurge' => [
+            'application/json',
+        ],
+        'putCloudflareAiSearchInstancesByInstance' => [
             'application/json',
         ],
         'putCloudflareKvNamespacesByNamespaceValuesByKey' => [
@@ -219,6 +243,292 @@ class CloudflareApi
     }
 
     /**
+     * Operation deleteCloudflareAiSearchInstancesByInstance
+     *
+     * Deletes an AI Search instance from the org&#39;s own namespace, and its index with it.
+     *
+     * @param  string $instance Instance is the AI Search instance id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function deleteCloudflareAiSearchInstancesByInstance($instance, string $contentType = self::contentTypes['deleteCloudflareAiSearchInstancesByInstance'][0])
+    {
+        list($response) = $this->deleteCloudflareAiSearchInstancesByInstanceWithHttpInfo($instance, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteCloudflareAiSearchInstancesByInstanceWithHttpInfo
+     *
+     * Deletes an AI Search instance from the org&#39;s own namespace, and its index with it.
+     *
+     * @param  string $instance Instance is the AI Search instance id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteCloudflareAiSearchInstancesByInstanceWithHttpInfo($instance, string $contentType = self::contentTypes['deleteCloudflareAiSearchInstancesByInstance'][0])
+    {
+        $request = $this->deleteCloudflareAiSearchInstancesByInstanceRequest($instance, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'mixed',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteCloudflareAiSearchInstancesByInstanceAsync
+     *
+     * Deletes an AI Search instance from the org&#39;s own namespace, and its index with it.
+     *
+     * @param  string $instance Instance is the AI Search instance id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteCloudflareAiSearchInstancesByInstanceAsync($instance, string $contentType = self::contentTypes['deleteCloudflareAiSearchInstancesByInstance'][0])
+    {
+        return $this->deleteCloudflareAiSearchInstancesByInstanceAsyncWithHttpInfo($instance, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteCloudflareAiSearchInstancesByInstanceAsyncWithHttpInfo
+     *
+     * Deletes an AI Search instance from the org&#39;s own namespace, and its index with it.
+     *
+     * @param  string $instance Instance is the AI Search instance id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteCloudflareAiSearchInstancesByInstanceAsyncWithHttpInfo($instance, string $contentType = self::contentTypes['deleteCloudflareAiSearchInstancesByInstance'][0])
+    {
+        $returnType = 'mixed';
+        $request = $this->deleteCloudflareAiSearchInstancesByInstanceRequest($instance, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteCloudflareAiSearchInstancesByInstance'
+     *
+     * @param  string $instance Instance is the AI Search instance id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteCloudflareAiSearchInstancesByInstanceRequest($instance, string $contentType = self::contentTypes['deleteCloudflareAiSearchInstancesByInstance'][0])
+    {
+
+        // verify the required parameter 'instance' is set
+        if ($instance === null || (is_array($instance) && count($instance) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $instance when calling deleteCloudflareAiSearchInstancesByInstance'
+            );
+        }
+
+
+        $resourcePath = '/v1/cloudflare/ai-search/instances/{instance}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($instance !== null) {
+            $resourcePath = str_replace(
+                '{' . 'instance' . '}',
+                ObjectSerializer::toPathValue($instance),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation deleteCloudflareD1DatabasesByDatabase
      *
      * Deletes a D1 database and everything stored in it.
@@ -228,7 +538,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCloudflareD1DatabasesByDatabase($database, string $contentType = self::contentTypes['deleteCloudflareD1DatabasesByDatabase'][0])
     {
@@ -246,7 +556,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCloudflareD1DatabasesByDatabaseWithHttpInfo($database, string $contentType = self::contentTypes['deleteCloudflareD1DatabasesByDatabase'][0])
     {
@@ -282,6 +592,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -310,6 +626,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -434,7 +758,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -493,14 +817,14 @@ class CloudflareApi
     /**
      * Operation deleteCloudflareKvNamespacesByNamespace
      *
-     * KVNamespaceDelete deletes a Workers KV namespace and every key in it.
+     * Deletes a Workers KV namespace and every key in it.
      *
      * @param  string $namespace Namespace is the Cloudflare KV namespace id. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCloudflareKvNamespacesByNamespace'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCloudflareKvNamespacesByNamespace($namespace, string $contentType = self::contentTypes['deleteCloudflareKvNamespacesByNamespace'][0])
     {
@@ -511,14 +835,14 @@ class CloudflareApi
     /**
      * Operation deleteCloudflareKvNamespacesByNamespaceWithHttpInfo
      *
-     * KVNamespaceDelete deletes a Workers KV namespace and every key in it.
+     * Deletes a Workers KV namespace and every key in it.
      *
      * @param  string $namespace Namespace is the Cloudflare KV namespace id. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCloudflareKvNamespacesByNamespace'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCloudflareKvNamespacesByNamespaceWithHttpInfo($namespace, string $contentType = self::contentTypes['deleteCloudflareKvNamespacesByNamespace'][0])
     {
@@ -554,6 +878,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -586,6 +916,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -596,7 +934,7 @@ class CloudflareApi
     /**
      * Operation deleteCloudflareKvNamespacesByNamespaceAsync
      *
-     * KVNamespaceDelete deletes a Workers KV namespace and every key in it.
+     * Deletes a Workers KV namespace and every key in it.
      *
      * @param  string $namespace Namespace is the Cloudflare KV namespace id. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCloudflareKvNamespacesByNamespace'] to see the possible values for this operation
@@ -617,7 +955,7 @@ class CloudflareApi
     /**
      * Operation deleteCloudflareKvNamespacesByNamespaceAsyncWithHttpInfo
      *
-     * KVNamespaceDelete deletes a Workers KV namespace and every key in it.
+     * Deletes a Workers KV namespace and every key in it.
      *
      * @param  string $namespace Namespace is the Cloudflare KV namespace id. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCloudflareKvNamespacesByNamespace'] to see the possible values for this operation
@@ -706,7 +1044,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -765,7 +1103,7 @@ class CloudflareApi
     /**
      * Operation deleteCloudflareKvNamespacesByNamespaceValuesByKey
      *
-     * KVValueDelete removes one key from a Workers KV namespace.
+     * Removes one key from a Workers KV namespace.
      *
      * @param  string $namespace Namespace is the Cloudflare KV namespace id. (required)
      * @param  string $key Key is the key within that namespace. KV keys are broad (up to 512 bytes), so this one is escaped rather than charset-restricted. (required)
@@ -773,7 +1111,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCloudflareKvNamespacesByNamespaceValuesByKey($namespace, $key, string $contentType = self::contentTypes['deleteCloudflareKvNamespacesByNamespaceValuesByKey'][0])
     {
@@ -784,7 +1122,7 @@ class CloudflareApi
     /**
      * Operation deleteCloudflareKvNamespacesByNamespaceValuesByKeyWithHttpInfo
      *
-     * KVValueDelete removes one key from a Workers KV namespace.
+     * Removes one key from a Workers KV namespace.
      *
      * @param  string $namespace Namespace is the Cloudflare KV namespace id. (required)
      * @param  string $key Key is the key within that namespace. KV keys are broad (up to 512 bytes), so this one is escaped rather than charset-restricted. (required)
@@ -792,7 +1130,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCloudflareKvNamespacesByNamespaceValuesByKeyWithHttpInfo($namespace, $key, string $contentType = self::contentTypes['deleteCloudflareKvNamespacesByNamespaceValuesByKey'][0])
     {
@@ -828,6 +1166,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -860,6 +1204,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -870,7 +1222,7 @@ class CloudflareApi
     /**
      * Operation deleteCloudflareKvNamespacesByNamespaceValuesByKeyAsync
      *
-     * KVValueDelete removes one key from a Workers KV namespace.
+     * Removes one key from a Workers KV namespace.
      *
      * @param  string $namespace Namespace is the Cloudflare KV namespace id. (required)
      * @param  string $key Key is the key within that namespace. KV keys are broad (up to 512 bytes), so this one is escaped rather than charset-restricted. (required)
@@ -892,7 +1244,7 @@ class CloudflareApi
     /**
      * Operation deleteCloudflareKvNamespacesByNamespaceValuesByKeyAsyncWithHttpInfo
      *
-     * KVValueDelete removes one key from a Workers KV namespace.
+     * Removes one key from a Workers KV namespace.
      *
      * @param  string $namespace Namespace is the Cloudflare KV namespace id. (required)
      * @param  string $key Key is the key within that namespace. KV keys are broad (up to 512 bytes), so this one is escaped rather than charset-restricted. (required)
@@ -998,7 +1350,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1064,7 +1416,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCloudflarePagesProjectsByProject($project, string $contentType = self::contentTypes['deleteCloudflarePagesProjectsByProject'][0])
     {
@@ -1082,7 +1434,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCloudflarePagesProjectsByProjectWithHttpInfo($project, string $contentType = self::contentTypes['deleteCloudflarePagesProjectsByProject'][0])
     {
@@ -1118,6 +1470,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1146,6 +1504,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1270,7 +1636,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1337,7 +1703,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCloudflarePagesProjectsByProjectDomainsByDomain($project, $domain, string $contentType = self::contentTypes['deleteCloudflarePagesProjectsByProjectDomainsByDomain'][0])
     {
@@ -1356,7 +1722,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCloudflarePagesProjectsByProjectDomainsByDomainWithHttpInfo($project, $domain, string $contentType = self::contentTypes['deleteCloudflarePagesProjectsByProjectDomainsByDomain'][0])
     {
@@ -1392,6 +1758,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1420,6 +1792,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1562,7 +1942,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1628,7 +2008,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCloudflareR2BucketsByBucket($bucket, string $contentType = self::contentTypes['deleteCloudflareR2BucketsByBucket'][0])
     {
@@ -1646,7 +2026,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCloudflareR2BucketsByBucketWithHttpInfo($bucket, string $contentType = self::contentTypes['deleteCloudflareR2BucketsByBucket'][0])
     {
@@ -1682,6 +2062,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1710,6 +2096,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1834,7 +2228,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1900,7 +2294,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCloudflareWorkersScriptsByScript($script, string $contentType = self::contentTypes['deleteCloudflareWorkersScriptsByScript'][0])
     {
@@ -1918,7 +2312,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCloudflareWorkersScriptsByScriptWithHttpInfo($script, string $contentType = self::contentTypes['deleteCloudflareWorkersScriptsByScript'][0])
     {
@@ -1954,6 +2348,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1982,6 +2382,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2106,7 +2514,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2173,7 +2581,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteCloudflareWorkersZonesByZoneRoutesByRoute($zone, $route, string $contentType = self::contentTypes['deleteCloudflareWorkersZonesByZoneRoutesByRoute'][0])
     {
@@ -2192,7 +2600,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteCloudflareWorkersZonesByZoneRoutesByRouteWithHttpInfo($zone, $route, string $contentType = self::contentTypes['deleteCloudflareWorkersZonesByZoneRoutesByRoute'][0])
     {
@@ -2228,6 +2636,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2256,6 +2670,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2398,7 +2820,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2455,6 +2877,854 @@ class CloudflareApi
     }
 
     /**
+     * Operation getCloudflareAiSearchInstances
+     *
+     * Lists the AI Search instances in the org&#39;s own namespace on its Cloudflare account.
+     *
+     * @param  string|null $page Page is the 1-based page of instances to return. (optional)
+     * @param  string|null $per_page PerPage is how many instances one page holds. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchInstances'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getCloudflareAiSearchInstances($page = null, $per_page = null, string $contentType = self::contentTypes['getCloudflareAiSearchInstances'][0])
+    {
+        list($response) = $this->getCloudflareAiSearchInstancesWithHttpInfo($page, $per_page, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getCloudflareAiSearchInstancesWithHttpInfo
+     *
+     * Lists the AI Search instances in the org&#39;s own namespace on its Cloudflare account.
+     *
+     * @param  string|null $page Page is the 1-based page of instances to return. (optional)
+     * @param  string|null $per_page PerPage is how many instances one page holds. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchInstances'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getCloudflareAiSearchInstancesWithHttpInfo($page = null, $per_page = null, string $contentType = self::contentTypes['getCloudflareAiSearchInstances'][0])
+    {
+        $request = $this->getCloudflareAiSearchInstancesRequest($page, $per_page, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'mixed',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getCloudflareAiSearchInstancesAsync
+     *
+     * Lists the AI Search instances in the org&#39;s own namespace on its Cloudflare account.
+     *
+     * @param  string|null $page Page is the 1-based page of instances to return. (optional)
+     * @param  string|null $per_page PerPage is how many instances one page holds. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchInstances'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCloudflareAiSearchInstancesAsync($page = null, $per_page = null, string $contentType = self::contentTypes['getCloudflareAiSearchInstances'][0])
+    {
+        return $this->getCloudflareAiSearchInstancesAsyncWithHttpInfo($page, $per_page, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getCloudflareAiSearchInstancesAsyncWithHttpInfo
+     *
+     * Lists the AI Search instances in the org&#39;s own namespace on its Cloudflare account.
+     *
+     * @param  string|null $page Page is the 1-based page of instances to return. (optional)
+     * @param  string|null $per_page PerPage is how many instances one page holds. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchInstances'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCloudflareAiSearchInstancesAsyncWithHttpInfo($page = null, $per_page = null, string $contentType = self::contentTypes['getCloudflareAiSearchInstances'][0])
+    {
+        $returnType = 'mixed';
+        $request = $this->getCloudflareAiSearchInstancesRequest($page, $per_page, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getCloudflareAiSearchInstances'
+     *
+     * @param  string|null $page Page is the 1-based page of instances to return. (optional)
+     * @param  string|null $per_page PerPage is how many instances one page holds. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchInstances'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getCloudflareAiSearchInstancesRequest($page = null, $per_page = null, string $contentType = self::contentTypes['getCloudflareAiSearchInstances'][0])
+    {
+
+
+
+
+        $resourcePath = '/v1/cloudflare/ai-search/instances';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $per_page,
+            'per_page', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getCloudflareAiSearchInstancesByInstance
+     *
+     * Reads one AI Search instance from the org&#39;s own namespace.
+     *
+     * @param  string $instance Instance is the AI Search instance id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getCloudflareAiSearchInstancesByInstance($instance, string $contentType = self::contentTypes['getCloudflareAiSearchInstancesByInstance'][0])
+    {
+        list($response) = $this->getCloudflareAiSearchInstancesByInstanceWithHttpInfo($instance, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getCloudflareAiSearchInstancesByInstanceWithHttpInfo
+     *
+     * Reads one AI Search instance from the org&#39;s own namespace.
+     *
+     * @param  string $instance Instance is the AI Search instance id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getCloudflareAiSearchInstancesByInstanceWithHttpInfo($instance, string $contentType = self::contentTypes['getCloudflareAiSearchInstancesByInstance'][0])
+    {
+        $request = $this->getCloudflareAiSearchInstancesByInstanceRequest($instance, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'mixed',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getCloudflareAiSearchInstancesByInstanceAsync
+     *
+     * Reads one AI Search instance from the org&#39;s own namespace.
+     *
+     * @param  string $instance Instance is the AI Search instance id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCloudflareAiSearchInstancesByInstanceAsync($instance, string $contentType = self::contentTypes['getCloudflareAiSearchInstancesByInstance'][0])
+    {
+        return $this->getCloudflareAiSearchInstancesByInstanceAsyncWithHttpInfo($instance, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getCloudflareAiSearchInstancesByInstanceAsyncWithHttpInfo
+     *
+     * Reads one AI Search instance from the org&#39;s own namespace.
+     *
+     * @param  string $instance Instance is the AI Search instance id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCloudflareAiSearchInstancesByInstanceAsyncWithHttpInfo($instance, string $contentType = self::contentTypes['getCloudflareAiSearchInstancesByInstance'][0])
+    {
+        $returnType = 'mixed';
+        $request = $this->getCloudflareAiSearchInstancesByInstanceRequest($instance, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getCloudflareAiSearchInstancesByInstance'
+     *
+     * @param  string $instance Instance is the AI Search instance id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getCloudflareAiSearchInstancesByInstanceRequest($instance, string $contentType = self::contentTypes['getCloudflareAiSearchInstancesByInstance'][0])
+    {
+
+        // verify the required parameter 'instance' is set
+        if ($instance === null || (is_array($instance) && count($instance) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $instance when calling getCloudflareAiSearchInstancesByInstance'
+            );
+        }
+
+
+        $resourcePath = '/v1/cloudflare/ai-search/instances/{instance}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($instance !== null) {
+            $resourcePath = str_replace(
+                '{' . 'instance' . '}',
+                ObjectSerializer::toPathValue($instance),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getCloudflareAiSearchNamespace
+     *
+     * Answers which Cloudflare AI Search namespace the caller&#39;s org owns.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchNamespace'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\CloudflareAISearchNamespace|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getCloudflareAiSearchNamespace(string $contentType = self::contentTypes['getCloudflareAiSearchNamespace'][0])
+    {
+        list($response) = $this->getCloudflareAiSearchNamespaceWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getCloudflareAiSearchNamespaceWithHttpInfo
+     *
+     * Answers which Cloudflare AI Search namespace the caller&#39;s org owns.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchNamespace'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\CloudflareAISearchNamespace|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getCloudflareAiSearchNamespaceWithHttpInfo(string $contentType = self::contentTypes['getCloudflareAiSearchNamespace'][0])
+    {
+        $request = $this->getCloudflareAiSearchNamespaceRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\CloudflareAISearchNamespace',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\CloudflareAISearchNamespace',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\CloudflareAISearchNamespace',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getCloudflareAiSearchNamespaceAsync
+     *
+     * Answers which Cloudflare AI Search namespace the caller&#39;s org owns.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchNamespace'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCloudflareAiSearchNamespaceAsync(string $contentType = self::contentTypes['getCloudflareAiSearchNamespace'][0])
+    {
+        return $this->getCloudflareAiSearchNamespaceAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getCloudflareAiSearchNamespaceAsyncWithHttpInfo
+     *
+     * Answers which Cloudflare AI Search namespace the caller&#39;s org owns.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchNamespace'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCloudflareAiSearchNamespaceAsyncWithHttpInfo(string $contentType = self::contentTypes['getCloudflareAiSearchNamespace'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\CloudflareAISearchNamespace';
+        $request = $this->getCloudflareAiSearchNamespaceRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getCloudflareAiSearchNamespace'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareAiSearchNamespace'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getCloudflareAiSearchNamespaceRequest(string $contentType = self::contentTypes['getCloudflareAiSearchNamespace'][0])
+    {
+
+
+        $resourcePath = '/v1/cloudflare/ai-search/namespace';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getCloudflareD1Databases
      *
      * Lists the D1 databases on the org&#39;s Cloudflare account.
@@ -2466,7 +3736,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCloudflareD1Databases($page = null, $per_page = null, $name = null, string $contentType = self::contentTypes['getCloudflareD1Databases'][0])
     {
@@ -2486,7 +3756,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCloudflareD1DatabasesWithHttpInfo($page = null, $per_page = null, $name = null, string $contentType = self::contentTypes['getCloudflareD1Databases'][0])
     {
@@ -2522,6 +3792,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2550,6 +3826,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2695,7 +3979,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2754,7 +4038,7 @@ class CloudflareApi
     /**
      * Operation getCloudflareKvNamespaces
      *
-     * KVNamespaceList lists the Workers KV namespaces on the org&#39;s Cloudflare account.
+     * Lists the Workers KV namespaces on the org&#39;s Cloudflare account.
      *
      * @param  string|null $page Page is the 1-based page of namespaces to return. (optional)
      * @param  string|null $per_page PerPage is how many namespaces one page holds. (optional)
@@ -2764,7 +4048,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCloudflareKvNamespaces($page = null, $per_page = null, $order = null, $direction = null, string $contentType = self::contentTypes['getCloudflareKvNamespaces'][0])
     {
@@ -2775,7 +4059,7 @@ class CloudflareApi
     /**
      * Operation getCloudflareKvNamespacesWithHttpInfo
      *
-     * KVNamespaceList lists the Workers KV namespaces on the org&#39;s Cloudflare account.
+     * Lists the Workers KV namespaces on the org&#39;s Cloudflare account.
      *
      * @param  string|null $page Page is the 1-based page of namespaces to return. (optional)
      * @param  string|null $per_page PerPage is how many namespaces one page holds. (optional)
@@ -2785,7 +4069,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCloudflareKvNamespacesWithHttpInfo($page = null, $per_page = null, $order = null, $direction = null, string $contentType = self::contentTypes['getCloudflareKvNamespaces'][0])
     {
@@ -2821,6 +4105,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2853,6 +4143,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -2863,7 +4161,7 @@ class CloudflareApi
     /**
      * Operation getCloudflareKvNamespacesAsync
      *
-     * KVNamespaceList lists the Workers KV namespaces on the org&#39;s Cloudflare account.
+     * Lists the Workers KV namespaces on the org&#39;s Cloudflare account.
      *
      * @param  string|null $page Page is the 1-based page of namespaces to return. (optional)
      * @param  string|null $per_page PerPage is how many namespaces one page holds. (optional)
@@ -2887,7 +4185,7 @@ class CloudflareApi
     /**
      * Operation getCloudflareKvNamespacesAsyncWithHttpInfo
      *
-     * KVNamespaceList lists the Workers KV namespaces on the org&#39;s Cloudflare account.
+     * Lists the Workers KV namespaces on the org&#39;s Cloudflare account.
      *
      * @param  string|null $page Page is the 1-based page of namespaces to return. (optional)
      * @param  string|null $per_page PerPage is how many namespaces one page holds. (optional)
@@ -3007,7 +4305,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3314,7 +4612,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCloudflarePagesProjects(string $contentType = self::contentTypes['getCloudflarePagesProjects'][0])
     {
@@ -3331,7 +4629,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCloudflarePagesProjectsWithHttpInfo(string $contentType = self::contentTypes['getCloudflarePagesProjects'][0])
     {
@@ -3367,6 +4665,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -3395,6 +4699,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3501,7 +4813,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3567,7 +4879,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCloudflarePagesProjectsByProject($project, string $contentType = self::contentTypes['getCloudflarePagesProjectsByProject'][0])
     {
@@ -3585,7 +4897,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCloudflarePagesProjectsByProjectWithHttpInfo($project, string $contentType = self::contentTypes['getCloudflarePagesProjectsByProject'][0])
     {
@@ -3621,6 +4933,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -3649,6 +4967,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3773,7 +5099,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3843,7 +5169,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCloudflareR2Buckets($per_page = null, $cursor = null, $name_contains = null, $order = null, $direction = null, string $contentType = self::contentTypes['getCloudflareR2Buckets'][0])
     {
@@ -3865,7 +5191,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCloudflareR2BucketsWithHttpInfo($per_page = null, $cursor = null, $name_contains = null, $order = null, $direction = null, string $contentType = self::contentTypes['getCloudflareR2Buckets'][0])
     {
@@ -3901,6 +5227,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -3929,6 +5261,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4100,7 +5440,273 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getCloudflareSpendLimits
+     *
+     * Lists the spending limits on the org&#39;s Cloudflare account — the Workers and Durable Objects ceilings Cloudflare stops work at — each with this billing period&#39;s spend and where it stands against the warning threshold below the cap (&#x60;warnPct&#x60;).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareSpendLimits'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\CloudflareSpendLimitsOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getCloudflareSpendLimits(string $contentType = self::contentTypes['getCloudflareSpendLimits'][0])
+    {
+        list($response) = $this->getCloudflareSpendLimitsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getCloudflareSpendLimitsWithHttpInfo
+     *
+     * Lists the spending limits on the org&#39;s Cloudflare account — the Workers and Durable Objects ceilings Cloudflare stops work at — each with this billing period&#39;s spend and where it stands against the warning threshold below the cap (&#x60;warnPct&#x60;).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareSpendLimits'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\CloudflareSpendLimitsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getCloudflareSpendLimitsWithHttpInfo(string $contentType = self::contentTypes['getCloudflareSpendLimits'][0])
+    {
+        $request = $this->getCloudflareSpendLimitsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\CloudflareSpendLimitsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\CloudflareSpendLimitsOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\CloudflareSpendLimitsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getCloudflareSpendLimitsAsync
+     *
+     * Lists the spending limits on the org&#39;s Cloudflare account — the Workers and Durable Objects ceilings Cloudflare stops work at — each with this billing period&#39;s spend and where it stands against the warning threshold below the cap (&#x60;warnPct&#x60;).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareSpendLimits'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCloudflareSpendLimitsAsync(string $contentType = self::contentTypes['getCloudflareSpendLimits'][0])
+    {
+        return $this->getCloudflareSpendLimitsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getCloudflareSpendLimitsAsyncWithHttpInfo
+     *
+     * Lists the spending limits on the org&#39;s Cloudflare account — the Workers and Durable Objects ceilings Cloudflare stops work at — each with this billing period&#39;s spend and where it stands against the warning threshold below the cap (&#x60;warnPct&#x60;).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareSpendLimits'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getCloudflareSpendLimitsAsyncWithHttpInfo(string $contentType = self::contentTypes['getCloudflareSpendLimits'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\CloudflareSpendLimitsOut';
+        $request = $this->getCloudflareSpendLimitsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getCloudflareSpendLimits'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCloudflareSpendLimits'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getCloudflareSpendLimitsRequest(string $contentType = self::contentTypes['getCloudflareSpendLimits'][0])
+    {
+
+
+        $resourcePath = '/v1/cloudflare/spend-limits';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4165,7 +5771,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCloudflareWorkersScripts(string $contentType = self::contentTypes['getCloudflareWorkersScripts'][0])
     {
@@ -4182,7 +5788,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCloudflareWorkersScriptsWithHttpInfo(string $contentType = self::contentTypes['getCloudflareWorkersScripts'][0])
     {
@@ -4218,6 +5824,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -4246,6 +5858,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4352,7 +5972,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4417,7 +6037,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCloudflareWorkersSubdomain(string $contentType = self::contentTypes['getCloudflareWorkersSubdomain'][0])
     {
@@ -4434,7 +6054,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCloudflareWorkersSubdomainWithHttpInfo(string $contentType = self::contentTypes['getCloudflareWorkersSubdomain'][0])
     {
@@ -4470,6 +6090,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -4498,6 +6124,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4604,7 +6238,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4670,7 +6304,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCloudflareWorkersZonesByZoneRoutes($zone, string $contentType = self::contentTypes['getCloudflareWorkersZonesByZoneRoutes'][0])
     {
@@ -4688,7 +6322,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCloudflareWorkersZonesByZoneRoutesWithHttpInfo($zone, string $contentType = self::contentTypes['getCloudflareWorkersZonesByZoneRoutes'][0])
     {
@@ -4724,6 +6358,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -4752,6 +6392,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4876,7 +6524,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4947,7 +6595,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCloudflareZones($page = null, $per_page = null, $name = null, $status = null, $order = null, $direction = null, string $contentType = self::contentTypes['getCloudflareZones'][0])
     {
@@ -4970,7 +6618,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCloudflareZonesWithHttpInfo($page = null, $per_page = null, $name = null, $status = null, $order = null, $direction = null, string $contentType = self::contentTypes['getCloudflareZones'][0])
     {
@@ -5006,6 +6654,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -5034,6 +6688,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5218,7 +6880,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5284,7 +6946,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCloudflareZonesByZone($zone, string $contentType = self::contentTypes['getCloudflareZonesByZone'][0])
     {
@@ -5302,7 +6964,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCloudflareZonesByZoneWithHttpInfo($zone, string $contentType = self::contentTypes['getCloudflareZonesByZone'][0])
     {
@@ -5338,6 +7000,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -5366,6 +7034,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5490,7 +7166,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5559,7 +7235,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCloudflareZonesByZoneAnalytics($zone, $since = null, $until = null, $continuous = null, string $contentType = self::contentTypes['getCloudflareZonesByZoneAnalytics'][0])
     {
@@ -5580,7 +7256,7 @@ class CloudflareApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCloudflareZonesByZoneAnalyticsWithHttpInfo($zone, $since = null, $until = null, $continuous = null, string $contentType = self::contentTypes['getCloudflareZonesByZoneAnalytics'][0])
     {
@@ -5616,6 +7292,12 @@ class CloudflareApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -5644,6 +7326,14 @@ class CloudflareApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5807,7 +7497,7 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5864,38 +7554,38 @@ class CloudflareApi
     }
 
     /**
-     * Operation postCloudflareD1Databases
+     * Operation postCloudflareAiSearchInstances
      *
-     * Creates a D1 database on the org&#39;s Cloudflare account.
+     * Creates an AI Search instance in the org&#39;s own namespace on its Cloudflare account and relays Cloudflare&#39;s record of it.
      *
-     * @param  \Hanzo\Cloud\Model\DatabaseCreateIn $database_create_in database_create_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1Databases'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\CloudflareAISearchInstanceCreate $cloudflare_ai_search_instance_create cloudflare_ai_search_instance_create (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareAiSearchInstances'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCloudflareD1Databases($database_create_in, string $contentType = self::contentTypes['postCloudflareD1Databases'][0])
+    public function postCloudflareAiSearchInstances($cloudflare_ai_search_instance_create, string $contentType = self::contentTypes['postCloudflareAiSearchInstances'][0])
     {
-        list($response) = $this->postCloudflareD1DatabasesWithHttpInfo($database_create_in, $contentType);
+        list($response) = $this->postCloudflareAiSearchInstancesWithHttpInfo($cloudflare_ai_search_instance_create, $contentType);
         return $response;
     }
 
     /**
-     * Operation postCloudflareD1DatabasesWithHttpInfo
+     * Operation postCloudflareAiSearchInstancesWithHttpInfo
      *
-     * Creates a D1 database on the org&#39;s Cloudflare account.
+     * Creates an AI Search instance in the org&#39;s own namespace on its Cloudflare account and relays Cloudflare&#39;s record of it.
      *
-     * @param  \Hanzo\Cloud\Model\DatabaseCreateIn $database_create_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1Databases'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\CloudflareAISearchInstanceCreate $cloudflare_ai_search_instance_create (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareAiSearchInstances'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCloudflareD1DatabasesWithHttpInfo($database_create_in, string $contentType = self::contentTypes['postCloudflareD1Databases'][0])
+    public function postCloudflareAiSearchInstancesWithHttpInfo($cloudflare_ai_search_instance_create, string $contentType = self::contentTypes['postCloudflareAiSearchInstances'][0])
     {
-        $request = $this->postCloudflareD1DatabasesRequest($database_create_in, $contentType);
+        $request = $this->postCloudflareAiSearchInstancesRequest($cloudflare_ai_search_instance_create, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5924,6 +7614,12 @@ class CloudflareApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5959,6 +7655,584 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postCloudflareAiSearchInstancesAsync
+     *
+     * Creates an AI Search instance in the org&#39;s own namespace on its Cloudflare account and relays Cloudflare&#39;s record of it.
+     *
+     * @param  \Hanzo\Cloud\Model\CloudflareAISearchInstanceCreate $cloudflare_ai_search_instance_create (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareAiSearchInstances'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postCloudflareAiSearchInstancesAsync($cloudflare_ai_search_instance_create, string $contentType = self::contentTypes['postCloudflareAiSearchInstances'][0])
+    {
+        return $this->postCloudflareAiSearchInstancesAsyncWithHttpInfo($cloudflare_ai_search_instance_create, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postCloudflareAiSearchInstancesAsyncWithHttpInfo
+     *
+     * Creates an AI Search instance in the org&#39;s own namespace on its Cloudflare account and relays Cloudflare&#39;s record of it.
+     *
+     * @param  \Hanzo\Cloud\Model\CloudflareAISearchInstanceCreate $cloudflare_ai_search_instance_create (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareAiSearchInstances'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postCloudflareAiSearchInstancesAsyncWithHttpInfo($cloudflare_ai_search_instance_create, string $contentType = self::contentTypes['postCloudflareAiSearchInstances'][0])
+    {
+        $returnType = 'mixed';
+        $request = $this->postCloudflareAiSearchInstancesRequest($cloudflare_ai_search_instance_create, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postCloudflareAiSearchInstances'
+     *
+     * @param  \Hanzo\Cloud\Model\CloudflareAISearchInstanceCreate $cloudflare_ai_search_instance_create (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareAiSearchInstances'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postCloudflareAiSearchInstancesRequest($cloudflare_ai_search_instance_create, string $contentType = self::contentTypes['postCloudflareAiSearchInstances'][0])
+    {
+
+        // verify the required parameter 'cloudflare_ai_search_instance_create' is set
+        if ($cloudflare_ai_search_instance_create === null || (is_array($cloudflare_ai_search_instance_create) && count($cloudflare_ai_search_instance_create) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $cloudflare_ai_search_instance_create when calling postCloudflareAiSearchInstances'
+            );
+        }
+
+
+        $resourcePath = '/v1/cloudflare/ai-search/instances';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($cloudflare_ai_search_instance_create)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_ai_search_instance_create));
+            } else {
+                $httpBody = $cloudflare_ai_search_instance_create;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postCloudflareAiSearchNamespace
+     *
+     * Creates the org&#39;s AI Search namespace on its Cloudflare account.
+     *
+     * @param  \Hanzo\Cloud\Model\CloudflareAiSearchNamespaceCreateIn $cloudflare_ai_search_namespace_create_in cloudflare_ai_search_namespace_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareAiSearchNamespace'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postCloudflareAiSearchNamespace($cloudflare_ai_search_namespace_create_in, string $contentType = self::contentTypes['postCloudflareAiSearchNamespace'][0])
+    {
+        list($response) = $this->postCloudflareAiSearchNamespaceWithHttpInfo($cloudflare_ai_search_namespace_create_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postCloudflareAiSearchNamespaceWithHttpInfo
+     *
+     * Creates the org&#39;s AI Search namespace on its Cloudflare account.
+     *
+     * @param  \Hanzo\Cloud\Model\CloudflareAiSearchNamespaceCreateIn $cloudflare_ai_search_namespace_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareAiSearchNamespace'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postCloudflareAiSearchNamespaceWithHttpInfo($cloudflare_ai_search_namespace_create_in, string $contentType = self::contentTypes['postCloudflareAiSearchNamespace'][0])
+    {
+        $request = $this->postCloudflareAiSearchNamespaceRequest($cloudflare_ai_search_namespace_create_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'mixed',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postCloudflareAiSearchNamespaceAsync
+     *
+     * Creates the org&#39;s AI Search namespace on its Cloudflare account.
+     *
+     * @param  \Hanzo\Cloud\Model\CloudflareAiSearchNamespaceCreateIn $cloudflare_ai_search_namespace_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareAiSearchNamespace'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postCloudflareAiSearchNamespaceAsync($cloudflare_ai_search_namespace_create_in, string $contentType = self::contentTypes['postCloudflareAiSearchNamespace'][0])
+    {
+        return $this->postCloudflareAiSearchNamespaceAsyncWithHttpInfo($cloudflare_ai_search_namespace_create_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postCloudflareAiSearchNamespaceAsyncWithHttpInfo
+     *
+     * Creates the org&#39;s AI Search namespace on its Cloudflare account.
+     *
+     * @param  \Hanzo\Cloud\Model\CloudflareAiSearchNamespaceCreateIn $cloudflare_ai_search_namespace_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareAiSearchNamespace'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postCloudflareAiSearchNamespaceAsyncWithHttpInfo($cloudflare_ai_search_namespace_create_in, string $contentType = self::contentTypes['postCloudflareAiSearchNamespace'][0])
+    {
+        $returnType = 'mixed';
+        $request = $this->postCloudflareAiSearchNamespaceRequest($cloudflare_ai_search_namespace_create_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postCloudflareAiSearchNamespace'
+     *
+     * @param  \Hanzo\Cloud\Model\CloudflareAiSearchNamespaceCreateIn $cloudflare_ai_search_namespace_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareAiSearchNamespace'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postCloudflareAiSearchNamespaceRequest($cloudflare_ai_search_namespace_create_in, string $contentType = self::contentTypes['postCloudflareAiSearchNamespace'][0])
+    {
+
+        // verify the required parameter 'cloudflare_ai_search_namespace_create_in' is set
+        if ($cloudflare_ai_search_namespace_create_in === null || (is_array($cloudflare_ai_search_namespace_create_in) && count($cloudflare_ai_search_namespace_create_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $cloudflare_ai_search_namespace_create_in when calling postCloudflareAiSearchNamespace'
+            );
+        }
+
+
+        $resourcePath = '/v1/cloudflare/ai-search/namespace';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($cloudflare_ai_search_namespace_create_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_ai_search_namespace_create_in));
+            } else {
+                $httpBody = $cloudflare_ai_search_namespace_create_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postCloudflareD1Databases
+     *
+     * Creates a D1 database on the org&#39;s Cloudflare account.
+     *
+     * @param  \Hanzo\Cloud\Model\CloudflareDatabaseCreateIn $cloudflare_database_create_in cloudflare_database_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1Databases'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postCloudflareD1Databases($cloudflare_database_create_in, string $contentType = self::contentTypes['postCloudflareD1Databases'][0])
+    {
+        list($response) = $this->postCloudflareD1DatabasesWithHttpInfo($cloudflare_database_create_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postCloudflareD1DatabasesWithHttpInfo
+     *
+     * Creates a D1 database on the org&#39;s Cloudflare account.
+     *
+     * @param  \Hanzo\Cloud\Model\CloudflareDatabaseCreateIn $cloudflare_database_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1Databases'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postCloudflareD1DatabasesWithHttpInfo($cloudflare_database_create_in, string $contentType = self::contentTypes['postCloudflareD1Databases'][0])
+    {
+        $request = $this->postCloudflareD1DatabasesRequest($cloudflare_database_create_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'mixed',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -5971,15 +8245,15 @@ class CloudflareApi
      *
      * Creates a D1 database on the org&#39;s Cloudflare account.
      *
-     * @param  \Hanzo\Cloud\Model\DatabaseCreateIn $database_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareDatabaseCreateIn $cloudflare_database_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1Databases'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareD1DatabasesAsync($database_create_in, string $contentType = self::contentTypes['postCloudflareD1Databases'][0])
+    public function postCloudflareD1DatabasesAsync($cloudflare_database_create_in, string $contentType = self::contentTypes['postCloudflareD1Databases'][0])
     {
-        return $this->postCloudflareD1DatabasesAsyncWithHttpInfo($database_create_in, $contentType)
+        return $this->postCloudflareD1DatabasesAsyncWithHttpInfo($cloudflare_database_create_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5992,16 +8266,16 @@ class CloudflareApi
      *
      * Creates a D1 database on the org&#39;s Cloudflare account.
      *
-     * @param  \Hanzo\Cloud\Model\DatabaseCreateIn $database_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareDatabaseCreateIn $cloudflare_database_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1Databases'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareD1DatabasesAsyncWithHttpInfo($database_create_in, string $contentType = self::contentTypes['postCloudflareD1Databases'][0])
+    public function postCloudflareD1DatabasesAsyncWithHttpInfo($cloudflare_database_create_in, string $contentType = self::contentTypes['postCloudflareD1Databases'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postCloudflareD1DatabasesRequest($database_create_in, $contentType);
+        $request = $this->postCloudflareD1DatabasesRequest($cloudflare_database_create_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6042,19 +8316,19 @@ class CloudflareApi
     /**
      * Create request for operation 'postCloudflareD1Databases'
      *
-     * @param  \Hanzo\Cloud\Model\DatabaseCreateIn $database_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareDatabaseCreateIn $cloudflare_database_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1Databases'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCloudflareD1DatabasesRequest($database_create_in, string $contentType = self::contentTypes['postCloudflareD1Databases'][0])
+    public function postCloudflareD1DatabasesRequest($cloudflare_database_create_in, string $contentType = self::contentTypes['postCloudflareD1Databases'][0])
     {
 
-        // verify the required parameter 'database_create_in' is set
-        if ($database_create_in === null || (is_array($database_create_in) && count($database_create_in) === 0)) {
+        // verify the required parameter 'cloudflare_database_create_in' is set
+        if ($cloudflare_database_create_in === null || (is_array($cloudflare_database_create_in) && count($cloudflare_database_create_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $database_create_in when calling postCloudflareD1Databases'
+                'Missing the required parameter $cloudflare_database_create_in when calling postCloudflareD1Databases'
             );
         }
 
@@ -6071,18 +8345,18 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($database_create_in)) {
+        if (isset($cloudflare_database_create_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($database_create_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_database_create_in));
             } else {
-                $httpBody = $database_create_in;
+                $httpBody = $cloudflare_database_create_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6140,16 +8414,16 @@ class CloudflareApi
      * Runs one SQL statement against a D1 database.
      *
      * @param  string $database database (required)
-     * @param  \Hanzo\Cloud\Model\D1Query $d1_query d1_query (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareD1Query $cloudflare_d1_query cloudflare_d1_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCloudflareD1DatabasesByDatabaseQuery($database, $d1_query, string $contentType = self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'][0])
+    public function postCloudflareD1DatabasesByDatabaseQuery($database, $cloudflare_d1_query, string $contentType = self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'][0])
     {
-        list($response) = $this->postCloudflareD1DatabasesByDatabaseQueryWithHttpInfo($database, $d1_query, $contentType);
+        list($response) = $this->postCloudflareD1DatabasesByDatabaseQueryWithHttpInfo($database, $cloudflare_d1_query, $contentType);
         return $response;
     }
 
@@ -6159,16 +8433,16 @@ class CloudflareApi
      * Runs one SQL statement against a D1 database.
      *
      * @param  string $database (required)
-     * @param  \Hanzo\Cloud\Model\D1Query $d1_query (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareD1Query $cloudflare_d1_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCloudflareD1DatabasesByDatabaseQueryWithHttpInfo($database, $d1_query, string $contentType = self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'][0])
+    public function postCloudflareD1DatabasesByDatabaseQueryWithHttpInfo($database, $cloudflare_d1_query, string $contentType = self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'][0])
     {
-        $request = $this->postCloudflareD1DatabasesByDatabaseQueryRequest($database, $d1_query, $contentType);
+        $request = $this->postCloudflareD1DatabasesByDatabaseQueryRequest($database, $cloudflare_d1_query, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6197,6 +8471,12 @@ class CloudflareApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6232,6 +8512,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -6245,15 +8533,15 @@ class CloudflareApi
      * Runs one SQL statement against a D1 database.
      *
      * @param  string $database (required)
-     * @param  \Hanzo\Cloud\Model\D1Query $d1_query (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareD1Query $cloudflare_d1_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareD1DatabasesByDatabaseQueryAsync($database, $d1_query, string $contentType = self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'][0])
+    public function postCloudflareD1DatabasesByDatabaseQueryAsync($database, $cloudflare_d1_query, string $contentType = self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'][0])
     {
-        return $this->postCloudflareD1DatabasesByDatabaseQueryAsyncWithHttpInfo($database, $d1_query, $contentType)
+        return $this->postCloudflareD1DatabasesByDatabaseQueryAsyncWithHttpInfo($database, $cloudflare_d1_query, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6267,16 +8555,16 @@ class CloudflareApi
      * Runs one SQL statement against a D1 database.
      *
      * @param  string $database (required)
-     * @param  \Hanzo\Cloud\Model\D1Query $d1_query (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareD1Query $cloudflare_d1_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareD1DatabasesByDatabaseQueryAsyncWithHttpInfo($database, $d1_query, string $contentType = self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'][0])
+    public function postCloudflareD1DatabasesByDatabaseQueryAsyncWithHttpInfo($database, $cloudflare_d1_query, string $contentType = self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postCloudflareD1DatabasesByDatabaseQueryRequest($database, $d1_query, $contentType);
+        $request = $this->postCloudflareD1DatabasesByDatabaseQueryRequest($database, $cloudflare_d1_query, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6318,13 +8606,13 @@ class CloudflareApi
      * Create request for operation 'postCloudflareD1DatabasesByDatabaseQuery'
      *
      * @param  string $database (required)
-     * @param  \Hanzo\Cloud\Model\D1Query $d1_query (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareD1Query $cloudflare_d1_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCloudflareD1DatabasesByDatabaseQueryRequest($database, $d1_query, string $contentType = self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'][0])
+    public function postCloudflareD1DatabasesByDatabaseQueryRequest($database, $cloudflare_d1_query, string $contentType = self::contentTypes['postCloudflareD1DatabasesByDatabaseQuery'][0])
     {
 
         // verify the required parameter 'database' is set
@@ -6334,10 +8622,10 @@ class CloudflareApi
             );
         }
 
-        // verify the required parameter 'd1_query' is set
-        if ($d1_query === null || (is_array($d1_query) && count($d1_query) === 0)) {
+        // verify the required parameter 'cloudflare_d1_query' is set
+        if ($cloudflare_d1_query === null || (is_array($cloudflare_d1_query) && count($cloudflare_d1_query) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $d1_query when calling postCloudflareD1DatabasesByDatabaseQuery'
+                'Missing the required parameter $cloudflare_d1_query when calling postCloudflareD1DatabasesByDatabaseQuery'
             );
         }
 
@@ -6362,18 +8650,18 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($d1_query)) {
+        if (isset($cloudflare_d1_query)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($d1_query));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_d1_query));
             } else {
-                $httpBody = $d1_query;
+                $httpBody = $cloudflare_d1_query;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6428,36 +8716,36 @@ class CloudflareApi
     /**
      * Operation postCloudflareKvNamespaces
      *
-     * KVNamespaceCreate creates a Workers KV namespace on the org&#39;s Cloudflare account.
+     * Creates a Workers KV namespace on the org&#39;s Cloudflare account.
      *
-     * @param  \Hanzo\Cloud\Model\NamespaceCreateIn $namespace_create_in namespace_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareNamespaceCreateIn $cloudflare_namespace_create_in cloudflare_namespace_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareKvNamespaces'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCloudflareKvNamespaces($namespace_create_in, string $contentType = self::contentTypes['postCloudflareKvNamespaces'][0])
+    public function postCloudflareKvNamespaces($cloudflare_namespace_create_in, string $contentType = self::contentTypes['postCloudflareKvNamespaces'][0])
     {
-        list($response) = $this->postCloudflareKvNamespacesWithHttpInfo($namespace_create_in, $contentType);
+        list($response) = $this->postCloudflareKvNamespacesWithHttpInfo($cloudflare_namespace_create_in, $contentType);
         return $response;
     }
 
     /**
      * Operation postCloudflareKvNamespacesWithHttpInfo
      *
-     * KVNamespaceCreate creates a Workers KV namespace on the org&#39;s Cloudflare account.
+     * Creates a Workers KV namespace on the org&#39;s Cloudflare account.
      *
-     * @param  \Hanzo\Cloud\Model\NamespaceCreateIn $namespace_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareNamespaceCreateIn $cloudflare_namespace_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareKvNamespaces'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCloudflareKvNamespacesWithHttpInfo($namespace_create_in, string $contentType = self::contentTypes['postCloudflareKvNamespaces'][0])
+    public function postCloudflareKvNamespacesWithHttpInfo($cloudflare_namespace_create_in, string $contentType = self::contentTypes['postCloudflareKvNamespaces'][0])
     {
-        $request = $this->postCloudflareKvNamespacesRequest($namespace_create_in, $contentType);
+        $request = $this->postCloudflareKvNamespacesRequest($cloudflare_namespace_create_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6486,6 +8774,12 @@ class CloudflareApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6521,6 +8815,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -6531,17 +8833,17 @@ class CloudflareApi
     /**
      * Operation postCloudflareKvNamespacesAsync
      *
-     * KVNamespaceCreate creates a Workers KV namespace on the org&#39;s Cloudflare account.
+     * Creates a Workers KV namespace on the org&#39;s Cloudflare account.
      *
-     * @param  \Hanzo\Cloud\Model\NamespaceCreateIn $namespace_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareNamespaceCreateIn $cloudflare_namespace_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareKvNamespaces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareKvNamespacesAsync($namespace_create_in, string $contentType = self::contentTypes['postCloudflareKvNamespaces'][0])
+    public function postCloudflareKvNamespacesAsync($cloudflare_namespace_create_in, string $contentType = self::contentTypes['postCloudflareKvNamespaces'][0])
     {
-        return $this->postCloudflareKvNamespacesAsyncWithHttpInfo($namespace_create_in, $contentType)
+        return $this->postCloudflareKvNamespacesAsyncWithHttpInfo($cloudflare_namespace_create_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6552,18 +8854,18 @@ class CloudflareApi
     /**
      * Operation postCloudflareKvNamespacesAsyncWithHttpInfo
      *
-     * KVNamespaceCreate creates a Workers KV namespace on the org&#39;s Cloudflare account.
+     * Creates a Workers KV namespace on the org&#39;s Cloudflare account.
      *
-     * @param  \Hanzo\Cloud\Model\NamespaceCreateIn $namespace_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareNamespaceCreateIn $cloudflare_namespace_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareKvNamespaces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareKvNamespacesAsyncWithHttpInfo($namespace_create_in, string $contentType = self::contentTypes['postCloudflareKvNamespaces'][0])
+    public function postCloudflareKvNamespacesAsyncWithHttpInfo($cloudflare_namespace_create_in, string $contentType = self::contentTypes['postCloudflareKvNamespaces'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postCloudflareKvNamespacesRequest($namespace_create_in, $contentType);
+        $request = $this->postCloudflareKvNamespacesRequest($cloudflare_namespace_create_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6604,19 +8906,19 @@ class CloudflareApi
     /**
      * Create request for operation 'postCloudflareKvNamespaces'
      *
-     * @param  \Hanzo\Cloud\Model\NamespaceCreateIn $namespace_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareNamespaceCreateIn $cloudflare_namespace_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareKvNamespaces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCloudflareKvNamespacesRequest($namespace_create_in, string $contentType = self::contentTypes['postCloudflareKvNamespaces'][0])
+    public function postCloudflareKvNamespacesRequest($cloudflare_namespace_create_in, string $contentType = self::contentTypes['postCloudflareKvNamespaces'][0])
     {
 
-        // verify the required parameter 'namespace_create_in' is set
-        if ($namespace_create_in === null || (is_array($namespace_create_in) && count($namespace_create_in) === 0)) {
+        // verify the required parameter 'cloudflare_namespace_create_in' is set
+        if ($cloudflare_namespace_create_in === null || (is_array($cloudflare_namespace_create_in) && count($cloudflare_namespace_create_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $namespace_create_in when calling postCloudflareKvNamespaces'
+                'Missing the required parameter $cloudflare_namespace_create_in when calling postCloudflareKvNamespaces'
             );
         }
 
@@ -6633,18 +8935,18 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($namespace_create_in)) {
+        if (isset($cloudflare_namespace_create_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($namespace_create_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_namespace_create_in));
             } else {
-                $httpBody = $namespace_create_in;
+                $httpBody = $cloudflare_namespace_create_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6701,16 +9003,16 @@ class CloudflareApi
      *
      * Creates a Cloudflare Pages project on the org&#39;s account.
      *
-     * @param  \Hanzo\Cloud\Model\PagesProjectCreate $pages_project_create pages_project_create (required)
+     * @param  \Hanzo\Cloud\Model\CloudflarePagesProjectCreate $cloudflare_pages_project_create cloudflare_pages_project_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflarePagesProjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCloudflarePagesProjects($pages_project_create, string $contentType = self::contentTypes['postCloudflarePagesProjects'][0])
+    public function postCloudflarePagesProjects($cloudflare_pages_project_create, string $contentType = self::contentTypes['postCloudflarePagesProjects'][0])
     {
-        list($response) = $this->postCloudflarePagesProjectsWithHttpInfo($pages_project_create, $contentType);
+        list($response) = $this->postCloudflarePagesProjectsWithHttpInfo($cloudflare_pages_project_create, $contentType);
         return $response;
     }
 
@@ -6719,16 +9021,16 @@ class CloudflareApi
      *
      * Creates a Cloudflare Pages project on the org&#39;s account.
      *
-     * @param  \Hanzo\Cloud\Model\PagesProjectCreate $pages_project_create (required)
+     * @param  \Hanzo\Cloud\Model\CloudflarePagesProjectCreate $cloudflare_pages_project_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflarePagesProjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCloudflarePagesProjectsWithHttpInfo($pages_project_create, string $contentType = self::contentTypes['postCloudflarePagesProjects'][0])
+    public function postCloudflarePagesProjectsWithHttpInfo($cloudflare_pages_project_create, string $contentType = self::contentTypes['postCloudflarePagesProjects'][0])
     {
-        $request = $this->postCloudflarePagesProjectsRequest($pages_project_create, $contentType);
+        $request = $this->postCloudflarePagesProjectsRequest($cloudflare_pages_project_create, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6757,6 +9059,12 @@ class CloudflareApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6792,6 +9100,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -6804,15 +9120,15 @@ class CloudflareApi
      *
      * Creates a Cloudflare Pages project on the org&#39;s account.
      *
-     * @param  \Hanzo\Cloud\Model\PagesProjectCreate $pages_project_create (required)
+     * @param  \Hanzo\Cloud\Model\CloudflarePagesProjectCreate $cloudflare_pages_project_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflarePagesProjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflarePagesProjectsAsync($pages_project_create, string $contentType = self::contentTypes['postCloudflarePagesProjects'][0])
+    public function postCloudflarePagesProjectsAsync($cloudflare_pages_project_create, string $contentType = self::contentTypes['postCloudflarePagesProjects'][0])
     {
-        return $this->postCloudflarePagesProjectsAsyncWithHttpInfo($pages_project_create, $contentType)
+        return $this->postCloudflarePagesProjectsAsyncWithHttpInfo($cloudflare_pages_project_create, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6825,16 +9141,16 @@ class CloudflareApi
      *
      * Creates a Cloudflare Pages project on the org&#39;s account.
      *
-     * @param  \Hanzo\Cloud\Model\PagesProjectCreate $pages_project_create (required)
+     * @param  \Hanzo\Cloud\Model\CloudflarePagesProjectCreate $cloudflare_pages_project_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflarePagesProjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflarePagesProjectsAsyncWithHttpInfo($pages_project_create, string $contentType = self::contentTypes['postCloudflarePagesProjects'][0])
+    public function postCloudflarePagesProjectsAsyncWithHttpInfo($cloudflare_pages_project_create, string $contentType = self::contentTypes['postCloudflarePagesProjects'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postCloudflarePagesProjectsRequest($pages_project_create, $contentType);
+        $request = $this->postCloudflarePagesProjectsRequest($cloudflare_pages_project_create, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6875,19 +9191,19 @@ class CloudflareApi
     /**
      * Create request for operation 'postCloudflarePagesProjects'
      *
-     * @param  \Hanzo\Cloud\Model\PagesProjectCreate $pages_project_create (required)
+     * @param  \Hanzo\Cloud\Model\CloudflarePagesProjectCreate $cloudflare_pages_project_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflarePagesProjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCloudflarePagesProjectsRequest($pages_project_create, string $contentType = self::contentTypes['postCloudflarePagesProjects'][0])
+    public function postCloudflarePagesProjectsRequest($cloudflare_pages_project_create, string $contentType = self::contentTypes['postCloudflarePagesProjects'][0])
     {
 
-        // verify the required parameter 'pages_project_create' is set
-        if ($pages_project_create === null || (is_array($pages_project_create) && count($pages_project_create) === 0)) {
+        // verify the required parameter 'cloudflare_pages_project_create' is set
+        if ($cloudflare_pages_project_create === null || (is_array($cloudflare_pages_project_create) && count($cloudflare_pages_project_create) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $pages_project_create when calling postCloudflarePagesProjects'
+                'Missing the required parameter $cloudflare_pages_project_create when calling postCloudflarePagesProjects'
             );
         }
 
@@ -6904,18 +9220,18 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($pages_project_create)) {
+        if (isset($cloudflare_pages_project_create)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($pages_project_create));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_pages_project_create));
             } else {
-                $httpBody = $pages_project_create;
+                $httpBody = $cloudflare_pages_project_create;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7261,16 +9577,16 @@ class CloudflareApi
      * Attaches a custom domain to a Cloudflare Pages project.
      *
      * @param  string $project Project is the Pages project name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\DomainAddIn $domain_add_in domain_add_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareDomainAddIn $cloudflare_domain_add_in cloudflare_domain_add_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflarePagesProjectsByProjectDomains'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCloudflarePagesProjectsByProjectDomains($project, $domain_add_in, string $contentType = self::contentTypes['postCloudflarePagesProjectsByProjectDomains'][0])
+    public function postCloudflarePagesProjectsByProjectDomains($project, $cloudflare_domain_add_in, string $contentType = self::contentTypes['postCloudflarePagesProjectsByProjectDomains'][0])
     {
-        list($response) = $this->postCloudflarePagesProjectsByProjectDomainsWithHttpInfo($project, $domain_add_in, $contentType);
+        list($response) = $this->postCloudflarePagesProjectsByProjectDomainsWithHttpInfo($project, $cloudflare_domain_add_in, $contentType);
         return $response;
     }
 
@@ -7280,16 +9596,16 @@ class CloudflareApi
      * Attaches a custom domain to a Cloudflare Pages project.
      *
      * @param  string $project Project is the Pages project name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\DomainAddIn $domain_add_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareDomainAddIn $cloudflare_domain_add_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflarePagesProjectsByProjectDomains'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCloudflarePagesProjectsByProjectDomainsWithHttpInfo($project, $domain_add_in, string $contentType = self::contentTypes['postCloudflarePagesProjectsByProjectDomains'][0])
+    public function postCloudflarePagesProjectsByProjectDomainsWithHttpInfo($project, $cloudflare_domain_add_in, string $contentType = self::contentTypes['postCloudflarePagesProjectsByProjectDomains'][0])
     {
-        $request = $this->postCloudflarePagesProjectsByProjectDomainsRequest($project, $domain_add_in, $contentType);
+        $request = $this->postCloudflarePagesProjectsByProjectDomainsRequest($project, $cloudflare_domain_add_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7318,6 +9634,12 @@ class CloudflareApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7353,6 +9675,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -7366,15 +9696,15 @@ class CloudflareApi
      * Attaches a custom domain to a Cloudflare Pages project.
      *
      * @param  string $project Project is the Pages project name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\DomainAddIn $domain_add_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareDomainAddIn $cloudflare_domain_add_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflarePagesProjectsByProjectDomains'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflarePagesProjectsByProjectDomainsAsync($project, $domain_add_in, string $contentType = self::contentTypes['postCloudflarePagesProjectsByProjectDomains'][0])
+    public function postCloudflarePagesProjectsByProjectDomainsAsync($project, $cloudflare_domain_add_in, string $contentType = self::contentTypes['postCloudflarePagesProjectsByProjectDomains'][0])
     {
-        return $this->postCloudflarePagesProjectsByProjectDomainsAsyncWithHttpInfo($project, $domain_add_in, $contentType)
+        return $this->postCloudflarePagesProjectsByProjectDomainsAsyncWithHttpInfo($project, $cloudflare_domain_add_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7388,16 +9718,16 @@ class CloudflareApi
      * Attaches a custom domain to a Cloudflare Pages project.
      *
      * @param  string $project Project is the Pages project name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\DomainAddIn $domain_add_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareDomainAddIn $cloudflare_domain_add_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflarePagesProjectsByProjectDomains'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflarePagesProjectsByProjectDomainsAsyncWithHttpInfo($project, $domain_add_in, string $contentType = self::contentTypes['postCloudflarePagesProjectsByProjectDomains'][0])
+    public function postCloudflarePagesProjectsByProjectDomainsAsyncWithHttpInfo($project, $cloudflare_domain_add_in, string $contentType = self::contentTypes['postCloudflarePagesProjectsByProjectDomains'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postCloudflarePagesProjectsByProjectDomainsRequest($project, $domain_add_in, $contentType);
+        $request = $this->postCloudflarePagesProjectsByProjectDomainsRequest($project, $cloudflare_domain_add_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7439,13 +9769,13 @@ class CloudflareApi
      * Create request for operation 'postCloudflarePagesProjectsByProjectDomains'
      *
      * @param  string $project Project is the Pages project name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\DomainAddIn $domain_add_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareDomainAddIn $cloudflare_domain_add_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflarePagesProjectsByProjectDomains'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCloudflarePagesProjectsByProjectDomainsRequest($project, $domain_add_in, string $contentType = self::contentTypes['postCloudflarePagesProjectsByProjectDomains'][0])
+    public function postCloudflarePagesProjectsByProjectDomainsRequest($project, $cloudflare_domain_add_in, string $contentType = self::contentTypes['postCloudflarePagesProjectsByProjectDomains'][0])
     {
 
         // verify the required parameter 'project' is set
@@ -7455,10 +9785,10 @@ class CloudflareApi
             );
         }
 
-        // verify the required parameter 'domain_add_in' is set
-        if ($domain_add_in === null || (is_array($domain_add_in) && count($domain_add_in) === 0)) {
+        // verify the required parameter 'cloudflare_domain_add_in' is set
+        if ($cloudflare_domain_add_in === null || (is_array($cloudflare_domain_add_in) && count($cloudflare_domain_add_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $domain_add_in when calling postCloudflarePagesProjectsByProjectDomains'
+                'Missing the required parameter $cloudflare_domain_add_in when calling postCloudflarePagesProjectsByProjectDomains'
             );
         }
 
@@ -7483,18 +9813,18 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($domain_add_in)) {
+        if (isset($cloudflare_domain_add_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($domain_add_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_domain_add_in));
             } else {
-                $httpBody = $domain_add_in;
+                $httpBody = $cloudflare_domain_add_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7551,16 +9881,16 @@ class CloudflareApi
      *
      * Creates an R2 bucket on the org&#39;s Cloudflare account.
      *
-     * @param  \Hanzo\Cloud\Model\BucketCreateIn $bucket_create_in bucket_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareBucketCreateIn $cloudflare_bucket_create_in cloudflare_bucket_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareR2Buckets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCloudflareR2Buckets($bucket_create_in, string $contentType = self::contentTypes['postCloudflareR2Buckets'][0])
+    public function postCloudflareR2Buckets($cloudflare_bucket_create_in, string $contentType = self::contentTypes['postCloudflareR2Buckets'][0])
     {
-        list($response) = $this->postCloudflareR2BucketsWithHttpInfo($bucket_create_in, $contentType);
+        list($response) = $this->postCloudflareR2BucketsWithHttpInfo($cloudflare_bucket_create_in, $contentType);
         return $response;
     }
 
@@ -7569,16 +9899,16 @@ class CloudflareApi
      *
      * Creates an R2 bucket on the org&#39;s Cloudflare account.
      *
-     * @param  \Hanzo\Cloud\Model\BucketCreateIn $bucket_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareBucketCreateIn $cloudflare_bucket_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareR2Buckets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCloudflareR2BucketsWithHttpInfo($bucket_create_in, string $contentType = self::contentTypes['postCloudflareR2Buckets'][0])
+    public function postCloudflareR2BucketsWithHttpInfo($cloudflare_bucket_create_in, string $contentType = self::contentTypes['postCloudflareR2Buckets'][0])
     {
-        $request = $this->postCloudflareR2BucketsRequest($bucket_create_in, $contentType);
+        $request = $this->postCloudflareR2BucketsRequest($cloudflare_bucket_create_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7607,6 +9937,12 @@ class CloudflareApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7642,6 +9978,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -7654,15 +9998,15 @@ class CloudflareApi
      *
      * Creates an R2 bucket on the org&#39;s Cloudflare account.
      *
-     * @param  \Hanzo\Cloud\Model\BucketCreateIn $bucket_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareBucketCreateIn $cloudflare_bucket_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareR2Buckets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareR2BucketsAsync($bucket_create_in, string $contentType = self::contentTypes['postCloudflareR2Buckets'][0])
+    public function postCloudflareR2BucketsAsync($cloudflare_bucket_create_in, string $contentType = self::contentTypes['postCloudflareR2Buckets'][0])
     {
-        return $this->postCloudflareR2BucketsAsyncWithHttpInfo($bucket_create_in, $contentType)
+        return $this->postCloudflareR2BucketsAsyncWithHttpInfo($cloudflare_bucket_create_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7675,16 +10019,16 @@ class CloudflareApi
      *
      * Creates an R2 bucket on the org&#39;s Cloudflare account.
      *
-     * @param  \Hanzo\Cloud\Model\BucketCreateIn $bucket_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareBucketCreateIn $cloudflare_bucket_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareR2Buckets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareR2BucketsAsyncWithHttpInfo($bucket_create_in, string $contentType = self::contentTypes['postCloudflareR2Buckets'][0])
+    public function postCloudflareR2BucketsAsyncWithHttpInfo($cloudflare_bucket_create_in, string $contentType = self::contentTypes['postCloudflareR2Buckets'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postCloudflareR2BucketsRequest($bucket_create_in, $contentType);
+        $request = $this->postCloudflareR2BucketsRequest($cloudflare_bucket_create_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7725,19 +10069,19 @@ class CloudflareApi
     /**
      * Create request for operation 'postCloudflareR2Buckets'
      *
-     * @param  \Hanzo\Cloud\Model\BucketCreateIn $bucket_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareBucketCreateIn $cloudflare_bucket_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareR2Buckets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCloudflareR2BucketsRequest($bucket_create_in, string $contentType = self::contentTypes['postCloudflareR2Buckets'][0])
+    public function postCloudflareR2BucketsRequest($cloudflare_bucket_create_in, string $contentType = self::contentTypes['postCloudflareR2Buckets'][0])
     {
 
-        // verify the required parameter 'bucket_create_in' is set
-        if ($bucket_create_in === null || (is_array($bucket_create_in) && count($bucket_create_in) === 0)) {
+        // verify the required parameter 'cloudflare_bucket_create_in' is set
+        if ($cloudflare_bucket_create_in === null || (is_array($cloudflare_bucket_create_in) && count($cloudflare_bucket_create_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $bucket_create_in when calling postCloudflareR2Buckets'
+                'Missing the required parameter $cloudflare_bucket_create_in when calling postCloudflareR2Buckets'
             );
         }
 
@@ -7754,18 +10098,18 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($bucket_create_in)) {
+        if (isset($cloudflare_bucket_create_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($bucket_create_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_bucket_create_in));
             } else {
-                $httpBody = $bucket_create_in;
+                $httpBody = $cloudflare_bucket_create_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7823,16 +10167,16 @@ class CloudflareApi
      * Publishes or withdraws one Worker script on the account&#39;s workers.dev subdomain.
      *
      * @param  string $script Script is the Worker script name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SubdomainSetIn $subdomain_set_in subdomain_set_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareSubdomainSetIn $cloudflare_subdomain_set_in cloudflare_subdomain_set_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCloudflareWorkersScriptsByScriptSubdomain($script, $subdomain_set_in, string $contentType = self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'][0])
+    public function postCloudflareWorkersScriptsByScriptSubdomain($script, $cloudflare_subdomain_set_in, string $contentType = self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'][0])
     {
-        list($response) = $this->postCloudflareWorkersScriptsByScriptSubdomainWithHttpInfo($script, $subdomain_set_in, $contentType);
+        list($response) = $this->postCloudflareWorkersScriptsByScriptSubdomainWithHttpInfo($script, $cloudflare_subdomain_set_in, $contentType);
         return $response;
     }
 
@@ -7842,16 +10186,16 @@ class CloudflareApi
      * Publishes or withdraws one Worker script on the account&#39;s workers.dev subdomain.
      *
      * @param  string $script Script is the Worker script name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SubdomainSetIn $subdomain_set_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareSubdomainSetIn $cloudflare_subdomain_set_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCloudflareWorkersScriptsByScriptSubdomainWithHttpInfo($script, $subdomain_set_in, string $contentType = self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'][0])
+    public function postCloudflareWorkersScriptsByScriptSubdomainWithHttpInfo($script, $cloudflare_subdomain_set_in, string $contentType = self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'][0])
     {
-        $request = $this->postCloudflareWorkersScriptsByScriptSubdomainRequest($script, $subdomain_set_in, $contentType);
+        $request = $this->postCloudflareWorkersScriptsByScriptSubdomainRequest($script, $cloudflare_subdomain_set_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7880,6 +10224,12 @@ class CloudflareApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7915,6 +10265,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -7928,15 +10286,15 @@ class CloudflareApi
      * Publishes or withdraws one Worker script on the account&#39;s workers.dev subdomain.
      *
      * @param  string $script Script is the Worker script name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SubdomainSetIn $subdomain_set_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareSubdomainSetIn $cloudflare_subdomain_set_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareWorkersScriptsByScriptSubdomainAsync($script, $subdomain_set_in, string $contentType = self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'][0])
+    public function postCloudflareWorkersScriptsByScriptSubdomainAsync($script, $cloudflare_subdomain_set_in, string $contentType = self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'][0])
     {
-        return $this->postCloudflareWorkersScriptsByScriptSubdomainAsyncWithHttpInfo($script, $subdomain_set_in, $contentType)
+        return $this->postCloudflareWorkersScriptsByScriptSubdomainAsyncWithHttpInfo($script, $cloudflare_subdomain_set_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7950,16 +10308,16 @@ class CloudflareApi
      * Publishes or withdraws one Worker script on the account&#39;s workers.dev subdomain.
      *
      * @param  string $script Script is the Worker script name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SubdomainSetIn $subdomain_set_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareSubdomainSetIn $cloudflare_subdomain_set_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareWorkersScriptsByScriptSubdomainAsyncWithHttpInfo($script, $subdomain_set_in, string $contentType = self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'][0])
+    public function postCloudflareWorkersScriptsByScriptSubdomainAsyncWithHttpInfo($script, $cloudflare_subdomain_set_in, string $contentType = self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postCloudflareWorkersScriptsByScriptSubdomainRequest($script, $subdomain_set_in, $contentType);
+        $request = $this->postCloudflareWorkersScriptsByScriptSubdomainRequest($script, $cloudflare_subdomain_set_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8001,13 +10359,13 @@ class CloudflareApi
      * Create request for operation 'postCloudflareWorkersScriptsByScriptSubdomain'
      *
      * @param  string $script Script is the Worker script name, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SubdomainSetIn $subdomain_set_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareSubdomainSetIn $cloudflare_subdomain_set_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCloudflareWorkersScriptsByScriptSubdomainRequest($script, $subdomain_set_in, string $contentType = self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'][0])
+    public function postCloudflareWorkersScriptsByScriptSubdomainRequest($script, $cloudflare_subdomain_set_in, string $contentType = self::contentTypes['postCloudflareWorkersScriptsByScriptSubdomain'][0])
     {
 
         // verify the required parameter 'script' is set
@@ -8017,10 +10375,10 @@ class CloudflareApi
             );
         }
 
-        // verify the required parameter 'subdomain_set_in' is set
-        if ($subdomain_set_in === null || (is_array($subdomain_set_in) && count($subdomain_set_in) === 0)) {
+        // verify the required parameter 'cloudflare_subdomain_set_in' is set
+        if ($cloudflare_subdomain_set_in === null || (is_array($cloudflare_subdomain_set_in) && count($cloudflare_subdomain_set_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $subdomain_set_in when calling postCloudflareWorkersScriptsByScriptSubdomain'
+                'Missing the required parameter $cloudflare_subdomain_set_in when calling postCloudflareWorkersScriptsByScriptSubdomain'
             );
         }
 
@@ -8045,18 +10403,18 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($subdomain_set_in)) {
+        if (isset($cloudflare_subdomain_set_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($subdomain_set_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_subdomain_set_in));
             } else {
-                $httpBody = $subdomain_set_in;
+                $httpBody = $cloudflare_subdomain_set_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -8114,16 +10472,16 @@ class CloudflareApi
      * Binds a URL pattern in a zone to a Worker script.
      *
      * @param  string $zone Zone is the 32-hex Cloudflare zone id, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RouteCreateIn $route_create_in route_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareRouteCreateIn $cloudflare_route_create_in cloudflare_route_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCloudflareWorkersZonesByZoneRoutes($zone, $route_create_in, string $contentType = self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'][0])
+    public function postCloudflareWorkersZonesByZoneRoutes($zone, $cloudflare_route_create_in, string $contentType = self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'][0])
     {
-        list($response) = $this->postCloudflareWorkersZonesByZoneRoutesWithHttpInfo($zone, $route_create_in, $contentType);
+        list($response) = $this->postCloudflareWorkersZonesByZoneRoutesWithHttpInfo($zone, $cloudflare_route_create_in, $contentType);
         return $response;
     }
 
@@ -8133,16 +10491,16 @@ class CloudflareApi
      * Binds a URL pattern in a zone to a Worker script.
      *
      * @param  string $zone Zone is the 32-hex Cloudflare zone id, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RouteCreateIn $route_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareRouteCreateIn $cloudflare_route_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCloudflareWorkersZonesByZoneRoutesWithHttpInfo($zone, $route_create_in, string $contentType = self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'][0])
+    public function postCloudflareWorkersZonesByZoneRoutesWithHttpInfo($zone, $cloudflare_route_create_in, string $contentType = self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'][0])
     {
-        $request = $this->postCloudflareWorkersZonesByZoneRoutesRequest($zone, $route_create_in, $contentType);
+        $request = $this->postCloudflareWorkersZonesByZoneRoutesRequest($zone, $cloudflare_route_create_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8171,6 +10529,12 @@ class CloudflareApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8206,6 +10570,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -8219,15 +10591,15 @@ class CloudflareApi
      * Binds a URL pattern in a zone to a Worker script.
      *
      * @param  string $zone Zone is the 32-hex Cloudflare zone id, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RouteCreateIn $route_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareRouteCreateIn $cloudflare_route_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareWorkersZonesByZoneRoutesAsync($zone, $route_create_in, string $contentType = self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'][0])
+    public function postCloudflareWorkersZonesByZoneRoutesAsync($zone, $cloudflare_route_create_in, string $contentType = self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'][0])
     {
-        return $this->postCloudflareWorkersZonesByZoneRoutesAsyncWithHttpInfo($zone, $route_create_in, $contentType)
+        return $this->postCloudflareWorkersZonesByZoneRoutesAsyncWithHttpInfo($zone, $cloudflare_route_create_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8241,16 +10613,16 @@ class CloudflareApi
      * Binds a URL pattern in a zone to a Worker script.
      *
      * @param  string $zone Zone is the 32-hex Cloudflare zone id, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RouteCreateIn $route_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareRouteCreateIn $cloudflare_route_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareWorkersZonesByZoneRoutesAsyncWithHttpInfo($zone, $route_create_in, string $contentType = self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'][0])
+    public function postCloudflareWorkersZonesByZoneRoutesAsyncWithHttpInfo($zone, $cloudflare_route_create_in, string $contentType = self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postCloudflareWorkersZonesByZoneRoutesRequest($zone, $route_create_in, $contentType);
+        $request = $this->postCloudflareWorkersZonesByZoneRoutesRequest($zone, $cloudflare_route_create_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8292,13 +10664,13 @@ class CloudflareApi
      * Create request for operation 'postCloudflareWorkersZonesByZoneRoutes'
      *
      * @param  string $zone Zone is the 32-hex Cloudflare zone id, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RouteCreateIn $route_create_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareRouteCreateIn $cloudflare_route_create_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCloudflareWorkersZonesByZoneRoutesRequest($zone, $route_create_in, string $contentType = self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'][0])
+    public function postCloudflareWorkersZonesByZoneRoutesRequest($zone, $cloudflare_route_create_in, string $contentType = self::contentTypes['postCloudflareWorkersZonesByZoneRoutes'][0])
     {
 
         // verify the required parameter 'zone' is set
@@ -8308,10 +10680,10 @@ class CloudflareApi
             );
         }
 
-        // verify the required parameter 'route_create_in' is set
-        if ($route_create_in === null || (is_array($route_create_in) && count($route_create_in) === 0)) {
+        // verify the required parameter 'cloudflare_route_create_in' is set
+        if ($cloudflare_route_create_in === null || (is_array($cloudflare_route_create_in) && count($cloudflare_route_create_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $route_create_in when calling postCloudflareWorkersZonesByZoneRoutes'
+                'Missing the required parameter $cloudflare_route_create_in when calling postCloudflareWorkersZonesByZoneRoutes'
             );
         }
 
@@ -8336,18 +10708,18 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($route_create_in)) {
+        if (isset($cloudflare_route_create_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($route_create_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_route_create_in));
             } else {
-                $httpBody = $route_create_in;
+                $httpBody = $cloudflare_route_create_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -8405,16 +10777,16 @@ class CloudflareApi
      * Drops a zone&#39;s Cloudflare edge cache — either the whole zone (purge_everything) or exactly the listed file URLs.
      *
      * @param  string $zone Zone is the 32-hex Cloudflare zone id, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PurgeIn $purge_in purge_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflarePurgeIn $cloudflare_purge_in cloudflare_purge_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareZonesByZonePurge'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCloudflareZonesByZonePurge($zone, $purge_in, string $contentType = self::contentTypes['postCloudflareZonesByZonePurge'][0])
+    public function postCloudflareZonesByZonePurge($zone, $cloudflare_purge_in, string $contentType = self::contentTypes['postCloudflareZonesByZonePurge'][0])
     {
-        list($response) = $this->postCloudflareZonesByZonePurgeWithHttpInfo($zone, $purge_in, $contentType);
+        list($response) = $this->postCloudflareZonesByZonePurgeWithHttpInfo($zone, $cloudflare_purge_in, $contentType);
         return $response;
     }
 
@@ -8424,16 +10796,16 @@ class CloudflareApi
      * Drops a zone&#39;s Cloudflare edge cache — either the whole zone (purge_everything) or exactly the listed file URLs.
      *
      * @param  string $zone Zone is the 32-hex Cloudflare zone id, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PurgeIn $purge_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflarePurgeIn $cloudflare_purge_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareZonesByZonePurge'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCloudflareZonesByZonePurgeWithHttpInfo($zone, $purge_in, string $contentType = self::contentTypes['postCloudflareZonesByZonePurge'][0])
+    public function postCloudflareZonesByZonePurgeWithHttpInfo($zone, $cloudflare_purge_in, string $contentType = self::contentTypes['postCloudflareZonesByZonePurge'][0])
     {
-        $request = $this->postCloudflareZonesByZonePurgeRequest($zone, $purge_in, $contentType);
+        $request = $this->postCloudflareZonesByZonePurgeRequest($zone, $cloudflare_purge_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8462,6 +10834,12 @@ class CloudflareApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8497,6 +10875,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -8510,15 +10896,15 @@ class CloudflareApi
      * Drops a zone&#39;s Cloudflare edge cache — either the whole zone (purge_everything) or exactly the listed file URLs.
      *
      * @param  string $zone Zone is the 32-hex Cloudflare zone id, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PurgeIn $purge_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflarePurgeIn $cloudflare_purge_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareZonesByZonePurge'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareZonesByZonePurgeAsync($zone, $purge_in, string $contentType = self::contentTypes['postCloudflareZonesByZonePurge'][0])
+    public function postCloudflareZonesByZonePurgeAsync($zone, $cloudflare_purge_in, string $contentType = self::contentTypes['postCloudflareZonesByZonePurge'][0])
     {
-        return $this->postCloudflareZonesByZonePurgeAsyncWithHttpInfo($zone, $purge_in, $contentType)
+        return $this->postCloudflareZonesByZonePurgeAsyncWithHttpInfo($zone, $cloudflare_purge_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8532,16 +10918,16 @@ class CloudflareApi
      * Drops a zone&#39;s Cloudflare edge cache — either the whole zone (purge_everything) or exactly the listed file URLs.
      *
      * @param  string $zone Zone is the 32-hex Cloudflare zone id, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PurgeIn $purge_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflarePurgeIn $cloudflare_purge_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareZonesByZonePurge'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCloudflareZonesByZonePurgeAsyncWithHttpInfo($zone, $purge_in, string $contentType = self::contentTypes['postCloudflareZonesByZonePurge'][0])
+    public function postCloudflareZonesByZonePurgeAsyncWithHttpInfo($zone, $cloudflare_purge_in, string $contentType = self::contentTypes['postCloudflareZonesByZonePurge'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postCloudflareZonesByZonePurgeRequest($zone, $purge_in, $contentType);
+        $request = $this->postCloudflareZonesByZonePurgeRequest($zone, $cloudflare_purge_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8583,13 +10969,13 @@ class CloudflareApi
      * Create request for operation 'postCloudflareZonesByZonePurge'
      *
      * @param  string $zone Zone is the 32-hex Cloudflare zone id, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PurgeIn $purge_in (required)
+     * @param  \Hanzo\Cloud\Model\CloudflarePurgeIn $cloudflare_purge_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCloudflareZonesByZonePurge'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCloudflareZonesByZonePurgeRequest($zone, $purge_in, string $contentType = self::contentTypes['postCloudflareZonesByZonePurge'][0])
+    public function postCloudflareZonesByZonePurgeRequest($zone, $cloudflare_purge_in, string $contentType = self::contentTypes['postCloudflareZonesByZonePurge'][0])
     {
 
         // verify the required parameter 'zone' is set
@@ -8599,10 +10985,10 @@ class CloudflareApi
             );
         }
 
-        // verify the required parameter 'purge_in' is set
-        if ($purge_in === null || (is_array($purge_in) && count($purge_in) === 0)) {
+        // verify the required parameter 'cloudflare_purge_in' is set
+        if ($cloudflare_purge_in === null || (is_array($cloudflare_purge_in) && count($cloudflare_purge_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $purge_in when calling postCloudflareZonesByZonePurge'
+                'Missing the required parameter $cloudflare_purge_in when calling postCloudflareZonesByZonePurge'
             );
         }
 
@@ -8627,18 +11013,18 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($purge_in)) {
+        if (isset($cloudflare_purge_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($purge_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_purge_in));
             } else {
-                $httpBody = $purge_in;
+                $httpBody = $cloudflare_purge_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -8684,6 +11070,311 @@ class CloudflareApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putCloudflareAiSearchInstancesByInstance
+     *
+     * Updates an AI Search instance in the org&#39;s own namespace and relays Cloudflare&#39;s record of it.
+     *
+     * @param  string $instance instance (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareAISearchInstanceUpdate $cloudflare_ai_search_instance_update cloudflare_ai_search_instance_update (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putCloudflareAiSearchInstancesByInstance($instance, $cloudflare_ai_search_instance_update, string $contentType = self::contentTypes['putCloudflareAiSearchInstancesByInstance'][0])
+    {
+        list($response) = $this->putCloudflareAiSearchInstancesByInstanceWithHttpInfo($instance, $cloudflare_ai_search_instance_update, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putCloudflareAiSearchInstancesByInstanceWithHttpInfo
+     *
+     * Updates an AI Search instance in the org&#39;s own namespace and relays Cloudflare&#39;s record of it.
+     *
+     * @param  string $instance (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareAISearchInstanceUpdate $cloudflare_ai_search_instance_update (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putCloudflareAiSearchInstancesByInstanceWithHttpInfo($instance, $cloudflare_ai_search_instance_update, string $contentType = self::contentTypes['putCloudflareAiSearchInstancesByInstance'][0])
+    {
+        $request = $this->putCloudflareAiSearchInstancesByInstanceRequest($instance, $cloudflare_ai_search_instance_update, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'mixed',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putCloudflareAiSearchInstancesByInstanceAsync
+     *
+     * Updates an AI Search instance in the org&#39;s own namespace and relays Cloudflare&#39;s record of it.
+     *
+     * @param  string $instance (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareAISearchInstanceUpdate $cloudflare_ai_search_instance_update (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putCloudflareAiSearchInstancesByInstanceAsync($instance, $cloudflare_ai_search_instance_update, string $contentType = self::contentTypes['putCloudflareAiSearchInstancesByInstance'][0])
+    {
+        return $this->putCloudflareAiSearchInstancesByInstanceAsyncWithHttpInfo($instance, $cloudflare_ai_search_instance_update, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putCloudflareAiSearchInstancesByInstanceAsyncWithHttpInfo
+     *
+     * Updates an AI Search instance in the org&#39;s own namespace and relays Cloudflare&#39;s record of it.
+     *
+     * @param  string $instance (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareAISearchInstanceUpdate $cloudflare_ai_search_instance_update (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putCloudflareAiSearchInstancesByInstanceAsyncWithHttpInfo($instance, $cloudflare_ai_search_instance_update, string $contentType = self::contentTypes['putCloudflareAiSearchInstancesByInstance'][0])
+    {
+        $returnType = 'mixed';
+        $request = $this->putCloudflareAiSearchInstancesByInstanceRequest($instance, $cloudflare_ai_search_instance_update, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putCloudflareAiSearchInstancesByInstance'
+     *
+     * @param  string $instance (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareAISearchInstanceUpdate $cloudflare_ai_search_instance_update (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCloudflareAiSearchInstancesByInstance'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putCloudflareAiSearchInstancesByInstanceRequest($instance, $cloudflare_ai_search_instance_update, string $contentType = self::contentTypes['putCloudflareAiSearchInstancesByInstance'][0])
+    {
+
+        // verify the required parameter 'instance' is set
+        if ($instance === null || (is_array($instance) && count($instance) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $instance when calling putCloudflareAiSearchInstancesByInstance'
+            );
+        }
+
+        // verify the required parameter 'cloudflare_ai_search_instance_update' is set
+        if ($cloudflare_ai_search_instance_update === null || (is_array($cloudflare_ai_search_instance_update) && count($cloudflare_ai_search_instance_update) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $cloudflare_ai_search_instance_update when calling putCloudflareAiSearchInstancesByInstance'
+            );
+        }
+
+
+        $resourcePath = '/v1/cloudflare/ai-search/instances/{instance}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($instance !== null) {
+            $resourcePath = str_replace(
+                '{' . 'instance' . '}',
+                ObjectSerializer::toPathValue($instance),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($cloudflare_ai_search_instance_update)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_ai_search_instance_update));
+            } else {
+                $httpBody = $cloudflare_ai_search_instance_update;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -8938,16 +11629,16 @@ class CloudflareApi
      * Uploads or replaces a module Worker script.
      *
      * @param  string $script Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker&#39;s ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker. (required)
-     * @param  \Hanzo\Cloud\Model\WorkerScriptPut $worker_script_put worker_script_put (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareWorkerScriptPut $cloudflare_worker_script_put cloudflare_worker_script_put (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCloudflareWorkersScriptsByScript'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putCloudflareWorkersScriptsByScript($script, $worker_script_put, string $contentType = self::contentTypes['putCloudflareWorkersScriptsByScript'][0])
+    public function putCloudflareWorkersScriptsByScript($script, $cloudflare_worker_script_put, string $contentType = self::contentTypes['putCloudflareWorkersScriptsByScript'][0])
     {
-        list($response) = $this->putCloudflareWorkersScriptsByScriptWithHttpInfo($script, $worker_script_put, $contentType);
+        list($response) = $this->putCloudflareWorkersScriptsByScriptWithHttpInfo($script, $cloudflare_worker_script_put, $contentType);
         return $response;
     }
 
@@ -8957,16 +11648,16 @@ class CloudflareApi
      * Uploads or replaces a module Worker script.
      *
      * @param  string $script Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker&#39;s ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker. (required)
-     * @param  \Hanzo\Cloud\Model\WorkerScriptPut $worker_script_put (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareWorkerScriptPut $cloudflare_worker_script_put (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCloudflareWorkersScriptsByScript'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putCloudflareWorkersScriptsByScriptWithHttpInfo($script, $worker_script_put, string $contentType = self::contentTypes['putCloudflareWorkersScriptsByScript'][0])
+    public function putCloudflareWorkersScriptsByScriptWithHttpInfo($script, $cloudflare_worker_script_put, string $contentType = self::contentTypes['putCloudflareWorkersScriptsByScript'][0])
     {
-        $request = $this->putCloudflareWorkersScriptsByScriptRequest($script, $worker_script_put, $contentType);
+        $request = $this->putCloudflareWorkersScriptsByScriptRequest($script, $cloudflare_worker_script_put, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8995,6 +11686,12 @@ class CloudflareApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -9030,6 +11727,14 @@ class CloudflareApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -9043,15 +11748,15 @@ class CloudflareApi
      * Uploads or replaces a module Worker script.
      *
      * @param  string $script Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker&#39;s ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker. (required)
-     * @param  \Hanzo\Cloud\Model\WorkerScriptPut $worker_script_put (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareWorkerScriptPut $cloudflare_worker_script_put (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCloudflareWorkersScriptsByScript'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putCloudflareWorkersScriptsByScriptAsync($script, $worker_script_put, string $contentType = self::contentTypes['putCloudflareWorkersScriptsByScript'][0])
+    public function putCloudflareWorkersScriptsByScriptAsync($script, $cloudflare_worker_script_put, string $contentType = self::contentTypes['putCloudflareWorkersScriptsByScript'][0])
     {
-        return $this->putCloudflareWorkersScriptsByScriptAsyncWithHttpInfo($script, $worker_script_put, $contentType)
+        return $this->putCloudflareWorkersScriptsByScriptAsyncWithHttpInfo($script, $cloudflare_worker_script_put, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9065,16 +11770,16 @@ class CloudflareApi
      * Uploads or replaces a module Worker script.
      *
      * @param  string $script Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker&#39;s ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker. (required)
-     * @param  \Hanzo\Cloud\Model\WorkerScriptPut $worker_script_put (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareWorkerScriptPut $cloudflare_worker_script_put (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCloudflareWorkersScriptsByScript'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putCloudflareWorkersScriptsByScriptAsyncWithHttpInfo($script, $worker_script_put, string $contentType = self::contentTypes['putCloudflareWorkersScriptsByScript'][0])
+    public function putCloudflareWorkersScriptsByScriptAsyncWithHttpInfo($script, $cloudflare_worker_script_put, string $contentType = self::contentTypes['putCloudflareWorkersScriptsByScript'][0])
     {
         $returnType = 'mixed';
-        $request = $this->putCloudflareWorkersScriptsByScriptRequest($script, $worker_script_put, $contentType);
+        $request = $this->putCloudflareWorkersScriptsByScriptRequest($script, $cloudflare_worker_script_put, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9116,13 +11821,13 @@ class CloudflareApi
      * Create request for operation 'putCloudflareWorkersScriptsByScript'
      *
      * @param  string $script Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker&#39;s ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker. (required)
-     * @param  \Hanzo\Cloud\Model\WorkerScriptPut $worker_script_put (required)
+     * @param  \Hanzo\Cloud\Model\CloudflareWorkerScriptPut $cloudflare_worker_script_put (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCloudflareWorkersScriptsByScript'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putCloudflareWorkersScriptsByScriptRequest($script, $worker_script_put, string $contentType = self::contentTypes['putCloudflareWorkersScriptsByScript'][0])
+    public function putCloudflareWorkersScriptsByScriptRequest($script, $cloudflare_worker_script_put, string $contentType = self::contentTypes['putCloudflareWorkersScriptsByScript'][0])
     {
 
         // verify the required parameter 'script' is set
@@ -9132,10 +11837,10 @@ class CloudflareApi
             );
         }
 
-        // verify the required parameter 'worker_script_put' is set
-        if ($worker_script_put === null || (is_array($worker_script_put) && count($worker_script_put) === 0)) {
+        // verify the required parameter 'cloudflare_worker_script_put' is set
+        if ($cloudflare_worker_script_put === null || (is_array($cloudflare_worker_script_put) && count($cloudflare_worker_script_put) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $worker_script_put when calling putCloudflareWorkersScriptsByScript'
+                'Missing the required parameter $cloudflare_worker_script_put when calling putCloudflareWorkersScriptsByScript'
             );
         }
 
@@ -9160,18 +11865,18 @@ class CloudflareApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($worker_script_put)) {
+        if (isset($cloudflare_worker_script_put)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($worker_script_put));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cloudflare_worker_script_put));
             } else {
-                $httpBody = $worker_script_put;
+                $httpBody = $cloudflare_worker_script_put;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

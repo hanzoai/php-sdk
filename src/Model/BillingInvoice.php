@@ -49,7 +49,7 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'BillingInvoice';
+    protected static $openAPIModelName = 'billing.Invoice';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,31 +57,19 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'amount_due' => 'int',
-        'amount_paid' => 'int',
-        'attempt_count' => 'int',
+        'amount_due_cents' => 'int',
+        'amount_paid_cents' => 'int',
         'created_at' => 'string',
-        'credit_applied' => 'int',
         'currency' => 'string',
         'customer_email' => 'string',
-        'discount' => 'int',
-        'due_date' => 'string',
         'id' => 'string',
-        'line_items' => '\Hanzo\Cloud\Model\InvoiceLineItem[]',
-        'number' => 'int',
-        'number_str' => 'string',
-        'paid_at' => 'string',
-        'payment_method' => 'string',
+        'lines' => '\Hanzo\Cloud\Model\BillingInvoiceLine[]',
+        'number' => 'string',
         'payment_ref' => 'string',
-        'period_end' => 'string',
-        'period_start' => 'string',
+        'quote' => '\Hanzo\Cloud\Model\BillingPriceQuote',
         'status' => 'string',
-        'subscription_id' => 'string',
-        'subtotal' => 'int',
-        'tax' => 'int',
-        'updated_at' => 'string',
-        'user_id' => 'string',
-        'voided_at' => 'string'
+        'subtotal_cents' => 'int',
+        'user_id' => 'string'
     ];
 
     /**
@@ -92,31 +80,19 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_due' => 'int64',
-        'amount_paid' => 'int64',
-        'attempt_count' => 'int64',
+        'amount_due_cents' => 'int64',
+        'amount_paid_cents' => 'int64',
         'created_at' => null,
-        'credit_applied' => 'int64',
         'currency' => null,
         'customer_email' => null,
-        'discount' => 'int64',
-        'due_date' => null,
         'id' => null,
-        'line_items' => null,
-        'number' => 'int64',
-        'number_str' => null,
-        'paid_at' => null,
-        'payment_method' => null,
+        'lines' => null,
+        'number' => null,
         'payment_ref' => null,
-        'period_end' => null,
-        'period_start' => null,
+        'quote' => null,
         'status' => null,
-        'subscription_id' => null,
-        'subtotal' => 'int64',
-        'tax' => 'int64',
-        'updated_at' => null,
-        'user_id' => null,
-        'voided_at' => null
+        'subtotal_cents' => 'int64',
+        'user_id' => null
     ];
 
     /**
@@ -125,31 +101,19 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'amount_due' => false,
-        'amount_paid' => false,
-        'attempt_count' => false,
+        'amount_due_cents' => false,
+        'amount_paid_cents' => false,
         'created_at' => false,
-        'credit_applied' => false,
         'currency' => false,
         'customer_email' => false,
-        'discount' => false,
-        'due_date' => false,
         'id' => false,
-        'line_items' => false,
+        'lines' => false,
         'number' => false,
-        'number_str' => false,
-        'paid_at' => false,
-        'payment_method' => false,
         'payment_ref' => false,
-        'period_end' => false,
-        'period_start' => false,
+        'quote' => false,
         'status' => false,
-        'subscription_id' => false,
-        'subtotal' => false,
-        'tax' => false,
-        'updated_at' => false,
-        'user_id' => false,
-        'voided_at' => false
+        'subtotal_cents' => false,
+        'user_id' => false
     ];
 
     /**
@@ -238,31 +202,19 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'amount_due' => 'amountDue',
-        'amount_paid' => 'amountPaid',
-        'attempt_count' => 'attemptCount',
+        'amount_due_cents' => 'amountDueCents',
+        'amount_paid_cents' => 'amountPaidCents',
         'created_at' => 'createdAt',
-        'credit_applied' => 'creditApplied',
         'currency' => 'currency',
         'customer_email' => 'customerEmail',
-        'discount' => 'discount',
-        'due_date' => 'dueDate',
         'id' => 'id',
-        'line_items' => 'lineItems',
+        'lines' => 'lines',
         'number' => 'number',
-        'number_str' => 'numberStr',
-        'paid_at' => 'paidAt',
-        'payment_method' => 'paymentMethod',
         'payment_ref' => 'paymentRef',
-        'period_end' => 'periodEnd',
-        'period_start' => 'periodStart',
+        'quote' => 'quote',
         'status' => 'status',
-        'subscription_id' => 'subscriptionId',
-        'subtotal' => 'subtotal',
-        'tax' => 'tax',
-        'updated_at' => 'updatedAt',
-        'user_id' => 'userId',
-        'voided_at' => 'voidedAt'
+        'subtotal_cents' => 'subtotalCents',
+        'user_id' => 'userId'
     ];
 
     /**
@@ -271,31 +223,19 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'amount_due' => 'setAmountDue',
-        'amount_paid' => 'setAmountPaid',
-        'attempt_count' => 'setAttemptCount',
+        'amount_due_cents' => 'setAmountDueCents',
+        'amount_paid_cents' => 'setAmountPaidCents',
         'created_at' => 'setCreatedAt',
-        'credit_applied' => 'setCreditApplied',
         'currency' => 'setCurrency',
         'customer_email' => 'setCustomerEmail',
-        'discount' => 'setDiscount',
-        'due_date' => 'setDueDate',
         'id' => 'setId',
-        'line_items' => 'setLineItems',
+        'lines' => 'setLines',
         'number' => 'setNumber',
-        'number_str' => 'setNumberStr',
-        'paid_at' => 'setPaidAt',
-        'payment_method' => 'setPaymentMethod',
         'payment_ref' => 'setPaymentRef',
-        'period_end' => 'setPeriodEnd',
-        'period_start' => 'setPeriodStart',
+        'quote' => 'setQuote',
         'status' => 'setStatus',
-        'subscription_id' => 'setSubscriptionId',
-        'subtotal' => 'setSubtotal',
-        'tax' => 'setTax',
-        'updated_at' => 'setUpdatedAt',
-        'user_id' => 'setUserId',
-        'voided_at' => 'setVoidedAt'
+        'subtotal_cents' => 'setSubtotalCents',
+        'user_id' => 'setUserId'
     ];
 
     /**
@@ -304,31 +244,19 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'amount_due' => 'getAmountDue',
-        'amount_paid' => 'getAmountPaid',
-        'attempt_count' => 'getAttemptCount',
+        'amount_due_cents' => 'getAmountDueCents',
+        'amount_paid_cents' => 'getAmountPaidCents',
         'created_at' => 'getCreatedAt',
-        'credit_applied' => 'getCreditApplied',
         'currency' => 'getCurrency',
         'customer_email' => 'getCustomerEmail',
-        'discount' => 'getDiscount',
-        'due_date' => 'getDueDate',
         'id' => 'getId',
-        'line_items' => 'getLineItems',
+        'lines' => 'getLines',
         'number' => 'getNumber',
-        'number_str' => 'getNumberStr',
-        'paid_at' => 'getPaidAt',
-        'payment_method' => 'getPaymentMethod',
         'payment_ref' => 'getPaymentRef',
-        'period_end' => 'getPeriodEnd',
-        'period_start' => 'getPeriodStart',
+        'quote' => 'getQuote',
         'status' => 'getStatus',
-        'subscription_id' => 'getSubscriptionId',
-        'subtotal' => 'getSubtotal',
-        'tax' => 'getTax',
-        'updated_at' => 'getUpdatedAt',
-        'user_id' => 'getUserId',
-        'voided_at' => 'getVoidedAt'
+        'subtotal_cents' => 'getSubtotalCents',
+        'user_id' => 'getUserId'
     ];
 
     /**
@@ -388,31 +316,19 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('amount_due', $data ?? [], null);
-        $this->setIfExists('amount_paid', $data ?? [], null);
-        $this->setIfExists('attempt_count', $data ?? [], null);
+        $this->setIfExists('amount_due_cents', $data ?? [], null);
+        $this->setIfExists('amount_paid_cents', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
-        $this->setIfExists('credit_applied', $data ?? [], null);
         $this->setIfExists('currency', $data ?? [], null);
         $this->setIfExists('customer_email', $data ?? [], null);
-        $this->setIfExists('discount', $data ?? [], null);
-        $this->setIfExists('due_date', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('line_items', $data ?? [], null);
+        $this->setIfExists('lines', $data ?? [], null);
         $this->setIfExists('number', $data ?? [], null);
-        $this->setIfExists('number_str', $data ?? [], null);
-        $this->setIfExists('paid_at', $data ?? [], null);
-        $this->setIfExists('payment_method', $data ?? [], null);
         $this->setIfExists('payment_ref', $data ?? [], null);
-        $this->setIfExists('period_end', $data ?? [], null);
-        $this->setIfExists('period_start', $data ?? [], null);
+        $this->setIfExists('quote', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('subscription_id', $data ?? [], null);
-        $this->setIfExists('subtotal', $data ?? [], null);
-        $this->setIfExists('tax', $data ?? [], null);
-        $this->setIfExists('updated_at', $data ?? [], null);
+        $this->setIfExists('subtotal_cents', $data ?? [], null);
         $this->setIfExists('user_id', $data ?? [], null);
-        $this->setIfExists('voided_at', $data ?? [], null);
     }
 
     /**
@@ -458,82 +374,55 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets amount_due
+     * Gets amount_due_cents
      *
      * @return int|null
      */
-    public function getAmountDue()
+    public function getAmountDueCents()
     {
-        return $this->container['amount_due'];
+        return $this->container['amount_due_cents'];
     }
 
     /**
-     * Sets amount_due
+     * Sets amount_due_cents
      *
-     * @param int|null $amount_due amount_due
+     * @param int|null $amount_due_cents AmountDueCents is what remains collectible.
      *
      * @return self
      */
-    public function setAmountDue($amount_due)
+    public function setAmountDueCents($amount_due_cents)
     {
-        if (is_null($amount_due)) {
-            throw new \InvalidArgumentException('non-nullable amount_due cannot be null');
+        if (is_null($amount_due_cents)) {
+            throw new \InvalidArgumentException('non-nullable amount_due_cents cannot be null');
         }
-        $this->container['amount_due'] = $amount_due;
+        $this->container['amount_due_cents'] = $amount_due_cents;
 
         return $this;
     }
 
     /**
-     * Gets amount_paid
+     * Gets amount_paid_cents
      *
      * @return int|null
      */
-    public function getAmountPaid()
+    public function getAmountPaidCents()
     {
-        return $this->container['amount_paid'];
+        return $this->container['amount_paid_cents'];
     }
 
     /**
-     * Sets amount_paid
+     * Sets amount_paid_cents
      *
-     * @param int|null $amount_paid amount_paid
+     * @param int|null $amount_paid_cents AmountPaidCents is what has been collected so far.
      *
      * @return self
      */
-    public function setAmountPaid($amount_paid)
+    public function setAmountPaidCents($amount_paid_cents)
     {
-        if (is_null($amount_paid)) {
-            throw new \InvalidArgumentException('non-nullable amount_paid cannot be null');
+        if (is_null($amount_paid_cents)) {
+            throw new \InvalidArgumentException('non-nullable amount_paid_cents cannot be null');
         }
-        $this->container['amount_paid'] = $amount_paid;
-
-        return $this;
-    }
-
-    /**
-     * Gets attempt_count
-     *
-     * @return int|null
-     */
-    public function getAttemptCount()
-    {
-        return $this->container['attempt_count'];
-    }
-
-    /**
-     * Sets attempt_count
-     *
-     * @param int|null $attempt_count attempt_count
-     *
-     * @return self
-     */
-    public function setAttemptCount($attempt_count)
-    {
-        if (is_null($attempt_count)) {
-            throw new \InvalidArgumentException('non-nullable attempt_count cannot be null');
-        }
-        $this->container['attempt_count'] = $attempt_count;
+        $this->container['amount_paid_cents'] = $amount_paid_cents;
 
         return $this;
     }
@@ -551,7 +440,7 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param string|null $created_at created_at
+     * @param string|null $created_at CreatedAt is when the draft was raised, RFC3339.
      *
      * @return self
      */
@@ -561,33 +450,6 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable created_at cannot be null');
         }
         $this->container['created_at'] = $created_at;
-
-        return $this;
-    }
-
-    /**
-     * Gets credit_applied
-     *
-     * @return int|null
-     */
-    public function getCreditApplied()
-    {
-        return $this->container['credit_applied'];
-    }
-
-    /**
-     * Sets credit_applied
-     *
-     * @param int|null $credit_applied credit_applied
-     *
-     * @return self
-     */
-    public function setCreditApplied($credit_applied)
-    {
-        if (is_null($credit_applied)) {
-            throw new \InvalidArgumentException('non-nullable credit_applied cannot be null');
-        }
-        $this->container['credit_applied'] = $credit_applied;
 
         return $this;
     }
@@ -605,7 +467,7 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets currency
      *
-     * @param string|null $currency currency
+     * @param string|null $currency Currency is the ISO 4217 code.
      *
      * @return self
      */
@@ -632,7 +494,7 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets customer_email
      *
-     * @param string|null $customer_email customer_email
+     * @param string|null $customer_email CustomerEmail is where it is sent.
      *
      * @return self
      */
@@ -642,60 +504,6 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable customer_email cannot be null');
         }
         $this->container['customer_email'] = $customer_email;
-
-        return $this;
-    }
-
-    /**
-     * Gets discount
-     *
-     * @return int|null
-     */
-    public function getDiscount()
-    {
-        return $this->container['discount'];
-    }
-
-    /**
-     * Sets discount
-     *
-     * @param int|null $discount discount
-     *
-     * @return self
-     */
-    public function setDiscount($discount)
-    {
-        if (is_null($discount)) {
-            throw new \InvalidArgumentException('non-nullable discount cannot be null');
-        }
-        $this->container['discount'] = $discount;
-
-        return $this;
-    }
-
-    /**
-     * Gets due_date
-     *
-     * @return string|null
-     */
-    public function getDueDate()
-    {
-        return $this->container['due_date'];
-    }
-
-    /**
-     * Sets due_date
-     *
-     * @param string|null $due_date due_date
-     *
-     * @return self
-     */
-    public function setDueDate($due_date)
-    {
-        if (is_null($due_date)) {
-            throw new \InvalidArgumentException('non-nullable due_date cannot be null');
-        }
-        $this->container['due_date'] = $due_date;
 
         return $this;
     }
@@ -713,7 +521,7 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string|null $id ID is the invoice id — what the issue, collect and void ops address.
      *
      * @return self
      */
@@ -728,28 +536,28 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets line_items
+     * Gets lines
      *
-     * @return \Hanzo\Cloud\Model\InvoiceLineItem[]|null
+     * @return \Hanzo\Cloud\Model\BillingInvoiceLine[]|null
      */
-    public function getLineItems()
+    public function getLines()
     {
-        return $this->container['line_items'];
+        return $this->container['lines'];
     }
 
     /**
-     * Sets line_items
+     * Sets lines
      *
-     * @param \Hanzo\Cloud\Model\InvoiceLineItem[]|null $line_items LineItems carries no omitempty and is never allocated empty, because the wire it reproduces sends `null` for an invoice with no lines. An empty array there would be a different answer to \"were there lines\".
+     * @param \Hanzo\Cloud\Model\BillingInvoiceLine[]|null $lines Lines are the charges on the invoice.
      *
      * @return self
      */
-    public function setLineItems($line_items)
+    public function setLines($lines)
     {
-        if (is_null($line_items)) {
-            throw new \InvalidArgumentException('non-nullable line_items cannot be null');
+        if (is_null($lines)) {
+            throw new \InvalidArgumentException('non-nullable lines cannot be null');
         }
-        $this->container['line_items'] = $line_items;
+        $this->container['lines'] = $lines;
 
         return $this;
     }
@@ -757,7 +565,7 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets number
      *
-     * @return int|null
+     * @return string|null
      */
     public function getNumber()
     {
@@ -767,7 +575,7 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets number
      *
-     * @param int|null $number number
+     * @param string|null $number Number is the human-facing invoice number, e.g. \"INV-0042\". A draft has none; issuing assigns it.
      *
      * @return self
      */
@@ -777,87 +585,6 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable number cannot be null');
         }
         $this->container['number'] = $number;
-
-        return $this;
-    }
-
-    /**
-     * Gets number_str
-     *
-     * @return string|null
-     */
-    public function getNumberStr()
-    {
-        return $this->container['number_str'];
-    }
-
-    /**
-     * Sets number_str
-     *
-     * @param string|null $number_str number_str
-     *
-     * @return self
-     */
-    public function setNumberStr($number_str)
-    {
-        if (is_null($number_str)) {
-            throw new \InvalidArgumentException('non-nullable number_str cannot be null');
-        }
-        $this->container['number_str'] = $number_str;
-
-        return $this;
-    }
-
-    /**
-     * Gets paid_at
-     *
-     * @return string|null
-     */
-    public function getPaidAt()
-    {
-        return $this->container['paid_at'];
-    }
-
-    /**
-     * Sets paid_at
-     *
-     * @param string|null $paid_at paid_at
-     *
-     * @return self
-     */
-    public function setPaidAt($paid_at)
-    {
-        if (is_null($paid_at)) {
-            throw new \InvalidArgumentException('non-nullable paid_at cannot be null');
-        }
-        $this->container['paid_at'] = $paid_at;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_method
-     *
-     * @return string|null
-     */
-    public function getPaymentMethod()
-    {
-        return $this->container['payment_method'];
-    }
-
-    /**
-     * Sets payment_method
-     *
-     * @param string|null $payment_method payment_method
-     *
-     * @return self
-     */
-    public function setPaymentMethod($payment_method)
-    {
-        if (is_null($payment_method)) {
-            throw new \InvalidArgumentException('non-nullable payment_method cannot be null');
-        }
-        $this->container['payment_method'] = $payment_method;
 
         return $this;
     }
@@ -875,7 +602,7 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets payment_ref
      *
-     * @param string|null $payment_ref payment_ref
+     * @param string|null $payment_ref PaymentRef is the processor reference for the collection, once paid.
      *
      * @return self
      */
@@ -890,55 +617,28 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets period_end
+     * Gets quote
      *
-     * @return string|null
+     * @return \Hanzo\Cloud\Model\BillingPriceQuote|null
      */
-    public function getPeriodEnd()
+    public function getQuote()
     {
-        return $this->container['period_end'];
+        return $this->container['quote'];
     }
 
     /**
-     * Sets period_end
+     * Sets quote
      *
-     * @param string|null $period_end period_end
+     * @param \Hanzo\Cloud\Model\BillingPriceQuote|null $quote Quote is the invoice's price in the buyer's own currency: the bound quote once paid, else the quote an awaiting-bank attempt is bound to, else the displayed price of what is due. Absent in the plan's currency.
      *
      * @return self
      */
-    public function setPeriodEnd($period_end)
+    public function setQuote($quote)
     {
-        if (is_null($period_end)) {
-            throw new \InvalidArgumentException('non-nullable period_end cannot be null');
+        if (is_null($quote)) {
+            throw new \InvalidArgumentException('non-nullable quote cannot be null');
         }
-        $this->container['period_end'] = $period_end;
-
-        return $this;
-    }
-
-    /**
-     * Gets period_start
-     *
-     * @return string|null
-     */
-    public function getPeriodStart()
-    {
-        return $this->container['period_start'];
-    }
-
-    /**
-     * Sets period_start
-     *
-     * @param string|null $period_start period_start
-     *
-     * @return self
-     */
-    public function setPeriodStart($period_start)
-    {
-        if (is_null($period_start)) {
-            throw new \InvalidArgumentException('non-nullable period_start cannot be null');
-        }
-        $this->container['period_start'] = $period_start;
+        $this->container['quote'] = $quote;
 
         return $this;
     }
@@ -956,7 +656,7 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param string|null $status status
+     * @param string|null $status Status is draft, open, paid, void or uncollectible. A draft is not collectible; issuing moves it to open.
      *
      * @return self
      */
@@ -971,109 +671,28 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets subscription_id
-     *
-     * @return string|null
-     */
-    public function getSubscriptionId()
-    {
-        return $this->container['subscription_id'];
-    }
-
-    /**
-     * Sets subscription_id
-     *
-     * @param string|null $subscription_id subscription_id
-     *
-     * @return self
-     */
-    public function setSubscriptionId($subscription_id)
-    {
-        if (is_null($subscription_id)) {
-            throw new \InvalidArgumentException('non-nullable subscription_id cannot be null');
-        }
-        $this->container['subscription_id'] = $subscription_id;
-
-        return $this;
-    }
-
-    /**
-     * Gets subtotal
+     * Gets subtotal_cents
      *
      * @return int|null
      */
-    public function getSubtotal()
+    public function getSubtotalCents()
     {
-        return $this->container['subtotal'];
+        return $this->container['subtotal_cents'];
     }
 
     /**
-     * Sets subtotal
+     * Sets subtotal_cents
      *
-     * @param int|null $subtotal subtotal
+     * @param int|null $subtotal_cents SubtotalCents is the sum of the lines.
      *
      * @return self
      */
-    public function setSubtotal($subtotal)
+    public function setSubtotalCents($subtotal_cents)
     {
-        if (is_null($subtotal)) {
-            throw new \InvalidArgumentException('non-nullable subtotal cannot be null');
+        if (is_null($subtotal_cents)) {
+            throw new \InvalidArgumentException('non-nullable subtotal_cents cannot be null');
         }
-        $this->container['subtotal'] = $subtotal;
-
-        return $this;
-    }
-
-    /**
-     * Gets tax
-     *
-     * @return int|null
-     */
-    public function getTax()
-    {
-        return $this->container['tax'];
-    }
-
-    /**
-     * Sets tax
-     *
-     * @param int|null $tax tax
-     *
-     * @return self
-     */
-    public function setTax($tax)
-    {
-        if (is_null($tax)) {
-            throw new \InvalidArgumentException('non-nullable tax cannot be null');
-        }
-        $this->container['tax'] = $tax;
-
-        return $this;
-    }
-
-    /**
-     * Gets updated_at
-     *
-     * @return string|null
-     */
-    public function getUpdatedAt()
-    {
-        return $this->container['updated_at'];
-    }
-
-    /**
-     * Sets updated_at
-     *
-     * @param string|null $updated_at updated_at
-     *
-     * @return self
-     */
-    public function setUpdatedAt($updated_at)
-    {
-        if (is_null($updated_at)) {
-            throw new \InvalidArgumentException('non-nullable updated_at cannot be null');
-        }
-        $this->container['updated_at'] = $updated_at;
+        $this->container['subtotal_cents'] = $subtotal_cents;
 
         return $this;
     }
@@ -1091,7 +710,7 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets user_id
      *
-     * @param string|null $user_id user_id
+     * @param string|null $user_id UserID is the customer billed.
      *
      * @return self
      */
@@ -1101,33 +720,6 @@ class BillingInvoice implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable user_id cannot be null');
         }
         $this->container['user_id'] = $user_id;
-
-        return $this;
-    }
-
-    /**
-     * Gets voided_at
-     *
-     * @return string|null
-     */
-    public function getVoidedAt()
-    {
-        return $this->container['voided_at'];
-    }
-
-    /**
-     * Sets voided_at
-     *
-     * @param string|null $voided_at voided_at
-     *
-     * @return self
-     */
-    public function setVoidedAt($voided_at)
-    {
-        if (is_null($voided_at)) {
-            throw new \InvalidArgumentException('non-nullable voided_at cannot be null');
-        }
-        $this->container['voided_at'] = $voided_at;
 
         return $this;
     }

@@ -77,6 +77,9 @@ class NetworkApi
         'deleteNetworkIdentitiesById' => [
             'application/json',
         ],
+        'deleteNetworkServicesById' => [
+            'application/json',
+        ],
         'getNetwork' => [
             'application/json',
         ],
@@ -149,7 +152,7 @@ class NetworkApi
     /**
      * Operation deleteNetworkIdentitiesById
      *
-     * Removes one of the org&#39;s fabric identities.
+     * Takes one of the org&#39;s fabric identities out of the org.
      *
      * @param  string $id ID is the identity id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkIdentitiesById'] to see the possible values for this operation
@@ -166,7 +169,7 @@ class NetworkApi
     /**
      * Operation deleteNetworkIdentitiesByIdWithHttpInfo
      *
-     * Removes one of the org&#39;s fabric identities.
+     * Takes one of the org&#39;s fabric identities out of the org.
      *
      * @param  string $id ID is the identity id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkIdentitiesById'] to see the possible values for this operation
@@ -205,6 +208,14 @@ class NetworkApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -215,7 +226,7 @@ class NetworkApi
     /**
      * Operation deleteNetworkIdentitiesByIdAsync
      *
-     * Removes one of the org&#39;s fabric identities.
+     * Takes one of the org&#39;s fabric identities out of the org.
      *
      * @param  string $id ID is the identity id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkIdentitiesById'] to see the possible values for this operation
@@ -236,7 +247,7 @@ class NetworkApi
     /**
      * Operation deleteNetworkIdentitiesByIdAsyncWithHttpInfo
      *
-     * Removes one of the org&#39;s fabric identities.
+     * Takes one of the org&#39;s fabric identities out of the org.
      *
      * @param  string $id ID is the identity id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkIdentitiesById'] to see the possible values for this operation
@@ -312,7 +323,237 @@ class NetworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteNetworkServicesById
+     *
+     * Takes a name off the org&#39;s overlay: the two policies, the service and its two configs that publishing made, in that order, and the \&quot;&lt;name&gt;-host\&quot; role from each of the org&#39;s identities — that role exists only for the bind policy to select, and a role naming no service is one the identities endpoint refuses to write.
+     *
+     * @param  string $id ID is the service id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkServicesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteNetworkServicesById($id, string $contentType = self::contentTypes['deleteNetworkServicesById'][0])
+    {
+        $this->deleteNetworkServicesByIdWithHttpInfo($id, $contentType);
+    }
+
+    /**
+     * Operation deleteNetworkServicesByIdWithHttpInfo
+     *
+     * Takes a name off the org&#39;s overlay: the two policies, the service and its two configs that publishing made, in that order, and the \&quot;&lt;name&gt;-host\&quot; role from each of the org&#39;s identities — that role exists only for the bind policy to select, and a role naming no service is one the identities endpoint refuses to write.
+     *
+     * @param  string $id ID is the service id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkServicesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteNetworkServicesByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteNetworkServicesById'][0])
+    {
+        $request = $this->deleteNetworkServicesByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteNetworkServicesByIdAsync
+     *
+     * Takes a name off the org&#39;s overlay: the two policies, the service and its two configs that publishing made, in that order, and the \&quot;&lt;name&gt;-host\&quot; role from each of the org&#39;s identities — that role exists only for the bind policy to select, and a role naming no service is one the identities endpoint refuses to write.
+     *
+     * @param  string $id ID is the service id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkServicesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteNetworkServicesByIdAsync($id, string $contentType = self::contentTypes['deleteNetworkServicesById'][0])
+    {
+        return $this->deleteNetworkServicesByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteNetworkServicesByIdAsyncWithHttpInfo
+     *
+     * Takes a name off the org&#39;s overlay: the two policies, the service and its two configs that publishing made, in that order, and the \&quot;&lt;name&gt;-host\&quot; role from each of the org&#39;s identities — that role exists only for the bind policy to select, and a role naming no service is one the identities endpoint refuses to write.
+     *
+     * @param  string $id ID is the service id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkServicesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteNetworkServicesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteNetworkServicesById'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteNetworkServicesByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteNetworkServicesById'
+     *
+     * @param  string $id ID is the service id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkServicesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteNetworkServicesByIdRequest($id, string $contentType = self::contentTypes['deleteNetworkServicesById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteNetworkServicesById'
+            );
+        }
+
+
+        $resourcePath = '/v1/network/services/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -377,7 +618,7 @@ class NetworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\NetworkList
+     * @return \Hanzo\Cloud\Model\NetworkNetworkList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getNetwork(string $contentType = self::contentTypes['getNetwork'][0])
     {
@@ -394,7 +635,7 @@ class NetworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\NetworkList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\NetworkNetworkList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getNetworkWithHttpInfo(string $contentType = self::contentTypes['getNetwork'][0])
     {
@@ -426,7 +667,13 @@ class NetworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\NetworkList',
+                        '\Hanzo\Cloud\Model\NetworkNetworkList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -448,7 +695,7 @@ class NetworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\NetworkList',
+                '\Hanzo\Cloud\Model\NetworkNetworkList',
                 $request,
                 $response,
             );
@@ -457,7 +704,15 @@ class NetworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\NetworkList',
+                        '\Hanzo\Cloud\Model\NetworkNetworkList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -501,7 +756,7 @@ class NetworkApi
      */
     public function getNetworkAsyncWithHttpInfo(string $contentType = self::contentTypes['getNetwork'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\NetworkList';
+        $returnType = '\Hanzo\Cloud\Model\NetworkNetworkList';
         $request = $this->getNetworkRequest($contentType);
 
         return $this->client
@@ -564,7 +819,7 @@ class NetworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -630,7 +885,7 @@ class NetworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\NetworkView
+     * @return \Hanzo\Cloud\Model\NetworkNetworkView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getNetworkById($id, string $contentType = self::contentTypes['getNetworkById'][0])
     {
@@ -648,7 +903,7 @@ class NetworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\NetworkView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\NetworkNetworkView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getNetworkByIdWithHttpInfo($id, string $contentType = self::contentTypes['getNetworkById'][0])
     {
@@ -680,7 +935,13 @@ class NetworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\NetworkView',
+                        '\Hanzo\Cloud\Model\NetworkNetworkView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -702,7 +963,7 @@ class NetworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\NetworkView',
+                '\Hanzo\Cloud\Model\NetworkNetworkView',
                 $request,
                 $response,
             );
@@ -711,7 +972,15 @@ class NetworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\NetworkView',
+                        '\Hanzo\Cloud\Model\NetworkNetworkView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -757,7 +1026,7 @@ class NetworkApi
      */
     public function getNetworkByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getNetworkById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\NetworkView';
+        $returnType = '\Hanzo\Cloud\Model\NetworkNetworkView';
         $request = $this->getNetworkByIdRequest($id, $contentType);
 
         return $this->client
@@ -836,7 +1105,7 @@ class NetworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -901,7 +1170,7 @@ class NetworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IdentityList
+     * @return \Hanzo\Cloud\Model\NetworkIdentityList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getNetworkIdentities(string $contentType = self::contentTypes['getNetworkIdentities'][0])
     {
@@ -918,7 +1187,7 @@ class NetworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IdentityList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\NetworkIdentityList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getNetworkIdentitiesWithHttpInfo(string $contentType = self::contentTypes['getNetworkIdentities'][0])
     {
@@ -950,7 +1219,13 @@ class NetworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IdentityList',
+                        '\Hanzo\Cloud\Model\NetworkIdentityList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -972,7 +1247,7 @@ class NetworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IdentityList',
+                '\Hanzo\Cloud\Model\NetworkIdentityList',
                 $request,
                 $response,
             );
@@ -981,7 +1256,15 @@ class NetworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IdentityList',
+                        '\Hanzo\Cloud\Model\NetworkIdentityList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1025,7 +1308,7 @@ class NetworkApi
      */
     public function getNetworkIdentitiesAsyncWithHttpInfo(string $contentType = self::contentTypes['getNetworkIdentities'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IdentityList';
+        $returnType = '\Hanzo\Cloud\Model\NetworkIdentityList';
         $request = $this->getNetworkIdentitiesRequest($contentType);
 
         return $this->client
@@ -1088,7 +1371,7 @@ class NetworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1153,7 +1436,7 @@ class NetworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RouterList
+     * @return \Hanzo\Cloud\Model\NetworkRouterList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getNetworkRouters(string $contentType = self::contentTypes['getNetworkRouters'][0])
     {
@@ -1170,7 +1453,7 @@ class NetworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RouterList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\NetworkRouterList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getNetworkRoutersWithHttpInfo(string $contentType = self::contentTypes['getNetworkRouters'][0])
     {
@@ -1202,7 +1485,13 @@ class NetworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RouterList',
+                        '\Hanzo\Cloud\Model\NetworkRouterList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1224,7 +1513,7 @@ class NetworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RouterList',
+                '\Hanzo\Cloud\Model\NetworkRouterList',
                 $request,
                 $response,
             );
@@ -1233,7 +1522,15 @@ class NetworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RouterList',
+                        '\Hanzo\Cloud\Model\NetworkRouterList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1277,7 +1574,7 @@ class NetworkApi
      */
     public function getNetworkRoutersAsyncWithHttpInfo(string $contentType = self::contentTypes['getNetworkRouters'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RouterList';
+        $returnType = '\Hanzo\Cloud\Model\NetworkRouterList';
         $request = $this->getNetworkRoutersRequest($contentType);
 
         return $this->client
@@ -1340,7 +1637,7 @@ class NetworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1405,7 +1702,7 @@ class NetworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MeshServiceList
+     * @return \Hanzo\Cloud\Model\NetworkMeshServiceList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getNetworkServices(string $contentType = self::contentTypes['getNetworkServices'][0])
     {
@@ -1422,7 +1719,7 @@ class NetworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MeshServiceList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\NetworkMeshServiceList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getNetworkServicesWithHttpInfo(string $contentType = self::contentTypes['getNetworkServices'][0])
     {
@@ -1454,7 +1751,13 @@ class NetworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MeshServiceList',
+                        '\Hanzo\Cloud\Model\NetworkMeshServiceList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1476,7 +1779,7 @@ class NetworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MeshServiceList',
+                '\Hanzo\Cloud\Model\NetworkMeshServiceList',
                 $request,
                 $response,
             );
@@ -1485,7 +1788,15 @@ class NetworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MeshServiceList',
+                        '\Hanzo\Cloud\Model\NetworkMeshServiceList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1529,7 +1840,7 @@ class NetworkApi
      */
     public function getNetworkServicesAsyncWithHttpInfo(string $contentType = self::contentTypes['getNetworkServices'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MeshServiceList';
+        $returnType = '\Hanzo\Cloud\Model\NetworkMeshServiceList';
         $request = $this->getNetworkServicesRequest($contentType);
 
         return $this->client
@@ -1592,7 +1903,7 @@ class NetworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1651,36 +1962,36 @@ class NetworkApi
     /**
      * Operation postNetworkIdentities
      *
-     * Mints a fabric identity for a device the caller&#39;s org brings.
+     * Puts the caller on the org&#39;s overlay as its own IAM subject.
      *
-     * @param  \Hanzo\Cloud\Model\IdentityIn $identity_in identity_in (required)
+     * @param  \Hanzo\Cloud\Model\NetworkIdentityIn $network_identity_in network_identity_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkIdentities'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IdentityView
+     * @return \Hanzo\Cloud\Model\NetworkIdentityView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postNetworkIdentities($identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
+    public function postNetworkIdentities($network_identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
     {
-        list($response) = $this->postNetworkIdentitiesWithHttpInfo($identity_in, $contentType);
+        list($response) = $this->postNetworkIdentitiesWithHttpInfo($network_identity_in, $contentType);
         return $response;
     }
 
     /**
      * Operation postNetworkIdentitiesWithHttpInfo
      *
-     * Mints a fabric identity for a device the caller&#39;s org brings.
+     * Puts the caller on the org&#39;s overlay as its own IAM subject.
      *
-     * @param  \Hanzo\Cloud\Model\IdentityIn $identity_in (required)
+     * @param  \Hanzo\Cloud\Model\NetworkIdentityIn $network_identity_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkIdentities'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IdentityView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\NetworkIdentityView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postNetworkIdentitiesWithHttpInfo($identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
+    public function postNetworkIdentitiesWithHttpInfo($network_identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
     {
-        $request = $this->postNetworkIdentitiesRequest($identity_in, $contentType);
+        $request = $this->postNetworkIdentitiesRequest($network_identity_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1708,7 +2019,13 @@ class NetworkApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IdentityView',
+                        '\Hanzo\Cloud\Model\NetworkIdentityView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1730,7 +2047,7 @@ class NetworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IdentityView',
+                '\Hanzo\Cloud\Model\NetworkIdentityView',
                 $request,
                 $response,
             );
@@ -1739,7 +2056,15 @@ class NetworkApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IdentityView',
+                        '\Hanzo\Cloud\Model\NetworkIdentityView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1754,17 +2079,17 @@ class NetworkApi
     /**
      * Operation postNetworkIdentitiesAsync
      *
-     * Mints a fabric identity for a device the caller&#39;s org brings.
+     * Puts the caller on the org&#39;s overlay as its own IAM subject.
      *
-     * @param  \Hanzo\Cloud\Model\IdentityIn $identity_in (required)
+     * @param  \Hanzo\Cloud\Model\NetworkIdentityIn $network_identity_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkIdentities'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postNetworkIdentitiesAsync($identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
+    public function postNetworkIdentitiesAsync($network_identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
     {
-        return $this->postNetworkIdentitiesAsyncWithHttpInfo($identity_in, $contentType)
+        return $this->postNetworkIdentitiesAsyncWithHttpInfo($network_identity_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1775,18 +2100,18 @@ class NetworkApi
     /**
      * Operation postNetworkIdentitiesAsyncWithHttpInfo
      *
-     * Mints a fabric identity for a device the caller&#39;s org brings.
+     * Puts the caller on the org&#39;s overlay as its own IAM subject.
      *
-     * @param  \Hanzo\Cloud\Model\IdentityIn $identity_in (required)
+     * @param  \Hanzo\Cloud\Model\NetworkIdentityIn $network_identity_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkIdentities'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postNetworkIdentitiesAsyncWithHttpInfo($identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
+    public function postNetworkIdentitiesAsyncWithHttpInfo($network_identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IdentityView';
-        $request = $this->postNetworkIdentitiesRequest($identity_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\NetworkIdentityView';
+        $request = $this->postNetworkIdentitiesRequest($network_identity_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1827,19 +2152,19 @@ class NetworkApi
     /**
      * Create request for operation 'postNetworkIdentities'
      *
-     * @param  \Hanzo\Cloud\Model\IdentityIn $identity_in (required)
+     * @param  \Hanzo\Cloud\Model\NetworkIdentityIn $network_identity_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkIdentities'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postNetworkIdentitiesRequest($identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
+    public function postNetworkIdentitiesRequest($network_identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
     {
 
-        // verify the required parameter 'identity_in' is set
-        if ($identity_in === null || (is_array($identity_in) && count($identity_in) === 0)) {
+        // verify the required parameter 'network_identity_in' is set
+        if ($network_identity_in === null || (is_array($network_identity_in) && count($network_identity_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $identity_in when calling postNetworkIdentities'
+                'Missing the required parameter $network_identity_in when calling postNetworkIdentities'
             );
         }
 
@@ -1856,18 +2181,18 @@ class NetworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($identity_in)) {
+        if (isset($network_identity_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($identity_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($network_identity_in));
             } else {
-                $httpBody = $identity_in;
+                $httpBody = $network_identity_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1924,16 +2249,16 @@ class NetworkApi
      *
      * Puts a name on the org&#39;s overlay: a fabric service forwarding to host:port on whichever of the org&#39;s devices carries the \&quot;&lt;name&gt;-host\&quot; role, dialable at \&quot;&lt;name&gt;.&lt;org&gt;.zt\&quot; by any of the org&#39;s identities — and by the cloud&#39;s own, which is what lets a BYO cluster&#39;s apiserver be attached to the fleet with a \&quot;.zt\&quot; kubeconfig.
      *
-     * @param  \Hanzo\Cloud\Model\ServiceIn $service_in service_in (required)
+     * @param  \Hanzo\Cloud\Model\NetworkServiceIn $network_service_in network_service_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkServices'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PublishedView
+     * @return \Hanzo\Cloud\Model\NetworkPublishedView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postNetworkServices($service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
+    public function postNetworkServices($network_service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
     {
-        list($response) = $this->postNetworkServicesWithHttpInfo($service_in, $contentType);
+        list($response) = $this->postNetworkServicesWithHttpInfo($network_service_in, $contentType);
         return $response;
     }
 
@@ -1942,16 +2267,16 @@ class NetworkApi
      *
      * Puts a name on the org&#39;s overlay: a fabric service forwarding to host:port on whichever of the org&#39;s devices carries the \&quot;&lt;name&gt;-host\&quot; role, dialable at \&quot;&lt;name&gt;.&lt;org&gt;.zt\&quot; by any of the org&#39;s identities — and by the cloud&#39;s own, which is what lets a BYO cluster&#39;s apiserver be attached to the fleet with a \&quot;.zt\&quot; kubeconfig.
      *
-     * @param  \Hanzo\Cloud\Model\ServiceIn $service_in (required)
+     * @param  \Hanzo\Cloud\Model\NetworkServiceIn $network_service_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkServices'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PublishedView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\NetworkPublishedView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postNetworkServicesWithHttpInfo($service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
+    public function postNetworkServicesWithHttpInfo($network_service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
     {
-        $request = $this->postNetworkServicesRequest($service_in, $contentType);
+        $request = $this->postNetworkServicesRequest($network_service_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1979,7 +2304,13 @@ class NetworkApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PublishedView',
+                        '\Hanzo\Cloud\Model\NetworkPublishedView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2001,7 +2332,7 @@ class NetworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PublishedView',
+                '\Hanzo\Cloud\Model\NetworkPublishedView',
                 $request,
                 $response,
             );
@@ -2010,7 +2341,15 @@ class NetworkApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PublishedView',
+                        '\Hanzo\Cloud\Model\NetworkPublishedView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2027,15 +2366,15 @@ class NetworkApi
      *
      * Puts a name on the org&#39;s overlay: a fabric service forwarding to host:port on whichever of the org&#39;s devices carries the \&quot;&lt;name&gt;-host\&quot; role, dialable at \&quot;&lt;name&gt;.&lt;org&gt;.zt\&quot; by any of the org&#39;s identities — and by the cloud&#39;s own, which is what lets a BYO cluster&#39;s apiserver be attached to the fleet with a \&quot;.zt\&quot; kubeconfig.
      *
-     * @param  \Hanzo\Cloud\Model\ServiceIn $service_in (required)
+     * @param  \Hanzo\Cloud\Model\NetworkServiceIn $network_service_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkServices'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postNetworkServicesAsync($service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
+    public function postNetworkServicesAsync($network_service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
     {
-        return $this->postNetworkServicesAsyncWithHttpInfo($service_in, $contentType)
+        return $this->postNetworkServicesAsyncWithHttpInfo($network_service_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2048,16 +2387,16 @@ class NetworkApi
      *
      * Puts a name on the org&#39;s overlay: a fabric service forwarding to host:port on whichever of the org&#39;s devices carries the \&quot;&lt;name&gt;-host\&quot; role, dialable at \&quot;&lt;name&gt;.&lt;org&gt;.zt\&quot; by any of the org&#39;s identities — and by the cloud&#39;s own, which is what lets a BYO cluster&#39;s apiserver be attached to the fleet with a \&quot;.zt\&quot; kubeconfig.
      *
-     * @param  \Hanzo\Cloud\Model\ServiceIn $service_in (required)
+     * @param  \Hanzo\Cloud\Model\NetworkServiceIn $network_service_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkServices'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postNetworkServicesAsyncWithHttpInfo($service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
+    public function postNetworkServicesAsyncWithHttpInfo($network_service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PublishedView';
-        $request = $this->postNetworkServicesRequest($service_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\NetworkPublishedView';
+        $request = $this->postNetworkServicesRequest($network_service_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2098,19 +2437,19 @@ class NetworkApi
     /**
      * Create request for operation 'postNetworkServices'
      *
-     * @param  \Hanzo\Cloud\Model\ServiceIn $service_in (required)
+     * @param  \Hanzo\Cloud\Model\NetworkServiceIn $network_service_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkServices'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postNetworkServicesRequest($service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
+    public function postNetworkServicesRequest($network_service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
     {
 
-        // verify the required parameter 'service_in' is set
-        if ($service_in === null || (is_array($service_in) && count($service_in) === 0)) {
+        // verify the required parameter 'network_service_in' is set
+        if ($network_service_in === null || (is_array($network_service_in) && count($network_service_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $service_in when calling postNetworkServices'
+                'Missing the required parameter $network_service_in when calling postNetworkServices'
             );
         }
 
@@ -2127,18 +2466,18 @@ class NetworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($service_in)) {
+        if (isset($network_service_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($service_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($network_service_in));
             } else {
-                $httpBody = $service_in;
+                $httpBody = $network_service_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

@@ -68,6 +68,7 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'group_id' => 'string',
         'group_type' => 'string',
         'kind' => 'string',
+        'last_utm' => '\Hanzo\Cloud\Model\UTM',
         'level' => 'string',
         'library' => 'string',
         'library_version' => 'string',
@@ -121,6 +122,7 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'group_id' => null,
         'group_type' => null,
         'kind' => null,
+        'last_utm' => null,
         'level' => null,
         'library' => null,
         'library_version' => null,
@@ -172,6 +174,7 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'group_id' => false,
         'group_type' => false,
         'kind' => false,
+        'last_utm' => false,
         'level' => false,
         'library' => false,
         'library_version' => false,
@@ -303,6 +306,7 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'group_id' => 'groupId',
         'group_type' => 'groupType',
         'kind' => 'kind',
+        'last_utm' => 'lastUtm',
         'level' => 'level',
         'library' => 'library',
         'library_version' => 'libraryVersion',
@@ -354,6 +358,7 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'group_id' => 'setGroupId',
         'group_type' => 'setGroupType',
         'kind' => 'setKind',
+        'last_utm' => 'setLastUtm',
         'level' => 'setLevel',
         'library' => 'setLibrary',
         'library_version' => 'setLibraryVersion',
@@ -405,6 +410,7 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'group_id' => 'getGroupId',
         'group_type' => 'getGroupType',
         'kind' => 'getKind',
+        'last_utm' => 'getLastUtm',
         'level' => 'getLevel',
         'library' => 'getLibrary',
         'library_version' => 'getLibraryVersion',
@@ -507,6 +513,7 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('group_id', $data ?? [], null);
         $this->setIfExists('group_type', $data ?? [], null);
         $this->setIfExists('kind', $data ?? [], null);
+        $this->setIfExists('last_utm', $data ?? [], null);
         $this->setIfExists('level', $data ?? [], null);
         $this->setIfExists('library', $data ?? [], null);
         $this->setIfExists('library_version', $data ?? [], null);
@@ -876,6 +883,33 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable kind cannot be null');
         }
         $this->container['kind'] = $kind;
+
+        return $this;
+    }
+
+    /**
+     * Gets last_utm
+     *
+     * @return \Hanzo\Cloud\Model\UTM|null
+     */
+    public function getLastUtm()
+    {
+        return $this->container['last_utm'];
+    }
+
+    /**
+     * Sets last_utm
+     *
+     * @param \Hanzo\Cloud\Model\UTM|null $last_utm last_utm
+     *
+     * @return self
+     */
+    public function setLastUtm($last_utm)
+    {
+        if (is_null($last_utm)) {
+            throw new \InvalidArgumentException('non-nullable last_utm cannot be null');
+        }
+        $this->container['last_utm'] = $last_utm;
 
         return $this;
     }

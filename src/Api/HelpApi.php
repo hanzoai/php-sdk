@@ -145,7 +145,7 @@ class HelpApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\HelpArticleList
+     * @return \Hanzo\Cloud\Model\HelpHelpArticleList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getHelpArticles($category = null, $limit = null, string $contentType = self::contentTypes['getHelpArticles'][0])
     {
@@ -164,7 +164,7 @@ class HelpApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\HelpArticleList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\HelpHelpArticleList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getHelpArticlesWithHttpInfo($category = null, $limit = null, string $contentType = self::contentTypes['getHelpArticles'][0])
     {
@@ -196,7 +196,13 @@ class HelpApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\HelpArticleList',
+                        '\Hanzo\Cloud\Model\HelpHelpArticleList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -218,7 +224,7 @@ class HelpApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\HelpArticleList',
+                '\Hanzo\Cloud\Model\HelpHelpArticleList',
                 $request,
                 $response,
             );
@@ -227,7 +233,15 @@ class HelpApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\HelpArticleList',
+                        '\Hanzo\Cloud\Model\HelpHelpArticleList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -275,7 +289,7 @@ class HelpApi
      */
     public function getHelpArticlesAsyncWithHttpInfo($category = null, $limit = null, string $contentType = self::contentTypes['getHelpArticles'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\HelpArticleList';
+        $returnType = '\Hanzo\Cloud\Model\HelpHelpArticleList';
         $request = $this->getHelpArticlesRequest($category, $limit, $contentType);
 
         return $this->client
@@ -360,7 +374,7 @@ class HelpApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -426,7 +440,7 @@ class HelpApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\HelpArticle
+     * @return \Hanzo\Cloud\Model\HelpHelpArticle|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getHelpArticlesBySlug($slug, string $contentType = self::contentTypes['getHelpArticlesBySlug'][0])
     {
@@ -444,7 +458,7 @@ class HelpApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\HelpArticle, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\HelpHelpArticle|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getHelpArticlesBySlugWithHttpInfo($slug, string $contentType = self::contentTypes['getHelpArticlesBySlug'][0])
     {
@@ -476,7 +490,13 @@ class HelpApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\HelpArticle',
+                        '\Hanzo\Cloud\Model\HelpHelpArticle',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -498,7 +518,7 @@ class HelpApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\HelpArticle',
+                '\Hanzo\Cloud\Model\HelpHelpArticle',
                 $request,
                 $response,
             );
@@ -507,7 +527,15 @@ class HelpApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\HelpArticle',
+                        '\Hanzo\Cloud\Model\HelpHelpArticle',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -553,7 +581,7 @@ class HelpApi
      */
     public function getHelpArticlesBySlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getHelpArticlesBySlug'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\HelpArticle';
+        $returnType = '\Hanzo\Cloud\Model\HelpHelpArticle';
         $request = $this->getHelpArticlesBySlugRequest($slug, $contentType);
 
         return $this->client
@@ -632,7 +660,7 @@ class HelpApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -697,7 +725,7 @@ class HelpApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\HelpCategoryList
+     * @return \Hanzo\Cloud\Model\HelpHelpCategoryList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getHelpCategories(string $contentType = self::contentTypes['getHelpCategories'][0])
     {
@@ -714,7 +742,7 @@ class HelpApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\HelpCategoryList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\HelpHelpCategoryList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getHelpCategoriesWithHttpInfo(string $contentType = self::contentTypes['getHelpCategories'][0])
     {
@@ -746,7 +774,13 @@ class HelpApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\HelpCategoryList',
+                        '\Hanzo\Cloud\Model\HelpHelpCategoryList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -768,7 +802,7 @@ class HelpApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\HelpCategoryList',
+                '\Hanzo\Cloud\Model\HelpHelpCategoryList',
                 $request,
                 $response,
             );
@@ -777,7 +811,15 @@ class HelpApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\HelpCategoryList',
+                        '\Hanzo\Cloud\Model\HelpHelpCategoryList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -821,7 +863,7 @@ class HelpApi
      */
     public function getHelpCategoriesAsyncWithHttpInfo(string $contentType = self::contentTypes['getHelpCategories'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\HelpCategoryList';
+        $returnType = '\Hanzo\Cloud\Model\HelpHelpCategoryList';
         $request = $this->getHelpCategoriesRequest($contentType);
 
         return $this->client
@@ -884,7 +926,7 @@ class HelpApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -945,16 +987,16 @@ class HelpApi
      *
      * Files a customer support ticket into the public help center.
      *
-     * @param  \Hanzo\Cloud\Model\HelpTicketIntake $help_ticket_intake help_ticket_intake (required)
+     * @param  \Hanzo\Cloud\Model\HelpHelpTicketIntake $help_help_ticket_intake help_help_ticket_intake (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postHelpTickets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\HelpTicketFiled
+     * @return \Hanzo\Cloud\Model\HelpHelpTicketFiled|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postHelpTickets($help_ticket_intake, string $contentType = self::contentTypes['postHelpTickets'][0])
+    public function postHelpTickets($help_help_ticket_intake, string $contentType = self::contentTypes['postHelpTickets'][0])
     {
-        list($response) = $this->postHelpTicketsWithHttpInfo($help_ticket_intake, $contentType);
+        list($response) = $this->postHelpTicketsWithHttpInfo($help_help_ticket_intake, $contentType);
         return $response;
     }
 
@@ -963,16 +1005,16 @@ class HelpApi
      *
      * Files a customer support ticket into the public help center.
      *
-     * @param  \Hanzo\Cloud\Model\HelpTicketIntake $help_ticket_intake (required)
+     * @param  \Hanzo\Cloud\Model\HelpHelpTicketIntake $help_help_ticket_intake (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postHelpTickets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\HelpTicketFiled, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\HelpHelpTicketFiled|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postHelpTicketsWithHttpInfo($help_ticket_intake, string $contentType = self::contentTypes['postHelpTickets'][0])
+    public function postHelpTicketsWithHttpInfo($help_help_ticket_intake, string $contentType = self::contentTypes['postHelpTickets'][0])
     {
-        $request = $this->postHelpTicketsRequest($help_ticket_intake, $contentType);
+        $request = $this->postHelpTicketsRequest($help_help_ticket_intake, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1000,7 +1042,13 @@ class HelpApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\HelpTicketFiled',
+                        '\Hanzo\Cloud\Model\HelpHelpTicketFiled',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1022,7 +1070,7 @@ class HelpApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\HelpTicketFiled',
+                '\Hanzo\Cloud\Model\HelpHelpTicketFiled',
                 $request,
                 $response,
             );
@@ -1031,7 +1079,15 @@ class HelpApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\HelpTicketFiled',
+                        '\Hanzo\Cloud\Model\HelpHelpTicketFiled',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1048,15 +1104,15 @@ class HelpApi
      *
      * Files a customer support ticket into the public help center.
      *
-     * @param  \Hanzo\Cloud\Model\HelpTicketIntake $help_ticket_intake (required)
+     * @param  \Hanzo\Cloud\Model\HelpHelpTicketIntake $help_help_ticket_intake (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postHelpTickets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postHelpTicketsAsync($help_ticket_intake, string $contentType = self::contentTypes['postHelpTickets'][0])
+    public function postHelpTicketsAsync($help_help_ticket_intake, string $contentType = self::contentTypes['postHelpTickets'][0])
     {
-        return $this->postHelpTicketsAsyncWithHttpInfo($help_ticket_intake, $contentType)
+        return $this->postHelpTicketsAsyncWithHttpInfo($help_help_ticket_intake, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1069,16 +1125,16 @@ class HelpApi
      *
      * Files a customer support ticket into the public help center.
      *
-     * @param  \Hanzo\Cloud\Model\HelpTicketIntake $help_ticket_intake (required)
+     * @param  \Hanzo\Cloud\Model\HelpHelpTicketIntake $help_help_ticket_intake (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postHelpTickets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postHelpTicketsAsyncWithHttpInfo($help_ticket_intake, string $contentType = self::contentTypes['postHelpTickets'][0])
+    public function postHelpTicketsAsyncWithHttpInfo($help_help_ticket_intake, string $contentType = self::contentTypes['postHelpTickets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\HelpTicketFiled';
-        $request = $this->postHelpTicketsRequest($help_ticket_intake, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\HelpHelpTicketFiled';
+        $request = $this->postHelpTicketsRequest($help_help_ticket_intake, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1119,19 +1175,19 @@ class HelpApi
     /**
      * Create request for operation 'postHelpTickets'
      *
-     * @param  \Hanzo\Cloud\Model\HelpTicketIntake $help_ticket_intake (required)
+     * @param  \Hanzo\Cloud\Model\HelpHelpTicketIntake $help_help_ticket_intake (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postHelpTickets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postHelpTicketsRequest($help_ticket_intake, string $contentType = self::contentTypes['postHelpTickets'][0])
+    public function postHelpTicketsRequest($help_help_ticket_intake, string $contentType = self::contentTypes['postHelpTickets'][0])
     {
 
-        // verify the required parameter 'help_ticket_intake' is set
-        if ($help_ticket_intake === null || (is_array($help_ticket_intake) && count($help_ticket_intake) === 0)) {
+        // verify the required parameter 'help_help_ticket_intake' is set
+        if ($help_help_ticket_intake === null || (is_array($help_help_ticket_intake) && count($help_help_ticket_intake) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $help_ticket_intake when calling postHelpTickets'
+                'Missing the required parameter $help_help_ticket_intake when calling postHelpTickets'
             );
         }
 
@@ -1148,18 +1204,18 @@ class HelpApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($help_ticket_intake)) {
+        if (isset($help_help_ticket_intake)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($help_ticket_intake));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($help_help_ticket_intake));
             } else {
-                $httpBody = $help_ticket_intake;
+                $httpBody = $help_help_ticket_intake;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

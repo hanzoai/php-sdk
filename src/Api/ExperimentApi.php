@@ -152,7 +152,7 @@ class ExperimentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ExperimentList
+     * @return \Hanzo\Cloud\Model\ExperimentExperimentList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getExperiment(string $contentType = self::contentTypes['getExperiment'][0])
     {
@@ -169,7 +169,7 @@ class ExperimentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ExperimentList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ExperimentExperimentList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getExperimentWithHttpInfo(string $contentType = self::contentTypes['getExperiment'][0])
     {
@@ -201,7 +201,13 @@ class ExperimentApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ExperimentList',
+                        '\Hanzo\Cloud\Model\ExperimentExperimentList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -223,7 +229,7 @@ class ExperimentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ExperimentList',
+                '\Hanzo\Cloud\Model\ExperimentExperimentList',
                 $request,
                 $response,
             );
@@ -232,7 +238,15 @@ class ExperimentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ExperimentList',
+                        '\Hanzo\Cloud\Model\ExperimentExperimentList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -276,7 +290,7 @@ class ExperimentApi
      */
     public function getExperimentAsyncWithHttpInfo(string $contentType = self::contentTypes['getExperiment'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ExperimentList';
+        $returnType = '\Hanzo\Cloud\Model\ExperimentExperimentList';
         $request = $this->getExperimentRequest($contentType);
 
         return $this->client
@@ -339,7 +353,7 @@ class ExperimentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -405,7 +419,7 @@ class ExperimentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Trial
+     * @return \Hanzo\Cloud\Model\ExperimentTrial|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getExperimentById($id, string $contentType = self::contentTypes['getExperimentById'][0])
     {
@@ -423,7 +437,7 @@ class ExperimentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Trial, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ExperimentTrial|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getExperimentByIdWithHttpInfo($id, string $contentType = self::contentTypes['getExperimentById'][0])
     {
@@ -455,7 +469,13 @@ class ExperimentApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Trial',
+                        '\Hanzo\Cloud\Model\ExperimentTrial',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -477,7 +497,7 @@ class ExperimentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Trial',
+                '\Hanzo\Cloud\Model\ExperimentTrial',
                 $request,
                 $response,
             );
@@ -486,7 +506,15 @@ class ExperimentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Trial',
+                        '\Hanzo\Cloud\Model\ExperimentTrial',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -532,7 +560,7 @@ class ExperimentApi
      */
     public function getExperimentByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getExperimentById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Trial';
+        $returnType = '\Hanzo\Cloud\Model\ExperimentTrial';
         $request = $this->getExperimentByIdRequest($id, $contentType);
 
         return $this->client
@@ -611,7 +639,7 @@ class ExperimentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -679,7 +707,7 @@ class ExperimentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Assignment
+     * @return \Hanzo\Cloud\Model\ExperimentAssignment|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getExperimentByIdAssign($id, $subject, $props = null, string $contentType = self::contentTypes['getExperimentByIdAssign'][0])
     {
@@ -699,7 +727,7 @@ class ExperimentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Assignment, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ExperimentAssignment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getExperimentByIdAssignWithHttpInfo($id, $subject, $props = null, string $contentType = self::contentTypes['getExperimentByIdAssign'][0])
     {
@@ -731,7 +759,13 @@ class ExperimentApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Assignment',
+                        '\Hanzo\Cloud\Model\ExperimentAssignment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -753,7 +787,7 @@ class ExperimentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Assignment',
+                '\Hanzo\Cloud\Model\ExperimentAssignment',
                 $request,
                 $response,
             );
@@ -762,7 +796,15 @@ class ExperimentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Assignment',
+                        '\Hanzo\Cloud\Model\ExperimentAssignment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -812,7 +854,7 @@ class ExperimentApi
      */
     public function getExperimentByIdAssignAsyncWithHttpInfo($id, $subject, $props = null, string $contentType = self::contentTypes['getExperimentByIdAssign'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Assignment';
+        $returnType = '\Hanzo\Cloud\Model\ExperimentAssignment';
         $request = $this->getExperimentByIdAssignRequest($id, $subject, $props, $contentType);
 
         return $this->client
@@ -919,7 +961,7 @@ class ExperimentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -984,7 +1026,7 @@ class ExperimentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Health
+     * @return \Hanzo\Cloud\Model\ExperimentHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getExperimentHealth(string $contentType = self::contentTypes['getExperimentHealth'][0])
     {
@@ -1001,7 +1043,7 @@ class ExperimentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Health, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ExperimentHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getExperimentHealthWithHttpInfo(string $contentType = self::contentTypes['getExperimentHealth'][0])
     {
@@ -1033,7 +1075,13 @@ class ExperimentApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Health',
+                        '\Hanzo\Cloud\Model\ExperimentHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1055,7 +1103,7 @@ class ExperimentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Health',
+                '\Hanzo\Cloud\Model\ExperimentHealth',
                 $request,
                 $response,
             );
@@ -1064,7 +1112,15 @@ class ExperimentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Health',
+                        '\Hanzo\Cloud\Model\ExperimentHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1108,7 +1164,7 @@ class ExperimentApi
      */
     public function getExperimentHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getExperimentHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Health';
+        $returnType = '\Hanzo\Cloud\Model\ExperimentHealth';
         $request = $this->getExperimentHealthRequest($contentType);
 
         return $this->client
@@ -1171,7 +1227,7 @@ class ExperimentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1232,16 +1288,16 @@ class ExperimentApi
      *
      * Registers a controlled experiment AND puts its assignment flag live, in that order, so the arms start bucketing subjects the moment this returns 201 — the flag is created active at 100% rollout, with each variant weighted as declared.
      *
-     * @param  \Hanzo\Cloud\Model\CreateBody $create_body create_body (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentCreateBody $experiment_create_body experiment_create_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperiment'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Trial
+     * @return \Hanzo\Cloud\Model\ExperimentTrial|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postExperiment($create_body, string $contentType = self::contentTypes['postExperiment'][0])
+    public function postExperiment($experiment_create_body, string $contentType = self::contentTypes['postExperiment'][0])
     {
-        list($response) = $this->postExperimentWithHttpInfo($create_body, $contentType);
+        list($response) = $this->postExperimentWithHttpInfo($experiment_create_body, $contentType);
         return $response;
     }
 
@@ -1250,16 +1306,16 @@ class ExperimentApi
      *
      * Registers a controlled experiment AND puts its assignment flag live, in that order, so the arms start bucketing subjects the moment this returns 201 — the flag is created active at 100% rollout, with each variant weighted as declared.
      *
-     * @param  \Hanzo\Cloud\Model\CreateBody $create_body (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentCreateBody $experiment_create_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperiment'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Trial, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ExperimentTrial|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postExperimentWithHttpInfo($create_body, string $contentType = self::contentTypes['postExperiment'][0])
+    public function postExperimentWithHttpInfo($experiment_create_body, string $contentType = self::contentTypes['postExperiment'][0])
     {
-        $request = $this->postExperimentRequest($create_body, $contentType);
+        $request = $this->postExperimentRequest($experiment_create_body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1287,7 +1343,13 @@ class ExperimentApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Trial',
+                        '\Hanzo\Cloud\Model\ExperimentTrial',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1309,7 +1371,7 @@ class ExperimentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Trial',
+                '\Hanzo\Cloud\Model\ExperimentTrial',
                 $request,
                 $response,
             );
@@ -1318,7 +1380,15 @@ class ExperimentApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Trial',
+                        '\Hanzo\Cloud\Model\ExperimentTrial',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1335,15 +1405,15 @@ class ExperimentApi
      *
      * Registers a controlled experiment AND puts its assignment flag live, in that order, so the arms start bucketing subjects the moment this returns 201 — the flag is created active at 100% rollout, with each variant weighted as declared.
      *
-     * @param  \Hanzo\Cloud\Model\CreateBody $create_body (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentCreateBody $experiment_create_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperiment'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postExperimentAsync($create_body, string $contentType = self::contentTypes['postExperiment'][0])
+    public function postExperimentAsync($experiment_create_body, string $contentType = self::contentTypes['postExperiment'][0])
     {
-        return $this->postExperimentAsyncWithHttpInfo($create_body, $contentType)
+        return $this->postExperimentAsyncWithHttpInfo($experiment_create_body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1356,16 +1426,16 @@ class ExperimentApi
      *
      * Registers a controlled experiment AND puts its assignment flag live, in that order, so the arms start bucketing subjects the moment this returns 201 — the flag is created active at 100% rollout, with each variant weighted as declared.
      *
-     * @param  \Hanzo\Cloud\Model\CreateBody $create_body (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentCreateBody $experiment_create_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperiment'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postExperimentAsyncWithHttpInfo($create_body, string $contentType = self::contentTypes['postExperiment'][0])
+    public function postExperimentAsyncWithHttpInfo($experiment_create_body, string $contentType = self::contentTypes['postExperiment'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Trial';
-        $request = $this->postExperimentRequest($create_body, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ExperimentTrial';
+        $request = $this->postExperimentRequest($experiment_create_body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1406,19 +1476,19 @@ class ExperimentApi
     /**
      * Create request for operation 'postExperiment'
      *
-     * @param  \Hanzo\Cloud\Model\CreateBody $create_body (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentCreateBody $experiment_create_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperiment'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postExperimentRequest($create_body, string $contentType = self::contentTypes['postExperiment'][0])
+    public function postExperimentRequest($experiment_create_body, string $contentType = self::contentTypes['postExperiment'][0])
     {
 
-        // verify the required parameter 'create_body' is set
-        if ($create_body === null || (is_array($create_body) && count($create_body) === 0)) {
+        // verify the required parameter 'experiment_create_body' is set
+        if ($experiment_create_body === null || (is_array($experiment_create_body) && count($experiment_create_body) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_body when calling postExperiment'
+                'Missing the required parameter $experiment_create_body when calling postExperiment'
             );
         }
 
@@ -1435,18 +1505,18 @@ class ExperimentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($create_body)) {
+        if (isset($experiment_create_body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_body));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($experiment_create_body));
             } else {
-                $httpBody = $create_body;
+                $httpBody = $experiment_create_body;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1504,16 +1574,16 @@ class ExperimentApi
      * Is per-variant conversion, lift and statistical significance against the control arm.
      *
      * @param  string $id ID is the experiment the URL names. (required)
-     * @param  \Hanzo\Cloud\Model\AnalyzeQuery $analyze_query analyze_query (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentAnalyzeQuery $experiment_analyze_query experiment_analyze_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperimentByIdAnalyze'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Analysis
+     * @return \Hanzo\Cloud\Model\ExperimentAnalysis|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postExperimentByIdAnalyze($id, $analyze_query, string $contentType = self::contentTypes['postExperimentByIdAnalyze'][0])
+    public function postExperimentByIdAnalyze($id, $experiment_analyze_query, string $contentType = self::contentTypes['postExperimentByIdAnalyze'][0])
     {
-        list($response) = $this->postExperimentByIdAnalyzeWithHttpInfo($id, $analyze_query, $contentType);
+        list($response) = $this->postExperimentByIdAnalyzeWithHttpInfo($id, $experiment_analyze_query, $contentType);
         return $response;
     }
 
@@ -1523,16 +1593,16 @@ class ExperimentApi
      * Is per-variant conversion, lift and statistical significance against the control arm.
      *
      * @param  string $id ID is the experiment the URL names. (required)
-     * @param  \Hanzo\Cloud\Model\AnalyzeQuery $analyze_query (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentAnalyzeQuery $experiment_analyze_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperimentByIdAnalyze'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Analysis, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ExperimentAnalysis|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postExperimentByIdAnalyzeWithHttpInfo($id, $analyze_query, string $contentType = self::contentTypes['postExperimentByIdAnalyze'][0])
+    public function postExperimentByIdAnalyzeWithHttpInfo($id, $experiment_analyze_query, string $contentType = self::contentTypes['postExperimentByIdAnalyze'][0])
     {
-        $request = $this->postExperimentByIdAnalyzeRequest($id, $analyze_query, $contentType);
+        $request = $this->postExperimentByIdAnalyzeRequest($id, $experiment_analyze_query, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1560,7 +1630,13 @@ class ExperimentApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Analysis',
+                        '\Hanzo\Cloud\Model\ExperimentAnalysis',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1582,7 +1658,7 @@ class ExperimentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Analysis',
+                '\Hanzo\Cloud\Model\ExperimentAnalysis',
                 $request,
                 $response,
             );
@@ -1591,7 +1667,15 @@ class ExperimentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Analysis',
+                        '\Hanzo\Cloud\Model\ExperimentAnalysis',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1609,15 +1693,15 @@ class ExperimentApi
      * Is per-variant conversion, lift and statistical significance against the control arm.
      *
      * @param  string $id ID is the experiment the URL names. (required)
-     * @param  \Hanzo\Cloud\Model\AnalyzeQuery $analyze_query (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentAnalyzeQuery $experiment_analyze_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperimentByIdAnalyze'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postExperimentByIdAnalyzeAsync($id, $analyze_query, string $contentType = self::contentTypes['postExperimentByIdAnalyze'][0])
+    public function postExperimentByIdAnalyzeAsync($id, $experiment_analyze_query, string $contentType = self::contentTypes['postExperimentByIdAnalyze'][0])
     {
-        return $this->postExperimentByIdAnalyzeAsyncWithHttpInfo($id, $analyze_query, $contentType)
+        return $this->postExperimentByIdAnalyzeAsyncWithHttpInfo($id, $experiment_analyze_query, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1631,16 +1715,16 @@ class ExperimentApi
      * Is per-variant conversion, lift and statistical significance against the control arm.
      *
      * @param  string $id ID is the experiment the URL names. (required)
-     * @param  \Hanzo\Cloud\Model\AnalyzeQuery $analyze_query (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentAnalyzeQuery $experiment_analyze_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperimentByIdAnalyze'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postExperimentByIdAnalyzeAsyncWithHttpInfo($id, $analyze_query, string $contentType = self::contentTypes['postExperimentByIdAnalyze'][0])
+    public function postExperimentByIdAnalyzeAsyncWithHttpInfo($id, $experiment_analyze_query, string $contentType = self::contentTypes['postExperimentByIdAnalyze'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Analysis';
-        $request = $this->postExperimentByIdAnalyzeRequest($id, $analyze_query, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ExperimentAnalysis';
+        $request = $this->postExperimentByIdAnalyzeRequest($id, $experiment_analyze_query, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1682,13 +1766,13 @@ class ExperimentApi
      * Create request for operation 'postExperimentByIdAnalyze'
      *
      * @param  string $id ID is the experiment the URL names. (required)
-     * @param  \Hanzo\Cloud\Model\AnalyzeQuery $analyze_query (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentAnalyzeQuery $experiment_analyze_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperimentByIdAnalyze'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postExperimentByIdAnalyzeRequest($id, $analyze_query, string $contentType = self::contentTypes['postExperimentByIdAnalyze'][0])
+    public function postExperimentByIdAnalyzeRequest($id, $experiment_analyze_query, string $contentType = self::contentTypes['postExperimentByIdAnalyze'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -1698,10 +1782,10 @@ class ExperimentApi
             );
         }
 
-        // verify the required parameter 'analyze_query' is set
-        if ($analyze_query === null || (is_array($analyze_query) && count($analyze_query) === 0)) {
+        // verify the required parameter 'experiment_analyze_query' is set
+        if ($experiment_analyze_query === null || (is_array($experiment_analyze_query) && count($experiment_analyze_query) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $analyze_query when calling postExperimentByIdAnalyze'
+                'Missing the required parameter $experiment_analyze_query when calling postExperimentByIdAnalyze'
             );
         }
 
@@ -1726,18 +1810,18 @@ class ExperimentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($analyze_query)) {
+        if (isset($experiment_analyze_query)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($analyze_query));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($experiment_analyze_query));
             } else {
-                $httpBody = $analyze_query;
+                $httpBody = $experiment_analyze_query;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1795,16 +1879,16 @@ class ExperimentApi
      * Promotes one variant to the whole rollout and records who decided.
      *
      * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\DecideBody $decide_body decide_body (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentDecideBody $experiment_decide_body experiment_decide_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperimentByIdDecide'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Trial
+     * @return \Hanzo\Cloud\Model\ExperimentTrial|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postExperimentByIdDecide($id, $decide_body, string $contentType = self::contentTypes['postExperimentByIdDecide'][0])
+    public function postExperimentByIdDecide($id, $experiment_decide_body, string $contentType = self::contentTypes['postExperimentByIdDecide'][0])
     {
-        list($response) = $this->postExperimentByIdDecideWithHttpInfo($id, $decide_body, $contentType);
+        list($response) = $this->postExperimentByIdDecideWithHttpInfo($id, $experiment_decide_body, $contentType);
         return $response;
     }
 
@@ -1814,16 +1898,16 @@ class ExperimentApi
      * Promotes one variant to the whole rollout and records who decided.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\DecideBody $decide_body (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentDecideBody $experiment_decide_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperimentByIdDecide'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Trial, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ExperimentTrial|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postExperimentByIdDecideWithHttpInfo($id, $decide_body, string $contentType = self::contentTypes['postExperimentByIdDecide'][0])
+    public function postExperimentByIdDecideWithHttpInfo($id, $experiment_decide_body, string $contentType = self::contentTypes['postExperimentByIdDecide'][0])
     {
-        $request = $this->postExperimentByIdDecideRequest($id, $decide_body, $contentType);
+        $request = $this->postExperimentByIdDecideRequest($id, $experiment_decide_body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1851,7 +1935,13 @@ class ExperimentApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Trial',
+                        '\Hanzo\Cloud\Model\ExperimentTrial',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1873,7 +1963,7 @@ class ExperimentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Trial',
+                '\Hanzo\Cloud\Model\ExperimentTrial',
                 $request,
                 $response,
             );
@@ -1882,7 +1972,15 @@ class ExperimentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Trial',
+                        '\Hanzo\Cloud\Model\ExperimentTrial',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1900,15 +1998,15 @@ class ExperimentApi
      * Promotes one variant to the whole rollout and records who decided.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\DecideBody $decide_body (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentDecideBody $experiment_decide_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperimentByIdDecide'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postExperimentByIdDecideAsync($id, $decide_body, string $contentType = self::contentTypes['postExperimentByIdDecide'][0])
+    public function postExperimentByIdDecideAsync($id, $experiment_decide_body, string $contentType = self::contentTypes['postExperimentByIdDecide'][0])
     {
-        return $this->postExperimentByIdDecideAsyncWithHttpInfo($id, $decide_body, $contentType)
+        return $this->postExperimentByIdDecideAsyncWithHttpInfo($id, $experiment_decide_body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1922,16 +2020,16 @@ class ExperimentApi
      * Promotes one variant to the whole rollout and records who decided.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\DecideBody $decide_body (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentDecideBody $experiment_decide_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperimentByIdDecide'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postExperimentByIdDecideAsyncWithHttpInfo($id, $decide_body, string $contentType = self::contentTypes['postExperimentByIdDecide'][0])
+    public function postExperimentByIdDecideAsyncWithHttpInfo($id, $experiment_decide_body, string $contentType = self::contentTypes['postExperimentByIdDecide'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Trial';
-        $request = $this->postExperimentByIdDecideRequest($id, $decide_body, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ExperimentTrial';
+        $request = $this->postExperimentByIdDecideRequest($id, $experiment_decide_body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1973,13 +2071,13 @@ class ExperimentApi
      * Create request for operation 'postExperimentByIdDecide'
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\DecideBody $decide_body (required)
+     * @param  \Hanzo\Cloud\Model\ExperimentDecideBody $experiment_decide_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postExperimentByIdDecide'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postExperimentByIdDecideRequest($id, $decide_body, string $contentType = self::contentTypes['postExperimentByIdDecide'][0])
+    public function postExperimentByIdDecideRequest($id, $experiment_decide_body, string $contentType = self::contentTypes['postExperimentByIdDecide'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -1989,10 +2087,10 @@ class ExperimentApi
             );
         }
 
-        // verify the required parameter 'decide_body' is set
-        if ($decide_body === null || (is_array($decide_body) && count($decide_body) === 0)) {
+        // verify the required parameter 'experiment_decide_body' is set
+        if ($experiment_decide_body === null || (is_array($experiment_decide_body) && count($experiment_decide_body) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $decide_body when calling postExperimentByIdDecide'
+                'Missing the required parameter $experiment_decide_body when calling postExperimentByIdDecide'
             );
         }
 
@@ -2017,18 +2115,18 @@ class ExperimentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($decide_body)) {
+        if (isset($experiment_decide_body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($decide_body));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($experiment_decide_body));
             } else {
-                $httpBody = $decide_body;
+                $httpBody = $experiment_decide_body;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

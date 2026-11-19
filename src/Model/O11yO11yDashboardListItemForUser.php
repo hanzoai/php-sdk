@@ -393,7 +393,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at created_at
+     * @param \DateTime|null $created_at CreatedAt is when the dashboard was created.
      *
      * @return self
      */
@@ -420,7 +420,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets created_by
      *
-     * @param string|null $created_by created_by
+     * @param string|null $created_by CreatedBy is who created it.
      *
      * @return self
      */
@@ -447,7 +447,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string|null $id ID is the dashboard's id.
      *
      * @return self
      */
@@ -474,7 +474,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets image
      *
-     * @param string|null $image image
+     * @param string|null $image Image is an optional cover image reference.
      *
      * @return self
      */
@@ -501,7 +501,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets locked
      *
-     * @param bool|null $locked locked
+     * @param bool|null $locked Locked reports whether the dashboard is locked against edits.
      *
      * @return self
      */
@@ -528,7 +528,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string|null $name Name is the dashboard's unique internal name.
      *
      * @return self
      */
@@ -555,7 +555,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets org_id
      *
-     * @param string|null $org_id org_id
+     * @param string|null $org_id OrgID is the org the dashboard belongs to.
      *
      * @return self
      */
@@ -609,7 +609,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets schema_version
      *
-     * @param string|null $schema_version schema_version
+     * @param string|null $schema_version SchemaVersion is the dashboard schema version.
      *
      * @return self
      */
@@ -636,7 +636,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets source
      *
-     * @param string|null $source source
+     * @param string|null $source Source is where the dashboard came from: user, system or integration.
      *
      * @return self
      */
@@ -663,7 +663,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets spec
      *
-     * @param \Hanzo\Cloud\Model\O11yO11yDashboardListSpec|null $spec spec
+     * @param \Hanzo\Cloud\Model\O11yO11yDashboardListSpec|null $spec Spec is the display-only slice of the dashboard spec.
      *
      * @return self
      */
@@ -690,7 +690,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets tags
      *
-     * @param \Hanzo\Cloud\Model\O11yO11yDashboardTag[]|null $tags tags
+     * @param \Hanzo\Cloud\Model\O11yO11yDashboardTag[]|null $tags Tags are the dashboard's tags.
      *
      * @return self
      */
@@ -717,7 +717,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets updated_at
      *
-     * @param \DateTime|null $updated_at updated_at
+     * @param \DateTime|null $updated_at UpdatedAt is when it last changed.
      *
      * @return self
      */
@@ -744,7 +744,7 @@ class O11yO11yDashboardListItemForUser implements ModelInterface, ArrayAccess, \
     /**
      * Sets updated_by
      *
-     * @param string|null $updated_by updated_by
+     * @param string|null $updated_by UpdatedBy is who last changed it.
      *
      * @return self
      */

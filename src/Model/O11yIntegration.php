@@ -541,7 +541,7 @@ class O11yIntegration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets description
      *
-     * @param string|null $description description
+     * @param string|null $description A short description
      *
      * @return self
      */
@@ -649,7 +649,7 @@ class O11yIntegration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets overview
      *
-     * @param string|null $overview overview
+     * @param string|null $overview markdown
      *
      * @return self
      */

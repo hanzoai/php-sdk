@@ -330,7 +330,7 @@ class Voucher implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets description
      *
-     * @param string|null $description Description is the human line for the event, e.g. the vendor a bill came from.
+     * @param string|null $description description
      *
      * @return self
      */
@@ -357,7 +357,7 @@ class Voucher implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets legs
      *
-     * @param \Hanzo\Cloud\Model\Leg[]|null $legs Legs are the sides of the posting. They must balance: Σdebit == Σcredit, give or take the 2¢ round-off allowance.
+     * @param \Hanzo\Cloud\Model\Leg[]|null $legs legs
      *
      * @return self
      */
@@ -384,7 +384,7 @@ class Voucher implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets posting_at
      *
-     * @param string|null $posting_at PostingAt is the RFC3339 instant the event posts at — the time every statement window filters on.
+     * @param string|null $posting_at posting_at
      *
      * @return self
      */
@@ -411,7 +411,7 @@ class Voucher implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets source_id
      *
-     * @param string|null $source_id SourceID is the source event's own id within that namespace. Together with SourceKind it is the key that makes a repeat posting a no-op.
+     * @param string|null $source_id source_id
      *
      * @return self
      */
@@ -438,7 +438,7 @@ class Voucher implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets source_kind
      *
-     * @param string|null $source_kind SourceKind is the idempotency namespace naming what booked this, e.g. \"scan\".
+     * @param string|null $source_kind source_kind
      *
      * @return self
      */

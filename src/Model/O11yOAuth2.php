@@ -59,7 +59,7 @@ class O11yOAuth2 implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'tls_config' => '\Hanzo\Cloud\Model\O11yTLSConfig',
         'audience' => 'string',
-        'claims' => 'array<string,object>',
+        'claims' => 'array<string,mixed>',
         'client_certificate_key' => 'mixed',
         'client_certificate_key_file' => 'string',
         'client_certificate_key_id' => 'string',
@@ -486,7 +486,7 @@ class O11yOAuth2 implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets claims
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getClaims()
     {
@@ -496,7 +496,7 @@ class O11yOAuth2 implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets claims
      *
-     * @param array<string,object>|null $claims Claims is a map of claims to be added to the JWT token. Only used if GrantType is set to \"urn:ietf:params:oauth:grant-type:jwt-bearer\".
+     * @param array<string,mixed>|null $claims Claims is a map of claims to be added to the JWT token. Only used if GrantType is set to \"urn:ietf:params:oauth:grant-type:jwt-bearer\".
      *
      * @return self
      */
@@ -834,7 +834,7 @@ class O11yOAuth2 implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets no_proxy
      *
-     * @param string|null $no_proxy no_proxy
+     * @param string|null $no_proxy NoProxy contains addresses that should not use a proxy.
      *
      * @return self
      */
@@ -861,7 +861,7 @@ class O11yOAuth2 implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets proxy_connect_header
      *
-     * @param array<string,mixed[]>|null $proxy_connect_header proxy_connect_header
+     * @param array<string,mixed[]>|null $proxy_connect_header ProxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests. Assume that at least _some_ of these headers are going to contain secrets and use Secret as the value type instead of string.
      *
      * @return self
      */
@@ -888,7 +888,7 @@ class O11yOAuth2 implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets proxy_from_environment
      *
-     * @param bool|null $proxy_from_environment proxy_from_environment
+     * @param bool|null $proxy_from_environment ProxyFromEnvironment makes use of net/http ProxyFromEnvironment function to determine proxies.
      *
      * @return self
      */

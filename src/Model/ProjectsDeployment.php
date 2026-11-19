@@ -83,10 +83,10 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'bucket' => null,
-        'bytes' => 'int64',
+        'bytes' => null,
         'commit' => null,
-        'created_at' => 'int64',
-        'files' => 'int64',
+        'created_at' => null,
+        'files' => null,
         'id' => null,
         'live_url' => null,
         'message' => null,
@@ -94,9 +94,9 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
         'project_id' => null,
         'source' => null,
         'status' => null,
-        'updated_at' => 'int64',
+        'updated_at' => null,
         'upload' => null,
-        'version' => 'int64'
+        'version' => null
     ];
 
     /**
@@ -400,7 +400,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets bucket
      *
-     * @param string|null $bucket Bucket is the object-store bucket its files were written to.
+     * @param string|null $bucket bucket
      *
      * @return self
      */
@@ -427,7 +427,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets bytes
      *
-     * @param int|null $bytes Bytes is their total size in bytes.
+     * @param int|null $bytes bytes
      *
      * @return self
      */
@@ -454,7 +454,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets commit
      *
-     * @param string|null $commit Commit is the revision that was built, for a deployment that came from a repository. Absent for an uploaded artifact, which has no revision.
+     * @param string|null $commit commit
      *
      * @return self
      */
@@ -481,7 +481,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets created_at
      *
-     * @param int|null $created_at CreatedAt is when the deployment was queued, as Unix seconds.
+     * @param int|null $created_at created_at
      *
      * @return self
      */
@@ -508,7 +508,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets files
      *
-     * @param int|null $files Files is how many objects the deployment published.
+     * @param int|null $files files
      *
      * @return self
      */
@@ -535,7 +535,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets id
      *
-     * @param string|null $id ID identifies this one deployment attempt, and is what CI quotes back to complete it.
+     * @param string|null $id id
      *
      * @return self
      */
@@ -562,7 +562,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets live_url
      *
-     * @param string|null $live_url LiveURL is where this deployment serves, once it is live.
+     * @param string|null $live_url live_url
      *
      * @return self
      */
@@ -589,7 +589,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets message
      *
-     * @param string|null $message Message is what happened, in words — the build's own note, or on a failure why it failed.
+     * @param string|null $message message
      *
      * @return self
      */
@@ -616,7 +616,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets prefix
      *
-     * @param string|null $prefix Prefix is the key prefix within that bucket holding EXACTLY this deployment's objects — the unit an upload grant is scoped to, so a grant for one deployment cannot write over another.
+     * @param string|null $prefix prefix
      *
      * @return self
      */
@@ -643,7 +643,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets project_id
      *
-     * @param string|null $project_id ProjectID is the project this deployment belongs to.
+     * @param string|null $project_id project_id
      *
      * @return self
      */
@@ -670,7 +670,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets source
      *
-     * @param string|null $source Source is what caused the deployment — a git push, an uploaded artifact, a generated site.
+     * @param string|null $source source
      *
      * @return self
      */
@@ -697,7 +697,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets status
      *
-     * @param string|null $status Status is where the attempt got to — queued, live, or failed. A deployment that is live is not necessarily the one SERVING: the project's own currentDeploymentId says which is.
+     * @param string|null $status status
      *
      * @return self
      */
@@ -724,7 +724,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets updated_at
      *
-     * @param int|null $updated_at UpdatedAt is when it last changed state, as Unix seconds — so the gap between the two is how long the build took.
+     * @param int|null $updated_at updated_at
      *
      * @return self
      */
@@ -751,7 +751,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets upload
      *
-     * @param \Hanzo\Cloud\Model\ProjectsUploadGrant|null $upload Upload is the prefix-scoped, short-lived S3 write grant handed to CI with a queued git deployment, so it needs no bucket credential (grant.go). Present ONLY on the 202 that creates the deployment — it is never stored and never replayed on a later read, so a grant cannot outlive the build it was minted for by being fetched again.
+     * @param \Hanzo\Cloud\Model\ProjectsUploadGrant|null $upload upload
      *
      * @return self
      */
@@ -778,7 +778,7 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets version
      *
-     * @param int|null $version Version counts deployments of this project from 1, so the history reads as an ordered sequence rather than by timestamp. It is per project, not global.
+     * @param int|null $version version
      *
      * @return self
      */

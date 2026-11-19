@@ -81,8 +81,8 @@ class Extracted implements ModelInterface, ArrayAccess, \JsonSerializable
         'line_items' => null,
         'merchant' => null,
         'note' => null,
-        'tax_cents' => 'int64',
-        'total_cents' => 'int64'
+        'tax_cents' => null,
+        'total_cents' => null
     ];
 
     /**
@@ -351,7 +351,7 @@ class Extracted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets category
      *
-     * @param string|null $category Category is the expense bucket the SCANNER guessed, as a slug — a hint only. Vendor rules override it whenever they know better, so this is the model's reading and not the account the entry will land on.
+     * @param string|null $category category
      *
      * @return self
      */
@@ -378,7 +378,7 @@ class Extracted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets currency
      *
-     * @param string|null $currency Currency is the ISO code the document is denominated in.
+     * @param string|null $currency currency
      *
      * @return self
      */
@@ -405,7 +405,7 @@ class Extracted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets issued_at
      *
-     * @param string|null $issued_at IssuedAt is the document's OWN date as YYYY-MM-DD — when the bill was issued, which is not when it was uploaded or when it will post.
+     * @param string|null $issued_at issued_at
      *
      * @return self
      */
@@ -432,7 +432,7 @@ class Extracted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets line_items
      *
-     * @param \Hanzo\Cloud\Model\LineItem[]|null $line_items LineItems are the individual lines read off the document, where it had any. They need not sum to totalCents: a document may carry lines the scanner could not read, and the total is taken from the total.
+     * @param \Hanzo\Cloud\Model\LineItem[]|null $line_items line_items
      *
      * @return self
      */
@@ -459,7 +459,7 @@ class Extracted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets merchant
      *
-     * @param string|null $merchant Merchant is the supplier as printed on the document.
+     * @param string|null $merchant merchant
      *
      * @return self
      */
@@ -486,7 +486,7 @@ class Extracted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets note
      *
-     * @param string|null $note Note is anything else worth carrying from the document that has no field of its own.
+     * @param string|null $note note
      *
      * @return self
      */
@@ -513,7 +513,7 @@ class Extracted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets tax_cents
      *
-     * @param int|null $tax_cents TaxCents is how much of that total is tax, in cents. It is part of totalCents, not additional to it.
+     * @param int|null $tax_cents tax_cents
      *
      * @return self
      */
@@ -540,7 +540,7 @@ class Extracted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets total_cents
      *
-     * @param int|null $total_cents TotalCents is the document total in whole cents, tax INCLUDED.
+     * @param int|null $total_cents total_cents
      *
      * @return self
      */

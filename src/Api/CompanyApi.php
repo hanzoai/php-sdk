@@ -128,9 +128,6 @@ class CompanyApi
         'postCompanyKyc' => [
             'application/json',
         ],
-        'postCompanyKycDecision' => [
-            'application/json',
-        ],
         'postCompanyKycRefresh' => [
             'application/json',
         ],
@@ -197,13 +194,13 @@ class CompanyApi
     /**
      * Operation getCompany
      *
-     * Get returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
+     * Returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCompany'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FormationView
+     * @return \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCompany(string $contentType = self::contentTypes['getCompany'][0])
     {
@@ -214,13 +211,13 @@ class CompanyApi
     /**
      * Operation getCompanyWithHttpInfo
      *
-     * Get returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
+     * Returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCompany'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FormationView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCompanyWithHttpInfo(string $contentType = self::contentTypes['getCompany'][0])
     {
@@ -252,7 +249,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -274,7 +277,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FormationView',
+                '\Hanzo\Cloud\Model\CompanyFormationView',
                 $request,
                 $response,
             );
@@ -283,7 +286,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -298,7 +309,7 @@ class CompanyApi
     /**
      * Operation getCompanyAsync
      *
-     * Get returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
+     * Returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCompany'] to see the possible values for this operation
      *
@@ -318,7 +329,7 @@ class CompanyApi
     /**
      * Operation getCompanyAsyncWithHttpInfo
      *
-     * Get returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
+     * Returns the caller org&#39;s formation and the stages reachable from it, or 404 when the org has not begun one.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCompany'] to see the possible values for this operation
      *
@@ -327,7 +338,7 @@ class CompanyApi
      */
     public function getCompanyAsyncWithHttpInfo(string $contentType = self::contentTypes['getCompany'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FormationView';
+        $returnType = '\Hanzo\Cloud\Model\CompanyFormationView';
         $request = $this->getCompanyRequest($contentType);
 
         return $this->client
@@ -390,7 +401,7 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -459,7 +470,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RegisterPage
+     * @return \Hanzo\Cloud\Model\CompanyRegisterPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCompanyRegister($stage = null, $structure = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getCompanyRegister'][0])
     {
@@ -480,7 +491,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RegisterPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyRegisterPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCompanyRegisterWithHttpInfo($stage = null, $structure = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getCompanyRegister'][0])
     {
@@ -512,7 +523,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RegisterPage',
+                        '\Hanzo\Cloud\Model\CompanyRegisterPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -534,7 +551,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RegisterPage',
+                '\Hanzo\Cloud\Model\CompanyRegisterPage',
                 $request,
                 $response,
             );
@@ -543,7 +560,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RegisterPage',
+                        '\Hanzo\Cloud\Model\CompanyRegisterPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -595,7 +620,7 @@ class CompanyApi
      */
     public function getCompanyRegisterAsyncWithHttpInfo($stage = null, $structure = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getCompanyRegister'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RegisterPage';
+        $returnType = '\Hanzo\Cloud\Model\CompanyRegisterPage';
         $request = $this->getCompanyRegisterRequest($stage, $structure, $limit, $offset, $contentType);
 
         return $this->client
@@ -702,7 +727,7 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -767,7 +792,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RegisterCounts
+     * @return \Hanzo\Cloud\Model\CompanyRegisterCounts|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCompanyRegisterSummary(string $contentType = self::contentTypes['getCompanyRegisterSummary'][0])
     {
@@ -784,7 +809,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RegisterCounts, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyRegisterCounts|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCompanyRegisterSummaryWithHttpInfo(string $contentType = self::contentTypes['getCompanyRegisterSummary'][0])
     {
@@ -816,7 +841,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RegisterCounts',
+                        '\Hanzo\Cloud\Model\CompanyRegisterCounts',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -838,7 +869,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RegisterCounts',
+                '\Hanzo\Cloud\Model\CompanyRegisterCounts',
                 $request,
                 $response,
             );
@@ -847,7 +878,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RegisterCounts',
+                        '\Hanzo\Cloud\Model\CompanyRegisterCounts',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -891,7 +930,7 @@ class CompanyApi
      */
     public function getCompanyRegisterSummaryAsyncWithHttpInfo(string $contentType = self::contentTypes['getCompanyRegisterSummary'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RegisterCounts';
+        $returnType = '\Hanzo\Cloud\Model\CompanyRegisterCounts';
         $request = $this->getCompanyRegisterSummaryRequest($contentType);
 
         return $this->client
@@ -954,7 +993,7 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1020,7 +1059,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ReviewQueue
+     * @return \Hanzo\Cloud\Model\CompanyReviewQueue|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCompanyReview($limit = null, string $contentType = self::contentTypes['getCompanyReview'][0])
     {
@@ -1038,7 +1077,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ReviewQueue, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyReviewQueue|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCompanyReviewWithHttpInfo($limit = null, string $contentType = self::contentTypes['getCompanyReview'][0])
     {
@@ -1070,7 +1109,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ReviewQueue',
+                        '\Hanzo\Cloud\Model\CompanyReviewQueue',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1092,7 +1137,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ReviewQueue',
+                '\Hanzo\Cloud\Model\CompanyReviewQueue',
                 $request,
                 $response,
             );
@@ -1101,7 +1146,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ReviewQueue',
+                        '\Hanzo\Cloud\Model\CompanyReviewQueue',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1147,7 +1200,7 @@ class CompanyApi
      */
     public function getCompanyReviewAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getCompanyReview'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ReviewQueue';
+        $returnType = '\Hanzo\Cloud\Model\CompanyReviewQueue';
         $request = $this->getCompanyReviewRequest($limit, $contentType);
 
         return $this->client
@@ -1221,7 +1274,7 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1280,36 +1333,36 @@ class CompanyApi
     /**
      * Operation postCompany
      *
-     * Begin starts the org&#39;s one formation and returns it with the stages reachable from it.
+     * Starts the org&#39;s one formation and returns it with the stages reachable from it.
      *
-     * @param  \Hanzo\Cloud\Model\BeginIn $begin_in begin_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyBeginIn $company_begin_in company_begin_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompany'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FormationView
+     * @return \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCompany($begin_in, string $contentType = self::contentTypes['postCompany'][0])
+    public function postCompany($company_begin_in, string $contentType = self::contentTypes['postCompany'][0])
     {
-        list($response) = $this->postCompanyWithHttpInfo($begin_in, $contentType);
+        list($response) = $this->postCompanyWithHttpInfo($company_begin_in, $contentType);
         return $response;
     }
 
     /**
      * Operation postCompanyWithHttpInfo
      *
-     * Begin starts the org&#39;s one formation and returns it with the stages reachable from it.
+     * Starts the org&#39;s one formation and returns it with the stages reachable from it.
      *
-     * @param  \Hanzo\Cloud\Model\BeginIn $begin_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyBeginIn $company_begin_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompany'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FormationView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCompanyWithHttpInfo($begin_in, string $contentType = self::contentTypes['postCompany'][0])
+    public function postCompanyWithHttpInfo($company_begin_in, string $contentType = self::contentTypes['postCompany'][0])
     {
-        $request = $this->postCompanyRequest($begin_in, $contentType);
+        $request = $this->postCompanyRequest($company_begin_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1337,7 +1390,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1359,7 +1418,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FormationView',
+                '\Hanzo\Cloud\Model\CompanyFormationView',
                 $request,
                 $response,
             );
@@ -1368,7 +1427,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1383,17 +1450,17 @@ class CompanyApi
     /**
      * Operation postCompanyAsync
      *
-     * Begin starts the org&#39;s one formation and returns it with the stages reachable from it.
+     * Starts the org&#39;s one formation and returns it with the stages reachable from it.
      *
-     * @param  \Hanzo\Cloud\Model\BeginIn $begin_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyBeginIn $company_begin_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompany'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyAsync($begin_in, string $contentType = self::contentTypes['postCompany'][0])
+    public function postCompanyAsync($company_begin_in, string $contentType = self::contentTypes['postCompany'][0])
     {
-        return $this->postCompanyAsyncWithHttpInfo($begin_in, $contentType)
+        return $this->postCompanyAsyncWithHttpInfo($company_begin_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1404,18 +1471,18 @@ class CompanyApi
     /**
      * Operation postCompanyAsyncWithHttpInfo
      *
-     * Begin starts the org&#39;s one formation and returns it with the stages reachable from it.
+     * Starts the org&#39;s one formation and returns it with the stages reachable from it.
      *
-     * @param  \Hanzo\Cloud\Model\BeginIn $begin_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyBeginIn $company_begin_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompany'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyAsyncWithHttpInfo($begin_in, string $contentType = self::contentTypes['postCompany'][0])
+    public function postCompanyAsyncWithHttpInfo($company_begin_in, string $contentType = self::contentTypes['postCompany'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FormationView';
-        $request = $this->postCompanyRequest($begin_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CompanyFormationView';
+        $request = $this->postCompanyRequest($company_begin_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1456,19 +1523,19 @@ class CompanyApi
     /**
      * Create request for operation 'postCompany'
      *
-     * @param  \Hanzo\Cloud\Model\BeginIn $begin_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyBeginIn $company_begin_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompany'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCompanyRequest($begin_in, string $contentType = self::contentTypes['postCompany'][0])
+    public function postCompanyRequest($company_begin_in, string $contentType = self::contentTypes['postCompany'][0])
     {
 
-        // verify the required parameter 'begin_in' is set
-        if ($begin_in === null || (is_array($begin_in) && count($begin_in) === 0)) {
+        // verify the required parameter 'company_begin_in' is set
+        if ($company_begin_in === null || (is_array($company_begin_in) && count($company_begin_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $begin_in when calling postCompany'
+                'Missing the required parameter $company_begin_in when calling postCompany'
             );
         }
 
@@ -1485,18 +1552,18 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($begin_in)) {
+        if (isset($company_begin_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($begin_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($company_begin_in));
             } else {
-                $httpBody = $begin_in;
+                $httpBody = $company_begin_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1551,36 +1618,36 @@ class CompanyApi
     /**
      * Operation postCompanyAdvance
      *
-     * Advance runs the ONE guarded transition of the formation machine.
+     * Runs the ONE guarded transition of the formation machine.
      *
-     * @param  \Hanzo\Cloud\Model\AdvanceIn $advance_in advance_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyAdvanceIn $company_advance_in company_advance_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyAdvance'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FormationView
+     * @return \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCompanyAdvance($advance_in, string $contentType = self::contentTypes['postCompanyAdvance'][0])
+    public function postCompanyAdvance($company_advance_in, string $contentType = self::contentTypes['postCompanyAdvance'][0])
     {
-        list($response) = $this->postCompanyAdvanceWithHttpInfo($advance_in, $contentType);
+        list($response) = $this->postCompanyAdvanceWithHttpInfo($company_advance_in, $contentType);
         return $response;
     }
 
     /**
      * Operation postCompanyAdvanceWithHttpInfo
      *
-     * Advance runs the ONE guarded transition of the formation machine.
+     * Runs the ONE guarded transition of the formation machine.
      *
-     * @param  \Hanzo\Cloud\Model\AdvanceIn $advance_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyAdvanceIn $company_advance_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyAdvance'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FormationView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCompanyAdvanceWithHttpInfo($advance_in, string $contentType = self::contentTypes['postCompanyAdvance'][0])
+    public function postCompanyAdvanceWithHttpInfo($company_advance_in, string $contentType = self::contentTypes['postCompanyAdvance'][0])
     {
-        $request = $this->postCompanyAdvanceRequest($advance_in, $contentType);
+        $request = $this->postCompanyAdvanceRequest($company_advance_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1608,7 +1675,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1630,7 +1703,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FormationView',
+                '\Hanzo\Cloud\Model\CompanyFormationView',
                 $request,
                 $response,
             );
@@ -1639,7 +1712,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1654,17 +1735,17 @@ class CompanyApi
     /**
      * Operation postCompanyAdvanceAsync
      *
-     * Advance runs the ONE guarded transition of the formation machine.
+     * Runs the ONE guarded transition of the formation machine.
      *
-     * @param  \Hanzo\Cloud\Model\AdvanceIn $advance_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyAdvanceIn $company_advance_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyAdvance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyAdvanceAsync($advance_in, string $contentType = self::contentTypes['postCompanyAdvance'][0])
+    public function postCompanyAdvanceAsync($company_advance_in, string $contentType = self::contentTypes['postCompanyAdvance'][0])
     {
-        return $this->postCompanyAdvanceAsyncWithHttpInfo($advance_in, $contentType)
+        return $this->postCompanyAdvanceAsyncWithHttpInfo($company_advance_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1675,18 +1756,18 @@ class CompanyApi
     /**
      * Operation postCompanyAdvanceAsyncWithHttpInfo
      *
-     * Advance runs the ONE guarded transition of the formation machine.
+     * Runs the ONE guarded transition of the formation machine.
      *
-     * @param  \Hanzo\Cloud\Model\AdvanceIn $advance_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyAdvanceIn $company_advance_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyAdvance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyAdvanceAsyncWithHttpInfo($advance_in, string $contentType = self::contentTypes['postCompanyAdvance'][0])
+    public function postCompanyAdvanceAsyncWithHttpInfo($company_advance_in, string $contentType = self::contentTypes['postCompanyAdvance'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FormationView';
-        $request = $this->postCompanyAdvanceRequest($advance_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CompanyFormationView';
+        $request = $this->postCompanyAdvanceRequest($company_advance_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1727,19 +1808,19 @@ class CompanyApi
     /**
      * Create request for operation 'postCompanyAdvance'
      *
-     * @param  \Hanzo\Cloud\Model\AdvanceIn $advance_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyAdvanceIn $company_advance_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyAdvance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCompanyAdvanceRequest($advance_in, string $contentType = self::contentTypes['postCompanyAdvance'][0])
+    public function postCompanyAdvanceRequest($company_advance_in, string $contentType = self::contentTypes['postCompanyAdvance'][0])
     {
 
-        // verify the required parameter 'advance_in' is set
-        if ($advance_in === null || (is_array($advance_in) && count($advance_in) === 0)) {
+        // verify the required parameter 'company_advance_in' is set
+        if ($company_advance_in === null || (is_array($company_advance_in) && count($company_advance_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $advance_in when calling postCompanyAdvance'
+                'Missing the required parameter $company_advance_in when calling postCompanyAdvance'
             );
         }
 
@@ -1756,18 +1837,18 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($advance_in)) {
+        if (isset($company_advance_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($advance_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($company_advance_in));
             } else {
-                $httpBody = $advance_in;
+                $httpBody = $company_advance_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1828,7 +1909,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FormationView
+     * @return \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postCompanyDocuments(string $contentType = self::contentTypes['postCompanyDocuments'][0])
     {
@@ -1845,7 +1926,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FormationView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postCompanyDocumentsWithHttpInfo(string $contentType = self::contentTypes['postCompanyDocuments'][0])
     {
@@ -1877,7 +1958,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1899,7 +1986,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FormationView',
+                '\Hanzo\Cloud\Model\CompanyFormationView',
                 $request,
                 $response,
             );
@@ -1908,7 +1995,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1952,7 +2047,7 @@ class CompanyApi
      */
     public function postCompanyDocumentsAsyncWithHttpInfo(string $contentType = self::contentTypes['postCompanyDocuments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FormationView';
+        $returnType = '\Hanzo\Cloud\Model\CompanyFormationView';
         $request = $this->postCompanyDocumentsRequest($contentType);
 
         return $this->client
@@ -2015,7 +2110,7 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2076,16 +2171,16 @@ class CompanyApi
      *
      * Opens the EIN application and answers what it owes.
      *
-     * @param  \Hanzo\Cloud\Model\EinIn $ein_in ein_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyEinIn $company_ein_in company_ein_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyEin'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EIN
+     * @return \Hanzo\Cloud\Model\CompanyEIN|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCompanyEin($ein_in, string $contentType = self::contentTypes['postCompanyEin'][0])
+    public function postCompanyEin($company_ein_in, string $contentType = self::contentTypes['postCompanyEin'][0])
     {
-        list($response) = $this->postCompanyEinWithHttpInfo($ein_in, $contentType);
+        list($response) = $this->postCompanyEinWithHttpInfo($company_ein_in, $contentType);
         return $response;
     }
 
@@ -2094,16 +2189,16 @@ class CompanyApi
      *
      * Opens the EIN application and answers what it owes.
      *
-     * @param  \Hanzo\Cloud\Model\EinIn $ein_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyEinIn $company_ein_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyEin'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EIN, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyEIN|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCompanyEinWithHttpInfo($ein_in, string $contentType = self::contentTypes['postCompanyEin'][0])
+    public function postCompanyEinWithHttpInfo($company_ein_in, string $contentType = self::contentTypes['postCompanyEin'][0])
     {
-        $request = $this->postCompanyEinRequest($ein_in, $contentType);
+        $request = $this->postCompanyEinRequest($company_ein_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2131,7 +2226,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EIN',
+                        '\Hanzo\Cloud\Model\CompanyEIN',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2153,7 +2254,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EIN',
+                '\Hanzo\Cloud\Model\CompanyEIN',
                 $request,
                 $response,
             );
@@ -2162,7 +2263,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EIN',
+                        '\Hanzo\Cloud\Model\CompanyEIN',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2179,15 +2288,15 @@ class CompanyApi
      *
      * Opens the EIN application and answers what it owes.
      *
-     * @param  \Hanzo\Cloud\Model\EinIn $ein_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyEinIn $company_ein_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyEin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyEinAsync($ein_in, string $contentType = self::contentTypes['postCompanyEin'][0])
+    public function postCompanyEinAsync($company_ein_in, string $contentType = self::contentTypes['postCompanyEin'][0])
     {
-        return $this->postCompanyEinAsyncWithHttpInfo($ein_in, $contentType)
+        return $this->postCompanyEinAsyncWithHttpInfo($company_ein_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2200,16 +2309,16 @@ class CompanyApi
      *
      * Opens the EIN application and answers what it owes.
      *
-     * @param  \Hanzo\Cloud\Model\EinIn $ein_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyEinIn $company_ein_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyEin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyEinAsyncWithHttpInfo($ein_in, string $contentType = self::contentTypes['postCompanyEin'][0])
+    public function postCompanyEinAsyncWithHttpInfo($company_ein_in, string $contentType = self::contentTypes['postCompanyEin'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EIN';
-        $request = $this->postCompanyEinRequest($ein_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CompanyEIN';
+        $request = $this->postCompanyEinRequest($company_ein_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2250,19 +2359,19 @@ class CompanyApi
     /**
      * Create request for operation 'postCompanyEin'
      *
-     * @param  \Hanzo\Cloud\Model\EinIn $ein_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyEinIn $company_ein_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyEin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCompanyEinRequest($ein_in, string $contentType = self::contentTypes['postCompanyEin'][0])
+    public function postCompanyEinRequest($company_ein_in, string $contentType = self::contentTypes['postCompanyEin'][0])
     {
 
-        // verify the required parameter 'ein_in' is set
-        if ($ein_in === null || (is_array($ein_in) && count($ein_in) === 0)) {
+        // verify the required parameter 'company_ein_in' is set
+        if ($company_ein_in === null || (is_array($company_ein_in) && count($company_ein_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $ein_in when calling postCompanyEin'
+                'Missing the required parameter $company_ein_in when calling postCompanyEin'
             );
         }
 
@@ -2279,18 +2388,18 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($ein_in)) {
+        if (isset($company_ein_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ein_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($company_ein_in));
             } else {
-                $httpBody = $ein_in;
+                $httpBody = $company_ein_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2351,7 +2460,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignOut
+     * @return \Hanzo\Cloud\Model\CompanyEsignOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postCompanyEsign(string $contentType = self::contentTypes['postCompanyEsign'][0])
     {
@@ -2368,7 +2477,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyEsignOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postCompanyEsignWithHttpInfo(string $contentType = self::contentTypes['postCompanyEsign'][0])
     {
@@ -2400,7 +2509,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignOut',
+                        '\Hanzo\Cloud\Model\CompanyEsignOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2422,7 +2537,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignOut',
+                '\Hanzo\Cloud\Model\CompanyEsignOut',
                 $request,
                 $response,
             );
@@ -2431,7 +2546,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignOut',
+                        '\Hanzo\Cloud\Model\CompanyEsignOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2475,7 +2598,7 @@ class CompanyApi
      */
     public function postCompanyEsignAsyncWithHttpInfo(string $contentType = self::contentTypes['postCompanyEsign'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignOut';
+        $returnType = '\Hanzo\Cloud\Model\CompanyEsignOut';
         $request = $this->postCompanyEsignRequest($contentType);
 
         return $this->client
@@ -2538,7 +2661,7 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2599,16 +2722,16 @@ class CompanyApi
      *
      * Records whether the formation documents have been signed.
      *
-     * @param  \Hanzo\Cloud\Model\EsignCompleteIn $esign_complete_in esign_complete_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyEsignCompleteIn $company_esign_complete_in company_esign_complete_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyEsignComplete'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FormationView
+     * @return \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCompanyEsignComplete($esign_complete_in, string $contentType = self::contentTypes['postCompanyEsignComplete'][0])
+    public function postCompanyEsignComplete($company_esign_complete_in, string $contentType = self::contentTypes['postCompanyEsignComplete'][0])
     {
-        list($response) = $this->postCompanyEsignCompleteWithHttpInfo($esign_complete_in, $contentType);
+        list($response) = $this->postCompanyEsignCompleteWithHttpInfo($company_esign_complete_in, $contentType);
         return $response;
     }
 
@@ -2617,16 +2740,16 @@ class CompanyApi
      *
      * Records whether the formation documents have been signed.
      *
-     * @param  \Hanzo\Cloud\Model\EsignCompleteIn $esign_complete_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyEsignCompleteIn $company_esign_complete_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyEsignComplete'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FormationView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCompanyEsignCompleteWithHttpInfo($esign_complete_in, string $contentType = self::contentTypes['postCompanyEsignComplete'][0])
+    public function postCompanyEsignCompleteWithHttpInfo($company_esign_complete_in, string $contentType = self::contentTypes['postCompanyEsignComplete'][0])
     {
-        $request = $this->postCompanyEsignCompleteRequest($esign_complete_in, $contentType);
+        $request = $this->postCompanyEsignCompleteRequest($company_esign_complete_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2654,7 +2777,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2676,7 +2805,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FormationView',
+                '\Hanzo\Cloud\Model\CompanyFormationView',
                 $request,
                 $response,
             );
@@ -2685,7 +2814,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2702,15 +2839,15 @@ class CompanyApi
      *
      * Records whether the formation documents have been signed.
      *
-     * @param  \Hanzo\Cloud\Model\EsignCompleteIn $esign_complete_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyEsignCompleteIn $company_esign_complete_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyEsignComplete'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyEsignCompleteAsync($esign_complete_in, string $contentType = self::contentTypes['postCompanyEsignComplete'][0])
+    public function postCompanyEsignCompleteAsync($company_esign_complete_in, string $contentType = self::contentTypes['postCompanyEsignComplete'][0])
     {
-        return $this->postCompanyEsignCompleteAsyncWithHttpInfo($esign_complete_in, $contentType)
+        return $this->postCompanyEsignCompleteAsyncWithHttpInfo($company_esign_complete_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2723,16 +2860,16 @@ class CompanyApi
      *
      * Records whether the formation documents have been signed.
      *
-     * @param  \Hanzo\Cloud\Model\EsignCompleteIn $esign_complete_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyEsignCompleteIn $company_esign_complete_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyEsignComplete'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyEsignCompleteAsyncWithHttpInfo($esign_complete_in, string $contentType = self::contentTypes['postCompanyEsignComplete'][0])
+    public function postCompanyEsignCompleteAsyncWithHttpInfo($company_esign_complete_in, string $contentType = self::contentTypes['postCompanyEsignComplete'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FormationView';
-        $request = $this->postCompanyEsignCompleteRequest($esign_complete_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CompanyFormationView';
+        $request = $this->postCompanyEsignCompleteRequest($company_esign_complete_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2773,19 +2910,19 @@ class CompanyApi
     /**
      * Create request for operation 'postCompanyEsignComplete'
      *
-     * @param  \Hanzo\Cloud\Model\EsignCompleteIn $esign_complete_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyEsignCompleteIn $company_esign_complete_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyEsignComplete'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCompanyEsignCompleteRequest($esign_complete_in, string $contentType = self::contentTypes['postCompanyEsignComplete'][0])
+    public function postCompanyEsignCompleteRequest($company_esign_complete_in, string $contentType = self::contentTypes['postCompanyEsignComplete'][0])
     {
 
-        // verify the required parameter 'esign_complete_in' is set
-        if ($esign_complete_in === null || (is_array($esign_complete_in) && count($esign_complete_in) === 0)) {
+        // verify the required parameter 'company_esign_complete_in' is set
+        if ($company_esign_complete_in === null || (is_array($company_esign_complete_in) && count($company_esign_complete_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $esign_complete_in when calling postCompanyEsignComplete'
+                'Missing the required parameter $company_esign_complete_in when calling postCompanyEsignComplete'
             );
         }
 
@@ -2802,18 +2939,18 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($esign_complete_in)) {
+        if (isset($company_esign_complete_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($esign_complete_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($company_esign_complete_in));
             } else {
-                $httpBody = $esign_complete_in;
+                $httpBody = $company_esign_complete_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2870,16 +3007,16 @@ class CompanyApi
      *
      * Replaces the formation&#39;s founders.
      *
-     * @param  \Hanzo\Cloud\Model\FoundersIn $founders_in founders_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyFoundersIn $company_founders_in company_founders_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFounders'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FormationView
+     * @return \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCompanyFounders($founders_in, string $contentType = self::contentTypes['postCompanyFounders'][0])
+    public function postCompanyFounders($company_founders_in, string $contentType = self::contentTypes['postCompanyFounders'][0])
     {
-        list($response) = $this->postCompanyFoundersWithHttpInfo($founders_in, $contentType);
+        list($response) = $this->postCompanyFoundersWithHttpInfo($company_founders_in, $contentType);
         return $response;
     }
 
@@ -2888,16 +3025,16 @@ class CompanyApi
      *
      * Replaces the formation&#39;s founders.
      *
-     * @param  \Hanzo\Cloud\Model\FoundersIn $founders_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyFoundersIn $company_founders_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFounders'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FormationView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCompanyFoundersWithHttpInfo($founders_in, string $contentType = self::contentTypes['postCompanyFounders'][0])
+    public function postCompanyFoundersWithHttpInfo($company_founders_in, string $contentType = self::contentTypes['postCompanyFounders'][0])
     {
-        $request = $this->postCompanyFoundersRequest($founders_in, $contentType);
+        $request = $this->postCompanyFoundersRequest($company_founders_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2925,7 +3062,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2947,7 +3090,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FormationView',
+                '\Hanzo\Cloud\Model\CompanyFormationView',
                 $request,
                 $response,
             );
@@ -2956,7 +3099,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2973,15 +3124,15 @@ class CompanyApi
      *
      * Replaces the formation&#39;s founders.
      *
-     * @param  \Hanzo\Cloud\Model\FoundersIn $founders_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyFoundersIn $company_founders_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFounders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyFoundersAsync($founders_in, string $contentType = self::contentTypes['postCompanyFounders'][0])
+    public function postCompanyFoundersAsync($company_founders_in, string $contentType = self::contentTypes['postCompanyFounders'][0])
     {
-        return $this->postCompanyFoundersAsyncWithHttpInfo($founders_in, $contentType)
+        return $this->postCompanyFoundersAsyncWithHttpInfo($company_founders_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2994,16 +3145,16 @@ class CompanyApi
      *
      * Replaces the formation&#39;s founders.
      *
-     * @param  \Hanzo\Cloud\Model\FoundersIn $founders_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyFoundersIn $company_founders_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFounders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyFoundersAsyncWithHttpInfo($founders_in, string $contentType = self::contentTypes['postCompanyFounders'][0])
+    public function postCompanyFoundersAsyncWithHttpInfo($company_founders_in, string $contentType = self::contentTypes['postCompanyFounders'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FormationView';
-        $request = $this->postCompanyFoundersRequest($founders_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CompanyFormationView';
+        $request = $this->postCompanyFoundersRequest($company_founders_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3044,19 +3195,19 @@ class CompanyApi
     /**
      * Create request for operation 'postCompanyFounders'
      *
-     * @param  \Hanzo\Cloud\Model\FoundersIn $founders_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyFoundersIn $company_founders_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFounders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCompanyFoundersRequest($founders_in, string $contentType = self::contentTypes['postCompanyFounders'][0])
+    public function postCompanyFoundersRequest($company_founders_in, string $contentType = self::contentTypes['postCompanyFounders'][0])
     {
 
-        // verify the required parameter 'founders_in' is set
-        if ($founders_in === null || (is_array($founders_in) && count($founders_in) === 0)) {
+        // verify the required parameter 'company_founders_in' is set
+        if ($company_founders_in === null || (is_array($company_founders_in) && count($company_founders_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $founders_in when calling postCompanyFounders'
+                'Missing the required parameter $company_founders_in when calling postCompanyFounders'
             );
         }
 
@@ -3073,18 +3224,18 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($founders_in)) {
+        if (isset($company_founders_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($founders_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($company_founders_in));
             } else {
-                $httpBody = $founders_in;
+                $httpBody = $company_founders_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3409,16 +3560,16 @@ class CompanyApi
      *
      * Records a fundraising round on the org&#39;s canonical cap table.
      *
-     * @param  \Hanzo\Cloud\Model\RoundInput $round_input round_input (required)
+     * @param  \Hanzo\Cloud\Model\CompanyRoundInput $company_round_input company_round_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFundraiseRound'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RoundOut
+     * @return \Hanzo\Cloud\Model\CompanyRoundOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCompanyFundraiseRound($round_input, string $contentType = self::contentTypes['postCompanyFundraiseRound'][0])
+    public function postCompanyFundraiseRound($company_round_input, string $contentType = self::contentTypes['postCompanyFundraiseRound'][0])
     {
-        list($response) = $this->postCompanyFundraiseRoundWithHttpInfo($round_input, $contentType);
+        list($response) = $this->postCompanyFundraiseRoundWithHttpInfo($company_round_input, $contentType);
         return $response;
     }
 
@@ -3427,16 +3578,16 @@ class CompanyApi
      *
      * Records a fundraising round on the org&#39;s canonical cap table.
      *
-     * @param  \Hanzo\Cloud\Model\RoundInput $round_input (required)
+     * @param  \Hanzo\Cloud\Model\CompanyRoundInput $company_round_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFundraiseRound'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RoundOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyRoundOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCompanyFundraiseRoundWithHttpInfo($round_input, string $contentType = self::contentTypes['postCompanyFundraiseRound'][0])
+    public function postCompanyFundraiseRoundWithHttpInfo($company_round_input, string $contentType = self::contentTypes['postCompanyFundraiseRound'][0])
     {
-        $request = $this->postCompanyFundraiseRoundRequest($round_input, $contentType);
+        $request = $this->postCompanyFundraiseRoundRequest($company_round_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3464,7 +3615,13 @@ class CompanyApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RoundOut',
+                        '\Hanzo\Cloud\Model\CompanyRoundOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3486,7 +3643,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RoundOut',
+                '\Hanzo\Cloud\Model\CompanyRoundOut',
                 $request,
                 $response,
             );
@@ -3495,7 +3652,15 @@ class CompanyApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RoundOut',
+                        '\Hanzo\Cloud\Model\CompanyRoundOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3512,15 +3677,15 @@ class CompanyApi
      *
      * Records a fundraising round on the org&#39;s canonical cap table.
      *
-     * @param  \Hanzo\Cloud\Model\RoundInput $round_input (required)
+     * @param  \Hanzo\Cloud\Model\CompanyRoundInput $company_round_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFundraiseRound'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyFundraiseRoundAsync($round_input, string $contentType = self::contentTypes['postCompanyFundraiseRound'][0])
+    public function postCompanyFundraiseRoundAsync($company_round_input, string $contentType = self::contentTypes['postCompanyFundraiseRound'][0])
     {
-        return $this->postCompanyFundraiseRoundAsyncWithHttpInfo($round_input, $contentType)
+        return $this->postCompanyFundraiseRoundAsyncWithHttpInfo($company_round_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3533,16 +3698,16 @@ class CompanyApi
      *
      * Records a fundraising round on the org&#39;s canonical cap table.
      *
-     * @param  \Hanzo\Cloud\Model\RoundInput $round_input (required)
+     * @param  \Hanzo\Cloud\Model\CompanyRoundInput $company_round_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFundraiseRound'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyFundraiseRoundAsyncWithHttpInfo($round_input, string $contentType = self::contentTypes['postCompanyFundraiseRound'][0])
+    public function postCompanyFundraiseRoundAsyncWithHttpInfo($company_round_input, string $contentType = self::contentTypes['postCompanyFundraiseRound'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RoundOut';
-        $request = $this->postCompanyFundraiseRoundRequest($round_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CompanyRoundOut';
+        $request = $this->postCompanyFundraiseRoundRequest($company_round_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3583,19 +3748,19 @@ class CompanyApi
     /**
      * Create request for operation 'postCompanyFundraiseRound'
      *
-     * @param  \Hanzo\Cloud\Model\RoundInput $round_input (required)
+     * @param  \Hanzo\Cloud\Model\CompanyRoundInput $company_round_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFundraiseRound'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCompanyFundraiseRoundRequest($round_input, string $contentType = self::contentTypes['postCompanyFundraiseRound'][0])
+    public function postCompanyFundraiseRoundRequest($company_round_input, string $contentType = self::contentTypes['postCompanyFundraiseRound'][0])
     {
 
-        // verify the required parameter 'round_input' is set
-        if ($round_input === null || (is_array($round_input) && count($round_input) === 0)) {
+        // verify the required parameter 'company_round_input' is set
+        if ($company_round_input === null || (is_array($company_round_input) && count($company_round_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $round_input when calling postCompanyFundraiseRound'
+                'Missing the required parameter $company_round_input when calling postCompanyFundraiseRound'
             );
         }
 
@@ -3612,18 +3777,18 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($round_input)) {
+        if (isset($company_round_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($round_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($company_round_input));
             } else {
-                $httpBody = $round_input;
+                $httpBody = $company_round_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3680,16 +3845,16 @@ class CompanyApi
      *
      * Raises an e-signature request over documents already in the org&#39;s data room — a SAFE, a convertible note, or any other fundraising paper.
      *
-     * @param  \Hanzo\Cloud\Model\SafeIn $safe_in safe_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanySafeIn $company_safe_in company_safe_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFundraiseSafe'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SafeOut
+     * @return \Hanzo\Cloud\Model\CompanySafeOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCompanyFundraiseSafe($safe_in, string $contentType = self::contentTypes['postCompanyFundraiseSafe'][0])
+    public function postCompanyFundraiseSafe($company_safe_in, string $contentType = self::contentTypes['postCompanyFundraiseSafe'][0])
     {
-        list($response) = $this->postCompanyFundraiseSafeWithHttpInfo($safe_in, $contentType);
+        list($response) = $this->postCompanyFundraiseSafeWithHttpInfo($company_safe_in, $contentType);
         return $response;
     }
 
@@ -3698,16 +3863,16 @@ class CompanyApi
      *
      * Raises an e-signature request over documents already in the org&#39;s data room — a SAFE, a convertible note, or any other fundraising paper.
      *
-     * @param  \Hanzo\Cloud\Model\SafeIn $safe_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanySafeIn $company_safe_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFundraiseSafe'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SafeOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanySafeOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCompanyFundraiseSafeWithHttpInfo($safe_in, string $contentType = self::contentTypes['postCompanyFundraiseSafe'][0])
+    public function postCompanyFundraiseSafeWithHttpInfo($company_safe_in, string $contentType = self::contentTypes['postCompanyFundraiseSafe'][0])
     {
-        $request = $this->postCompanyFundraiseSafeRequest($safe_in, $contentType);
+        $request = $this->postCompanyFundraiseSafeRequest($company_safe_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3735,7 +3900,13 @@ class CompanyApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SafeOut',
+                        '\Hanzo\Cloud\Model\CompanySafeOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3757,7 +3928,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SafeOut',
+                '\Hanzo\Cloud\Model\CompanySafeOut',
                 $request,
                 $response,
             );
@@ -3766,7 +3937,15 @@ class CompanyApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SafeOut',
+                        '\Hanzo\Cloud\Model\CompanySafeOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3783,15 +3962,15 @@ class CompanyApi
      *
      * Raises an e-signature request over documents already in the org&#39;s data room — a SAFE, a convertible note, or any other fundraising paper.
      *
-     * @param  \Hanzo\Cloud\Model\SafeIn $safe_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanySafeIn $company_safe_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFundraiseSafe'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyFundraiseSafeAsync($safe_in, string $contentType = self::contentTypes['postCompanyFundraiseSafe'][0])
+    public function postCompanyFundraiseSafeAsync($company_safe_in, string $contentType = self::contentTypes['postCompanyFundraiseSafe'][0])
     {
-        return $this->postCompanyFundraiseSafeAsyncWithHttpInfo($safe_in, $contentType)
+        return $this->postCompanyFundraiseSafeAsyncWithHttpInfo($company_safe_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3804,16 +3983,16 @@ class CompanyApi
      *
      * Raises an e-signature request over documents already in the org&#39;s data room — a SAFE, a convertible note, or any other fundraising paper.
      *
-     * @param  \Hanzo\Cloud\Model\SafeIn $safe_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanySafeIn $company_safe_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFundraiseSafe'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyFundraiseSafeAsyncWithHttpInfo($safe_in, string $contentType = self::contentTypes['postCompanyFundraiseSafe'][0])
+    public function postCompanyFundraiseSafeAsyncWithHttpInfo($company_safe_in, string $contentType = self::contentTypes['postCompanyFundraiseSafe'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SafeOut';
-        $request = $this->postCompanyFundraiseSafeRequest($safe_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CompanySafeOut';
+        $request = $this->postCompanyFundraiseSafeRequest($company_safe_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3854,19 +4033,19 @@ class CompanyApi
     /**
      * Create request for operation 'postCompanyFundraiseSafe'
      *
-     * @param  \Hanzo\Cloud\Model\SafeIn $safe_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanySafeIn $company_safe_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyFundraiseSafe'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCompanyFundraiseSafeRequest($safe_in, string $contentType = self::contentTypes['postCompanyFundraiseSafe'][0])
+    public function postCompanyFundraiseSafeRequest($company_safe_in, string $contentType = self::contentTypes['postCompanyFundraiseSafe'][0])
     {
 
-        // verify the required parameter 'safe_in' is set
-        if ($safe_in === null || (is_array($safe_in) && count($safe_in) === 0)) {
+        // verify the required parameter 'company_safe_in' is set
+        if ($company_safe_in === null || (is_array($company_safe_in) && count($company_safe_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $safe_in when calling postCompanyFundraiseSafe'
+                'Missing the required parameter $company_safe_in when calling postCompanyFundraiseSafe'
             );
         }
 
@@ -3883,18 +4062,18 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($safe_in)) {
+        if (isset($company_safe_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($safe_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($company_safe_in));
             } else {
-                $httpBody = $safe_in;
+                $httpBody = $company_safe_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3955,7 +4134,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FormationView
+     * @return \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postCompanyGenesis(string $contentType = self::contentTypes['postCompanyGenesis'][0])
     {
@@ -3972,7 +4151,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FormationView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postCompanyGenesisWithHttpInfo(string $contentType = self::contentTypes['postCompanyGenesis'][0])
     {
@@ -4004,7 +4183,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4026,7 +4211,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FormationView',
+                '\Hanzo\Cloud\Model\CompanyFormationView',
                 $request,
                 $response,
             );
@@ -4035,7 +4220,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4079,7 +4272,7 @@ class CompanyApi
      */
     public function postCompanyGenesisAsyncWithHttpInfo(string $contentType = self::contentTypes['postCompanyGenesis'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FormationView';
+        $returnType = '\Hanzo\Cloud\Model\CompanyFormationView';
         $request = $this->postCompanyGenesisRequest($contentType);
 
         return $this->client
@@ -4142,7 +4335,7 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4203,16 +4396,16 @@ class CompanyApi
      *
      * Reads an existing company&#39;s cap table from a Google Sheet and adds its stakeholders to the canonical cap table.
      *
-     * @param  \Hanzo\Cloud\Model\ImportCapTableIn $import_cap_table_in import_cap_table_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyImportCapTableIn $company_import_cap_table_in company_import_cap_table_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyImportCaptable'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ImportCapTableOut
+     * @return \Hanzo\Cloud\Model\CompanyImportCapTableOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCompanyImportCaptable($import_cap_table_in, string $contentType = self::contentTypes['postCompanyImportCaptable'][0])
+    public function postCompanyImportCaptable($company_import_cap_table_in, string $contentType = self::contentTypes['postCompanyImportCaptable'][0])
     {
-        list($response) = $this->postCompanyImportCaptableWithHttpInfo($import_cap_table_in, $contentType);
+        list($response) = $this->postCompanyImportCaptableWithHttpInfo($company_import_cap_table_in, $contentType);
         return $response;
     }
 
@@ -4221,16 +4414,16 @@ class CompanyApi
      *
      * Reads an existing company&#39;s cap table from a Google Sheet and adds its stakeholders to the canonical cap table.
      *
-     * @param  \Hanzo\Cloud\Model\ImportCapTableIn $import_cap_table_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyImportCapTableIn $company_import_cap_table_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyImportCaptable'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ImportCapTableOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyImportCapTableOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCompanyImportCaptableWithHttpInfo($import_cap_table_in, string $contentType = self::contentTypes['postCompanyImportCaptable'][0])
+    public function postCompanyImportCaptableWithHttpInfo($company_import_cap_table_in, string $contentType = self::contentTypes['postCompanyImportCaptable'][0])
     {
-        $request = $this->postCompanyImportCaptableRequest($import_cap_table_in, $contentType);
+        $request = $this->postCompanyImportCaptableRequest($company_import_cap_table_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4258,7 +4451,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ImportCapTableOut',
+                        '\Hanzo\Cloud\Model\CompanyImportCapTableOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4280,7 +4479,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ImportCapTableOut',
+                '\Hanzo\Cloud\Model\CompanyImportCapTableOut',
                 $request,
                 $response,
             );
@@ -4289,7 +4488,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ImportCapTableOut',
+                        '\Hanzo\Cloud\Model\CompanyImportCapTableOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4306,15 +4513,15 @@ class CompanyApi
      *
      * Reads an existing company&#39;s cap table from a Google Sheet and adds its stakeholders to the canonical cap table.
      *
-     * @param  \Hanzo\Cloud\Model\ImportCapTableIn $import_cap_table_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyImportCapTableIn $company_import_cap_table_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyImportCaptable'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyImportCaptableAsync($import_cap_table_in, string $contentType = self::contentTypes['postCompanyImportCaptable'][0])
+    public function postCompanyImportCaptableAsync($company_import_cap_table_in, string $contentType = self::contentTypes['postCompanyImportCaptable'][0])
     {
-        return $this->postCompanyImportCaptableAsyncWithHttpInfo($import_cap_table_in, $contentType)
+        return $this->postCompanyImportCaptableAsyncWithHttpInfo($company_import_cap_table_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4327,16 +4534,16 @@ class CompanyApi
      *
      * Reads an existing company&#39;s cap table from a Google Sheet and adds its stakeholders to the canonical cap table.
      *
-     * @param  \Hanzo\Cloud\Model\ImportCapTableIn $import_cap_table_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyImportCapTableIn $company_import_cap_table_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyImportCaptable'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyImportCaptableAsyncWithHttpInfo($import_cap_table_in, string $contentType = self::contentTypes['postCompanyImportCaptable'][0])
+    public function postCompanyImportCaptableAsyncWithHttpInfo($company_import_cap_table_in, string $contentType = self::contentTypes['postCompanyImportCaptable'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ImportCapTableOut';
-        $request = $this->postCompanyImportCaptableRequest($import_cap_table_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CompanyImportCapTableOut';
+        $request = $this->postCompanyImportCaptableRequest($company_import_cap_table_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4377,19 +4584,19 @@ class CompanyApi
     /**
      * Create request for operation 'postCompanyImportCaptable'
      *
-     * @param  \Hanzo\Cloud\Model\ImportCapTableIn $import_cap_table_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyImportCapTableIn $company_import_cap_table_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyImportCaptable'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCompanyImportCaptableRequest($import_cap_table_in, string $contentType = self::contentTypes['postCompanyImportCaptable'][0])
+    public function postCompanyImportCaptableRequest($company_import_cap_table_in, string $contentType = self::contentTypes['postCompanyImportCaptable'][0])
     {
 
-        // verify the required parameter 'import_cap_table_in' is set
-        if ($import_cap_table_in === null || (is_array($import_cap_table_in) && count($import_cap_table_in) === 0)) {
+        // verify the required parameter 'company_import_cap_table_in' is set
+        if ($company_import_cap_table_in === null || (is_array($company_import_cap_table_in) && count($company_import_cap_table_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $import_cap_table_in when calling postCompanyImportCaptable'
+                'Missing the required parameter $company_import_cap_table_in when calling postCompanyImportCaptable'
             );
         }
 
@@ -4406,18 +4613,18 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($import_cap_table_in)) {
+        if (isset($company_import_cap_table_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($import_cap_table_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($company_import_cap_table_in));
             } else {
-                $httpBody = $import_cap_table_in;
+                $httpBody = $company_import_cap_table_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4474,16 +4681,16 @@ class CompanyApi
      *
      * Ingests an existing company&#39;s corporate documents from a Google Drive folder into the org&#39;s data room.
      *
-     * @param  \Hanzo\Cloud\Model\ImportDocumentsIn $import_documents_in import_documents_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyImportDocumentsIn $company_import_documents_in company_import_documents_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyImportDocuments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ImportDocumentsOut
+     * @return \Hanzo\Cloud\Model\CompanyImportDocumentsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCompanyImportDocuments($import_documents_in, string $contentType = self::contentTypes['postCompanyImportDocuments'][0])
+    public function postCompanyImportDocuments($company_import_documents_in, string $contentType = self::contentTypes['postCompanyImportDocuments'][0])
     {
-        list($response) = $this->postCompanyImportDocumentsWithHttpInfo($import_documents_in, $contentType);
+        list($response) = $this->postCompanyImportDocumentsWithHttpInfo($company_import_documents_in, $contentType);
         return $response;
     }
 
@@ -4492,16 +4699,16 @@ class CompanyApi
      *
      * Ingests an existing company&#39;s corporate documents from a Google Drive folder into the org&#39;s data room.
      *
-     * @param  \Hanzo\Cloud\Model\ImportDocumentsIn $import_documents_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyImportDocumentsIn $company_import_documents_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyImportDocuments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ImportDocumentsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyImportDocumentsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCompanyImportDocumentsWithHttpInfo($import_documents_in, string $contentType = self::contentTypes['postCompanyImportDocuments'][0])
+    public function postCompanyImportDocumentsWithHttpInfo($company_import_documents_in, string $contentType = self::contentTypes['postCompanyImportDocuments'][0])
     {
-        $request = $this->postCompanyImportDocumentsRequest($import_documents_in, $contentType);
+        $request = $this->postCompanyImportDocumentsRequest($company_import_documents_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4529,7 +4736,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ImportDocumentsOut',
+                        '\Hanzo\Cloud\Model\CompanyImportDocumentsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4551,7 +4764,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ImportDocumentsOut',
+                '\Hanzo\Cloud\Model\CompanyImportDocumentsOut',
                 $request,
                 $response,
             );
@@ -4560,7 +4773,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ImportDocumentsOut',
+                        '\Hanzo\Cloud\Model\CompanyImportDocumentsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4577,15 +4798,15 @@ class CompanyApi
      *
      * Ingests an existing company&#39;s corporate documents from a Google Drive folder into the org&#39;s data room.
      *
-     * @param  \Hanzo\Cloud\Model\ImportDocumentsIn $import_documents_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyImportDocumentsIn $company_import_documents_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyImportDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyImportDocumentsAsync($import_documents_in, string $contentType = self::contentTypes['postCompanyImportDocuments'][0])
+    public function postCompanyImportDocumentsAsync($company_import_documents_in, string $contentType = self::contentTypes['postCompanyImportDocuments'][0])
     {
-        return $this->postCompanyImportDocumentsAsyncWithHttpInfo($import_documents_in, $contentType)
+        return $this->postCompanyImportDocumentsAsyncWithHttpInfo($company_import_documents_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4598,16 +4819,16 @@ class CompanyApi
      *
      * Ingests an existing company&#39;s corporate documents from a Google Drive folder into the org&#39;s data room.
      *
-     * @param  \Hanzo\Cloud\Model\ImportDocumentsIn $import_documents_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyImportDocumentsIn $company_import_documents_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyImportDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyImportDocumentsAsyncWithHttpInfo($import_documents_in, string $contentType = self::contentTypes['postCompanyImportDocuments'][0])
+    public function postCompanyImportDocumentsAsyncWithHttpInfo($company_import_documents_in, string $contentType = self::contentTypes['postCompanyImportDocuments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ImportDocumentsOut';
-        $request = $this->postCompanyImportDocumentsRequest($import_documents_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CompanyImportDocumentsOut';
+        $request = $this->postCompanyImportDocumentsRequest($company_import_documents_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4648,19 +4869,19 @@ class CompanyApi
     /**
      * Create request for operation 'postCompanyImportDocuments'
      *
-     * @param  \Hanzo\Cloud\Model\ImportDocumentsIn $import_documents_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyImportDocumentsIn $company_import_documents_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyImportDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCompanyImportDocumentsRequest($import_documents_in, string $contentType = self::contentTypes['postCompanyImportDocuments'][0])
+    public function postCompanyImportDocumentsRequest($company_import_documents_in, string $contentType = self::contentTypes['postCompanyImportDocuments'][0])
     {
 
-        // verify the required parameter 'import_documents_in' is set
-        if ($import_documents_in === null || (is_array($import_documents_in) && count($import_documents_in) === 0)) {
+        // verify the required parameter 'company_import_documents_in' is set
+        if ($company_import_documents_in === null || (is_array($company_import_documents_in) && count($company_import_documents_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $import_documents_in when calling postCompanyImportDocuments'
+                'Missing the required parameter $company_import_documents_in when calling postCompanyImportDocuments'
             );
         }
 
@@ -4677,18 +4898,18 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($import_documents_in)) {
+        if (isset($company_import_documents_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($import_documents_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($company_import_documents_in));
             } else {
-                $httpBody = $import_documents_in;
+                $httpBody = $company_import_documents_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4743,13 +4964,13 @@ class CompanyApi
     /**
      * Operation postCompanyKyc
      *
-     * StartKYC opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
+     * Opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyKyc'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KycStartOut
+     * @return \Hanzo\Cloud\Model\CompanyKycStartOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postCompanyKyc(string $contentType = self::contentTypes['postCompanyKyc'][0])
     {
@@ -4760,13 +4981,13 @@ class CompanyApi
     /**
      * Operation postCompanyKycWithHttpInfo
      *
-     * StartKYC opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
+     * Opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyKyc'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KycStartOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyKycStartOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postCompanyKycWithHttpInfo(string $contentType = self::contentTypes['postCompanyKyc'][0])
     {
@@ -4798,7 +5019,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KycStartOut',
+                        '\Hanzo\Cloud\Model\CompanyKycStartOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4820,7 +5047,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KycStartOut',
+                '\Hanzo\Cloud\Model\CompanyKycStartOut',
                 $request,
                 $response,
             );
@@ -4829,7 +5056,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KycStartOut',
+                        '\Hanzo\Cloud\Model\CompanyKycStartOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4844,7 +5079,7 @@ class CompanyApi
     /**
      * Operation postCompanyKycAsync
      *
-     * StartKYC opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
+     * Opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyKyc'] to see the possible values for this operation
      *
@@ -4864,7 +5099,7 @@ class CompanyApi
     /**
      * Operation postCompanyKycAsyncWithHttpInfo
      *
-     * StartKYC opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
+     * Opens an identity-verification session for every founder with the wired provider and records each session&#39;s reference on the formation.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyKyc'] to see the possible values for this operation
      *
@@ -4873,7 +5108,7 @@ class CompanyApi
      */
     public function postCompanyKycAsyncWithHttpInfo(string $contentType = self::contentTypes['postCompanyKyc'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KycStartOut';
+        $returnType = '\Hanzo\Cloud\Model\CompanyKycStartOut';
         $request = $this->postCompanyKycRequest($contentType);
 
         return $this->client
@@ -4936,284 +5171,13 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postCompanyKycDecision
-     *
-     * DecideKYC records a privileged reviewer&#39;s MANUAL decision on a founder&#39;s KYC — the human-in-the-loop path, and the ONLY route to a pass when no real provider is wired.
-     *
-     * @param  \Hanzo\Cloud\Model\DecisionIn $decision_in decision_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyKycDecision'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FormationView
-     */
-    public function postCompanyKycDecision($decision_in, string $contentType = self::contentTypes['postCompanyKycDecision'][0])
-    {
-        list($response) = $this->postCompanyKycDecisionWithHttpInfo($decision_in, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postCompanyKycDecisionWithHttpInfo
-     *
-     * DecideKYC records a privileged reviewer&#39;s MANUAL decision on a founder&#39;s KYC — the human-in-the-loop path, and the ONLY route to a pass when no real provider is wired.
-     *
-     * @param  \Hanzo\Cloud\Model\DecisionIn $decision_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyKycDecision'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FormationView, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postCompanyKycDecisionWithHttpInfo($decision_in, string $contentType = self::contentTypes['postCompanyKycDecision'][0])
-    {
-        $request = $this->postCompanyKycDecisionRequest($decision_in, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FormationView',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FormationView',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FormationView',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postCompanyKycDecisionAsync
-     *
-     * DecideKYC records a privileged reviewer&#39;s MANUAL decision on a founder&#39;s KYC — the human-in-the-loop path, and the ONLY route to a pass when no real provider is wired.
-     *
-     * @param  \Hanzo\Cloud\Model\DecisionIn $decision_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyKycDecision'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCompanyKycDecisionAsync($decision_in, string $contentType = self::contentTypes['postCompanyKycDecision'][0])
-    {
-        return $this->postCompanyKycDecisionAsyncWithHttpInfo($decision_in, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postCompanyKycDecisionAsyncWithHttpInfo
-     *
-     * DecideKYC records a privileged reviewer&#39;s MANUAL decision on a founder&#39;s KYC — the human-in-the-loop path, and the ONLY route to a pass when no real provider is wired.
-     *
-     * @param  \Hanzo\Cloud\Model\DecisionIn $decision_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyKycDecision'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postCompanyKycDecisionAsyncWithHttpInfo($decision_in, string $contentType = self::contentTypes['postCompanyKycDecision'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\FormationView';
-        $request = $this->postCompanyKycDecisionRequest($decision_in, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postCompanyKycDecision'
-     *
-     * @param  \Hanzo\Cloud\Model\DecisionIn $decision_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyKycDecision'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postCompanyKycDecisionRequest($decision_in, string $contentType = self::contentTypes['postCompanyKycDecision'][0])
-    {
-
-        // verify the required parameter 'decision_in' is set
-        if ($decision_in === null || (is_array($decision_in) && count($decision_in) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $decision_in when calling postCompanyKycDecision'
-            );
-        }
-
-
-        $resourcePath = '/v1/company/kyc/decision';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($decision_in)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($decision_in));
-            } else {
-                $httpBody = $decision_in;
-            }
-        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -5272,7 +5236,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KycRefreshOut
+     * @return \Hanzo\Cloud\Model\CompanyKycRefreshOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postCompanyKycRefresh(string $contentType = self::contentTypes['postCompanyKycRefresh'][0])
     {
@@ -5289,7 +5253,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KycRefreshOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyKycRefreshOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postCompanyKycRefreshWithHttpInfo(string $contentType = self::contentTypes['postCompanyKycRefresh'][0])
     {
@@ -5321,7 +5285,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KycRefreshOut',
+                        '\Hanzo\Cloud\Model\CompanyKycRefreshOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5343,7 +5313,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KycRefreshOut',
+                '\Hanzo\Cloud\Model\CompanyKycRefreshOut',
                 $request,
                 $response,
             );
@@ -5352,7 +5322,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KycRefreshOut',
+                        '\Hanzo\Cloud\Model\CompanyKycRefreshOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5396,7 +5374,7 @@ class CompanyApi
      */
     public function postCompanyKycRefreshAsyncWithHttpInfo(string $contentType = self::contentTypes['postCompanyKycRefresh'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KycRefreshOut';
+        $returnType = '\Hanzo\Cloud\Model\CompanyKycRefreshOut';
         $request = $this->postCompanyKycRefreshRequest($contentType);
 
         return $this->client
@@ -5459,7 +5437,7 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5524,7 +5502,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FormationView
+     * @return \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postCompanyPayment(string $contentType = self::contentTypes['postCompanyPayment'][0])
     {
@@ -5541,7 +5519,7 @@ class CompanyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FormationView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postCompanyPaymentWithHttpInfo(string $contentType = self::contentTypes['postCompanyPayment'][0])
     {
@@ -5573,7 +5551,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5595,7 +5579,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FormationView',
+                '\Hanzo\Cloud\Model\CompanyFormationView',
                 $request,
                 $response,
             );
@@ -5604,7 +5588,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5648,7 +5640,7 @@ class CompanyApi
      */
     public function postCompanyPaymentAsyncWithHttpInfo(string $contentType = self::contentTypes['postCompanyPayment'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FormationView';
+        $returnType = '\Hanzo\Cloud\Model\CompanyFormationView';
         $request = $this->postCompanyPaymentRequest($contentType);
 
         return $this->client
@@ -5711,7 +5703,7 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5770,13 +5762,13 @@ class CompanyApi
     /**
      * Operation postCompanySkip
      *
-     * Skip marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
+     * Marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanySkip'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FormationView
+     * @return \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postCompanySkip(string $contentType = self::contentTypes['postCompanySkip'][0])
     {
@@ -5787,13 +5779,13 @@ class CompanyApi
     /**
      * Operation postCompanySkipWithHttpInfo
      *
-     * Skip marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
+     * Marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanySkip'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FormationView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postCompanySkipWithHttpInfo(string $contentType = self::contentTypes['postCompanySkip'][0])
     {
@@ -5825,7 +5817,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5847,7 +5845,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FormationView',
+                '\Hanzo\Cloud\Model\CompanyFormationView',
                 $request,
                 $response,
             );
@@ -5856,7 +5854,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5871,7 +5877,7 @@ class CompanyApi
     /**
      * Operation postCompanySkipAsync
      *
-     * Skip marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
+     * Marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanySkip'] to see the possible values for this operation
      *
@@ -5891,7 +5897,7 @@ class CompanyApi
     /**
      * Operation postCompanySkipAsyncWithHttpInfo
      *
-     * Skip marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
+     * Marks the org as already incorporated and moves it onto the import path, so an existing company brings its documents and cap table in instead of forming a new entity.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanySkip'] to see the possible values for this operation
      *
@@ -5900,7 +5906,7 @@ class CompanyApi
      */
     public function postCompanySkipAsyncWithHttpInfo(string $contentType = self::contentTypes['postCompanySkip'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FormationView';
+        $returnType = '\Hanzo\Cloud\Model\CompanyFormationView';
         $request = $this->postCompanySkipRequest($contentType);
 
         return $this->client
@@ -5963,7 +5969,7 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6024,16 +6030,16 @@ class CompanyApi
      *
      * Itemises what a formation costs before anyone commits to it.
      *
-     * @param  \Hanzo\Cloud\Model\TariffIn $tariff_in tariff_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyTariffIn $company_tariff_in company_tariff_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyTariff'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Tariff
+     * @return \Hanzo\Cloud\Model\CompanyTariff|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postCompanyTariff($tariff_in, string $contentType = self::contentTypes['postCompanyTariff'][0])
+    public function postCompanyTariff($company_tariff_in, string $contentType = self::contentTypes['postCompanyTariff'][0])
     {
-        list($response) = $this->postCompanyTariffWithHttpInfo($tariff_in, $contentType);
+        list($response) = $this->postCompanyTariffWithHttpInfo($company_tariff_in, $contentType);
         return $response;
     }
 
@@ -6042,16 +6048,16 @@ class CompanyApi
      *
      * Itemises what a formation costs before anyone commits to it.
      *
-     * @param  \Hanzo\Cloud\Model\TariffIn $tariff_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyTariffIn $company_tariff_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyTariff'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Tariff, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyTariff|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCompanyTariffWithHttpInfo($tariff_in, string $contentType = self::contentTypes['postCompanyTariff'][0])
+    public function postCompanyTariffWithHttpInfo($company_tariff_in, string $contentType = self::contentTypes['postCompanyTariff'][0])
     {
-        $request = $this->postCompanyTariffRequest($tariff_in, $contentType);
+        $request = $this->postCompanyTariffRequest($company_tariff_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6079,7 +6085,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Tariff',
+                        '\Hanzo\Cloud\Model\CompanyTariff',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6101,7 +6113,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Tariff',
+                '\Hanzo\Cloud\Model\CompanyTariff',
                 $request,
                 $response,
             );
@@ -6110,7 +6122,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Tariff',
+                        '\Hanzo\Cloud\Model\CompanyTariff',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6127,15 +6147,15 @@ class CompanyApi
      *
      * Itemises what a formation costs before anyone commits to it.
      *
-     * @param  \Hanzo\Cloud\Model\TariffIn $tariff_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyTariffIn $company_tariff_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyTariff'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyTariffAsync($tariff_in, string $contentType = self::contentTypes['postCompanyTariff'][0])
+    public function postCompanyTariffAsync($company_tariff_in, string $contentType = self::contentTypes['postCompanyTariff'][0])
     {
-        return $this->postCompanyTariffAsyncWithHttpInfo($tariff_in, $contentType)
+        return $this->postCompanyTariffAsyncWithHttpInfo($company_tariff_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6148,16 +6168,16 @@ class CompanyApi
      *
      * Itemises what a formation costs before anyone commits to it.
      *
-     * @param  \Hanzo\Cloud\Model\TariffIn $tariff_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyTariffIn $company_tariff_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyTariff'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompanyTariffAsyncWithHttpInfo($tariff_in, string $contentType = self::contentTypes['postCompanyTariff'][0])
+    public function postCompanyTariffAsyncWithHttpInfo($company_tariff_in, string $contentType = self::contentTypes['postCompanyTariff'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Tariff';
-        $request = $this->postCompanyTariffRequest($tariff_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CompanyTariff';
+        $request = $this->postCompanyTariffRequest($company_tariff_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6198,19 +6218,19 @@ class CompanyApi
     /**
      * Create request for operation 'postCompanyTariff'
      *
-     * @param  \Hanzo\Cloud\Model\TariffIn $tariff_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyTariffIn $company_tariff_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyTariff'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCompanyTariffRequest($tariff_in, string $contentType = self::contentTypes['postCompanyTariff'][0])
+    public function postCompanyTariffRequest($company_tariff_in, string $contentType = self::contentTypes['postCompanyTariff'][0])
     {
 
-        // verify the required parameter 'tariff_in' is set
-        if ($tariff_in === null || (is_array($tariff_in) && count($tariff_in) === 0)) {
+        // verify the required parameter 'company_tariff_in' is set
+        if ($company_tariff_in === null || (is_array($company_tariff_in) && count($company_tariff_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $tariff_in when calling postCompanyTariff'
+                'Missing the required parameter $company_tariff_in when calling postCompanyTariff'
             );
         }
 
@@ -6227,18 +6247,18 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($tariff_in)) {
+        if (isset($company_tariff_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tariff_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($company_tariff_in));
             } else {
-                $httpBody = $tariff_in;
+                $httpBody = $company_tariff_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6295,16 +6315,16 @@ class CompanyApi
      *
      * Records the entity kind, the state of formation and the proposed name.
      *
-     * @param  \Hanzo\Cloud\Model\StructureIn $structure_in structure_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyStructureIn $company_structure_in company_structure_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCompanyStructure'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FormationView
+     * @return \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putCompanyStructure($structure_in, string $contentType = self::contentTypes['putCompanyStructure'][0])
+    public function putCompanyStructure($company_structure_in, string $contentType = self::contentTypes['putCompanyStructure'][0])
     {
-        list($response) = $this->putCompanyStructureWithHttpInfo($structure_in, $contentType);
+        list($response) = $this->putCompanyStructureWithHttpInfo($company_structure_in, $contentType);
         return $response;
     }
 
@@ -6313,16 +6333,16 @@ class CompanyApi
      *
      * Records the entity kind, the state of formation and the proposed name.
      *
-     * @param  \Hanzo\Cloud\Model\StructureIn $structure_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyStructureIn $company_structure_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCompanyStructure'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FormationView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CompanyFormationView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putCompanyStructureWithHttpInfo($structure_in, string $contentType = self::contentTypes['putCompanyStructure'][0])
+    public function putCompanyStructureWithHttpInfo($company_structure_in, string $contentType = self::contentTypes['putCompanyStructure'][0])
     {
-        $request = $this->putCompanyStructureRequest($structure_in, $contentType);
+        $request = $this->putCompanyStructureRequest($company_structure_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6350,7 +6370,13 @@ class CompanyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6372,7 +6398,7 @@ class CompanyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FormationView',
+                '\Hanzo\Cloud\Model\CompanyFormationView',
                 $request,
                 $response,
             );
@@ -6381,7 +6407,15 @@ class CompanyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FormationView',
+                        '\Hanzo\Cloud\Model\CompanyFormationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6398,15 +6432,15 @@ class CompanyApi
      *
      * Records the entity kind, the state of formation and the proposed name.
      *
-     * @param  \Hanzo\Cloud\Model\StructureIn $structure_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyStructureIn $company_structure_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCompanyStructure'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putCompanyStructureAsync($structure_in, string $contentType = self::contentTypes['putCompanyStructure'][0])
+    public function putCompanyStructureAsync($company_structure_in, string $contentType = self::contentTypes['putCompanyStructure'][0])
     {
-        return $this->putCompanyStructureAsyncWithHttpInfo($structure_in, $contentType)
+        return $this->putCompanyStructureAsyncWithHttpInfo($company_structure_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6419,16 +6453,16 @@ class CompanyApi
      *
      * Records the entity kind, the state of formation and the proposed name.
      *
-     * @param  \Hanzo\Cloud\Model\StructureIn $structure_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyStructureIn $company_structure_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCompanyStructure'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putCompanyStructureAsyncWithHttpInfo($structure_in, string $contentType = self::contentTypes['putCompanyStructure'][0])
+    public function putCompanyStructureAsyncWithHttpInfo($company_structure_in, string $contentType = self::contentTypes['putCompanyStructure'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FormationView';
-        $request = $this->putCompanyStructureRequest($structure_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CompanyFormationView';
+        $request = $this->putCompanyStructureRequest($company_structure_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6469,19 +6503,19 @@ class CompanyApi
     /**
      * Create request for operation 'putCompanyStructure'
      *
-     * @param  \Hanzo\Cloud\Model\StructureIn $structure_in (required)
+     * @param  \Hanzo\Cloud\Model\CompanyStructureIn $company_structure_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCompanyStructure'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putCompanyStructureRequest($structure_in, string $contentType = self::contentTypes['putCompanyStructure'][0])
+    public function putCompanyStructureRequest($company_structure_in, string $contentType = self::contentTypes['putCompanyStructure'][0])
     {
 
-        // verify the required parameter 'structure_in' is set
-        if ($structure_in === null || (is_array($structure_in) && count($structure_in) === 0)) {
+        // verify the required parameter 'company_structure_in' is set
+        if ($company_structure_in === null || (is_array($company_structure_in) && count($company_structure_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $structure_in when calling putCompanyStructure'
+                'Missing the required parameter $company_structure_in when calling putCompanyStructure'
             );
         }
 
@@ -6498,18 +6532,18 @@ class CompanyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($structure_in)) {
+        if (isset($company_structure_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($structure_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($company_structure_in));
             } else {
-                $httpBody = $structure_in;
+                $httpBody = $company_structure_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

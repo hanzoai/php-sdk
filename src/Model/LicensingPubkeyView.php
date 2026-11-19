@@ -391,7 +391,7 @@ class LicensingPubkeyView implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets provider
      *
-     * @param string|null $provider Provider names the KMS holding the private half (\"local\" | \"aws\" | ...). \"local\" means a development key — never trust it in production.
+     * @param string|null $provider Provider names where the private half lives: \"kms\" (production) or \"local\" (a development key — never trust it in production).
      *
      * @return self
      */

@@ -57,7 +57,7 @@ class O11yO11yOrgStatsOut implements ModelInterface, ArrayAccess, \JsonSerializa
       * @var string[]
       */
     protected static $openAPITypes = [
-        'data' => 'array<string,object>',
+        'data' => 'array<string,mixed>',
         'status' => 'string'
     ];
 
@@ -299,7 +299,7 @@ class O11yO11yOrgStatsOut implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets data
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getData()
     {
@@ -309,7 +309,7 @@ class O11yO11yOrgStatsOut implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets data
      *
-     * @param array<string,object>|null $data Data are the statistics, keyed by the reporter's own counter names.
+     * @param array<string,mixed>|null $data Data are the statistics, keyed by the reporter's own counter names.
      *
      * @return self
      */

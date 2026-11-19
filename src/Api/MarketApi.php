@@ -146,7 +146,7 @@ class MarketApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Roster
+     * @return \Hanzo\Cloud\Model\MarketRoster|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketChains(string $contentType = self::contentTypes['getMarketChains'][0])
     {
@@ -163,7 +163,7 @@ class MarketApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Roster, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketRoster|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketChainsWithHttpInfo(string $contentType = self::contentTypes['getMarketChains'][0])
     {
@@ -195,7 +195,13 @@ class MarketApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Roster',
+                        '\Hanzo\Cloud\Model\MarketRoster',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -217,7 +223,7 @@ class MarketApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Roster',
+                '\Hanzo\Cloud\Model\MarketRoster',
                 $request,
                 $response,
             );
@@ -226,7 +232,15 @@ class MarketApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Roster',
+                        '\Hanzo\Cloud\Model\MarketRoster',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -270,7 +284,7 @@ class MarketApi
      */
     public function getMarketChainsAsyncWithHttpInfo(string $contentType = self::contentTypes['getMarketChains'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Roster';
+        $returnType = '\Hanzo\Cloud\Model\MarketRoster';
         $request = $this->getMarketChainsRequest($contentType);
 
         return $this->client
@@ -333,7 +347,7 @@ class MarketApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -395,7 +409,7 @@ class MarketApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Pools
+     * @return \Hanzo\Cloud\Model\MarketPools|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketPools($chain = null, string $contentType = self::contentTypes['getMarketPools'][0])
     {
@@ -413,7 +427,7 @@ class MarketApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Pools, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketPools|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketPoolsWithHttpInfo($chain = null, string $contentType = self::contentTypes['getMarketPools'][0])
     {
@@ -445,7 +459,13 @@ class MarketApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Pools',
+                        '\Hanzo\Cloud\Model\MarketPools',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -467,7 +487,7 @@ class MarketApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Pools',
+                '\Hanzo\Cloud\Model\MarketPools',
                 $request,
                 $response,
             );
@@ -476,7 +496,15 @@ class MarketApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Pools',
+                        '\Hanzo\Cloud\Model\MarketPools',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -522,7 +550,7 @@ class MarketApi
      */
     public function getMarketPoolsAsyncWithHttpInfo($chain = null, string $contentType = self::contentTypes['getMarketPools'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Pools';
+        $returnType = '\Hanzo\Cloud\Model\MarketPools';
         $request = $this->getMarketPoolsRequest($chain, $contentType);
 
         return $this->client
@@ -596,7 +624,7 @@ class MarketApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -658,7 +686,7 @@ class MarketApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Survey
+     * @return \Hanzo\Cloud\Model\MarketSurvey|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketSurvey($chain = null, string $contentType = self::contentTypes['getMarketSurvey'][0])
     {
@@ -676,7 +704,7 @@ class MarketApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Survey, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketSurvey|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketSurveyWithHttpInfo($chain = null, string $contentType = self::contentTypes['getMarketSurvey'][0])
     {
@@ -708,7 +736,13 @@ class MarketApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Survey',
+                        '\Hanzo\Cloud\Model\MarketSurvey',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -730,7 +764,7 @@ class MarketApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Survey',
+                '\Hanzo\Cloud\Model\MarketSurvey',
                 $request,
                 $response,
             );
@@ -739,7 +773,15 @@ class MarketApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Survey',
+                        '\Hanzo\Cloud\Model\MarketSurvey',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -785,7 +827,7 @@ class MarketApi
      */
     public function getMarketSurveyAsyncWithHttpInfo($chain = null, string $contentType = self::contentTypes['getMarketSurvey'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Survey';
+        $returnType = '\Hanzo\Cloud\Model\MarketSurvey';
         $request = $this->getMarketSurveyRequest($chain, $contentType);
 
         return $this->client
@@ -859,7 +901,7 @@ class MarketApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -922,7 +964,7 @@ class MarketApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\History
+     * @return \Hanzo\Cloud\Model\MarketHistory|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketToken($chain = null, $at = null, string $contentType = self::contentTypes['getMarketToken'][0])
     {
@@ -941,7 +983,7 @@ class MarketApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\History, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketHistory|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketTokenWithHttpInfo($chain = null, $at = null, string $contentType = self::contentTypes['getMarketToken'][0])
     {
@@ -973,7 +1015,13 @@ class MarketApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\History',
+                        '\Hanzo\Cloud\Model\MarketHistory',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -995,7 +1043,7 @@ class MarketApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\History',
+                '\Hanzo\Cloud\Model\MarketHistory',
                 $request,
                 $response,
             );
@@ -1004,7 +1052,15 @@ class MarketApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\History',
+                        '\Hanzo\Cloud\Model\MarketHistory',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1052,7 +1108,7 @@ class MarketApi
      */
     public function getMarketTokenAsyncWithHttpInfo($chain = null, $at = null, string $contentType = self::contentTypes['getMarketToken'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\History';
+        $returnType = '\Hanzo\Cloud\Model\MarketHistory';
         $request = $this->getMarketTokenRequest($chain, $at, $contentType);
 
         return $this->client
@@ -1137,7 +1193,7 @@ class MarketApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1199,7 +1255,7 @@ class MarketApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Tokens
+     * @return \Hanzo\Cloud\Model\MarketTokens|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketTokens($chain = null, string $contentType = self::contentTypes['getMarketTokens'][0])
     {
@@ -1217,7 +1273,7 @@ class MarketApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Tokens, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketTokens|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketTokensWithHttpInfo($chain = null, string $contentType = self::contentTypes['getMarketTokens'][0])
     {
@@ -1249,7 +1305,13 @@ class MarketApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Tokens',
+                        '\Hanzo\Cloud\Model\MarketTokens',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1271,7 +1333,7 @@ class MarketApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Tokens',
+                '\Hanzo\Cloud\Model\MarketTokens',
                 $request,
                 $response,
             );
@@ -1280,7 +1342,15 @@ class MarketApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Tokens',
+                        '\Hanzo\Cloud\Model\MarketTokens',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1326,7 +1396,7 @@ class MarketApi
      */
     public function getMarketTokensAsyncWithHttpInfo($chain = null, string $contentType = self::contentTypes['getMarketTokens'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Tokens';
+        $returnType = '\Hanzo\Cloud\Model\MarketTokens';
         $request = $this->getMarketTokensRequest($chain, $contentType);
 
         return $this->client
@@ -1400,7 +1470,7 @@ class MarketApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

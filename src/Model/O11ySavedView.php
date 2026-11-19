@@ -58,7 +58,7 @@ class O11ySavedView implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'category' => 'string',
-        'composite_query' => '\Hanzo\Cloud\Model\O11yCompositeQuery',
+        'composite_query' => '\Hanzo\Cloud\Model\O11yV3CompositeQuery',
         'created_at' => '\DateTime',
         'created_by' => 'string',
         'extra_data' => 'string',
@@ -389,7 +389,7 @@ class O11ySavedView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets composite_query
      *
-     * @return \Hanzo\Cloud\Model\O11yCompositeQuery|null
+     * @return \Hanzo\Cloud\Model\O11yV3CompositeQuery|null
      */
     public function getCompositeQuery()
     {
@@ -399,7 +399,7 @@ class O11ySavedView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets composite_query
      *
-     * @param \Hanzo\Cloud\Model\O11yCompositeQuery|null $composite_query composite_query
+     * @param \Hanzo\Cloud\Model\O11yV3CompositeQuery|null $composite_query composite_query
      *
      * @return self
      */

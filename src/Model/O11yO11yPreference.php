@@ -59,10 +59,10 @@ class O11yO11yPreference implements ModelInterface, ArrayAccess, \JsonSerializab
     protected static $openAPITypes = [
         'allowed_scopes' => 'string[]',
         'allowed_values' => 'string[]',
-        'default_value' => 'object',
+        'default_value' => 'mixed',
         'description' => 'string',
         'name' => 'string',
-        'value' => 'object',
+        'value' => 'mixed',
         'value_type' => 'string'
     ];
 
@@ -91,10 +91,10 @@ class O11yO11yPreference implements ModelInterface, ArrayAccess, \JsonSerializab
     protected static array $openAPINullables = [
         'allowed_scopes' => false,
         'allowed_values' => false,
-        'default_value' => false,
+        'default_value' => true,
         'description' => false,
         'name' => false,
-        'value' => false,
+        'value' => true,
         'value_type' => false
     ];
 
@@ -388,7 +388,7 @@ class O11yO11yPreference implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets default_value
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getDefaultValue()
     {
@@ -398,14 +398,21 @@ class O11yO11yPreference implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets default_value
      *
-     * @param object|null $default_value DefaultValue is the value before anyone set one.
+     * @param mixed|null $default_value default_value
      *
      * @return self
      */
     public function setDefaultValue($default_value)
     {
         if (is_null($default_value)) {
-            throw new \InvalidArgumentException('non-nullable default_value cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'default_value');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('default_value', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['default_value'] = $default_value;
 
@@ -469,7 +476,7 @@ class O11yO11yPreference implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets value
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getValue()
     {
@@ -479,14 +486,21 @@ class O11yO11yPreference implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets value
      *
-     * @param object|null $value Value is the current value.
+     * @param mixed|null $value value
      *
      * @return self
      */
     public function setValue($value)
     {
         if (is_null($value)) {
-            throw new \InvalidArgumentException('non-nullable value cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'value');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('value', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['value'] = $value;
 

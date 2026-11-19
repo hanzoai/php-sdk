@@ -63,7 +63,7 @@ class O11yPagerdutyConfig implements ModelInterface, ArrayAccess, \JsonSerializa
         'client_url' => 'string',
         'component' => 'string',
         'description' => 'string',
-        'details' => 'array<string,object>',
+        'details' => 'array<string,mixed>',
         'group' => 'string',
         'http_config' => '\Hanzo\Cloud\Model\O11yHTTPClientConfig',
         'images' => '\Hanzo\Cloud\Model\O11yPagerdutyImage[]',
@@ -580,7 +580,7 @@ class O11yPagerdutyConfig implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets details
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getDetails()
     {
@@ -590,7 +590,7 @@ class O11yPagerdutyConfig implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets details
      *
-     * @param array<string,object>|null $details details
+     * @param array<string,mixed>|null $details details
      *
      * @return self
      */

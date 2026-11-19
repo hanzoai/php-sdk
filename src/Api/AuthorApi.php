@@ -146,7 +146,7 @@ class AuthorApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAuthor(string $contentType = self::contentTypes['getAuthor'][0])
     {
@@ -163,7 +163,7 @@ class AuthorApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAuthorWithHttpInfo(string $contentType = self::contentTypes['getAuthor'][0])
     {
@@ -195,7 +195,13 @@ class AuthorApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -217,7 +223,7 @@ class AuthorApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -226,7 +232,15 @@ class AuthorApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -270,7 +284,7 @@ class AuthorApi
      */
     public function getAuthorAsyncWithHttpInfo(string $contentType = self::contentTypes['getAuthor'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getAuthorRequest($contentType);
 
         return $this->client
@@ -333,7 +347,7 @@ class AuthorApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -399,7 +413,7 @@ class AuthorApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAuthorBasis($period = null, string $contentType = self::contentTypes['getAuthorBasis'][0])
     {
@@ -417,7 +431,7 @@ class AuthorApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAuthorBasisWithHttpInfo($period = null, string $contentType = self::contentTypes['getAuthorBasis'][0])
     {
@@ -449,7 +463,13 @@ class AuthorApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -471,7 +491,7 @@ class AuthorApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -480,7 +500,15 @@ class AuthorApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -526,7 +554,7 @@ class AuthorApi
      */
     public function getAuthorBasisAsyncWithHttpInfo($period = null, string $contentType = self::contentTypes['getAuthorBasis'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getAuthorBasisRequest($period, $contentType);
 
         return $this->client
@@ -600,7 +628,7 @@ class AuthorApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -661,16 +689,16 @@ class AuthorApi
      *
      * Enrols the caller&#39;s org in the author program at status \&quot;connected\&quot; and returns its enrolment, including the verify code the file method needs.
      *
-     * @param  \Hanzo\Cloud\Model\ConnectRequest $connect_request connect_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorConnectRequest $author_connect_request author_connect_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorConnect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Enrolment
+     * @return \Hanzo\Cloud\Model\AuthorEnrolment|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAuthorConnect($connect_request, string $contentType = self::contentTypes['postAuthorConnect'][0])
+    public function postAuthorConnect($author_connect_request, string $contentType = self::contentTypes['postAuthorConnect'][0])
     {
-        list($response) = $this->postAuthorConnectWithHttpInfo($connect_request, $contentType);
+        list($response) = $this->postAuthorConnectWithHttpInfo($author_connect_request, $contentType);
         return $response;
     }
 
@@ -679,16 +707,16 @@ class AuthorApi
      *
      * Enrols the caller&#39;s org in the author program at status \&quot;connected\&quot; and returns its enrolment, including the verify code the file method needs.
      *
-     * @param  \Hanzo\Cloud\Model\ConnectRequest $connect_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorConnectRequest $author_connect_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorConnect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Enrolment, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AuthorEnrolment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAuthorConnectWithHttpInfo($connect_request, string $contentType = self::contentTypes['postAuthorConnect'][0])
+    public function postAuthorConnectWithHttpInfo($author_connect_request, string $contentType = self::contentTypes['postAuthorConnect'][0])
     {
-        $request = $this->postAuthorConnectRequest($connect_request, $contentType);
+        $request = $this->postAuthorConnectRequest($author_connect_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -716,7 +744,13 @@ class AuthorApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Enrolment',
+                        '\Hanzo\Cloud\Model\AuthorEnrolment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -738,7 +772,7 @@ class AuthorApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Enrolment',
+                '\Hanzo\Cloud\Model\AuthorEnrolment',
                 $request,
                 $response,
             );
@@ -747,7 +781,15 @@ class AuthorApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Enrolment',
+                        '\Hanzo\Cloud\Model\AuthorEnrolment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -764,15 +806,15 @@ class AuthorApi
      *
      * Enrols the caller&#39;s org in the author program at status \&quot;connected\&quot; and returns its enrolment, including the verify code the file method needs.
      *
-     * @param  \Hanzo\Cloud\Model\ConnectRequest $connect_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorConnectRequest $author_connect_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorConnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAuthorConnectAsync($connect_request, string $contentType = self::contentTypes['postAuthorConnect'][0])
+    public function postAuthorConnectAsync($author_connect_request, string $contentType = self::contentTypes['postAuthorConnect'][0])
     {
-        return $this->postAuthorConnectAsyncWithHttpInfo($connect_request, $contentType)
+        return $this->postAuthorConnectAsyncWithHttpInfo($author_connect_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -785,16 +827,16 @@ class AuthorApi
      *
      * Enrols the caller&#39;s org in the author program at status \&quot;connected\&quot; and returns its enrolment, including the verify code the file method needs.
      *
-     * @param  \Hanzo\Cloud\Model\ConnectRequest $connect_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorConnectRequest $author_connect_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorConnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAuthorConnectAsyncWithHttpInfo($connect_request, string $contentType = self::contentTypes['postAuthorConnect'][0])
+    public function postAuthorConnectAsyncWithHttpInfo($author_connect_request, string $contentType = self::contentTypes['postAuthorConnect'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Enrolment';
-        $request = $this->postAuthorConnectRequest($connect_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AuthorEnrolment';
+        $request = $this->postAuthorConnectRequest($author_connect_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -835,19 +877,19 @@ class AuthorApi
     /**
      * Create request for operation 'postAuthorConnect'
      *
-     * @param  \Hanzo\Cloud\Model\ConnectRequest $connect_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorConnectRequest $author_connect_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorConnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAuthorConnectRequest($connect_request, string $contentType = self::contentTypes['postAuthorConnect'][0])
+    public function postAuthorConnectRequest($author_connect_request, string $contentType = self::contentTypes['postAuthorConnect'][0])
     {
 
-        // verify the required parameter 'connect_request' is set
-        if ($connect_request === null || (is_array($connect_request) && count($connect_request) === 0)) {
+        // verify the required parameter 'author_connect_request' is set
+        if ($author_connect_request === null || (is_array($author_connect_request) && count($author_connect_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $connect_request when calling postAuthorConnect'
+                'Missing the required parameter $author_connect_request when calling postAuthorConnect'
             );
         }
 
@@ -864,18 +906,18 @@ class AuthorApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($connect_request)) {
+        if (isset($author_connect_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($connect_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($author_connect_request));
             } else {
-                $httpBody = $connect_request;
+                $httpBody = $author_connect_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -932,16 +974,16 @@ class AuthorApi
      *
      * Records that the caller&#39;s org deployed a project built from a source repository, which is the edge that makes an author&#39;s work earn royalty.
      *
-     * @param  \Hanzo\Cloud\Model\DeployRequest $deploy_request deploy_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorDeployRequest $author_deploy_request author_deploy_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorDeploysRecord'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeployRecord
+     * @return \Hanzo\Cloud\Model\AuthorDeployRecord|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAuthorDeploysRecord($deploy_request, string $contentType = self::contentTypes['postAuthorDeploysRecord'][0])
+    public function postAuthorDeploysRecord($author_deploy_request, string $contentType = self::contentTypes['postAuthorDeploysRecord'][0])
     {
-        list($response) = $this->postAuthorDeploysRecordWithHttpInfo($deploy_request, $contentType);
+        list($response) = $this->postAuthorDeploysRecordWithHttpInfo($author_deploy_request, $contentType);
         return $response;
     }
 
@@ -950,16 +992,16 @@ class AuthorApi
      *
      * Records that the caller&#39;s org deployed a project built from a source repository, which is the edge that makes an author&#39;s work earn royalty.
      *
-     * @param  \Hanzo\Cloud\Model\DeployRequest $deploy_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorDeployRequest $author_deploy_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorDeploysRecord'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeployRecord, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AuthorDeployRecord|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAuthorDeploysRecordWithHttpInfo($deploy_request, string $contentType = self::contentTypes['postAuthorDeploysRecord'][0])
+    public function postAuthorDeploysRecordWithHttpInfo($author_deploy_request, string $contentType = self::contentTypes['postAuthorDeploysRecord'][0])
     {
-        $request = $this->postAuthorDeploysRecordRequest($deploy_request, $contentType);
+        $request = $this->postAuthorDeploysRecordRequest($author_deploy_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -987,7 +1029,13 @@ class AuthorApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeployRecord',
+                        '\Hanzo\Cloud\Model\AuthorDeployRecord',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1009,7 +1057,7 @@ class AuthorApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeployRecord',
+                '\Hanzo\Cloud\Model\AuthorDeployRecord',
                 $request,
                 $response,
             );
@@ -1018,7 +1066,15 @@ class AuthorApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeployRecord',
+                        '\Hanzo\Cloud\Model\AuthorDeployRecord',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1035,15 +1091,15 @@ class AuthorApi
      *
      * Records that the caller&#39;s org deployed a project built from a source repository, which is the edge that makes an author&#39;s work earn royalty.
      *
-     * @param  \Hanzo\Cloud\Model\DeployRequest $deploy_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorDeployRequest $author_deploy_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorDeploysRecord'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAuthorDeploysRecordAsync($deploy_request, string $contentType = self::contentTypes['postAuthorDeploysRecord'][0])
+    public function postAuthorDeploysRecordAsync($author_deploy_request, string $contentType = self::contentTypes['postAuthorDeploysRecord'][0])
     {
-        return $this->postAuthorDeploysRecordAsyncWithHttpInfo($deploy_request, $contentType)
+        return $this->postAuthorDeploysRecordAsyncWithHttpInfo($author_deploy_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1056,16 +1112,16 @@ class AuthorApi
      *
      * Records that the caller&#39;s org deployed a project built from a source repository, which is the edge that makes an author&#39;s work earn royalty.
      *
-     * @param  \Hanzo\Cloud\Model\DeployRequest $deploy_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorDeployRequest $author_deploy_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorDeploysRecord'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAuthorDeploysRecordAsyncWithHttpInfo($deploy_request, string $contentType = self::contentTypes['postAuthorDeploysRecord'][0])
+    public function postAuthorDeploysRecordAsyncWithHttpInfo($author_deploy_request, string $contentType = self::contentTypes['postAuthorDeploysRecord'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeployRecord';
-        $request = $this->postAuthorDeploysRecordRequest($deploy_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AuthorDeployRecord';
+        $request = $this->postAuthorDeploysRecordRequest($author_deploy_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1106,19 +1162,19 @@ class AuthorApi
     /**
      * Create request for operation 'postAuthorDeploysRecord'
      *
-     * @param  \Hanzo\Cloud\Model\DeployRequest $deploy_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorDeployRequest $author_deploy_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorDeploysRecord'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAuthorDeploysRecordRequest($deploy_request, string $contentType = self::contentTypes['postAuthorDeploysRecord'][0])
+    public function postAuthorDeploysRecordRequest($author_deploy_request, string $contentType = self::contentTypes['postAuthorDeploysRecord'][0])
     {
 
-        // verify the required parameter 'deploy_request' is set
-        if ($deploy_request === null || (is_array($deploy_request) && count($deploy_request) === 0)) {
+        // verify the required parameter 'author_deploy_request' is set
+        if ($author_deploy_request === null || (is_array($author_deploy_request) && count($author_deploy_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $deploy_request when calling postAuthorDeploysRecord'
+                'Missing the required parameter $author_deploy_request when calling postAuthorDeploysRecord'
             );
         }
 
@@ -1135,18 +1191,18 @@ class AuthorApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($deploy_request)) {
+        if (isset($author_deploy_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($deploy_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($author_deploy_request));
             } else {
-                $httpBody = $deploy_request;
+                $httpBody = $author_deploy_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1203,16 +1259,16 @@ class AuthorApi
      *
      * Proves that the caller owns a repository — or a whole OWNER — and records the claim, which is what makes deploys of that code earn royalty.
      *
-     * @param  \Hanzo\Cloud\Model\VerifyRequest $verify_request verify_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorVerifyRequest $author_verify_request author_verify_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorReposVerify'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Claim
+     * @return \Hanzo\Cloud\Model\AuthorClaim|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAuthorReposVerify($verify_request, string $contentType = self::contentTypes['postAuthorReposVerify'][0])
+    public function postAuthorReposVerify($author_verify_request, string $contentType = self::contentTypes['postAuthorReposVerify'][0])
     {
-        list($response) = $this->postAuthorReposVerifyWithHttpInfo($verify_request, $contentType);
+        list($response) = $this->postAuthorReposVerifyWithHttpInfo($author_verify_request, $contentType);
         return $response;
     }
 
@@ -1221,16 +1277,16 @@ class AuthorApi
      *
      * Proves that the caller owns a repository — or a whole OWNER — and records the claim, which is what makes deploys of that code earn royalty.
      *
-     * @param  \Hanzo\Cloud\Model\VerifyRequest $verify_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorVerifyRequest $author_verify_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorReposVerify'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Claim, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AuthorClaim|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAuthorReposVerifyWithHttpInfo($verify_request, string $contentType = self::contentTypes['postAuthorReposVerify'][0])
+    public function postAuthorReposVerifyWithHttpInfo($author_verify_request, string $contentType = self::contentTypes['postAuthorReposVerify'][0])
     {
-        $request = $this->postAuthorReposVerifyRequest($verify_request, $contentType);
+        $request = $this->postAuthorReposVerifyRequest($author_verify_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1258,7 +1314,13 @@ class AuthorApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Claim',
+                        '\Hanzo\Cloud\Model\AuthorClaim',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1280,7 +1342,7 @@ class AuthorApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Claim',
+                '\Hanzo\Cloud\Model\AuthorClaim',
                 $request,
                 $response,
             );
@@ -1289,7 +1351,15 @@ class AuthorApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Claim',
+                        '\Hanzo\Cloud\Model\AuthorClaim',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1306,15 +1376,15 @@ class AuthorApi
      *
      * Proves that the caller owns a repository — or a whole OWNER — and records the claim, which is what makes deploys of that code earn royalty.
      *
-     * @param  \Hanzo\Cloud\Model\VerifyRequest $verify_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorVerifyRequest $author_verify_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorReposVerify'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAuthorReposVerifyAsync($verify_request, string $contentType = self::contentTypes['postAuthorReposVerify'][0])
+    public function postAuthorReposVerifyAsync($author_verify_request, string $contentType = self::contentTypes['postAuthorReposVerify'][0])
     {
-        return $this->postAuthorReposVerifyAsyncWithHttpInfo($verify_request, $contentType)
+        return $this->postAuthorReposVerifyAsyncWithHttpInfo($author_verify_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1327,16 +1397,16 @@ class AuthorApi
      *
      * Proves that the caller owns a repository — or a whole OWNER — and records the claim, which is what makes deploys of that code earn royalty.
      *
-     * @param  \Hanzo\Cloud\Model\VerifyRequest $verify_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorVerifyRequest $author_verify_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorReposVerify'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAuthorReposVerifyAsyncWithHttpInfo($verify_request, string $contentType = self::contentTypes['postAuthorReposVerify'][0])
+    public function postAuthorReposVerifyAsyncWithHttpInfo($author_verify_request, string $contentType = self::contentTypes['postAuthorReposVerify'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Claim';
-        $request = $this->postAuthorReposVerifyRequest($verify_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AuthorClaim';
+        $request = $this->postAuthorReposVerifyRequest($author_verify_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1377,19 +1447,19 @@ class AuthorApi
     /**
      * Create request for operation 'postAuthorReposVerify'
      *
-     * @param  \Hanzo\Cloud\Model\VerifyRequest $verify_request (required)
+     * @param  \Hanzo\Cloud\Model\AuthorVerifyRequest $author_verify_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAuthorReposVerify'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAuthorReposVerifyRequest($verify_request, string $contentType = self::contentTypes['postAuthorReposVerify'][0])
+    public function postAuthorReposVerifyRequest($author_verify_request, string $contentType = self::contentTypes['postAuthorReposVerify'][0])
     {
 
-        // verify the required parameter 'verify_request' is set
-        if ($verify_request === null || (is_array($verify_request) && count($verify_request) === 0)) {
+        // verify the required parameter 'author_verify_request' is set
+        if ($author_verify_request === null || (is_array($author_verify_request) && count($author_verify_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $verify_request when calling postAuthorReposVerify'
+                'Missing the required parameter $author_verify_request when calling postAuthorReposVerify'
             );
         }
 
@@ -1406,18 +1476,18 @@ class AuthorApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($verify_request)) {
+        if (isset($author_verify_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($verify_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($author_verify_request));
             } else {
-                $httpBody = $verify_request;
+                $httpBody = $author_verify_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

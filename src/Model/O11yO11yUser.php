@@ -351,7 +351,7 @@ class O11yO11yUser implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at CreatedAt is when they joined.
+     * @param \DateTime|null $created_at created_at
      *
      * @return self
      */
@@ -378,7 +378,7 @@ class O11yO11yUser implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets display_name
      *
-     * @param string|null $display_name DisplayName is what the console shows for them.
+     * @param string|null $display_name display_name
      *
      * @return self
      */
@@ -405,7 +405,7 @@ class O11yO11yUser implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets email
      *
-     * @param string|null $email Email is their address.
+     * @param string|null $email email
      *
      * @return self
      */
@@ -432,7 +432,7 @@ class O11yO11yUser implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id ID is the user id.
+     * @param string|null $id id
      *
      * @return self
      */
@@ -459,7 +459,7 @@ class O11yO11yUser implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets is_root
      *
-     * @param bool|null $is_root IsRoot marks the org's root user, which cannot be deleted or demoted.
+     * @param bool|null $is_root is_root
      *
      * @return self
      */
@@ -486,7 +486,7 @@ class O11yO11yUser implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets org_id
      *
-     * @param string|null $org_id OrgID is the org they belong to.
+     * @param string|null $org_id org_id
      *
      * @return self
      */
@@ -513,7 +513,7 @@ class O11yO11yUser implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param string|null $status Status is their lifecycle state — active, pending_invite or deleted.
+     * @param string|null $status status
      *
      * @return self
      */
@@ -540,7 +540,7 @@ class O11yO11yUser implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets updated_at
      *
-     * @param \DateTime|null $updated_at UpdatedAt is when their record last changed.
+     * @param \DateTime|null $updated_at updated_at
      *
      * @return self
      */

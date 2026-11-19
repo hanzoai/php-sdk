@@ -118,6 +118,7 @@ class IamApplication implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization_obj' => '\Hanzo\Cloud\Model\IamOrganization',
         'other_domains' => 'string[]',
         'owner' => 'string',
+        'platform' => 'bool',
         'project' => 'string',
         'providers' => '\Hanzo\Cloud\Model\IamProviderItem[]',
         'redirect_uris' => 'string[]',
@@ -218,6 +219,7 @@ class IamApplication implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization_obj' => null,
         'other_domains' => null,
         'owner' => null,
+        'platform' => null,
         'project' => null,
         'providers' => null,
         'redirect_uris' => null,
@@ -316,6 +318,7 @@ class IamApplication implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization_obj' => false,
         'other_domains' => false,
         'owner' => false,
+        'platform' => false,
         'project' => false,
         'providers' => false,
         'redirect_uris' => false,
@@ -494,6 +497,7 @@ class IamApplication implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization_obj' => 'organizationObj',
         'other_domains' => 'otherDomains',
         'owner' => 'owner',
+        'platform' => 'platform',
         'project' => 'project',
         'providers' => 'providers',
         'redirect_uris' => 'redirectUris',
@@ -592,6 +596,7 @@ class IamApplication implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization_obj' => 'setOrganizationObj',
         'other_domains' => 'setOtherDomains',
         'owner' => 'setOwner',
+        'platform' => 'setPlatform',
         'project' => 'setProject',
         'providers' => 'setProviders',
         'redirect_uris' => 'setRedirectUris',
@@ -690,6 +695,7 @@ class IamApplication implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization_obj' => 'getOrganizationObj',
         'other_domains' => 'getOtherDomains',
         'owner' => 'getOwner',
+        'platform' => 'getPlatform',
         'project' => 'getProject',
         'providers' => 'getProviders',
         'redirect_uris' => 'getRedirectUris',
@@ -839,6 +845,7 @@ class IamApplication implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('organization_obj', $data ?? [], null);
         $this->setIfExists('other_domains', $data ?? [], null);
         $this->setIfExists('owner', $data ?? [], null);
+        $this->setIfExists('platform', $data ?? [], null);
         $this->setIfExists('project', $data ?? [], null);
         $this->setIfExists('providers', $data ?? [], null);
         $this->setIfExists('redirect_uris', $data ?? [], null);
@@ -2248,7 +2255,7 @@ class IamApplication implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string|null $id Persisted fields
      *
      * @return self
      */
@@ -2555,6 +2562,33 @@ class IamApplication implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable owner cannot be null');
         }
         $this->container['owner'] = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Gets platform
+     *
+     * @return bool|null
+     */
+    public function getPlatform()
+    {
+        return $this->container['platform'];
+    }
+
+    /**
+     * Sets platform
+     *
+     * @param bool|null $platform Platform marks an application the platform itself declares (init_data.json): its own consoles and apps, never one a tenant registered. The seed stamps it on every declared application at boot, and only a SuperAdmin may change it over the API. It is what lets a signed-in person act through IAM with a bearer on the platform's behalf — sending an invitation from the platform's own email account, joining an org — which a tenant's application may not do with the tokens its users hand it.
+     *
+     * @return self
+     */
+    public function setPlatform($platform)
+    {
+        if (is_null($platform)) {
+            throw new \InvalidArgumentException('non-nullable platform cannot be null');
+        }
+        $this->container['platform'] = $platform;
 
         return $this;
     }

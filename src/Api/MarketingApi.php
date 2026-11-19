@@ -77,10 +77,22 @@ class MarketingApi
         'deleteMarketingAudiencesById' => [
             'application/json',
         ],
+        'deleteMarketingBroadcastsById' => [
+            'application/json',
+        ],
         'deleteMarketingCalendarById' => [
             'application/json',
         ],
         'deleteMarketingCampaignsById' => [
+            'application/json',
+        ],
+        'deleteMarketingListsById' => [
+            'application/json',
+        ],
+        'deleteMarketingListsByIdSegmentsBySid' => [
+            'application/json',
+        ],
+        'deleteMarketingListsByIdSubscribersBySid' => [
             'application/json',
         ],
         'deleteMarketingSuppressions' => [
@@ -95,6 +107,21 @@ class MarketingApi
         'getMarketingAudiencesByIdPreview' => [
             'application/json',
         ],
+        'getMarketingBeta' => [
+            'application/json',
+        ],
+        'getMarketingBetaInvites' => [
+            'application/json',
+        ],
+        'getMarketingBroadcasts' => [
+            'application/json',
+        ],
+        'getMarketingBroadcastsById' => [
+            'application/json',
+        ],
+        'getMarketingBroadcastsByIdStats' => [
+            'application/json',
+        ],
         'getMarketingCalendar' => [
             'application/json',
         ],
@@ -107,6 +134,39 @@ class MarketingApi
         'getMarketingCampaignsById' => [
             'application/json',
         ],
+        'getMarketingClick' => [
+            'application/json',
+        ],
+        'getMarketingFields' => [
+            'application/json',
+        ],
+        'getMarketingImports' => [
+            'application/json',
+        ],
+        'getMarketingImportsById' => [
+            'application/json',
+        ],
+        'getMarketingLists' => [
+            'application/json',
+        ],
+        'getMarketingListsById' => [
+            'application/json',
+        ],
+        'getMarketingListsByIdExport' => [
+            'application/json',
+        ],
+        'getMarketingListsByIdSegments' => [
+            'application/json',
+        ],
+        'getMarketingListsByIdStats' => [
+            'application/json',
+        ],
+        'getMarketingListsByIdSubscribers' => [
+            'application/json',
+        ],
+        'getMarketingListsByIdSubscribersBySid' => [
+            'application/json',
+        ],
         'getMarketingPromos' => [
             'application/json',
         ],
@@ -114,6 +174,9 @@ class MarketingApi
             'application/json',
         ],
         'getMarketingPromosByCodeRedemption' => [
+            'application/json',
+        ],
+        'getMarketingSender' => [
             'application/json',
         ],
         'getMarketingSequences' => [
@@ -134,22 +197,88 @@ class MarketingApi
         'getMarketingSuppressions' => [
             'application/json',
         ],
+        'getMarketingSuppressionsCheck' => [
+            'application/json',
+        ],
         'getMarketingUnsubscribe' => [
+            'application/json',
+        ],
+        'patchMarketingBroadcastsById' => [
+            'application/json',
+        ],
+        'patchMarketingListsById' => [
+            'application/json',
+        ],
+        'patchMarketingListsByIdSubscribersBySid' => [
             'application/json',
         ],
         'postMarketingAudiences' => [
             'application/json',
         ],
-        'postMarketingCalendar' => [
+        'postMarketingBetaActions' => [
             'application/json',
         ],
-        'postMarketingCalendarByIdPublish' => [
+        'postMarketingBetaInvites' => [
+            'application/json',
+        ],
+        'postMarketingBetaInvitesSent' => [
+            'application/json',
+        ],
+        'postMarketingBetaRequest' => [
+            'application/json',
+        ],
+        'postMarketingBroadcasts' => [
+            'application/json',
+        ],
+        'postMarketingBroadcastsByIdCancel' => [
+            'application/json',
+        ],
+        'postMarketingBroadcastsByIdSend' => [
+            'application/json',
+        ],
+        'postMarketingBroadcastsByIdTest' => [
+            'application/json',
+        ],
+        'postMarketingCalendar' => [
             'application/json',
         ],
         'postMarketingCampaigns' => [
             'application/json',
         ],
         'postMarketingCampaignsByIdSchedule' => [
+            'application/json',
+        ],
+        'postMarketingImports' => [
+            'application/json',
+        ],
+        'postMarketingImportsByIdCancel' => [
+            'application/json',
+        ],
+        'postMarketingImportsByIdStart' => [
+            'application/json',
+        ],
+        'postMarketingLeads' => [
+            'application/json',
+        ],
+        'postMarketingLeadsEsign' => [
+            'application/json',
+        ],
+        'postMarketingLeadsResume' => [
+            'application/json',
+        ],
+        'postMarketingLists' => [
+            'application/json',
+        ],
+        'postMarketingListsByIdSegments' => [
+            'application/json',
+        ],
+        'postMarketingListsByIdSubscribers' => [
+            'application/json',
+        ],
+        'postMarketingListsByIdSubscribersBulk' => [
+            'application/json',
+        ],
+        'postMarketingMail' => [
             'application/json',
         ],
         'postMarketingPromosByCodeRedeem' => [
@@ -170,13 +299,38 @@ class MarketingApi
         'postMarketingSequencesByIdSteps' => [
             'application/json',
         ],
+        'postMarketingSubscribe' => [
+            'application/json',
+        ],
+        'postMarketingSubscribeConfirm' => [
+            'application/json',
+        ],
         'postMarketingSuppressions' => [
+            'application/json',
+        ],
+        'postMarketingUnsubscribe' => [
+            'application/x-www-form-urlencoded',
+            'multipart/form-data',
+        ],
+        'putMarketingBeta' => [
             'application/json',
         ],
         'putMarketingCalendarById' => [
             'application/json',
         ],
         'putMarketingCampaignsById' => [
+            'application/json',
+        ],
+        'putMarketingFields' => [
+            'application/json',
+        ],
+        'putMarketingImportsByIdData' => [
+            'application/json',
+        ],
+        'putMarketingListsByIdSegmentsBySid' => [
+            'application/json',
+        ],
+        'putMarketingSender' => [
             'application/json',
         ],
     ];
@@ -286,6 +440,14 @@ class MarketingApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -393,7 +555,293 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteMarketingBroadcastsById
+     *
+     * Deletes a broadcast that is not sending, with its record of who it went to, and answers 204.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return object|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function deleteMarketingBroadcastsById($id, string $contentType = self::contentTypes['deleteMarketingBroadcastsById'][0])
+    {
+        list($response) = $this->deleteMarketingBroadcastsByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteMarketingBroadcastsByIdWithHttpInfo
+     *
+     * Deletes a broadcast that is not sending, with its record of who it went to, and answers 204.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of object|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteMarketingBroadcastsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteMarketingBroadcastsById'][0])
+    {
+        $request = $this->deleteMarketingBroadcastsByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'object',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteMarketingBroadcastsByIdAsync
+     *
+     * Deletes a broadcast that is not sending, with its record of who it went to, and answers 204.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteMarketingBroadcastsByIdAsync($id, string $contentType = self::contentTypes['deleteMarketingBroadcastsById'][0])
+    {
+        return $this->deleteMarketingBroadcastsByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteMarketingBroadcastsByIdAsyncWithHttpInfo
+     *
+     * Deletes a broadcast that is not sending, with its record of who it went to, and answers 204.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteMarketingBroadcastsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteMarketingBroadcastsById'][0])
+    {
+        $returnType = 'object';
+        $request = $this->deleteMarketingBroadcastsByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteMarketingBroadcastsById'
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteMarketingBroadcastsByIdRequest($id, string $contentType = self::contentTypes['deleteMarketingBroadcastsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteMarketingBroadcastsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/broadcasts/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -508,6 +956,14 @@ class MarketingApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -615,7 +1071,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -730,6 +1186,14 @@ class MarketingApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -837,7 +1301,905 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteMarketingListsById
+     *
+     * Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return object|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function deleteMarketingListsById($id, string $contentType = self::contentTypes['deleteMarketingListsById'][0])
+    {
+        list($response) = $this->deleteMarketingListsByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteMarketingListsByIdWithHttpInfo
+     *
+     * Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of object|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteMarketingListsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteMarketingListsById'][0])
+    {
+        $request = $this->deleteMarketingListsByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'object',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteMarketingListsByIdAsync
+     *
+     * Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteMarketingListsByIdAsync($id, string $contentType = self::contentTypes['deleteMarketingListsById'][0])
+    {
+        return $this->deleteMarketingListsByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteMarketingListsByIdAsyncWithHttpInfo
+     *
+     * Deletes one of the org&#39;s lists with every subscriber, segment, import and broadcast it has, and answers 204.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteMarketingListsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteMarketingListsById'][0])
+    {
+        $returnType = 'object';
+        $request = $this->deleteMarketingListsByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteMarketingListsById'
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteMarketingListsByIdRequest($id, string $contentType = self::contentTypes['deleteMarketingListsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteMarketingListsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteMarketingListsByIdSegmentsBySid
+     *
+     * Deletes a saved segment and answers 204.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  string $sid SID is the segment&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsByIdSegmentsBySid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return object|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function deleteMarketingListsByIdSegmentsBySid($id, $sid, string $contentType = self::contentTypes['deleteMarketingListsByIdSegmentsBySid'][0])
+    {
+        list($response) = $this->deleteMarketingListsByIdSegmentsBySidWithHttpInfo($id, $sid, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteMarketingListsByIdSegmentsBySidWithHttpInfo
+     *
+     * Deletes a saved segment and answers 204.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  string $sid SID is the segment&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsByIdSegmentsBySid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of object|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteMarketingListsByIdSegmentsBySidWithHttpInfo($id, $sid, string $contentType = self::contentTypes['deleteMarketingListsByIdSegmentsBySid'][0])
+    {
+        $request = $this->deleteMarketingListsByIdSegmentsBySidRequest($id, $sid, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'object',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteMarketingListsByIdSegmentsBySidAsync
+     *
+     * Deletes a saved segment and answers 204.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  string $sid SID is the segment&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsByIdSegmentsBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteMarketingListsByIdSegmentsBySidAsync($id, $sid, string $contentType = self::contentTypes['deleteMarketingListsByIdSegmentsBySid'][0])
+    {
+        return $this->deleteMarketingListsByIdSegmentsBySidAsyncWithHttpInfo($id, $sid, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteMarketingListsByIdSegmentsBySidAsyncWithHttpInfo
+     *
+     * Deletes a saved segment and answers 204.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  string $sid SID is the segment&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsByIdSegmentsBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteMarketingListsByIdSegmentsBySidAsyncWithHttpInfo($id, $sid, string $contentType = self::contentTypes['deleteMarketingListsByIdSegmentsBySid'][0])
+    {
+        $returnType = 'object';
+        $request = $this->deleteMarketingListsByIdSegmentsBySidRequest($id, $sid, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteMarketingListsByIdSegmentsBySid'
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  string $sid SID is the segment&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsByIdSegmentsBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteMarketingListsByIdSegmentsBySidRequest($id, $sid, string $contentType = self::contentTypes['deleteMarketingListsByIdSegmentsBySid'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteMarketingListsByIdSegmentsBySid'
+            );
+        }
+
+        // verify the required parameter 'sid' is set
+        if ($sid === null || (is_array($sid) && count($sid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $sid when calling deleteMarketingListsByIdSegmentsBySid'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/segments/{sid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($sid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'sid' . '}',
+                ObjectSerializer::toPathValue($sid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteMarketingListsByIdSubscribersBySid
+     *
+     * Removes one subscriber from one of the org&#39;s lists and answers 204.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  int $sid SID is the subscriber&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return object|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function deleteMarketingListsByIdSubscribersBySid($id, $sid, string $contentType = self::contentTypes['deleteMarketingListsByIdSubscribersBySid'][0])
+    {
+        list($response) = $this->deleteMarketingListsByIdSubscribersBySidWithHttpInfo($id, $sid, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteMarketingListsByIdSubscribersBySidWithHttpInfo
+     *
+     * Removes one subscriber from one of the org&#39;s lists and answers 204.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  int $sid SID is the subscriber&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of object|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteMarketingListsByIdSubscribersBySidWithHttpInfo($id, $sid, string $contentType = self::contentTypes['deleteMarketingListsByIdSubscribersBySid'][0])
+    {
+        $request = $this->deleteMarketingListsByIdSubscribersBySidRequest($id, $sid, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'object',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteMarketingListsByIdSubscribersBySidAsync
+     *
+     * Removes one subscriber from one of the org&#39;s lists and answers 204.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  int $sid SID is the subscriber&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteMarketingListsByIdSubscribersBySidAsync($id, $sid, string $contentType = self::contentTypes['deleteMarketingListsByIdSubscribersBySid'][0])
+    {
+        return $this->deleteMarketingListsByIdSubscribersBySidAsyncWithHttpInfo($id, $sid, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteMarketingListsByIdSubscribersBySidAsyncWithHttpInfo
+     *
+     * Removes one subscriber from one of the org&#39;s lists and answers 204.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  int $sid SID is the subscriber&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteMarketingListsByIdSubscribersBySidAsyncWithHttpInfo($id, $sid, string $contentType = self::contentTypes['deleteMarketingListsByIdSubscribersBySid'][0])
+    {
+        $returnType = 'object';
+        $request = $this->deleteMarketingListsByIdSubscribersBySidRequest($id, $sid, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteMarketingListsByIdSubscribersBySid'
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  int $sid SID is the subscriber&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteMarketingListsByIdSubscribersBySidRequest($id, $sid, string $contentType = self::contentTypes['deleteMarketingListsByIdSubscribersBySid'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteMarketingListsByIdSubscribersBySid'
+            );
+        }
+
+        // verify the required parameter 'sid' is set
+        if ($sid === null || (is_array($sid) && count($sid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $sid when calling deleteMarketingListsByIdSubscribersBySid'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/subscribers/{sid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($sid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'sid' . '}',
+                ObjectSerializer::toPathValue($sid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -898,19 +2260,17 @@ class MarketingApi
      *
      * Re-subscribes an address on one channel and answers 204.
      *
-     * @param  string|null $channel Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable. (optional)
-     * @param  string|null $address Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. (optional)
-     * @param  string|null $reason Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \&quot;one-click unsubscribe\&quot;. (optional)
-     * @param  int|null $created_at CreatedAt is unix seconds, server-assigned. (optional)
+     * @param  string|null $channel Channel is the surface the entry opts out of; empty is email. (optional)
+     * @param  string|null $address Address is the entry: an address, or \&quot;@example.com\&quot; for a company. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function deleteMarketingSuppressions($channel = null, $address = null, $reason = null, $created_at = null, string $contentType = self::contentTypes['deleteMarketingSuppressions'][0])
+    public function deleteMarketingSuppressions($channel = null, $address = null, string $contentType = self::contentTypes['deleteMarketingSuppressions'][0])
     {
-        $this->deleteMarketingSuppressionsWithHttpInfo($channel, $address, $reason, $created_at, $contentType);
+        $this->deleteMarketingSuppressionsWithHttpInfo($channel, $address, $contentType);
     }
 
     /**
@@ -918,19 +2278,17 @@ class MarketingApi
      *
      * Re-subscribes an address on one channel and answers 204.
      *
-     * @param  string|null $channel Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable. (optional)
-     * @param  string|null $address Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. (optional)
-     * @param  string|null $reason Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \&quot;one-click unsubscribe\&quot;. (optional)
-     * @param  int|null $created_at CreatedAt is unix seconds, server-assigned. (optional)
+     * @param  string|null $channel Channel is the surface the entry opts out of; empty is email. (optional)
+     * @param  string|null $address Address is the entry: an address, or \&quot;@example.com\&quot; for a company. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteMarketingSuppressionsWithHttpInfo($channel = null, $address = null, $reason = null, $created_at = null, string $contentType = self::contentTypes['deleteMarketingSuppressions'][0])
+    public function deleteMarketingSuppressionsWithHttpInfo($channel = null, $address = null, string $contentType = self::contentTypes['deleteMarketingSuppressions'][0])
     {
-        $request = $this->deleteMarketingSuppressionsRequest($channel, $address, $reason, $created_at, $contentType);
+        $request = $this->deleteMarketingSuppressionsRequest($channel, $address, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -958,6 +2316,14 @@ class MarketingApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -970,18 +2336,16 @@ class MarketingApi
      *
      * Re-subscribes an address on one channel and answers 204.
      *
-     * @param  string|null $channel Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable. (optional)
-     * @param  string|null $address Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. (optional)
-     * @param  string|null $reason Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \&quot;one-click unsubscribe\&quot;. (optional)
-     * @param  int|null $created_at CreatedAt is unix seconds, server-assigned. (optional)
+     * @param  string|null $channel Channel is the surface the entry opts out of; empty is email. (optional)
+     * @param  string|null $address Address is the entry: an address, or \&quot;@example.com\&quot; for a company. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteMarketingSuppressionsAsync($channel = null, $address = null, $reason = null, $created_at = null, string $contentType = self::contentTypes['deleteMarketingSuppressions'][0])
+    public function deleteMarketingSuppressionsAsync($channel = null, $address = null, string $contentType = self::contentTypes['deleteMarketingSuppressions'][0])
     {
-        return $this->deleteMarketingSuppressionsAsyncWithHttpInfo($channel, $address, $reason, $created_at, $contentType)
+        return $this->deleteMarketingSuppressionsAsyncWithHttpInfo($channel, $address, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -994,19 +2358,17 @@ class MarketingApi
      *
      * Re-subscribes an address on one channel and answers 204.
      *
-     * @param  string|null $channel Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable. (optional)
-     * @param  string|null $address Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. (optional)
-     * @param  string|null $reason Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \&quot;one-click unsubscribe\&quot;. (optional)
-     * @param  int|null $created_at CreatedAt is unix seconds, server-assigned. (optional)
+     * @param  string|null $channel Channel is the surface the entry opts out of; empty is email. (optional)
+     * @param  string|null $address Address is the entry: an address, or \&quot;@example.com\&quot; for a company. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteMarketingSuppressionsAsyncWithHttpInfo($channel = null, $address = null, $reason = null, $created_at = null, string $contentType = self::contentTypes['deleteMarketingSuppressions'][0])
+    public function deleteMarketingSuppressionsAsyncWithHttpInfo($channel = null, $address = null, string $contentType = self::contentTypes['deleteMarketingSuppressions'][0])
     {
         $returnType = '';
-        $request = $this->deleteMarketingSuppressionsRequest($channel, $address, $reason, $created_at, $contentType);
+        $request = $this->deleteMarketingSuppressionsRequest($channel, $address, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1034,19 +2396,15 @@ class MarketingApi
     /**
      * Create request for operation 'deleteMarketingSuppressions'
      *
-     * @param  string|null $channel Channel is the surface opted out of: email, sms, social, meta, google or tiktok. Empty means email. Opting out of one leaves the others reachable. (optional)
-     * @param  string|null $address Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required. (optional)
-     * @param  string|null $reason Reason is a free-text note, capped at 1024 bytes. The public one-click endpoint records \&quot;one-click unsubscribe\&quot;. (optional)
-     * @param  int|null $created_at CreatedAt is unix seconds, server-assigned. (optional)
+     * @param  string|null $channel Channel is the surface the entry opts out of; empty is email. (optional)
+     * @param  string|null $address Address is the entry: an address, or \&quot;@example.com\&quot; for a company. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteMarketingSuppressionsRequest($channel = null, $address = null, $reason = null, $created_at = null, string $contentType = self::contentTypes['deleteMarketingSuppressions'][0])
+    public function deleteMarketingSuppressionsRequest($channel = null, $address = null, string $contentType = self::contentTypes['deleteMarketingSuppressions'][0])
     {
-
-
 
 
 
@@ -1076,30 +2434,12 @@ class MarketingApi
             true, // explode
             false // required
         ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $reason,
-            'reason', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $created_at,
-            'createdAt', // param base name
-            'integer', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1158,36 +2498,40 @@ class MarketingApi
     /**
      * Operation getMarketingAudiences
      *
-     * Returns the org&#39;s saved audiences, most recently updated first.
+     * Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingAudiences'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AudienceList
+     * @return \Hanzo\Cloud\Model\MarketingAudienceList|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getMarketingAudiences($limit = null, string $contentType = self::contentTypes['getMarketingAudiences'][0])
+    public function getMarketingAudiences($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingAudiences'][0])
     {
-        list($response) = $this->getMarketingAudiencesWithHttpInfo($limit, $contentType);
+        list($response) = $this->getMarketingAudiencesWithHttpInfo($limit, $cursor, $prefix, $contentType);
         return $response;
     }
 
     /**
      * Operation getMarketingAudiencesWithHttpInfo
      *
-     * Returns the org&#39;s saved audiences, most recently updated first.
+     * Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingAudiences'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AudienceList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingAudienceList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getMarketingAudiencesWithHttpInfo($limit = null, string $contentType = self::contentTypes['getMarketingAudiences'][0])
+    public function getMarketingAudiencesWithHttpInfo($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingAudiences'][0])
     {
-        $request = $this->getMarketingAudiencesRequest($limit, $contentType);
+        $request = $this->getMarketingAudiencesRequest($limit, $cursor, $prefix, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1215,7 +2559,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AudienceList',
+                        '\Hanzo\Cloud\Model\MarketingAudienceList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1237,7 +2587,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AudienceList',
+                '\Hanzo\Cloud\Model\MarketingAudienceList',
                 $request,
                 $response,
             );
@@ -1246,7 +2596,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AudienceList',
+                        '\Hanzo\Cloud\Model\MarketingAudienceList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1261,17 +2619,19 @@ class MarketingApi
     /**
      * Operation getMarketingAudiencesAsync
      *
-     * Returns the org&#39;s saved audiences, most recently updated first.
+     * Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingAudiences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMarketingAudiencesAsync($limit = null, string $contentType = self::contentTypes['getMarketingAudiences'][0])
+    public function getMarketingAudiencesAsync($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingAudiences'][0])
     {
-        return $this->getMarketingAudiencesAsyncWithHttpInfo($limit, $contentType)
+        return $this->getMarketingAudiencesAsyncWithHttpInfo($limit, $cursor, $prefix, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1282,18 +2642,20 @@ class MarketingApi
     /**
      * Operation getMarketingAudiencesAsyncWithHttpInfo
      *
-     * Returns the org&#39;s saved audiences, most recently updated first.
+     * Returns every audience the org can send to: its saved cohorts, most recently updated first, then its mailing lists and their saved segments, newest first, each list with its subscribed count.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingAudiences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMarketingAudiencesAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getMarketingAudiences'][0])
+    public function getMarketingAudiencesAsyncWithHttpInfo($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingAudiences'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AudienceList';
-        $request = $this->getMarketingAudiencesRequest($limit, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingAudienceList';
+        $request = $this->getMarketingAudiencesRequest($limit, $cursor, $prefix, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1335,13 +2697,17 @@ class MarketingApi
      * Create request for operation 'getMarketingAudiences'
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingAudiences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getMarketingAudiencesRequest($limit = null, string $contentType = self::contentTypes['getMarketingAudiences'][0])
+    public function getMarketingAudiencesRequest($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingAudiences'][0])
     {
+
+
 
 
 
@@ -1361,12 +2727,30 @@ class MarketingApi
             true, // explode
             false // required
         ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $prefix,
+            'prefix', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1432,7 +2816,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Audience
+     * @return \Hanzo\Cloud\Model\MarketingAudience|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingAudiencesById($id, string $contentType = self::contentTypes['getMarketingAudiencesById'][0])
     {
@@ -1450,7 +2834,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Audience, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingAudience|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingAudiencesByIdWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingAudiencesById'][0])
     {
@@ -1482,7 +2866,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Audience',
+                        '\Hanzo\Cloud\Model\MarketingAudience',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1504,7 +2894,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Audience',
+                '\Hanzo\Cloud\Model\MarketingAudience',
                 $request,
                 $response,
             );
@@ -1513,7 +2903,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Audience',
+                        '\Hanzo\Cloud\Model\MarketingAudience',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1559,7 +2957,7 @@ class MarketingApi
      */
     public function getMarketingAudiencesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingAudiencesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Audience';
+        $returnType = '\Hanzo\Cloud\Model\MarketingAudience';
         $request = $this->getMarketingAudiencesByIdRequest($id, $contentType);
 
         return $this->client
@@ -1638,7 +3036,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1704,7 +3102,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AudiencePreview
+     * @return \Hanzo\Cloud\Model\MarketingAudiencePreview|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingAudiencesByIdPreview($id, string $contentType = self::contentTypes['getMarketingAudiencesByIdPreview'][0])
     {
@@ -1722,7 +3120,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AudiencePreview, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingAudiencePreview|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingAudiencesByIdPreviewWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingAudiencesByIdPreview'][0])
     {
@@ -1754,7 +3152,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AudiencePreview',
+                        '\Hanzo\Cloud\Model\MarketingAudiencePreview',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1776,7 +3180,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AudiencePreview',
+                '\Hanzo\Cloud\Model\MarketingAudiencePreview',
                 $request,
                 $response,
             );
@@ -1785,7 +3189,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AudiencePreview',
+                        '\Hanzo\Cloud\Model\MarketingAudiencePreview',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1831,7 +3243,7 @@ class MarketingApi
      */
     public function getMarketingAudiencesByIdPreviewAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingAudiencesByIdPreview'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AudiencePreview';
+        $returnType = '\Hanzo\Cloud\Model\MarketingAudiencePreview';
         $request = $this->getMarketingAudiencesByIdPreviewRequest($id, $contentType);
 
         return $this->client
@@ -1910,7 +3322,1422 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingBeta
+     *
+     * Answers the signed-in caller&#39;s waitlist record: the application as it stands, the betas asked for, the points and the actions that earned them, and the place on the waitlist.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBeta'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBeta|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingBeta(string $contentType = self::contentTypes['getMarketingBeta'][0])
+    {
+        list($response) = $this->getMarketingBetaWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingBetaWithHttpInfo
+     *
+     * Answers the signed-in caller&#39;s waitlist record: the application as it stands, the betas asked for, the points and the actions that earned them, and the place on the waitlist.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBeta'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBeta|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingBetaWithHttpInfo(string $contentType = self::contentTypes['getMarketingBeta'][0])
+    {
+        $request = $this->getMarketingBetaRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBeta',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBeta',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBeta',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingBetaAsync
+     *
+     * Answers the signed-in caller&#39;s waitlist record: the application as it stands, the betas asked for, the points and the actions that earned them, and the place on the waitlist.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBeta'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingBetaAsync(string $contentType = self::contentTypes['getMarketingBeta'][0])
+    {
+        return $this->getMarketingBetaAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingBetaAsyncWithHttpInfo
+     *
+     * Answers the signed-in caller&#39;s waitlist record: the application as it stands, the betas asked for, the points and the actions that earned them, and the place on the waitlist.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBeta'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingBetaAsyncWithHttpInfo(string $contentType = self::contentTypes['getMarketingBeta'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBeta';
+        $request = $this->getMarketingBetaRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingBeta'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBeta'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingBetaRequest(string $contentType = self::contentTypes['getMarketingBeta'][0])
+    {
+
+
+        $resourcePath = '/v1/marketing/beta';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingBetaInvites
+     *
+     * Answers the caller&#39;s invites, newest first, with how many were sent, how many joined, and how many more they may send now.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBetaInvites'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBetaInviteList|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingBetaInvites(string $contentType = self::contentTypes['getMarketingBetaInvites'][0])
+    {
+        list($response) = $this->getMarketingBetaInvitesWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingBetaInvitesWithHttpInfo
+     *
+     * Answers the caller&#39;s invites, newest first, with how many were sent, how many joined, and how many more they may send now.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBetaInvites'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBetaInviteList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingBetaInvitesWithHttpInfo(string $contentType = self::contentTypes['getMarketingBetaInvites'][0])
+    {
+        $request = $this->getMarketingBetaInvitesRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBetaInviteList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBetaInviteList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBetaInviteList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingBetaInvitesAsync
+     *
+     * Answers the caller&#39;s invites, newest first, with how many were sent, how many joined, and how many more they may send now.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBetaInvites'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingBetaInvitesAsync(string $contentType = self::contentTypes['getMarketingBetaInvites'][0])
+    {
+        return $this->getMarketingBetaInvitesAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingBetaInvitesAsyncWithHttpInfo
+     *
+     * Answers the caller&#39;s invites, newest first, with how many were sent, how many joined, and how many more they may send now.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBetaInvites'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingBetaInvitesAsyncWithHttpInfo(string $contentType = self::contentTypes['getMarketingBetaInvites'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBetaInviteList';
+        $request = $this->getMarketingBetaInvitesRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingBetaInvites'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBetaInvites'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingBetaInvitesRequest(string $contentType = self::contentTypes['getMarketingBetaInvites'][0])
+    {
+
+
+        $resourcePath = '/v1/marketing/beta/invites';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingBroadcasts
+     *
+     * Returns the org&#39;s broadcasts, newest first.
+     *
+     * @param  string|null $list List keeps one list&#39;s broadcasts, by id or slug. (optional)
+     * @param  string|null $status Status keeps broadcasts in one status. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 200. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcasts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBroadcastPage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingBroadcasts($list = null, $status = null, $limit = null, string $contentType = self::contentTypes['getMarketingBroadcasts'][0])
+    {
+        list($response) = $this->getMarketingBroadcastsWithHttpInfo($list, $status, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingBroadcastsWithHttpInfo
+     *
+     * Returns the org&#39;s broadcasts, newest first.
+     *
+     * @param  string|null $list List keeps one list&#39;s broadcasts, by id or slug. (optional)
+     * @param  string|null $status Status keeps broadcasts in one status. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 200. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcasts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBroadcastPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingBroadcastsWithHttpInfo($list = null, $status = null, $limit = null, string $contentType = self::contentTypes['getMarketingBroadcasts'][0])
+    {
+        $request = $this->getMarketingBroadcastsRequest($list, $status, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBroadcastPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBroadcastPage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBroadcastPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingBroadcastsAsync
+     *
+     * Returns the org&#39;s broadcasts, newest first.
+     *
+     * @param  string|null $list List keeps one list&#39;s broadcasts, by id or slug. (optional)
+     * @param  string|null $status Status keeps broadcasts in one status. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 200. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcasts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingBroadcastsAsync($list = null, $status = null, $limit = null, string $contentType = self::contentTypes['getMarketingBroadcasts'][0])
+    {
+        return $this->getMarketingBroadcastsAsyncWithHttpInfo($list, $status, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingBroadcastsAsyncWithHttpInfo
+     *
+     * Returns the org&#39;s broadcasts, newest first.
+     *
+     * @param  string|null $list List keeps one list&#39;s broadcasts, by id or slug. (optional)
+     * @param  string|null $status Status keeps broadcasts in one status. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 200. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcasts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingBroadcastsAsyncWithHttpInfo($list = null, $status = null, $limit = null, string $contentType = self::contentTypes['getMarketingBroadcasts'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBroadcastPage';
+        $request = $this->getMarketingBroadcastsRequest($list, $status, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingBroadcasts'
+     *
+     * @param  string|null $list List keeps one list&#39;s broadcasts, by id or slug. (optional)
+     * @param  string|null $status Status keeps broadcasts in one status. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 200. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcasts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingBroadcastsRequest($list = null, $status = null, $limit = null, string $contentType = self::contentTypes['getMarketingBroadcasts'][0])
+    {
+
+
+
+
+
+        $resourcePath = '/v1/marketing/broadcasts';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $list,
+            'list', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $status,
+            'status', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingBroadcastsById
+     *
+     * Returns one of the org&#39;s broadcasts.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBroadcast|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingBroadcastsById($id, string $contentType = self::contentTypes['getMarketingBroadcastsById'][0])
+    {
+        list($response) = $this->getMarketingBroadcastsByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingBroadcastsByIdWithHttpInfo
+     *
+     * Returns one of the org&#39;s broadcasts.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBroadcast|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingBroadcastsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingBroadcastsById'][0])
+    {
+        $request = $this->getMarketingBroadcastsByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBroadcast',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBroadcast',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBroadcast',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingBroadcastsByIdAsync
+     *
+     * Returns one of the org&#39;s broadcasts.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingBroadcastsByIdAsync($id, string $contentType = self::contentTypes['getMarketingBroadcastsById'][0])
+    {
+        return $this->getMarketingBroadcastsByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingBroadcastsByIdAsyncWithHttpInfo
+     *
+     * Returns one of the org&#39;s broadcasts.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingBroadcastsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingBroadcastsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBroadcast';
+        $request = $this->getMarketingBroadcastsByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingBroadcastsById'
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingBroadcastsByIdRequest($id, string $contentType = self::contentTypes['getMarketingBroadcastsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketingBroadcastsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/broadcasts/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingBroadcastsByIdStats
+     *
+     * Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcastsByIdStats'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBroadcastStats|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingBroadcastsByIdStats($id, string $contentType = self::contentTypes['getMarketingBroadcastsByIdStats'][0])
+    {
+        list($response) = $this->getMarketingBroadcastsByIdStatsWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingBroadcastsByIdStatsWithHttpInfo
+     *
+     * Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcastsByIdStats'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBroadcastStats|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingBroadcastsByIdStatsWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingBroadcastsByIdStats'][0])
+    {
+        $request = $this->getMarketingBroadcastsByIdStatsRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBroadcastStats',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBroadcastStats',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBroadcastStats',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingBroadcastsByIdStatsAsync
+     *
+     * Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcastsByIdStats'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingBroadcastsByIdStatsAsync($id, string $contentType = self::contentTypes['getMarketingBroadcastsByIdStats'][0])
+    {
+        return $this->getMarketingBroadcastsByIdStatsAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingBroadcastsByIdStatsAsyncWithHttpInfo
+     *
+     * Returns one broadcast&#39;s numbers: audience, sent, refused, failed, and what the email plane reported (delivered, opened, clicked, bounced, complained, unsubscribed), each counted once per message, with open and click rates.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcastsByIdStats'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingBroadcastsByIdStatsAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingBroadcastsByIdStats'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBroadcastStats';
+        $request = $this->getMarketingBroadcastsByIdStatsRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingBroadcastsByIdStats'
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingBroadcastsByIdStats'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingBroadcastsByIdStatsRequest($id, string $contentType = self::contentTypes['getMarketingBroadcastsByIdStats'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketingBroadcastsByIdStats'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/broadcasts/{id}/stats';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1977,7 +4804,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PostList
+     * @return \Hanzo\Cloud\Model\MarketingPostList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingCalendar($status = null, $limit = null, string $contentType = self::contentTypes['getMarketingCalendar'][0])
     {
@@ -1996,7 +4823,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PostList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingPostList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingCalendarWithHttpInfo($status = null, $limit = null, string $contentType = self::contentTypes['getMarketingCalendar'][0])
     {
@@ -2028,7 +4855,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PostList',
+                        '\Hanzo\Cloud\Model\MarketingPostList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2050,7 +4883,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PostList',
+                '\Hanzo\Cloud\Model\MarketingPostList',
                 $request,
                 $response,
             );
@@ -2059,7 +4892,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PostList',
+                        '\Hanzo\Cloud\Model\MarketingPostList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2107,7 +4948,7 @@ class MarketingApi
      */
     public function getMarketingCalendarAsyncWithHttpInfo($status = null, $limit = null, string $contentType = self::contentTypes['getMarketingCalendar'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PostList';
+        $returnType = '\Hanzo\Cloud\Model\MarketingPostList';
         $request = $this->getMarketingCalendarRequest($status, $limit, $contentType);
 
         return $this->client
@@ -2192,7 +5033,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2258,7 +5099,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CalendarPost
+     * @return \Hanzo\Cloud\Model\MarketingCalendarPost|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingCalendarById($id, string $contentType = self::contentTypes['getMarketingCalendarById'][0])
     {
@@ -2276,7 +5117,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CalendarPost, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingCalendarPost|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingCalendarByIdWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingCalendarById'][0])
     {
@@ -2308,7 +5149,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CalendarPost',
+                        '\Hanzo\Cloud\Model\MarketingCalendarPost',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2330,7 +5177,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CalendarPost',
+                '\Hanzo\Cloud\Model\MarketingCalendarPost',
                 $request,
                 $response,
             );
@@ -2339,7 +5186,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CalendarPost',
+                        '\Hanzo\Cloud\Model\MarketingCalendarPost',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2385,7 +5240,7 @@ class MarketingApi
      */
     public function getMarketingCalendarByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingCalendarById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CalendarPost';
+        $returnType = '\Hanzo\Cloud\Model\MarketingCalendarPost';
         $request = $this->getMarketingCalendarByIdRequest($id, $contentType);
 
         return $this->client
@@ -2464,7 +5319,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2531,7 +5386,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CampaignList
+     * @return \Hanzo\Cloud\Model\MarketingCampaignList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingCampaigns($status = null, $limit = null, string $contentType = self::contentTypes['getMarketingCampaigns'][0])
     {
@@ -2550,7 +5405,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CampaignList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingCampaignList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingCampaignsWithHttpInfo($status = null, $limit = null, string $contentType = self::contentTypes['getMarketingCampaigns'][0])
     {
@@ -2582,7 +5437,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CampaignList',
+                        '\Hanzo\Cloud\Model\MarketingCampaignList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2604,7 +5465,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CampaignList',
+                '\Hanzo\Cloud\Model\MarketingCampaignList',
                 $request,
                 $response,
             );
@@ -2613,7 +5474,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CampaignList',
+                        '\Hanzo\Cloud\Model\MarketingCampaignList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2661,7 +5530,7 @@ class MarketingApi
      */
     public function getMarketingCampaignsAsyncWithHttpInfo($status = null, $limit = null, string $contentType = self::contentTypes['getMarketingCampaigns'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CampaignList';
+        $returnType = '\Hanzo\Cloud\Model\MarketingCampaignList';
         $request = $this->getMarketingCampaignsRequest($status, $limit, $contentType);
 
         return $this->client
@@ -2746,7 +5615,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2812,7 +5681,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Campaign
+     * @return \Hanzo\Cloud\Model\MarketingCampaign|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingCampaignsById($id, string $contentType = self::contentTypes['getMarketingCampaignsById'][0])
     {
@@ -2830,7 +5699,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Campaign, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingCampaign|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingCampaignsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingCampaignsById'][0])
     {
@@ -2862,7 +5731,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Campaign',
+                        '\Hanzo\Cloud\Model\MarketingCampaign',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2884,7 +5759,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Campaign',
+                '\Hanzo\Cloud\Model\MarketingCampaign',
                 $request,
                 $response,
             );
@@ -2893,7 +5768,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Campaign',
+                        '\Hanzo\Cloud\Model\MarketingCampaign',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2939,7 +5822,7 @@ class MarketingApi
      */
     public function getMarketingCampaignsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingCampaignsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Campaign';
+        $returnType = '\Hanzo\Cloud\Model\MarketingCampaign';
         $request = $this->getMarketingCampaignsByIdRequest($id, $contentType);
 
         return $this->client
@@ -3018,7 +5901,3396 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingClick
+     *
+     * Follows a tracked email link.
+     *
+     * @param  string|null $user_agent Agent is the clicker&#39;s User-Agent header. Only its family (chrome, safari, automated, …) is kept. (optional)
+     * @param  string|null $t T is the click token the send minted for this link and this recipient: base64url, signed under the deployment&#39;s KMS key marketing/click-hmac. It is the request&#39;s only authority. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingClick'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return |\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingClick($user_agent = null, $t = null, string $contentType = self::contentTypes['getMarketingClick'][0])
+    {
+        list($response) = $this->getMarketingClickWithHttpInfo($user_agent, $t, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingClickWithHttpInfo
+     *
+     * Follows a tracked email link.
+     *
+     * @param  string|null $user_agent Agent is the clicker&#39;s User-Agent header. Only its family (chrome, safari, automated, …) is kept. (optional)
+     * @param  string|null $t T is the click token the send minted for this link and this recipient: base64url, signed under the deployment&#39;s KMS key marketing/click-hmac. It is the request&#39;s only authority. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingClick'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of |\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingClickWithHttpInfo($user_agent = null, $t = null, string $contentType = self::contentTypes['getMarketingClick'][0])
+    {
+        $request = $this->getMarketingClickRequest($user_agent, $t, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ProblemDetails',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingClickAsync
+     *
+     * Follows a tracked email link.
+     *
+     * @param  string|null $user_agent Agent is the clicker&#39;s User-Agent header. Only its family (chrome, safari, automated, …) is kept. (optional)
+     * @param  string|null $t T is the click token the send minted for this link and this recipient: base64url, signed under the deployment&#39;s KMS key marketing/click-hmac. It is the request&#39;s only authority. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingClick'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingClickAsync($user_agent = null, $t = null, string $contentType = self::contentTypes['getMarketingClick'][0])
+    {
+        return $this->getMarketingClickAsyncWithHttpInfo($user_agent, $t, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingClickAsyncWithHttpInfo
+     *
+     * Follows a tracked email link.
+     *
+     * @param  string|null $user_agent Agent is the clicker&#39;s User-Agent header. Only its family (chrome, safari, automated, …) is kept. (optional)
+     * @param  string|null $t T is the click token the send minted for this link and this recipient: base64url, signed under the deployment&#39;s KMS key marketing/click-hmac. It is the request&#39;s only authority. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingClick'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingClickAsyncWithHttpInfo($user_agent = null, $t = null, string $contentType = self::contentTypes['getMarketingClick'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\ProblemDetails';
+        $request = $this->getMarketingClickRequest($user_agent, $t, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingClick'
+     *
+     * @param  string|null $user_agent Agent is the clicker&#39;s User-Agent header. Only its family (chrome, safari, automated, …) is kept. (optional)
+     * @param  string|null $t T is the click token the send minted for this link and this recipient: base64url, signed under the deployment&#39;s KMS key marketing/click-hmac. It is the request&#39;s only authority. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingClick'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingClickRequest($user_agent = null, $t = null, string $contentType = self::contentTypes['getMarketingClick'][0])
+    {
+
+
+
+
+        $resourcePath = '/v1/marketing/click';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $t,
+            't', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+        // header params
+        if ($user_agent !== null) {
+            $headerParams['User-Agent'] = ObjectSerializer::toHeaderValue($user_agent);
+        }
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingFields
+     *
+     * Returns the custom fields the org defined for its subscribers.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingFields'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingFieldSet|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingFields(string $contentType = self::contentTypes['getMarketingFields'][0])
+    {
+        list($response) = $this->getMarketingFieldsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingFieldsWithHttpInfo
+     *
+     * Returns the custom fields the org defined for its subscribers.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingFields'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingFieldSet|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingFieldsWithHttpInfo(string $contentType = self::contentTypes['getMarketingFields'][0])
+    {
+        $request = $this->getMarketingFieldsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingFieldSet',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingFieldSet',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingFieldSet',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingFieldsAsync
+     *
+     * Returns the custom fields the org defined for its subscribers.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingFields'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingFieldsAsync(string $contentType = self::contentTypes['getMarketingFields'][0])
+    {
+        return $this->getMarketingFieldsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingFieldsAsyncWithHttpInfo
+     *
+     * Returns the custom fields the org defined for its subscribers.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingFields'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingFieldsAsyncWithHttpInfo(string $contentType = self::contentTypes['getMarketingFields'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingFieldSet';
+        $request = $this->getMarketingFieldsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingFields'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingFields'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingFieldsRequest(string $contentType = self::contentTypes['getMarketingFields'][0])
+    {
+
+
+        $resourcePath = '/v1/marketing/fields';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingImports
+     *
+     * Returns the org&#39;s imports, newest first, each with its report.
+     *
+     * @param  string|null $list List keeps one list&#39;s imports, by id or slug. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 200. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingImports'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingImportPage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingImports($list = null, $limit = null, string $contentType = self::contentTypes['getMarketingImports'][0])
+    {
+        list($response) = $this->getMarketingImportsWithHttpInfo($list, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingImportsWithHttpInfo
+     *
+     * Returns the org&#39;s imports, newest first, each with its report.
+     *
+     * @param  string|null $list List keeps one list&#39;s imports, by id or slug. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 200. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingImports'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingImportPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingImportsWithHttpInfo($list = null, $limit = null, string $contentType = self::contentTypes['getMarketingImports'][0])
+    {
+        $request = $this->getMarketingImportsRequest($list, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingImportPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingImportPage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingImportPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingImportsAsync
+     *
+     * Returns the org&#39;s imports, newest first, each with its report.
+     *
+     * @param  string|null $list List keeps one list&#39;s imports, by id or slug. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 200. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingImports'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingImportsAsync($list = null, $limit = null, string $contentType = self::contentTypes['getMarketingImports'][0])
+    {
+        return $this->getMarketingImportsAsyncWithHttpInfo($list, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingImportsAsyncWithHttpInfo
+     *
+     * Returns the org&#39;s imports, newest first, each with its report.
+     *
+     * @param  string|null $list List keeps one list&#39;s imports, by id or slug. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 200. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingImports'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingImportsAsyncWithHttpInfo($list = null, $limit = null, string $contentType = self::contentTypes['getMarketingImports'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingImportPage';
+        $request = $this->getMarketingImportsRequest($list, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingImports'
+     *
+     * @param  string|null $list List keeps one list&#39;s imports, by id or slug. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 200. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingImports'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingImportsRequest($list = null, $limit = null, string $contentType = self::contentTypes['getMarketingImports'][0])
+    {
+
+
+
+
+        $resourcePath = '/v1/marketing/imports';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $list,
+            'list', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingImportsById
+     *
+     * Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingImportsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingImport|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingImportsById($id, string $contentType = self::contentTypes['getMarketingImportsById'][0])
+    {
+        list($response) = $this->getMarketingImportsByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingImportsByIdWithHttpInfo
+     *
+     * Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingImportsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingImport|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingImportsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingImportsById'][0])
+    {
+        $request = $this->getMarketingImportsByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingImport',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingImport',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingImport',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingImportsByIdAsync
+     *
+     * Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingImportsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingImportsByIdAsync($id, string $contentType = self::contentTypes['getMarketingImportsById'][0])
+    {
+        return $this->getMarketingImportsByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingImportsByIdAsyncWithHttpInfo
+     *
+     * Returns one of the org&#39;s imports: its state, how far its bytes and its reading have come, and its report so far.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingImportsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingImportsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingImportsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingImport';
+        $request = $this->getMarketingImportsByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingImportsById'
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingImportsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingImportsByIdRequest($id, string $contentType = self::contentTypes['getMarketingImportsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketingImportsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/imports/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingLists
+     *
+     * Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingLists'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingListPage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingLists(string $contentType = self::contentTypes['getMarketingLists'][0])
+    {
+        list($response) = $this->getMarketingListsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingListsWithHttpInfo
+     *
+     * Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingLists'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingListPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingListsWithHttpInfo(string $contentType = self::contentTypes['getMarketingLists'][0])
+    {
+        $request = $this->getMarketingListsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingListPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingListPage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingListPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingListsAsync
+     *
+     * Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingLists'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsAsync(string $contentType = self::contentTypes['getMarketingLists'][0])
+    {
+        return $this->getMarketingListsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingListsAsyncWithHttpInfo
+     *
+     * Returns the org&#39;s lists, newest first, each with its subscribers counted by status.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingLists'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsAsyncWithHttpInfo(string $contentType = self::contentTypes['getMarketingLists'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingListPage';
+        $request = $this->getMarketingListsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingLists'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingLists'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingListsRequest(string $contentType = self::contentTypes['getMarketingLists'][0])
+    {
+
+
+        $resourcePath = '/v1/marketing/lists';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingListsById
+     *
+     * Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingList|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingListsById($id, string $contentType = self::contentTypes['getMarketingListsById'][0])
+    {
+        list($response) = $this->getMarketingListsByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingListsByIdWithHttpInfo
+     *
+     * Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingListsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingListsById'][0])
+    {
+        $request = $this->getMarketingListsByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingListsByIdAsync
+     *
+     * Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdAsync($id, string $contentType = self::contentTypes['getMarketingListsById'][0])
+    {
+        return $this->getMarketingListsByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingListsByIdAsyncWithHttpInfo
+     *
+     * Returns one of the org&#39;s lists, by id or slug, with its subscribers counted by status.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingListsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingList';
+        $request = $this->getMarketingListsByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingListsById'
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingListsByIdRequest($id, string $contentType = self::contentTypes['getMarketingListsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketingListsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingListsByIdExport
+     *
+     * Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields.
+     *
+     * @param  string $id id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdExport'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getMarketingListsByIdExport($id, string $contentType = self::contentTypes['getMarketingListsByIdExport'][0])
+    {
+        $this->getMarketingListsByIdExportWithHttpInfo($id, $contentType);
+    }
+
+    /**
+     * Operation getMarketingListsByIdExportWithHttpInfo
+     *
+     * Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdExport'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingListsByIdExportWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingListsByIdExport'][0])
+    {
+        $request = $this->getMarketingListsByIdExportRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingListsByIdExportAsync
+     *
+     * Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdExport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdExportAsync($id, string $contentType = self::contentTypes['getMarketingListsByIdExport'][0])
+    {
+        return $this->getMarketingListsByIdExportAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingListsByIdExportAsyncWithHttpInfo
+     *
+     * Streams a selection of one list as CSV (format&#x3D;csv, the default) or as a JSON array (format&#x3D;json), every subscriber with their consent evidence, engagement and custom fields.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdExport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdExportAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingListsByIdExport'][0])
+    {
+        $returnType = '';
+        $request = $this->getMarketingListsByIdExportRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingListsByIdExport'
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdExport'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingListsByIdExportRequest($id, string $contentType = self::contentTypes['getMarketingListsByIdExport'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketingListsByIdExport'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/export';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingListsByIdSegments
+     *
+     * Returns one list&#39;s saved segments, newest first.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSegments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSegmentPage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingListsByIdSegments($id, string $contentType = self::contentTypes['getMarketingListsByIdSegments'][0])
+    {
+        list($response) = $this->getMarketingListsByIdSegmentsWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingListsByIdSegmentsWithHttpInfo
+     *
+     * Returns one list&#39;s saved segments, newest first.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSegments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSegmentPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingListsByIdSegmentsWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingListsByIdSegments'][0])
+    {
+        $request = $this->getMarketingListsByIdSegmentsRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSegmentPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSegmentPage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSegmentPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingListsByIdSegmentsAsync
+     *
+     * Returns one list&#39;s saved segments, newest first.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSegments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdSegmentsAsync($id, string $contentType = self::contentTypes['getMarketingListsByIdSegments'][0])
+    {
+        return $this->getMarketingListsByIdSegmentsAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingListsByIdSegmentsAsyncWithHttpInfo
+     *
+     * Returns one list&#39;s saved segments, newest first.
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSegments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdSegmentsAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingListsByIdSegments'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSegmentPage';
+        $request = $this->getMarketingListsByIdSegmentsRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingListsByIdSegments'
+     *
+     * @param  string $id ID is the list&#39;s id or its slug. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSegments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingListsByIdSegmentsRequest($id, string $contentType = self::contentTypes['getMarketingListsByIdSegments'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketingListsByIdSegments'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/segments';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingListsByIdStats
+     *
+     * Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string|null $from From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)
+     * @param  string|null $to To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdStats'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingListStats|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingListsByIdStats($id, $from = null, $to = null, string $contentType = self::contentTypes['getMarketingListsByIdStats'][0])
+    {
+        list($response) = $this->getMarketingListsByIdStatsWithHttpInfo($id, $from, $to, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingListsByIdStatsWithHttpInfo
+     *
+     * Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string|null $from From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)
+     * @param  string|null $to To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdStats'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingListStats|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingListsByIdStatsWithHttpInfo($id, $from = null, $to = null, string $contentType = self::contentTypes['getMarketingListsByIdStats'][0])
+    {
+        $request = $this->getMarketingListsByIdStatsRequest($id, $from, $to, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingListStats',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingListStats',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingListStats',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingListsByIdStatsAsync
+     *
+     * Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string|null $from From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)
+     * @param  string|null $to To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdStats'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdStatsAsync($id, $from = null, $to = null, string $contentType = self::contentTypes['getMarketingListsByIdStats'][0])
+    {
+        return $this->getMarketingListsByIdStatsAsyncWithHttpInfo($id, $from, $to, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingListsByIdStatsAsyncWithHttpInfo
+     *
+     * Returns one list&#39;s numbers for charting: subscribers by status, source and consent basis, and over a range of days, what happened each day, the net growth, the confirmation rate and the unsubscribe rate.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string|null $from From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)
+     * @param  string|null $to To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdStats'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdStatsAsyncWithHttpInfo($id, $from = null, $to = null, string $contentType = self::contentTypes['getMarketingListsByIdStats'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingListStats';
+        $request = $this->getMarketingListsByIdStatsRequest($id, $from, $to, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingListsByIdStats'
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string|null $from From is the first day, YYYY-MM-DD (UTC); 30 days before To by default. (optional)
+     * @param  string|null $to To is the last day, YYYY-MM-DD (UTC); today by default. At most 366 days after From. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdStats'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingListsByIdStatsRequest($id, $from = null, $to = null, string $contentType = self::contentTypes['getMarketingListsByIdStats'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketingListsByIdStats'
+            );
+        }
+
+
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/stats';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $from,
+            'from', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $to,
+            'to', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingListsByIdSubscribers
+     *
+     * Returns a page of one list&#39;s subscribers, newest first unless asked otherwise.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string|null $status Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)
+     * @param  string|null $tag Tag keeps subscribers carrying this tag. (optional)
+     * @param  string|null $source Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)
+     * @param  string|null $ref Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)
+     * @param  string|null $basis Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)
+     * @param  string|null $q Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)
+     * @param  string|null $field Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)
+     * @param  string|null $value Value is the custom field&#39;s value Field keeps. (optional)
+     * @param  int|null $created_after CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)
+     * @param  int|null $created_before CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)
+     * @param  int|null $confirmed_after ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)
+     * @param  int|null $confirmed_before ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)
+     * @param  int|null $opened_after OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)
+     * @param  int|null $not_opened_since NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)
+     * @param  int|null $clicked_after ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)
+     * @param  string|null $segment Segment applies a saved segment of the list; the filter fields narrow it further. (optional)
+     * @param  string|null $sort Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)
+     * @param  string|null $order Order is desc (the default) or asc. (optional)
+     * @param  string|null $cursor Cursor continues from where the previous page ended. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 500. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSubscribers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSubscriberPage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingListsByIdSubscribers($id, $status = null, $tag = null, $source = null, $ref = null, $basis = null, $q = null, $field = null, $value = null, $created_after = null, $created_before = null, $confirmed_after = null, $confirmed_before = null, $opened_after = null, $not_opened_since = null, $clicked_after = null, $segment = null, $sort = null, $order = null, $cursor = null, $limit = null, string $contentType = self::contentTypes['getMarketingListsByIdSubscribers'][0])
+    {
+        list($response) = $this->getMarketingListsByIdSubscribersWithHttpInfo($id, $status, $tag, $source, $ref, $basis, $q, $field, $value, $created_after, $created_before, $confirmed_after, $confirmed_before, $opened_after, $not_opened_since, $clicked_after, $segment, $sort, $order, $cursor, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingListsByIdSubscribersWithHttpInfo
+     *
+     * Returns a page of one list&#39;s subscribers, newest first unless asked otherwise.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string|null $status Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)
+     * @param  string|null $tag Tag keeps subscribers carrying this tag. (optional)
+     * @param  string|null $source Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)
+     * @param  string|null $ref Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)
+     * @param  string|null $basis Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)
+     * @param  string|null $q Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)
+     * @param  string|null $field Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)
+     * @param  string|null $value Value is the custom field&#39;s value Field keeps. (optional)
+     * @param  int|null $created_after CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)
+     * @param  int|null $created_before CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)
+     * @param  int|null $confirmed_after ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)
+     * @param  int|null $confirmed_before ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)
+     * @param  int|null $opened_after OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)
+     * @param  int|null $not_opened_since NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)
+     * @param  int|null $clicked_after ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)
+     * @param  string|null $segment Segment applies a saved segment of the list; the filter fields narrow it further. (optional)
+     * @param  string|null $sort Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)
+     * @param  string|null $order Order is desc (the default) or asc. (optional)
+     * @param  string|null $cursor Cursor continues from where the previous page ended. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 500. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSubscribers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSubscriberPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingListsByIdSubscribersWithHttpInfo($id, $status = null, $tag = null, $source = null, $ref = null, $basis = null, $q = null, $field = null, $value = null, $created_after = null, $created_before = null, $confirmed_after = null, $confirmed_before = null, $opened_after = null, $not_opened_since = null, $clicked_after = null, $segment = null, $sort = null, $order = null, $cursor = null, $limit = null, string $contentType = self::contentTypes['getMarketingListsByIdSubscribers'][0])
+    {
+        $request = $this->getMarketingListsByIdSubscribersRequest($id, $status, $tag, $source, $ref, $basis, $q, $field, $value, $created_after, $created_before, $confirmed_after, $confirmed_before, $opened_after, $not_opened_since, $clicked_after, $segment, $sort, $order, $cursor, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSubscriberPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSubscriberPage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSubscriberPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingListsByIdSubscribersAsync
+     *
+     * Returns a page of one list&#39;s subscribers, newest first unless asked otherwise.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string|null $status Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)
+     * @param  string|null $tag Tag keeps subscribers carrying this tag. (optional)
+     * @param  string|null $source Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)
+     * @param  string|null $ref Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)
+     * @param  string|null $basis Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)
+     * @param  string|null $q Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)
+     * @param  string|null $field Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)
+     * @param  string|null $value Value is the custom field&#39;s value Field keeps. (optional)
+     * @param  int|null $created_after CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)
+     * @param  int|null $created_before CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)
+     * @param  int|null $confirmed_after ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)
+     * @param  int|null $confirmed_before ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)
+     * @param  int|null $opened_after OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)
+     * @param  int|null $not_opened_since NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)
+     * @param  int|null $clicked_after ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)
+     * @param  string|null $segment Segment applies a saved segment of the list; the filter fields narrow it further. (optional)
+     * @param  string|null $sort Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)
+     * @param  string|null $order Order is desc (the default) or asc. (optional)
+     * @param  string|null $cursor Cursor continues from where the previous page ended. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 500. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSubscribers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdSubscribersAsync($id, $status = null, $tag = null, $source = null, $ref = null, $basis = null, $q = null, $field = null, $value = null, $created_after = null, $created_before = null, $confirmed_after = null, $confirmed_before = null, $opened_after = null, $not_opened_since = null, $clicked_after = null, $segment = null, $sort = null, $order = null, $cursor = null, $limit = null, string $contentType = self::contentTypes['getMarketingListsByIdSubscribers'][0])
+    {
+        return $this->getMarketingListsByIdSubscribersAsyncWithHttpInfo($id, $status, $tag, $source, $ref, $basis, $q, $field, $value, $created_after, $created_before, $confirmed_after, $confirmed_before, $opened_after, $not_opened_since, $clicked_after, $segment, $sort, $order, $cursor, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingListsByIdSubscribersAsyncWithHttpInfo
+     *
+     * Returns a page of one list&#39;s subscribers, newest first unless asked otherwise.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string|null $status Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)
+     * @param  string|null $tag Tag keeps subscribers carrying this tag. (optional)
+     * @param  string|null $source Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)
+     * @param  string|null $ref Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)
+     * @param  string|null $basis Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)
+     * @param  string|null $q Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)
+     * @param  string|null $field Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)
+     * @param  string|null $value Value is the custom field&#39;s value Field keeps. (optional)
+     * @param  int|null $created_after CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)
+     * @param  int|null $created_before CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)
+     * @param  int|null $confirmed_after ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)
+     * @param  int|null $confirmed_before ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)
+     * @param  int|null $opened_after OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)
+     * @param  int|null $not_opened_since NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)
+     * @param  int|null $clicked_after ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)
+     * @param  string|null $segment Segment applies a saved segment of the list; the filter fields narrow it further. (optional)
+     * @param  string|null $sort Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)
+     * @param  string|null $order Order is desc (the default) or asc. (optional)
+     * @param  string|null $cursor Cursor continues from where the previous page ended. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 500. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSubscribers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdSubscribersAsyncWithHttpInfo($id, $status = null, $tag = null, $source = null, $ref = null, $basis = null, $q = null, $field = null, $value = null, $created_after = null, $created_before = null, $confirmed_after = null, $confirmed_before = null, $opened_after = null, $not_opened_since = null, $clicked_after = null, $segment = null, $sort = null, $order = null, $cursor = null, $limit = null, string $contentType = self::contentTypes['getMarketingListsByIdSubscribers'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSubscriberPage';
+        $request = $this->getMarketingListsByIdSubscribersRequest($id, $status, $tag, $source, $ref, $basis, $q, $field, $value, $created_after, $created_before, $confirmed_after, $confirmed_before, $opened_after, $not_opened_since, $clicked_after, $segment, $sort, $order, $cursor, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingListsByIdSubscribers'
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string|null $status Status is one status or several, comma-separated: pending, subscribed, unsubscribed, bounced, complained, cleaned. (optional)
+     * @param  string|null $tag Tag keeps subscribers carrying this tag. (optional)
+     * @param  string|null $source Source keeps subscribers that came from this kind of source: form, page, api, import or commerce. (optional)
+     * @param  string|null $ref Ref keeps subscribers from one source instance: a form id, a page, an import batch id. (optional)
+     * @param  string|null $basis Basis keeps subscribers by the consent basis recorded for them: explicit, legitimate_interest or unverified. (optional)
+     * @param  string|null $q Q keeps subscribers whose address or name begins with it, case-insensitively. A search is ordered by address. (optional)
+     * @param  string|null $field Field names a custom field, and Value keeps subscribers whose value for it is exactly this. (optional)
+     * @param  string|null $value Value is the custom field&#39;s value Field keeps. (optional)
+     * @param  int|null $created_after CreatedAfter and CreatedBefore bound when the subscriber joined the list, unix seconds, inclusive. Zero is unbounded. (optional)
+     * @param  int|null $created_before CreatedBefore is the upper bound of CreatedAfter&#39;s range. (optional)
+     * @param  int|null $confirmed_after ConfirmedAfter and ConfirmedBefore bound when the subscription was confirmed, unix seconds, inclusive. (optional)
+     * @param  int|null $confirmed_before ConfirmedBefore is the upper bound of ConfirmedAfter&#39;s range. (optional)
+     * @param  int|null $opened_after OpenedAfter keeps subscribers who opened a broadcast at or after this time. (optional)
+     * @param  int|null $not_opened_since NotOpenedSince keeps subscribers who have opened nothing since this time, including those who never opened anything. (optional)
+     * @param  int|null $clicked_after ClickedAfter keeps subscribers who clicked a link at or after this time. (optional)
+     * @param  string|null $segment Segment applies a saved segment of the list; the filter fields narrow it further. (optional)
+     * @param  string|null $sort Sort is created (the default), email, name, confirmed or opened. A search (q) is always by address. (optional)
+     * @param  string|null $order Order is desc (the default) or asc. (optional)
+     * @param  string|null $cursor Cursor continues from where the previous page ended. (optional)
+     * @param  int|null $limit Limit is the page size, 50 by default and at most 500. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSubscribers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingListsByIdSubscribersRequest($id, $status = null, $tag = null, $source = null, $ref = null, $basis = null, $q = null, $field = null, $value = null, $created_after = null, $created_before = null, $confirmed_after = null, $confirmed_before = null, $opened_after = null, $not_opened_since = null, $clicked_after = null, $segment = null, $sort = null, $order = null, $cursor = null, $limit = null, string $contentType = self::contentTypes['getMarketingListsByIdSubscribers'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketingListsByIdSubscribers'
+            );
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/subscribers';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $status,
+            'status', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $tag,
+            'tag', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $source,
+            'source', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $ref,
+            'ref', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $basis,
+            'basis', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $q,
+            'q', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $field,
+            'field', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $value,
+            'value', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $created_after,
+            'createdAfter', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $created_before,
+            'createdBefore', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $confirmed_after,
+            'confirmedAfter', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $confirmed_before,
+            'confirmedBefore', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $opened_after,
+            'openedAfter', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $not_opened_since,
+            'notOpenedSince', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $clicked_after,
+            'clickedAfter', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $segment,
+            'segment', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $sort,
+            'sort', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $order,
+            'order', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingListsByIdSubscribersBySid
+     *
+     * Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  int $sid SID is the subscriber&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSubscriber|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingListsByIdSubscribersBySid($id, $sid, string $contentType = self::contentTypes['getMarketingListsByIdSubscribersBySid'][0])
+    {
+        list($response) = $this->getMarketingListsByIdSubscribersBySidWithHttpInfo($id, $sid, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingListsByIdSubscribersBySidWithHttpInfo
+     *
+     * Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  int $sid SID is the subscriber&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSubscriber|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingListsByIdSubscribersBySidWithHttpInfo($id, $sid, string $contentType = self::contentTypes['getMarketingListsByIdSubscribersBySid'][0])
+    {
+        $request = $this->getMarketingListsByIdSubscribersBySidRequest($id, $sid, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSubscriber',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSubscriber',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSubscriber',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingListsByIdSubscribersBySidAsync
+     *
+     * Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  int $sid SID is the subscriber&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdSubscribersBySidAsync($id, $sid, string $contentType = self::contentTypes['getMarketingListsByIdSubscribersBySid'][0])
+    {
+        return $this->getMarketingListsByIdSubscribersBySidAsyncWithHttpInfo($id, $sid, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingListsByIdSubscribersBySidAsyncWithHttpInfo
+     *
+     * Returns one subscriber of one of the org&#39;s lists, with their consent evidence and engagement.
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  int $sid SID is the subscriber&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingListsByIdSubscribersBySidAsyncWithHttpInfo($id, $sid, string $contentType = self::contentTypes['getMarketingListsByIdSubscribersBySid'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSubscriber';
+        $request = $this->getMarketingListsByIdSubscribersBySidRequest($id, $sid, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingListsByIdSubscribersBySid'
+     *
+     * @param  string $id ID is the list, by id or slug. (required)
+     * @param  int $sid SID is the subscriber&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingListsByIdSubscribersBySidRequest($id, $sid, string $contentType = self::contentTypes['getMarketingListsByIdSubscribersBySid'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketingListsByIdSubscribersBySid'
+            );
+        }
+
+        // verify the required parameter 'sid' is set
+        if ($sid === null || (is_array($sid) && count($sid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $sid when calling getMarketingListsByIdSubscribersBySid'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/subscribers/{sid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($sid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'sid' . '}',
+                ObjectSerializer::toPathValue($sid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3083,7 +9355,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PromoList
+     * @return \Hanzo\Cloud\Model\MarketingPromoList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingPromos(string $contentType = self::contentTypes['getMarketingPromos'][0])
     {
@@ -3100,7 +9372,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PromoList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingPromoList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingPromosWithHttpInfo(string $contentType = self::contentTypes['getMarketingPromos'][0])
     {
@@ -3132,7 +9404,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PromoList',
+                        '\Hanzo\Cloud\Model\MarketingPromoList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3154,7 +9432,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PromoList',
+                '\Hanzo\Cloud\Model\MarketingPromoList',
                 $request,
                 $response,
             );
@@ -3163,7 +9441,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PromoList',
+                        '\Hanzo\Cloud\Model\MarketingPromoList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3207,7 +9493,7 @@ class MarketingApi
      */
     public function getMarketingPromosAsyncWithHttpInfo(string $contentType = self::contentTypes['getMarketingPromos'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PromoList';
+        $returnType = '\Hanzo\Cloud\Model\MarketingPromoList';
         $request = $this->getMarketingPromosRequest($contentType);
 
         return $this->client
@@ -3270,7 +9556,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3338,7 +9624,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Quote
+     * @return \Hanzo\Cloud\Model\MarketingQuote|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingPromosByCodeEligibility($code, $plan = null, $seats = null, string $contentType = self::contentTypes['getMarketingPromosByCodeEligibility'][0])
     {
@@ -3358,7 +9644,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Quote, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingQuote|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingPromosByCodeEligibilityWithHttpInfo($code, $plan = null, $seats = null, string $contentType = self::contentTypes['getMarketingPromosByCodeEligibility'][0])
     {
@@ -3390,7 +9676,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Quote',
+                        '\Hanzo\Cloud\Model\MarketingQuote',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3412,7 +9704,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Quote',
+                '\Hanzo\Cloud\Model\MarketingQuote',
                 $request,
                 $response,
             );
@@ -3421,7 +9713,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Quote',
+                        '\Hanzo\Cloud\Model\MarketingQuote',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3471,7 +9771,7 @@ class MarketingApi
      */
     public function getMarketingPromosByCodeEligibilityAsyncWithHttpInfo($code, $plan = null, $seats = null, string $contentType = self::contentTypes['getMarketingPromosByCodeEligibility'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Quote';
+        $returnType = '\Hanzo\Cloud\Model\MarketingQuote';
         $request = $this->getMarketingPromosByCodeEligibilityRequest($code, $plan, $seats, $contentType);
 
         return $this->client
@@ -3572,7 +9872,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3638,7 +9938,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Redemption
+     * @return \Hanzo\Cloud\Model\MarketingRedemption|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingPromosByCodeRedemption($code, string $contentType = self::contentTypes['getMarketingPromosByCodeRedemption'][0])
     {
@@ -3656,7 +9956,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Redemption, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingRedemption|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingPromosByCodeRedemptionWithHttpInfo($code, string $contentType = self::contentTypes['getMarketingPromosByCodeRedemption'][0])
     {
@@ -3688,7 +9988,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Redemption',
+                        '\Hanzo\Cloud\Model\MarketingRedemption',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3710,7 +10016,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Redemption',
+                '\Hanzo\Cloud\Model\MarketingRedemption',
                 $request,
                 $response,
             );
@@ -3719,7 +10025,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Redemption',
+                        '\Hanzo\Cloud\Model\MarketingRedemption',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3765,7 +10079,7 @@ class MarketingApi
      */
     public function getMarketingPromosByCodeRedemptionAsyncWithHttpInfo($code, string $contentType = self::contentTypes['getMarketingPromosByCodeRedemption'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Redemption';
+        $returnType = '\Hanzo\Cloud\Model\MarketingRedemption';
         $request = $this->getMarketingPromosByCodeRedemptionRequest($code, $contentType);
 
         return $this->client
@@ -3844,7 +10158,273 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingSender
+     *
+     * Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSender'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSender|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingSender(string $contentType = self::contentTypes['getMarketingSender'][0])
+    {
+        list($response) = $this->getMarketingSenderWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingSenderWithHttpInfo
+     *
+     * Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSender'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSender|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingSenderWithHttpInfo(string $contentType = self::contentTypes['getMarketingSender'][0])
+    {
+        $request = $this->getMarketingSenderRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSender',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSender',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSender',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingSenderAsync
+     *
+     * Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSender'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingSenderAsync(string $contentType = self::contentTypes['getMarketingSender'][0])
+    {
+        return $this->getMarketingSenderAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingSenderAsyncWithHttpInfo
+     *
+     * Returns the org&#39;s sender: the provider and the from, reply and footer fields every list takes when it leaves its own empty.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSender'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingSenderAsyncWithHttpInfo(string $contentType = self::contentTypes['getMarketingSender'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSender';
+        $request = $this->getMarketingSenderRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingSender'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSender'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingSenderRequest(string $contentType = self::contentTypes['getMarketingSender'][0])
+    {
+
+
+        $resourcePath = '/v1/marketing/sender';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3906,15 +10486,17 @@ class MarketingApi
      * Returns the org&#39;s drip sequences, most recently updated first.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSequences'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SequenceList
+     * @return \Hanzo\Cloud\Model\MarketingSequenceList|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getMarketingSequences($limit = null, string $contentType = self::contentTypes['getMarketingSequences'][0])
+    public function getMarketingSequences($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingSequences'][0])
     {
-        list($response) = $this->getMarketingSequencesWithHttpInfo($limit, $contentType);
+        list($response) = $this->getMarketingSequencesWithHttpInfo($limit, $cursor, $prefix, $contentType);
         return $response;
     }
 
@@ -3924,15 +10506,17 @@ class MarketingApi
      * Returns the org&#39;s drip sequences, most recently updated first.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSequences'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SequenceList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingSequenceList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getMarketingSequencesWithHttpInfo($limit = null, string $contentType = self::contentTypes['getMarketingSequences'][0])
+    public function getMarketingSequencesWithHttpInfo($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingSequences'][0])
     {
-        $request = $this->getMarketingSequencesRequest($limit, $contentType);
+        $request = $this->getMarketingSequencesRequest($limit, $cursor, $prefix, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3960,7 +10544,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SequenceList',
+                        '\Hanzo\Cloud\Model\MarketingSequenceList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3982,7 +10572,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SequenceList',
+                '\Hanzo\Cloud\Model\MarketingSequenceList',
                 $request,
                 $response,
             );
@@ -3991,7 +10581,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SequenceList',
+                        '\Hanzo\Cloud\Model\MarketingSequenceList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4009,14 +10607,16 @@ class MarketingApi
      * Returns the org&#39;s drip sequences, most recently updated first.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSequences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMarketingSequencesAsync($limit = null, string $contentType = self::contentTypes['getMarketingSequences'][0])
+    public function getMarketingSequencesAsync($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingSequences'][0])
     {
-        return $this->getMarketingSequencesAsyncWithHttpInfo($limit, $contentType)
+        return $this->getMarketingSequencesAsyncWithHttpInfo($limit, $cursor, $prefix, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4030,15 +10630,17 @@ class MarketingApi
      * Returns the org&#39;s drip sequences, most recently updated first.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSequences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMarketingSequencesAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getMarketingSequences'][0])
+    public function getMarketingSequencesAsyncWithHttpInfo($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingSequences'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SequenceList';
-        $request = $this->getMarketingSequencesRequest($limit, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingSequenceList';
+        $request = $this->getMarketingSequencesRequest($limit, $cursor, $prefix, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4080,13 +10682,17 @@ class MarketingApi
      * Create request for operation 'getMarketingSequences'
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSequences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getMarketingSequencesRequest($limit = null, string $contentType = self::contentTypes['getMarketingSequences'][0])
+    public function getMarketingSequencesRequest($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingSequences'][0])
     {
+
+
 
 
 
@@ -4106,12 +10712,30 @@ class MarketingApi
             true, // explode
             false // required
         ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $prefix,
+            'prefix', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4177,7 +10801,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SequenceView
+     * @return \Hanzo\Cloud\Model\MarketingSequenceView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingSequencesById($id, string $contentType = self::contentTypes['getMarketingSequencesById'][0])
     {
@@ -4195,7 +10819,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SequenceView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingSequenceView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingSequencesByIdWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingSequencesById'][0])
     {
@@ -4227,7 +10851,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SequenceView',
+                        '\Hanzo\Cloud\Model\MarketingSequenceView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4249,7 +10879,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SequenceView',
+                '\Hanzo\Cloud\Model\MarketingSequenceView',
                 $request,
                 $response,
             );
@@ -4258,7 +10888,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SequenceView',
+                        '\Hanzo\Cloud\Model\MarketingSequenceView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4304,7 +10942,7 @@ class MarketingApi
      */
     public function getMarketingSequencesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingSequencesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SequenceView';
+        $returnType = '\Hanzo\Cloud\Model\MarketingSequenceView';
         $request = $this->getMarketingSequencesByIdRequest($id, $contentType);
 
         return $this->client
@@ -4383,7 +11021,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4450,7 +11088,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EnrollmentList
+     * @return \Hanzo\Cloud\Model\MarketingEnrollmentList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingSequencesByIdEnrollments($id, $limit = null, string $contentType = self::contentTypes['getMarketingSequencesByIdEnrollments'][0])
     {
@@ -4469,7 +11107,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EnrollmentList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingEnrollmentList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingSequencesByIdEnrollmentsWithHttpInfo($id, $limit = null, string $contentType = self::contentTypes['getMarketingSequencesByIdEnrollments'][0])
     {
@@ -4501,7 +11139,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EnrollmentList',
+                        '\Hanzo\Cloud\Model\MarketingEnrollmentList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4523,7 +11167,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EnrollmentList',
+                '\Hanzo\Cloud\Model\MarketingEnrollmentList',
                 $request,
                 $response,
             );
@@ -4532,7 +11176,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EnrollmentList',
+                        '\Hanzo\Cloud\Model\MarketingEnrollmentList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4580,7 +11232,7 @@ class MarketingApi
      */
     public function getMarketingSequencesByIdEnrollmentsAsyncWithHttpInfo($id, $limit = null, string $contentType = self::contentTypes['getMarketingSequencesByIdEnrollments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EnrollmentList';
+        $returnType = '\Hanzo\Cloud\Model\MarketingEnrollmentList';
         $request = $this->getMarketingSequencesByIdEnrollmentsRequest($id, $limit, $contentType);
 
         return $this->client
@@ -4670,7 +11322,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4736,7 +11388,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\StepList
+     * @return \Hanzo\Cloud\Model\MarketingStepList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingSequencesByIdSteps($id, string $contentType = self::contentTypes['getMarketingSequencesByIdSteps'][0])
     {
@@ -4754,7 +11406,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\StepList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingStepList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingSequencesByIdStepsWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingSequencesByIdSteps'][0])
     {
@@ -4786,7 +11438,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\StepList',
+                        '\Hanzo\Cloud\Model\MarketingStepList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4808,7 +11466,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\StepList',
+                '\Hanzo\Cloud\Model\MarketingStepList',
                 $request,
                 $response,
             );
@@ -4817,7 +11475,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\StepList',
+                        '\Hanzo\Cloud\Model\MarketingStepList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4863,7 +11529,7 @@ class MarketingApi
      */
     public function getMarketingSequencesByIdStepsAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketingSequencesByIdSteps'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\StepList';
+        $returnType = '\Hanzo\Cloud\Model\MarketingStepList';
         $request = $this->getMarketingSequencesByIdStepsRequest($id, $contentType);
 
         return $this->client
@@ -4942,7 +11608,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5007,7 +11673,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Summary
+     * @return \Hanzo\Cloud\Model\MarketingSummary|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketingSummary(string $contentType = self::contentTypes['getMarketingSummary'][0])
     {
@@ -5024,7 +11690,7 @@ class MarketingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Summary, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingSummary|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketingSummaryWithHttpInfo(string $contentType = self::contentTypes['getMarketingSummary'][0])
     {
@@ -5056,7 +11722,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Summary',
+                        '\Hanzo\Cloud\Model\MarketingSummary',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5078,7 +11750,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Summary',
+                '\Hanzo\Cloud\Model\MarketingSummary',
                 $request,
                 $response,
             );
@@ -5087,7 +11759,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Summary',
+                        '\Hanzo\Cloud\Model\MarketingSummary',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5131,7 +11811,7 @@ class MarketingApi
      */
     public function getMarketingSummaryAsyncWithHttpInfo(string $contentType = self::contentTypes['getMarketingSummary'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Summary';
+        $returnType = '\Hanzo\Cloud\Model\MarketingSummary';
         $request = $this->getMarketingSummaryRequest($contentType);
 
         return $this->client
@@ -5194,7 +11874,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5256,15 +11936,17 @@ class MarketingApi
      * Returns the org&#39;s opt-out list, newest first — everyone the send gate will refuse to deliver to.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SuppressionList
+     * @return \Hanzo\Cloud\Model\MarketingSuppressionList|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getMarketingSuppressions($limit = null, string $contentType = self::contentTypes['getMarketingSuppressions'][0])
+    public function getMarketingSuppressions($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingSuppressions'][0])
     {
-        list($response) = $this->getMarketingSuppressionsWithHttpInfo($limit, $contentType);
+        list($response) = $this->getMarketingSuppressionsWithHttpInfo($limit, $cursor, $prefix, $contentType);
         return $response;
     }
 
@@ -5274,15 +11956,17 @@ class MarketingApi
      * Returns the org&#39;s opt-out list, newest first — everyone the send gate will refuse to deliver to.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SuppressionList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingSuppressionList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getMarketingSuppressionsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getMarketingSuppressions'][0])
+    public function getMarketingSuppressionsWithHttpInfo($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingSuppressions'][0])
     {
-        $request = $this->getMarketingSuppressionsRequest($limit, $contentType);
+        $request = $this->getMarketingSuppressionsRequest($limit, $cursor, $prefix, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5310,7 +11994,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SuppressionList',
+                        '\Hanzo\Cloud\Model\MarketingSuppressionList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5332,7 +12022,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SuppressionList',
+                '\Hanzo\Cloud\Model\MarketingSuppressionList',
                 $request,
                 $response,
             );
@@ -5341,7 +12031,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SuppressionList',
+                        '\Hanzo\Cloud\Model\MarketingSuppressionList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5359,14 +12057,16 @@ class MarketingApi
      * Returns the org&#39;s opt-out list, newest first — everyone the send gate will refuse to deliver to.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMarketingSuppressionsAsync($limit = null, string $contentType = self::contentTypes['getMarketingSuppressions'][0])
+    public function getMarketingSuppressionsAsync($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingSuppressions'][0])
     {
-        return $this->getMarketingSuppressionsAsyncWithHttpInfo($limit, $contentType)
+        return $this->getMarketingSuppressionsAsyncWithHttpInfo($limit, $cursor, $prefix, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5380,15 +12080,17 @@ class MarketingApi
      * Returns the org&#39;s opt-out list, newest first — everyone the send gate will refuse to deliver to.
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMarketingSuppressionsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getMarketingSuppressions'][0])
+    public function getMarketingSuppressionsAsyncWithHttpInfo($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingSuppressions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SuppressionList';
-        $request = $this->getMarketingSuppressionsRequest($limit, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingSuppressionList';
+        $request = $this->getMarketingSuppressionsRequest($limit, $cursor, $prefix, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5430,13 +12132,17 @@ class MarketingApi
      * Create request for operation 'getMarketingSuppressions'
      *
      * @param  int|null $limit Limit caps the rows returned; 0 means 200 and nothing above 1000 is honoured. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
+     * @param  string|null $prefix Prefix, when set, filters rows whose address begins with it (case-insensitive, on the normalized form). Suppression list only. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getMarketingSuppressionsRequest($limit = null, string $contentType = self::contentTypes['getMarketingSuppressions'][0])
+    public function getMarketingSuppressionsRequest($limit = null, $cursor = null, $prefix = null, string $contentType = self::contentTypes['getMarketingSuppressions'][0])
     {
+
+
 
 
 
@@ -5456,12 +12162,326 @@ class MarketingApi
             true, // explode
             false // required
         ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $prefix,
+            'prefix', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketingSuppressionsCheck
+     *
+     * Answers whether the org&#39;s send gate refuses an address, and which list holds it, by the same check every commercial send asks.
+     *
+     * @param  string|null $channel Channel is the surface the entry opts out of; empty is email. (optional)
+     * @param  string|null $address Address is the entry: an address, or \&quot;@example.com\&quot; for a company. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSuppressionsCheck'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSuppressionCheck|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketingSuppressionsCheck($channel = null, $address = null, string $contentType = self::contentTypes['getMarketingSuppressionsCheck'][0])
+    {
+        list($response) = $this->getMarketingSuppressionsCheckWithHttpInfo($channel, $address, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketingSuppressionsCheckWithHttpInfo
+     *
+     * Answers whether the org&#39;s send gate refuses an address, and which list holds it, by the same check every commercial send asks.
+     *
+     * @param  string|null $channel Channel is the surface the entry opts out of; empty is email. (optional)
+     * @param  string|null $address Address is the entry: an address, or \&quot;@example.com\&quot; for a company. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSuppressionsCheck'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSuppressionCheck|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketingSuppressionsCheckWithHttpInfo($channel = null, $address = null, string $contentType = self::contentTypes['getMarketingSuppressionsCheck'][0])
+    {
+        $request = $this->getMarketingSuppressionsCheckRequest($channel, $address, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSuppressionCheck',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSuppressionCheck',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSuppressionCheck',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketingSuppressionsCheckAsync
+     *
+     * Answers whether the org&#39;s send gate refuses an address, and which list holds it, by the same check every commercial send asks.
+     *
+     * @param  string|null $channel Channel is the surface the entry opts out of; empty is email. (optional)
+     * @param  string|null $address Address is the entry: an address, or \&quot;@example.com\&quot; for a company. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSuppressionsCheck'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingSuppressionsCheckAsync($channel = null, $address = null, string $contentType = self::contentTypes['getMarketingSuppressionsCheck'][0])
+    {
+        return $this->getMarketingSuppressionsCheckAsyncWithHttpInfo($channel, $address, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketingSuppressionsCheckAsyncWithHttpInfo
+     *
+     * Answers whether the org&#39;s send gate refuses an address, and which list holds it, by the same check every commercial send asks.
+     *
+     * @param  string|null $channel Channel is the surface the entry opts out of; empty is email. (optional)
+     * @param  string|null $address Address is the entry: an address, or \&quot;@example.com\&quot; for a company. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSuppressionsCheck'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketingSuppressionsCheckAsyncWithHttpInfo($channel = null, $address = null, string $contentType = self::contentTypes['getMarketingSuppressionsCheck'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSuppressionCheck';
+        $request = $this->getMarketingSuppressionsCheckRequest($channel, $address, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketingSuppressionsCheck'
+     *
+     * @param  string|null $channel Channel is the surface the entry opts out of; empty is email. (optional)
+     * @param  string|null $address Address is the entry: an address, or \&quot;@example.com\&quot; for a company. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingSuppressionsCheck'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketingSuppressionsCheckRequest($channel = null, $address = null, string $contentType = self::contentTypes['getMarketingSuppressionsCheck'][0])
+    {
+
+
+
+
+        $resourcePath = '/v1/marketing/suppressions/check';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $channel,
+            'channel', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $address,
+            'address', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5526,15 +12546,17 @@ class MarketingApi
      * @param  string|null $channel Channel is the surface to opt out of. (optional)
      * @param  string|null $address Address is the recipient to opt out. (optional)
      * @param  string|null $token Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)
+     * @param  bool|null $company Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)
+     * @param  string|null $list List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingUnsubscribe'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Unsubscribed
+     * @return \Hanzo\Cloud\Model\MarketingUnsubscribed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getMarketingUnsubscribe($org = null, $channel = null, $address = null, $token = null, string $contentType = self::contentTypes['getMarketingUnsubscribe'][0])
+    public function getMarketingUnsubscribe($org = null, $channel = null, $address = null, $token = null, $company = null, $list = null, string $contentType = self::contentTypes['getMarketingUnsubscribe'][0])
     {
-        list($response) = $this->getMarketingUnsubscribeWithHttpInfo($org, $channel, $address, $token, $contentType);
+        list($response) = $this->getMarketingUnsubscribeWithHttpInfo($org, $channel, $address, $token, $company, $list, $contentType);
         return $response;
     }
 
@@ -5547,15 +12569,17 @@ class MarketingApi
      * @param  string|null $channel Channel is the surface to opt out of. (optional)
      * @param  string|null $address Address is the recipient to opt out. (optional)
      * @param  string|null $token Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)
+     * @param  bool|null $company Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)
+     * @param  string|null $list List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingUnsubscribe'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Unsubscribed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingUnsubscribed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getMarketingUnsubscribeWithHttpInfo($org = null, $channel = null, $address = null, $token = null, string $contentType = self::contentTypes['getMarketingUnsubscribe'][0])
+    public function getMarketingUnsubscribeWithHttpInfo($org = null, $channel = null, $address = null, $token = null, $company = null, $list = null, string $contentType = self::contentTypes['getMarketingUnsubscribe'][0])
     {
-        $request = $this->getMarketingUnsubscribeRequest($org, $channel, $address, $token, $contentType);
+        $request = $this->getMarketingUnsubscribeRequest($org, $channel, $address, $token, $company, $list, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5583,7 +12607,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Unsubscribed',
+                        '\Hanzo\Cloud\Model\MarketingUnsubscribed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5605,7 +12635,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Unsubscribed',
+                '\Hanzo\Cloud\Model\MarketingUnsubscribed',
                 $request,
                 $response,
             );
@@ -5614,7 +12644,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Unsubscribed',
+                        '\Hanzo\Cloud\Model\MarketingUnsubscribed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5635,14 +12673,16 @@ class MarketingApi
      * @param  string|null $channel Channel is the surface to opt out of. (optional)
      * @param  string|null $address Address is the recipient to opt out. (optional)
      * @param  string|null $token Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)
+     * @param  bool|null $company Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)
+     * @param  string|null $list List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingUnsubscribe'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMarketingUnsubscribeAsync($org = null, $channel = null, $address = null, $token = null, string $contentType = self::contentTypes['getMarketingUnsubscribe'][0])
+    public function getMarketingUnsubscribeAsync($org = null, $channel = null, $address = null, $token = null, $company = null, $list = null, string $contentType = self::contentTypes['getMarketingUnsubscribe'][0])
     {
-        return $this->getMarketingUnsubscribeAsyncWithHttpInfo($org, $channel, $address, $token, $contentType)
+        return $this->getMarketingUnsubscribeAsyncWithHttpInfo($org, $channel, $address, $token, $company, $list, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5659,15 +12699,17 @@ class MarketingApi
      * @param  string|null $channel Channel is the surface to opt out of. (optional)
      * @param  string|null $address Address is the recipient to opt out. (optional)
      * @param  string|null $token Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)
+     * @param  bool|null $company Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)
+     * @param  string|null $list List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingUnsubscribe'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMarketingUnsubscribeAsyncWithHttpInfo($org = null, $channel = null, $address = null, $token = null, string $contentType = self::contentTypes['getMarketingUnsubscribe'][0])
+    public function getMarketingUnsubscribeAsyncWithHttpInfo($org = null, $channel = null, $address = null, $token = null, $company = null, $list = null, string $contentType = self::contentTypes['getMarketingUnsubscribe'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Unsubscribed';
-        $request = $this->getMarketingUnsubscribeRequest($org, $channel, $address, $token, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingUnsubscribed';
+        $request = $this->getMarketingUnsubscribeRequest($org, $channel, $address, $token, $company, $list, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5712,13 +12754,17 @@ class MarketingApi
      * @param  string|null $channel Channel is the surface to opt out of. (optional)
      * @param  string|null $address Address is the recipient to opt out. (optional)
      * @param  string|null $token Token is the HMAC over (org, channel, address). It is the ONLY authority here — there is no principal — so it binds the request to one tuple and nothing else. (optional)
+     * @param  bool|null $company Company opts out everyone at the address&#39;s domain as well, in this org alone: a company&#39;s unsubscribe. An address at a free mail provider is a person&#39;s and is refused 422. (optional)
+     * @param  string|null $list List is the marketing list a broadcast&#39;s link leaves; with it the token is the list&#39;s, the address leaves that list alone, and the org&#39;s other mail still reaches it. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketingUnsubscribe'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getMarketingUnsubscribeRequest($org = null, $channel = null, $address = null, $token = null, string $contentType = self::contentTypes['getMarketingUnsubscribe'][0])
+    public function getMarketingUnsubscribeRequest($org = null, $channel = null, $address = null, $token = null, $company = null, $list = null, string $contentType = self::contentTypes['getMarketingUnsubscribe'][0])
     {
+
+
 
 
 
@@ -5768,12 +12814,2957 @@ class MarketingApi
             true, // explode
             false // required
         ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $company,
+            'company', // param base name
+            'boolean', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $list,
+            'list', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation patchMarketingBroadcastsById
+     *
+     * Changes the fields the body names on a draft or scheduled broadcast and answers it.
+     *
+     * @param  string $id ID is the broadcast to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingBroadcastIn $marketing_broadcast_in marketing_broadcast_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBroadcast|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function patchMarketingBroadcastsById($id, $marketing_broadcast_in, string $contentType = self::contentTypes['patchMarketingBroadcastsById'][0])
+    {
+        list($response) = $this->patchMarketingBroadcastsByIdWithHttpInfo($id, $marketing_broadcast_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation patchMarketingBroadcastsByIdWithHttpInfo
+     *
+     * Changes the fields the body names on a draft or scheduled broadcast and answers it.
+     *
+     * @param  string $id ID is the broadcast to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingBroadcastIn $marketing_broadcast_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBroadcast|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function patchMarketingBroadcastsByIdWithHttpInfo($id, $marketing_broadcast_in, string $contentType = self::contentTypes['patchMarketingBroadcastsById'][0])
+    {
+        $request = $this->patchMarketingBroadcastsByIdRequest($id, $marketing_broadcast_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBroadcast',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBroadcast',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBroadcast',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation patchMarketingBroadcastsByIdAsync
+     *
+     * Changes the fields the body names on a draft or scheduled broadcast and answers it.
+     *
+     * @param  string $id ID is the broadcast to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingBroadcastIn $marketing_broadcast_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchMarketingBroadcastsByIdAsync($id, $marketing_broadcast_in, string $contentType = self::contentTypes['patchMarketingBroadcastsById'][0])
+    {
+        return $this->patchMarketingBroadcastsByIdAsyncWithHttpInfo($id, $marketing_broadcast_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation patchMarketingBroadcastsByIdAsyncWithHttpInfo
+     *
+     * Changes the fields the body names on a draft or scheduled broadcast and answers it.
+     *
+     * @param  string $id ID is the broadcast to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingBroadcastIn $marketing_broadcast_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchMarketingBroadcastsByIdAsyncWithHttpInfo($id, $marketing_broadcast_in, string $contentType = self::contentTypes['patchMarketingBroadcastsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBroadcast';
+        $request = $this->patchMarketingBroadcastsByIdRequest($id, $marketing_broadcast_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'patchMarketingBroadcastsById'
+     *
+     * @param  string $id ID is the broadcast to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingBroadcastIn $marketing_broadcast_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingBroadcastsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function patchMarketingBroadcastsByIdRequest($id, $marketing_broadcast_in, string $contentType = self::contentTypes['patchMarketingBroadcastsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling patchMarketingBroadcastsById'
+            );
+        }
+
+        // verify the required parameter 'marketing_broadcast_in' is set
+        if ($marketing_broadcast_in === null || (is_array($marketing_broadcast_in) && count($marketing_broadcast_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_broadcast_in when calling patchMarketingBroadcastsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/broadcasts/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_broadcast_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_broadcast_in));
+            } else {
+                $httpBody = $marketing_broadcast_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation patchMarketingListsById
+     *
+     * Changes the fields the body names on one of the org&#39;s lists and answers the list.
+     *
+     * @param  string $id ID is the list to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingListIn $marketing_list_in marketing_list_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingList|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function patchMarketingListsById($id, $marketing_list_in, string $contentType = self::contentTypes['patchMarketingListsById'][0])
+    {
+        list($response) = $this->patchMarketingListsByIdWithHttpInfo($id, $marketing_list_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation patchMarketingListsByIdWithHttpInfo
+     *
+     * Changes the fields the body names on one of the org&#39;s lists and answers the list.
+     *
+     * @param  string $id ID is the list to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingListIn $marketing_list_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function patchMarketingListsByIdWithHttpInfo($id, $marketing_list_in, string $contentType = self::contentTypes['patchMarketingListsById'][0])
+    {
+        $request = $this->patchMarketingListsByIdRequest($id, $marketing_list_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation patchMarketingListsByIdAsync
+     *
+     * Changes the fields the body names on one of the org&#39;s lists and answers the list.
+     *
+     * @param  string $id ID is the list to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingListIn $marketing_list_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchMarketingListsByIdAsync($id, $marketing_list_in, string $contentType = self::contentTypes['patchMarketingListsById'][0])
+    {
+        return $this->patchMarketingListsByIdAsyncWithHttpInfo($id, $marketing_list_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation patchMarketingListsByIdAsyncWithHttpInfo
+     *
+     * Changes the fields the body names on one of the org&#39;s lists and answers the list.
+     *
+     * @param  string $id ID is the list to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingListIn $marketing_list_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchMarketingListsByIdAsyncWithHttpInfo($id, $marketing_list_in, string $contentType = self::contentTypes['patchMarketingListsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingList';
+        $request = $this->patchMarketingListsByIdRequest($id, $marketing_list_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'patchMarketingListsById'
+     *
+     * @param  string $id ID is the list to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingListIn $marketing_list_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingListsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function patchMarketingListsByIdRequest($id, $marketing_list_in, string $contentType = self::contentTypes['patchMarketingListsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling patchMarketingListsById'
+            );
+        }
+
+        // verify the required parameter 'marketing_list_in' is set
+        if ($marketing_list_in === null || (is_array($marketing_list_in) && count($marketing_list_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_list_in when calling patchMarketingListsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_list_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_list_in));
+            } else {
+                $httpBody = $marketing_list_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation patchMarketingListsByIdSubscribersBySid
+     *
+     * Changes the fields the body names on one subscriber and answers the row.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  int $sid SID is the subscriber to change, from the path; ignored on add. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSubscriberIn $marketing_subscriber_in marketing_subscriber_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSubscriber|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function patchMarketingListsByIdSubscribersBySid($id, $sid, $marketing_subscriber_in, string $contentType = self::contentTypes['patchMarketingListsByIdSubscribersBySid'][0])
+    {
+        list($response) = $this->patchMarketingListsByIdSubscribersBySidWithHttpInfo($id, $sid, $marketing_subscriber_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation patchMarketingListsByIdSubscribersBySidWithHttpInfo
+     *
+     * Changes the fields the body names on one subscriber and answers the row.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  int $sid SID is the subscriber to change, from the path; ignored on add. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSubscriberIn $marketing_subscriber_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSubscriber|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function patchMarketingListsByIdSubscribersBySidWithHttpInfo($id, $sid, $marketing_subscriber_in, string $contentType = self::contentTypes['patchMarketingListsByIdSubscribersBySid'][0])
+    {
+        $request = $this->patchMarketingListsByIdSubscribersBySidRequest($id, $sid, $marketing_subscriber_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSubscriber',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSubscriber',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSubscriber',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation patchMarketingListsByIdSubscribersBySidAsync
+     *
+     * Changes the fields the body names on one subscriber and answers the row.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  int $sid SID is the subscriber to change, from the path; ignored on add. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSubscriberIn $marketing_subscriber_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchMarketingListsByIdSubscribersBySidAsync($id, $sid, $marketing_subscriber_in, string $contentType = self::contentTypes['patchMarketingListsByIdSubscribersBySid'][0])
+    {
+        return $this->patchMarketingListsByIdSubscribersBySidAsyncWithHttpInfo($id, $sid, $marketing_subscriber_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation patchMarketingListsByIdSubscribersBySidAsyncWithHttpInfo
+     *
+     * Changes the fields the body names on one subscriber and answers the row.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  int $sid SID is the subscriber to change, from the path; ignored on add. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSubscriberIn $marketing_subscriber_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchMarketingListsByIdSubscribersBySidAsyncWithHttpInfo($id, $sid, $marketing_subscriber_in, string $contentType = self::contentTypes['patchMarketingListsByIdSubscribersBySid'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSubscriber';
+        $request = $this->patchMarketingListsByIdSubscribersBySidRequest($id, $sid, $marketing_subscriber_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'patchMarketingListsByIdSubscribersBySid'
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  int $sid SID is the subscriber to change, from the path; ignored on add. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSubscriberIn $marketing_subscriber_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketingListsByIdSubscribersBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function patchMarketingListsByIdSubscribersBySidRequest($id, $sid, $marketing_subscriber_in, string $contentType = self::contentTypes['patchMarketingListsByIdSubscribersBySid'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling patchMarketingListsByIdSubscribersBySid'
+            );
+        }
+
+        // verify the required parameter 'sid' is set
+        if ($sid === null || (is_array($sid) && count($sid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $sid when calling patchMarketingListsByIdSubscribersBySid'
+            );
+        }
+
+        // verify the required parameter 'marketing_subscriber_in' is set
+        if ($marketing_subscriber_in === null || (is_array($marketing_subscriber_in) && count($marketing_subscriber_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_subscriber_in when calling patchMarketingListsByIdSubscribersBySid'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/subscribers/{sid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($sid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'sid' . '}',
+                ObjectSerializer::toPathValue($sid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_subscriber_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_subscriber_in));
+            } else {
+                $httpBody = $marketing_subscriber_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingAudiences
+     *
+     * Saves a cohort filter for the caller&#39;s org.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingAudience $marketing_audience marketing_audience (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingAudiences'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingAudience|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingAudiences($marketing_audience, string $contentType = self::contentTypes['postMarketingAudiences'][0])
+    {
+        list($response) = $this->postMarketingAudiencesWithHttpInfo($marketing_audience, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingAudiencesWithHttpInfo
+     *
+     * Saves a cohort filter for the caller&#39;s org.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingAudience $marketing_audience (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingAudiences'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingAudience|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingAudiencesWithHttpInfo($marketing_audience, string $contentType = self::contentTypes['postMarketingAudiences'][0])
+    {
+        $request = $this->postMarketingAudiencesRequest($marketing_audience, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingAudience',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingAudience',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingAudience',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingAudiencesAsync
+     *
+     * Saves a cohort filter for the caller&#39;s org.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingAudience $marketing_audience (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingAudiences'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingAudiencesAsync($marketing_audience, string $contentType = self::contentTypes['postMarketingAudiences'][0])
+    {
+        return $this->postMarketingAudiencesAsyncWithHttpInfo($marketing_audience, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingAudiencesAsyncWithHttpInfo
+     *
+     * Saves a cohort filter for the caller&#39;s org.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingAudience $marketing_audience (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingAudiences'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingAudiencesAsyncWithHttpInfo($marketing_audience, string $contentType = self::contentTypes['postMarketingAudiences'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingAudience';
+        $request = $this->postMarketingAudiencesRequest($marketing_audience, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingAudiences'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingAudience $marketing_audience (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingAudiences'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingAudiencesRequest($marketing_audience, string $contentType = self::contentTypes['postMarketingAudiences'][0])
+    {
+
+        // verify the required parameter 'marketing_audience' is set
+        if ($marketing_audience === null || (is_array($marketing_audience) && count($marketing_audience) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_audience when calling postMarketingAudiences'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/audiences';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_audience)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_audience));
+            } else {
+                $httpBody = $marketing_audience;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingBetaActions
+     *
+     * Counts one action of the signed-in caller: a star on a Hanzo repository, verified on GitHub for the login named, or a follow of a founder&#39;s link, taken on trust.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaActIn $marketing_beta_act_in marketing_beta_act_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaActions'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBeta|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingBetaActions($marketing_beta_act_in, string $contentType = self::contentTypes['postMarketingBetaActions'][0])
+    {
+        list($response) = $this->postMarketingBetaActionsWithHttpInfo($marketing_beta_act_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingBetaActionsWithHttpInfo
+     *
+     * Counts one action of the signed-in caller: a star on a Hanzo repository, verified on GitHub for the login named, or a follow of a founder&#39;s link, taken on trust.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaActIn $marketing_beta_act_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaActions'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBeta|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingBetaActionsWithHttpInfo($marketing_beta_act_in, string $contentType = self::contentTypes['postMarketingBetaActions'][0])
+    {
+        $request = $this->postMarketingBetaActionsRequest($marketing_beta_act_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBeta',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBeta',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBeta',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingBetaActionsAsync
+     *
+     * Counts one action of the signed-in caller: a star on a Hanzo repository, verified on GitHub for the login named, or a follow of a founder&#39;s link, taken on trust.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaActIn $marketing_beta_act_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaActions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBetaActionsAsync($marketing_beta_act_in, string $contentType = self::contentTypes['postMarketingBetaActions'][0])
+    {
+        return $this->postMarketingBetaActionsAsyncWithHttpInfo($marketing_beta_act_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingBetaActionsAsyncWithHttpInfo
+     *
+     * Counts one action of the signed-in caller: a star on a Hanzo repository, verified on GitHub for the login named, or a follow of a founder&#39;s link, taken on trust.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaActIn $marketing_beta_act_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaActions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBetaActionsAsyncWithHttpInfo($marketing_beta_act_in, string $contentType = self::contentTypes['postMarketingBetaActions'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBeta';
+        $request = $this->postMarketingBetaActionsRequest($marketing_beta_act_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingBetaActions'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaActIn $marketing_beta_act_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaActions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingBetaActionsRequest($marketing_beta_act_in, string $contentType = self::contentTypes['postMarketingBetaActions'][0])
+    {
+
+        // verify the required parameter 'marketing_beta_act_in' is set
+        if ($marketing_beta_act_in === null || (is_array($marketing_beta_act_in) && count($marketing_beta_act_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_beta_act_in when calling postMarketingBetaActions'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/beta/actions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_beta_act_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_beta_act_in));
+            } else {
+                $httpBody = $marketing_beta_act_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingBetaInvites
+     *
+     * Reserves an invite for each address the limits admit and answers the message the member&#39;s mailbox sends for each: subject, text and HTML, the unsubscribe headers, with the member&#39;s referral link for that invite and a one-click unsubscribe for that address.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaInviteIn $marketing_beta_invite_in marketing_beta_invite_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaInvites'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBetaInvites|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingBetaInvites($marketing_beta_invite_in, string $contentType = self::contentTypes['postMarketingBetaInvites'][0])
+    {
+        list($response) = $this->postMarketingBetaInvitesWithHttpInfo($marketing_beta_invite_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingBetaInvitesWithHttpInfo
+     *
+     * Reserves an invite for each address the limits admit and answers the message the member&#39;s mailbox sends for each: subject, text and HTML, the unsubscribe headers, with the member&#39;s referral link for that invite and a one-click unsubscribe for that address.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaInviteIn $marketing_beta_invite_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaInvites'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBetaInvites|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingBetaInvitesWithHttpInfo($marketing_beta_invite_in, string $contentType = self::contentTypes['postMarketingBetaInvites'][0])
+    {
+        $request = $this->postMarketingBetaInvitesRequest($marketing_beta_invite_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBetaInvites',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBetaInvites',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBetaInvites',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingBetaInvitesAsync
+     *
+     * Reserves an invite for each address the limits admit and answers the message the member&#39;s mailbox sends for each: subject, text and HTML, the unsubscribe headers, with the member&#39;s referral link for that invite and a one-click unsubscribe for that address.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaInviteIn $marketing_beta_invite_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaInvites'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBetaInvitesAsync($marketing_beta_invite_in, string $contentType = self::contentTypes['postMarketingBetaInvites'][0])
+    {
+        return $this->postMarketingBetaInvitesAsyncWithHttpInfo($marketing_beta_invite_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingBetaInvitesAsyncWithHttpInfo
+     *
+     * Reserves an invite for each address the limits admit and answers the message the member&#39;s mailbox sends for each: subject, text and HTML, the unsubscribe headers, with the member&#39;s referral link for that invite and a one-click unsubscribe for that address.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaInviteIn $marketing_beta_invite_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaInvites'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBetaInvitesAsyncWithHttpInfo($marketing_beta_invite_in, string $contentType = self::contentTypes['postMarketingBetaInvites'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBetaInvites';
+        $request = $this->postMarketingBetaInvitesRequest($marketing_beta_invite_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingBetaInvites'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaInviteIn $marketing_beta_invite_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaInvites'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingBetaInvitesRequest($marketing_beta_invite_in, string $contentType = self::contentTypes['postMarketingBetaInvites'][0])
+    {
+
+        // verify the required parameter 'marketing_beta_invite_in' is set
+        if ($marketing_beta_invite_in === null || (is_array($marketing_beta_invite_in) && count($marketing_beta_invite_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_beta_invite_in when calling postMarketingBetaInvites'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/beta/invites';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_beta_invite_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_beta_invite_in));
+            } else {
+                $httpBody = $marketing_beta_invite_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingBetaInvitesSent
+     *
+     * Records what the member&#39;s browser did with its reservations: the invites sent, and the ones that failed with the mailbox&#39;s reason.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaInviteSentIn $marketing_beta_invite_sent_in marketing_beta_invite_sent_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaInvitesSent'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBetaInviteRows|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingBetaInvitesSent($marketing_beta_invite_sent_in, string $contentType = self::contentTypes['postMarketingBetaInvitesSent'][0])
+    {
+        list($response) = $this->postMarketingBetaInvitesSentWithHttpInfo($marketing_beta_invite_sent_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingBetaInvitesSentWithHttpInfo
+     *
+     * Records what the member&#39;s browser did with its reservations: the invites sent, and the ones that failed with the mailbox&#39;s reason.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaInviteSentIn $marketing_beta_invite_sent_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaInvitesSent'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBetaInviteRows|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingBetaInvitesSentWithHttpInfo($marketing_beta_invite_sent_in, string $contentType = self::contentTypes['postMarketingBetaInvitesSent'][0])
+    {
+        $request = $this->postMarketingBetaInvitesSentRequest($marketing_beta_invite_sent_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBetaInviteRows',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBetaInviteRows',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBetaInviteRows',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingBetaInvitesSentAsync
+     *
+     * Records what the member&#39;s browser did with its reservations: the invites sent, and the ones that failed with the mailbox&#39;s reason.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaInviteSentIn $marketing_beta_invite_sent_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaInvitesSent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBetaInvitesSentAsync($marketing_beta_invite_sent_in, string $contentType = self::contentTypes['postMarketingBetaInvitesSent'][0])
+    {
+        return $this->postMarketingBetaInvitesSentAsyncWithHttpInfo($marketing_beta_invite_sent_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingBetaInvitesSentAsyncWithHttpInfo
+     *
+     * Records what the member&#39;s browser did with its reservations: the invites sent, and the ones that failed with the mailbox&#39;s reason.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaInviteSentIn $marketing_beta_invite_sent_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaInvitesSent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBetaInvitesSentAsyncWithHttpInfo($marketing_beta_invite_sent_in, string $contentType = self::contentTypes['postMarketingBetaInvitesSent'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBetaInviteRows';
+        $request = $this->postMarketingBetaInvitesSentRequest($marketing_beta_invite_sent_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingBetaInvitesSent'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaInviteSentIn $marketing_beta_invite_sent_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaInvitesSent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingBetaInvitesSentRequest($marketing_beta_invite_sent_in, string $contentType = self::contentTypes['postMarketingBetaInvitesSent'][0])
+    {
+
+        // verify the required parameter 'marketing_beta_invite_sent_in' is set
+        if ($marketing_beta_invite_sent_in === null || (is_array($marketing_beta_invite_sent_in) && count($marketing_beta_invite_sent_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_beta_invite_sent_in when calling postMarketingBetaInvitesSent'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/beta/invites/sent';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_beta_invite_sent_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_beta_invite_sent_in));
+            } else {
+                $httpBody = $marketing_beta_invite_sent_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingBetaRequest
+     *
+     * Adds betas to those the signed-in caller asked for, creating the record when there is none.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaRequest $marketing_beta_request marketing_beta_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaRequest'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBeta|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingBetaRequest($marketing_beta_request, string $contentType = self::contentTypes['postMarketingBetaRequest'][0])
+    {
+        list($response) = $this->postMarketingBetaRequestWithHttpInfo($marketing_beta_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingBetaRequestWithHttpInfo
+     *
+     * Adds betas to those the signed-in caller asked for, creating the record when there is none.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaRequest $marketing_beta_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaRequest'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBeta|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingBetaRequestWithHttpInfo($marketing_beta_request, string $contentType = self::contentTypes['postMarketingBetaRequest'][0])
+    {
+        $request = $this->postMarketingBetaRequestRequest($marketing_beta_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBeta',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBeta',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBeta',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingBetaRequestAsync
+     *
+     * Adds betas to those the signed-in caller asked for, creating the record when there is none.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaRequest $marketing_beta_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaRequest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBetaRequestAsync($marketing_beta_request, string $contentType = self::contentTypes['postMarketingBetaRequest'][0])
+    {
+        return $this->postMarketingBetaRequestAsyncWithHttpInfo($marketing_beta_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingBetaRequestAsyncWithHttpInfo
+     *
+     * Adds betas to those the signed-in caller asked for, creating the record when there is none.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaRequest $marketing_beta_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaRequest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBetaRequestAsyncWithHttpInfo($marketing_beta_request, string $contentType = self::contentTypes['postMarketingBetaRequest'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBeta';
+        $request = $this->postMarketingBetaRequestRequest($marketing_beta_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingBetaRequest'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaRequest $marketing_beta_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBetaRequest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingBetaRequestRequest($marketing_beta_request, string $contentType = self::contentTypes['postMarketingBetaRequest'][0])
+    {
+
+        // verify the required parameter 'marketing_beta_request' is set
+        if ($marketing_beta_request === null || (is_array($marketing_beta_request) && count($marketing_beta_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_beta_request when calling postMarketingBetaRequest'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/beta/request';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_beta_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_beta_request));
+            } else {
+                $httpBody = $marketing_beta_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingBroadcasts
+     *
+     * Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBroadcastIn $marketing_broadcast_in marketing_broadcast_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcasts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBroadcast|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingBroadcasts($marketing_broadcast_in, string $contentType = self::contentTypes['postMarketingBroadcasts'][0])
+    {
+        list($response) = $this->postMarketingBroadcastsWithHttpInfo($marketing_broadcast_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingBroadcastsWithHttpInfo
+     *
+     * Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBroadcastIn $marketing_broadcast_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcasts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBroadcast|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingBroadcastsWithHttpInfo($marketing_broadcast_in, string $contentType = self::contentTypes['postMarketingBroadcasts'][0])
+    {
+        $request = $this->postMarketingBroadcastsRequest($marketing_broadcast_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBroadcast',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBroadcast',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBroadcast',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingBroadcastsAsync
+     *
+     * Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBroadcastIn $marketing_broadcast_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcasts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBroadcastsAsync($marketing_broadcast_in, string $contentType = self::contentTypes['postMarketingBroadcasts'][0])
+    {
+        return $this->postMarketingBroadcastsAsyncWithHttpInfo($marketing_broadcast_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingBroadcastsAsyncWithHttpInfo
+     *
+     * Composes a broadcast to one of the org&#39;s lists, or a segment of it, and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBroadcastIn $marketing_broadcast_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcasts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBroadcastsAsyncWithHttpInfo($marketing_broadcast_in, string $contentType = self::contentTypes['postMarketingBroadcasts'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBroadcast';
+        $request = $this->postMarketingBroadcastsRequest($marketing_broadcast_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingBroadcasts'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBroadcastIn $marketing_broadcast_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcasts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingBroadcastsRequest($marketing_broadcast_in, string $contentType = self::contentTypes['postMarketingBroadcasts'][0])
+    {
+
+        // verify the required parameter 'marketing_broadcast_in' is set
+        if ($marketing_broadcast_in === null || (is_array($marketing_broadcast_in) && count($marketing_broadcast_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_broadcast_in when calling postMarketingBroadcasts'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/broadcasts';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_broadcast_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_broadcast_in));
+            } else {
+                $httpBody = $marketing_broadcast_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingBroadcastsByIdCancel
+     *
+     * Stops a scheduled or sending broadcast and answers it.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBroadcast|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingBroadcastsByIdCancel($id, string $contentType = self::contentTypes['postMarketingBroadcastsByIdCancel'][0])
+    {
+        list($response) = $this->postMarketingBroadcastsByIdCancelWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingBroadcastsByIdCancelWithHttpInfo
+     *
+     * Stops a scheduled or sending broadcast and answers it.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBroadcast|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingBroadcastsByIdCancelWithHttpInfo($id, string $contentType = self::contentTypes['postMarketingBroadcastsByIdCancel'][0])
+    {
+        $request = $this->postMarketingBroadcastsByIdCancelRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBroadcast',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBroadcast',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBroadcast',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingBroadcastsByIdCancelAsync
+     *
+     * Stops a scheduled or sending broadcast and answers it.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBroadcastsByIdCancelAsync($id, string $contentType = self::contentTypes['postMarketingBroadcastsByIdCancel'][0])
+    {
+        return $this->postMarketingBroadcastsByIdCancelAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingBroadcastsByIdCancelAsyncWithHttpInfo
+     *
+     * Stops a scheduled or sending broadcast and answers it.
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBroadcastsByIdCancelAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postMarketingBroadcastsByIdCancel'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBroadcast';
+        $request = $this->postMarketingBroadcastsByIdCancelRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingBroadcastsByIdCancel'
+     *
+     * @param  string $id ID is the broadcast&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingBroadcastsByIdCancelRequest($id, string $contentType = self::contentTypes['postMarketingBroadcastsByIdCancel'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketingBroadcastsByIdCancel'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/broadcasts/{id}/cancel';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5822,7 +15813,7 @@ class MarketingApi
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
-            'GET',
+            'POST',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -5830,38 +15821,40 @@ class MarketingApi
     }
 
     /**
-     * Operation postMarketingAudiences
+     * Operation postMarketingBroadcastsByIdSend
      *
-     * Saves a cohort filter for the caller&#39;s org.
+     * Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it.
      *
-     * @param  \Hanzo\Cloud\Model\Audience $audience audience (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingAudiences'] to see the possible values for this operation
+     * @param  string $id ID is the broadcast, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSendIn $marketing_send_in marketing_send_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdSend'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Audience
+     * @return \Hanzo\Cloud\Model\MarketingBroadcast|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketingAudiences($audience, string $contentType = self::contentTypes['postMarketingAudiences'][0])
+    public function postMarketingBroadcastsByIdSend($id, $marketing_send_in, string $contentType = self::contentTypes['postMarketingBroadcastsByIdSend'][0])
     {
-        list($response) = $this->postMarketingAudiencesWithHttpInfo($audience, $contentType);
+        list($response) = $this->postMarketingBroadcastsByIdSendWithHttpInfo($id, $marketing_send_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postMarketingAudiencesWithHttpInfo
+     * Operation postMarketingBroadcastsByIdSendWithHttpInfo
      *
-     * Saves a cohort filter for the caller&#39;s org.
+     * Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it.
      *
-     * @param  \Hanzo\Cloud\Model\Audience $audience (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingAudiences'] to see the possible values for this operation
+     * @param  string $id ID is the broadcast, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSendIn $marketing_send_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdSend'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Audience, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingBroadcast|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketingAudiencesWithHttpInfo($audience, string $contentType = self::contentTypes['postMarketingAudiences'][0])
+    public function postMarketingBroadcastsByIdSendWithHttpInfo($id, $marketing_send_in, string $contentType = self::contentTypes['postMarketingBroadcastsByIdSend'][0])
     {
-        $request = $this->postMarketingAudiencesRequest($audience, $contentType);
+        $request = $this->postMarketingBroadcastsByIdSendRequest($id, $marketing_send_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5887,9 +15880,15 @@ class MarketingApi
 
 
             switch($statusCode) {
-                case 200:
+                case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Audience',
+                        '\Hanzo\Cloud\Model\MarketingBroadcast',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5911,16 +15910,24 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Audience',
+                '\Hanzo\Cloud\Model\MarketingBroadcast',
                 $request,
                 $response,
             );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
+                case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Audience',
+                        '\Hanzo\Cloud\Model\MarketingBroadcast',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5933,19 +15940,20 @@ class MarketingApi
     }
 
     /**
-     * Operation postMarketingAudiencesAsync
+     * Operation postMarketingBroadcastsByIdSendAsync
      *
-     * Saves a cohort filter for the caller&#39;s org.
+     * Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it.
      *
-     * @param  \Hanzo\Cloud\Model\Audience $audience (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingAudiences'] to see the possible values for this operation
+     * @param  string $id ID is the broadcast, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSendIn $marketing_send_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdSend'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingAudiencesAsync($audience, string $contentType = self::contentTypes['postMarketingAudiences'][0])
+    public function postMarketingBroadcastsByIdSendAsync($id, $marketing_send_in, string $contentType = self::contentTypes['postMarketingBroadcastsByIdSend'][0])
     {
-        return $this->postMarketingAudiencesAsyncWithHttpInfo($audience, $contentType)
+        return $this->postMarketingBroadcastsByIdSendAsyncWithHttpInfo($id, $marketing_send_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5954,20 +15962,21 @@ class MarketingApi
     }
 
     /**
-     * Operation postMarketingAudiencesAsyncWithHttpInfo
+     * Operation postMarketingBroadcastsByIdSendAsyncWithHttpInfo
      *
-     * Saves a cohort filter for the caller&#39;s org.
+     * Sends a draft or scheduled broadcast now, or schedules it for at, and answers 202 with it.
      *
-     * @param  \Hanzo\Cloud\Model\Audience $audience (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingAudiences'] to see the possible values for this operation
+     * @param  string $id ID is the broadcast, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSendIn $marketing_send_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdSend'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingAudiencesAsyncWithHttpInfo($audience, string $contentType = self::contentTypes['postMarketingAudiences'][0])
+    public function postMarketingBroadcastsByIdSendAsyncWithHttpInfo($id, $marketing_send_in, string $contentType = self::contentTypes['postMarketingBroadcastsByIdSend'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Audience';
-        $request = $this->postMarketingAudiencesRequest($audience, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingBroadcast';
+        $request = $this->postMarketingBroadcastsByIdSendRequest($id, $marketing_send_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6006,26 +16015,34 @@ class MarketingApi
     }
 
     /**
-     * Create request for operation 'postMarketingAudiences'
+     * Create request for operation 'postMarketingBroadcastsByIdSend'
      *
-     * @param  \Hanzo\Cloud\Model\Audience $audience (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingAudiences'] to see the possible values for this operation
+     * @param  string $id ID is the broadcast, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSendIn $marketing_send_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdSend'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketingAudiencesRequest($audience, string $contentType = self::contentTypes['postMarketingAudiences'][0])
+    public function postMarketingBroadcastsByIdSendRequest($id, $marketing_send_in, string $contentType = self::contentTypes['postMarketingBroadcastsByIdSend'][0])
     {
 
-        // verify the required parameter 'audience' is set
-        if ($audience === null || (is_array($audience) && count($audience) === 0)) {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $audience when calling postMarketingAudiences'
+                'Missing the required parameter $id when calling postMarketingBroadcastsByIdSend'
+            );
+        }
+
+        // verify the required parameter 'marketing_send_in' is set
+        if ($marketing_send_in === null || (is_array($marketing_send_in) && count($marketing_send_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_send_in when calling postMarketingBroadcastsByIdSend'
             );
         }
 
 
-        $resourcePath = '/v1/marketing/audiences';
+        $resourcePath = '/v1/marketing/broadcasts/{id}/send';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6034,21 +16051,334 @@ class MarketingApi
 
 
 
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($audience)) {
+        if (isset($marketing_send_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($audience));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_send_in));
             } else {
-                $httpBody = $audience;
+                $httpBody = $marketing_send_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingBroadcastsByIdTest
+     *
+     * Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.
+     *
+     * @param  string $id ID is the broadcast, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingTestIn $marketing_test_in marketing_test_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdTest'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingTestOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingBroadcastsByIdTest($id, $marketing_test_in, string $contentType = self::contentTypes['postMarketingBroadcastsByIdTest'][0])
+    {
+        list($response) = $this->postMarketingBroadcastsByIdTestWithHttpInfo($id, $marketing_test_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingBroadcastsByIdTestWithHttpInfo
+     *
+     * Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.
+     *
+     * @param  string $id ID is the broadcast, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingTestIn $marketing_test_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdTest'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingTestOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingBroadcastsByIdTestWithHttpInfo($id, $marketing_test_in, string $contentType = self::contentTypes['postMarketingBroadcastsByIdTest'][0])
+    {
+        $request = $this->postMarketingBroadcastsByIdTestRequest($id, $marketing_test_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingTestOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingTestOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingTestOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingBroadcastsByIdTestAsync
+     *
+     * Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.
+     *
+     * @param  string $id ID is the broadcast, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingTestIn $marketing_test_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdTest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBroadcastsByIdTestAsync($id, $marketing_test_in, string $contentType = self::contentTypes['postMarketingBroadcastsByIdTest'][0])
+    {
+        return $this->postMarketingBroadcastsByIdTestAsyncWithHttpInfo($id, $marketing_test_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingBroadcastsByIdTestAsyncWithHttpInfo
+     *
+     * Sends the broadcast as it stands to up to five addresses, its subject marked [Test], through the same rail and footer the real send takes.
+     *
+     * @param  string $id ID is the broadcast, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingTestIn $marketing_test_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdTest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingBroadcastsByIdTestAsyncWithHttpInfo($id, $marketing_test_in, string $contentType = self::contentTypes['postMarketingBroadcastsByIdTest'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingTestOut';
+        $request = $this->postMarketingBroadcastsByIdTestRequest($id, $marketing_test_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingBroadcastsByIdTest'
+     *
+     * @param  string $id ID is the broadcast, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingTestIn $marketing_test_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingBroadcastsByIdTest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingBroadcastsByIdTestRequest($id, $marketing_test_in, string $contentType = self::contentTypes['postMarketingBroadcastsByIdTest'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketingBroadcastsByIdTest'
+            );
+        }
+
+        // verify the required parameter 'marketing_test_in' is set
+        if ($marketing_test_in === null || (is_array($marketing_test_in) && count($marketing_test_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_test_in when calling postMarketingBroadcastsByIdTest'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/broadcasts/{id}/test';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_test_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_test_in));
+            } else {
+                $httpBody = $marketing_test_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6105,16 +16435,16 @@ class MarketingApi
      *
      * Adds a post to the content calendar.
      *
-     * @param  \Hanzo\Cloud\Model\CalendarPost $calendar_post calendar_post (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCalendarPost $marketing_calendar_post marketing_calendar_post (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCalendar'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CalendarPost
+     * @return \Hanzo\Cloud\Model\MarketingCalendarPost|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketingCalendar($calendar_post, string $contentType = self::contentTypes['postMarketingCalendar'][0])
+    public function postMarketingCalendar($marketing_calendar_post, string $contentType = self::contentTypes['postMarketingCalendar'][0])
     {
-        list($response) = $this->postMarketingCalendarWithHttpInfo($calendar_post, $contentType);
+        list($response) = $this->postMarketingCalendarWithHttpInfo($marketing_calendar_post, $contentType);
         return $response;
     }
 
@@ -6123,16 +16453,16 @@ class MarketingApi
      *
      * Adds a post to the content calendar.
      *
-     * @param  \Hanzo\Cloud\Model\CalendarPost $calendar_post (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCalendarPost $marketing_calendar_post (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCalendar'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CalendarPost, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingCalendarPost|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketingCalendarWithHttpInfo($calendar_post, string $contentType = self::contentTypes['postMarketingCalendar'][0])
+    public function postMarketingCalendarWithHttpInfo($marketing_calendar_post, string $contentType = self::contentTypes['postMarketingCalendar'][0])
     {
-        $request = $this->postMarketingCalendarRequest($calendar_post, $contentType);
+        $request = $this->postMarketingCalendarRequest($marketing_calendar_post, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6160,7 +16490,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CalendarPost',
+                        '\Hanzo\Cloud\Model\MarketingCalendarPost',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6182,7 +16518,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CalendarPost',
+                '\Hanzo\Cloud\Model\MarketingCalendarPost',
                 $request,
                 $response,
             );
@@ -6191,7 +16527,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CalendarPost',
+                        '\Hanzo\Cloud\Model\MarketingCalendarPost',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6208,15 +16552,15 @@ class MarketingApi
      *
      * Adds a post to the content calendar.
      *
-     * @param  \Hanzo\Cloud\Model\CalendarPost $calendar_post (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCalendarPost $marketing_calendar_post (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCalendar'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingCalendarAsync($calendar_post, string $contentType = self::contentTypes['postMarketingCalendar'][0])
+    public function postMarketingCalendarAsync($marketing_calendar_post, string $contentType = self::contentTypes['postMarketingCalendar'][0])
     {
-        return $this->postMarketingCalendarAsyncWithHttpInfo($calendar_post, $contentType)
+        return $this->postMarketingCalendarAsyncWithHttpInfo($marketing_calendar_post, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6229,16 +16573,16 @@ class MarketingApi
      *
      * Adds a post to the content calendar.
      *
-     * @param  \Hanzo\Cloud\Model\CalendarPost $calendar_post (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCalendarPost $marketing_calendar_post (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCalendar'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingCalendarAsyncWithHttpInfo($calendar_post, string $contentType = self::contentTypes['postMarketingCalendar'][0])
+    public function postMarketingCalendarAsyncWithHttpInfo($marketing_calendar_post, string $contentType = self::contentTypes['postMarketingCalendar'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CalendarPost';
-        $request = $this->postMarketingCalendarRequest($calendar_post, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingCalendarPost';
+        $request = $this->postMarketingCalendarRequest($marketing_calendar_post, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6279,19 +16623,19 @@ class MarketingApi
     /**
      * Create request for operation 'postMarketingCalendar'
      *
-     * @param  \Hanzo\Cloud\Model\CalendarPost $calendar_post (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCalendarPost $marketing_calendar_post (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCalendar'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketingCalendarRequest($calendar_post, string $contentType = self::contentTypes['postMarketingCalendar'][0])
+    public function postMarketingCalendarRequest($marketing_calendar_post, string $contentType = self::contentTypes['postMarketingCalendar'][0])
     {
 
-        // verify the required parameter 'calendar_post' is set
-        if ($calendar_post === null || (is_array($calendar_post) && count($calendar_post) === 0)) {
+        // verify the required parameter 'marketing_calendar_post' is set
+        if ($marketing_calendar_post === null || (is_array($marketing_calendar_post) && count($marketing_calendar_post) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $calendar_post when calling postMarketingCalendar'
+                'Missing the required parameter $marketing_calendar_post when calling postMarketingCalendar'
             );
         }
 
@@ -6308,292 +16652,20 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($calendar_post)) {
+        if (isset($marketing_calendar_post)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($calendar_post));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_calendar_post));
             } else {
-                $httpBody = $calendar_post;
+                $httpBody = $marketing_calendar_post;
             }
         } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postMarketingCalendarByIdPublish
-     *
-     * Publishes a post NOW, synchronously, whatever its schedule.
-     *
-     * @param  string $id ID is the post id from the path, as returned by create. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCalendarByIdPublish'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CalendarPost
-     */
-    public function postMarketingCalendarByIdPublish($id, string $contentType = self::contentTypes['postMarketingCalendarByIdPublish'][0])
-    {
-        list($response) = $this->postMarketingCalendarByIdPublishWithHttpInfo($id, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postMarketingCalendarByIdPublishWithHttpInfo
-     *
-     * Publishes a post NOW, synchronously, whatever its schedule.
-     *
-     * @param  string $id ID is the post id from the path, as returned by create. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCalendarByIdPublish'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CalendarPost, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postMarketingCalendarByIdPublishWithHttpInfo($id, string $contentType = self::contentTypes['postMarketingCalendarByIdPublish'][0])
-    {
-        $request = $this->postMarketingCalendarByIdPublishRequest($id, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CalendarPost',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CalendarPost',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CalendarPost',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postMarketingCalendarByIdPublishAsync
-     *
-     * Publishes a post NOW, synchronously, whatever its schedule.
-     *
-     * @param  string $id ID is the post id from the path, as returned by create. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCalendarByIdPublish'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postMarketingCalendarByIdPublishAsync($id, string $contentType = self::contentTypes['postMarketingCalendarByIdPublish'][0])
-    {
-        return $this->postMarketingCalendarByIdPublishAsyncWithHttpInfo($id, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postMarketingCalendarByIdPublishAsyncWithHttpInfo
-     *
-     * Publishes a post NOW, synchronously, whatever its schedule.
-     *
-     * @param  string $id ID is the post id from the path, as returned by create. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCalendarByIdPublish'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postMarketingCalendarByIdPublishAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postMarketingCalendarByIdPublish'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\CalendarPost';
-        $request = $this->postMarketingCalendarByIdPublishRequest($id, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postMarketingCalendarByIdPublish'
-     *
-     * @param  string $id ID is the post id from the path, as returned by create. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCalendarByIdPublish'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postMarketingCalendarByIdPublishRequest($id, string $contentType = self::contentTypes['postMarketingCalendarByIdPublish'][0])
-    {
-
-        // verify the required parameter 'id' is set
-        if ($id === null || (is_array($id) && count($id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postMarketingCalendarByIdPublish'
-            );
-        }
-
-
-        $resourcePath = '/v1/marketing/calendar/{id}/publish';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($id),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -6648,16 +16720,16 @@ class MarketingApi
      *
      * Registers a campaign in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\Campaign $campaign campaign (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCampaign $marketing_campaign marketing_campaign (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCampaigns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Campaign
+     * @return \Hanzo\Cloud\Model\MarketingCampaign|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketingCampaigns($campaign, string $contentType = self::contentTypes['postMarketingCampaigns'][0])
+    public function postMarketingCampaigns($marketing_campaign, string $contentType = self::contentTypes['postMarketingCampaigns'][0])
     {
-        list($response) = $this->postMarketingCampaignsWithHttpInfo($campaign, $contentType);
+        list($response) = $this->postMarketingCampaignsWithHttpInfo($marketing_campaign, $contentType);
         return $response;
     }
 
@@ -6666,16 +16738,16 @@ class MarketingApi
      *
      * Registers a campaign in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\Campaign $campaign (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCampaign $marketing_campaign (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCampaigns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Campaign, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingCampaign|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketingCampaignsWithHttpInfo($campaign, string $contentType = self::contentTypes['postMarketingCampaigns'][0])
+    public function postMarketingCampaignsWithHttpInfo($marketing_campaign, string $contentType = self::contentTypes['postMarketingCampaigns'][0])
     {
-        $request = $this->postMarketingCampaignsRequest($campaign, $contentType);
+        $request = $this->postMarketingCampaignsRequest($marketing_campaign, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6703,7 +16775,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Campaign',
+                        '\Hanzo\Cloud\Model\MarketingCampaign',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6725,7 +16803,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Campaign',
+                '\Hanzo\Cloud\Model\MarketingCampaign',
                 $request,
                 $response,
             );
@@ -6734,7 +16812,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Campaign',
+                        '\Hanzo\Cloud\Model\MarketingCampaign',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6751,15 +16837,15 @@ class MarketingApi
      *
      * Registers a campaign in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\Campaign $campaign (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCampaign $marketing_campaign (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCampaigns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingCampaignsAsync($campaign, string $contentType = self::contentTypes['postMarketingCampaigns'][0])
+    public function postMarketingCampaignsAsync($marketing_campaign, string $contentType = self::contentTypes['postMarketingCampaigns'][0])
     {
-        return $this->postMarketingCampaignsAsyncWithHttpInfo($campaign, $contentType)
+        return $this->postMarketingCampaignsAsyncWithHttpInfo($marketing_campaign, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6772,16 +16858,16 @@ class MarketingApi
      *
      * Registers a campaign in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\Campaign $campaign (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCampaign $marketing_campaign (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCampaigns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingCampaignsAsyncWithHttpInfo($campaign, string $contentType = self::contentTypes['postMarketingCampaigns'][0])
+    public function postMarketingCampaignsAsyncWithHttpInfo($marketing_campaign, string $contentType = self::contentTypes['postMarketingCampaigns'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Campaign';
-        $request = $this->postMarketingCampaignsRequest($campaign, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingCampaign';
+        $request = $this->postMarketingCampaignsRequest($marketing_campaign, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6822,19 +16908,19 @@ class MarketingApi
     /**
      * Create request for operation 'postMarketingCampaigns'
      *
-     * @param  \Hanzo\Cloud\Model\Campaign $campaign (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCampaign $marketing_campaign (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCampaigns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketingCampaignsRequest($campaign, string $contentType = self::contentTypes['postMarketingCampaigns'][0])
+    public function postMarketingCampaignsRequest($marketing_campaign, string $contentType = self::contentTypes['postMarketingCampaigns'][0])
     {
 
-        // verify the required parameter 'campaign' is set
-        if ($campaign === null || (is_array($campaign) && count($campaign) === 0)) {
+        // verify the required parameter 'marketing_campaign' is set
+        if ($marketing_campaign === null || (is_array($marketing_campaign) && count($marketing_campaign) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $campaign when calling postMarketingCampaigns'
+                'Missing the required parameter $marketing_campaign when calling postMarketingCampaigns'
             );
         }
 
@@ -6851,18 +16937,18 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($campaign)) {
+        if (isset($marketing_campaign)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($campaign));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_campaign));
             } else {
-                $httpBody = $campaign;
+                $httpBody = $marketing_campaign;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6920,16 +17006,16 @@ class MarketingApi
      * Sets a campaign&#39;s send time and moves it to \&quot;scheduled\&quot;.
      *
      * @param  string $id ID is the campaign id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ScheduleInput $schedule_input schedule_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingScheduleInput $marketing_schedule_input marketing_schedule_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCampaignsByIdSchedule'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Campaign
+     * @return \Hanzo\Cloud\Model\MarketingCampaign|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketingCampaignsByIdSchedule($id, $schedule_input, string $contentType = self::contentTypes['postMarketingCampaignsByIdSchedule'][0])
+    public function postMarketingCampaignsByIdSchedule($id, $marketing_schedule_input, string $contentType = self::contentTypes['postMarketingCampaignsByIdSchedule'][0])
     {
-        list($response) = $this->postMarketingCampaignsByIdScheduleWithHttpInfo($id, $schedule_input, $contentType);
+        list($response) = $this->postMarketingCampaignsByIdScheduleWithHttpInfo($id, $marketing_schedule_input, $contentType);
         return $response;
     }
 
@@ -6939,16 +17025,16 @@ class MarketingApi
      * Sets a campaign&#39;s send time and moves it to \&quot;scheduled\&quot;.
      *
      * @param  string $id ID is the campaign id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ScheduleInput $schedule_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingScheduleInput $marketing_schedule_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCampaignsByIdSchedule'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Campaign, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingCampaign|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketingCampaignsByIdScheduleWithHttpInfo($id, $schedule_input, string $contentType = self::contentTypes['postMarketingCampaignsByIdSchedule'][0])
+    public function postMarketingCampaignsByIdScheduleWithHttpInfo($id, $marketing_schedule_input, string $contentType = self::contentTypes['postMarketingCampaignsByIdSchedule'][0])
     {
-        $request = $this->postMarketingCampaignsByIdScheduleRequest($id, $schedule_input, $contentType);
+        $request = $this->postMarketingCampaignsByIdScheduleRequest($id, $marketing_schedule_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6976,7 +17062,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Campaign',
+                        '\Hanzo\Cloud\Model\MarketingCampaign',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6998,7 +17090,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Campaign',
+                '\Hanzo\Cloud\Model\MarketingCampaign',
                 $request,
                 $response,
             );
@@ -7007,7 +17099,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Campaign',
+                        '\Hanzo\Cloud\Model\MarketingCampaign',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7025,15 +17125,15 @@ class MarketingApi
      * Sets a campaign&#39;s send time and moves it to \&quot;scheduled\&quot;.
      *
      * @param  string $id ID is the campaign id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ScheduleInput $schedule_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingScheduleInput $marketing_schedule_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCampaignsByIdSchedule'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingCampaignsByIdScheduleAsync($id, $schedule_input, string $contentType = self::contentTypes['postMarketingCampaignsByIdSchedule'][0])
+    public function postMarketingCampaignsByIdScheduleAsync($id, $marketing_schedule_input, string $contentType = self::contentTypes['postMarketingCampaignsByIdSchedule'][0])
     {
-        return $this->postMarketingCampaignsByIdScheduleAsyncWithHttpInfo($id, $schedule_input, $contentType)
+        return $this->postMarketingCampaignsByIdScheduleAsyncWithHttpInfo($id, $marketing_schedule_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7047,16 +17147,16 @@ class MarketingApi
      * Sets a campaign&#39;s send time and moves it to \&quot;scheduled\&quot;.
      *
      * @param  string $id ID is the campaign id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ScheduleInput $schedule_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingScheduleInput $marketing_schedule_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCampaignsByIdSchedule'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingCampaignsByIdScheduleAsyncWithHttpInfo($id, $schedule_input, string $contentType = self::contentTypes['postMarketingCampaignsByIdSchedule'][0])
+    public function postMarketingCampaignsByIdScheduleAsyncWithHttpInfo($id, $marketing_schedule_input, string $contentType = self::contentTypes['postMarketingCampaignsByIdSchedule'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Campaign';
-        $request = $this->postMarketingCampaignsByIdScheduleRequest($id, $schedule_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingCampaign';
+        $request = $this->postMarketingCampaignsByIdScheduleRequest($id, $marketing_schedule_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7098,13 +17198,13 @@ class MarketingApi
      * Create request for operation 'postMarketingCampaignsByIdSchedule'
      *
      * @param  string $id ID is the campaign id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ScheduleInput $schedule_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingScheduleInput $marketing_schedule_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingCampaignsByIdSchedule'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketingCampaignsByIdScheduleRequest($id, $schedule_input, string $contentType = self::contentTypes['postMarketingCampaignsByIdSchedule'][0])
+    public function postMarketingCampaignsByIdScheduleRequest($id, $marketing_schedule_input, string $contentType = self::contentTypes['postMarketingCampaignsByIdSchedule'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -7114,10 +17214,10 @@ class MarketingApi
             );
         }
 
-        // verify the required parameter 'schedule_input' is set
-        if ($schedule_input === null || (is_array($schedule_input) && count($schedule_input) === 0)) {
+        // verify the required parameter 'marketing_schedule_input' is set
+        if ($marketing_schedule_input === null || (is_array($marketing_schedule_input) && count($marketing_schedule_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $schedule_input when calling postMarketingCampaignsByIdSchedule'
+                'Missing the required parameter $marketing_schedule_input when calling postMarketingCampaignsByIdSchedule'
             );
         }
 
@@ -7142,18 +17242,3243 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($schedule_input)) {
+        if (isset($marketing_schedule_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($schedule_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_schedule_input));
             } else {
-                $httpBody = $schedule_input;
+                $httpBody = $marketing_schedule_input;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingImports
+     *
+     * Creates an import into one of the org&#39;s lists and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingImportIn $marketing_import_in marketing_import_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImports'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingCreated|\Hanzo\Cloud\Model\MarketingCreated|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingImports($marketing_import_in, string $contentType = self::contentTypes['postMarketingImports'][0])
+    {
+        list($response) = $this->postMarketingImportsWithHttpInfo($marketing_import_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingImportsWithHttpInfo
+     *
+     * Creates an import into one of the org&#39;s lists and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingImportIn $marketing_import_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImports'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingCreated|\Hanzo\Cloud\Model\MarketingCreated|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingImportsWithHttpInfo($marketing_import_in, string $contentType = self::contentTypes['postMarketingImports'][0])
+    {
+        $request = $this->postMarketingImportsRequest($marketing_import_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingCreated',
+                        $request,
+                        $response,
+                    );
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingCreated',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingCreated',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingCreated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingCreated',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingImportsAsync
+     *
+     * Creates an import into one of the org&#39;s lists and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingImportIn $marketing_import_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImports'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingImportsAsync($marketing_import_in, string $contentType = self::contentTypes['postMarketingImports'][0])
+    {
+        return $this->postMarketingImportsAsyncWithHttpInfo($marketing_import_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingImportsAsyncWithHttpInfo
+     *
+     * Creates an import into one of the org&#39;s lists and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingImportIn $marketing_import_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImports'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingImportsAsyncWithHttpInfo($marketing_import_in, string $contentType = self::contentTypes['postMarketingImports'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingCreated';
+        $request = $this->postMarketingImportsRequest($marketing_import_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingImports'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingImportIn $marketing_import_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImports'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingImportsRequest($marketing_import_in, string $contentType = self::contentTypes['postMarketingImports'][0])
+    {
+
+        // verify the required parameter 'marketing_import_in' is set
+        if ($marketing_import_in === null || (is_array($marketing_import_in) && count($marketing_import_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_import_in when calling postMarketingImports'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/imports';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_import_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_import_in));
+            } else {
+                $httpBody = $marketing_import_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingImportsByIdCancel
+     *
+     * Stops an import that has not finished and answers it.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImportsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingImport|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingImportsByIdCancel($id, string $contentType = self::contentTypes['postMarketingImportsByIdCancel'][0])
+    {
+        list($response) = $this->postMarketingImportsByIdCancelWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingImportsByIdCancelWithHttpInfo
+     *
+     * Stops an import that has not finished and answers it.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImportsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingImport|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingImportsByIdCancelWithHttpInfo($id, string $contentType = self::contentTypes['postMarketingImportsByIdCancel'][0])
+    {
+        $request = $this->postMarketingImportsByIdCancelRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingImport',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingImport',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingImport',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingImportsByIdCancelAsync
+     *
+     * Stops an import that has not finished and answers it.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImportsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingImportsByIdCancelAsync($id, string $contentType = self::contentTypes['postMarketingImportsByIdCancel'][0])
+    {
+        return $this->postMarketingImportsByIdCancelAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingImportsByIdCancelAsyncWithHttpInfo
+     *
+     * Stops an import that has not finished and answers it.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImportsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingImportsByIdCancelAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postMarketingImportsByIdCancel'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingImport';
+        $request = $this->postMarketingImportsByIdCancelRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingImportsByIdCancel'
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImportsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingImportsByIdCancelRequest($id, string $contentType = self::contentTypes['postMarketingImportsByIdCancel'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketingImportsByIdCancel'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/imports/{id}/cancel';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingImportsByIdStart
+     *
+     * Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImportsByIdStart'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingImport|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingImportsByIdStart($id, string $contentType = self::contentTypes['postMarketingImportsByIdStart'][0])
+    {
+        list($response) = $this->postMarketingImportsByIdStartWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingImportsByIdStartWithHttpInfo
+     *
+     * Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImportsByIdStart'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingImport|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingImportsByIdStartWithHttpInfo($id, string $contentType = self::contentTypes['postMarketingImportsByIdStart'][0])
+    {
+        $request = $this->postMarketingImportsByIdStartRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingImport',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingImport',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingImport',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingImportsByIdStartAsync
+     *
+     * Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImportsByIdStart'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingImportsByIdStartAsync($id, string $contentType = self::contentTypes['postMarketingImportsByIdStart'][0])
+    {
+        return $this->postMarketingImportsByIdStartAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingImportsByIdStartAsyncWithHttpInfo
+     *
+     * Queues an import whose bytes have all arrived and answers 202 with it; a worker reads it from there.
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImportsByIdStart'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingImportsByIdStartAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postMarketingImportsByIdStart'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingImport';
+        $request = $this->postMarketingImportsByIdStartRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingImportsByIdStart'
+     *
+     * @param  string $id ID is the import&#39;s id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingImportsByIdStart'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingImportsByIdStartRequest($id, string $contentType = self::contentTypes['postMarketingImportsByIdStart'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketingImportsByIdStart'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/imports/{id}/start';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingLeads
+     *
+     * Files one public form in the deployment&#39;s own CRM.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingLeadIn $marketing_lead_in marketing_lead_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeads'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingLead|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingLeads($marketing_lead_in, string $contentType = self::contentTypes['postMarketingLeads'][0])
+    {
+        list($response) = $this->postMarketingLeadsWithHttpInfo($marketing_lead_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingLeadsWithHttpInfo
+     *
+     * Files one public form in the deployment&#39;s own CRM.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingLeadIn $marketing_lead_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeads'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingLead|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingLeadsWithHttpInfo($marketing_lead_in, string $contentType = self::contentTypes['postMarketingLeads'][0])
+    {
+        $request = $this->postMarketingLeadsRequest($marketing_lead_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingLead',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingLead',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingLead',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingLeadsAsync
+     *
+     * Files one public form in the deployment&#39;s own CRM.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingLeadIn $marketing_lead_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeads'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingLeadsAsync($marketing_lead_in, string $contentType = self::contentTypes['postMarketingLeads'][0])
+    {
+        return $this->postMarketingLeadsAsyncWithHttpInfo($marketing_lead_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingLeadsAsyncWithHttpInfo
+     *
+     * Files one public form in the deployment&#39;s own CRM.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingLeadIn $marketing_lead_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeads'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingLeadsAsyncWithHttpInfo($marketing_lead_in, string $contentType = self::contentTypes['postMarketingLeads'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingLead';
+        $request = $this->postMarketingLeadsRequest($marketing_lead_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingLeads'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingLeadIn $marketing_lead_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeads'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingLeadsRequest($marketing_lead_in, string $contentType = self::contentTypes['postMarketingLeads'][0])
+    {
+
+        // verify the required parameter 'marketing_lead_in' is set
+        if ($marketing_lead_in === null || (is_array($marketing_lead_in) && count($marketing_lead_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_lead_in when calling postMarketingLeads'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/leads';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_lead_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_lead_in));
+            } else {
+                $httpBody = $marketing_lead_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingLeadsEsign
+     *
+     * Takes Hanzo eSign&#39;s webhook: a SAFE was signed, countersigned, completed, declined or voided, and the investor&#39;s form in the brand&#39;s CRM moves to that status.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingEsignEvent $marketing_esign_event marketing_esign_event (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeadsEsign'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSigning|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingLeadsEsign($marketing_esign_event, string $contentType = self::contentTypes['postMarketingLeadsEsign'][0])
+    {
+        list($response) = $this->postMarketingLeadsEsignWithHttpInfo($marketing_esign_event, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingLeadsEsignWithHttpInfo
+     *
+     * Takes Hanzo eSign&#39;s webhook: a SAFE was signed, countersigned, completed, declined or voided, and the investor&#39;s form in the brand&#39;s CRM moves to that status.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingEsignEvent $marketing_esign_event (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeadsEsign'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSigning|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingLeadsEsignWithHttpInfo($marketing_esign_event, string $contentType = self::contentTypes['postMarketingLeadsEsign'][0])
+    {
+        $request = $this->postMarketingLeadsEsignRequest($marketing_esign_event, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSigning',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSigning',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSigning',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingLeadsEsignAsync
+     *
+     * Takes Hanzo eSign&#39;s webhook: a SAFE was signed, countersigned, completed, declined or voided, and the investor&#39;s form in the brand&#39;s CRM moves to that status.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingEsignEvent $marketing_esign_event (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeadsEsign'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingLeadsEsignAsync($marketing_esign_event, string $contentType = self::contentTypes['postMarketingLeadsEsign'][0])
+    {
+        return $this->postMarketingLeadsEsignAsyncWithHttpInfo($marketing_esign_event, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingLeadsEsignAsyncWithHttpInfo
+     *
+     * Takes Hanzo eSign&#39;s webhook: a SAFE was signed, countersigned, completed, declined or voided, and the investor&#39;s form in the brand&#39;s CRM moves to that status.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingEsignEvent $marketing_esign_event (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeadsEsign'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingLeadsEsignAsyncWithHttpInfo($marketing_esign_event, string $contentType = self::contentTypes['postMarketingLeadsEsign'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSigning';
+        $request = $this->postMarketingLeadsEsignRequest($marketing_esign_event, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingLeadsEsign'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingEsignEvent $marketing_esign_event (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeadsEsign'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingLeadsEsignRequest($marketing_esign_event, string $contentType = self::contentTypes['postMarketingLeadsEsign'][0])
+    {
+
+        // verify the required parameter 'marketing_esign_event' is set
+        if ($marketing_esign_event === null || (is_array($marketing_esign_event) && count($marketing_esign_event) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_esign_event when calling postMarketingLeadsEsign'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/leads/esign';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_esign_event)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_esign_event));
+            } else {
+                $httpBody = $marketing_esign_event;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingLeadsResume
+     *
+     * Signs a form the careers page posts one resume through, into the brand org&#39;s private careers bucket, and answers the key to name on the application (&#x60;resume_file&#x60;).
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingResumeIn $marketing_resume_in marketing_resume_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeadsResume'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingResumeForm|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingLeadsResume($marketing_resume_in, string $contentType = self::contentTypes['postMarketingLeadsResume'][0])
+    {
+        list($response) = $this->postMarketingLeadsResumeWithHttpInfo($marketing_resume_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingLeadsResumeWithHttpInfo
+     *
+     * Signs a form the careers page posts one resume through, into the brand org&#39;s private careers bucket, and answers the key to name on the application (&#x60;resume_file&#x60;).
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingResumeIn $marketing_resume_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeadsResume'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingResumeForm|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingLeadsResumeWithHttpInfo($marketing_resume_in, string $contentType = self::contentTypes['postMarketingLeadsResume'][0])
+    {
+        $request = $this->postMarketingLeadsResumeRequest($marketing_resume_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingResumeForm',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingResumeForm',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingResumeForm',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingLeadsResumeAsync
+     *
+     * Signs a form the careers page posts one resume through, into the brand org&#39;s private careers bucket, and answers the key to name on the application (&#x60;resume_file&#x60;).
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingResumeIn $marketing_resume_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeadsResume'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingLeadsResumeAsync($marketing_resume_in, string $contentType = self::contentTypes['postMarketingLeadsResume'][0])
+    {
+        return $this->postMarketingLeadsResumeAsyncWithHttpInfo($marketing_resume_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingLeadsResumeAsyncWithHttpInfo
+     *
+     * Signs a form the careers page posts one resume through, into the brand org&#39;s private careers bucket, and answers the key to name on the application (&#x60;resume_file&#x60;).
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingResumeIn $marketing_resume_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeadsResume'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingLeadsResumeAsyncWithHttpInfo($marketing_resume_in, string $contentType = self::contentTypes['postMarketingLeadsResume'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingResumeForm';
+        $request = $this->postMarketingLeadsResumeRequest($marketing_resume_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingLeadsResume'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingResumeIn $marketing_resume_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLeadsResume'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingLeadsResumeRequest($marketing_resume_in, string $contentType = self::contentTypes['postMarketingLeadsResume'][0])
+    {
+
+        // verify the required parameter 'marketing_resume_in' is set
+        if ($marketing_resume_in === null || (is_array($marketing_resume_in) && count($marketing_resume_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_resume_in when calling postMarketingLeadsResume'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/leads/resume';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_resume_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_resume_in));
+            } else {
+                $httpBody = $marketing_resume_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingLists
+     *
+     * Creates a list in the org and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingListIn $marketing_list_in marketing_list_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLists'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingList|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingLists($marketing_list_in, string $contentType = self::contentTypes['postMarketingLists'][0])
+    {
+        list($response) = $this->postMarketingListsWithHttpInfo($marketing_list_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingListsWithHttpInfo
+     *
+     * Creates a list in the org and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingListIn $marketing_list_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLists'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingListsWithHttpInfo($marketing_list_in, string $contentType = self::contentTypes['postMarketingLists'][0])
+    {
+        $request = $this->postMarketingListsRequest($marketing_list_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingListsAsync
+     *
+     * Creates a list in the org and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingListIn $marketing_list_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLists'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingListsAsync($marketing_list_in, string $contentType = self::contentTypes['postMarketingLists'][0])
+    {
+        return $this->postMarketingListsAsyncWithHttpInfo($marketing_list_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingListsAsyncWithHttpInfo
+     *
+     * Creates a list in the org and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingListIn $marketing_list_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLists'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingListsAsyncWithHttpInfo($marketing_list_in, string $contentType = self::contentTypes['postMarketingLists'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingList';
+        $request = $this->postMarketingListsRequest($marketing_list_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingLists'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingListIn $marketing_list_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingLists'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingListsRequest($marketing_list_in, string $contentType = self::contentTypes['postMarketingLists'][0])
+    {
+
+        // verify the required parameter 'marketing_list_in' is set
+        if ($marketing_list_in === null || (is_array($marketing_list_in) && count($marketing_list_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_list_in when calling postMarketingLists'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_list_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_list_in));
+            } else {
+                $httpBody = $marketing_list_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingListsByIdSegments
+     *
+     * Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSegmentIn $marketing_segment_in marketing_segment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSegments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSegment|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingListsByIdSegments($id, $marketing_segment_in, string $contentType = self::contentTypes['postMarketingListsByIdSegments'][0])
+    {
+        list($response) = $this->postMarketingListsByIdSegmentsWithHttpInfo($id, $marketing_segment_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingListsByIdSegmentsWithHttpInfo
+     *
+     * Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSegmentIn $marketing_segment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSegments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSegment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingListsByIdSegmentsWithHttpInfo($id, $marketing_segment_in, string $contentType = self::contentTypes['postMarketingListsByIdSegments'][0])
+    {
+        $request = $this->postMarketingListsByIdSegmentsRequest($id, $marketing_segment_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSegment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSegment',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSegment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingListsByIdSegmentsAsync
+     *
+     * Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSegmentIn $marketing_segment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSegments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingListsByIdSegmentsAsync($id, $marketing_segment_in, string $contentType = self::contentTypes['postMarketingListsByIdSegments'][0])
+    {
+        return $this->postMarketingListsByIdSegmentsAsyncWithHttpInfo($id, $marketing_segment_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingListsByIdSegmentsAsyncWithHttpInfo
+     *
+     * Saves a filter over one list as a segment and answers 201 with it and how many subscribers it selects now.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSegmentIn $marketing_segment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSegments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingListsByIdSegmentsAsyncWithHttpInfo($id, $marketing_segment_in, string $contentType = self::contentTypes['postMarketingListsByIdSegments'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSegment';
+        $request = $this->postMarketingListsByIdSegmentsRequest($id, $marketing_segment_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingListsByIdSegments'
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSegmentIn $marketing_segment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSegments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingListsByIdSegmentsRequest($id, $marketing_segment_in, string $contentType = self::contentTypes['postMarketingListsByIdSegments'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketingListsByIdSegments'
+            );
+        }
+
+        // verify the required parameter 'marketing_segment_in' is set
+        if ($marketing_segment_in === null || (is_array($marketing_segment_in) && count($marketing_segment_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_segment_in when calling postMarketingListsByIdSegments'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/segments';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_segment_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_segment_in));
+            } else {
+                $httpBody = $marketing_segment_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingListsByIdSubscribers
+     *
+     * Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSubscriberIn $marketing_subscriber_in marketing_subscriber_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSubscribers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingAdded|\Hanzo\Cloud\Model\MarketingAdded|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingListsByIdSubscribers($id, $marketing_subscriber_in, string $contentType = self::contentTypes['postMarketingListsByIdSubscribers'][0])
+    {
+        list($response) = $this->postMarketingListsByIdSubscribersWithHttpInfo($id, $marketing_subscriber_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingListsByIdSubscribersWithHttpInfo
+     *
+     * Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSubscriberIn $marketing_subscriber_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSubscribers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingAdded|\Hanzo\Cloud\Model\MarketingAdded|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingListsByIdSubscribersWithHttpInfo($id, $marketing_subscriber_in, string $contentType = self::contentTypes['postMarketingListsByIdSubscribers'][0])
+    {
+        $request = $this->postMarketingListsByIdSubscribersRequest($id, $marketing_subscriber_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingAdded',
+                        $request,
+                        $response,
+                    );
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingAdded',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingAdded',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingAdded',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingAdded',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingListsByIdSubscribersAsync
+     *
+     * Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSubscriberIn $marketing_subscriber_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSubscribers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingListsByIdSubscribersAsync($id, $marketing_subscriber_in, string $contentType = self::contentTypes['postMarketingListsByIdSubscribers'][0])
+    {
+        return $this->postMarketingListsByIdSubscribersAsyncWithHttpInfo($id, $marketing_subscriber_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingListsByIdSubscribersAsyncWithHttpInfo
+     *
+     * Adds an address to one of the org&#39;s lists, or updates it when it is already there, and answers 201 or 200 with the row.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSubscriberIn $marketing_subscriber_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSubscribers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingListsByIdSubscribersAsyncWithHttpInfo($id, $marketing_subscriber_in, string $contentType = self::contentTypes['postMarketingListsByIdSubscribers'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingAdded';
+        $request = $this->postMarketingListsByIdSubscribersRequest($id, $marketing_subscriber_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingListsByIdSubscribers'
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSubscriberIn $marketing_subscriber_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSubscribers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingListsByIdSubscribersRequest($id, $marketing_subscriber_in, string $contentType = self::contentTypes['postMarketingListsByIdSubscribers'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketingListsByIdSubscribers'
+            );
+        }
+
+        // verify the required parameter 'marketing_subscriber_in' is set
+        if ($marketing_subscriber_in === null || (is_array($marketing_subscriber_in) && count($marketing_subscriber_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_subscriber_in when calling postMarketingListsByIdSubscribers'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/subscribers';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_subscriber_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_subscriber_in));
+            } else {
+                $httpBody = $marketing_subscriber_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingListsByIdSubscribersBulk
+     *
+     * Applies one action to a selection of a list and answers how many rows it matched and changed.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingBulkIn $marketing_bulk_in marketing_bulk_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSubscribersBulk'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBulkOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingListsByIdSubscribersBulk($id, $marketing_bulk_in, string $contentType = self::contentTypes['postMarketingListsByIdSubscribersBulk'][0])
+    {
+        list($response) = $this->postMarketingListsByIdSubscribersBulkWithHttpInfo($id, $marketing_bulk_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingListsByIdSubscribersBulkWithHttpInfo
+     *
+     * Applies one action to a selection of a list and answers how many rows it matched and changed.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingBulkIn $marketing_bulk_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSubscribersBulk'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBulkOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingListsByIdSubscribersBulkWithHttpInfo($id, $marketing_bulk_in, string $contentType = self::contentTypes['postMarketingListsByIdSubscribersBulk'][0])
+    {
+        $request = $this->postMarketingListsByIdSubscribersBulkRequest($id, $marketing_bulk_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBulkOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBulkOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBulkOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingListsByIdSubscribersBulkAsync
+     *
+     * Applies one action to a selection of a list and answers how many rows it matched and changed.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingBulkIn $marketing_bulk_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSubscribersBulk'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingListsByIdSubscribersBulkAsync($id, $marketing_bulk_in, string $contentType = self::contentTypes['postMarketingListsByIdSubscribersBulk'][0])
+    {
+        return $this->postMarketingListsByIdSubscribersBulkAsyncWithHttpInfo($id, $marketing_bulk_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingListsByIdSubscribersBulkAsyncWithHttpInfo
+     *
+     * Applies one action to a selection of a list and answers how many rows it matched and changed.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingBulkIn $marketing_bulk_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSubscribersBulk'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingListsByIdSubscribersBulkAsyncWithHttpInfo($id, $marketing_bulk_in, string $contentType = self::contentTypes['postMarketingListsByIdSubscribersBulk'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBulkOut';
+        $request = $this->postMarketingListsByIdSubscribersBulkRequest($id, $marketing_bulk_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingListsByIdSubscribersBulk'
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingBulkIn $marketing_bulk_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingListsByIdSubscribersBulk'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingListsByIdSubscribersBulkRequest($id, $marketing_bulk_in, string $contentType = self::contentTypes['postMarketingListsByIdSubscribersBulk'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketingListsByIdSubscribersBulk'
+            );
+        }
+
+        // verify the required parameter 'marketing_bulk_in' is set
+        if ($marketing_bulk_in === null || (is_array($marketing_bulk_in) && count($marketing_bulk_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_bulk_in when calling postMarketingListsByIdSubscribersBulk'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/subscribers/bulk';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_bulk_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_bulk_in));
+            } else {
+                $httpBody = $marketing_bulk_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingMail
+     *
+     * Sends one email from the org to one person, the way a person on the org&#39;s team writes back to a lead from its record.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingMailIn $marketing_mail_in marketing_mail_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingMail'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingMailOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingMail($marketing_mail_in, string $contentType = self::contentTypes['postMarketingMail'][0])
+    {
+        list($response) = $this->postMarketingMailWithHttpInfo($marketing_mail_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingMailWithHttpInfo
+     *
+     * Sends one email from the org to one person, the way a person on the org&#39;s team writes back to a lead from its record.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingMailIn $marketing_mail_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingMail'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingMailOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingMailWithHttpInfo($marketing_mail_in, string $contentType = self::contentTypes['postMarketingMail'][0])
+    {
+        $request = $this->postMarketingMailRequest($marketing_mail_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingMailOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingMailOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingMailOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingMailAsync
+     *
+     * Sends one email from the org to one person, the way a person on the org&#39;s team writes back to a lead from its record.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingMailIn $marketing_mail_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingMail'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingMailAsync($marketing_mail_in, string $contentType = self::contentTypes['postMarketingMail'][0])
+    {
+        return $this->postMarketingMailAsyncWithHttpInfo($marketing_mail_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingMailAsyncWithHttpInfo
+     *
+     * Sends one email from the org to one person, the way a person on the org&#39;s team writes back to a lead from its record.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingMailIn $marketing_mail_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingMail'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingMailAsyncWithHttpInfo($marketing_mail_in, string $contentType = self::contentTypes['postMarketingMail'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingMailOut';
+        $request = $this->postMarketingMailRequest($marketing_mail_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingMail'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingMailIn $marketing_mail_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingMail'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingMailRequest($marketing_mail_in, string $contentType = self::contentTypes['postMarketingMail'][0])
+    {
+
+        // verify the required parameter 'marketing_mail_in' is set
+        if ($marketing_mail_in === null || (is_array($marketing_mail_in) && count($marketing_mail_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_mail_in when calling postMarketingMail'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/mail';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_mail_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_mail_in));
+            } else {
+                $httpBody = $marketing_mail_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7211,16 +20536,16 @@ class MarketingApi
      * Records the caller org&#39;s claim on a promo.
      *
      * @param  string $code Code is the promo code from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RedeemInput $redeem_input redeem_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingRedeemInput $marketing_redeem_input marketing_redeem_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingPromosByCodeRedeem'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RedeemResult
+     * @return \Hanzo\Cloud\Model\MarketingRedeemResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketingPromosByCodeRedeem($code, $redeem_input, string $contentType = self::contentTypes['postMarketingPromosByCodeRedeem'][0])
+    public function postMarketingPromosByCodeRedeem($code, $marketing_redeem_input, string $contentType = self::contentTypes['postMarketingPromosByCodeRedeem'][0])
     {
-        list($response) = $this->postMarketingPromosByCodeRedeemWithHttpInfo($code, $redeem_input, $contentType);
+        list($response) = $this->postMarketingPromosByCodeRedeemWithHttpInfo($code, $marketing_redeem_input, $contentType);
         return $response;
     }
 
@@ -7230,16 +20555,16 @@ class MarketingApi
      * Records the caller org&#39;s claim on a promo.
      *
      * @param  string $code Code is the promo code from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RedeemInput $redeem_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingRedeemInput $marketing_redeem_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingPromosByCodeRedeem'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RedeemResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingRedeemResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketingPromosByCodeRedeemWithHttpInfo($code, $redeem_input, string $contentType = self::contentTypes['postMarketingPromosByCodeRedeem'][0])
+    public function postMarketingPromosByCodeRedeemWithHttpInfo($code, $marketing_redeem_input, string $contentType = self::contentTypes['postMarketingPromosByCodeRedeem'][0])
     {
-        $request = $this->postMarketingPromosByCodeRedeemRequest($code, $redeem_input, $contentType);
+        $request = $this->postMarketingPromosByCodeRedeemRequest($code, $marketing_redeem_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7267,7 +20592,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RedeemResult',
+                        '\Hanzo\Cloud\Model\MarketingRedeemResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7289,7 +20620,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RedeemResult',
+                '\Hanzo\Cloud\Model\MarketingRedeemResult',
                 $request,
                 $response,
             );
@@ -7298,7 +20629,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RedeemResult',
+                        '\Hanzo\Cloud\Model\MarketingRedeemResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7316,15 +20655,15 @@ class MarketingApi
      * Records the caller org&#39;s claim on a promo.
      *
      * @param  string $code Code is the promo code from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RedeemInput $redeem_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingRedeemInput $marketing_redeem_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingPromosByCodeRedeem'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingPromosByCodeRedeemAsync($code, $redeem_input, string $contentType = self::contentTypes['postMarketingPromosByCodeRedeem'][0])
+    public function postMarketingPromosByCodeRedeemAsync($code, $marketing_redeem_input, string $contentType = self::contentTypes['postMarketingPromosByCodeRedeem'][0])
     {
-        return $this->postMarketingPromosByCodeRedeemAsyncWithHttpInfo($code, $redeem_input, $contentType)
+        return $this->postMarketingPromosByCodeRedeemAsyncWithHttpInfo($code, $marketing_redeem_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7338,16 +20677,16 @@ class MarketingApi
      * Records the caller org&#39;s claim on a promo.
      *
      * @param  string $code Code is the promo code from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RedeemInput $redeem_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingRedeemInput $marketing_redeem_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingPromosByCodeRedeem'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingPromosByCodeRedeemAsyncWithHttpInfo($code, $redeem_input, string $contentType = self::contentTypes['postMarketingPromosByCodeRedeem'][0])
+    public function postMarketingPromosByCodeRedeemAsyncWithHttpInfo($code, $marketing_redeem_input, string $contentType = self::contentTypes['postMarketingPromosByCodeRedeem'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RedeemResult';
-        $request = $this->postMarketingPromosByCodeRedeemRequest($code, $redeem_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingRedeemResult';
+        $request = $this->postMarketingPromosByCodeRedeemRequest($code, $marketing_redeem_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7389,13 +20728,13 @@ class MarketingApi
      * Create request for operation 'postMarketingPromosByCodeRedeem'
      *
      * @param  string $code Code is the promo code from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RedeemInput $redeem_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingRedeemInput $marketing_redeem_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingPromosByCodeRedeem'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketingPromosByCodeRedeemRequest($code, $redeem_input, string $contentType = self::contentTypes['postMarketingPromosByCodeRedeem'][0])
+    public function postMarketingPromosByCodeRedeemRequest($code, $marketing_redeem_input, string $contentType = self::contentTypes['postMarketingPromosByCodeRedeem'][0])
     {
 
         // verify the required parameter 'code' is set
@@ -7405,10 +20744,10 @@ class MarketingApi
             );
         }
 
-        // verify the required parameter 'redeem_input' is set
-        if ($redeem_input === null || (is_array($redeem_input) && count($redeem_input) === 0)) {
+        // verify the required parameter 'marketing_redeem_input' is set
+        if ($marketing_redeem_input === null || (is_array($marketing_redeem_input) && count($marketing_redeem_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $redeem_input when calling postMarketingPromosByCodeRedeem'
+                'Missing the required parameter $marketing_redeem_input when calling postMarketingPromosByCodeRedeem'
             );
         }
 
@@ -7433,18 +20772,18 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($redeem_input)) {
+        if (isset($marketing_redeem_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($redeem_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_redeem_input));
             } else {
-                $httpBody = $redeem_input;
+                $httpBody = $marketing_redeem_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7501,16 +20840,16 @@ class MarketingApi
      *
      * Registers a drip sequence in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\Sequence $sequence sequence (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSequence $marketing_sequence marketing_sequence (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequences'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Sequence
+     * @return \Hanzo\Cloud\Model\MarketingSequence|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketingSequences($sequence, string $contentType = self::contentTypes['postMarketingSequences'][0])
+    public function postMarketingSequences($marketing_sequence, string $contentType = self::contentTypes['postMarketingSequences'][0])
     {
-        list($response) = $this->postMarketingSequencesWithHttpInfo($sequence, $contentType);
+        list($response) = $this->postMarketingSequencesWithHttpInfo($marketing_sequence, $contentType);
         return $response;
     }
 
@@ -7519,16 +20858,16 @@ class MarketingApi
      *
      * Registers a drip sequence in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\Sequence $sequence (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSequence $marketing_sequence (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequences'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Sequence, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingSequence|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketingSequencesWithHttpInfo($sequence, string $contentType = self::contentTypes['postMarketingSequences'][0])
+    public function postMarketingSequencesWithHttpInfo($marketing_sequence, string $contentType = self::contentTypes['postMarketingSequences'][0])
     {
-        $request = $this->postMarketingSequencesRequest($sequence, $contentType);
+        $request = $this->postMarketingSequencesRequest($marketing_sequence, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7556,7 +20895,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Sequence',
+                        '\Hanzo\Cloud\Model\MarketingSequence',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7578,7 +20923,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Sequence',
+                '\Hanzo\Cloud\Model\MarketingSequence',
                 $request,
                 $response,
             );
@@ -7587,7 +20932,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Sequence',
+                        '\Hanzo\Cloud\Model\MarketingSequence',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7604,15 +20957,15 @@ class MarketingApi
      *
      * Registers a drip sequence in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\Sequence $sequence (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSequence $marketing_sequence (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingSequencesAsync($sequence, string $contentType = self::contentTypes['postMarketingSequences'][0])
+    public function postMarketingSequencesAsync($marketing_sequence, string $contentType = self::contentTypes['postMarketingSequences'][0])
     {
-        return $this->postMarketingSequencesAsyncWithHttpInfo($sequence, $contentType)
+        return $this->postMarketingSequencesAsyncWithHttpInfo($marketing_sequence, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7625,16 +20978,16 @@ class MarketingApi
      *
      * Registers a drip sequence in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\Sequence $sequence (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSequence $marketing_sequence (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingSequencesAsyncWithHttpInfo($sequence, string $contentType = self::contentTypes['postMarketingSequences'][0])
+    public function postMarketingSequencesAsyncWithHttpInfo($marketing_sequence, string $contentType = self::contentTypes['postMarketingSequences'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Sequence';
-        $request = $this->postMarketingSequencesRequest($sequence, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingSequence';
+        $request = $this->postMarketingSequencesRequest($marketing_sequence, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7675,19 +21028,19 @@ class MarketingApi
     /**
      * Create request for operation 'postMarketingSequences'
      *
-     * @param  \Hanzo\Cloud\Model\Sequence $sequence (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSequence $marketing_sequence (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketingSequencesRequest($sequence, string $contentType = self::contentTypes['postMarketingSequences'][0])
+    public function postMarketingSequencesRequest($marketing_sequence, string $contentType = self::contentTypes['postMarketingSequences'][0])
     {
 
-        // verify the required parameter 'sequence' is set
-        if ($sequence === null || (is_array($sequence) && count($sequence) === 0)) {
+        // verify the required parameter 'marketing_sequence' is set
+        if ($marketing_sequence === null || (is_array($marketing_sequence) && count($marketing_sequence) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $sequence when calling postMarketingSequences'
+                'Missing the required parameter $marketing_sequence when calling postMarketingSequences'
             );
         }
 
@@ -7704,18 +21057,18 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($sequence)) {
+        if (isset($marketing_sequence)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sequence));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_sequence));
             } else {
-                $httpBody = $sequence;
+                $httpBody = $marketing_sequence;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7773,16 +21126,16 @@ class MarketingApi
      * Adds one contact or a whole audience to a sequence and schedules the first step for each.
      *
      * @param  string $id ID is the sequence id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\EnrollInput $enroll_input enroll_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingEnrollInput $marketing_enroll_input marketing_enroll_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdEnroll'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EnrollResult
+     * @return \Hanzo\Cloud\Model\MarketingEnrollResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketingSequencesByIdEnroll($id, $enroll_input, string $contentType = self::contentTypes['postMarketingSequencesByIdEnroll'][0])
+    public function postMarketingSequencesByIdEnroll($id, $marketing_enroll_input, string $contentType = self::contentTypes['postMarketingSequencesByIdEnroll'][0])
     {
-        list($response) = $this->postMarketingSequencesByIdEnrollWithHttpInfo($id, $enroll_input, $contentType);
+        list($response) = $this->postMarketingSequencesByIdEnrollWithHttpInfo($id, $marketing_enroll_input, $contentType);
         return $response;
     }
 
@@ -7792,16 +21145,16 @@ class MarketingApi
      * Adds one contact or a whole audience to a sequence and schedules the first step for each.
      *
      * @param  string $id ID is the sequence id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\EnrollInput $enroll_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingEnrollInput $marketing_enroll_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdEnroll'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EnrollResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingEnrollResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketingSequencesByIdEnrollWithHttpInfo($id, $enroll_input, string $contentType = self::contentTypes['postMarketingSequencesByIdEnroll'][0])
+    public function postMarketingSequencesByIdEnrollWithHttpInfo($id, $marketing_enroll_input, string $contentType = self::contentTypes['postMarketingSequencesByIdEnroll'][0])
     {
-        $request = $this->postMarketingSequencesByIdEnrollRequest($id, $enroll_input, $contentType);
+        $request = $this->postMarketingSequencesByIdEnrollRequest($id, $marketing_enroll_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7829,7 +21182,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EnrollResult',
+                        '\Hanzo\Cloud\Model\MarketingEnrollResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7851,7 +21210,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EnrollResult',
+                '\Hanzo\Cloud\Model\MarketingEnrollResult',
                 $request,
                 $response,
             );
@@ -7860,7 +21219,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EnrollResult',
+                        '\Hanzo\Cloud\Model\MarketingEnrollResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7878,15 +21245,15 @@ class MarketingApi
      * Adds one contact or a whole audience to a sequence and schedules the first step for each.
      *
      * @param  string $id ID is the sequence id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\EnrollInput $enroll_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingEnrollInput $marketing_enroll_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdEnroll'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingSequencesByIdEnrollAsync($id, $enroll_input, string $contentType = self::contentTypes['postMarketingSequencesByIdEnroll'][0])
+    public function postMarketingSequencesByIdEnrollAsync($id, $marketing_enroll_input, string $contentType = self::contentTypes['postMarketingSequencesByIdEnroll'][0])
     {
-        return $this->postMarketingSequencesByIdEnrollAsyncWithHttpInfo($id, $enroll_input, $contentType)
+        return $this->postMarketingSequencesByIdEnrollAsyncWithHttpInfo($id, $marketing_enroll_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7900,16 +21267,16 @@ class MarketingApi
      * Adds one contact or a whole audience to a sequence and schedules the first step for each.
      *
      * @param  string $id ID is the sequence id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\EnrollInput $enroll_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingEnrollInput $marketing_enroll_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdEnroll'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingSequencesByIdEnrollAsyncWithHttpInfo($id, $enroll_input, string $contentType = self::contentTypes['postMarketingSequencesByIdEnroll'][0])
+    public function postMarketingSequencesByIdEnrollAsyncWithHttpInfo($id, $marketing_enroll_input, string $contentType = self::contentTypes['postMarketingSequencesByIdEnroll'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EnrollResult';
-        $request = $this->postMarketingSequencesByIdEnrollRequest($id, $enroll_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingEnrollResult';
+        $request = $this->postMarketingSequencesByIdEnrollRequest($id, $marketing_enroll_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7951,13 +21318,13 @@ class MarketingApi
      * Create request for operation 'postMarketingSequencesByIdEnroll'
      *
      * @param  string $id ID is the sequence id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\EnrollInput $enroll_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingEnrollInput $marketing_enroll_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdEnroll'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketingSequencesByIdEnrollRequest($id, $enroll_input, string $contentType = self::contentTypes['postMarketingSequencesByIdEnroll'][0])
+    public function postMarketingSequencesByIdEnrollRequest($id, $marketing_enroll_input, string $contentType = self::contentTypes['postMarketingSequencesByIdEnroll'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -7967,10 +21334,10 @@ class MarketingApi
             );
         }
 
-        // verify the required parameter 'enroll_input' is set
-        if ($enroll_input === null || (is_array($enroll_input) && count($enroll_input) === 0)) {
+        // verify the required parameter 'marketing_enroll_input' is set
+        if ($marketing_enroll_input === null || (is_array($marketing_enroll_input) && count($marketing_enroll_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $enroll_input when calling postMarketingSequencesByIdEnroll'
+                'Missing the required parameter $marketing_enroll_input when calling postMarketingSequencesByIdEnroll'
             );
         }
 
@@ -7995,18 +21362,18 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($enroll_input)) {
+        if (isset($marketing_enroll_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($enroll_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_enroll_input));
             } else {
-                $httpBody = $enroll_input;
+                $httpBody = $marketing_enroll_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -8119,6 +21486,14 @@ class MarketingApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -8244,7 +21619,7 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -8306,16 +21681,16 @@ class MarketingApi
      * Flips draft/active/archived — the activation gate for sending, since only an active sequence accepts enrollments.
      *
      * @param  string $id ID is the sequence id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SequenceStatus $sequence_status sequence_status (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSequenceStatus $marketing_sequence_status marketing_sequence_status (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdStatus'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SequenceStatus
+     * @return \Hanzo\Cloud\Model\MarketingSequenceStatus|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketingSequencesByIdStatus($id, $sequence_status, string $contentType = self::contentTypes['postMarketingSequencesByIdStatus'][0])
+    public function postMarketingSequencesByIdStatus($id, $marketing_sequence_status, string $contentType = self::contentTypes['postMarketingSequencesByIdStatus'][0])
     {
-        list($response) = $this->postMarketingSequencesByIdStatusWithHttpInfo($id, $sequence_status, $contentType);
+        list($response) = $this->postMarketingSequencesByIdStatusWithHttpInfo($id, $marketing_sequence_status, $contentType);
         return $response;
     }
 
@@ -8325,16 +21700,16 @@ class MarketingApi
      * Flips draft/active/archived — the activation gate for sending, since only an active sequence accepts enrollments.
      *
      * @param  string $id ID is the sequence id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SequenceStatus $sequence_status (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSequenceStatus $marketing_sequence_status (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdStatus'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SequenceStatus, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingSequenceStatus|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketingSequencesByIdStatusWithHttpInfo($id, $sequence_status, string $contentType = self::contentTypes['postMarketingSequencesByIdStatus'][0])
+    public function postMarketingSequencesByIdStatusWithHttpInfo($id, $marketing_sequence_status, string $contentType = self::contentTypes['postMarketingSequencesByIdStatus'][0])
     {
-        $request = $this->postMarketingSequencesByIdStatusRequest($id, $sequence_status, $contentType);
+        $request = $this->postMarketingSequencesByIdStatusRequest($id, $marketing_sequence_status, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8362,7 +21737,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SequenceStatus',
+                        '\Hanzo\Cloud\Model\MarketingSequenceStatus',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8384,7 +21765,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SequenceStatus',
+                '\Hanzo\Cloud\Model\MarketingSequenceStatus',
                 $request,
                 $response,
             );
@@ -8393,7 +21774,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SequenceStatus',
+                        '\Hanzo\Cloud\Model\MarketingSequenceStatus',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8411,15 +21800,15 @@ class MarketingApi
      * Flips draft/active/archived — the activation gate for sending, since only an active sequence accepts enrollments.
      *
      * @param  string $id ID is the sequence id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SequenceStatus $sequence_status (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSequenceStatus $marketing_sequence_status (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdStatus'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingSequencesByIdStatusAsync($id, $sequence_status, string $contentType = self::contentTypes['postMarketingSequencesByIdStatus'][0])
+    public function postMarketingSequencesByIdStatusAsync($id, $marketing_sequence_status, string $contentType = self::contentTypes['postMarketingSequencesByIdStatus'][0])
     {
-        return $this->postMarketingSequencesByIdStatusAsyncWithHttpInfo($id, $sequence_status, $contentType)
+        return $this->postMarketingSequencesByIdStatusAsyncWithHttpInfo($id, $marketing_sequence_status, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8433,16 +21822,16 @@ class MarketingApi
      * Flips draft/active/archived — the activation gate for sending, since only an active sequence accepts enrollments.
      *
      * @param  string $id ID is the sequence id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SequenceStatus $sequence_status (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSequenceStatus $marketing_sequence_status (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdStatus'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingSequencesByIdStatusAsyncWithHttpInfo($id, $sequence_status, string $contentType = self::contentTypes['postMarketingSequencesByIdStatus'][0])
+    public function postMarketingSequencesByIdStatusAsyncWithHttpInfo($id, $marketing_sequence_status, string $contentType = self::contentTypes['postMarketingSequencesByIdStatus'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SequenceStatus';
-        $request = $this->postMarketingSequencesByIdStatusRequest($id, $sequence_status, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingSequenceStatus';
+        $request = $this->postMarketingSequencesByIdStatusRequest($id, $marketing_sequence_status, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8484,13 +21873,13 @@ class MarketingApi
      * Create request for operation 'postMarketingSequencesByIdStatus'
      *
      * @param  string $id ID is the sequence id from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SequenceStatus $sequence_status (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSequenceStatus $marketing_sequence_status (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdStatus'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketingSequencesByIdStatusRequest($id, $sequence_status, string $contentType = self::contentTypes['postMarketingSequencesByIdStatus'][0])
+    public function postMarketingSequencesByIdStatusRequest($id, $marketing_sequence_status, string $contentType = self::contentTypes['postMarketingSequencesByIdStatus'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -8500,10 +21889,10 @@ class MarketingApi
             );
         }
 
-        // verify the required parameter 'sequence_status' is set
-        if ($sequence_status === null || (is_array($sequence_status) && count($sequence_status) === 0)) {
+        // verify the required parameter 'marketing_sequence_status' is set
+        if ($marketing_sequence_status === null || (is_array($marketing_sequence_status) && count($marketing_sequence_status) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $sequence_status when calling postMarketingSequencesByIdStatus'
+                'Missing the required parameter $marketing_sequence_status when calling postMarketingSequencesByIdStatus'
             );
         }
 
@@ -8528,18 +21917,18 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($sequence_status)) {
+        if (isset($marketing_sequence_status)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sequence_status));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_sequence_status));
             } else {
-                $httpBody = $sequence_status;
+                $httpBody = $marketing_sequence_status;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -8597,16 +21986,16 @@ class MarketingApi
      * Appends a message to the END of a sequence: the new step&#39;s idx is one past the last, so steps arrive in the order they are added.
      *
      * @param  string $id SequenceID is the sequence id from the path (the route&#39;s :id). (required)
-     * @param  \Hanzo\Cloud\Model\StepInput $step_input step_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingStepInput $marketing_step_input marketing_step_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdSteps'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Step
+     * @return \Hanzo\Cloud\Model\MarketingStep|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketingSequencesByIdSteps($id, $step_input, string $contentType = self::contentTypes['postMarketingSequencesByIdSteps'][0])
+    public function postMarketingSequencesByIdSteps($id, $marketing_step_input, string $contentType = self::contentTypes['postMarketingSequencesByIdSteps'][0])
     {
-        list($response) = $this->postMarketingSequencesByIdStepsWithHttpInfo($id, $step_input, $contentType);
+        list($response) = $this->postMarketingSequencesByIdStepsWithHttpInfo($id, $marketing_step_input, $contentType);
         return $response;
     }
 
@@ -8616,16 +22005,16 @@ class MarketingApi
      * Appends a message to the END of a sequence: the new step&#39;s idx is one past the last, so steps arrive in the order they are added.
      *
      * @param  string $id SequenceID is the sequence id from the path (the route&#39;s :id). (required)
-     * @param  \Hanzo\Cloud\Model\StepInput $step_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingStepInput $marketing_step_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdSteps'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Step, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingStep|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketingSequencesByIdStepsWithHttpInfo($id, $step_input, string $contentType = self::contentTypes['postMarketingSequencesByIdSteps'][0])
+    public function postMarketingSequencesByIdStepsWithHttpInfo($id, $marketing_step_input, string $contentType = self::contentTypes['postMarketingSequencesByIdSteps'][0])
     {
-        $request = $this->postMarketingSequencesByIdStepsRequest($id, $step_input, $contentType);
+        $request = $this->postMarketingSequencesByIdStepsRequest($id, $marketing_step_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8653,7 +22042,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Step',
+                        '\Hanzo\Cloud\Model\MarketingStep',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8675,7 +22070,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Step',
+                '\Hanzo\Cloud\Model\MarketingStep',
                 $request,
                 $response,
             );
@@ -8684,7 +22079,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Step',
+                        '\Hanzo\Cloud\Model\MarketingStep',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8702,15 +22105,15 @@ class MarketingApi
      * Appends a message to the END of a sequence: the new step&#39;s idx is one past the last, so steps arrive in the order they are added.
      *
      * @param  string $id SequenceID is the sequence id from the path (the route&#39;s :id). (required)
-     * @param  \Hanzo\Cloud\Model\StepInput $step_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingStepInput $marketing_step_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdSteps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingSequencesByIdStepsAsync($id, $step_input, string $contentType = self::contentTypes['postMarketingSequencesByIdSteps'][0])
+    public function postMarketingSequencesByIdStepsAsync($id, $marketing_step_input, string $contentType = self::contentTypes['postMarketingSequencesByIdSteps'][0])
     {
-        return $this->postMarketingSequencesByIdStepsAsyncWithHttpInfo($id, $step_input, $contentType)
+        return $this->postMarketingSequencesByIdStepsAsyncWithHttpInfo($id, $marketing_step_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8724,16 +22127,16 @@ class MarketingApi
      * Appends a message to the END of a sequence: the new step&#39;s idx is one past the last, so steps arrive in the order they are added.
      *
      * @param  string $id SequenceID is the sequence id from the path (the route&#39;s :id). (required)
-     * @param  \Hanzo\Cloud\Model\StepInput $step_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingStepInput $marketing_step_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdSteps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingSequencesByIdStepsAsyncWithHttpInfo($id, $step_input, string $contentType = self::contentTypes['postMarketingSequencesByIdSteps'][0])
+    public function postMarketingSequencesByIdStepsAsyncWithHttpInfo($id, $marketing_step_input, string $contentType = self::contentTypes['postMarketingSequencesByIdSteps'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Step';
-        $request = $this->postMarketingSequencesByIdStepsRequest($id, $step_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingStep';
+        $request = $this->postMarketingSequencesByIdStepsRequest($id, $marketing_step_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8775,13 +22178,13 @@ class MarketingApi
      * Create request for operation 'postMarketingSequencesByIdSteps'
      *
      * @param  string $id SequenceID is the sequence id from the path (the route&#39;s :id). (required)
-     * @param  \Hanzo\Cloud\Model\StepInput $step_input (required)
+     * @param  \Hanzo\Cloud\Model\MarketingStepInput $marketing_step_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSequencesByIdSteps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketingSequencesByIdStepsRequest($id, $step_input, string $contentType = self::contentTypes['postMarketingSequencesByIdSteps'][0])
+    public function postMarketingSequencesByIdStepsRequest($id, $marketing_step_input, string $contentType = self::contentTypes['postMarketingSequencesByIdSteps'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -8791,10 +22194,10 @@ class MarketingApi
             );
         }
 
-        // verify the required parameter 'step_input' is set
-        if ($step_input === null || (is_array($step_input) && count($step_input) === 0)) {
+        // verify the required parameter 'marketing_step_input' is set
+        if ($marketing_step_input === null || (is_array($marketing_step_input) && count($marketing_step_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $step_input when calling postMarketingSequencesByIdSteps'
+                'Missing the required parameter $marketing_step_input when calling postMarketingSequencesByIdSteps'
             );
         }
 
@@ -8819,18 +22222,18 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($step_input)) {
+        if (isset($marketing_step_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($step_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_step_input));
             } else {
-                $httpBody = $step_input;
+                $httpBody = $marketing_step_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -8883,38 +22286,319 @@ class MarketingApi
     }
 
     /**
-     * Operation postMarketingSuppressions
+     * Operation postMarketingSubscribe
      *
-     * Records an opt-out for the org (admin / self-service management).
+     * Asks for the brand&#39;s newsletter for an address and answers 202 pending.
      *
-     * @param  \Hanzo\Cloud\Model\Suppression $suppression suppression (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSuppressions'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\MarketingSubscribeIn $marketing_subscribe_in marketing_subscribe_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSubscribe'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Suppression
+     * @return \Hanzo\Cloud\Model\MarketingSubscription|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketingSuppressions($suppression, string $contentType = self::contentTypes['postMarketingSuppressions'][0])
+    public function postMarketingSubscribe($marketing_subscribe_in, string $contentType = self::contentTypes['postMarketingSubscribe'][0])
     {
-        list($response) = $this->postMarketingSuppressionsWithHttpInfo($suppression, $contentType);
+        list($response) = $this->postMarketingSubscribeWithHttpInfo($marketing_subscribe_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postMarketingSuppressionsWithHttpInfo
+     * Operation postMarketingSubscribeWithHttpInfo
      *
-     * Records an opt-out for the org (admin / self-service management).
+     * Asks for the brand&#39;s newsletter for an address and answers 202 pending.
      *
-     * @param  \Hanzo\Cloud\Model\Suppression $suppression (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSuppressions'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\MarketingSubscribeIn $marketing_subscribe_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSubscribe'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Suppression, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingSubscription|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketingSuppressionsWithHttpInfo($suppression, string $contentType = self::contentTypes['postMarketingSuppressions'][0])
+    public function postMarketingSubscribeWithHttpInfo($marketing_subscribe_in, string $contentType = self::contentTypes['postMarketingSubscribe'][0])
     {
-        $request = $this->postMarketingSuppressionsRequest($suppression, $contentType);
+        $request = $this->postMarketingSubscribeRequest($marketing_subscribe_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSubscription',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSubscription',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSubscription',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingSubscribeAsync
+     *
+     * Asks for the brand&#39;s newsletter for an address and answers 202 pending.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingSubscribeIn $marketing_subscribe_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSubscribe'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingSubscribeAsync($marketing_subscribe_in, string $contentType = self::contentTypes['postMarketingSubscribe'][0])
+    {
+        return $this->postMarketingSubscribeAsyncWithHttpInfo($marketing_subscribe_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingSubscribeAsyncWithHttpInfo
+     *
+     * Asks for the brand&#39;s newsletter for an address and answers 202 pending.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingSubscribeIn $marketing_subscribe_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSubscribe'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingSubscribeAsyncWithHttpInfo($marketing_subscribe_in, string $contentType = self::contentTypes['postMarketingSubscribe'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSubscription';
+        $request = $this->postMarketingSubscribeRequest($marketing_subscribe_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingSubscribe'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingSubscribeIn $marketing_subscribe_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSubscribe'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingSubscribeRequest($marketing_subscribe_in, string $contentType = self::contentTypes['postMarketingSubscribe'][0])
+    {
+
+        // verify the required parameter 'marketing_subscribe_in' is set
+        if ($marketing_subscribe_in === null || (is_array($marketing_subscribe_in) && count($marketing_subscribe_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_subscribe_in when calling postMarketingSubscribe'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/subscribe';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_subscribe_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_subscribe_in));
+            } else {
+                $httpBody = $marketing_subscribe_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingSubscribeConfirm
+     *
+     * Subscribes the address a confirmation link names and answers 200 confirmed.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingConfirmIn $marketing_confirm_in marketing_confirm_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSubscribeConfirm'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSubscription|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingSubscribeConfirm($marketing_confirm_in, string $contentType = self::contentTypes['postMarketingSubscribeConfirm'][0])
+    {
+        list($response) = $this->postMarketingSubscribeConfirmWithHttpInfo($marketing_confirm_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingSubscribeConfirmWithHttpInfo
+     *
+     * Subscribes the address a confirmation link names and answers 200 confirmed.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingConfirmIn $marketing_confirm_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSubscribeConfirm'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSubscription|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingSubscribeConfirmWithHttpInfo($marketing_confirm_in, string $contentType = self::contentTypes['postMarketingSubscribeConfirm'][0])
+    {
+        $request = $this->postMarketingSubscribeConfirmRequest($marketing_confirm_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8942,7 +22626,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Suppression',
+                        '\Hanzo\Cloud\Model\MarketingSubscription',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8964,7 +22654,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Suppression',
+                '\Hanzo\Cloud\Model\MarketingSubscription',
                 $request,
                 $response,
             );
@@ -8973,7 +22663,296 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Suppression',
+                        '\Hanzo\Cloud\Model\MarketingSubscription',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingSubscribeConfirmAsync
+     *
+     * Subscribes the address a confirmation link names and answers 200 confirmed.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingConfirmIn $marketing_confirm_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSubscribeConfirm'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingSubscribeConfirmAsync($marketing_confirm_in, string $contentType = self::contentTypes['postMarketingSubscribeConfirm'][0])
+    {
+        return $this->postMarketingSubscribeConfirmAsyncWithHttpInfo($marketing_confirm_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingSubscribeConfirmAsyncWithHttpInfo
+     *
+     * Subscribes the address a confirmation link names and answers 200 confirmed.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingConfirmIn $marketing_confirm_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSubscribeConfirm'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingSubscribeConfirmAsyncWithHttpInfo($marketing_confirm_in, string $contentType = self::contentTypes['postMarketingSubscribeConfirm'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSubscription';
+        $request = $this->postMarketingSubscribeConfirmRequest($marketing_confirm_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingSubscribeConfirm'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingConfirmIn $marketing_confirm_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSubscribeConfirm'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingSubscribeConfirmRequest($marketing_confirm_in, string $contentType = self::contentTypes['postMarketingSubscribeConfirm'][0])
+    {
+
+        // verify the required parameter 'marketing_confirm_in' is set
+        if ($marketing_confirm_in === null || (is_array($marketing_confirm_in) && count($marketing_confirm_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_confirm_in when calling postMarketingSubscribeConfirm'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/subscribe/confirm';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_confirm_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_confirm_in));
+            } else {
+                $httpBody = $marketing_confirm_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketingSuppressions
+     *
+     * Records an opt-out for the org (admin / self-service management).
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingSuppression $marketing_suppression marketing_suppression (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSuppressions'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSuppression|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketingSuppressions($marketing_suppression, string $contentType = self::contentTypes['postMarketingSuppressions'][0])
+    {
+        list($response) = $this->postMarketingSuppressionsWithHttpInfo($marketing_suppression, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketingSuppressionsWithHttpInfo
+     *
+     * Records an opt-out for the org (admin / self-service management).
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingSuppression $marketing_suppression (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSuppressions'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSuppression|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketingSuppressionsWithHttpInfo($marketing_suppression, string $contentType = self::contentTypes['postMarketingSuppressions'][0])
+    {
+        $request = $this->postMarketingSuppressionsRequest($marketing_suppression, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSuppression',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSuppression',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSuppression',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8990,15 +22969,15 @@ class MarketingApi
      *
      * Records an opt-out for the org (admin / self-service management).
      *
-     * @param  \Hanzo\Cloud\Model\Suppression $suppression (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSuppression $marketing_suppression (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingSuppressionsAsync($suppression, string $contentType = self::contentTypes['postMarketingSuppressions'][0])
+    public function postMarketingSuppressionsAsync($marketing_suppression, string $contentType = self::contentTypes['postMarketingSuppressions'][0])
     {
-        return $this->postMarketingSuppressionsAsyncWithHttpInfo($suppression, $contentType)
+        return $this->postMarketingSuppressionsAsyncWithHttpInfo($marketing_suppression, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9011,16 +22990,16 @@ class MarketingApi
      *
      * Records an opt-out for the org (admin / self-service management).
      *
-     * @param  \Hanzo\Cloud\Model\Suppression $suppression (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSuppression $marketing_suppression (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketingSuppressionsAsyncWithHttpInfo($suppression, string $contentType = self::contentTypes['postMarketingSuppressions'][0])
+    public function postMarketingSuppressionsAsyncWithHttpInfo($marketing_suppression, string $contentType = self::contentTypes['postMarketingSuppressions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Suppression';
-        $request = $this->postMarketingSuppressionsRequest($suppression, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingSuppression';
+        $request = $this->postMarketingSuppressionsRequest($marketing_suppression, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9061,19 +23040,19 @@ class MarketingApi
     /**
      * Create request for operation 'postMarketingSuppressions'
      *
-     * @param  \Hanzo\Cloud\Model\Suppression $suppression (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSuppression $marketing_suppression (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingSuppressions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketingSuppressionsRequest($suppression, string $contentType = self::contentTypes['postMarketingSuppressions'][0])
+    public function postMarketingSuppressionsRequest($marketing_suppression, string $contentType = self::contentTypes['postMarketingSuppressions'][0])
     {
 
-        // verify the required parameter 'suppression' is set
-        if ($suppression === null || (is_array($suppression) && count($suppression) === 0)) {
+        // verify the required parameter 'marketing_suppression' is set
+        if ($marketing_suppression === null || (is_array($marketing_suppression) && count($marketing_suppression) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $suppression when calling postMarketingSuppressions'
+                'Missing the required parameter $marketing_suppression when calling postMarketingSuppressions'
             );
         }
 
@@ -9090,18 +23069,18 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($suppression)) {
+        if (isset($marketing_suppression)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($suppression));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_suppression));
             } else {
-                $httpBody = $suppression;
+                $httpBody = $marketing_suppression;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -9154,40 +23133,48 @@ class MarketingApi
     }
 
     /**
-     * Operation putMarketingCalendarById
+     * Operation postMarketingUnsubscribe
      *
-     * Replaces a post&#39;s editable fields.
+     * Is the one-click unsubscribe a mail client sends from the List-Unsubscribe header (RFC 8058): the same signed link the footer carries, POSTed with the form body List-Unsubscribe&#x3D;One-Click.
      *
-     * @param  string $id ID is the server-assigned post id (\&quot;cal_\&quot; + 128 random bits). (required)
-     * @param  \Hanzo\Cloud\Model\CalendarPost $calendar_post calendar_post (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCalendarById'] to see the possible values for this operation
+     * @param  string|null $org Org is the org the link was minted for. (optional)
+     * @param  string|null $channel Channel is the surface to opt out of. (optional)
+     * @param  string|null $address Address is the recipient to opt out. (optional)
+     * @param  string|null $token Token is the HMAC over (org, channel, address), the only authority here. (optional)
+     * @param  string|null $list List is the marketing list the link leaves, as on the signed link. (optional)
+     * @param  string|null $list_unsubscribe OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingUnsubscribe'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CalendarPost
+     * @return \Hanzo\Cloud\Model\MarketingUnsubscribed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putMarketingCalendarById($id, $calendar_post, string $contentType = self::contentTypes['putMarketingCalendarById'][0])
+    public function postMarketingUnsubscribe($org = null, $channel = null, $address = null, $token = null, $list = null, $list_unsubscribe = null, string $contentType = self::contentTypes['postMarketingUnsubscribe'][0])
     {
-        list($response) = $this->putMarketingCalendarByIdWithHttpInfo($id, $calendar_post, $contentType);
+        list($response) = $this->postMarketingUnsubscribeWithHttpInfo($org, $channel, $address, $token, $list, $list_unsubscribe, $contentType);
         return $response;
     }
 
     /**
-     * Operation putMarketingCalendarByIdWithHttpInfo
+     * Operation postMarketingUnsubscribeWithHttpInfo
      *
-     * Replaces a post&#39;s editable fields.
+     * Is the one-click unsubscribe a mail client sends from the List-Unsubscribe header (RFC 8058): the same signed link the footer carries, POSTed with the form body List-Unsubscribe&#x3D;One-Click.
      *
-     * @param  string $id ID is the server-assigned post id (\&quot;cal_\&quot; + 128 random bits). (required)
-     * @param  \Hanzo\Cloud\Model\CalendarPost $calendar_post (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCalendarById'] to see the possible values for this operation
+     * @param  string|null $org Org is the org the link was minted for. (optional)
+     * @param  string|null $channel Channel is the surface to opt out of. (optional)
+     * @param  string|null $address Address is the recipient to opt out. (optional)
+     * @param  string|null $token Token is the HMAC over (org, channel, address), the only authority here. (optional)
+     * @param  string|null $list List is the marketing list the link leaves, as on the signed link. (optional)
+     * @param  string|null $list_unsubscribe OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingUnsubscribe'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CalendarPost, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingUnsubscribed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putMarketingCalendarByIdWithHttpInfo($id, $calendar_post, string $contentType = self::contentTypes['putMarketingCalendarById'][0])
+    public function postMarketingUnsubscribeWithHttpInfo($org = null, $channel = null, $address = null, $token = null, $list = null, $list_unsubscribe = null, string $contentType = self::contentTypes['postMarketingUnsubscribe'][0])
     {
-        $request = $this->putMarketingCalendarByIdRequest($id, $calendar_post, $contentType);
+        $request = $this->postMarketingUnsubscribeRequest($org, $channel, $address, $token, $list, $list_unsubscribe, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9215,7 +23202,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CalendarPost',
+                        '\Hanzo\Cloud\Model\MarketingUnsubscribed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -9237,7 +23230,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CalendarPost',
+                '\Hanzo\Cloud\Model\MarketingUnsubscribed',
                 $request,
                 $response,
             );
@@ -9246,7 +23239,648 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CalendarPost',
+                        '\Hanzo\Cloud\Model\MarketingUnsubscribed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketingUnsubscribeAsync
+     *
+     * Is the one-click unsubscribe a mail client sends from the List-Unsubscribe header (RFC 8058): the same signed link the footer carries, POSTed with the form body List-Unsubscribe&#x3D;One-Click.
+     *
+     * @param  string|null $org Org is the org the link was minted for. (optional)
+     * @param  string|null $channel Channel is the surface to opt out of. (optional)
+     * @param  string|null $address Address is the recipient to opt out. (optional)
+     * @param  string|null $token Token is the HMAC over (org, channel, address), the only authority here. (optional)
+     * @param  string|null $list List is the marketing list the link leaves, as on the signed link. (optional)
+     * @param  string|null $list_unsubscribe OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingUnsubscribe'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingUnsubscribeAsync($org = null, $channel = null, $address = null, $token = null, $list = null, $list_unsubscribe = null, string $contentType = self::contentTypes['postMarketingUnsubscribe'][0])
+    {
+        return $this->postMarketingUnsubscribeAsyncWithHttpInfo($org, $channel, $address, $token, $list, $list_unsubscribe, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketingUnsubscribeAsyncWithHttpInfo
+     *
+     * Is the one-click unsubscribe a mail client sends from the List-Unsubscribe header (RFC 8058): the same signed link the footer carries, POSTed with the form body List-Unsubscribe&#x3D;One-Click.
+     *
+     * @param  string|null $org Org is the org the link was minted for. (optional)
+     * @param  string|null $channel Channel is the surface to opt out of. (optional)
+     * @param  string|null $address Address is the recipient to opt out. (optional)
+     * @param  string|null $token Token is the HMAC over (org, channel, address), the only authority here. (optional)
+     * @param  string|null $list List is the marketing list the link leaves, as on the signed link. (optional)
+     * @param  string|null $list_unsubscribe OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingUnsubscribe'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketingUnsubscribeAsyncWithHttpInfo($org = null, $channel = null, $address = null, $token = null, $list = null, $list_unsubscribe = null, string $contentType = self::contentTypes['postMarketingUnsubscribe'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingUnsubscribed';
+        $request = $this->postMarketingUnsubscribeRequest($org, $channel, $address, $token, $list, $list_unsubscribe, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketingUnsubscribe'
+     *
+     * @param  string|null $org Org is the org the link was minted for. (optional)
+     * @param  string|null $channel Channel is the surface to opt out of. (optional)
+     * @param  string|null $address Address is the recipient to opt out. (optional)
+     * @param  string|null $token Token is the HMAC over (org, channel, address), the only authority here. (optional)
+     * @param  string|null $list List is the marketing list the link leaves, as on the signed link. (optional)
+     * @param  string|null $list_unsubscribe OneClick is the form&#39;s List-Unsubscribe field, \\\&quot;One-Click\\\&quot; from a mail client. The token decides; this field only names the form. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketingUnsubscribe'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketingUnsubscribeRequest($org = null, $channel = null, $address = null, $token = null, $list = null, $list_unsubscribe = null, string $contentType = self::contentTypes['postMarketingUnsubscribe'][0])
+    {
+
+
+
+
+
+
+
+
+        $resourcePath = '/v1/marketing/unsubscribe';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $org,
+            'org', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $channel,
+            'channel', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $address,
+            'address', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $token,
+            'token', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $list,
+            'list', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+        // form params
+        $formDataProcessor = new FormDataProcessor();
+
+        $formData = $formDataProcessor->prepare([
+            'list_unsubscribe' => $list_unsubscribe,
+        ]);
+
+        $formParams = $formDataProcessor->flatten($formData);
+        $multipart = $formDataProcessor->has_file;
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putMarketingBeta
+     *
+     * Writes the signed-in caller&#39;s application: the program, the answers, the betas asked for and the lead it was filed under.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaIn $marketing_beta_in marketing_beta_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingBeta'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingBeta|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putMarketingBeta($marketing_beta_in, string $contentType = self::contentTypes['putMarketingBeta'][0])
+    {
+        list($response) = $this->putMarketingBetaWithHttpInfo($marketing_beta_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putMarketingBetaWithHttpInfo
+     *
+     * Writes the signed-in caller&#39;s application: the program, the answers, the betas asked for and the lead it was filed under.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaIn $marketing_beta_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingBeta'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingBeta|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putMarketingBetaWithHttpInfo($marketing_beta_in, string $contentType = self::contentTypes['putMarketingBeta'][0])
+    {
+        $request = $this->putMarketingBetaRequest($marketing_beta_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingBeta',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingBeta',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingBeta',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putMarketingBetaAsync
+     *
+     * Writes the signed-in caller&#39;s application: the program, the answers, the betas asked for and the lead it was filed under.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaIn $marketing_beta_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingBeta'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putMarketingBetaAsync($marketing_beta_in, string $contentType = self::contentTypes['putMarketingBeta'][0])
+    {
+        return $this->putMarketingBetaAsyncWithHttpInfo($marketing_beta_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putMarketingBetaAsyncWithHttpInfo
+     *
+     * Writes the signed-in caller&#39;s application: the program, the answers, the betas asked for and the lead it was filed under.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaIn $marketing_beta_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingBeta'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putMarketingBetaAsyncWithHttpInfo($marketing_beta_in, string $contentType = self::contentTypes['putMarketingBeta'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingBeta';
+        $request = $this->putMarketingBetaRequest($marketing_beta_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putMarketingBeta'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingBetaIn $marketing_beta_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingBeta'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putMarketingBetaRequest($marketing_beta_in, string $contentType = self::contentTypes['putMarketingBeta'][0])
+    {
+
+        // verify the required parameter 'marketing_beta_in' is set
+        if ($marketing_beta_in === null || (is_array($marketing_beta_in) && count($marketing_beta_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_beta_in when calling putMarketingBeta'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/beta';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_beta_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_beta_in));
+            } else {
+                $httpBody = $marketing_beta_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putMarketingCalendarById
+     *
+     * Replaces a post&#39;s editable fields.
+     *
+     * @param  string $id ID is the server-assigned post id (\&quot;cal_\&quot; + 128 random bits). (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCalendarPost $marketing_calendar_post marketing_calendar_post (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCalendarById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingCalendarPost|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putMarketingCalendarById($id, $marketing_calendar_post, string $contentType = self::contentTypes['putMarketingCalendarById'][0])
+    {
+        list($response) = $this->putMarketingCalendarByIdWithHttpInfo($id, $marketing_calendar_post, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putMarketingCalendarByIdWithHttpInfo
+     *
+     * Replaces a post&#39;s editable fields.
+     *
+     * @param  string $id ID is the server-assigned post id (\&quot;cal_\&quot; + 128 random bits). (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCalendarPost $marketing_calendar_post (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCalendarById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingCalendarPost|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putMarketingCalendarByIdWithHttpInfo($id, $marketing_calendar_post, string $contentType = self::contentTypes['putMarketingCalendarById'][0])
+    {
+        $request = $this->putMarketingCalendarByIdRequest($id, $marketing_calendar_post, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingCalendarPost',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingCalendarPost',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingCalendarPost',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9264,15 +23898,15 @@ class MarketingApi
      * Replaces a post&#39;s editable fields.
      *
      * @param  string $id ID is the server-assigned post id (\&quot;cal_\&quot; + 128 random bits). (required)
-     * @param  \Hanzo\Cloud\Model\CalendarPost $calendar_post (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCalendarPost $marketing_calendar_post (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCalendarById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putMarketingCalendarByIdAsync($id, $calendar_post, string $contentType = self::contentTypes['putMarketingCalendarById'][0])
+    public function putMarketingCalendarByIdAsync($id, $marketing_calendar_post, string $contentType = self::contentTypes['putMarketingCalendarById'][0])
     {
-        return $this->putMarketingCalendarByIdAsyncWithHttpInfo($id, $calendar_post, $contentType)
+        return $this->putMarketingCalendarByIdAsyncWithHttpInfo($id, $marketing_calendar_post, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9286,16 +23920,16 @@ class MarketingApi
      * Replaces a post&#39;s editable fields.
      *
      * @param  string $id ID is the server-assigned post id (\&quot;cal_\&quot; + 128 random bits). (required)
-     * @param  \Hanzo\Cloud\Model\CalendarPost $calendar_post (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCalendarPost $marketing_calendar_post (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCalendarById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putMarketingCalendarByIdAsyncWithHttpInfo($id, $calendar_post, string $contentType = self::contentTypes['putMarketingCalendarById'][0])
+    public function putMarketingCalendarByIdAsyncWithHttpInfo($id, $marketing_calendar_post, string $contentType = self::contentTypes['putMarketingCalendarById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CalendarPost';
-        $request = $this->putMarketingCalendarByIdRequest($id, $calendar_post, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingCalendarPost';
+        $request = $this->putMarketingCalendarByIdRequest($id, $marketing_calendar_post, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9337,13 +23971,13 @@ class MarketingApi
      * Create request for operation 'putMarketingCalendarById'
      *
      * @param  string $id ID is the server-assigned post id (\&quot;cal_\&quot; + 128 random bits). (required)
-     * @param  \Hanzo\Cloud\Model\CalendarPost $calendar_post (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCalendarPost $marketing_calendar_post (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCalendarById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putMarketingCalendarByIdRequest($id, $calendar_post, string $contentType = self::contentTypes['putMarketingCalendarById'][0])
+    public function putMarketingCalendarByIdRequest($id, $marketing_calendar_post, string $contentType = self::contentTypes['putMarketingCalendarById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -9353,10 +23987,10 @@ class MarketingApi
             );
         }
 
-        // verify the required parameter 'calendar_post' is set
-        if ($calendar_post === null || (is_array($calendar_post) && count($calendar_post) === 0)) {
+        // verify the required parameter 'marketing_calendar_post' is set
+        if ($marketing_calendar_post === null || (is_array($marketing_calendar_post) && count($marketing_calendar_post) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $calendar_post when calling putMarketingCalendarById'
+                'Missing the required parameter $marketing_calendar_post when calling putMarketingCalendarById'
             );
         }
 
@@ -9381,18 +24015,18 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($calendar_post)) {
+        if (isset($marketing_calendar_post)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($calendar_post));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_calendar_post));
             } else {
-                $httpBody = $calendar_post;
+                $httpBody = $marketing_calendar_post;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -9450,16 +24084,16 @@ class MarketingApi
      * Replaces a campaign&#39;s editable fields.
      *
      * @param  string $id ID is the server-assigned campaign id (\&quot;camp_\&quot; + 128 random bits). (required)
-     * @param  \Hanzo\Cloud\Model\Campaign $campaign campaign (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCampaign $marketing_campaign marketing_campaign (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCampaignsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Campaign
+     * @return \Hanzo\Cloud\Model\MarketingCampaign|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putMarketingCampaignsById($id, $campaign, string $contentType = self::contentTypes['putMarketingCampaignsById'][0])
+    public function putMarketingCampaignsById($id, $marketing_campaign, string $contentType = self::contentTypes['putMarketingCampaignsById'][0])
     {
-        list($response) = $this->putMarketingCampaignsByIdWithHttpInfo($id, $campaign, $contentType);
+        list($response) = $this->putMarketingCampaignsByIdWithHttpInfo($id, $marketing_campaign, $contentType);
         return $response;
     }
 
@@ -9469,16 +24103,16 @@ class MarketingApi
      * Replaces a campaign&#39;s editable fields.
      *
      * @param  string $id ID is the server-assigned campaign id (\&quot;camp_\&quot; + 128 random bits). (required)
-     * @param  \Hanzo\Cloud\Model\Campaign $campaign (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCampaign $marketing_campaign (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCampaignsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Campaign, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketingCampaign|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putMarketingCampaignsByIdWithHttpInfo($id, $campaign, string $contentType = self::contentTypes['putMarketingCampaignsById'][0])
+    public function putMarketingCampaignsByIdWithHttpInfo($id, $marketing_campaign, string $contentType = self::contentTypes['putMarketingCampaignsById'][0])
     {
-        $request = $this->putMarketingCampaignsByIdRequest($id, $campaign, $contentType);
+        $request = $this->putMarketingCampaignsByIdRequest($id, $marketing_campaign, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9506,7 +24140,13 @@ class MarketingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Campaign',
+                        '\Hanzo\Cloud\Model\MarketingCampaign',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -9528,7 +24168,7 @@ class MarketingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Campaign',
+                '\Hanzo\Cloud\Model\MarketingCampaign',
                 $request,
                 $response,
             );
@@ -9537,7 +24177,15 @@ class MarketingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Campaign',
+                        '\Hanzo\Cloud\Model\MarketingCampaign',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9555,15 +24203,15 @@ class MarketingApi
      * Replaces a campaign&#39;s editable fields.
      *
      * @param  string $id ID is the server-assigned campaign id (\&quot;camp_\&quot; + 128 random bits). (required)
-     * @param  \Hanzo\Cloud\Model\Campaign $campaign (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCampaign $marketing_campaign (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCampaignsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putMarketingCampaignsByIdAsync($id, $campaign, string $contentType = self::contentTypes['putMarketingCampaignsById'][0])
+    public function putMarketingCampaignsByIdAsync($id, $marketing_campaign, string $contentType = self::contentTypes['putMarketingCampaignsById'][0])
     {
-        return $this->putMarketingCampaignsByIdAsyncWithHttpInfo($id, $campaign, $contentType)
+        return $this->putMarketingCampaignsByIdAsyncWithHttpInfo($id, $marketing_campaign, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9577,16 +24225,16 @@ class MarketingApi
      * Replaces a campaign&#39;s editable fields.
      *
      * @param  string $id ID is the server-assigned campaign id (\&quot;camp_\&quot; + 128 random bits). (required)
-     * @param  \Hanzo\Cloud\Model\Campaign $campaign (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCampaign $marketing_campaign (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCampaignsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putMarketingCampaignsByIdAsyncWithHttpInfo($id, $campaign, string $contentType = self::contentTypes['putMarketingCampaignsById'][0])
+    public function putMarketingCampaignsByIdAsyncWithHttpInfo($id, $marketing_campaign, string $contentType = self::contentTypes['putMarketingCampaignsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Campaign';
-        $request = $this->putMarketingCampaignsByIdRequest($id, $campaign, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketingCampaign';
+        $request = $this->putMarketingCampaignsByIdRequest($id, $marketing_campaign, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9628,13 +24276,13 @@ class MarketingApi
      * Create request for operation 'putMarketingCampaignsById'
      *
      * @param  string $id ID is the server-assigned campaign id (\&quot;camp_\&quot; + 128 random bits). (required)
-     * @param  \Hanzo\Cloud\Model\Campaign $campaign (required)
+     * @param  \Hanzo\Cloud\Model\MarketingCampaign $marketing_campaign (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingCampaignsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putMarketingCampaignsByIdRequest($id, $campaign, string $contentType = self::contentTypes['putMarketingCampaignsById'][0])
+    public function putMarketingCampaignsByIdRequest($id, $marketing_campaign, string $contentType = self::contentTypes['putMarketingCampaignsById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -9644,10 +24292,10 @@ class MarketingApi
             );
         }
 
-        // verify the required parameter 'campaign' is set
-        if ($campaign === null || (is_array($campaign) && count($campaign) === 0)) {
+        // verify the required parameter 'marketing_campaign' is set
+        if ($marketing_campaign === null || (is_array($marketing_campaign) && count($marketing_campaign) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $campaign when calling putMarketingCampaignsById'
+                'Missing the required parameter $marketing_campaign when calling putMarketingCampaignsById'
             );
         }
 
@@ -9672,18 +24320,1135 @@ class MarketingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($campaign)) {
+        if (isset($marketing_campaign)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($campaign));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_campaign));
             } else {
-                $httpBody = $campaign;
+                $httpBody = $marketing_campaign;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putMarketingFields
+     *
+     * Replaces the org&#39;s custom fields with the set the body carries and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingFieldSet $marketing_field_set marketing_field_set (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingFields'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingFieldSet|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putMarketingFields($marketing_field_set, string $contentType = self::contentTypes['putMarketingFields'][0])
+    {
+        list($response) = $this->putMarketingFieldsWithHttpInfo($marketing_field_set, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putMarketingFieldsWithHttpInfo
+     *
+     * Replaces the org&#39;s custom fields with the set the body carries and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingFieldSet $marketing_field_set (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingFields'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingFieldSet|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putMarketingFieldsWithHttpInfo($marketing_field_set, string $contentType = self::contentTypes['putMarketingFields'][0])
+    {
+        $request = $this->putMarketingFieldsRequest($marketing_field_set, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingFieldSet',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingFieldSet',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingFieldSet',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putMarketingFieldsAsync
+     *
+     * Replaces the org&#39;s custom fields with the set the body carries and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingFieldSet $marketing_field_set (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingFields'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putMarketingFieldsAsync($marketing_field_set, string $contentType = self::contentTypes['putMarketingFields'][0])
+    {
+        return $this->putMarketingFieldsAsyncWithHttpInfo($marketing_field_set, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putMarketingFieldsAsyncWithHttpInfo
+     *
+     * Replaces the org&#39;s custom fields with the set the body carries and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingFieldSet $marketing_field_set (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingFields'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putMarketingFieldsAsyncWithHttpInfo($marketing_field_set, string $contentType = self::contentTypes['putMarketingFields'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingFieldSet';
+        $request = $this->putMarketingFieldsRequest($marketing_field_set, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putMarketingFields'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingFieldSet $marketing_field_set (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingFields'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putMarketingFieldsRequest($marketing_field_set, string $contentType = self::contentTypes['putMarketingFields'][0])
+    {
+
+        // verify the required parameter 'marketing_field_set' is set
+        if ($marketing_field_set === null || (is_array($marketing_field_set) && count($marketing_field_set) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_field_set when calling putMarketingFields'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/fields';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_field_set)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_field_set));
+            } else {
+                $httpBody = $marketing_field_set;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putMarketingImportsByIdData
+     *
+     * Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds.
+     *
+     * @param  string $id id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingImportsByIdData'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function putMarketingImportsByIdData($id, string $contentType = self::contentTypes['putMarketingImportsByIdData'][0])
+    {
+        $this->putMarketingImportsByIdDataWithHttpInfo($id, $contentType);
+    }
+
+    /**
+     * Operation putMarketingImportsByIdDataWithHttpInfo
+     *
+     * Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingImportsByIdData'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putMarketingImportsByIdDataWithHttpInfo($id, string $contentType = self::contentTypes['putMarketingImportsByIdData'][0])
+    {
+        $request = $this->putMarketingImportsByIdDataRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putMarketingImportsByIdDataAsync
+     *
+     * Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingImportsByIdData'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putMarketingImportsByIdDataAsync($id, string $contentType = self::contentTypes['putMarketingImportsByIdData'][0])
+    {
+        return $this->putMarketingImportsByIdDataAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putMarketingImportsByIdDataAsyncWithHttpInfo
+     *
+     * Takes a piece of an import&#39;s file at the offset the query names and answers how many bytes the import now holds.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingImportsByIdData'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putMarketingImportsByIdDataAsyncWithHttpInfo($id, string $contentType = self::contentTypes['putMarketingImportsByIdData'][0])
+    {
+        $returnType = '';
+        $request = $this->putMarketingImportsByIdDataRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putMarketingImportsByIdData'
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingImportsByIdData'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putMarketingImportsByIdDataRequest($id, string $contentType = self::contentTypes['putMarketingImportsByIdData'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling putMarketingImportsByIdData'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/imports/{id}/data';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putMarketingListsByIdSegmentsBySid
+     *
+     * Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string $sid SID is the segment to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSegmentIn $marketing_segment_in marketing_segment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingListsByIdSegmentsBySid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSegment|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putMarketingListsByIdSegmentsBySid($id, $sid, $marketing_segment_in, string $contentType = self::contentTypes['putMarketingListsByIdSegmentsBySid'][0])
+    {
+        list($response) = $this->putMarketingListsByIdSegmentsBySidWithHttpInfo($id, $sid, $marketing_segment_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putMarketingListsByIdSegmentsBySidWithHttpInfo
+     *
+     * Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string $sid SID is the segment to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSegmentIn $marketing_segment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingListsByIdSegmentsBySid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSegment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putMarketingListsByIdSegmentsBySidWithHttpInfo($id, $sid, $marketing_segment_in, string $contentType = self::contentTypes['putMarketingListsByIdSegmentsBySid'][0])
+    {
+        $request = $this->putMarketingListsByIdSegmentsBySidRequest($id, $sid, $marketing_segment_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSegment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSegment',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSegment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putMarketingListsByIdSegmentsBySidAsync
+     *
+     * Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string $sid SID is the segment to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSegmentIn $marketing_segment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingListsByIdSegmentsBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putMarketingListsByIdSegmentsBySidAsync($id, $sid, $marketing_segment_in, string $contentType = self::contentTypes['putMarketingListsByIdSegmentsBySid'][0])
+    {
+        return $this->putMarketingListsByIdSegmentsBySidAsyncWithHttpInfo($id, $sid, $marketing_segment_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putMarketingListsByIdSegmentsBySidAsyncWithHttpInfo
+     *
+     * Replaces a segment&#39;s name and filter and answers it with how many subscribers it selects now.
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string $sid SID is the segment to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSegmentIn $marketing_segment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingListsByIdSegmentsBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putMarketingListsByIdSegmentsBySidAsyncWithHttpInfo($id, $sid, $marketing_segment_in, string $contentType = self::contentTypes['putMarketingListsByIdSegmentsBySid'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSegment';
+        $request = $this->putMarketingListsByIdSegmentsBySidRequest($id, $sid, $marketing_segment_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putMarketingListsByIdSegmentsBySid'
+     *
+     * @param  string $id ID is the list, by id or slug, from the path. (required)
+     * @param  string $sid SID is the segment to change, from the path; ignored on create. (required)
+     * @param  \Hanzo\Cloud\Model\MarketingSegmentIn $marketing_segment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingListsByIdSegmentsBySid'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putMarketingListsByIdSegmentsBySidRequest($id, $sid, $marketing_segment_in, string $contentType = self::contentTypes['putMarketingListsByIdSegmentsBySid'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling putMarketingListsByIdSegmentsBySid'
+            );
+        }
+
+        // verify the required parameter 'sid' is set
+        if ($sid === null || (is_array($sid) && count($sid) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $sid when calling putMarketingListsByIdSegmentsBySid'
+            );
+        }
+
+        // verify the required parameter 'marketing_segment_in' is set
+        if ($marketing_segment_in === null || (is_array($marketing_segment_in) && count($marketing_segment_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_segment_in when calling putMarketingListsByIdSegmentsBySid'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/lists/{id}/segments/{sid}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($sid !== null) {
+            $resourcePath = str_replace(
+                '{' . 'sid' . '}',
+                ObjectSerializer::toPathValue($sid),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_segment_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_segment_in));
+            } else {
+                $httpBody = $marketing_segment_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putMarketingSender
+     *
+     * Replaces the org&#39;s sender and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingSender $marketing_sender marketing_sender (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingSender'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketingSender|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putMarketingSender($marketing_sender, string $contentType = self::contentTypes['putMarketingSender'][0])
+    {
+        list($response) = $this->putMarketingSenderWithHttpInfo($marketing_sender, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putMarketingSenderWithHttpInfo
+     *
+     * Replaces the org&#39;s sender and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingSender $marketing_sender (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingSender'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketingSender|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putMarketingSenderWithHttpInfo($marketing_sender, string $contentType = self::contentTypes['putMarketingSender'][0])
+    {
+        $request = $this->putMarketingSenderRequest($marketing_sender, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketingSender',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketingSender',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketingSender',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putMarketingSenderAsync
+     *
+     * Replaces the org&#39;s sender and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingSender $marketing_sender (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingSender'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putMarketingSenderAsync($marketing_sender, string $contentType = self::contentTypes['putMarketingSender'][0])
+    {
+        return $this->putMarketingSenderAsyncWithHttpInfo($marketing_sender, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putMarketingSenderAsyncWithHttpInfo
+     *
+     * Replaces the org&#39;s sender and answers it.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingSender $marketing_sender (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingSender'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putMarketingSenderAsyncWithHttpInfo($marketing_sender, string $contentType = self::contentTypes['putMarketingSender'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketingSender';
+        $request = $this->putMarketingSenderRequest($marketing_sender, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putMarketingSender'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketingSender $marketing_sender (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putMarketingSender'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putMarketingSenderRequest($marketing_sender, string $contentType = self::contentTypes['putMarketingSender'][0])
+    {
+
+        // verify the required parameter 'marketing_sender' is set
+        if ($marketing_sender === null || (is_array($marketing_sender) && count($marketing_sender) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketing_sender when calling putMarketingSender'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketing/sender';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketing_sender)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketing_sender));
+            } else {
+                $httpBody = $marketing_sender;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

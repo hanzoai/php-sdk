@@ -57,7 +57,7 @@ class O11yWaterfallSpan implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        'attributes' => 'array<string,object>',
+        'attributes' => 'array<string,mixed>',
         'db_name' => 'string',
         'db_operation' => 'string',
         'duration_nano' => 'int',
@@ -488,7 +488,7 @@ class O11yWaterfallSpan implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets attributes
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getAttributes()
     {
@@ -498,7 +498,7 @@ class O11yWaterfallSpan implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets attributes
      *
-     * @param array<string,object>|null $attributes attributes
+     * @param array<string,mixed>|null $attributes attributes
      *
      * @return self
      */
@@ -525,7 +525,7 @@ class O11yWaterfallSpan implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets db_name
      *
-     * @param string|null $db_name Calculated fields https://o11y.io/docs/traces-management/guides/derived-fields-spans
+     * @param string|null $db_name Calculated fields, derived from the span's attributes.
      *
      * @return self
      */

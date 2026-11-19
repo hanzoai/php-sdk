@@ -196,6 +196,14 @@ class TemplateApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -303,7 +311,7 @@ class TemplateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -368,7 +376,7 @@ class TemplateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KitList
+     * @return \Hanzo\Cloud\Model\TemplateKitList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTemplate(string $contentType = self::contentTypes['getTemplate'][0])
     {
@@ -385,7 +393,7 @@ class TemplateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KitList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TemplateKitList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTemplateWithHttpInfo(string $contentType = self::contentTypes['getTemplate'][0])
     {
@@ -417,7 +425,13 @@ class TemplateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KitList',
+                        '\Hanzo\Cloud\Model\TemplateKitList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -439,7 +453,7 @@ class TemplateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KitList',
+                '\Hanzo\Cloud\Model\TemplateKitList',
                 $request,
                 $response,
             );
@@ -448,7 +462,15 @@ class TemplateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KitList',
+                        '\Hanzo\Cloud\Model\TemplateKitList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -492,7 +514,7 @@ class TemplateApi
      */
     public function getTemplateAsyncWithHttpInfo(string $contentType = self::contentTypes['getTemplate'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KitList';
+        $returnType = '\Hanzo\Cloud\Model\TemplateKitList';
         $request = $this->getTemplateRequest($contentType);
 
         return $this->client
@@ -555,7 +577,7 @@ class TemplateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -621,7 +643,7 @@ class TemplateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\StarterKit
+     * @return \Hanzo\Cloud\Model\TemplateStarterKit|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTemplateBySlug($slug, string $contentType = self::contentTypes['getTemplateBySlug'][0])
     {
@@ -639,7 +661,7 @@ class TemplateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\StarterKit, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TemplateStarterKit|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTemplateBySlugWithHttpInfo($slug, string $contentType = self::contentTypes['getTemplateBySlug'][0])
     {
@@ -671,7 +693,13 @@ class TemplateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\StarterKit',
+                        '\Hanzo\Cloud\Model\TemplateStarterKit',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -693,7 +721,7 @@ class TemplateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\StarterKit',
+                '\Hanzo\Cloud\Model\TemplateStarterKit',
                 $request,
                 $response,
             );
@@ -702,7 +730,15 @@ class TemplateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\StarterKit',
+                        '\Hanzo\Cloud\Model\TemplateStarterKit',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -748,7 +784,7 @@ class TemplateApi
      */
     public function getTemplateBySlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getTemplateBySlug'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\StarterKit';
+        $returnType = '\Hanzo\Cloud\Model\TemplateStarterKit';
         $request = $this->getTemplateBySlugRequest($slug, $contentType);
 
         return $this->client
@@ -827,7 +863,7 @@ class TemplateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -888,16 +924,16 @@ class TemplateApi
      *
      * Creates a starter kit PRIVATE to the caller&#39;s org and answers 201 with the stored kit.
      *
-     * @param  \Hanzo\Cloud\Model\PublishKitIn $publish_kit_in publish_kit_in (required)
+     * @param  \Hanzo\Cloud\Model\TemplatePublishKitIn $template_publish_kit_in template_publish_kit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTemplate'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\StarterKit
+     * @return \Hanzo\Cloud\Model\TemplateStarterKit|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postTemplate($publish_kit_in, string $contentType = self::contentTypes['postTemplate'][0])
+    public function postTemplate($template_publish_kit_in, string $contentType = self::contentTypes['postTemplate'][0])
     {
-        list($response) = $this->postTemplateWithHttpInfo($publish_kit_in, $contentType);
+        list($response) = $this->postTemplateWithHttpInfo($template_publish_kit_in, $contentType);
         return $response;
     }
 
@@ -906,16 +942,16 @@ class TemplateApi
      *
      * Creates a starter kit PRIVATE to the caller&#39;s org and answers 201 with the stored kit.
      *
-     * @param  \Hanzo\Cloud\Model\PublishKitIn $publish_kit_in (required)
+     * @param  \Hanzo\Cloud\Model\TemplatePublishKitIn $template_publish_kit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTemplate'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\StarterKit, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TemplateStarterKit|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postTemplateWithHttpInfo($publish_kit_in, string $contentType = self::contentTypes['postTemplate'][0])
+    public function postTemplateWithHttpInfo($template_publish_kit_in, string $contentType = self::contentTypes['postTemplate'][0])
     {
-        $request = $this->postTemplateRequest($publish_kit_in, $contentType);
+        $request = $this->postTemplateRequest($template_publish_kit_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -943,7 +979,13 @@ class TemplateApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\StarterKit',
+                        '\Hanzo\Cloud\Model\TemplateStarterKit',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -965,7 +1007,7 @@ class TemplateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\StarterKit',
+                '\Hanzo\Cloud\Model\TemplateStarterKit',
                 $request,
                 $response,
             );
@@ -974,7 +1016,15 @@ class TemplateApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\StarterKit',
+                        '\Hanzo\Cloud\Model\TemplateStarterKit',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -991,15 +1041,15 @@ class TemplateApi
      *
      * Creates a starter kit PRIVATE to the caller&#39;s org and answers 201 with the stored kit.
      *
-     * @param  \Hanzo\Cloud\Model\PublishKitIn $publish_kit_in (required)
+     * @param  \Hanzo\Cloud\Model\TemplatePublishKitIn $template_publish_kit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTemplate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTemplateAsync($publish_kit_in, string $contentType = self::contentTypes['postTemplate'][0])
+    public function postTemplateAsync($template_publish_kit_in, string $contentType = self::contentTypes['postTemplate'][0])
     {
-        return $this->postTemplateAsyncWithHttpInfo($publish_kit_in, $contentType)
+        return $this->postTemplateAsyncWithHttpInfo($template_publish_kit_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1012,16 +1062,16 @@ class TemplateApi
      *
      * Creates a starter kit PRIVATE to the caller&#39;s org and answers 201 with the stored kit.
      *
-     * @param  \Hanzo\Cloud\Model\PublishKitIn $publish_kit_in (required)
+     * @param  \Hanzo\Cloud\Model\TemplatePublishKitIn $template_publish_kit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTemplate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTemplateAsyncWithHttpInfo($publish_kit_in, string $contentType = self::contentTypes['postTemplate'][0])
+    public function postTemplateAsyncWithHttpInfo($template_publish_kit_in, string $contentType = self::contentTypes['postTemplate'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\StarterKit';
-        $request = $this->postTemplateRequest($publish_kit_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TemplateStarterKit';
+        $request = $this->postTemplateRequest($template_publish_kit_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1062,19 +1112,19 @@ class TemplateApi
     /**
      * Create request for operation 'postTemplate'
      *
-     * @param  \Hanzo\Cloud\Model\PublishKitIn $publish_kit_in (required)
+     * @param  \Hanzo\Cloud\Model\TemplatePublishKitIn $template_publish_kit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTemplate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postTemplateRequest($publish_kit_in, string $contentType = self::contentTypes['postTemplate'][0])
+    public function postTemplateRequest($template_publish_kit_in, string $contentType = self::contentTypes['postTemplate'][0])
     {
 
-        // verify the required parameter 'publish_kit_in' is set
-        if ($publish_kit_in === null || (is_array($publish_kit_in) && count($publish_kit_in) === 0)) {
+        // verify the required parameter 'template_publish_kit_in' is set
+        if ($template_publish_kit_in === null || (is_array($template_publish_kit_in) && count($template_publish_kit_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $publish_kit_in when calling postTemplate'
+                'Missing the required parameter $template_publish_kit_in when calling postTemplate'
             );
         }
 
@@ -1091,18 +1141,18 @@ class TemplateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($publish_kit_in)) {
+        if (isset($template_publish_kit_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($publish_kit_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($template_publish_kit_in));
             } else {
-                $httpBody = $publish_kit_in;
+                $httpBody = $template_publish_kit_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1160,16 +1210,16 @@ class TemplateApi
      * Overwrites the caller org&#39;s OWN starter kit at the path slug, answering the stored kit.
      *
      * @param  string $slug Slug is the kit to replace, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ReplaceKitIn $replace_kit_in replace_kit_in (required)
+     * @param  \Hanzo\Cloud\Model\TemplateReplaceKitIn $template_replace_kit_in template_replace_kit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTemplateBySlug'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\StarterKit
+     * @return \Hanzo\Cloud\Model\TemplateStarterKit|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putTemplateBySlug($slug, $replace_kit_in, string $contentType = self::contentTypes['putTemplateBySlug'][0])
+    public function putTemplateBySlug($slug, $template_replace_kit_in, string $contentType = self::contentTypes['putTemplateBySlug'][0])
     {
-        list($response) = $this->putTemplateBySlugWithHttpInfo($slug, $replace_kit_in, $contentType);
+        list($response) = $this->putTemplateBySlugWithHttpInfo($slug, $template_replace_kit_in, $contentType);
         return $response;
     }
 
@@ -1179,16 +1229,16 @@ class TemplateApi
      * Overwrites the caller org&#39;s OWN starter kit at the path slug, answering the stored kit.
      *
      * @param  string $slug Slug is the kit to replace, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ReplaceKitIn $replace_kit_in (required)
+     * @param  \Hanzo\Cloud\Model\TemplateReplaceKitIn $template_replace_kit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTemplateBySlug'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\StarterKit, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TemplateStarterKit|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putTemplateBySlugWithHttpInfo($slug, $replace_kit_in, string $contentType = self::contentTypes['putTemplateBySlug'][0])
+    public function putTemplateBySlugWithHttpInfo($slug, $template_replace_kit_in, string $contentType = self::contentTypes['putTemplateBySlug'][0])
     {
-        $request = $this->putTemplateBySlugRequest($slug, $replace_kit_in, $contentType);
+        $request = $this->putTemplateBySlugRequest($slug, $template_replace_kit_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1216,7 +1266,13 @@ class TemplateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\StarterKit',
+                        '\Hanzo\Cloud\Model\TemplateStarterKit',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1238,7 +1294,7 @@ class TemplateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\StarterKit',
+                '\Hanzo\Cloud\Model\TemplateStarterKit',
                 $request,
                 $response,
             );
@@ -1247,7 +1303,15 @@ class TemplateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\StarterKit',
+                        '\Hanzo\Cloud\Model\TemplateStarterKit',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1265,15 +1329,15 @@ class TemplateApi
      * Overwrites the caller org&#39;s OWN starter kit at the path slug, answering the stored kit.
      *
      * @param  string $slug Slug is the kit to replace, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ReplaceKitIn $replace_kit_in (required)
+     * @param  \Hanzo\Cloud\Model\TemplateReplaceKitIn $template_replace_kit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTemplateBySlug'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTemplateBySlugAsync($slug, $replace_kit_in, string $contentType = self::contentTypes['putTemplateBySlug'][0])
+    public function putTemplateBySlugAsync($slug, $template_replace_kit_in, string $contentType = self::contentTypes['putTemplateBySlug'][0])
     {
-        return $this->putTemplateBySlugAsyncWithHttpInfo($slug, $replace_kit_in, $contentType)
+        return $this->putTemplateBySlugAsyncWithHttpInfo($slug, $template_replace_kit_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1287,16 +1351,16 @@ class TemplateApi
      * Overwrites the caller org&#39;s OWN starter kit at the path slug, answering the stored kit.
      *
      * @param  string $slug Slug is the kit to replace, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ReplaceKitIn $replace_kit_in (required)
+     * @param  \Hanzo\Cloud\Model\TemplateReplaceKitIn $template_replace_kit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTemplateBySlug'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTemplateBySlugAsyncWithHttpInfo($slug, $replace_kit_in, string $contentType = self::contentTypes['putTemplateBySlug'][0])
+    public function putTemplateBySlugAsyncWithHttpInfo($slug, $template_replace_kit_in, string $contentType = self::contentTypes['putTemplateBySlug'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\StarterKit';
-        $request = $this->putTemplateBySlugRequest($slug, $replace_kit_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TemplateStarterKit';
+        $request = $this->putTemplateBySlugRequest($slug, $template_replace_kit_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1338,13 +1402,13 @@ class TemplateApi
      * Create request for operation 'putTemplateBySlug'
      *
      * @param  string $slug Slug is the kit to replace, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ReplaceKitIn $replace_kit_in (required)
+     * @param  \Hanzo\Cloud\Model\TemplateReplaceKitIn $template_replace_kit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTemplateBySlug'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putTemplateBySlugRequest($slug, $replace_kit_in, string $contentType = self::contentTypes['putTemplateBySlug'][0])
+    public function putTemplateBySlugRequest($slug, $template_replace_kit_in, string $contentType = self::contentTypes['putTemplateBySlug'][0])
     {
 
         // verify the required parameter 'slug' is set
@@ -1354,10 +1418,10 @@ class TemplateApi
             );
         }
 
-        // verify the required parameter 'replace_kit_in' is set
-        if ($replace_kit_in === null || (is_array($replace_kit_in) && count($replace_kit_in) === 0)) {
+        // verify the required parameter 'template_replace_kit_in' is set
+        if ($template_replace_kit_in === null || (is_array($template_replace_kit_in) && count($template_replace_kit_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $replace_kit_in when calling putTemplateBySlug'
+                'Missing the required parameter $template_replace_kit_in when calling putTemplateBySlug'
             );
         }
 
@@ -1382,18 +1446,18 @@ class TemplateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($replace_kit_in)) {
+        if (isset($template_replace_kit_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($replace_kit_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($template_replace_kit_in));
             } else {
-                $httpBody = $replace_kit_in;
+                $httpBody = $template_replace_kit_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

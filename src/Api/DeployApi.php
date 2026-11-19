@@ -89,16 +89,13 @@ class DeployApi
         'getDeployApplicationsByNameSyncwindows' => [
             'application/json',
         ],
-        'getDeployCallback' => [
-            'application/json',
-        ],
         'getDeployClusters' => [
             'application/json',
         ],
-        'getDeployGitops' => [
+        'getDeployHealth' => [
             'application/json',
         ],
-        'getDeployHealth' => [
+        'getDeployLive' => [
             'application/json',
         ],
         'getDeployLogin' => [
@@ -107,10 +104,10 @@ class DeployApi
         'getDeployProjects' => [
             'application/json',
         ],
-        'getDeploySessionUserinfo' => [
+        'getDeployRelease' => [
             'application/json',
         ],
-        'getDeploySettings' => [
+        'getDeploySessionUserinfo' => [
             'application/json',
         ],
         'getDeployStreamApplications' => [
@@ -119,19 +116,7 @@ class DeployApi
         'getDeployStreamApplicationsByNameResourceTree' => [
             'application/json',
         ],
-        'getDeployVersion' => [
-            'application/json',
-        ],
-        'postDeployApplicationsByNameRollback' => [
-            'application/json',
-        ],
-        'postDeployApplicationsByNameSync' => [
-            'application/json',
-        ],
         'postDeployLogout' => [
-            'application/json',
-        ],
-        'postDeployReconcile' => [
             'application/json',
         ],
     ];
@@ -191,7 +176,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ArgoAppList
+     * @return \Hanzo\Cloud\Model\DeployArgoAppList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDeployApplications(string $contentType = self::contentTypes['getDeployApplications'][0])
     {
@@ -208,7 +193,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ArgoAppList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeployArgoAppList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDeployApplicationsWithHttpInfo(string $contentType = self::contentTypes['getDeployApplications'][0])
     {
@@ -240,7 +225,13 @@ class DeployApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ArgoAppList',
+                        '\Hanzo\Cloud\Model\DeployArgoAppList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -262,7 +253,7 @@ class DeployApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ArgoAppList',
+                '\Hanzo\Cloud\Model\DeployArgoAppList',
                 $request,
                 $response,
             );
@@ -271,7 +262,15 @@ class DeployApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ArgoAppList',
+                        '\Hanzo\Cloud\Model\DeployArgoAppList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -315,7 +314,7 @@ class DeployApi
      */
     public function getDeployApplicationsAsyncWithHttpInfo(string $contentType = self::contentTypes['getDeployApplications'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ArgoAppList';
+        $returnType = '\Hanzo\Cloud\Model\DeployArgoAppList';
         $request = $this->getDeployApplicationsRequest($contentType);
 
         return $this->client
@@ -378,7 +377,7 @@ class DeployApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -444,7 +443,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ArgoApp
+     * @return \Hanzo\Cloud\Model\DeployArgoApp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDeployApplicationsByName($name, string $contentType = self::contentTypes['getDeployApplicationsByName'][0])
     {
@@ -462,7 +461,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ArgoApp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeployArgoApp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDeployApplicationsByNameWithHttpInfo($name, string $contentType = self::contentTypes['getDeployApplicationsByName'][0])
     {
@@ -494,7 +493,13 @@ class DeployApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ArgoApp',
+                        '\Hanzo\Cloud\Model\DeployArgoApp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -516,7 +521,7 @@ class DeployApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ArgoApp',
+                '\Hanzo\Cloud\Model\DeployArgoApp',
                 $request,
                 $response,
             );
@@ -525,7 +530,15 @@ class DeployApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ArgoApp',
+                        '\Hanzo\Cloud\Model\DeployArgoApp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -571,7 +584,7 @@ class DeployApi
      */
     public function getDeployApplicationsByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getDeployApplicationsByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ArgoApp';
+        $returnType = '\Hanzo\Cloud\Model\DeployArgoApp';
         $request = $this->getDeployApplicationsByNameRequest($name, $contentType);
 
         return $this->client
@@ -650,7 +663,7 @@ class DeployApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -716,7 +729,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ArgoTree
+     * @return \Hanzo\Cloud\Model\DeployArgoTree|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDeployApplicationsByNameResourceTree($name, string $contentType = self::contentTypes['getDeployApplicationsByNameResourceTree'][0])
     {
@@ -734,7 +747,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ArgoTree, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeployArgoTree|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDeployApplicationsByNameResourceTreeWithHttpInfo($name, string $contentType = self::contentTypes['getDeployApplicationsByNameResourceTree'][0])
     {
@@ -766,7 +779,13 @@ class DeployApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ArgoTree',
+                        '\Hanzo\Cloud\Model\DeployArgoTree',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -788,7 +807,7 @@ class DeployApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ArgoTree',
+                '\Hanzo\Cloud\Model\DeployArgoTree',
                 $request,
                 $response,
             );
@@ -797,7 +816,15 @@ class DeployApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ArgoTree',
+                        '\Hanzo\Cloud\Model\DeployArgoTree',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -843,7 +870,7 @@ class DeployApi
      */
     public function getDeployApplicationsByNameResourceTreeAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getDeployApplicationsByNameResourceTree'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ArgoTree';
+        $returnType = '\Hanzo\Cloud\Model\DeployArgoTree';
         $request = $this->getDeployApplicationsByNameResourceTreeRequest($name, $contentType);
 
         return $this->client
@@ -922,7 +949,7 @@ class DeployApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -989,7 +1016,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ArgoRevisionMetadata
+     * @return \Hanzo\Cloud\Model\DeployArgoRevisionMetadata|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDeployApplicationsByNameRevisionsByRevisionMetadata($name, $revision, string $contentType = self::contentTypes['getDeployApplicationsByNameRevisionsByRevisionMetadata'][0])
     {
@@ -1008,7 +1035,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ArgoRevisionMetadata, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeployArgoRevisionMetadata|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDeployApplicationsByNameRevisionsByRevisionMetadataWithHttpInfo($name, $revision, string $contentType = self::contentTypes['getDeployApplicationsByNameRevisionsByRevisionMetadata'][0])
     {
@@ -1040,7 +1067,13 @@ class DeployApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ArgoRevisionMetadata',
+                        '\Hanzo\Cloud\Model\DeployArgoRevisionMetadata',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1062,7 +1095,7 @@ class DeployApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ArgoRevisionMetadata',
+                '\Hanzo\Cloud\Model\DeployArgoRevisionMetadata',
                 $request,
                 $response,
             );
@@ -1071,7 +1104,15 @@ class DeployApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ArgoRevisionMetadata',
+                        '\Hanzo\Cloud\Model\DeployArgoRevisionMetadata',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1119,7 +1160,7 @@ class DeployApi
      */
     public function getDeployApplicationsByNameRevisionsByRevisionMetadataAsyncWithHttpInfo($name, $revision, string $contentType = self::contentTypes['getDeployApplicationsByNameRevisionsByRevisionMetadata'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ArgoRevisionMetadata';
+        $returnType = '\Hanzo\Cloud\Model\DeployArgoRevisionMetadata';
         $request = $this->getDeployApplicationsByNameRevisionsByRevisionMetadataRequest($name, $revision, $contentType);
 
         return $this->client
@@ -1214,7 +1255,7 @@ class DeployApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1280,7 +1321,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ArgoSyncWindows
+     * @return \Hanzo\Cloud\Model\DeployArgoSyncWindows|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDeployApplicationsByNameSyncwindows($name, string $contentType = self::contentTypes['getDeployApplicationsByNameSyncwindows'][0])
     {
@@ -1298,7 +1339,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ArgoSyncWindows, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeployArgoSyncWindows|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDeployApplicationsByNameSyncwindowsWithHttpInfo($name, string $contentType = self::contentTypes['getDeployApplicationsByNameSyncwindows'][0])
     {
@@ -1330,7 +1371,13 @@ class DeployApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ArgoSyncWindows',
+                        '\Hanzo\Cloud\Model\DeployArgoSyncWindows',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1352,7 +1399,7 @@ class DeployApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ArgoSyncWindows',
+                '\Hanzo\Cloud\Model\DeployArgoSyncWindows',
                 $request,
                 $response,
             );
@@ -1361,7 +1408,15 @@ class DeployApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ArgoSyncWindows',
+                        '\Hanzo\Cloud\Model\DeployArgoSyncWindows',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1407,7 +1462,7 @@ class DeployApi
      */
     public function getDeployApplicationsByNameSyncwindowsAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getDeployApplicationsByNameSyncwindows'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ArgoSyncWindows';
+        $returnType = '\Hanzo\Cloud\Model\DeployArgoSyncWindows';
         $request = $this->getDeployApplicationsByNameSyncwindowsRequest($name, $contentType);
 
         return $this->client
@@ -1486,209 +1541,7 @@ class DeployApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getDeployCallback
-     *
-     * Finish the sign-in round trip and mint the console session
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployCallback'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function getDeployCallback(string $contentType = self::contentTypes['getDeployCallback'][0])
-    {
-        $this->getDeployCallbackWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation getDeployCallbackWithHttpInfo
-     *
-     * Finish the sign-in round trip and mint the console session
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployCallback'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getDeployCallbackWithHttpInfo(string $contentType = self::contentTypes['getDeployCallback'][0])
-    {
-        $request = $this->getDeployCallbackRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getDeployCallbackAsync
-     *
-     * Finish the sign-in round trip and mint the console session
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployCallback'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getDeployCallbackAsync(string $contentType = self::contentTypes['getDeployCallback'][0])
-    {
-        return $this->getDeployCallbackAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getDeployCallbackAsyncWithHttpInfo
-     *
-     * Finish the sign-in round trip and mint the console session
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployCallback'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getDeployCallbackAsyncWithHttpInfo(string $contentType = self::contentTypes['getDeployCallback'][0])
-    {
-        $returnType = '';
-        $request = $this->getDeployCallbackRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getDeployCallback'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployCallback'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getDeployCallbackRequest(string $contentType = self::contentTypes['getDeployCallback'][0])
-    {
-
-
-        $resourcePath = '/v1/deploy/callback';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1753,7 +1606,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ArgoClusterList
+     * @return \Hanzo\Cloud\Model\DeployArgoClusterList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDeployClusters(string $contentType = self::contentTypes['getDeployClusters'][0])
     {
@@ -1770,7 +1623,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ArgoClusterList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeployArgoClusterList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDeployClustersWithHttpInfo(string $contentType = self::contentTypes['getDeployClusters'][0])
     {
@@ -1802,7 +1655,13 @@ class DeployApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ArgoClusterList',
+                        '\Hanzo\Cloud\Model\DeployArgoClusterList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1824,7 +1683,7 @@ class DeployApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ArgoClusterList',
+                '\Hanzo\Cloud\Model\DeployArgoClusterList',
                 $request,
                 $response,
             );
@@ -1833,7 +1692,15 @@ class DeployApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ArgoClusterList',
+                        '\Hanzo\Cloud\Model\DeployArgoClusterList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1877,7 +1744,7 @@ class DeployApi
      */
     public function getDeployClustersAsyncWithHttpInfo(string $contentType = self::contentTypes['getDeployClusters'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ArgoClusterList';
+        $returnType = '\Hanzo\Cloud\Model\DeployArgoClusterList';
         $request = $this->getDeployClustersRequest($contentType);
 
         return $this->client
@@ -1940,259 +1807,7 @@ class DeployApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getDeployGitops
-     *
-     * Lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployGitops'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GitOpsPlane
-     */
-    public function getDeployGitops(string $contentType = self::contentTypes['getDeployGitops'][0])
-    {
-        list($response) = $this->getDeployGitopsWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getDeployGitopsWithHttpInfo
-     *
-     * Lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployGitops'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GitOpsPlane, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getDeployGitopsWithHttpInfo(string $contentType = self::contentTypes['getDeployGitops'][0])
-    {
-        $request = $this->getDeployGitopsRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GitOpsPlane',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GitOpsPlane',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GitOpsPlane',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getDeployGitopsAsync
-     *
-     * Lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployGitops'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getDeployGitopsAsync(string $contentType = self::contentTypes['getDeployGitops'][0])
-    {
-        return $this->getDeployGitopsAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getDeployGitopsAsyncWithHttpInfo
-     *
-     * Lists every Hanzo CD Application in the cluster: the git source each one polls, the commit it last APPLIED, how its last sync operation ended, and its recent deploy history — newest deploy first, ordered by namespace then name.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployGitops'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getDeployGitopsAsyncWithHttpInfo(string $contentType = self::contentTypes['getDeployGitops'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\GitOpsPlane';
-        $request = $this->getDeployGitopsRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getDeployGitops'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployGitops'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getDeployGitopsRequest(string $contentType = self::contentTypes['getDeployGitops'][0])
-    {
-
-
-        $resourcePath = '/v1/deploy/gitops';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2251,13 +1866,13 @@ class DeployApi
     /**
      * Operation getDeployHealth
      *
-     * Health reports whether this deployment can observe the delivery plane.
+     * Reports whether this deployment can observe the delivery plane.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeployHealth|\Hanzo\Cloud\Model\DeployHealth
+     * @return \Hanzo\Cloud\Model\DeployDeployHealth|\Hanzo\Cloud\Model\DeployDeployHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDeployHealth(string $contentType = self::contentTypes['getDeployHealth'][0])
     {
@@ -2268,13 +1883,13 @@ class DeployApi
     /**
      * Operation getDeployHealthWithHttpInfo
      *
-     * Health reports whether this deployment can observe the delivery plane.
+     * Reports whether this deployment can observe the delivery plane.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeployHealth|\Hanzo\Cloud\Model\DeployHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeployDeployHealth|\Hanzo\Cloud\Model\DeployDeployHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDeployHealthWithHttpInfo(string $contentType = self::contentTypes['getDeployHealth'][0])
     {
@@ -2306,13 +1921,19 @@ class DeployApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeployHealth',
+                        '\Hanzo\Cloud\Model\DeployDeployHealth',
                         $request,
                         $response,
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeployHealth',
+                        '\Hanzo\Cloud\Model\DeployDeployHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2334,7 +1955,7 @@ class DeployApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeployHealth',
+                '\Hanzo\Cloud\Model\DeployDeployHealth',
                 $request,
                 $response,
             );
@@ -2343,7 +1964,7 @@ class DeployApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeployHealth',
+                        '\Hanzo\Cloud\Model\DeployDeployHealth',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2351,7 +1972,15 @@ class DeployApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeployHealth',
+                        '\Hanzo\Cloud\Model\DeployDeployHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2366,7 +1995,7 @@ class DeployApi
     /**
      * Operation getDeployHealthAsync
      *
-     * Health reports whether this deployment can observe the delivery plane.
+     * Reports whether this deployment can observe the delivery plane.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployHealth'] to see the possible values for this operation
      *
@@ -2386,7 +2015,7 @@ class DeployApi
     /**
      * Operation getDeployHealthAsyncWithHttpInfo
      *
-     * Health reports whether this deployment can observe the delivery plane.
+     * Reports whether this deployment can observe the delivery plane.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployHealth'] to see the possible values for this operation
      *
@@ -2395,7 +2024,7 @@ class DeployApi
      */
     public function getDeployHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getDeployHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeployHealth';
+        $returnType = '\Hanzo\Cloud\Model\DeployDeployHealth';
         $request = $this->getDeployHealthRequest($contentType);
 
         return $this->client
@@ -2458,7 +2087,303 @@ class DeployApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getDeployLive
+     *
+     * Answers, for each service, what it is running and whether that is what universe says it should run.
+     *
+     * @param  string|null $service Service lists one service, by the name it is listed under. Empty lists them all. (optional)
+     * @param  string|null $commit Commit asks whether the listed services run an image built from this source commit: at least seven hex characters of its sha, matched as a prefix. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployLive'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\DeployLive|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getDeployLive($service = null, $commit = null, string $contentType = self::contentTypes['getDeployLive'][0])
+    {
+        list($response) = $this->getDeployLiveWithHttpInfo($service, $commit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getDeployLiveWithHttpInfo
+     *
+     * Answers, for each service, what it is running and whether that is what universe says it should run.
+     *
+     * @param  string|null $service Service lists one service, by the name it is listed under. Empty lists them all. (optional)
+     * @param  string|null $commit Commit asks whether the listed services run an image built from this source commit: at least seven hex characters of its sha, matched as a prefix. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployLive'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\DeployLive|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getDeployLiveWithHttpInfo($service = null, $commit = null, string $contentType = self::contentTypes['getDeployLive'][0])
+    {
+        $request = $this->getDeployLiveRequest($service, $commit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\DeployLive',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\DeployLive',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\DeployLive',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getDeployLiveAsync
+     *
+     * Answers, for each service, what it is running and whether that is what universe says it should run.
+     *
+     * @param  string|null $service Service lists one service, by the name it is listed under. Empty lists them all. (optional)
+     * @param  string|null $commit Commit asks whether the listed services run an image built from this source commit: at least seven hex characters of its sha, matched as a prefix. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployLive'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDeployLiveAsync($service = null, $commit = null, string $contentType = self::contentTypes['getDeployLive'][0])
+    {
+        return $this->getDeployLiveAsyncWithHttpInfo($service, $commit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getDeployLiveAsyncWithHttpInfo
+     *
+     * Answers, for each service, what it is running and whether that is what universe says it should run.
+     *
+     * @param  string|null $service Service lists one service, by the name it is listed under. Empty lists them all. (optional)
+     * @param  string|null $commit Commit asks whether the listed services run an image built from this source commit: at least seven hex characters of its sha, matched as a prefix. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployLive'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDeployLiveAsyncWithHttpInfo($service = null, $commit = null, string $contentType = self::contentTypes['getDeployLive'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\DeployLive';
+        $request = $this->getDeployLiveRequest($service, $commit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getDeployLive'
+     *
+     * @param  string|null $service Service lists one service, by the name it is listed under. Empty lists them all. (optional)
+     * @param  string|null $commit Commit asks whether the listed services run an image built from this source commit: at least seven hex characters of its sha, matched as a prefix. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployLive'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getDeployLiveRequest($service = null, $commit = null, string $contentType = self::contentTypes['getDeployLive'][0])
+    {
+
+
+
+
+        $resourcePath = '/v1/deploy/live';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $service,
+            'service', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $commit,
+            'commit', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2725,7 +2650,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ArgoProjectList
+     * @return \Hanzo\Cloud\Model\DeployArgoProjectList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDeployProjects(string $contentType = self::contentTypes['getDeployProjects'][0])
     {
@@ -2742,7 +2667,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ArgoProjectList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeployArgoProjectList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDeployProjectsWithHttpInfo(string $contentType = self::contentTypes['getDeployProjects'][0])
     {
@@ -2774,7 +2699,13 @@ class DeployApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ArgoProjectList',
+                        '\Hanzo\Cloud\Model\DeployArgoProjectList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2796,7 +2727,7 @@ class DeployApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ArgoProjectList',
+                '\Hanzo\Cloud\Model\DeployArgoProjectList',
                 $request,
                 $response,
             );
@@ -2805,7 +2736,15 @@ class DeployApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ArgoProjectList',
+                        '\Hanzo\Cloud\Model\DeployArgoProjectList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2849,7 +2788,7 @@ class DeployApi
      */
     public function getDeployProjectsAsyncWithHttpInfo(string $contentType = self::contentTypes['getDeployProjects'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ArgoProjectList';
+        $returnType = '\Hanzo\Cloud\Model\DeployArgoProjectList';
         $request = $this->getDeployProjectsRequest($contentType);
 
         return $this->client
@@ -2912,7 +2851,318 @@ class DeployApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getDeployRelease
+     *
+     * Answers why a service is, or is not, live: for the newest versions claimed in its source repository, the commit each names, whether the pipeline&#39;s runs on it passed and which jobs failed with the lines that say why, whether an image of it was smoked, whether universe pins it, and whether it is what the pods run — and stuck, one sentence saying where the newest version stopped.
+     *
+     * @param  string|null $service Service is the service, by the name live lists it under, such as hanzo-cloud. (optional)
+     * @param  string|null $repo Repo is the forge repository the service is built from, owner/name. Empty reads it off the image the service runs. (optional)
+     * @param  int|null $versions Versions is how many of the newest claimed versions to read; 0 is 3, and 10 is the ceiling. The pinned and the live version are read as well. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployRelease'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\DeployRelease|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getDeployRelease($service = null, $repo = null, $versions = null, string $contentType = self::contentTypes['getDeployRelease'][0])
+    {
+        list($response) = $this->getDeployReleaseWithHttpInfo($service, $repo, $versions, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getDeployReleaseWithHttpInfo
+     *
+     * Answers why a service is, or is not, live: for the newest versions claimed in its source repository, the commit each names, whether the pipeline&#39;s runs on it passed and which jobs failed with the lines that say why, whether an image of it was smoked, whether universe pins it, and whether it is what the pods run — and stuck, one sentence saying where the newest version stopped.
+     *
+     * @param  string|null $service Service is the service, by the name live lists it under, such as hanzo-cloud. (optional)
+     * @param  string|null $repo Repo is the forge repository the service is built from, owner/name. Empty reads it off the image the service runs. (optional)
+     * @param  int|null $versions Versions is how many of the newest claimed versions to read; 0 is 3, and 10 is the ceiling. The pinned and the live version are read as well. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployRelease'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\DeployRelease|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getDeployReleaseWithHttpInfo($service = null, $repo = null, $versions = null, string $contentType = self::contentTypes['getDeployRelease'][0])
+    {
+        $request = $this->getDeployReleaseRequest($service, $repo, $versions, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\DeployRelease',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\DeployRelease',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\DeployRelease',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getDeployReleaseAsync
+     *
+     * Answers why a service is, or is not, live: for the newest versions claimed in its source repository, the commit each names, whether the pipeline&#39;s runs on it passed and which jobs failed with the lines that say why, whether an image of it was smoked, whether universe pins it, and whether it is what the pods run — and stuck, one sentence saying where the newest version stopped.
+     *
+     * @param  string|null $service Service is the service, by the name live lists it under, such as hanzo-cloud. (optional)
+     * @param  string|null $repo Repo is the forge repository the service is built from, owner/name. Empty reads it off the image the service runs. (optional)
+     * @param  int|null $versions Versions is how many of the newest claimed versions to read; 0 is 3, and 10 is the ceiling. The pinned and the live version are read as well. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployRelease'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDeployReleaseAsync($service = null, $repo = null, $versions = null, string $contentType = self::contentTypes['getDeployRelease'][0])
+    {
+        return $this->getDeployReleaseAsyncWithHttpInfo($service, $repo, $versions, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getDeployReleaseAsyncWithHttpInfo
+     *
+     * Answers why a service is, or is not, live: for the newest versions claimed in its source repository, the commit each names, whether the pipeline&#39;s runs on it passed and which jobs failed with the lines that say why, whether an image of it was smoked, whether universe pins it, and whether it is what the pods run — and stuck, one sentence saying where the newest version stopped.
+     *
+     * @param  string|null $service Service is the service, by the name live lists it under, such as hanzo-cloud. (optional)
+     * @param  string|null $repo Repo is the forge repository the service is built from, owner/name. Empty reads it off the image the service runs. (optional)
+     * @param  int|null $versions Versions is how many of the newest claimed versions to read; 0 is 3, and 10 is the ceiling. The pinned and the live version are read as well. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployRelease'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDeployReleaseAsyncWithHttpInfo($service = null, $repo = null, $versions = null, string $contentType = self::contentTypes['getDeployRelease'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\DeployRelease';
+        $request = $this->getDeployReleaseRequest($service, $repo, $versions, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getDeployRelease'
+     *
+     * @param  string|null $service Service is the service, by the name live lists it under, such as hanzo-cloud. (optional)
+     * @param  string|null $repo Repo is the forge repository the service is built from, owner/name. Empty reads it off the image the service runs. (optional)
+     * @param  int|null $versions Versions is how many of the newest claimed versions to read; 0 is 3, and 10 is the ceiling. The pinned and the live version are read as well. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployRelease'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getDeployReleaseRequest($service = null, $repo = null, $versions = null, string $contentType = self::contentTypes['getDeployRelease'][0])
+    {
+
+
+
+
+
+        $resourcePath = '/v1/deploy/release';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $service,
+            'service', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $repo,
+            'repo', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $versions,
+            'versions', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2977,7 +3227,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SessionUser
+     * @return \Hanzo\Cloud\Model\DeploySessionUser|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getDeploySessionUserinfo(string $contentType = self::contentTypes['getDeploySessionUserinfo'][0])
     {
@@ -2994,7 +3244,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SessionUser, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeploySessionUser|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDeploySessionUserinfoWithHttpInfo(string $contentType = self::contentTypes['getDeploySessionUserinfo'][0])
     {
@@ -3026,7 +3276,13 @@ class DeployApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SessionUser',
+                        '\Hanzo\Cloud\Model\DeploySessionUser',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3048,7 +3304,7 @@ class DeployApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SessionUser',
+                '\Hanzo\Cloud\Model\DeploySessionUser',
                 $request,
                 $response,
             );
@@ -3057,7 +3313,15 @@ class DeployApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SessionUser',
+                        '\Hanzo\Cloud\Model\DeploySessionUser',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3101,7 +3365,7 @@ class DeployApi
      */
     public function getDeploySessionUserinfoAsyncWithHttpInfo(string $contentType = self::contentTypes['getDeploySessionUserinfo'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SessionUser';
+        $returnType = '\Hanzo\Cloud\Model\DeploySessionUser';
         $request = $this->getDeploySessionUserinfoRequest($contentType);
 
         return $this->client
@@ -3164,259 +3428,7 @@ class DeployApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getDeploySettings
-     *
-     * Returns the argocd AuthSettings object the dashboard SPA awaits before its first render.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeploySettings'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ConsoleSettings
-     */
-    public function getDeploySettings(string $contentType = self::contentTypes['getDeploySettings'][0])
-    {
-        list($response) = $this->getDeploySettingsWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getDeploySettingsWithHttpInfo
-     *
-     * Returns the argocd AuthSettings object the dashboard SPA awaits before its first render.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeploySettings'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ConsoleSettings, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getDeploySettingsWithHttpInfo(string $contentType = self::contentTypes['getDeploySettings'][0])
-    {
-        $request = $this->getDeploySettingsRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ConsoleSettings',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ConsoleSettings',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ConsoleSettings',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getDeploySettingsAsync
-     *
-     * Returns the argocd AuthSettings object the dashboard SPA awaits before its first render.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeploySettings'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getDeploySettingsAsync(string $contentType = self::contentTypes['getDeploySettings'][0])
-    {
-        return $this->getDeploySettingsAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getDeploySettingsAsyncWithHttpInfo
-     *
-     * Returns the argocd AuthSettings object the dashboard SPA awaits before its first render.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeploySettings'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getDeploySettingsAsyncWithHttpInfo(string $contentType = self::contentTypes['getDeploySettings'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\ConsoleSettings';
-        $request = $this->getDeploySettingsRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getDeploySettings'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeploySettings'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getDeploySettingsRequest(string $contentType = self::contentTypes['getDeploySettings'][0])
-    {
-
-
-        $resourcePath = '/v1/deploy/settings';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3897,802 +3909,6 @@ class DeployApi
     }
 
     /**
-     * Operation getDeployVersion
-     *
-     * Returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployVersion'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\VersionMessage
-     */
-    public function getDeployVersion(string $contentType = self::contentTypes['getDeployVersion'][0])
-    {
-        list($response) = $this->getDeployVersionWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getDeployVersionWithHttpInfo
-     *
-     * Returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployVersion'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\VersionMessage, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getDeployVersionWithHttpInfo(string $contentType = self::contentTypes['getDeployVersion'][0])
-    {
-        $request = $this->getDeployVersionRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\VersionMessage',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\VersionMessage',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\VersionMessage',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getDeployVersionAsync
-     *
-     * Returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployVersion'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getDeployVersionAsync(string $contentType = self::contentTypes['getDeployVersion'][0])
-    {
-        return $this->getDeployVersionAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getDeployVersionAsyncWithHttpInfo
-     *
-     * Returns the argocd VersionMessage the dashboard SPA reads at bootstrap.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployVersion'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getDeployVersionAsyncWithHttpInfo(string $contentType = self::contentTypes['getDeployVersion'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\VersionMessage';
-        $request = $this->getDeployVersionRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getDeployVersion'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployVersion'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getDeployVersionRequest(string $contentType = self::contentTypes['getDeployVersion'][0])
-    {
-
-
-        $resourcePath = '/v1/deploy/version';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postDeployApplicationsByNameRollback
-     *
-     * Serves the console&#39;s rollback control, and today it requests a reconcile and nothing more.
-     *
-     * @param  string $name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployApplicationsByNameRollback'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ArgoApp
-     */
-    public function postDeployApplicationsByNameRollback($name, string $contentType = self::contentTypes['postDeployApplicationsByNameRollback'][0])
-    {
-        list($response) = $this->postDeployApplicationsByNameRollbackWithHttpInfo($name, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postDeployApplicationsByNameRollbackWithHttpInfo
-     *
-     * Serves the console&#39;s rollback control, and today it requests a reconcile and nothing more.
-     *
-     * @param  string $name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployApplicationsByNameRollback'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ArgoApp, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postDeployApplicationsByNameRollbackWithHttpInfo($name, string $contentType = self::contentTypes['postDeployApplicationsByNameRollback'][0])
-    {
-        $request = $this->postDeployApplicationsByNameRollbackRequest($name, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ArgoApp',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ArgoApp',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ArgoApp',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postDeployApplicationsByNameRollbackAsync
-     *
-     * Serves the console&#39;s rollback control, and today it requests a reconcile and nothing more.
-     *
-     * @param  string $name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployApplicationsByNameRollback'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postDeployApplicationsByNameRollbackAsync($name, string $contentType = self::contentTypes['postDeployApplicationsByNameRollback'][0])
-    {
-        return $this->postDeployApplicationsByNameRollbackAsyncWithHttpInfo($name, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postDeployApplicationsByNameRollbackAsyncWithHttpInfo
-     *
-     * Serves the console&#39;s rollback control, and today it requests a reconcile and nothing more.
-     *
-     * @param  string $name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployApplicationsByNameRollback'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postDeployApplicationsByNameRollbackAsyncWithHttpInfo($name, string $contentType = self::contentTypes['postDeployApplicationsByNameRollback'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\ArgoApp';
-        $request = $this->postDeployApplicationsByNameRollbackRequest($name, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postDeployApplicationsByNameRollback'
-     *
-     * @param  string $name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployApplicationsByNameRollback'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postDeployApplicationsByNameRollbackRequest($name, string $contentType = self::contentTypes['postDeployApplicationsByNameRollback'][0])
-    {
-
-        // verify the required parameter 'name' is set
-        if ($name === null || (is_array($name) && count($name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $name when calling postDeployApplicationsByNameRollback'
-            );
-        }
-
-
-        $resourcePath = '/v1/deploy/applications/{name}/rollback';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'name' . '}',
-                ObjectSerializer::toPathValue($name),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postDeployApplicationsByNameSync
-     *
-     * Asks the operator to reconcile ONE application now.
-     *
-     * @param  string $name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployApplicationsByNameSync'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ArgoApp
-     */
-    public function postDeployApplicationsByNameSync($name, string $contentType = self::contentTypes['postDeployApplicationsByNameSync'][0])
-    {
-        list($response) = $this->postDeployApplicationsByNameSyncWithHttpInfo($name, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postDeployApplicationsByNameSyncWithHttpInfo
-     *
-     * Asks the operator to reconcile ONE application now.
-     *
-     * @param  string $name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployApplicationsByNameSync'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ArgoApp, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postDeployApplicationsByNameSyncWithHttpInfo($name, string $contentType = self::contentTypes['postDeployApplicationsByNameSync'][0])
-    {
-        $request = $this->postDeployApplicationsByNameSyncRequest($name, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ArgoApp',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ArgoApp',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ArgoApp',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postDeployApplicationsByNameSyncAsync
-     *
-     * Asks the operator to reconcile ONE application now.
-     *
-     * @param  string $name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployApplicationsByNameSync'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postDeployApplicationsByNameSyncAsync($name, string $contentType = self::contentTypes['postDeployApplicationsByNameSync'][0])
-    {
-        return $this->postDeployApplicationsByNameSyncAsyncWithHttpInfo($name, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postDeployApplicationsByNameSyncAsyncWithHttpInfo
-     *
-     * Asks the operator to reconcile ONE application now.
-     *
-     * @param  string $name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployApplicationsByNameSync'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postDeployApplicationsByNameSyncAsyncWithHttpInfo($name, string $contentType = self::contentTypes['postDeployApplicationsByNameSync'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\ArgoApp';
-        $request = $this->postDeployApplicationsByNameSyncRequest($name, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postDeployApplicationsByNameSync'
-     *
-     * @param  string $name Name is the application to read, from the path. It must be a DNS-1123 label (lowercase alphanumerics and hyphens, starting and ending alphanumeric) — every operator App CR&#39;s metadata.name satisfies that, and anything else is a 400 rather than a lookup. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployApplicationsByNameSync'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postDeployApplicationsByNameSyncRequest($name, string $contentType = self::contentTypes['postDeployApplicationsByNameSync'][0])
-    {
-
-        // verify the required parameter 'name' is set
-        if ($name === null || (is_array($name) && count($name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $name when calling postDeployApplicationsByNameSync'
-            );
-        }
-
-
-        $resourcePath = '/v1/deploy/applications/{name}/sync';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'name' . '}',
-                ObjectSerializer::toPathValue($name),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation postDeployLogout
      *
      * Ends the console session on this host.
@@ -4701,7 +3917,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SessionEnded
+     * @return \Hanzo\Cloud\Model\DeploySessionEnded|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postDeployLogout(string $contentType = self::contentTypes['postDeployLogout'][0])
     {
@@ -4718,7 +3934,7 @@ class DeployApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SessionEnded, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeploySessionEnded|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postDeployLogoutWithHttpInfo(string $contentType = self::contentTypes['postDeployLogout'][0])
     {
@@ -4750,7 +3966,13 @@ class DeployApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SessionEnded',
+                        '\Hanzo\Cloud\Model\DeploySessionEnded',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4772,7 +3994,7 @@ class DeployApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SessionEnded',
+                '\Hanzo\Cloud\Model\DeploySessionEnded',
                 $request,
                 $response,
             );
@@ -4781,7 +4003,15 @@ class DeployApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SessionEnded',
+                        '\Hanzo\Cloud\Model\DeploySessionEnded',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4825,7 +4055,7 @@ class DeployApi
      */
     public function postDeployLogoutAsyncWithHttpInfo(string $contentType = self::contentTypes['postDeployLogout'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SessionEnded';
+        $returnType = '\Hanzo\Cloud\Model\DeploySessionEnded';
         $request = $this->postDeployLogoutRequest($contentType);
 
         return $this->client
@@ -4888,259 +4118,7 @@ class DeployApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postDeployReconcile
-     *
-     * Renders the configured git source and applies it to the cluster, once.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployReconcile'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ReconcileReport
-     */
-    public function postDeployReconcile(string $contentType = self::contentTypes['postDeployReconcile'][0])
-    {
-        list($response) = $this->postDeployReconcileWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postDeployReconcileWithHttpInfo
-     *
-     * Renders the configured git source and applies it to the cluster, once.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployReconcile'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ReconcileReport, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postDeployReconcileWithHttpInfo(string $contentType = self::contentTypes['postDeployReconcile'][0])
-    {
-        $request = $this->postDeployReconcileRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ReconcileReport',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ReconcileReport',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ReconcileReport',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postDeployReconcileAsync
-     *
-     * Renders the configured git source and applies it to the cluster, once.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployReconcile'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postDeployReconcileAsync(string $contentType = self::contentTypes['postDeployReconcile'][0])
-    {
-        return $this->postDeployReconcileAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postDeployReconcileAsyncWithHttpInfo
-     *
-     * Renders the configured git source and applies it to the cluster, once.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployReconcile'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postDeployReconcileAsyncWithHttpInfo(string $contentType = self::contentTypes['postDeployReconcile'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\ReconcileReport';
-        $request = $this->postDeployReconcileRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postDeployReconcile'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDeployReconcile'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postDeployReconcileRequest(string $contentType = self::contentTypes['postDeployReconcile'][0])
-    {
-
-
-        $resourcePath = '/v1/deploy/reconcile';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

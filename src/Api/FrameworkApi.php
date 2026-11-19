@@ -231,6 +231,14 @@ class FrameworkApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -356,7 +364,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -471,6 +479,14 @@ class FrameworkApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -578,7 +594,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -644,15 +660,16 @@ class FrameworkApi
      * @param  string|null $fields Fields projects the response to a subset — a JSON array [\&quot;a\&quot;,\&quot;b\&quot;] or a comma list \&quot;a,b\&quot;. The envelope keys are always returned. (optional)
      * @param  string|null $order_by OrderBy is \&quot;&lt;field&gt; [asc|desc]\&quot;. Empty means most-recently-updated first. (optional)
      * @param  string|null $limit Limit caps the rows returned. Anything that is not a positive integer leaves the engine&#39;s default in place. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkByDoctype'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DocumentList
+     * @return \Hanzo\Cloud\Model\FrameworkDocumentList|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getFrameworkByDoctype($doctype, $filters = null, $fields = null, $order_by = null, $limit = null, string $contentType = self::contentTypes['getFrameworkByDoctype'][0])
+    public function getFrameworkByDoctype($doctype, $filters = null, $fields = null, $order_by = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getFrameworkByDoctype'][0])
     {
-        list($response) = $this->getFrameworkByDoctypeWithHttpInfo($doctype, $filters, $fields, $order_by, $limit, $contentType);
+        list($response) = $this->getFrameworkByDoctypeWithHttpInfo($doctype, $filters, $fields, $order_by, $limit, $cursor, $contentType);
         return $response;
     }
 
@@ -666,15 +683,16 @@ class FrameworkApi
      * @param  string|null $fields Fields projects the response to a subset — a JSON array [\&quot;a\&quot;,\&quot;b\&quot;] or a comma list \&quot;a,b\&quot;. The envelope keys are always returned. (optional)
      * @param  string|null $order_by OrderBy is \&quot;&lt;field&gt; [asc|desc]\&quot;. Empty means most-recently-updated first. (optional)
      * @param  string|null $limit Limit caps the rows returned. Anything that is not a positive integer leaves the engine&#39;s default in place. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkByDoctype'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DocumentList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FrameworkDocumentList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFrameworkByDoctypeWithHttpInfo($doctype, $filters = null, $fields = null, $order_by = null, $limit = null, string $contentType = self::contentTypes['getFrameworkByDoctype'][0])
+    public function getFrameworkByDoctypeWithHttpInfo($doctype, $filters = null, $fields = null, $order_by = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getFrameworkByDoctype'][0])
     {
-        $request = $this->getFrameworkByDoctypeRequest($doctype, $filters, $fields, $order_by, $limit, $contentType);
+        $request = $this->getFrameworkByDoctypeRequest($doctype, $filters, $fields, $order_by, $limit, $cursor, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -702,7 +720,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DocumentList',
+                        '\Hanzo\Cloud\Model\FrameworkDocumentList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -724,7 +748,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DocumentList',
+                '\Hanzo\Cloud\Model\FrameworkDocumentList',
                 $request,
                 $response,
             );
@@ -733,7 +757,15 @@ class FrameworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DocumentList',
+                        '\Hanzo\Cloud\Model\FrameworkDocumentList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -755,14 +787,15 @@ class FrameworkApi
      * @param  string|null $fields Fields projects the response to a subset — a JSON array [\&quot;a\&quot;,\&quot;b\&quot;] or a comma list \&quot;a,b\&quot;. The envelope keys are always returned. (optional)
      * @param  string|null $order_by OrderBy is \&quot;&lt;field&gt; [asc|desc]\&quot;. Empty means most-recently-updated first. (optional)
      * @param  string|null $limit Limit caps the rows returned. Anything that is not a positive integer leaves the engine&#39;s default in place. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkByDoctype'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFrameworkByDoctypeAsync($doctype, $filters = null, $fields = null, $order_by = null, $limit = null, string $contentType = self::contentTypes['getFrameworkByDoctype'][0])
+    public function getFrameworkByDoctypeAsync($doctype, $filters = null, $fields = null, $order_by = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getFrameworkByDoctype'][0])
     {
-        return $this->getFrameworkByDoctypeAsyncWithHttpInfo($doctype, $filters, $fields, $order_by, $limit, $contentType)
+        return $this->getFrameworkByDoctypeAsyncWithHttpInfo($doctype, $filters, $fields, $order_by, $limit, $cursor, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -780,15 +813,16 @@ class FrameworkApi
      * @param  string|null $fields Fields projects the response to a subset — a JSON array [\&quot;a\&quot;,\&quot;b\&quot;] or a comma list \&quot;a,b\&quot;. The envelope keys are always returned. (optional)
      * @param  string|null $order_by OrderBy is \&quot;&lt;field&gt; [asc|desc]\&quot;. Empty means most-recently-updated first. (optional)
      * @param  string|null $limit Limit caps the rows returned. Anything that is not a positive integer leaves the engine&#39;s default in place. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkByDoctype'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFrameworkByDoctypeAsyncWithHttpInfo($doctype, $filters = null, $fields = null, $order_by = null, $limit = null, string $contentType = self::contentTypes['getFrameworkByDoctype'][0])
+    public function getFrameworkByDoctypeAsyncWithHttpInfo($doctype, $filters = null, $fields = null, $order_by = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getFrameworkByDoctype'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DocumentList';
-        $request = $this->getFrameworkByDoctypeRequest($doctype, $filters, $fields, $order_by, $limit, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\FrameworkDocumentList';
+        $request = $this->getFrameworkByDoctypeRequest($doctype, $filters, $fields, $order_by, $limit, $cursor, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -834,12 +868,13 @@ class FrameworkApi
      * @param  string|null $fields Fields projects the response to a subset — a JSON array [\&quot;a\&quot;,\&quot;b\&quot;] or a comma list \&quot;a,b\&quot;. The envelope keys are always returned. (optional)
      * @param  string|null $order_by OrderBy is \&quot;&lt;field&gt; [asc|desc]\&quot;. Empty means most-recently-updated first. (optional)
      * @param  string|null $limit Limit caps the rows returned. Anything that is not a positive integer leaves the engine&#39;s default in place. (optional)
+     * @param  string|null $cursor Cursor is an opaque keyset cursor from a previous page&#39;s &#x60;next&#x60;. Empty means the first page. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkByDoctype'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getFrameworkByDoctypeRequest($doctype, $filters = null, $fields = null, $order_by = null, $limit = null, string $contentType = self::contentTypes['getFrameworkByDoctype'][0])
+    public function getFrameworkByDoctypeRequest($doctype, $filters = null, $fields = null, $order_by = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getFrameworkByDoctype'][0])
     {
 
         // verify the required parameter 'doctype' is set
@@ -848,6 +883,7 @@ class FrameworkApi
                 'Missing the required parameter $doctype when calling getFrameworkByDoctype'
             );
         }
+
 
 
 
@@ -897,6 +933,15 @@ class FrameworkApi
             true, // explode
             false // required
         ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
         // path params
@@ -910,7 +955,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -977,7 +1022,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFrameworkByDoctypeByName($doctype, $name, string $contentType = self::contentTypes['getFrameworkByDoctypeByName'][0])
     {
@@ -996,7 +1041,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFrameworkByDoctypeByNameWithHttpInfo($doctype, $name, string $contentType = self::contentTypes['getFrameworkByDoctypeByName'][0])
     {
@@ -1028,7 +1073,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1050,7 +1101,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -1059,7 +1110,15 @@ class FrameworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1107,7 +1166,7 @@ class FrameworkApi
      */
     public function getFrameworkByDoctypeByNameAsyncWithHttpInfo($doctype, $name, string $contentType = self::contentTypes['getFrameworkByDoctypeByName'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getFrameworkByDoctypeByNameRequest($doctype, $name, $contentType);
 
         return $this->client
@@ -1202,7 +1261,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1267,7 +1326,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DocTypeList
+     * @return \Hanzo\Cloud\Model\FrameworkDocTypeList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFrameworkDoctypes(string $contentType = self::contentTypes['getFrameworkDoctypes'][0])
     {
@@ -1284,7 +1343,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DocTypeList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FrameworkDocTypeList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFrameworkDoctypesWithHttpInfo(string $contentType = self::contentTypes['getFrameworkDoctypes'][0])
     {
@@ -1316,7 +1375,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DocTypeList',
+                        '\Hanzo\Cloud\Model\FrameworkDocTypeList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1338,7 +1403,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DocTypeList',
+                '\Hanzo\Cloud\Model\FrameworkDocTypeList',
                 $request,
                 $response,
             );
@@ -1347,7 +1412,15 @@ class FrameworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DocTypeList',
+                        '\Hanzo\Cloud\Model\FrameworkDocTypeList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1391,7 +1464,7 @@ class FrameworkApi
      */
     public function getFrameworkDoctypesAsyncWithHttpInfo(string $contentType = self::contentTypes['getFrameworkDoctypes'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DocTypeList';
+        $returnType = '\Hanzo\Cloud\Model\FrameworkDocTypeList';
         $request = $this->getFrameworkDoctypesRequest($contentType);
 
         return $this->client
@@ -1454,7 +1527,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1520,7 +1593,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DocType
+     * @return \Hanzo\Cloud\Model\FrameworkDocType|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFrameworkDoctypesByName($name, string $contentType = self::contentTypes['getFrameworkDoctypesByName'][0])
     {
@@ -1538,7 +1611,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DocType, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FrameworkDocType|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFrameworkDoctypesByNameWithHttpInfo($name, string $contentType = self::contentTypes['getFrameworkDoctypesByName'][0])
     {
@@ -1570,7 +1643,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DocType',
+                        '\Hanzo\Cloud\Model\FrameworkDocType',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1592,7 +1671,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DocType',
+                '\Hanzo\Cloud\Model\FrameworkDocType',
                 $request,
                 $response,
             );
@@ -1601,7 +1680,15 @@ class FrameworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DocType',
+                        '\Hanzo\Cloud\Model\FrameworkDocType',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1647,7 +1734,7 @@ class FrameworkApi
      */
     public function getFrameworkDoctypesByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getFrameworkDoctypesByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DocType';
+        $returnType = '\Hanzo\Cloud\Model\FrameworkDocType';
         $request = $this->getFrameworkDoctypesByNameRequest($name, $contentType);
 
         return $this->client
@@ -1726,7 +1813,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1791,7 +1878,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ModuleList
+     * @return \Hanzo\Cloud\Model\FrameworkModuleList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFrameworkModules(string $contentType = self::contentTypes['getFrameworkModules'][0])
     {
@@ -1808,7 +1895,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ModuleList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FrameworkModuleList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFrameworkModulesWithHttpInfo(string $contentType = self::contentTypes['getFrameworkModules'][0])
     {
@@ -1840,7 +1927,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ModuleList',
+                        '\Hanzo\Cloud\Model\FrameworkModuleList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1862,7 +1955,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ModuleList',
+                '\Hanzo\Cloud\Model\FrameworkModuleList',
                 $request,
                 $response,
             );
@@ -1871,7 +1964,15 @@ class FrameworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ModuleList',
+                        '\Hanzo\Cloud\Model\FrameworkModuleList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1915,7 +2016,7 @@ class FrameworkApi
      */
     public function getFrameworkModulesAsyncWithHttpInfo(string $contentType = self::contentTypes['getFrameworkModules'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ModuleList';
+        $returnType = '\Hanzo\Cloud\Model\FrameworkModuleList';
         $request = $this->getFrameworkModulesRequest($contentType);
 
         return $this->client
@@ -1978,7 +2079,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2044,7 +2145,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ModuleState
+     * @return \Hanzo\Cloud\Model\FrameworkModuleState|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFrameworkModulesByModule($module, string $contentType = self::contentTypes['getFrameworkModulesByModule'][0])
     {
@@ -2062,7 +2163,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ModuleState, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FrameworkModuleState|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFrameworkModulesByModuleWithHttpInfo($module, string $contentType = self::contentTypes['getFrameworkModulesByModule'][0])
     {
@@ -2094,7 +2195,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ModuleState',
+                        '\Hanzo\Cloud\Model\FrameworkModuleState',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2116,7 +2223,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ModuleState',
+                '\Hanzo\Cloud\Model\FrameworkModuleState',
                 $request,
                 $response,
             );
@@ -2125,7 +2232,15 @@ class FrameworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ModuleState',
+                        '\Hanzo\Cloud\Model\FrameworkModuleState',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2171,7 +2286,7 @@ class FrameworkApi
      */
     public function getFrameworkModulesByModuleAsyncWithHttpInfo($module, string $contentType = self::contentTypes['getFrameworkModulesByModule'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ModuleState';
+        $returnType = '\Hanzo\Cloud\Model\FrameworkModuleState';
         $request = $this->getFrameworkModulesByModuleRequest($module, $contentType);
 
         return $this->client
@@ -2250,7 +2365,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2315,7 +2430,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SummaryView
+     * @return \Hanzo\Cloud\Model\FrameworkSummaryView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFrameworkSummary(string $contentType = self::contentTypes['getFrameworkSummary'][0])
     {
@@ -2332,7 +2447,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SummaryView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FrameworkSummaryView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFrameworkSummaryWithHttpInfo(string $contentType = self::contentTypes['getFrameworkSummary'][0])
     {
@@ -2364,7 +2479,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SummaryView',
+                        '\Hanzo\Cloud\Model\FrameworkSummaryView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2386,7 +2507,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SummaryView',
+                '\Hanzo\Cloud\Model\FrameworkSummaryView',
                 $request,
                 $response,
             );
@@ -2395,7 +2516,15 @@ class FrameworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SummaryView',
+                        '\Hanzo\Cloud\Model\FrameworkSummaryView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2439,7 +2568,7 @@ class FrameworkApi
      */
     public function getFrameworkSummaryAsyncWithHttpInfo(string $contentType = self::contentTypes['getFrameworkSummary'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SummaryView';
+        $returnType = '\Hanzo\Cloud\Model\FrameworkSummaryView';
         $request = $this->getFrameworkSummaryRequest($contentType);
 
         return $this->client
@@ -2502,7 +2631,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2791,7 +2920,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postFrameworkByDoctypeByNameCancel($doctype, $name, string $contentType = self::contentTypes['postFrameworkByDoctypeByNameCancel'][0])
     {
@@ -2810,7 +2939,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postFrameworkByDoctypeByNameCancelWithHttpInfo($doctype, $name, string $contentType = self::contentTypes['postFrameworkByDoctypeByNameCancel'][0])
     {
@@ -2842,7 +2971,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2864,7 +2999,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -2873,7 +3008,15 @@ class FrameworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2921,7 +3064,7 @@ class FrameworkApi
      */
     public function postFrameworkByDoctypeByNameCancelAsyncWithHttpInfo($doctype, $name, string $contentType = self::contentTypes['postFrameworkByDoctypeByNameCancel'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->postFrameworkByDoctypeByNameCancelRequest($doctype, $name, $contentType);
 
         return $this->client
@@ -3016,7 +3159,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3083,7 +3226,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postFrameworkByDoctypeByNameSubmit($doctype, $name, string $contentType = self::contentTypes['postFrameworkByDoctypeByNameSubmit'][0])
     {
@@ -3102,7 +3245,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postFrameworkByDoctypeByNameSubmitWithHttpInfo($doctype, $name, string $contentType = self::contentTypes['postFrameworkByDoctypeByNameSubmit'][0])
     {
@@ -3134,7 +3277,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3156,7 +3305,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -3165,7 +3314,15 @@ class FrameworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3213,7 +3370,7 @@ class FrameworkApi
      */
     public function postFrameworkByDoctypeByNameSubmitAsyncWithHttpInfo($doctype, $name, string $contentType = self::contentTypes['postFrameworkByDoctypeByNameSubmit'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->postFrameworkByDoctypeByNameSubmitRequest($doctype, $name, $contentType);
 
         return $this->client
@@ -3308,7 +3465,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3369,16 +3526,16 @@ class FrameworkApi
      *
      * Defines a DocType in the caller&#39;s org: the metadata that gives a document surface its fields, its naming rule, whether it has a submit/cancel lifecycle, and which role may do what to it.
      *
-     * @param  \Hanzo\Cloud\Model\DocType $doc_type doc_type (required)
+     * @param  \Hanzo\Cloud\Model\FrameworkDocType $framework_doc_type framework_doc_type (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkDoctypes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DocType
+     * @return \Hanzo\Cloud\Model\FrameworkDocType|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postFrameworkDoctypes($doc_type, string $contentType = self::contentTypes['postFrameworkDoctypes'][0])
+    public function postFrameworkDoctypes($framework_doc_type, string $contentType = self::contentTypes['postFrameworkDoctypes'][0])
     {
-        list($response) = $this->postFrameworkDoctypesWithHttpInfo($doc_type, $contentType);
+        list($response) = $this->postFrameworkDoctypesWithHttpInfo($framework_doc_type, $contentType);
         return $response;
     }
 
@@ -3387,16 +3544,16 @@ class FrameworkApi
      *
      * Defines a DocType in the caller&#39;s org: the metadata that gives a document surface its fields, its naming rule, whether it has a submit/cancel lifecycle, and which role may do what to it.
      *
-     * @param  \Hanzo\Cloud\Model\DocType $doc_type (required)
+     * @param  \Hanzo\Cloud\Model\FrameworkDocType $framework_doc_type (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkDoctypes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DocType, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FrameworkDocType|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postFrameworkDoctypesWithHttpInfo($doc_type, string $contentType = self::contentTypes['postFrameworkDoctypes'][0])
+    public function postFrameworkDoctypesWithHttpInfo($framework_doc_type, string $contentType = self::contentTypes['postFrameworkDoctypes'][0])
     {
-        $request = $this->postFrameworkDoctypesRequest($doc_type, $contentType);
+        $request = $this->postFrameworkDoctypesRequest($framework_doc_type, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3424,7 +3581,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DocType',
+                        '\Hanzo\Cloud\Model\FrameworkDocType',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3446,7 +3609,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DocType',
+                '\Hanzo\Cloud\Model\FrameworkDocType',
                 $request,
                 $response,
             );
@@ -3455,7 +3618,15 @@ class FrameworkApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DocType',
+                        '\Hanzo\Cloud\Model\FrameworkDocType',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3472,15 +3643,15 @@ class FrameworkApi
      *
      * Defines a DocType in the caller&#39;s org: the metadata that gives a document surface its fields, its naming rule, whether it has a submit/cancel lifecycle, and which role may do what to it.
      *
-     * @param  \Hanzo\Cloud\Model\DocType $doc_type (required)
+     * @param  \Hanzo\Cloud\Model\FrameworkDocType $framework_doc_type (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkDoctypes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFrameworkDoctypesAsync($doc_type, string $contentType = self::contentTypes['postFrameworkDoctypes'][0])
+    public function postFrameworkDoctypesAsync($framework_doc_type, string $contentType = self::contentTypes['postFrameworkDoctypes'][0])
     {
-        return $this->postFrameworkDoctypesAsyncWithHttpInfo($doc_type, $contentType)
+        return $this->postFrameworkDoctypesAsyncWithHttpInfo($framework_doc_type, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3493,16 +3664,16 @@ class FrameworkApi
      *
      * Defines a DocType in the caller&#39;s org: the metadata that gives a document surface its fields, its naming rule, whether it has a submit/cancel lifecycle, and which role may do what to it.
      *
-     * @param  \Hanzo\Cloud\Model\DocType $doc_type (required)
+     * @param  \Hanzo\Cloud\Model\FrameworkDocType $framework_doc_type (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkDoctypes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFrameworkDoctypesAsyncWithHttpInfo($doc_type, string $contentType = self::contentTypes['postFrameworkDoctypes'][0])
+    public function postFrameworkDoctypesAsyncWithHttpInfo($framework_doc_type, string $contentType = self::contentTypes['postFrameworkDoctypes'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DocType';
-        $request = $this->postFrameworkDoctypesRequest($doc_type, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\FrameworkDocType';
+        $request = $this->postFrameworkDoctypesRequest($framework_doc_type, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3543,19 +3714,19 @@ class FrameworkApi
     /**
      * Create request for operation 'postFrameworkDoctypes'
      *
-     * @param  \Hanzo\Cloud\Model\DocType $doc_type (required)
+     * @param  \Hanzo\Cloud\Model\FrameworkDocType $framework_doc_type (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkDoctypes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postFrameworkDoctypesRequest($doc_type, string $contentType = self::contentTypes['postFrameworkDoctypes'][0])
+    public function postFrameworkDoctypesRequest($framework_doc_type, string $contentType = self::contentTypes['postFrameworkDoctypes'][0])
     {
 
-        // verify the required parameter 'doc_type' is set
-        if ($doc_type === null || (is_array($doc_type) && count($doc_type) === 0)) {
+        // verify the required parameter 'framework_doc_type' is set
+        if ($framework_doc_type === null || (is_array($framework_doc_type) && count($framework_doc_type) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $doc_type when calling postFrameworkDoctypes'
+                'Missing the required parameter $framework_doc_type when calling postFrameworkDoctypes'
             );
         }
 
@@ -3572,18 +3743,18 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($doc_type)) {
+        if (isset($framework_doc_type)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($doc_type));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($framework_doc_type));
             } else {
-                $httpBody = $doc_type;
+                $httpBody = $framework_doc_type;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3645,7 +3816,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Install
+     * @return \Hanzo\Cloud\Model\FrameworkInstall|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postFrameworkModulesByModuleInstall($module, string $contentType = self::contentTypes['postFrameworkModulesByModuleInstall'][0])
     {
@@ -3663,7 +3834,7 @@ class FrameworkApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Install, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FrameworkInstall|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postFrameworkModulesByModuleInstallWithHttpInfo($module, string $contentType = self::contentTypes['postFrameworkModulesByModuleInstall'][0])
     {
@@ -3695,7 +3866,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Install',
+                        '\Hanzo\Cloud\Model\FrameworkInstall',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3717,7 +3894,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Install',
+                '\Hanzo\Cloud\Model\FrameworkInstall',
                 $request,
                 $response,
             );
@@ -3726,7 +3903,15 @@ class FrameworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Install',
+                        '\Hanzo\Cloud\Model\FrameworkInstall',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3772,7 +3957,7 @@ class FrameworkApi
      */
     public function postFrameworkModulesByModuleInstallAsyncWithHttpInfo($module, string $contentType = self::contentTypes['postFrameworkModulesByModuleInstall'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Install';
+        $returnType = '\Hanzo\Cloud\Model\FrameworkInstall';
         $request = $this->postFrameworkModulesByModuleInstallRequest($module, $contentType);
 
         return $this->client
@@ -3851,7 +4036,7 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4155,16 +4340,16 @@ class FrameworkApi
      * Replaces a DocType definition wholesale (PUT semantics): the stored definition becomes the body.
      *
      * @param  string $name name (required)
-     * @param  \Hanzo\Cloud\Model\DocType $doc_type doc_type (required)
+     * @param  \Hanzo\Cloud\Model\FrameworkDocType $framework_doc_type framework_doc_type (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DocType
+     * @return \Hanzo\Cloud\Model\FrameworkDocType|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putFrameworkDoctypesByName($name, $doc_type, string $contentType = self::contentTypes['putFrameworkDoctypesByName'][0])
+    public function putFrameworkDoctypesByName($name, $framework_doc_type, string $contentType = self::contentTypes['putFrameworkDoctypesByName'][0])
     {
-        list($response) = $this->putFrameworkDoctypesByNameWithHttpInfo($name, $doc_type, $contentType);
+        list($response) = $this->putFrameworkDoctypesByNameWithHttpInfo($name, $framework_doc_type, $contentType);
         return $response;
     }
 
@@ -4174,16 +4359,16 @@ class FrameworkApi
      * Replaces a DocType definition wholesale (PUT semantics): the stored definition becomes the body.
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\DocType $doc_type (required)
+     * @param  \Hanzo\Cloud\Model\FrameworkDocType $framework_doc_type (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DocType, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FrameworkDocType|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putFrameworkDoctypesByNameWithHttpInfo($name, $doc_type, string $contentType = self::contentTypes['putFrameworkDoctypesByName'][0])
+    public function putFrameworkDoctypesByNameWithHttpInfo($name, $framework_doc_type, string $contentType = self::contentTypes['putFrameworkDoctypesByName'][0])
     {
-        $request = $this->putFrameworkDoctypesByNameRequest($name, $doc_type, $contentType);
+        $request = $this->putFrameworkDoctypesByNameRequest($name, $framework_doc_type, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4211,7 +4396,13 @@ class FrameworkApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DocType',
+                        '\Hanzo\Cloud\Model\FrameworkDocType',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4233,7 +4424,7 @@ class FrameworkApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DocType',
+                '\Hanzo\Cloud\Model\FrameworkDocType',
                 $request,
                 $response,
             );
@@ -4242,7 +4433,15 @@ class FrameworkApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DocType',
+                        '\Hanzo\Cloud\Model\FrameworkDocType',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4260,15 +4459,15 @@ class FrameworkApi
      * Replaces a DocType definition wholesale (PUT semantics): the stored definition becomes the body.
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\DocType $doc_type (required)
+     * @param  \Hanzo\Cloud\Model\FrameworkDocType $framework_doc_type (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putFrameworkDoctypesByNameAsync($name, $doc_type, string $contentType = self::contentTypes['putFrameworkDoctypesByName'][0])
+    public function putFrameworkDoctypesByNameAsync($name, $framework_doc_type, string $contentType = self::contentTypes['putFrameworkDoctypesByName'][0])
     {
-        return $this->putFrameworkDoctypesByNameAsyncWithHttpInfo($name, $doc_type, $contentType)
+        return $this->putFrameworkDoctypesByNameAsyncWithHttpInfo($name, $framework_doc_type, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4282,16 +4481,16 @@ class FrameworkApi
      * Replaces a DocType definition wholesale (PUT semantics): the stored definition becomes the body.
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\DocType $doc_type (required)
+     * @param  \Hanzo\Cloud\Model\FrameworkDocType $framework_doc_type (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putFrameworkDoctypesByNameAsyncWithHttpInfo($name, $doc_type, string $contentType = self::contentTypes['putFrameworkDoctypesByName'][0])
+    public function putFrameworkDoctypesByNameAsyncWithHttpInfo($name, $framework_doc_type, string $contentType = self::contentTypes['putFrameworkDoctypesByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DocType';
-        $request = $this->putFrameworkDoctypesByNameRequest($name, $doc_type, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\FrameworkDocType';
+        $request = $this->putFrameworkDoctypesByNameRequest($name, $framework_doc_type, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4333,13 +4532,13 @@ class FrameworkApi
      * Create request for operation 'putFrameworkDoctypesByName'
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\DocType $doc_type (required)
+     * @param  \Hanzo\Cloud\Model\FrameworkDocType $framework_doc_type (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putFrameworkDoctypesByNameRequest($name, $doc_type, string $contentType = self::contentTypes['putFrameworkDoctypesByName'][0])
+    public function putFrameworkDoctypesByNameRequest($name, $framework_doc_type, string $contentType = self::contentTypes['putFrameworkDoctypesByName'][0])
     {
 
         // verify the required parameter 'name' is set
@@ -4349,10 +4548,10 @@ class FrameworkApi
             );
         }
 
-        // verify the required parameter 'doc_type' is set
-        if ($doc_type === null || (is_array($doc_type) && count($doc_type) === 0)) {
+        // verify the required parameter 'framework_doc_type' is set
+        if ($framework_doc_type === null || (is_array($framework_doc_type) && count($framework_doc_type) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $doc_type when calling putFrameworkDoctypesByName'
+                'Missing the required parameter $framework_doc_type when calling putFrameworkDoctypesByName'
             );
         }
 
@@ -4377,18 +4576,18 @@ class FrameworkApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($doc_type)) {
+        if (isset($framework_doc_type)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($doc_type));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($framework_doc_type));
             } else {
-                $httpBody = $doc_type;
+                $httpBody = $framework_doc_type;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

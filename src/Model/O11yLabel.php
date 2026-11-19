@@ -58,7 +58,7 @@ class O11yLabel implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'key' => '\Hanzo\Cloud\Model\O11yTelemetryFieldKey',
-        'value' => 'object'
+        'value' => 'mixed'
     ];
 
     /**
@@ -80,7 +80,7 @@ class O11yLabel implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'key' => false,
-        'value' => false
+        'value' => true
     ];
 
     /**
@@ -326,7 +326,7 @@ class O11yLabel implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets value
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getValue()
     {
@@ -336,14 +336,21 @@ class O11yLabel implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets value
      *
-     * @param object|null $value value
+     * @param mixed|null $value value
      *
      * @return self
      */
     public function setValue($value)
     {
         if (is_null($value)) {
-            throw new \InvalidArgumentException('non-nullable value cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'value');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('value', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['value'] = $value;
 

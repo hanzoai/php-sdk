@@ -143,7 +143,7 @@ class SyncApi
     /**
      * Operation deleteSyncById
      *
-     * Delete removes one sync and tears down the outbound mirror it derived, answering 204.
+     * Removes one sync and tears down the outbound mirror it derived, answering 204.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSyncById'] to see the possible values for this operation
@@ -160,7 +160,7 @@ class SyncApi
     /**
      * Operation deleteSyncByIdWithHttpInfo
      *
-     * Delete removes one sync and tears down the outbound mirror it derived, answering 204.
+     * Removes one sync and tears down the outbound mirror it derived, answering 204.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSyncById'] to see the possible values for this operation
@@ -199,6 +199,14 @@ class SyncApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -209,7 +217,7 @@ class SyncApi
     /**
      * Operation deleteSyncByIdAsync
      *
-     * Delete removes one sync and tears down the outbound mirror it derived, answering 204.
+     * Removes one sync and tears down the outbound mirror it derived, answering 204.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSyncById'] to see the possible values for this operation
@@ -230,7 +238,7 @@ class SyncApi
     /**
      * Operation deleteSyncByIdAsyncWithHttpInfo
      *
-     * Delete removes one sync and tears down the outbound mirror it derived, answering 204.
+     * Removes one sync and tears down the outbound mirror it derived, answering 204.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSyncById'] to see the possible values for this operation
@@ -306,7 +314,7 @@ class SyncApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -365,13 +373,13 @@ class SyncApi
     /**
      * Operation getSync
      *
-     * List returns every sync link the caller&#39;s org has, each with its two endpoints, its direction and trigger policy, and the time it last reconciled.
+     * Returns every sync link the caller&#39;s org has, each with its two endpoints, its direction and trigger policy, the time it last reconciled, and for a repo link its native copy on the forge — the address to clone it from, its default branch and whether it is in step.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSync'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SyncList
+     * @return \Hanzo\Cloud\Model\SyncSyncList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSync(string $contentType = self::contentTypes['getSync'][0])
     {
@@ -382,13 +390,13 @@ class SyncApi
     /**
      * Operation getSyncWithHttpInfo
      *
-     * List returns every sync link the caller&#39;s org has, each with its two endpoints, its direction and trigger policy, and the time it last reconciled.
+     * Returns every sync link the caller&#39;s org has, each with its two endpoints, its direction and trigger policy, the time it last reconciled, and for a repo link its native copy on the forge — the address to clone it from, its default branch and whether it is in step.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSync'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SyncList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SyncSyncList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSyncWithHttpInfo(string $contentType = self::contentTypes['getSync'][0])
     {
@@ -420,7 +428,13 @@ class SyncApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SyncList',
+                        '\Hanzo\Cloud\Model\SyncSyncList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -442,7 +456,7 @@ class SyncApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SyncList',
+                '\Hanzo\Cloud\Model\SyncSyncList',
                 $request,
                 $response,
             );
@@ -451,7 +465,15 @@ class SyncApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SyncList',
+                        '\Hanzo\Cloud\Model\SyncSyncList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -466,7 +488,7 @@ class SyncApi
     /**
      * Operation getSyncAsync
      *
-     * List returns every sync link the caller&#39;s org has, each with its two endpoints, its direction and trigger policy, and the time it last reconciled.
+     * Returns every sync link the caller&#39;s org has, each with its two endpoints, its direction and trigger policy, the time it last reconciled, and for a repo link its native copy on the forge — the address to clone it from, its default branch and whether it is in step.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSync'] to see the possible values for this operation
      *
@@ -486,7 +508,7 @@ class SyncApi
     /**
      * Operation getSyncAsyncWithHttpInfo
      *
-     * List returns every sync link the caller&#39;s org has, each with its two endpoints, its direction and trigger policy, and the time it last reconciled.
+     * Returns every sync link the caller&#39;s org has, each with its two endpoints, its direction and trigger policy, the time it last reconciled, and for a repo link its native copy on the forge — the address to clone it from, its default branch and whether it is in step.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSync'] to see the possible values for this operation
      *
@@ -495,7 +517,7 @@ class SyncApi
      */
     public function getSyncAsyncWithHttpInfo(string $contentType = self::contentTypes['getSync'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SyncList';
+        $returnType = '\Hanzo\Cloud\Model\SyncSyncList';
         $request = $this->getSyncRequest($contentType);
 
         return $this->client
@@ -558,7 +580,7 @@ class SyncApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -617,14 +639,14 @@ class SyncApi
     /**
      * Operation getSyncById
      *
-     * Get returns one sync by id.
+     * Returns one sync by id.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSyncById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SyncView
+     * @return \Hanzo\Cloud\Model\SyncSyncView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSyncById($id, string $contentType = self::contentTypes['getSyncById'][0])
     {
@@ -635,14 +657,14 @@ class SyncApi
     /**
      * Operation getSyncByIdWithHttpInfo
      *
-     * Get returns one sync by id.
+     * Returns one sync by id.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSyncById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SyncView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SyncSyncView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSyncByIdWithHttpInfo($id, string $contentType = self::contentTypes['getSyncById'][0])
     {
@@ -674,7 +696,13 @@ class SyncApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SyncView',
+                        '\Hanzo\Cloud\Model\SyncSyncView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -696,7 +724,7 @@ class SyncApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SyncView',
+                '\Hanzo\Cloud\Model\SyncSyncView',
                 $request,
                 $response,
             );
@@ -705,7 +733,15 @@ class SyncApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SyncView',
+                        '\Hanzo\Cloud\Model\SyncSyncView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -720,7 +756,7 @@ class SyncApi
     /**
      * Operation getSyncByIdAsync
      *
-     * Get returns one sync by id.
+     * Returns one sync by id.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSyncById'] to see the possible values for this operation
@@ -741,7 +777,7 @@ class SyncApi
     /**
      * Operation getSyncByIdAsyncWithHttpInfo
      *
-     * Get returns one sync by id.
+     * Returns one sync by id.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSyncById'] to see the possible values for this operation
@@ -751,7 +787,7 @@ class SyncApi
      */
     public function getSyncByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getSyncById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SyncView';
+        $returnType = '\Hanzo\Cloud\Model\SyncSyncView';
         $request = $this->getSyncByIdRequest($id, $contentType);
 
         return $this->client
@@ -830,7 +866,7 @@ class SyncApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -889,38 +925,38 @@ class SyncApi
     /**
      * Operation patchSyncById
      *
-     * Patch updates one sync&#39;s mutable policy — direction, trigger and actor — in place.
+     * Updates one sync&#39;s mutable policy — direction, trigger and actor — in place.
      *
      * @param  string $id ID is the sync to update, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PatchSyncIn $patch_sync_in patch_sync_in (required)
+     * @param  \Hanzo\Cloud\Model\SyncPatchSyncIn $sync_patch_sync_in sync_patch_sync_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchSyncById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SyncView
+     * @return \Hanzo\Cloud\Model\SyncSyncView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function patchSyncById($id, $patch_sync_in, string $contentType = self::contentTypes['patchSyncById'][0])
+    public function patchSyncById($id, $sync_patch_sync_in, string $contentType = self::contentTypes['patchSyncById'][0])
     {
-        list($response) = $this->patchSyncByIdWithHttpInfo($id, $patch_sync_in, $contentType);
+        list($response) = $this->patchSyncByIdWithHttpInfo($id, $sync_patch_sync_in, $contentType);
         return $response;
     }
 
     /**
      * Operation patchSyncByIdWithHttpInfo
      *
-     * Patch updates one sync&#39;s mutable policy — direction, trigger and actor — in place.
+     * Updates one sync&#39;s mutable policy — direction, trigger and actor — in place.
      *
      * @param  string $id ID is the sync to update, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PatchSyncIn $patch_sync_in (required)
+     * @param  \Hanzo\Cloud\Model\SyncPatchSyncIn $sync_patch_sync_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchSyncById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SyncView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SyncSyncView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchSyncByIdWithHttpInfo($id, $patch_sync_in, string $contentType = self::contentTypes['patchSyncById'][0])
+    public function patchSyncByIdWithHttpInfo($id, $sync_patch_sync_in, string $contentType = self::contentTypes['patchSyncById'][0])
     {
-        $request = $this->patchSyncByIdRequest($id, $patch_sync_in, $contentType);
+        $request = $this->patchSyncByIdRequest($id, $sync_patch_sync_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -948,7 +984,13 @@ class SyncApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SyncView',
+                        '\Hanzo\Cloud\Model\SyncSyncView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -970,7 +1012,7 @@ class SyncApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SyncView',
+                '\Hanzo\Cloud\Model\SyncSyncView',
                 $request,
                 $response,
             );
@@ -979,7 +1021,15 @@ class SyncApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SyncView',
+                        '\Hanzo\Cloud\Model\SyncSyncView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -994,18 +1044,18 @@ class SyncApi
     /**
      * Operation patchSyncByIdAsync
      *
-     * Patch updates one sync&#39;s mutable policy — direction, trigger and actor — in place.
+     * Updates one sync&#39;s mutable policy — direction, trigger and actor — in place.
      *
      * @param  string $id ID is the sync to update, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PatchSyncIn $patch_sync_in (required)
+     * @param  \Hanzo\Cloud\Model\SyncPatchSyncIn $sync_patch_sync_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchSyncById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchSyncByIdAsync($id, $patch_sync_in, string $contentType = self::contentTypes['patchSyncById'][0])
+    public function patchSyncByIdAsync($id, $sync_patch_sync_in, string $contentType = self::contentTypes['patchSyncById'][0])
     {
-        return $this->patchSyncByIdAsyncWithHttpInfo($id, $patch_sync_in, $contentType)
+        return $this->patchSyncByIdAsyncWithHttpInfo($id, $sync_patch_sync_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1016,19 +1066,19 @@ class SyncApi
     /**
      * Operation patchSyncByIdAsyncWithHttpInfo
      *
-     * Patch updates one sync&#39;s mutable policy — direction, trigger and actor — in place.
+     * Updates one sync&#39;s mutable policy — direction, trigger and actor — in place.
      *
      * @param  string $id ID is the sync to update, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PatchSyncIn $patch_sync_in (required)
+     * @param  \Hanzo\Cloud\Model\SyncPatchSyncIn $sync_patch_sync_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchSyncById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchSyncByIdAsyncWithHttpInfo($id, $patch_sync_in, string $contentType = self::contentTypes['patchSyncById'][0])
+    public function patchSyncByIdAsyncWithHttpInfo($id, $sync_patch_sync_in, string $contentType = self::contentTypes['patchSyncById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SyncView';
-        $request = $this->patchSyncByIdRequest($id, $patch_sync_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SyncSyncView';
+        $request = $this->patchSyncByIdRequest($id, $sync_patch_sync_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1070,13 +1120,13 @@ class SyncApi
      * Create request for operation 'patchSyncById'
      *
      * @param  string $id ID is the sync to update, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PatchSyncIn $patch_sync_in (required)
+     * @param  \Hanzo\Cloud\Model\SyncPatchSyncIn $sync_patch_sync_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchSyncById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchSyncByIdRequest($id, $patch_sync_in, string $contentType = self::contentTypes['patchSyncById'][0])
+    public function patchSyncByIdRequest($id, $sync_patch_sync_in, string $contentType = self::contentTypes['patchSyncById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -1086,10 +1136,10 @@ class SyncApi
             );
         }
 
-        // verify the required parameter 'patch_sync_in' is set
-        if ($patch_sync_in === null || (is_array($patch_sync_in) && count($patch_sync_in) === 0)) {
+        // verify the required parameter 'sync_patch_sync_in' is set
+        if ($sync_patch_sync_in === null || (is_array($sync_patch_sync_in) && count($sync_patch_sync_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $patch_sync_in when calling patchSyncById'
+                'Missing the required parameter $sync_patch_sync_in when calling patchSyncById'
             );
         }
 
@@ -1114,18 +1164,18 @@ class SyncApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($patch_sync_in)) {
+        if (isset($sync_patch_sync_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($patch_sync_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sync_patch_sync_in));
             } else {
-                $httpBody = $patch_sync_in;
+                $httpBody = $sync_patch_sync_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1180,36 +1230,36 @@ class SyncApi
     /**
      * Operation postSync
      *
-     * Create declares a sync between two endpoints and returns it.
+     * Declares a sync between two endpoints and returns it.
      *
-     * @param  \Hanzo\Cloud\Model\SyncReq $sync_req sync_req (required)
+     * @param  \Hanzo\Cloud\Model\SyncSyncReq $sync_sync_req sync_sync_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSync'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SyncView
+     * @return \Hanzo\Cloud\Model\SyncSyncView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postSync($sync_req, string $contentType = self::contentTypes['postSync'][0])
+    public function postSync($sync_sync_req, string $contentType = self::contentTypes['postSync'][0])
     {
-        list($response) = $this->postSyncWithHttpInfo($sync_req, $contentType);
+        list($response) = $this->postSyncWithHttpInfo($sync_sync_req, $contentType);
         return $response;
     }
 
     /**
      * Operation postSyncWithHttpInfo
      *
-     * Create declares a sync between two endpoints and returns it.
+     * Declares a sync between two endpoints and returns it.
      *
-     * @param  \Hanzo\Cloud\Model\SyncReq $sync_req (required)
+     * @param  \Hanzo\Cloud\Model\SyncSyncReq $sync_sync_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSync'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SyncView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SyncSyncView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postSyncWithHttpInfo($sync_req, string $contentType = self::contentTypes['postSync'][0])
+    public function postSyncWithHttpInfo($sync_sync_req, string $contentType = self::contentTypes['postSync'][0])
     {
-        $request = $this->postSyncRequest($sync_req, $contentType);
+        $request = $this->postSyncRequest($sync_sync_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1237,7 +1287,13 @@ class SyncApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SyncView',
+                        '\Hanzo\Cloud\Model\SyncSyncView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1259,7 +1315,7 @@ class SyncApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SyncView',
+                '\Hanzo\Cloud\Model\SyncSyncView',
                 $request,
                 $response,
             );
@@ -1268,7 +1324,15 @@ class SyncApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SyncView',
+                        '\Hanzo\Cloud\Model\SyncSyncView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1283,17 +1347,17 @@ class SyncApi
     /**
      * Operation postSyncAsync
      *
-     * Create declares a sync between two endpoints and returns it.
+     * Declares a sync between two endpoints and returns it.
      *
-     * @param  \Hanzo\Cloud\Model\SyncReq $sync_req (required)
+     * @param  \Hanzo\Cloud\Model\SyncSyncReq $sync_sync_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSync'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSyncAsync($sync_req, string $contentType = self::contentTypes['postSync'][0])
+    public function postSyncAsync($sync_sync_req, string $contentType = self::contentTypes['postSync'][0])
     {
-        return $this->postSyncAsyncWithHttpInfo($sync_req, $contentType)
+        return $this->postSyncAsyncWithHttpInfo($sync_sync_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1304,18 +1368,18 @@ class SyncApi
     /**
      * Operation postSyncAsyncWithHttpInfo
      *
-     * Create declares a sync between two endpoints and returns it.
+     * Declares a sync between two endpoints and returns it.
      *
-     * @param  \Hanzo\Cloud\Model\SyncReq $sync_req (required)
+     * @param  \Hanzo\Cloud\Model\SyncSyncReq $sync_sync_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSync'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSyncAsyncWithHttpInfo($sync_req, string $contentType = self::contentTypes['postSync'][0])
+    public function postSyncAsyncWithHttpInfo($sync_sync_req, string $contentType = self::contentTypes['postSync'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SyncView';
-        $request = $this->postSyncRequest($sync_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SyncSyncView';
+        $request = $this->postSyncRequest($sync_sync_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1356,19 +1420,19 @@ class SyncApi
     /**
      * Create request for operation 'postSync'
      *
-     * @param  \Hanzo\Cloud\Model\SyncReq $sync_req (required)
+     * @param  \Hanzo\Cloud\Model\SyncSyncReq $sync_sync_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSync'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postSyncRequest($sync_req, string $contentType = self::contentTypes['postSync'][0])
+    public function postSyncRequest($sync_sync_req, string $contentType = self::contentTypes['postSync'][0])
     {
 
-        // verify the required parameter 'sync_req' is set
-        if ($sync_req === null || (is_array($sync_req) && count($sync_req) === 0)) {
+        // verify the required parameter 'sync_sync_req' is set
+        if ($sync_sync_req === null || (is_array($sync_sync_req) && count($sync_sync_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $sync_req when calling postSync'
+                'Missing the required parameter $sync_sync_req when calling postSync'
             );
         }
 
@@ -1385,18 +1449,18 @@ class SyncApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($sync_req)) {
+        if (isset($sync_sync_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sync_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sync_sync_req));
             } else {
-                $httpBody = $sync_req;
+                $httpBody = $sync_sync_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1451,14 +1515,14 @@ class SyncApi
     /**
      * Operation postSyncByIdRun
      *
-     * Run reconciles one sync now — the manual re-sync, and the initial import for a link created without run&#x3D;true.
+     * Reconciles one sync now — the manual re-sync, and the initial import for a link created without run&#x3D;true.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSyncByIdRun'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SyncQueued
+     * @return \Hanzo\Cloud\Model\SyncSyncQueued|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postSyncByIdRun($id, string $contentType = self::contentTypes['postSyncByIdRun'][0])
     {
@@ -1469,14 +1533,14 @@ class SyncApi
     /**
      * Operation postSyncByIdRunWithHttpInfo
      *
-     * Run reconciles one sync now — the manual re-sync, and the initial import for a link created without run&#x3D;true.
+     * Reconciles one sync now — the manual re-sync, and the initial import for a link created without run&#x3D;true.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSyncByIdRun'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SyncQueued, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SyncSyncQueued|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postSyncByIdRunWithHttpInfo($id, string $contentType = self::contentTypes['postSyncByIdRun'][0])
     {
@@ -1508,7 +1572,13 @@ class SyncApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SyncQueued',
+                        '\Hanzo\Cloud\Model\SyncSyncQueued',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1530,7 +1600,7 @@ class SyncApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SyncQueued',
+                '\Hanzo\Cloud\Model\SyncSyncQueued',
                 $request,
                 $response,
             );
@@ -1539,7 +1609,15 @@ class SyncApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SyncQueued',
+                        '\Hanzo\Cloud\Model\SyncSyncQueued',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1554,7 +1632,7 @@ class SyncApi
     /**
      * Operation postSyncByIdRunAsync
      *
-     * Run reconciles one sync now — the manual re-sync, and the initial import for a link created without run&#x3D;true.
+     * Reconciles one sync now — the manual re-sync, and the initial import for a link created without run&#x3D;true.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSyncByIdRun'] to see the possible values for this operation
@@ -1575,7 +1653,7 @@ class SyncApi
     /**
      * Operation postSyncByIdRunAsyncWithHttpInfo
      *
-     * Run reconciles one sync now — the manual re-sync, and the initial import for a link created without run&#x3D;true.
+     * Reconciles one sync now — the manual re-sync, and the initial import for a link created without run&#x3D;true.
      *
      * @param  string $id ID is the sync to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSyncByIdRun'] to see the possible values for this operation
@@ -1585,7 +1663,7 @@ class SyncApi
      */
     public function postSyncByIdRunAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postSyncByIdRun'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SyncQueued';
+        $returnType = '\Hanzo\Cloud\Model\SyncSyncQueued';
         $request = $this->postSyncByIdRunRequest($id, $contentType);
 
         return $this->client
@@ -1664,7 +1742,7 @@ class SyncApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

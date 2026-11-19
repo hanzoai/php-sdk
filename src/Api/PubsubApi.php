@@ -131,36 +131,36 @@ class PubsubApi
     /**
      * Operation postPubsubPublish
      *
-     * Publish puts one message on the org&#39;s bus.
+     * Puts one message on the org&#39;s bus.
      *
-     * @param  \Hanzo\Cloud\Model\BusPublish $bus_publish bus_publish (required)
+     * @param  \Hanzo\Cloud\Model\PubsubBusPublish $pubsub_bus_publish pubsub_bus_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPubsubPublish'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BusAck
+     * @return \Hanzo\Cloud\Model\PubsubBusAck|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPubsubPublish($bus_publish, string $contentType = self::contentTypes['postPubsubPublish'][0])
+    public function postPubsubPublish($pubsub_bus_publish, string $contentType = self::contentTypes['postPubsubPublish'][0])
     {
-        list($response) = $this->postPubsubPublishWithHttpInfo($bus_publish, $contentType);
+        list($response) = $this->postPubsubPublishWithHttpInfo($pubsub_bus_publish, $contentType);
         return $response;
     }
 
     /**
      * Operation postPubsubPublishWithHttpInfo
      *
-     * Publish puts one message on the org&#39;s bus.
+     * Puts one message on the org&#39;s bus.
      *
-     * @param  \Hanzo\Cloud\Model\BusPublish $bus_publish (required)
+     * @param  \Hanzo\Cloud\Model\PubsubBusPublish $pubsub_bus_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPubsubPublish'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BusAck, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PubsubBusAck|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPubsubPublishWithHttpInfo($bus_publish, string $contentType = self::contentTypes['postPubsubPublish'][0])
+    public function postPubsubPublishWithHttpInfo($pubsub_bus_publish, string $contentType = self::contentTypes['postPubsubPublish'][0])
     {
-        $request = $this->postPubsubPublishRequest($bus_publish, $contentType);
+        $request = $this->postPubsubPublishRequest($pubsub_bus_publish, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -188,7 +188,13 @@ class PubsubApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BusAck',
+                        '\Hanzo\Cloud\Model\PubsubBusAck',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -210,7 +216,7 @@ class PubsubApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BusAck',
+                '\Hanzo\Cloud\Model\PubsubBusAck',
                 $request,
                 $response,
             );
@@ -219,7 +225,15 @@ class PubsubApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BusAck',
+                        '\Hanzo\Cloud\Model\PubsubBusAck',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -234,17 +248,17 @@ class PubsubApi
     /**
      * Operation postPubsubPublishAsync
      *
-     * Publish puts one message on the org&#39;s bus.
+     * Puts one message on the org&#39;s bus.
      *
-     * @param  \Hanzo\Cloud\Model\BusPublish $bus_publish (required)
+     * @param  \Hanzo\Cloud\Model\PubsubBusPublish $pubsub_bus_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPubsubPublish'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPubsubPublishAsync($bus_publish, string $contentType = self::contentTypes['postPubsubPublish'][0])
+    public function postPubsubPublishAsync($pubsub_bus_publish, string $contentType = self::contentTypes['postPubsubPublish'][0])
     {
-        return $this->postPubsubPublishAsyncWithHttpInfo($bus_publish, $contentType)
+        return $this->postPubsubPublishAsyncWithHttpInfo($pubsub_bus_publish, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -255,18 +269,18 @@ class PubsubApi
     /**
      * Operation postPubsubPublishAsyncWithHttpInfo
      *
-     * Publish puts one message on the org&#39;s bus.
+     * Puts one message on the org&#39;s bus.
      *
-     * @param  \Hanzo\Cloud\Model\BusPublish $bus_publish (required)
+     * @param  \Hanzo\Cloud\Model\PubsubBusPublish $pubsub_bus_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPubsubPublish'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPubsubPublishAsyncWithHttpInfo($bus_publish, string $contentType = self::contentTypes['postPubsubPublish'][0])
+    public function postPubsubPublishAsyncWithHttpInfo($pubsub_bus_publish, string $contentType = self::contentTypes['postPubsubPublish'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BusAck';
-        $request = $this->postPubsubPublishRequest($bus_publish, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PubsubBusAck';
+        $request = $this->postPubsubPublishRequest($pubsub_bus_publish, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -307,19 +321,19 @@ class PubsubApi
     /**
      * Create request for operation 'postPubsubPublish'
      *
-     * @param  \Hanzo\Cloud\Model\BusPublish $bus_publish (required)
+     * @param  \Hanzo\Cloud\Model\PubsubBusPublish $pubsub_bus_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPubsubPublish'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPubsubPublishRequest($bus_publish, string $contentType = self::contentTypes['postPubsubPublish'][0])
+    public function postPubsubPublishRequest($pubsub_bus_publish, string $contentType = self::contentTypes['postPubsubPublish'][0])
     {
 
-        // verify the required parameter 'bus_publish' is set
-        if ($bus_publish === null || (is_array($bus_publish) && count($bus_publish) === 0)) {
+        // verify the required parameter 'pubsub_bus_publish' is set
+        if ($pubsub_bus_publish === null || (is_array($pubsub_bus_publish) && count($pubsub_bus_publish) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $bus_publish when calling postPubsubPublish'
+                'Missing the required parameter $pubsub_bus_publish when calling postPubsubPublish'
             );
         }
 
@@ -336,18 +350,18 @@ class PubsubApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($bus_publish)) {
+        if (isset($pubsub_bus_publish)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($bus_publish));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($pubsub_bus_publish));
             } else {
-                $httpBody = $bus_publish;
+                $httpBody = $pubsub_bus_publish;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -402,36 +416,36 @@ class PubsubApi
     /**
      * Operation postPubsubRequest
      *
-     * Request sends one request on the org&#39;s bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
+     * Sends one request on the org&#39;s bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
      *
-     * @param  \Hanzo\Cloud\Model\BusRequest $bus_request bus_request (required)
+     * @param  \Hanzo\Cloud\Model\PubsubBusRequest $pubsub_bus_request pubsub_bus_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPubsubRequest'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BusMessage
+     * @return \Hanzo\Cloud\Model\PubsubBusMessage|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPubsubRequest($bus_request, string $contentType = self::contentTypes['postPubsubRequest'][0])
+    public function postPubsubRequest($pubsub_bus_request, string $contentType = self::contentTypes['postPubsubRequest'][0])
     {
-        list($response) = $this->postPubsubRequestWithHttpInfo($bus_request, $contentType);
+        list($response) = $this->postPubsubRequestWithHttpInfo($pubsub_bus_request, $contentType);
         return $response;
     }
 
     /**
      * Operation postPubsubRequestWithHttpInfo
      *
-     * Request sends one request on the org&#39;s bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
+     * Sends one request on the org&#39;s bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
      *
-     * @param  \Hanzo\Cloud\Model\BusRequest $bus_request (required)
+     * @param  \Hanzo\Cloud\Model\PubsubBusRequest $pubsub_bus_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPubsubRequest'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BusMessage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PubsubBusMessage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPubsubRequestWithHttpInfo($bus_request, string $contentType = self::contentTypes['postPubsubRequest'][0])
+    public function postPubsubRequestWithHttpInfo($pubsub_bus_request, string $contentType = self::contentTypes['postPubsubRequest'][0])
     {
-        $request = $this->postPubsubRequestRequest($bus_request, $contentType);
+        $request = $this->postPubsubRequestRequest($pubsub_bus_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -459,7 +473,13 @@ class PubsubApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BusMessage',
+                        '\Hanzo\Cloud\Model\PubsubBusMessage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -481,7 +501,7 @@ class PubsubApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BusMessage',
+                '\Hanzo\Cloud\Model\PubsubBusMessage',
                 $request,
                 $response,
             );
@@ -490,7 +510,15 @@ class PubsubApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BusMessage',
+                        '\Hanzo\Cloud\Model\PubsubBusMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -505,17 +533,17 @@ class PubsubApi
     /**
      * Operation postPubsubRequestAsync
      *
-     * Request sends one request on the org&#39;s bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
+     * Sends one request on the org&#39;s bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
      *
-     * @param  \Hanzo\Cloud\Model\BusRequest $bus_request (required)
+     * @param  \Hanzo\Cloud\Model\PubsubBusRequest $pubsub_bus_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPubsubRequest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPubsubRequestAsync($bus_request, string $contentType = self::contentTypes['postPubsubRequest'][0])
+    public function postPubsubRequestAsync($pubsub_bus_request, string $contentType = self::contentTypes['postPubsubRequest'][0])
     {
-        return $this->postPubsubRequestAsyncWithHttpInfo($bus_request, $contentType)
+        return $this->postPubsubRequestAsyncWithHttpInfo($pubsub_bus_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -526,18 +554,18 @@ class PubsubApi
     /**
      * Operation postPubsubRequestAsyncWithHttpInfo
      *
-     * Request sends one request on the org&#39;s bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
+     * Sends one request on the org&#39;s bus and waits for one reply — the synchronous half of pub/sub, for callers speaking to a responder subscribed on the NATS port.
      *
-     * @param  \Hanzo\Cloud\Model\BusRequest $bus_request (required)
+     * @param  \Hanzo\Cloud\Model\PubsubBusRequest $pubsub_bus_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPubsubRequest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPubsubRequestAsyncWithHttpInfo($bus_request, string $contentType = self::contentTypes['postPubsubRequest'][0])
+    public function postPubsubRequestAsyncWithHttpInfo($pubsub_bus_request, string $contentType = self::contentTypes['postPubsubRequest'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BusMessage';
-        $request = $this->postPubsubRequestRequest($bus_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PubsubBusMessage';
+        $request = $this->postPubsubRequestRequest($pubsub_bus_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -578,19 +606,19 @@ class PubsubApi
     /**
      * Create request for operation 'postPubsubRequest'
      *
-     * @param  \Hanzo\Cloud\Model\BusRequest $bus_request (required)
+     * @param  \Hanzo\Cloud\Model\PubsubBusRequest $pubsub_bus_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPubsubRequest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPubsubRequestRequest($bus_request, string $contentType = self::contentTypes['postPubsubRequest'][0])
+    public function postPubsubRequestRequest($pubsub_bus_request, string $contentType = self::contentTypes['postPubsubRequest'][0])
     {
 
-        // verify the required parameter 'bus_request' is set
-        if ($bus_request === null || (is_array($bus_request) && count($bus_request) === 0)) {
+        // verify the required parameter 'pubsub_bus_request' is set
+        if ($pubsub_bus_request === null || (is_array($pubsub_bus_request) && count($pubsub_bus_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $bus_request when calling postPubsubRequest'
+                'Missing the required parameter $pubsub_bus_request when calling postPubsubRequest'
             );
         }
 
@@ -607,18 +635,18 @@ class PubsubApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($bus_request)) {
+        if (isset($pubsub_bus_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($bus_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($pubsub_bus_request));
             } else {
-                $httpBody = $bus_request;
+                $httpBody = $pubsub_bus_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

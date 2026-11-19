@@ -144,7 +144,7 @@ class ValidatorApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ValidatorList
+     * @return \Hanzo\Cloud\Model\ValidatorValidatorList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getValidator($limit = null, string $contentType = self::contentTypes['getValidator'][0])
     {
@@ -162,7 +162,7 @@ class ValidatorApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ValidatorList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ValidatorValidatorList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getValidatorWithHttpInfo($limit = null, string $contentType = self::contentTypes['getValidator'][0])
     {
@@ -194,7 +194,13 @@ class ValidatorApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ValidatorList',
+                        '\Hanzo\Cloud\Model\ValidatorValidatorList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -216,7 +222,7 @@ class ValidatorApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ValidatorList',
+                '\Hanzo\Cloud\Model\ValidatorValidatorList',
                 $request,
                 $response,
             );
@@ -225,7 +231,15 @@ class ValidatorApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ValidatorList',
+                        '\Hanzo\Cloud\Model\ValidatorValidatorList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -271,7 +285,7 @@ class ValidatorApi
      */
     public function getValidatorAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getValidator'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ValidatorList';
+        $returnType = '\Hanzo\Cloud\Model\ValidatorValidatorList';
         $request = $this->getValidatorRequest($limit, $contentType);
 
         return $this->client
@@ -345,7 +359,7 @@ class ValidatorApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -411,7 +425,7 @@ class ValidatorApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SlotView
+     * @return \Hanzo\Cloud\Model\ValidatorSlotView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getValidatorByTokenid($token_id, string $contentType = self::contentTypes['getValidatorByTokenid'][0])
     {
@@ -429,7 +443,7 @@ class ValidatorApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SlotView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ValidatorSlotView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getValidatorByTokenidWithHttpInfo($token_id, string $contentType = self::contentTypes['getValidatorByTokenid'][0])
     {
@@ -461,7 +475,13 @@ class ValidatorApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SlotView',
+                        '\Hanzo\Cloud\Model\ValidatorSlotView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -483,7 +503,7 @@ class ValidatorApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SlotView',
+                '\Hanzo\Cloud\Model\ValidatorSlotView',
                 $request,
                 $response,
             );
@@ -492,7 +512,15 @@ class ValidatorApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SlotView',
+                        '\Hanzo\Cloud\Model\ValidatorSlotView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -538,7 +566,7 @@ class ValidatorApi
      */
     public function getValidatorByTokenidAsyncWithHttpInfo($token_id, string $contentType = self::contentTypes['getValidatorByTokenid'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SlotView';
+        $returnType = '\Hanzo\Cloud\Model\ValidatorSlotView';
         $request = $this->getValidatorByTokenidRequest($token_id, $contentType);
 
         return $this->client
@@ -617,7 +645,7 @@ class ValidatorApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -683,7 +711,7 @@ class ValidatorApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ChallengeView
+     * @return \Hanzo\Cloud\Model\ValidatorChallengeView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getValidatorChallenge($token_id = null, string $contentType = self::contentTypes['getValidatorChallenge'][0])
     {
@@ -701,7 +729,7 @@ class ValidatorApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ChallengeView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ValidatorChallengeView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getValidatorChallengeWithHttpInfo($token_id = null, string $contentType = self::contentTypes['getValidatorChallenge'][0])
     {
@@ -733,7 +761,13 @@ class ValidatorApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ChallengeView',
+                        '\Hanzo\Cloud\Model\ValidatorChallengeView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -755,7 +789,7 @@ class ValidatorApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ChallengeView',
+                '\Hanzo\Cloud\Model\ValidatorChallengeView',
                 $request,
                 $response,
             );
@@ -764,7 +798,15 @@ class ValidatorApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ChallengeView',
+                        '\Hanzo\Cloud\Model\ValidatorChallengeView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -810,7 +852,7 @@ class ValidatorApi
      */
     public function getValidatorChallengeAsyncWithHttpInfo($token_id = null, string $contentType = self::contentTypes['getValidatorChallenge'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ChallengeView';
+        $returnType = '\Hanzo\Cloud\Model\ValidatorChallengeView';
         $request = $this->getValidatorChallengeRequest($token_id, $contentType);
 
         return $this->client
@@ -884,7 +926,7 @@ class ValidatorApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -945,16 +987,16 @@ class ValidatorApi
      *
      * Claims a validator slot and provisions its node, after proving the caller&#39;s wallet owns the slot&#39;s NFT.
      *
-     * @param  \Hanzo\Cloud\Model\ValidatorClaim $validator_claim validator_claim (required)
+     * @param  \Hanzo\Cloud\Model\ValidatorValidatorClaim $validator_validator_claim validator_validator_claim (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postValidator'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SlotView
+     * @return \Hanzo\Cloud\Model\ValidatorSlotView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postValidator($validator_claim, string $contentType = self::contentTypes['postValidator'][0])
+    public function postValidator($validator_validator_claim, string $contentType = self::contentTypes['postValidator'][0])
     {
-        list($response) = $this->postValidatorWithHttpInfo($validator_claim, $contentType);
+        list($response) = $this->postValidatorWithHttpInfo($validator_validator_claim, $contentType);
         return $response;
     }
 
@@ -963,16 +1005,16 @@ class ValidatorApi
      *
      * Claims a validator slot and provisions its node, after proving the caller&#39;s wallet owns the slot&#39;s NFT.
      *
-     * @param  \Hanzo\Cloud\Model\ValidatorClaim $validator_claim (required)
+     * @param  \Hanzo\Cloud\Model\ValidatorValidatorClaim $validator_validator_claim (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postValidator'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SlotView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ValidatorSlotView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postValidatorWithHttpInfo($validator_claim, string $contentType = self::contentTypes['postValidator'][0])
+    public function postValidatorWithHttpInfo($validator_validator_claim, string $contentType = self::contentTypes['postValidator'][0])
     {
-        $request = $this->postValidatorRequest($validator_claim, $contentType);
+        $request = $this->postValidatorRequest($validator_validator_claim, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1000,7 +1042,13 @@ class ValidatorApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SlotView',
+                        '\Hanzo\Cloud\Model\ValidatorSlotView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1022,7 +1070,7 @@ class ValidatorApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SlotView',
+                '\Hanzo\Cloud\Model\ValidatorSlotView',
                 $request,
                 $response,
             );
@@ -1031,7 +1079,15 @@ class ValidatorApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SlotView',
+                        '\Hanzo\Cloud\Model\ValidatorSlotView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1048,15 +1104,15 @@ class ValidatorApi
      *
      * Claims a validator slot and provisions its node, after proving the caller&#39;s wallet owns the slot&#39;s NFT.
      *
-     * @param  \Hanzo\Cloud\Model\ValidatorClaim $validator_claim (required)
+     * @param  \Hanzo\Cloud\Model\ValidatorValidatorClaim $validator_validator_claim (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postValidator'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postValidatorAsync($validator_claim, string $contentType = self::contentTypes['postValidator'][0])
+    public function postValidatorAsync($validator_validator_claim, string $contentType = self::contentTypes['postValidator'][0])
     {
-        return $this->postValidatorAsyncWithHttpInfo($validator_claim, $contentType)
+        return $this->postValidatorAsyncWithHttpInfo($validator_validator_claim, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1069,16 +1125,16 @@ class ValidatorApi
      *
      * Claims a validator slot and provisions its node, after proving the caller&#39;s wallet owns the slot&#39;s NFT.
      *
-     * @param  \Hanzo\Cloud\Model\ValidatorClaim $validator_claim (required)
+     * @param  \Hanzo\Cloud\Model\ValidatorValidatorClaim $validator_validator_claim (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postValidator'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postValidatorAsyncWithHttpInfo($validator_claim, string $contentType = self::contentTypes['postValidator'][0])
+    public function postValidatorAsyncWithHttpInfo($validator_validator_claim, string $contentType = self::contentTypes['postValidator'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SlotView';
-        $request = $this->postValidatorRequest($validator_claim, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ValidatorSlotView';
+        $request = $this->postValidatorRequest($validator_validator_claim, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1119,19 +1175,19 @@ class ValidatorApi
     /**
      * Create request for operation 'postValidator'
      *
-     * @param  \Hanzo\Cloud\Model\ValidatorClaim $validator_claim (required)
+     * @param  \Hanzo\Cloud\Model\ValidatorValidatorClaim $validator_validator_claim (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postValidator'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postValidatorRequest($validator_claim, string $contentType = self::contentTypes['postValidator'][0])
+    public function postValidatorRequest($validator_validator_claim, string $contentType = self::contentTypes['postValidator'][0])
     {
 
-        // verify the required parameter 'validator_claim' is set
-        if ($validator_claim === null || (is_array($validator_claim) && count($validator_claim) === 0)) {
+        // verify the required parameter 'validator_validator_claim' is set
+        if ($validator_validator_claim === null || (is_array($validator_validator_claim) && count($validator_validator_claim) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $validator_claim when calling postValidator'
+                'Missing the required parameter $validator_validator_claim when calling postValidator'
             );
         }
 
@@ -1148,18 +1204,18 @@ class ValidatorApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($validator_claim)) {
+        if (isset($validator_validator_claim)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($validator_claim));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($validator_validator_claim));
             } else {
-                $httpBody = $validator_claim;
+                $httpBody = $validator_validator_claim;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

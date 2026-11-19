@@ -217,16 +217,16 @@ class ComputeApi
      *
      * Attaches a BYO cluster to the caller&#39;s org — the kubeconfig is validated, KMS-sealed and added to the fleet — and answers 201 with the cluster as it now appears on GET /v1/compute/clusters.
      *
-     * @param  \Hanzo\Cloud\Model\ClusterAttach $cluster_attach cluster_attach (required)
+     * @param  \Hanzo\Cloud\Model\ComputeClusterAttach $compute_cluster_attach compute_cluster_attach (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['attachCluster'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ClusterView
+     * @return \Hanzo\Cloud\Model\ComputeClusterView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function attachCluster($cluster_attach, string $contentType = self::contentTypes['attachCluster'][0])
+    public function attachCluster($compute_cluster_attach, string $contentType = self::contentTypes['attachCluster'][0])
     {
-        list($response) = $this->attachClusterWithHttpInfo($cluster_attach, $contentType);
+        list($response) = $this->attachClusterWithHttpInfo($compute_cluster_attach, $contentType);
         return $response;
     }
 
@@ -235,16 +235,16 @@ class ComputeApi
      *
      * Attaches a BYO cluster to the caller&#39;s org — the kubeconfig is validated, KMS-sealed and added to the fleet — and answers 201 with the cluster as it now appears on GET /v1/compute/clusters.
      *
-     * @param  \Hanzo\Cloud\Model\ClusterAttach $cluster_attach (required)
+     * @param  \Hanzo\Cloud\Model\ComputeClusterAttach $compute_cluster_attach (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['attachCluster'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ClusterView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeClusterView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function attachClusterWithHttpInfo($cluster_attach, string $contentType = self::contentTypes['attachCluster'][0])
+    public function attachClusterWithHttpInfo($compute_cluster_attach, string $contentType = self::contentTypes['attachCluster'][0])
     {
-        $request = $this->attachClusterRequest($cluster_attach, $contentType);
+        $request = $this->attachClusterRequest($compute_cluster_attach, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -272,7 +272,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ClusterView',
+                        '\Hanzo\Cloud\Model\ComputeClusterView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -294,7 +300,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ClusterView',
+                '\Hanzo\Cloud\Model\ComputeClusterView',
                 $request,
                 $response,
             );
@@ -303,7 +309,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ClusterView',
+                        '\Hanzo\Cloud\Model\ComputeClusterView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -320,15 +334,15 @@ class ComputeApi
      *
      * Attaches a BYO cluster to the caller&#39;s org — the kubeconfig is validated, KMS-sealed and added to the fleet — and answers 201 with the cluster as it now appears on GET /v1/compute/clusters.
      *
-     * @param  \Hanzo\Cloud\Model\ClusterAttach $cluster_attach (required)
+     * @param  \Hanzo\Cloud\Model\ComputeClusterAttach $compute_cluster_attach (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['attachCluster'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function attachClusterAsync($cluster_attach, string $contentType = self::contentTypes['attachCluster'][0])
+    public function attachClusterAsync($compute_cluster_attach, string $contentType = self::contentTypes['attachCluster'][0])
     {
-        return $this->attachClusterAsyncWithHttpInfo($cluster_attach, $contentType)
+        return $this->attachClusterAsyncWithHttpInfo($compute_cluster_attach, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -341,16 +355,16 @@ class ComputeApi
      *
      * Attaches a BYO cluster to the caller&#39;s org — the kubeconfig is validated, KMS-sealed and added to the fleet — and answers 201 with the cluster as it now appears on GET /v1/compute/clusters.
      *
-     * @param  \Hanzo\Cloud\Model\ClusterAttach $cluster_attach (required)
+     * @param  \Hanzo\Cloud\Model\ComputeClusterAttach $compute_cluster_attach (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['attachCluster'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function attachClusterAsyncWithHttpInfo($cluster_attach, string $contentType = self::contentTypes['attachCluster'][0])
+    public function attachClusterAsyncWithHttpInfo($compute_cluster_attach, string $contentType = self::contentTypes['attachCluster'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ClusterView';
-        $request = $this->attachClusterRequest($cluster_attach, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComputeClusterView';
+        $request = $this->attachClusterRequest($compute_cluster_attach, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -391,19 +405,19 @@ class ComputeApi
     /**
      * Create request for operation 'attachCluster'
      *
-     * @param  \Hanzo\Cloud\Model\ClusterAttach $cluster_attach (required)
+     * @param  \Hanzo\Cloud\Model\ComputeClusterAttach $compute_cluster_attach (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['attachCluster'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function attachClusterRequest($cluster_attach, string $contentType = self::contentTypes['attachCluster'][0])
+    public function attachClusterRequest($compute_cluster_attach, string $contentType = self::contentTypes['attachCluster'][0])
     {
 
-        // verify the required parameter 'cluster_attach' is set
-        if ($cluster_attach === null || (is_array($cluster_attach) && count($cluster_attach) === 0)) {
+        // verify the required parameter 'compute_cluster_attach' is set
+        if ($compute_cluster_attach === null || (is_array($compute_cluster_attach) && count($compute_cluster_attach) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $cluster_attach when calling attachCluster'
+                'Missing the required parameter $compute_cluster_attach when calling attachCluster'
             );
         }
 
@@ -420,18 +434,18 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($cluster_attach)) {
+        if (isset($compute_cluster_attach)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($cluster_attach));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compute_cluster_attach));
             } else {
-                $httpBody = $cluster_attach;
+                $httpBody = $compute_cluster_attach;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -489,16 +503,16 @@ class ComputeApi
      * Binds a cloud Agent to one of the caller org&#39;s machines: the machine is recorded as running that Agent&#39;s @hanzo/bot runtime.
      *
      * @param  string $id ID is the machine to bind, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\BindAgentReq $bind_agent_req bind_agent_req (required)
+     * @param  \Hanzo\Cloud\Model\ComputeBindAgentReq $compute_bind_agent_req compute_bind_agent_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bindMachineAgent'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AgentBinding
+     * @return \Hanzo\Cloud\Model\ComputeAgentBinding|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function bindMachineAgent($id, $bind_agent_req, string $contentType = self::contentTypes['bindMachineAgent'][0])
+    public function bindMachineAgent($id, $compute_bind_agent_req, string $contentType = self::contentTypes['bindMachineAgent'][0])
     {
-        list($response) = $this->bindMachineAgentWithHttpInfo($id, $bind_agent_req, $contentType);
+        list($response) = $this->bindMachineAgentWithHttpInfo($id, $compute_bind_agent_req, $contentType);
         return $response;
     }
 
@@ -508,16 +522,16 @@ class ComputeApi
      * Binds a cloud Agent to one of the caller org&#39;s machines: the machine is recorded as running that Agent&#39;s @hanzo/bot runtime.
      *
      * @param  string $id ID is the machine to bind, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\BindAgentReq $bind_agent_req (required)
+     * @param  \Hanzo\Cloud\Model\ComputeBindAgentReq $compute_bind_agent_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bindMachineAgent'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AgentBinding, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeAgentBinding|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function bindMachineAgentWithHttpInfo($id, $bind_agent_req, string $contentType = self::contentTypes['bindMachineAgent'][0])
+    public function bindMachineAgentWithHttpInfo($id, $compute_bind_agent_req, string $contentType = self::contentTypes['bindMachineAgent'][0])
     {
-        $request = $this->bindMachineAgentRequest($id, $bind_agent_req, $contentType);
+        $request = $this->bindMachineAgentRequest($id, $compute_bind_agent_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -545,7 +559,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AgentBinding',
+                        '\Hanzo\Cloud\Model\ComputeAgentBinding',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -567,7 +587,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AgentBinding',
+                '\Hanzo\Cloud\Model\ComputeAgentBinding',
                 $request,
                 $response,
             );
@@ -576,7 +596,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AgentBinding',
+                        '\Hanzo\Cloud\Model\ComputeAgentBinding',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -594,15 +622,15 @@ class ComputeApi
      * Binds a cloud Agent to one of the caller org&#39;s machines: the machine is recorded as running that Agent&#39;s @hanzo/bot runtime.
      *
      * @param  string $id ID is the machine to bind, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\BindAgentReq $bind_agent_req (required)
+     * @param  \Hanzo\Cloud\Model\ComputeBindAgentReq $compute_bind_agent_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bindMachineAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bindMachineAgentAsync($id, $bind_agent_req, string $contentType = self::contentTypes['bindMachineAgent'][0])
+    public function bindMachineAgentAsync($id, $compute_bind_agent_req, string $contentType = self::contentTypes['bindMachineAgent'][0])
     {
-        return $this->bindMachineAgentAsyncWithHttpInfo($id, $bind_agent_req, $contentType)
+        return $this->bindMachineAgentAsyncWithHttpInfo($id, $compute_bind_agent_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -616,16 +644,16 @@ class ComputeApi
      * Binds a cloud Agent to one of the caller org&#39;s machines: the machine is recorded as running that Agent&#39;s @hanzo/bot runtime.
      *
      * @param  string $id ID is the machine to bind, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\BindAgentReq $bind_agent_req (required)
+     * @param  \Hanzo\Cloud\Model\ComputeBindAgentReq $compute_bind_agent_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bindMachineAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function bindMachineAgentAsyncWithHttpInfo($id, $bind_agent_req, string $contentType = self::contentTypes['bindMachineAgent'][0])
+    public function bindMachineAgentAsyncWithHttpInfo($id, $compute_bind_agent_req, string $contentType = self::contentTypes['bindMachineAgent'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AgentBinding';
-        $request = $this->bindMachineAgentRequest($id, $bind_agent_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComputeAgentBinding';
+        $request = $this->bindMachineAgentRequest($id, $compute_bind_agent_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -667,13 +695,13 @@ class ComputeApi
      * Create request for operation 'bindMachineAgent'
      *
      * @param  string $id ID is the machine to bind, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\BindAgentReq $bind_agent_req (required)
+     * @param  \Hanzo\Cloud\Model\ComputeBindAgentReq $compute_bind_agent_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['bindMachineAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function bindMachineAgentRequest($id, $bind_agent_req, string $contentType = self::contentTypes['bindMachineAgent'][0])
+    public function bindMachineAgentRequest($id, $compute_bind_agent_req, string $contentType = self::contentTypes['bindMachineAgent'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -683,10 +711,10 @@ class ComputeApi
             );
         }
 
-        // verify the required parameter 'bind_agent_req' is set
-        if ($bind_agent_req === null || (is_array($bind_agent_req) && count($bind_agent_req) === 0)) {
+        // verify the required parameter 'compute_bind_agent_req' is set
+        if ($compute_bind_agent_req === null || (is_array($compute_bind_agent_req) && count($compute_bind_agent_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $bind_agent_req when calling bindMachineAgent'
+                'Missing the required parameter $compute_bind_agent_req when calling bindMachineAgent'
             );
         }
 
@@ -711,18 +739,18 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($bind_agent_req)) {
+        if (isset($compute_bind_agent_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($bind_agent_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compute_bind_agent_req));
             } else {
-                $httpBody = $bind_agent_req;
+                $httpBody = $compute_bind_agent_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -780,16 +808,16 @@ class ComputeApi
      * Cancels a queued or running render in the caller&#39;s org.
      *
      * @param  string $id ID is the job (activity) id, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\JobCancel $job_cancel job_cancel (required)
+     * @param  \Hanzo\Cloud\Model\ComputeJobCancel $compute_job_cancel compute_job_cancel (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelFleetJob'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\JobCanceled
+     * @return \Hanzo\Cloud\Model\ComputeJobCanceled|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function cancelFleetJob($id, $job_cancel, string $contentType = self::contentTypes['cancelFleetJob'][0])
+    public function cancelFleetJob($id, $compute_job_cancel, string $contentType = self::contentTypes['cancelFleetJob'][0])
     {
-        list($response) = $this->cancelFleetJobWithHttpInfo($id, $job_cancel, $contentType);
+        list($response) = $this->cancelFleetJobWithHttpInfo($id, $compute_job_cancel, $contentType);
         return $response;
     }
 
@@ -799,16 +827,16 @@ class ComputeApi
      * Cancels a queued or running render in the caller&#39;s org.
      *
      * @param  string $id ID is the job (activity) id, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\JobCancel $job_cancel (required)
+     * @param  \Hanzo\Cloud\Model\ComputeJobCancel $compute_job_cancel (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelFleetJob'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\JobCanceled, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeJobCanceled|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelFleetJobWithHttpInfo($id, $job_cancel, string $contentType = self::contentTypes['cancelFleetJob'][0])
+    public function cancelFleetJobWithHttpInfo($id, $compute_job_cancel, string $contentType = self::contentTypes['cancelFleetJob'][0])
     {
-        $request = $this->cancelFleetJobRequest($id, $job_cancel, $contentType);
+        $request = $this->cancelFleetJobRequest($id, $compute_job_cancel, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -836,7 +864,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\JobCanceled',
+                        '\Hanzo\Cloud\Model\ComputeJobCanceled',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -858,7 +892,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\JobCanceled',
+                '\Hanzo\Cloud\Model\ComputeJobCanceled',
                 $request,
                 $response,
             );
@@ -867,7 +901,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\JobCanceled',
+                        '\Hanzo\Cloud\Model\ComputeJobCanceled',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -885,15 +927,15 @@ class ComputeApi
      * Cancels a queued or running render in the caller&#39;s org.
      *
      * @param  string $id ID is the job (activity) id, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\JobCancel $job_cancel (required)
+     * @param  \Hanzo\Cloud\Model\ComputeJobCancel $compute_job_cancel (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelFleetJob'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelFleetJobAsync($id, $job_cancel, string $contentType = self::contentTypes['cancelFleetJob'][0])
+    public function cancelFleetJobAsync($id, $compute_job_cancel, string $contentType = self::contentTypes['cancelFleetJob'][0])
     {
-        return $this->cancelFleetJobAsyncWithHttpInfo($id, $job_cancel, $contentType)
+        return $this->cancelFleetJobAsyncWithHttpInfo($id, $compute_job_cancel, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -907,16 +949,16 @@ class ComputeApi
      * Cancels a queued or running render in the caller&#39;s org.
      *
      * @param  string $id ID is the job (activity) id, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\JobCancel $job_cancel (required)
+     * @param  \Hanzo\Cloud\Model\ComputeJobCancel $compute_job_cancel (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelFleetJob'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelFleetJobAsyncWithHttpInfo($id, $job_cancel, string $contentType = self::contentTypes['cancelFleetJob'][0])
+    public function cancelFleetJobAsyncWithHttpInfo($id, $compute_job_cancel, string $contentType = self::contentTypes['cancelFleetJob'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\JobCanceled';
-        $request = $this->cancelFleetJobRequest($id, $job_cancel, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComputeJobCanceled';
+        $request = $this->cancelFleetJobRequest($id, $compute_job_cancel, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -958,13 +1000,13 @@ class ComputeApi
      * Create request for operation 'cancelFleetJob'
      *
      * @param  string $id ID is the job (activity) id, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\JobCancel $job_cancel (required)
+     * @param  \Hanzo\Cloud\Model\ComputeJobCancel $compute_job_cancel (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelFleetJob'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function cancelFleetJobRequest($id, $job_cancel, string $contentType = self::contentTypes['cancelFleetJob'][0])
+    public function cancelFleetJobRequest($id, $compute_job_cancel, string $contentType = self::contentTypes['cancelFleetJob'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -974,10 +1016,10 @@ class ComputeApi
             );
         }
 
-        // verify the required parameter 'job_cancel' is set
-        if ($job_cancel === null || (is_array($job_cancel) && count($job_cancel) === 0)) {
+        // verify the required parameter 'compute_job_cancel' is set
+        if ($compute_job_cancel === null || (is_array($compute_job_cancel) && count($compute_job_cancel) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $job_cancel when calling cancelFleetJob'
+                'Missing the required parameter $compute_job_cancel when calling cancelFleetJob'
             );
         }
 
@@ -1002,18 +1044,18 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($job_cancel)) {
+        if (isset($compute_job_cancel)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($job_cancel));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compute_job_cancel));
             } else {
-                $httpBody = $job_cancel;
+                $httpBody = $compute_job_cancel;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1070,16 +1112,16 @@ class ComputeApi
      *
      * Provisions a DOKS cluster for the caller&#39;s org and answers 201.
      *
-     * @param  \Hanzo\Cloud\Model\CreateClusterReq $create_cluster_req create_cluster_req (required)
+     * @param  \Hanzo\Cloud\Model\ComputeCreateClusterReq $compute_create_cluster_req compute_create_cluster_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createKubernetesCluster'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ClusterView
+     * @return \Hanzo\Cloud\Model\ComputeClusterView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function createKubernetesCluster($create_cluster_req, string $contentType = self::contentTypes['createKubernetesCluster'][0])
+    public function createKubernetesCluster($compute_create_cluster_req, string $contentType = self::contentTypes['createKubernetesCluster'][0])
     {
-        list($response) = $this->createKubernetesClusterWithHttpInfo($create_cluster_req, $contentType);
+        list($response) = $this->createKubernetesClusterWithHttpInfo($compute_create_cluster_req, $contentType);
         return $response;
     }
 
@@ -1088,16 +1130,16 @@ class ComputeApi
      *
      * Provisions a DOKS cluster for the caller&#39;s org and answers 201.
      *
-     * @param  \Hanzo\Cloud\Model\CreateClusterReq $create_cluster_req (required)
+     * @param  \Hanzo\Cloud\Model\ComputeCreateClusterReq $compute_create_cluster_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createKubernetesCluster'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ClusterView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeClusterView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createKubernetesClusterWithHttpInfo($create_cluster_req, string $contentType = self::contentTypes['createKubernetesCluster'][0])
+    public function createKubernetesClusterWithHttpInfo($compute_create_cluster_req, string $contentType = self::contentTypes['createKubernetesCluster'][0])
     {
-        $request = $this->createKubernetesClusterRequest($create_cluster_req, $contentType);
+        $request = $this->createKubernetesClusterRequest($compute_create_cluster_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1125,7 +1167,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ClusterView',
+                        '\Hanzo\Cloud\Model\ComputeClusterView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1147,7 +1195,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ClusterView',
+                '\Hanzo\Cloud\Model\ComputeClusterView',
                 $request,
                 $response,
             );
@@ -1156,7 +1204,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ClusterView',
+                        '\Hanzo\Cloud\Model\ComputeClusterView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1173,15 +1229,15 @@ class ComputeApi
      *
      * Provisions a DOKS cluster for the caller&#39;s org and answers 201.
      *
-     * @param  \Hanzo\Cloud\Model\CreateClusterReq $create_cluster_req (required)
+     * @param  \Hanzo\Cloud\Model\ComputeCreateClusterReq $compute_create_cluster_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createKubernetesCluster'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createKubernetesClusterAsync($create_cluster_req, string $contentType = self::contentTypes['createKubernetesCluster'][0])
+    public function createKubernetesClusterAsync($compute_create_cluster_req, string $contentType = self::contentTypes['createKubernetesCluster'][0])
     {
-        return $this->createKubernetesClusterAsyncWithHttpInfo($create_cluster_req, $contentType)
+        return $this->createKubernetesClusterAsyncWithHttpInfo($compute_create_cluster_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1194,16 +1250,16 @@ class ComputeApi
      *
      * Provisions a DOKS cluster for the caller&#39;s org and answers 201.
      *
-     * @param  \Hanzo\Cloud\Model\CreateClusterReq $create_cluster_req (required)
+     * @param  \Hanzo\Cloud\Model\ComputeCreateClusterReq $compute_create_cluster_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createKubernetesCluster'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createKubernetesClusterAsyncWithHttpInfo($create_cluster_req, string $contentType = self::contentTypes['createKubernetesCluster'][0])
+    public function createKubernetesClusterAsyncWithHttpInfo($compute_create_cluster_req, string $contentType = self::contentTypes['createKubernetesCluster'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ClusterView';
-        $request = $this->createKubernetesClusterRequest($create_cluster_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComputeClusterView';
+        $request = $this->createKubernetesClusterRequest($compute_create_cluster_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1244,19 +1300,19 @@ class ComputeApi
     /**
      * Create request for operation 'createKubernetesCluster'
      *
-     * @param  \Hanzo\Cloud\Model\CreateClusterReq $create_cluster_req (required)
+     * @param  \Hanzo\Cloud\Model\ComputeCreateClusterReq $compute_create_cluster_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createKubernetesCluster'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createKubernetesClusterRequest($create_cluster_req, string $contentType = self::contentTypes['createKubernetesCluster'][0])
+    public function createKubernetesClusterRequest($compute_create_cluster_req, string $contentType = self::contentTypes['createKubernetesCluster'][0])
     {
 
-        // verify the required parameter 'create_cluster_req' is set
-        if ($create_cluster_req === null || (is_array($create_cluster_req) && count($create_cluster_req) === 0)) {
+        // verify the required parameter 'compute_create_cluster_req' is set
+        if ($compute_create_cluster_req === null || (is_array($compute_create_cluster_req) && count($compute_create_cluster_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_cluster_req when calling createKubernetesCluster'
+                'Missing the required parameter $compute_create_cluster_req when calling createKubernetesCluster'
             );
         }
 
@@ -1273,18 +1329,18 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($create_cluster_req)) {
+        if (isset($compute_create_cluster_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_cluster_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compute_create_cluster_req));
             } else {
-                $httpBody = $create_cluster_req;
+                $httpBody = $compute_create_cluster_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1342,16 +1398,16 @@ class ComputeApi
      * Adds a node pool to one of the caller org&#39;s clusters and answers 201 with the created pool.
      *
      * @param  string $cluster_id ClusterID is the cluster to add the pool to, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\PoolCreate $pool_create pool_create (required)
+     * @param  \Hanzo\Cloud\Model\ComputePoolCreate $compute_pool_create compute_pool_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createNodePool'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\NodePoolView
+     * @return \Hanzo\Cloud\Model\ComputeNodePoolView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function createNodePool($cluster_id, $pool_create, string $contentType = self::contentTypes['createNodePool'][0])
+    public function createNodePool($cluster_id, $compute_pool_create, string $contentType = self::contentTypes['createNodePool'][0])
     {
-        list($response) = $this->createNodePoolWithHttpInfo($cluster_id, $pool_create, $contentType);
+        list($response) = $this->createNodePoolWithHttpInfo($cluster_id, $compute_pool_create, $contentType);
         return $response;
     }
 
@@ -1361,16 +1417,16 @@ class ComputeApi
      * Adds a node pool to one of the caller org&#39;s clusters and answers 201 with the created pool.
      *
      * @param  string $cluster_id ClusterID is the cluster to add the pool to, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\PoolCreate $pool_create (required)
+     * @param  \Hanzo\Cloud\Model\ComputePoolCreate $compute_pool_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createNodePool'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\NodePoolView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeNodePoolView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createNodePoolWithHttpInfo($cluster_id, $pool_create, string $contentType = self::contentTypes['createNodePool'][0])
+    public function createNodePoolWithHttpInfo($cluster_id, $compute_pool_create, string $contentType = self::contentTypes['createNodePool'][0])
     {
-        $request = $this->createNodePoolRequest($cluster_id, $pool_create, $contentType);
+        $request = $this->createNodePoolRequest($cluster_id, $compute_pool_create, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1398,7 +1454,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\NodePoolView',
+                        '\Hanzo\Cloud\Model\ComputeNodePoolView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1420,7 +1482,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\NodePoolView',
+                '\Hanzo\Cloud\Model\ComputeNodePoolView',
                 $request,
                 $response,
             );
@@ -1429,7 +1491,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\NodePoolView',
+                        '\Hanzo\Cloud\Model\ComputeNodePoolView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1447,15 +1517,15 @@ class ComputeApi
      * Adds a node pool to one of the caller org&#39;s clusters and answers 201 with the created pool.
      *
      * @param  string $cluster_id ClusterID is the cluster to add the pool to, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\PoolCreate $pool_create (required)
+     * @param  \Hanzo\Cloud\Model\ComputePoolCreate $compute_pool_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createNodePool'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createNodePoolAsync($cluster_id, $pool_create, string $contentType = self::contentTypes['createNodePool'][0])
+    public function createNodePoolAsync($cluster_id, $compute_pool_create, string $contentType = self::contentTypes['createNodePool'][0])
     {
-        return $this->createNodePoolAsyncWithHttpInfo($cluster_id, $pool_create, $contentType)
+        return $this->createNodePoolAsyncWithHttpInfo($cluster_id, $compute_pool_create, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1469,16 +1539,16 @@ class ComputeApi
      * Adds a node pool to one of the caller org&#39;s clusters and answers 201 with the created pool.
      *
      * @param  string $cluster_id ClusterID is the cluster to add the pool to, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\PoolCreate $pool_create (required)
+     * @param  \Hanzo\Cloud\Model\ComputePoolCreate $compute_pool_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createNodePool'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createNodePoolAsyncWithHttpInfo($cluster_id, $pool_create, string $contentType = self::contentTypes['createNodePool'][0])
+    public function createNodePoolAsyncWithHttpInfo($cluster_id, $compute_pool_create, string $contentType = self::contentTypes['createNodePool'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\NodePoolView';
-        $request = $this->createNodePoolRequest($cluster_id, $pool_create, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComputeNodePoolView';
+        $request = $this->createNodePoolRequest($cluster_id, $compute_pool_create, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1520,13 +1590,13 @@ class ComputeApi
      * Create request for operation 'createNodePool'
      *
      * @param  string $cluster_id ClusterID is the cluster to add the pool to, from the URL path. (required)
-     * @param  \Hanzo\Cloud\Model\PoolCreate $pool_create (required)
+     * @param  \Hanzo\Cloud\Model\ComputePoolCreate $compute_pool_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createNodePool'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createNodePoolRequest($cluster_id, $pool_create, string $contentType = self::contentTypes['createNodePool'][0])
+    public function createNodePoolRequest($cluster_id, $compute_pool_create, string $contentType = self::contentTypes['createNodePool'][0])
     {
 
         // verify the required parameter 'cluster_id' is set
@@ -1536,10 +1606,10 @@ class ComputeApi
             );
         }
 
-        // verify the required parameter 'pool_create' is set
-        if ($pool_create === null || (is_array($pool_create) && count($pool_create) === 0)) {
+        // verify the required parameter 'compute_pool_create' is set
+        if ($compute_pool_create === null || (is_array($compute_pool_create) && count($compute_pool_create) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $pool_create when calling createNodePool'
+                'Missing the required parameter $compute_pool_create when calling createNodePool'
             );
         }
 
@@ -1564,18 +1634,18 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($pool_create)) {
+        if (isset($compute_pool_create)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($pool_create));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compute_pool_create));
             } else {
-                $httpBody = $pool_create;
+                $httpBody = $compute_pool_create;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1686,6 +1756,14 @@ class ComputeApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1793,7 +1871,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1908,6 +1986,14 @@ class ComputeApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -2015,7 +2101,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2134,6 +2220,14 @@ class ComputeApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -2272,7 +2366,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2338,7 +2432,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ClusterDetached
+     * @return \Hanzo\Cloud\Model\ComputeClusterDetached|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function detachCluster($id, string $contentType = self::contentTypes['detachCluster'][0])
     {
@@ -2356,7 +2450,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ClusterDetached, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeClusterDetached|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function detachClusterWithHttpInfo($id, string $contentType = self::contentTypes['detachCluster'][0])
     {
@@ -2388,7 +2482,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ClusterDetached',
+                        '\Hanzo\Cloud\Model\ComputeClusterDetached',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2410,7 +2510,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ClusterDetached',
+                '\Hanzo\Cloud\Model\ComputeClusterDetached',
                 $request,
                 $response,
             );
@@ -2419,7 +2519,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ClusterDetached',
+                        '\Hanzo\Cloud\Model\ComputeClusterDetached',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2465,7 +2573,7 @@ class ComputeApi
      */
     public function detachClusterAsyncWithHttpInfo($id, string $contentType = self::contentTypes['detachCluster'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ClusterDetached';
+        $returnType = '\Hanzo\Cloud\Model\ComputeClusterDetached';
         $request = $this->detachClusterRequest($id, $contentType);
 
         return $this->client
@@ -2544,7 +2652,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2603,13 +2711,13 @@ class ComputeApi
     /**
      * Operation getComputeRegions
      *
-     * Regions lists the regions a machine can be launched in.
+     * Lists the regions a machine can be launched in.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComputeRegions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComputeRegions(string $contentType = self::contentTypes['getComputeRegions'][0])
     {
@@ -2620,13 +2728,13 @@ class ComputeApi
     /**
      * Operation getComputeRegionsWithHttpInfo
      *
-     * Regions lists the regions a machine can be launched in.
+     * Lists the regions a machine can be launched in.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComputeRegions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComputeRegionsWithHttpInfo(string $contentType = self::contentTypes['getComputeRegions'][0])
     {
@@ -2662,6 +2770,12 @@ class ComputeApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2694,6 +2808,14 @@ class ComputeApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -2704,7 +2826,7 @@ class ComputeApi
     /**
      * Operation getComputeRegionsAsync
      *
-     * Regions lists the regions a machine can be launched in.
+     * Lists the regions a machine can be launched in.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComputeRegions'] to see the possible values for this operation
      *
@@ -2724,7 +2846,7 @@ class ComputeApi
     /**
      * Operation getComputeRegionsAsyncWithHttpInfo
      *
-     * Regions lists the regions a machine can be launched in.
+     * Lists the regions a machine can be launched in.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComputeRegions'] to see the possible values for this operation
      *
@@ -2796,7 +2918,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2855,13 +2977,13 @@ class ComputeApi
     /**
      * Operation getComputeSizes
      *
-     * Sizes lists the machine sizes available to launch, with their specifications.
+     * Lists the machine sizes available to launch, with their specifications.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComputeSizes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getComputeSizes(string $contentType = self::contentTypes['getComputeSizes'][0])
     {
@@ -2872,13 +2994,13 @@ class ComputeApi
     /**
      * Operation getComputeSizesWithHttpInfo
      *
-     * Sizes lists the machine sizes available to launch, with their specifications.
+     * Lists the machine sizes available to launch, with their specifications.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComputeSizes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getComputeSizesWithHttpInfo(string $contentType = self::contentTypes['getComputeSizes'][0])
     {
@@ -2914,6 +3036,12 @@ class ComputeApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2946,6 +3074,14 @@ class ComputeApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -2956,7 +3092,7 @@ class ComputeApi
     /**
      * Operation getComputeSizesAsync
      *
-     * Sizes lists the machine sizes available to launch, with their specifications.
+     * Lists the machine sizes available to launch, with their specifications.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComputeSizes'] to see the possible values for this operation
      *
@@ -2976,7 +3112,7 @@ class ComputeApi
     /**
      * Operation getComputeSizesAsyncWithHttpInfo
      *
-     * Sizes lists the machine sizes available to launch, with their specifications.
+     * Lists the machine sizes available to launch, with their specifications.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getComputeSizes'] to see the possible values for this operation
      *
@@ -3048,7 +3184,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3114,7 +3250,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ClusterDetailView
+     * @return \Hanzo\Cloud\Model\ComputeClusterDetailView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getKubernetesCluster($id, string $contentType = self::contentTypes['getKubernetesCluster'][0])
     {
@@ -3132,7 +3268,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ClusterDetailView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeClusterDetailView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getKubernetesClusterWithHttpInfo($id, string $contentType = self::contentTypes['getKubernetesCluster'][0])
     {
@@ -3164,7 +3300,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ClusterDetailView',
+                        '\Hanzo\Cloud\Model\ComputeClusterDetailView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3186,7 +3328,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ClusterDetailView',
+                '\Hanzo\Cloud\Model\ComputeClusterDetailView',
                 $request,
                 $response,
             );
@@ -3195,7 +3337,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ClusterDetailView',
+                        '\Hanzo\Cloud\Model\ComputeClusterDetailView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3241,7 +3391,7 @@ class ComputeApi
      */
     public function getKubernetesClusterAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getKubernetesCluster'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ClusterDetailView';
+        $returnType = '\Hanzo\Cloud\Model\ComputeClusterDetailView';
         $request = $this->getKubernetesClusterRequest($id, $contentType);
 
         return $this->client
@@ -3320,7 +3470,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3386,7 +3536,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MachineView
+     * @return \Hanzo\Cloud\Model\ComputeMachineView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMachine($id, string $contentType = self::contentTypes['getMachine'][0])
     {
@@ -3404,7 +3554,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MachineView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeMachineView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMachineWithHttpInfo($id, string $contentType = self::contentTypes['getMachine'][0])
     {
@@ -3436,7 +3586,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MachineView',
+                        '\Hanzo\Cloud\Model\ComputeMachineView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3458,7 +3614,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MachineView',
+                '\Hanzo\Cloud\Model\ComputeMachineView',
                 $request,
                 $response,
             );
@@ -3467,7 +3623,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MachineView',
+                        '\Hanzo\Cloud\Model\ComputeMachineView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3513,7 +3677,7 @@ class ComputeApi
      */
     public function getMachineAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMachine'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MachineView';
+        $returnType = '\Hanzo\Cloud\Model\ComputeMachineView';
         $request = $this->getMachineRequest($id, $contentType);
 
         return $this->client
@@ -3592,7 +3756,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3658,7 +3822,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AgentBinding
+     * @return \Hanzo\Cloud\Model\ComputeAgentBinding|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMachineAgent($id, string $contentType = self::contentTypes['getMachineAgent'][0])
     {
@@ -3676,7 +3840,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AgentBinding, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeAgentBinding|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMachineAgentWithHttpInfo($id, string $contentType = self::contentTypes['getMachineAgent'][0])
     {
@@ -3708,7 +3872,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AgentBinding',
+                        '\Hanzo\Cloud\Model\ComputeAgentBinding',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3730,7 +3900,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AgentBinding',
+                '\Hanzo\Cloud\Model\ComputeAgentBinding',
                 $request,
                 $response,
             );
@@ -3739,7 +3909,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AgentBinding',
+                        '\Hanzo\Cloud\Model\ComputeAgentBinding',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3785,7 +3963,7 @@ class ComputeApi
      */
     public function getMachineAgentAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMachineAgent'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AgentBinding';
+        $returnType = '\Hanzo\Cloud\Model\ComputeAgentBinding';
         $request = $this->getMachineAgentRequest($id, $contentType);
 
         return $this->client
@@ -3864,7 +4042,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3929,7 +4107,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ClusterList
+     * @return \Hanzo\Cloud\Model\ComputeClusterList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listClusters(string $contentType = self::contentTypes['listClusters'][0])
     {
@@ -3946,7 +4124,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ClusterList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeClusterList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listClustersWithHttpInfo(string $contentType = self::contentTypes['listClusters'][0])
     {
@@ -3978,7 +4156,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ClusterList',
+                        '\Hanzo\Cloud\Model\ComputeClusterList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4000,7 +4184,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ClusterList',
+                '\Hanzo\Cloud\Model\ComputeClusterList',
                 $request,
                 $response,
             );
@@ -4009,7 +4193,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ClusterList',
+                        '\Hanzo\Cloud\Model\ComputeClusterList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4053,7 +4245,7 @@ class ComputeApi
      */
     public function listClustersAsyncWithHttpInfo(string $contentType = self::contentTypes['listClusters'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ClusterList';
+        $returnType = '\Hanzo\Cloud\Model\ComputeClusterList';
         $request = $this->listClustersRequest($contentType);
 
         return $this->client
@@ -4116,7 +4308,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4181,7 +4373,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FleetBoard
+     * @return \Hanzo\Cloud\Model\ComputeFleetBoard|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listFleet(string $contentType = self::contentTypes['listFleet'][0])
     {
@@ -4198,7 +4390,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FleetBoard, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeFleetBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listFleetWithHttpInfo(string $contentType = self::contentTypes['listFleet'][0])
     {
@@ -4230,7 +4422,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FleetBoard',
+                        '\Hanzo\Cloud\Model\ComputeFleetBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4252,7 +4450,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FleetBoard',
+                '\Hanzo\Cloud\Model\ComputeFleetBoard',
                 $request,
                 $response,
             );
@@ -4261,7 +4459,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FleetBoard',
+                        '\Hanzo\Cloud\Model\ComputeFleetBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4305,7 +4511,7 @@ class ComputeApi
      */
     public function listFleetAsyncWithHttpInfo(string $contentType = self::contentTypes['listFleet'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FleetBoard';
+        $returnType = '\Hanzo\Cloud\Model\ComputeFleetBoard';
         $request = $this->listFleetRequest($contentType);
 
         return $this->client
@@ -4368,7 +4574,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4435,7 +4641,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\JobList
+     * @return \Hanzo\Cloud\Model\ComputeJobList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listFleetJobs($gpu = null, $status = null, string $contentType = self::contentTypes['listFleetJobs'][0])
     {
@@ -4454,7 +4660,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\JobList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeJobList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listFleetJobsWithHttpInfo($gpu = null, $status = null, string $contentType = self::contentTypes['listFleetJobs'][0])
     {
@@ -4486,7 +4692,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\JobList',
+                        '\Hanzo\Cloud\Model\ComputeJobList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4508,7 +4720,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\JobList',
+                '\Hanzo\Cloud\Model\ComputeJobList',
                 $request,
                 $response,
             );
@@ -4517,7 +4729,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\JobList',
+                        '\Hanzo\Cloud\Model\ComputeJobList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4565,7 +4785,7 @@ class ComputeApi
      */
     public function listFleetJobsAsyncWithHttpInfo($gpu = null, $status = null, string $contentType = self::contentTypes['listFleetJobs'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\JobList';
+        $returnType = '\Hanzo\Cloud\Model\ComputeJobList';
         $request = $this->listFleetJobsRequest($gpu, $status, $contentType);
 
         return $this->client
@@ -4650,7 +4870,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4718,7 +4938,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SampleList
+     * @return \Hanzo\Cloud\Model\ComputeSampleList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listFleetSamples($unit = null, $source = null, $range = null, string $contentType = self::contentTypes['listFleetSamples'][0])
     {
@@ -4738,7 +4958,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SampleList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeSampleList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listFleetSamplesWithHttpInfo($unit = null, $source = null, $range = null, string $contentType = self::contentTypes['listFleetSamples'][0])
     {
@@ -4770,7 +4990,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SampleList',
+                        '\Hanzo\Cloud\Model\ComputeSampleList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4792,7 +5018,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SampleList',
+                '\Hanzo\Cloud\Model\ComputeSampleList',
                 $request,
                 $response,
             );
@@ -4801,7 +5027,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SampleList',
+                        '\Hanzo\Cloud\Model\ComputeSampleList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4851,7 +5085,7 @@ class ComputeApi
      */
     public function listFleetSamplesAsyncWithHttpInfo($unit = null, $source = null, $range = null, string $contentType = self::contentTypes['listFleetSamples'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SampleList';
+        $returnType = '\Hanzo\Cloud\Model\ComputeSampleList';
         $request = $this->listFleetSamplesRequest($unit, $source, $range, $contentType);
 
         return $this->client
@@ -4947,7 +5181,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5012,7 +5246,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\WorkerList
+     * @return \Hanzo\Cloud\Model\ComputeWorkerList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listFleetWorkers(string $contentType = self::contentTypes['listFleetWorkers'][0])
     {
@@ -5029,7 +5263,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\WorkerList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeWorkerList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listFleetWorkersWithHttpInfo(string $contentType = self::contentTypes['listFleetWorkers'][0])
     {
@@ -5061,7 +5295,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\WorkerList',
+                        '\Hanzo\Cloud\Model\ComputeWorkerList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5083,7 +5323,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\WorkerList',
+                '\Hanzo\Cloud\Model\ComputeWorkerList',
                 $request,
                 $response,
             );
@@ -5092,7 +5332,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\WorkerList',
+                        '\Hanzo\Cloud\Model\ComputeWorkerList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5136,7 +5384,7 @@ class ComputeApi
      */
     public function listFleetWorkersAsyncWithHttpInfo(string $contentType = self::contentTypes['listFleetWorkers'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\WorkerList';
+        $returnType = '\Hanzo\Cloud\Model\ComputeWorkerList';
         $request = $this->listFleetWorkersRequest($contentType);
 
         return $this->client
@@ -5199,7 +5447,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5264,7 +5512,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GpuAlertList
+     * @return \Hanzo\Cloud\Model\ComputeGpuAlertList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listGpuAlerts(string $contentType = self::contentTypes['listGpuAlerts'][0])
     {
@@ -5281,7 +5529,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GpuAlertList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeGpuAlertList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listGpuAlertsWithHttpInfo(string $contentType = self::contentTypes['listGpuAlerts'][0])
     {
@@ -5313,7 +5561,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GpuAlertList',
+                        '\Hanzo\Cloud\Model\ComputeGpuAlertList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5335,7 +5589,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GpuAlertList',
+                '\Hanzo\Cloud\Model\ComputeGpuAlertList',
                 $request,
                 $response,
             );
@@ -5344,7 +5598,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GpuAlertList',
+                        '\Hanzo\Cloud\Model\ComputeGpuAlertList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5388,7 +5650,7 @@ class ComputeApi
      */
     public function listGpuAlertsAsyncWithHttpInfo(string $contentType = self::contentTypes['listGpuAlerts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\GpuAlertList';
+        $returnType = '\Hanzo\Cloud\Model\ComputeGpuAlertList';
         $request = $this->listGpuAlertsRequest($contentType);
 
         return $this->client
@@ -5451,7 +5713,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5516,7 +5778,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GpuList
+     * @return \Hanzo\Cloud\Model\ComputeGpuList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listGpus(string $contentType = self::contentTypes['listGpus'][0])
     {
@@ -5533,7 +5795,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GpuList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeGpuList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listGpusWithHttpInfo(string $contentType = self::contentTypes['listGpus'][0])
     {
@@ -5565,7 +5827,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GpuList',
+                        '\Hanzo\Cloud\Model\ComputeGpuList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5587,7 +5855,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GpuList',
+                '\Hanzo\Cloud\Model\ComputeGpuList',
                 $request,
                 $response,
             );
@@ -5596,7 +5864,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GpuList',
+                        '\Hanzo\Cloud\Model\ComputeGpuList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5640,7 +5916,7 @@ class ComputeApi
      */
     public function listGpusAsyncWithHttpInfo(string $contentType = self::contentTypes['listGpus'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\GpuList';
+        $returnType = '\Hanzo\Cloud\Model\ComputeGpuList';
         $request = $this->listGpusRequest($contentType);
 
         return $this->client
@@ -5703,7 +5979,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5768,7 +6044,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ClusterList
+     * @return \Hanzo\Cloud\Model\ComputeClusterList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listKubernetesClusters(string $contentType = self::contentTypes['listKubernetesClusters'][0])
     {
@@ -5785,7 +6061,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ClusterList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeClusterList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listKubernetesClustersWithHttpInfo(string $contentType = self::contentTypes['listKubernetesClusters'][0])
     {
@@ -5817,7 +6093,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ClusterList',
+                        '\Hanzo\Cloud\Model\ComputeClusterList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5839,7 +6121,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ClusterList',
+                '\Hanzo\Cloud\Model\ComputeClusterList',
                 $request,
                 $response,
             );
@@ -5848,7 +6130,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ClusterList',
+                        '\Hanzo\Cloud\Model\ComputeClusterList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5892,7 +6182,7 @@ class ComputeApi
      */
     public function listKubernetesClustersAsyncWithHttpInfo(string $contentType = self::contentTypes['listKubernetesClusters'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ClusterList';
+        $returnType = '\Hanzo\Cloud\Model\ComputeClusterList';
         $request = $this->listKubernetesClustersRequest($contentType);
 
         return $this->client
@@ -5955,7 +6245,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6020,7 +6310,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\NodeList
+     * @return \Hanzo\Cloud\Model\ComputeNodeList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listKubernetesNodes(string $contentType = self::contentTypes['listKubernetesNodes'][0])
     {
@@ -6037,7 +6327,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\NodeList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeNodeList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listKubernetesNodesWithHttpInfo(string $contentType = self::contentTypes['listKubernetesNodes'][0])
     {
@@ -6069,7 +6359,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\NodeList',
+                        '\Hanzo\Cloud\Model\ComputeNodeList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6091,7 +6387,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\NodeList',
+                '\Hanzo\Cloud\Model\ComputeNodeList',
                 $request,
                 $response,
             );
@@ -6100,7 +6396,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\NodeList',
+                        '\Hanzo\Cloud\Model\ComputeNodeList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6144,7 +6448,7 @@ class ComputeApi
      */
     public function listKubernetesNodesAsyncWithHttpInfo(string $contentType = self::contentTypes['listKubernetesNodes'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\NodeList';
+        $returnType = '\Hanzo\Cloud\Model\ComputeNodeList';
         $request = $this->listKubernetesNodesRequest($contentType);
 
         return $this->client
@@ -6207,7 +6511,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6272,7 +6576,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BindingList
+     * @return \Hanzo\Cloud\Model\ComputeBindingList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listMachineAgents(string $contentType = self::contentTypes['listMachineAgents'][0])
     {
@@ -6289,7 +6593,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BindingList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeBindingList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listMachineAgentsWithHttpInfo(string $contentType = self::contentTypes['listMachineAgents'][0])
     {
@@ -6321,7 +6625,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BindingList',
+                        '\Hanzo\Cloud\Model\ComputeBindingList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6343,7 +6653,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BindingList',
+                '\Hanzo\Cloud\Model\ComputeBindingList',
                 $request,
                 $response,
             );
@@ -6352,7 +6662,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BindingList',
+                        '\Hanzo\Cloud\Model\ComputeBindingList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6396,7 +6714,7 @@ class ComputeApi
      */
     public function listMachineAgentsAsyncWithHttpInfo(string $contentType = self::contentTypes['listMachineAgents'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BindingList';
+        $returnType = '\Hanzo\Cloud\Model\ComputeBindingList';
         $request = $this->listMachineAgentsRequest($contentType);
 
         return $this->client
@@ -6459,7 +6777,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6525,7 +6843,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MachineList
+     * @return \Hanzo\Cloud\Model\ComputeMachineList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listMachines($kind = null, string $contentType = self::contentTypes['listMachines'][0])
     {
@@ -6543,7 +6861,7 @@ class ComputeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MachineList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeMachineList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listMachinesWithHttpInfo($kind = null, string $contentType = self::contentTypes['listMachines'][0])
     {
@@ -6575,7 +6893,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MachineList',
+                        '\Hanzo\Cloud\Model\ComputeMachineList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6597,7 +6921,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MachineList',
+                '\Hanzo\Cloud\Model\ComputeMachineList',
                 $request,
                 $response,
             );
@@ -6606,7 +6930,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MachineList',
+                        '\Hanzo\Cloud\Model\ComputeMachineList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6652,7 +6984,7 @@ class ComputeApi
      */
     public function listMachinesAsyncWithHttpInfo($kind = null, string $contentType = self::contentTypes['listMachines'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MachineList';
+        $returnType = '\Hanzo\Cloud\Model\ComputeMachineList';
         $request = $this->listMachinesRequest($kind, $contentType);
 
         return $this->client
@@ -6726,7 +7058,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -7231,16 +7563,16 @@ class ComputeApi
      *
      * Records a BYO worker&#39;s live GPU utilization into the SAME series the fleet board overlays.
      *
-     * @param  \Hanzo\Cloud\Model\SampleIngest $sample_ingest sample_ingest (required)
+     * @param  \Hanzo\Cloud\Model\ComputeSampleIngest $compute_sample_ingest compute_sample_ingest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['recordFleetSample'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SampleAccepted
+     * @return \Hanzo\Cloud\Model\ComputeSampleAccepted|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function recordFleetSample($sample_ingest, string $contentType = self::contentTypes['recordFleetSample'][0])
+    public function recordFleetSample($compute_sample_ingest, string $contentType = self::contentTypes['recordFleetSample'][0])
     {
-        list($response) = $this->recordFleetSampleWithHttpInfo($sample_ingest, $contentType);
+        list($response) = $this->recordFleetSampleWithHttpInfo($compute_sample_ingest, $contentType);
         return $response;
     }
 
@@ -7249,16 +7581,16 @@ class ComputeApi
      *
      * Records a BYO worker&#39;s live GPU utilization into the SAME series the fleet board overlays.
      *
-     * @param  \Hanzo\Cloud\Model\SampleIngest $sample_ingest (required)
+     * @param  \Hanzo\Cloud\Model\ComputeSampleIngest $compute_sample_ingest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['recordFleetSample'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SampleAccepted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeSampleAccepted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function recordFleetSampleWithHttpInfo($sample_ingest, string $contentType = self::contentTypes['recordFleetSample'][0])
+    public function recordFleetSampleWithHttpInfo($compute_sample_ingest, string $contentType = self::contentTypes['recordFleetSample'][0])
     {
-        $request = $this->recordFleetSampleRequest($sample_ingest, $contentType);
+        $request = $this->recordFleetSampleRequest($compute_sample_ingest, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7286,7 +7618,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SampleAccepted',
+                        '\Hanzo\Cloud\Model\ComputeSampleAccepted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7308,7 +7646,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SampleAccepted',
+                '\Hanzo\Cloud\Model\ComputeSampleAccepted',
                 $request,
                 $response,
             );
@@ -7317,7 +7655,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SampleAccepted',
+                        '\Hanzo\Cloud\Model\ComputeSampleAccepted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7334,15 +7680,15 @@ class ComputeApi
      *
      * Records a BYO worker&#39;s live GPU utilization into the SAME series the fleet board overlays.
      *
-     * @param  \Hanzo\Cloud\Model\SampleIngest $sample_ingest (required)
+     * @param  \Hanzo\Cloud\Model\ComputeSampleIngest $compute_sample_ingest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['recordFleetSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function recordFleetSampleAsync($sample_ingest, string $contentType = self::contentTypes['recordFleetSample'][0])
+    public function recordFleetSampleAsync($compute_sample_ingest, string $contentType = self::contentTypes['recordFleetSample'][0])
     {
-        return $this->recordFleetSampleAsyncWithHttpInfo($sample_ingest, $contentType)
+        return $this->recordFleetSampleAsyncWithHttpInfo($compute_sample_ingest, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7355,16 +7701,16 @@ class ComputeApi
      *
      * Records a BYO worker&#39;s live GPU utilization into the SAME series the fleet board overlays.
      *
-     * @param  \Hanzo\Cloud\Model\SampleIngest $sample_ingest (required)
+     * @param  \Hanzo\Cloud\Model\ComputeSampleIngest $compute_sample_ingest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['recordFleetSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function recordFleetSampleAsyncWithHttpInfo($sample_ingest, string $contentType = self::contentTypes['recordFleetSample'][0])
+    public function recordFleetSampleAsyncWithHttpInfo($compute_sample_ingest, string $contentType = self::contentTypes['recordFleetSample'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SampleAccepted';
-        $request = $this->recordFleetSampleRequest($sample_ingest, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComputeSampleAccepted';
+        $request = $this->recordFleetSampleRequest($compute_sample_ingest, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7405,19 +7751,19 @@ class ComputeApi
     /**
      * Create request for operation 'recordFleetSample'
      *
-     * @param  \Hanzo\Cloud\Model\SampleIngest $sample_ingest (required)
+     * @param  \Hanzo\Cloud\Model\ComputeSampleIngest $compute_sample_ingest (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['recordFleetSample'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function recordFleetSampleRequest($sample_ingest, string $contentType = self::contentTypes['recordFleetSample'][0])
+    public function recordFleetSampleRequest($compute_sample_ingest, string $contentType = self::contentTypes['recordFleetSample'][0])
     {
 
-        // verify the required parameter 'sample_ingest' is set
-        if ($sample_ingest === null || (is_array($sample_ingest) && count($sample_ingest) === 0)) {
+        // verify the required parameter 'compute_sample_ingest' is set
+        if ($compute_sample_ingest === null || (is_array($compute_sample_ingest) && count($compute_sample_ingest) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $sample_ingest when calling recordFleetSample'
+                'Missing the required parameter $compute_sample_ingest when calling recordFleetSample'
             );
         }
 
@@ -7434,18 +7780,18 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($sample_ingest)) {
+        if (isset($compute_sample_ingest)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sample_ingest));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compute_sample_ingest));
             } else {
-                $httpBody = $sample_ingest;
+                $httpBody = $compute_sample_ingest;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7504,16 +7850,16 @@ class ComputeApi
      *
      * @param  string $cluster_id ClusterID is the cluster holding the pool, from the URL path. (required)
      * @param  string $pool_id PoolID is the pool to resize, from the URL path — the &#x60;poolId&#x60; a cluster read reports for it. Required. (required)
-     * @param  \Hanzo\Cloud\Model\PoolScale $pool_scale pool_scale (required)
+     * @param  \Hanzo\Cloud\Model\ComputePoolScale $compute_pool_scale compute_pool_scale (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['scaleNodePool'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\NodePoolView
+     * @return \Hanzo\Cloud\Model\ComputeNodePoolView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function scaleNodePool($cluster_id, $pool_id, $pool_scale, string $contentType = self::contentTypes['scaleNodePool'][0])
+    public function scaleNodePool($cluster_id, $pool_id, $compute_pool_scale, string $contentType = self::contentTypes['scaleNodePool'][0])
     {
-        list($response) = $this->scaleNodePoolWithHttpInfo($cluster_id, $pool_id, $pool_scale, $contentType);
+        list($response) = $this->scaleNodePoolWithHttpInfo($cluster_id, $pool_id, $compute_pool_scale, $contentType);
         return $response;
     }
 
@@ -7524,16 +7870,16 @@ class ComputeApi
      *
      * @param  string $cluster_id ClusterID is the cluster holding the pool, from the URL path. (required)
      * @param  string $pool_id PoolID is the pool to resize, from the URL path — the &#x60;poolId&#x60; a cluster read reports for it. Required. (required)
-     * @param  \Hanzo\Cloud\Model\PoolScale $pool_scale (required)
+     * @param  \Hanzo\Cloud\Model\ComputePoolScale $compute_pool_scale (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['scaleNodePool'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\NodePoolView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ComputeNodePoolView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function scaleNodePoolWithHttpInfo($cluster_id, $pool_id, $pool_scale, string $contentType = self::contentTypes['scaleNodePool'][0])
+    public function scaleNodePoolWithHttpInfo($cluster_id, $pool_id, $compute_pool_scale, string $contentType = self::contentTypes['scaleNodePool'][0])
     {
-        $request = $this->scaleNodePoolRequest($cluster_id, $pool_id, $pool_scale, $contentType);
+        $request = $this->scaleNodePoolRequest($cluster_id, $pool_id, $compute_pool_scale, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7561,7 +7907,13 @@ class ComputeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\NodePoolView',
+                        '\Hanzo\Cloud\Model\ComputeNodePoolView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7583,7 +7935,7 @@ class ComputeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\NodePoolView',
+                '\Hanzo\Cloud\Model\ComputeNodePoolView',
                 $request,
                 $response,
             );
@@ -7592,7 +7944,15 @@ class ComputeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\NodePoolView',
+                        '\Hanzo\Cloud\Model\ComputeNodePoolView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7611,15 +7971,15 @@ class ComputeApi
      *
      * @param  string $cluster_id ClusterID is the cluster holding the pool, from the URL path. (required)
      * @param  string $pool_id PoolID is the pool to resize, from the URL path — the &#x60;poolId&#x60; a cluster read reports for it. Required. (required)
-     * @param  \Hanzo\Cloud\Model\PoolScale $pool_scale (required)
+     * @param  \Hanzo\Cloud\Model\ComputePoolScale $compute_pool_scale (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['scaleNodePool'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function scaleNodePoolAsync($cluster_id, $pool_id, $pool_scale, string $contentType = self::contentTypes['scaleNodePool'][0])
+    public function scaleNodePoolAsync($cluster_id, $pool_id, $compute_pool_scale, string $contentType = self::contentTypes['scaleNodePool'][0])
     {
-        return $this->scaleNodePoolAsyncWithHttpInfo($cluster_id, $pool_id, $pool_scale, $contentType)
+        return $this->scaleNodePoolAsyncWithHttpInfo($cluster_id, $pool_id, $compute_pool_scale, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7634,16 +7994,16 @@ class ComputeApi
      *
      * @param  string $cluster_id ClusterID is the cluster holding the pool, from the URL path. (required)
      * @param  string $pool_id PoolID is the pool to resize, from the URL path — the &#x60;poolId&#x60; a cluster read reports for it. Required. (required)
-     * @param  \Hanzo\Cloud\Model\PoolScale $pool_scale (required)
+     * @param  \Hanzo\Cloud\Model\ComputePoolScale $compute_pool_scale (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['scaleNodePool'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function scaleNodePoolAsyncWithHttpInfo($cluster_id, $pool_id, $pool_scale, string $contentType = self::contentTypes['scaleNodePool'][0])
+    public function scaleNodePoolAsyncWithHttpInfo($cluster_id, $pool_id, $compute_pool_scale, string $contentType = self::contentTypes['scaleNodePool'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\NodePoolView';
-        $request = $this->scaleNodePoolRequest($cluster_id, $pool_id, $pool_scale, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ComputeNodePoolView';
+        $request = $this->scaleNodePoolRequest($cluster_id, $pool_id, $compute_pool_scale, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7686,13 +8046,13 @@ class ComputeApi
      *
      * @param  string $cluster_id ClusterID is the cluster holding the pool, from the URL path. (required)
      * @param  string $pool_id PoolID is the pool to resize, from the URL path — the &#x60;poolId&#x60; a cluster read reports for it. Required. (required)
-     * @param  \Hanzo\Cloud\Model\PoolScale $pool_scale (required)
+     * @param  \Hanzo\Cloud\Model\ComputePoolScale $compute_pool_scale (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['scaleNodePool'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function scaleNodePoolRequest($cluster_id, $pool_id, $pool_scale, string $contentType = self::contentTypes['scaleNodePool'][0])
+    public function scaleNodePoolRequest($cluster_id, $pool_id, $compute_pool_scale, string $contentType = self::contentTypes['scaleNodePool'][0])
     {
 
         // verify the required parameter 'cluster_id' is set
@@ -7709,10 +8069,10 @@ class ComputeApi
             );
         }
 
-        // verify the required parameter 'pool_scale' is set
-        if ($pool_scale === null || (is_array($pool_scale) && count($pool_scale) === 0)) {
+        // verify the required parameter 'compute_pool_scale' is set
+        if ($compute_pool_scale === null || (is_array($compute_pool_scale) && count($compute_pool_scale) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $pool_scale when calling scaleNodePool'
+                'Missing the required parameter $compute_pool_scale when calling scaleNodePool'
             );
         }
 
@@ -7745,18 +8105,18 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($pool_scale)) {
+        if (isset($compute_pool_scale)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($pool_scale));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($compute_pool_scale));
             } else {
-                $httpBody = $pool_scale;
+                $httpBody = $compute_pool_scale;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7867,6 +8227,14 @@ class ComputeApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -7974,7 +8342,7 @@ class ComputeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );

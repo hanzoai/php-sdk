@@ -89,6 +89,12 @@ class FlagApi
         'getFlagHealth' => [
             'application/json',
         ],
+        'getFlagOptin' => [
+            'application/json',
+        ],
+        'getFlagPlatform' => [
+            'application/json',
+        ],
         'postFlag' => [
             'application/json',
         ],
@@ -96,6 +102,12 @@ class FlagApi
             'application/json',
         ],
         'putFlagDefsByKey' => [
+            'application/json',
+        ],
+        'putFlagOptin' => [
+            'application/json',
+        ],
+        'putFlagOptinOrg' => [
             'application/json',
         ],
     ];
@@ -156,7 +168,7 @@ class FlagApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeletedOut
+     * @return \Hanzo\Cloud\Model\FlagDeletedOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteFlagDefsByKey($key, string $contentType = self::contentTypes['deleteFlagDefsByKey'][0])
     {
@@ -174,7 +186,7 @@ class FlagApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeletedOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FlagDeletedOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteFlagDefsByKeyWithHttpInfo($key, string $contentType = self::contentTypes['deleteFlagDefsByKey'][0])
     {
@@ -206,7 +218,13 @@ class FlagApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeletedOut',
+                        '\Hanzo\Cloud\Model\FlagDeletedOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -228,7 +246,7 @@ class FlagApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeletedOut',
+                '\Hanzo\Cloud\Model\FlagDeletedOut',
                 $request,
                 $response,
             );
@@ -237,7 +255,15 @@ class FlagApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeletedOut',
+                        '\Hanzo\Cloud\Model\FlagDeletedOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -283,7 +309,7 @@ class FlagApi
      */
     public function deleteFlagDefsByKeyAsyncWithHttpInfo($key, string $contentType = self::contentTypes['deleteFlagDefsByKey'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeletedOut';
+        $returnType = '\Hanzo\Cloud\Model\FlagDeletedOut';
         $request = $this->deleteFlagDefsByKeyRequest($key, $contentType);
 
         return $this->client
@@ -362,7 +388,7 @@ class FlagApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -428,7 +454,7 @@ class FlagApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ActivityOut
+     * @return \Hanzo\Cloud\Model\FlagActivityOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFlagActivity($limit = null, string $contentType = self::contentTypes['getFlagActivity'][0])
     {
@@ -446,7 +472,7 @@ class FlagApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ActivityOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FlagActivityOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFlagActivityWithHttpInfo($limit = null, string $contentType = self::contentTypes['getFlagActivity'][0])
     {
@@ -478,7 +504,13 @@ class FlagApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ActivityOut',
+                        '\Hanzo\Cloud\Model\FlagActivityOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -500,7 +532,7 @@ class FlagApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ActivityOut',
+                '\Hanzo\Cloud\Model\FlagActivityOut',
                 $request,
                 $response,
             );
@@ -509,7 +541,15 @@ class FlagApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ActivityOut',
+                        '\Hanzo\Cloud\Model\FlagActivityOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -555,7 +595,7 @@ class FlagApi
      */
     public function getFlagActivityAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getFlagActivity'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ActivityOut';
+        $returnType = '\Hanzo\Cloud\Model\FlagActivityOut';
         $request = $this->getFlagActivityRequest($limit, $contentType);
 
         return $this->client
@@ -629,7 +669,7 @@ class FlagApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -694,7 +734,7 @@ class FlagApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DefsOut
+     * @return \Hanzo\Cloud\Model\FlagDefsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFlagDefs(string $contentType = self::contentTypes['getFlagDefs'][0])
     {
@@ -711,7 +751,7 @@ class FlagApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DefsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FlagDefsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFlagDefsWithHttpInfo(string $contentType = self::contentTypes['getFlagDefs'][0])
     {
@@ -743,7 +783,13 @@ class FlagApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DefsOut',
+                        '\Hanzo\Cloud\Model\FlagDefsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -765,7 +811,7 @@ class FlagApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DefsOut',
+                '\Hanzo\Cloud\Model\FlagDefsOut',
                 $request,
                 $response,
             );
@@ -774,7 +820,15 @@ class FlagApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DefsOut',
+                        '\Hanzo\Cloud\Model\FlagDefsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -818,7 +872,7 @@ class FlagApi
      */
     public function getFlagDefsAsyncWithHttpInfo(string $contentType = self::contentTypes['getFlagDefs'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DefsOut';
+        $returnType = '\Hanzo\Cloud\Model\FlagDefsOut';
         $request = $this->getFlagDefsRequest($contentType);
 
         return $this->client
@@ -881,7 +935,7 @@ class FlagApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -947,7 +1001,7 @@ class FlagApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DefRow
+     * @return \Hanzo\Cloud\Model\FlagDefRow|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFlagDefsByKey($key, string $contentType = self::contentTypes['getFlagDefsByKey'][0])
     {
@@ -965,7 +1019,7 @@ class FlagApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DefRow, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FlagDefRow|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFlagDefsByKeyWithHttpInfo($key, string $contentType = self::contentTypes['getFlagDefsByKey'][0])
     {
@@ -997,7 +1051,13 @@ class FlagApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DefRow',
+                        '\Hanzo\Cloud\Model\FlagDefRow',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1019,7 +1079,7 @@ class FlagApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DefRow',
+                '\Hanzo\Cloud\Model\FlagDefRow',
                 $request,
                 $response,
             );
@@ -1028,7 +1088,15 @@ class FlagApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DefRow',
+                        '\Hanzo\Cloud\Model\FlagDefRow',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1074,7 +1142,7 @@ class FlagApi
      */
     public function getFlagDefsByKeyAsyncWithHttpInfo($key, string $contentType = self::contentTypes['getFlagDefsByKey'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DefRow';
+        $returnType = '\Hanzo\Cloud\Model\FlagDefRow';
         $request = $this->getFlagDefsByKeyRequest($key, $contentType);
 
         return $this->client
@@ -1153,7 +1221,7 @@ class FlagApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1212,13 +1280,13 @@ class FlagApi
     /**
      * Operation getFlagHealth
      *
-     * Health reports that the flag engine is serving.
+     * Reports that the flag engine is serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\HealthOut
+     * @return \Hanzo\Cloud\Model\FlagHealthOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFlagHealth(string $contentType = self::contentTypes['getFlagHealth'][0])
     {
@@ -1229,13 +1297,13 @@ class FlagApi
     /**
      * Operation getFlagHealthWithHttpInfo
      *
-     * Health reports that the flag engine is serving.
+     * Reports that the flag engine is serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\HealthOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FlagHealthOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFlagHealthWithHttpInfo(string $contentType = self::contentTypes['getFlagHealth'][0])
     {
@@ -1267,7 +1335,13 @@ class FlagApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\HealthOut',
+                        '\Hanzo\Cloud\Model\FlagHealthOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1289,7 +1363,7 @@ class FlagApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\HealthOut',
+                '\Hanzo\Cloud\Model\FlagHealthOut',
                 $request,
                 $response,
             );
@@ -1298,7 +1372,15 @@ class FlagApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\HealthOut',
+                        '\Hanzo\Cloud\Model\FlagHealthOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1313,7 +1395,7 @@ class FlagApi
     /**
      * Operation getFlagHealthAsync
      *
-     * Health reports that the flag engine is serving.
+     * Reports that the flag engine is serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagHealth'] to see the possible values for this operation
      *
@@ -1333,7 +1415,7 @@ class FlagApi
     /**
      * Operation getFlagHealthAsyncWithHttpInfo
      *
-     * Health reports that the flag engine is serving.
+     * Reports that the flag engine is serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagHealth'] to see the possible values for this operation
      *
@@ -1342,7 +1424,7 @@ class FlagApi
      */
     public function getFlagHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getFlagHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\HealthOut';
+        $returnType = '\Hanzo\Cloud\Model\FlagHealthOut';
         $request = $this->getFlagHealthRequest($contentType);
 
         return $this->client
@@ -1405,7 +1487,539 @@ class FlagApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getFlagOptin
+     *
+     * Answers the signed-in caller&#39;s opt-in to public betas: whether they opted in, whether the org they act in blocked it, and which betas are public.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagOptin'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\FlagOptinOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getFlagOptin(string $contentType = self::contentTypes['getFlagOptin'][0])
+    {
+        list($response) = $this->getFlagOptinWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getFlagOptinWithHttpInfo
+     *
+     * Answers the signed-in caller&#39;s opt-in to public betas: whether they opted in, whether the org they act in blocked it, and which betas are public.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagOptin'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\FlagOptinOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getFlagOptinWithHttpInfo(string $contentType = self::contentTypes['getFlagOptin'][0])
+    {
+        $request = $this->getFlagOptinRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\FlagOptinOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\FlagOptinOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\FlagOptinOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getFlagOptinAsync
+     *
+     * Answers the signed-in caller&#39;s opt-in to public betas: whether they opted in, whether the org they act in blocked it, and which betas are public.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagOptin'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFlagOptinAsync(string $contentType = self::contentTypes['getFlagOptin'][0])
+    {
+        return $this->getFlagOptinAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getFlagOptinAsyncWithHttpInfo
+     *
+     * Answers the signed-in caller&#39;s opt-in to public betas: whether they opted in, whether the org they act in blocked it, and which betas are public.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagOptin'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFlagOptinAsyncWithHttpInfo(string $contentType = self::contentTypes['getFlagOptin'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\FlagOptinOut';
+        $request = $this->getFlagOptinRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getFlagOptin'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagOptin'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getFlagOptinRequest(string $contentType = self::contentTypes['getFlagOptin'][0])
+    {
+
+
+        $resourcePath = '/v1/flag/optin';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getFlagPlatform
+     *
+     * Answers the platform switches that are decided per caller — &#x60;beta&#x60;, whether the caller sees what is not yet generally available — as they apply to the signed-in caller: its validated org and user, never anything the request states.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagPlatform'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\FlagPlatformOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getFlagPlatform(string $contentType = self::contentTypes['getFlagPlatform'][0])
+    {
+        list($response) = $this->getFlagPlatformWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getFlagPlatformWithHttpInfo
+     *
+     * Answers the platform switches that are decided per caller — &#x60;beta&#x60;, whether the caller sees what is not yet generally available — as they apply to the signed-in caller: its validated org and user, never anything the request states.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagPlatform'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\FlagPlatformOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getFlagPlatformWithHttpInfo(string $contentType = self::contentTypes['getFlagPlatform'][0])
+    {
+        $request = $this->getFlagPlatformRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\FlagPlatformOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\FlagPlatformOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\FlagPlatformOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getFlagPlatformAsync
+     *
+     * Answers the platform switches that are decided per caller — &#x60;beta&#x60;, whether the caller sees what is not yet generally available — as they apply to the signed-in caller: its validated org and user, never anything the request states.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagPlatform'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFlagPlatformAsync(string $contentType = self::contentTypes['getFlagPlatform'][0])
+    {
+        return $this->getFlagPlatformAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getFlagPlatformAsyncWithHttpInfo
+     *
+     * Answers the platform switches that are decided per caller — &#x60;beta&#x60;, whether the caller sees what is not yet generally available — as they apply to the signed-in caller: its validated org and user, never anything the request states.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagPlatform'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFlagPlatformAsyncWithHttpInfo(string $contentType = self::contentTypes['getFlagPlatform'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\FlagPlatformOut';
+        $request = $this->getFlagPlatformRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getFlagPlatform'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagPlatform'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getFlagPlatformRequest(string $contentType = self::contentTypes['getFlagPlatform'][0])
+    {
+
+
+        $resourcePath = '/v1/flag/platform';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1464,36 +2078,36 @@ class FlagApi
     /**
      * Operation postFlag
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in evaluate_in (required)
+     * @param  \Hanzo\Cloud\Model\FlagEvaluateIn $flag_evaluate_in flag_evaluate_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlag'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postFlag($evaluate_in, string $contentType = self::contentTypes['postFlag'][0])
+    public function postFlag($flag_evaluate_in, string $contentType = self::contentTypes['postFlag'][0])
     {
-        list($response) = $this->postFlagWithHttpInfo($evaluate_in, $contentType);
+        list($response) = $this->postFlagWithHttpInfo($flag_evaluate_in, $contentType);
         return $response;
     }
 
     /**
      * Operation postFlagWithHttpInfo
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
+     * @param  \Hanzo\Cloud\Model\FlagEvaluateIn $flag_evaluate_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlag'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postFlagWithHttpInfo($evaluate_in, string $contentType = self::contentTypes['postFlag'][0])
+    public function postFlagWithHttpInfo($flag_evaluate_in, string $contentType = self::contentTypes['postFlag'][0])
     {
-        $request = $this->postFlagRequest($evaluate_in, $contentType);
+        $request = $this->postFlagRequest($flag_evaluate_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1522,6 +2136,12 @@ class FlagApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1557,6 +2177,14 @@ class FlagApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1567,17 +2195,17 @@ class FlagApi
     /**
      * Operation postFlagAsync
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
+     * @param  \Hanzo\Cloud\Model\FlagEvaluateIn $flag_evaluate_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlag'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFlagAsync($evaluate_in, string $contentType = self::contentTypes['postFlag'][0])
+    public function postFlagAsync($flag_evaluate_in, string $contentType = self::contentTypes['postFlag'][0])
     {
-        return $this->postFlagAsyncWithHttpInfo($evaluate_in, $contentType)
+        return $this->postFlagAsyncWithHttpInfo($flag_evaluate_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1588,18 +2216,18 @@ class FlagApi
     /**
      * Operation postFlagAsyncWithHttpInfo
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
+     * @param  \Hanzo\Cloud\Model\FlagEvaluateIn $flag_evaluate_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlag'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFlagAsyncWithHttpInfo($evaluate_in, string $contentType = self::contentTypes['postFlag'][0])
+    public function postFlagAsyncWithHttpInfo($flag_evaluate_in, string $contentType = self::contentTypes['postFlag'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postFlagRequest($evaluate_in, $contentType);
+        $request = $this->postFlagRequest($flag_evaluate_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1640,19 +2268,19 @@ class FlagApi
     /**
      * Create request for operation 'postFlag'
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
+     * @param  \Hanzo\Cloud\Model\FlagEvaluateIn $flag_evaluate_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlag'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postFlagRequest($evaluate_in, string $contentType = self::contentTypes['postFlag'][0])
+    public function postFlagRequest($flag_evaluate_in, string $contentType = self::contentTypes['postFlag'][0])
     {
 
-        // verify the required parameter 'evaluate_in' is set
-        if ($evaluate_in === null || (is_array($evaluate_in) && count($evaluate_in) === 0)) {
+        // verify the required parameter 'flag_evaluate_in' is set
+        if ($flag_evaluate_in === null || (is_array($flag_evaluate_in) && count($flag_evaluate_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $evaluate_in when calling postFlag'
+                'Missing the required parameter $flag_evaluate_in when calling postFlag'
             );
         }
 
@@ -1669,18 +2297,18 @@ class FlagApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($evaluate_in)) {
+        if (isset($flag_evaluate_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($evaluate_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($flag_evaluate_in));
             } else {
-                $httpBody = $evaluate_in;
+                $httpBody = $flag_evaluate_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1735,36 +2363,36 @@ class FlagApi
     /**
      * Operation postFlagDecide
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in evaluate_in (required)
+     * @param  \Hanzo\Cloud\Model\FlagEvaluateIn $flag_evaluate_in flag_evaluate_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlagDecide'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postFlagDecide($evaluate_in, string $contentType = self::contentTypes['postFlagDecide'][0])
+    public function postFlagDecide($flag_evaluate_in, string $contentType = self::contentTypes['postFlagDecide'][0])
     {
-        list($response) = $this->postFlagDecideWithHttpInfo($evaluate_in, $contentType);
+        list($response) = $this->postFlagDecideWithHttpInfo($flag_evaluate_in, $contentType);
         return $response;
     }
 
     /**
      * Operation postFlagDecideWithHttpInfo
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
+     * @param  \Hanzo\Cloud\Model\FlagEvaluateIn $flag_evaluate_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlagDecide'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postFlagDecideWithHttpInfo($evaluate_in, string $contentType = self::contentTypes['postFlagDecide'][0])
+    public function postFlagDecideWithHttpInfo($flag_evaluate_in, string $contentType = self::contentTypes['postFlagDecide'][0])
     {
-        $request = $this->postFlagDecideRequest($evaluate_in, $contentType);
+        $request = $this->postFlagDecideRequest($flag_evaluate_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1793,6 +2421,12 @@ class FlagApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1828,6 +2462,14 @@ class FlagApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1838,17 +2480,17 @@ class FlagApi
     /**
      * Operation postFlagDecideAsync
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
+     * @param  \Hanzo\Cloud\Model\FlagEvaluateIn $flag_evaluate_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlagDecide'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFlagDecideAsync($evaluate_in, string $contentType = self::contentTypes['postFlagDecide'][0])
+    public function postFlagDecideAsync($flag_evaluate_in, string $contentType = self::contentTypes['postFlagDecide'][0])
     {
-        return $this->postFlagDecideAsyncWithHttpInfo($evaluate_in, $contentType)
+        return $this->postFlagDecideAsyncWithHttpInfo($flag_evaluate_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1859,18 +2501,18 @@ class FlagApi
     /**
      * Operation postFlagDecideAsyncWithHttpInfo
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
+     * @param  \Hanzo\Cloud\Model\FlagEvaluateIn $flag_evaluate_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlagDecide'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFlagDecideAsyncWithHttpInfo($evaluate_in, string $contentType = self::contentTypes['postFlagDecide'][0])
+    public function postFlagDecideAsyncWithHttpInfo($flag_evaluate_in, string $contentType = self::contentTypes['postFlagDecide'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postFlagDecideRequest($evaluate_in, $contentType);
+        $request = $this->postFlagDecideRequest($flag_evaluate_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1911,19 +2553,19 @@ class FlagApi
     /**
      * Create request for operation 'postFlagDecide'
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
+     * @param  \Hanzo\Cloud\Model\FlagEvaluateIn $flag_evaluate_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlagDecide'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postFlagDecideRequest($evaluate_in, string $contentType = self::contentTypes['postFlagDecide'][0])
+    public function postFlagDecideRequest($flag_evaluate_in, string $contentType = self::contentTypes['postFlagDecide'][0])
     {
 
-        // verify the required parameter 'evaluate_in' is set
-        if ($evaluate_in === null || (is_array($evaluate_in) && count($evaluate_in) === 0)) {
+        // verify the required parameter 'flag_evaluate_in' is set
+        if ($flag_evaluate_in === null || (is_array($flag_evaluate_in) && count($flag_evaluate_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $evaluate_in when calling postFlagDecide'
+                'Missing the required parameter $flag_evaluate_in when calling postFlagDecide'
             );
         }
 
@@ -1940,18 +2582,18 @@ class FlagApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($evaluate_in)) {
+        if (isset($flag_evaluate_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($evaluate_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($flag_evaluate_in));
             } else {
-                $httpBody = $evaluate_in;
+                $httpBody = $flag_evaluate_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2014,7 +2656,7 @@ class FlagApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DefRow
+     * @return \Hanzo\Cloud\Model\FlagDefRow|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function putFlagDefsByKey($key, $body, string $contentType = self::contentTypes['putFlagDefsByKey'][0])
     {
@@ -2033,7 +2675,7 @@ class FlagApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DefRow, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FlagDefRow|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function putFlagDefsByKeyWithHttpInfo($key, $body, string $contentType = self::contentTypes['putFlagDefsByKey'][0])
     {
@@ -2065,7 +2707,13 @@ class FlagApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DefRow',
+                        '\Hanzo\Cloud\Model\FlagDefRow',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2087,7 +2735,7 @@ class FlagApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DefRow',
+                '\Hanzo\Cloud\Model\FlagDefRow',
                 $request,
                 $response,
             );
@@ -2096,7 +2744,15 @@ class FlagApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DefRow',
+                        '\Hanzo\Cloud\Model\FlagDefRow',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2144,7 +2800,7 @@ class FlagApi
      */
     public function putFlagDefsByKeyAsyncWithHttpInfo($key, $body, string $contentType = self::contentTypes['putFlagDefsByKey'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DefRow';
+        $returnType = '\Hanzo\Cloud\Model\FlagDefRow';
         $request = $this->putFlagDefsByKeyRequest($key, $body, $contentType);
 
         return $this->client
@@ -2231,7 +2887,7 @@ class FlagApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2243,6 +2899,576 @@ class FlagApi
                 $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
             } else {
                 $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putFlagOptin
+     *
+     * Sets the signed-in caller&#39;s OWN opt-in to public betas: on, every public beta and each one promoted later is on for them; off, none is.
+     *
+     * @param  \Hanzo\Cloud\Model\FlagOptinIn $flag_optin_in flag_optin_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagOptin'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\FlagOptinOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putFlagOptin($flag_optin_in, string $contentType = self::contentTypes['putFlagOptin'][0])
+    {
+        list($response) = $this->putFlagOptinWithHttpInfo($flag_optin_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putFlagOptinWithHttpInfo
+     *
+     * Sets the signed-in caller&#39;s OWN opt-in to public betas: on, every public beta and each one promoted later is on for them; off, none is.
+     *
+     * @param  \Hanzo\Cloud\Model\FlagOptinIn $flag_optin_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagOptin'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\FlagOptinOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putFlagOptinWithHttpInfo($flag_optin_in, string $contentType = self::contentTypes['putFlagOptin'][0])
+    {
+        $request = $this->putFlagOptinRequest($flag_optin_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\FlagOptinOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\FlagOptinOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\FlagOptinOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putFlagOptinAsync
+     *
+     * Sets the signed-in caller&#39;s OWN opt-in to public betas: on, every public beta and each one promoted later is on for them; off, none is.
+     *
+     * @param  \Hanzo\Cloud\Model\FlagOptinIn $flag_optin_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagOptin'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putFlagOptinAsync($flag_optin_in, string $contentType = self::contentTypes['putFlagOptin'][0])
+    {
+        return $this->putFlagOptinAsyncWithHttpInfo($flag_optin_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putFlagOptinAsyncWithHttpInfo
+     *
+     * Sets the signed-in caller&#39;s OWN opt-in to public betas: on, every public beta and each one promoted later is on for them; off, none is.
+     *
+     * @param  \Hanzo\Cloud\Model\FlagOptinIn $flag_optin_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagOptin'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putFlagOptinAsyncWithHttpInfo($flag_optin_in, string $contentType = self::contentTypes['putFlagOptin'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\FlagOptinOut';
+        $request = $this->putFlagOptinRequest($flag_optin_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putFlagOptin'
+     *
+     * @param  \Hanzo\Cloud\Model\FlagOptinIn $flag_optin_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagOptin'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putFlagOptinRequest($flag_optin_in, string $contentType = self::contentTypes['putFlagOptin'][0])
+    {
+
+        // verify the required parameter 'flag_optin_in' is set
+        if ($flag_optin_in === null || (is_array($flag_optin_in) && count($flag_optin_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $flag_optin_in when calling putFlagOptin'
+            );
+        }
+
+
+        $resourcePath = '/v1/flag/optin';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($flag_optin_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($flag_optin_in));
+            } else {
+                $httpBody = $flag_optin_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putFlagOptinOrg
+     *
+     * Blocks or unblocks the opt-in to public betas for every member of the org the caller acts in.
+     *
+     * @param  \Hanzo\Cloud\Model\FlagOrgOptinIn $flag_org_optin_in flag_org_optin_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagOptinOrg'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\FlagOrgOptinOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putFlagOptinOrg($flag_org_optin_in, string $contentType = self::contentTypes['putFlagOptinOrg'][0])
+    {
+        list($response) = $this->putFlagOptinOrgWithHttpInfo($flag_org_optin_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putFlagOptinOrgWithHttpInfo
+     *
+     * Blocks or unblocks the opt-in to public betas for every member of the org the caller acts in.
+     *
+     * @param  \Hanzo\Cloud\Model\FlagOrgOptinIn $flag_org_optin_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagOptinOrg'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\FlagOrgOptinOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putFlagOptinOrgWithHttpInfo($flag_org_optin_in, string $contentType = self::contentTypes['putFlagOptinOrg'][0])
+    {
+        $request = $this->putFlagOptinOrgRequest($flag_org_optin_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\FlagOrgOptinOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\FlagOrgOptinOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\FlagOrgOptinOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putFlagOptinOrgAsync
+     *
+     * Blocks or unblocks the opt-in to public betas for every member of the org the caller acts in.
+     *
+     * @param  \Hanzo\Cloud\Model\FlagOrgOptinIn $flag_org_optin_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagOptinOrg'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putFlagOptinOrgAsync($flag_org_optin_in, string $contentType = self::contentTypes['putFlagOptinOrg'][0])
+    {
+        return $this->putFlagOptinOrgAsyncWithHttpInfo($flag_org_optin_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putFlagOptinOrgAsyncWithHttpInfo
+     *
+     * Blocks or unblocks the opt-in to public betas for every member of the org the caller acts in.
+     *
+     * @param  \Hanzo\Cloud\Model\FlagOrgOptinIn $flag_org_optin_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagOptinOrg'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putFlagOptinOrgAsyncWithHttpInfo($flag_org_optin_in, string $contentType = self::contentTypes['putFlagOptinOrg'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\FlagOrgOptinOut';
+        $request = $this->putFlagOptinOrgRequest($flag_org_optin_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putFlagOptinOrg'
+     *
+     * @param  \Hanzo\Cloud\Model\FlagOrgOptinIn $flag_org_optin_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagOptinOrg'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putFlagOptinOrgRequest($flag_org_optin_in, string $contentType = self::contentTypes['putFlagOptinOrg'][0])
+    {
+
+        // verify the required parameter 'flag_org_optin_in' is set
+        if ($flag_org_optin_in === null || (is_array($flag_org_optin_in) && count($flag_org_optin_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $flag_org_optin_in when calling putFlagOptinOrg'
+            );
+        }
+
+
+        $resourcePath = '/v1/flag/optin/org';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($flag_org_optin_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($flag_org_optin_in));
+            } else {
+                $httpBody = $flag_org_optin_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

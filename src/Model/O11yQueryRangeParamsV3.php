@@ -57,13 +57,13 @@ class O11yQueryRangeParamsV3 implements ModelInterface, ArrayAccess, \JsonSerial
       * @var string[]
       */
     protected static $openAPITypes = [
-        'composite_query' => '\Hanzo\Cloud\Model\O11yCompositeQuery',
+        'composite_query' => '\Hanzo\Cloud\Model\O11yV3CompositeQuery',
         'end' => 'int',
         'format_for_web' => 'bool',
         'no_cache' => 'bool',
         'start' => 'int',
         'step' => 'int',
-        'variables' => 'array<string,object>'
+        'variables' => 'array<string,mixed>'
     ];
 
     /**
@@ -334,7 +334,7 @@ class O11yQueryRangeParamsV3 implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets composite_query
      *
-     * @return \Hanzo\Cloud\Model\O11yCompositeQuery|null
+     * @return \Hanzo\Cloud\Model\O11yV3CompositeQuery|null
      */
     public function getCompositeQuery()
     {
@@ -344,7 +344,7 @@ class O11yQueryRangeParamsV3 implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets composite_query
      *
-     * @param \Hanzo\Cloud\Model\O11yCompositeQuery|null $composite_query composite_query
+     * @param \Hanzo\Cloud\Model\O11yV3CompositeQuery|null $composite_query composite_query
      *
      * @return self
      */
@@ -496,7 +496,7 @@ class O11yQueryRangeParamsV3 implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets variables
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getVariables()
     {
@@ -506,7 +506,7 @@ class O11yQueryRangeParamsV3 implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets variables
      *
-     * @param array<string,object>|null $variables variables
+     * @param array<string,mixed>|null $variables variables
      *
      * @return self
      */

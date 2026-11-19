@@ -74,10 +74,22 @@ class AutoApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'deleteAutoAutomationsById' => [
+            'application/json',
+        ],
         'deleteAutoFlowsById' => [
             'application/json',
         ],
-        'getAutoConnectors' => [
+        'getAutoAutomations' => [
+            'application/json',
+        ],
+        'getAutoAutomationsById' => [
+            'application/json',
+        ],
+        'getAutoAutomationsByIdRuns' => [
+            'application/json',
+        ],
+        'getAutoEvents' => [
             'application/json',
         ],
         'getAutoFlows' => [
@@ -89,16 +101,40 @@ class AutoApi
         'getAutoFlowsByIdVersions' => [
             'application/json',
         ],
+        'getAutoJobs' => [
+            'application/json',
+        ],
+        'getAutoJobsById' => [
+            'application/json',
+        ],
+        'getAutoProvider' => [
+            'application/json',
+        ],
         'getAutoRuns' => [
             'application/json',
         ],
         'getAutoRunsById' => [
             'application/json',
         ],
+        'getAutoTemplates' => [
+            'application/json',
+        ],
+        'patchAutoAutomationsById' => [
+            'application/json',
+        ],
         'patchAutoFlowsById' => [
             'application/json',
         ],
-        'postAutoConnectorsByIdRun' => [
+        'postAutoAutomations' => [
+            'application/json',
+        ],
+        'postAutoAutomationsByIdRun' => [
+            'application/json',
+        ],
+        'postAutoAutomationsByIdRunsByRunReview' => [
+            'application/json',
+        ],
+        'postAutoCron' => [
             'application/json',
         ],
         'postAutoFlows' => [
@@ -120,6 +156,9 @@ class AutoApi
             'application/json',
         ],
         'postAutoHooksBySourceByEvent' => [
+            'application/json',
+        ],
+        'postAutoProviderByIdRun' => [
             'application/json',
         ],
         'postAutoRunsByIdResume' => [
@@ -171,6 +210,236 @@ class AutoApi
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Operation deleteAutoAutomationsById
+     *
+     * Deletes an automation, its schedule and its run history, and stops a Dev run it has going.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteAutoAutomationsById($id, string $contentType = self::contentTypes['deleteAutoAutomationsById'][0])
+    {
+        $this->deleteAutoAutomationsByIdWithHttpInfo($id, $contentType);
+    }
+
+    /**
+     * Operation deleteAutoAutomationsByIdWithHttpInfo
+     *
+     * Deletes an automation, its schedule and its run history, and stops a Dev run it has going.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteAutoAutomationsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteAutoAutomationsById'][0])
+    {
+        $request = $this->deleteAutoAutomationsByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteAutoAutomationsByIdAsync
+     *
+     * Deletes an automation, its schedule and its run history, and stops a Dev run it has going.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteAutoAutomationsByIdAsync($id, string $contentType = self::contentTypes['deleteAutoAutomationsById'][0])
+    {
+        return $this->deleteAutoAutomationsByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteAutoAutomationsByIdAsyncWithHttpInfo
+     *
+     * Deletes an automation, its schedule and its run history, and stops a Dev run it has going.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteAutoAutomationsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteAutoAutomationsById'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteAutoAutomationsByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteAutoAutomationsById'
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteAutoAutomationsByIdRequest($id, string $contentType = self::contentTypes['deleteAutoAutomationsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteAutoAutomationsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/auto/automations/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
     }
 
     /**
@@ -232,6 +501,14 @@ class AutoApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -339,7 +616,7 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -396,36 +673,42 @@ class AutoApi
     }
 
     /**
-     * Operation getAutoConnectors
+     * Operation getAutoAutomations
      *
-     * Connectors returns the connector catalogue.
+     * Returns your automations — another member&#39;s are never listed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoConnectors'] to see the possible values for this operation
+     * @param  string|null $q Q keeps the automations whose name or instructions contain it, ignoring case. (optional)
+     * @param  string|null $sort Sort is name, next or updated (the default, newest first). (optional)
+     * @param  string|null $source Source keeps the automations made in one product: chat, dev, studio or workflow. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomations'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Catalog
+     * @return \Hanzo\Cloud\Model\AutoAutomationPage|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getAutoConnectors(string $contentType = self::contentTypes['getAutoConnectors'][0])
+    public function getAutoAutomations($q = null, $sort = null, $source = null, string $contentType = self::contentTypes['getAutoAutomations'][0])
     {
-        list($response) = $this->getAutoConnectorsWithHttpInfo($contentType);
+        list($response) = $this->getAutoAutomationsWithHttpInfo($q, $sort, $source, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAutoConnectorsWithHttpInfo
+     * Operation getAutoAutomationsWithHttpInfo
      *
-     * Connectors returns the connector catalogue.
+     * Returns your automations — another member&#39;s are never listed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoConnectors'] to see the possible values for this operation
+     * @param  string|null $q Q keeps the automations whose name or instructions contain it, ignoring case. (optional)
+     * @param  string|null $sort Sort is name, next or updated (the default, newest first). (optional)
+     * @param  string|null $source Source keeps the automations made in one product: chat, dev, studio or workflow. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomations'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Catalog, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoAutomationPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAutoConnectorsWithHttpInfo(string $contentType = self::contentTypes['getAutoConnectors'][0])
+    public function getAutoAutomationsWithHttpInfo($q = null, $sort = null, $source = null, string $contentType = self::contentTypes['getAutoAutomations'][0])
     {
-        $request = $this->getAutoConnectorsRequest($contentType);
+        $request = $this->getAutoAutomationsRequest($q, $sort, $source, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -453,7 +736,13 @@ class AutoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Catalog',
+                        '\Hanzo\Cloud\Model\AutoAutomationPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -475,7 +764,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Catalog',
+                '\Hanzo\Cloud\Model\AutoAutomationPage',
                 $request,
                 $response,
             );
@@ -484,7 +773,15 @@ class AutoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Catalog',
+                        '\Hanzo\Cloud\Model\AutoAutomationPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -497,18 +794,21 @@ class AutoApi
     }
 
     /**
-     * Operation getAutoConnectorsAsync
+     * Operation getAutoAutomationsAsync
      *
-     * Connectors returns the connector catalogue.
+     * Returns your automations — another member&#39;s are never listed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoConnectors'] to see the possible values for this operation
+     * @param  string|null $q Q keeps the automations whose name or instructions contain it, ignoring case. (optional)
+     * @param  string|null $sort Sort is name, next or updated (the default, newest first). (optional)
+     * @param  string|null $source Source keeps the automations made in one product: chat, dev, studio or workflow. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAutoConnectorsAsync(string $contentType = self::contentTypes['getAutoConnectors'][0])
+    public function getAutoAutomationsAsync($q = null, $sort = null, $source = null, string $contentType = self::contentTypes['getAutoAutomations'][0])
     {
-        return $this->getAutoConnectorsAsyncWithHttpInfo($contentType)
+        return $this->getAutoAutomationsAsyncWithHttpInfo($q, $sort, $source, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -517,19 +817,22 @@ class AutoApi
     }
 
     /**
-     * Operation getAutoConnectorsAsyncWithHttpInfo
+     * Operation getAutoAutomationsAsyncWithHttpInfo
      *
-     * Connectors returns the connector catalogue.
+     * Returns your automations — another member&#39;s are never listed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoConnectors'] to see the possible values for this operation
+     * @param  string|null $q Q keeps the automations whose name or instructions contain it, ignoring case. (optional)
+     * @param  string|null $sort Sort is name, next or updated (the default, newest first). (optional)
+     * @param  string|null $source Source keeps the automations made in one product: chat, dev, studio or workflow. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAutoConnectorsAsyncWithHttpInfo(string $contentType = self::contentTypes['getAutoConnectors'][0])
+    public function getAutoAutomationsAsyncWithHttpInfo($q = null, $sort = null, $source = null, string $contentType = self::contentTypes['getAutoAutomations'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Catalog';
-        $request = $this->getAutoConnectorsRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\AutoAutomationPage';
+        $request = $this->getAutoAutomationsRequest($q, $sort, $source, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -568,18 +871,893 @@ class AutoApi
     }
 
     /**
-     * Create request for operation 'getAutoConnectors'
+     * Create request for operation 'getAutoAutomations'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoConnectors'] to see the possible values for this operation
+     * @param  string|null $q Q keeps the automations whose name or instructions contain it, ignoring case. (optional)
+     * @param  string|null $sort Sort is name, next or updated (the default, newest first). (optional)
+     * @param  string|null $source Source keeps the automations made in one product: chat, dev, studio or workflow. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAutoConnectorsRequest(string $contentType = self::contentTypes['getAutoConnectors'][0])
+    public function getAutoAutomationsRequest($q = null, $sort = null, $source = null, string $contentType = self::contentTypes['getAutoAutomations'][0])
     {
 
 
-        $resourcePath = '/v1/auto/connectors';
+
+
+
+        $resourcePath = '/v1/auto/automations';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $q,
+            'q', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $sort,
+            'sort', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $source,
+            'source', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getAutoAutomationsById
+     *
+     * Returns one automation.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AutoAutomation|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getAutoAutomationsById($id, string $contentType = self::contentTypes['getAutoAutomationsById'][0])
+    {
+        list($response) = $this->getAutoAutomationsByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getAutoAutomationsByIdWithHttpInfo
+     *
+     * Returns one automation.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AutoAutomation|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAutoAutomationsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getAutoAutomationsById'][0])
+    {
+        $request = $this->getAutoAutomationsByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AutoAutomation',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AutoAutomation',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AutoAutomation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAutoAutomationsByIdAsync
+     *
+     * Returns one automation.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoAutomationsByIdAsync($id, string $contentType = self::contentTypes['getAutoAutomationsById'][0])
+    {
+        return $this->getAutoAutomationsByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAutoAutomationsByIdAsyncWithHttpInfo
+     *
+     * Returns one automation.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoAutomationsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAutoAutomationsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AutoAutomation';
+        $request = $this->getAutoAutomationsByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAutoAutomationsById'
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAutoAutomationsByIdRequest($id, string $contentType = self::contentTypes['getAutoAutomationsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getAutoAutomationsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/auto/automations/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getAutoAutomationsByIdRuns
+     *
+     * Returns one automation&#39;s runs, newest first, to the person it runs as.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  int|null $limit Limit bounds the page (default 200, maximum 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomationsByIdRuns'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AutoAutomationRunPage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getAutoAutomationsByIdRuns($id, $limit = null, string $contentType = self::contentTypes['getAutoAutomationsByIdRuns'][0])
+    {
+        list($response) = $this->getAutoAutomationsByIdRunsWithHttpInfo($id, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getAutoAutomationsByIdRunsWithHttpInfo
+     *
+     * Returns one automation&#39;s runs, newest first, to the person it runs as.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  int|null $limit Limit bounds the page (default 200, maximum 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomationsByIdRuns'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AutoAutomationRunPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAutoAutomationsByIdRunsWithHttpInfo($id, $limit = null, string $contentType = self::contentTypes['getAutoAutomationsByIdRuns'][0])
+    {
+        $request = $this->getAutoAutomationsByIdRunsRequest($id, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AutoAutomationRunPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AutoAutomationRunPage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AutoAutomationRunPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAutoAutomationsByIdRunsAsync
+     *
+     * Returns one automation&#39;s runs, newest first, to the person it runs as.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  int|null $limit Limit bounds the page (default 200, maximum 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomationsByIdRuns'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoAutomationsByIdRunsAsync($id, $limit = null, string $contentType = self::contentTypes['getAutoAutomationsByIdRuns'][0])
+    {
+        return $this->getAutoAutomationsByIdRunsAsyncWithHttpInfo($id, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAutoAutomationsByIdRunsAsyncWithHttpInfo
+     *
+     * Returns one automation&#39;s runs, newest first, to the person it runs as.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  int|null $limit Limit bounds the page (default 200, maximum 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomationsByIdRuns'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoAutomationsByIdRunsAsyncWithHttpInfo($id, $limit = null, string $contentType = self::contentTypes['getAutoAutomationsByIdRuns'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AutoAutomationRunPage';
+        $request = $this->getAutoAutomationsByIdRunsRequest($id, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAutoAutomationsByIdRuns'
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  int|null $limit Limit bounds the page (default 200, maximum 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoAutomationsByIdRuns'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAutoAutomationsByIdRunsRequest($id, $limit = null, string $contentType = self::contentTypes['getAutoAutomationsByIdRuns'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getAutoAutomationsByIdRuns'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/auto/automations/{id}/runs';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getAutoEvents
+     *
+     * Stream your jobs and automations as they change, as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoEvents'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \SplFileObject
+     */
+    public function getAutoEvents(string $contentType = self::contentTypes['getAutoEvents'][0])
+    {
+        list($response) = $this->getAutoEventsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getAutoEventsWithHttpInfo
+     *
+     * Stream your jobs and automations as they change, as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoEvents'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAutoEventsWithHttpInfo(string $contentType = self::contentTypes['getAutoEvents'][0])
+    {
+        $request = $this->getAutoEventsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                
+            }
+
+            if ($this->responseWithinRangeCode('2XX', $statusCode)) {
+                return $this->handleResponseWithDataType(
+                    '\SplFileObject',
+                    $request,
+                    $response,
+                );
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\SplFileObject',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                
+            }
+        
+            if ($this->responseWithinRangeCode('2XX', $e->getCode())) {
+                $data = ObjectSerializer::deserialize(
+                    $e->getResponseBody(),
+                    '\SplFileObject',
+                    $e->getResponseHeaders()
+                );
+                $e->setResponseObject($data);
+                throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAutoEventsAsync
+     *
+     * Stream your jobs and automations as they change, as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoEvents'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoEventsAsync(string $contentType = self::contentTypes['getAutoEvents'][0])
+    {
+        return $this->getAutoEventsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAutoEventsAsyncWithHttpInfo
+     *
+     * Stream your jobs and automations as they change, as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoEvents'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoEventsAsyncWithHttpInfo(string $contentType = self::contentTypes['getAutoEvents'][0])
+    {
+        $returnType = '\SplFileObject';
+        $request = $this->getAutoEventsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAutoEvents'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoEvents'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAutoEventsRequest(string $contentType = self::contentTypes['getAutoEvents'][0])
+    {
+
+
+        $resourcePath = '/v1/auto/events';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -591,7 +1769,7 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['text/event-stream', ],
             $contentType,
             $multipart
         );
@@ -657,7 +1835,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FlowPage
+     * @return \Hanzo\Cloud\Model\AutoFlowPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAutoFlows($limit = null, string $contentType = self::contentTypes['getAutoFlows'][0])
     {
@@ -675,7 +1853,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FlowPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoFlowPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAutoFlowsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getAutoFlows'][0])
     {
@@ -707,7 +1885,13 @@ class AutoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FlowPage',
+                        '\Hanzo\Cloud\Model\AutoFlowPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -729,7 +1913,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FlowPage',
+                '\Hanzo\Cloud\Model\AutoFlowPage',
                 $request,
                 $response,
             );
@@ -738,7 +1922,15 @@ class AutoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FlowPage',
+                        '\Hanzo\Cloud\Model\AutoFlowPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -784,7 +1976,7 @@ class AutoApi
      */
     public function getAutoFlowsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getAutoFlows'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FlowPage';
+        $returnType = '\Hanzo\Cloud\Model\AutoFlowPage';
         $request = $this->getAutoFlowsRequest($limit, $contentType);
 
         return $this->client
@@ -858,7 +2050,7 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -924,7 +2116,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PopulatedFlow
+     * @return \Hanzo\Cloud\Model\AutoPopulatedFlow|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAutoFlowsById($id, string $contentType = self::contentTypes['getAutoFlowsById'][0])
     {
@@ -942,7 +2134,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PopulatedFlow, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoPopulatedFlow|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAutoFlowsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getAutoFlowsById'][0])
     {
@@ -974,7 +2166,13 @@ class AutoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PopulatedFlow',
+                        '\Hanzo\Cloud\Model\AutoPopulatedFlow',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -996,7 +2194,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PopulatedFlow',
+                '\Hanzo\Cloud\Model\AutoPopulatedFlow',
                 $request,
                 $response,
             );
@@ -1005,7 +2203,15 @@ class AutoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PopulatedFlow',
+                        '\Hanzo\Cloud\Model\AutoPopulatedFlow',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1051,7 +2257,7 @@ class AutoApi
      */
     public function getAutoFlowsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAutoFlowsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PopulatedFlow';
+        $returnType = '\Hanzo\Cloud\Model\AutoPopulatedFlow';
         $request = $this->getAutoFlowsByIdRequest($id, $contentType);
 
         return $this->client
@@ -1130,7 +2336,7 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1197,7 +2403,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\VersionPage
+     * @return \Hanzo\Cloud\Model\AutoVersionPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAutoFlowsByIdVersions($id, $limit = null, string $contentType = self::contentTypes['getAutoFlowsByIdVersions'][0])
     {
@@ -1216,7 +2422,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\VersionPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoVersionPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAutoFlowsByIdVersionsWithHttpInfo($id, $limit = null, string $contentType = self::contentTypes['getAutoFlowsByIdVersions'][0])
     {
@@ -1248,7 +2454,13 @@ class AutoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\VersionPage',
+                        '\Hanzo\Cloud\Model\AutoVersionPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1270,7 +2482,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\VersionPage',
+                '\Hanzo\Cloud\Model\AutoVersionPage',
                 $request,
                 $response,
             );
@@ -1279,7 +2491,15 @@ class AutoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\VersionPage',
+                        '\Hanzo\Cloud\Model\AutoVersionPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1327,7 +2547,7 @@ class AutoApi
      */
     public function getAutoFlowsByIdVersionsAsyncWithHttpInfo($id, $limit = null, string $contentType = self::contentTypes['getAutoFlowsByIdVersions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\VersionPage';
+        $returnType = '\Hanzo\Cloud\Model\AutoVersionPage';
         $request = $this->getAutoFlowsByIdVersionsRequest($id, $limit, $contentType);
 
         return $this->client
@@ -1417,7 +2637,870 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getAutoJobs
+     *
+     * Lists everything of yours that runs without you watching, across every product: each run of your automations and workflows, and every Studio render, long video or other background run a product recorded for you.
+     *
+     * @param  string|null $product Product keeps one product&#39;s jobs: chat, dev, studio or workflow. (optional)
+     * @param  string|null $state State keeps one state: scheduled, running, succeeded, failed or cancelled. (optional)
+     * @param  int|null $limit Limit bounds the page (default 100, at most 500). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoJobs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AutoJobPage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getAutoJobs($product = null, $state = null, $limit = null, string $contentType = self::contentTypes['getAutoJobs'][0])
+    {
+        list($response) = $this->getAutoJobsWithHttpInfo($product, $state, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getAutoJobsWithHttpInfo
+     *
+     * Lists everything of yours that runs without you watching, across every product: each run of your automations and workflows, and every Studio render, long video or other background run a product recorded for you.
+     *
+     * @param  string|null $product Product keeps one product&#39;s jobs: chat, dev, studio or workflow. (optional)
+     * @param  string|null $state State keeps one state: scheduled, running, succeeded, failed or cancelled. (optional)
+     * @param  int|null $limit Limit bounds the page (default 100, at most 500). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoJobs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AutoJobPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAutoJobsWithHttpInfo($product = null, $state = null, $limit = null, string $contentType = self::contentTypes['getAutoJobs'][0])
+    {
+        $request = $this->getAutoJobsRequest($product, $state, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AutoJobPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AutoJobPage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AutoJobPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAutoJobsAsync
+     *
+     * Lists everything of yours that runs without you watching, across every product: each run of your automations and workflows, and every Studio render, long video or other background run a product recorded for you.
+     *
+     * @param  string|null $product Product keeps one product&#39;s jobs: chat, dev, studio or workflow. (optional)
+     * @param  string|null $state State keeps one state: scheduled, running, succeeded, failed or cancelled. (optional)
+     * @param  int|null $limit Limit bounds the page (default 100, at most 500). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoJobs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoJobsAsync($product = null, $state = null, $limit = null, string $contentType = self::contentTypes['getAutoJobs'][0])
+    {
+        return $this->getAutoJobsAsyncWithHttpInfo($product, $state, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAutoJobsAsyncWithHttpInfo
+     *
+     * Lists everything of yours that runs without you watching, across every product: each run of your automations and workflows, and every Studio render, long video or other background run a product recorded for you.
+     *
+     * @param  string|null $product Product keeps one product&#39;s jobs: chat, dev, studio or workflow. (optional)
+     * @param  string|null $state State keeps one state: scheduled, running, succeeded, failed or cancelled. (optional)
+     * @param  int|null $limit Limit bounds the page (default 100, at most 500). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoJobs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoJobsAsyncWithHttpInfo($product = null, $state = null, $limit = null, string $contentType = self::contentTypes['getAutoJobs'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AutoJobPage';
+        $request = $this->getAutoJobsRequest($product, $state, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAutoJobs'
+     *
+     * @param  string|null $product Product keeps one product&#39;s jobs: chat, dev, studio or workflow. (optional)
+     * @param  string|null $state State keeps one state: scheduled, running, succeeded, failed or cancelled. (optional)
+     * @param  int|null $limit Limit bounds the page (default 100, at most 500). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoJobs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAutoJobsRequest($product = null, $state = null, $limit = null, string $contentType = self::contentTypes['getAutoJobs'][0])
+    {
+
+
+
+
+
+        $resourcePath = '/v1/auto/jobs';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $product,
+            'product', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $state,
+            'state', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getAutoJobsById
+     *
+     * Reads one of your jobs.
+     *
+     * @param  string $id ID is the job, from the path: a run_ or a job_ id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoJobsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AutoJob|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getAutoJobsById($id, string $contentType = self::contentTypes['getAutoJobsById'][0])
+    {
+        list($response) = $this->getAutoJobsByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getAutoJobsByIdWithHttpInfo
+     *
+     * Reads one of your jobs.
+     *
+     * @param  string $id ID is the job, from the path: a run_ or a job_ id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoJobsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AutoJob|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAutoJobsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getAutoJobsById'][0])
+    {
+        $request = $this->getAutoJobsByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AutoJob',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AutoJob',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AutoJob',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAutoJobsByIdAsync
+     *
+     * Reads one of your jobs.
+     *
+     * @param  string $id ID is the job, from the path: a run_ or a job_ id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoJobsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoJobsByIdAsync($id, string $contentType = self::contentTypes['getAutoJobsById'][0])
+    {
+        return $this->getAutoJobsByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAutoJobsByIdAsyncWithHttpInfo
+     *
+     * Reads one of your jobs.
+     *
+     * @param  string $id ID is the job, from the path: a run_ or a job_ id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoJobsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoJobsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAutoJobsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AutoJob';
+        $request = $this->getAutoJobsByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAutoJobsById'
+     *
+     * @param  string $id ID is the job, from the path: a run_ or a job_ id. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoJobsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAutoJobsByIdRequest($id, string $contentType = self::contentTypes['getAutoJobsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getAutoJobsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/auto/jobs/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getAutoProvider
+     *
+     * Returns the connector catalogue.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoProvider'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AutoCatalog|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getAutoProvider(string $contentType = self::contentTypes['getAutoProvider'][0])
+    {
+        list($response) = $this->getAutoProviderWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getAutoProviderWithHttpInfo
+     *
+     * Returns the connector catalogue.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoProvider'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AutoCatalog|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAutoProviderWithHttpInfo(string $contentType = self::contentTypes['getAutoProvider'][0])
+    {
+        $request = $this->getAutoProviderRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AutoCatalog',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AutoCatalog',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AutoCatalog',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAutoProviderAsync
+     *
+     * Returns the connector catalogue.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoProvider'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoProviderAsync(string $contentType = self::contentTypes['getAutoProvider'][0])
+    {
+        return $this->getAutoProviderAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAutoProviderAsyncWithHttpInfo
+     *
+     * Returns the connector catalogue.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoProvider'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAutoProviderAsyncWithHttpInfo(string $contentType = self::contentTypes['getAutoProvider'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AutoCatalog';
+        $request = $this->getAutoProviderRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAutoProvider'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoProvider'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAutoProviderRequest(string $contentType = self::contentTypes['getAutoProvider'][0])
+    {
+
+
+        $resourcePath = '/v1/auto/provider';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1476,7 +3559,7 @@ class AutoApi
     /**
      * Operation getAutoRuns
      *
-     * Returns the caller org&#39;s run history, newest first.
+     * Returns your run history, newest first: the runs of the flows you hold.
      *
      * @param  string|null $flow_id FlowID narrows the history to one flow. Omit it for the whole org&#39;s runs. (optional)
      * @param  int|null $limit Limit bounds the page (default 200, maximum 1000). (optional)
@@ -1484,7 +3567,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RunPage
+     * @return \Hanzo\Cloud\Model\AutoRunPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAutoRuns($flow_id = null, $limit = null, string $contentType = self::contentTypes['getAutoRuns'][0])
     {
@@ -1495,7 +3578,7 @@ class AutoApi
     /**
      * Operation getAutoRunsWithHttpInfo
      *
-     * Returns the caller org&#39;s run history, newest first.
+     * Returns your run history, newest first: the runs of the flows you hold.
      *
      * @param  string|null $flow_id FlowID narrows the history to one flow. Omit it for the whole org&#39;s runs. (optional)
      * @param  int|null $limit Limit bounds the page (default 200, maximum 1000). (optional)
@@ -1503,7 +3586,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RunPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoRunPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAutoRunsWithHttpInfo($flow_id = null, $limit = null, string $contentType = self::contentTypes['getAutoRuns'][0])
     {
@@ -1535,7 +3618,13 @@ class AutoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RunPage',
+                        '\Hanzo\Cloud\Model\AutoRunPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1557,7 +3646,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RunPage',
+                '\Hanzo\Cloud\Model\AutoRunPage',
                 $request,
                 $response,
             );
@@ -1566,7 +3655,15 @@ class AutoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RunPage',
+                        '\Hanzo\Cloud\Model\AutoRunPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1581,7 +3678,7 @@ class AutoApi
     /**
      * Operation getAutoRunsAsync
      *
-     * Returns the caller org&#39;s run history, newest first.
+     * Returns your run history, newest first: the runs of the flows you hold.
      *
      * @param  string|null $flow_id FlowID narrows the history to one flow. Omit it for the whole org&#39;s runs. (optional)
      * @param  int|null $limit Limit bounds the page (default 200, maximum 1000). (optional)
@@ -1603,7 +3700,7 @@ class AutoApi
     /**
      * Operation getAutoRunsAsyncWithHttpInfo
      *
-     * Returns the caller org&#39;s run history, newest first.
+     * Returns your run history, newest first: the runs of the flows you hold.
      *
      * @param  string|null $flow_id FlowID narrows the history to one flow. Omit it for the whole org&#39;s runs. (optional)
      * @param  int|null $limit Limit bounds the page (default 200, maximum 1000). (optional)
@@ -1614,7 +3711,7 @@ class AutoApi
      */
     public function getAutoRunsAsyncWithHttpInfo($flow_id = null, $limit = null, string $contentType = self::contentTypes['getAutoRuns'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RunPage';
+        $returnType = '\Hanzo\Cloud\Model\AutoRunPage';
         $request = $this->getAutoRunsRequest($flow_id, $limit, $contentType);
 
         return $this->client
@@ -1699,7 +3796,7 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1765,7 +3862,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FlowRun
+     * @return \Hanzo\Cloud\Model\AutoFlowRun|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAutoRunsById($id, string $contentType = self::contentTypes['getAutoRunsById'][0])
     {
@@ -1783,7 +3880,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FlowRun, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoFlowRun|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAutoRunsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getAutoRunsById'][0])
     {
@@ -1815,7 +3912,13 @@ class AutoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FlowRun',
+                        '\Hanzo\Cloud\Model\AutoFlowRun',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1837,7 +3940,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FlowRun',
+                '\Hanzo\Cloud\Model\AutoFlowRun',
                 $request,
                 $response,
             );
@@ -1846,7 +3949,15 @@ class AutoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FlowRun',
+                        '\Hanzo\Cloud\Model\AutoFlowRun',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1892,7 +4003,7 @@ class AutoApi
      */
     public function getAutoRunsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAutoRunsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FlowRun';
+        $returnType = '\Hanzo\Cloud\Model\AutoFlowRun';
         $request = $this->getAutoRunsByIdRequest($id, $contentType);
 
         return $this->client
@@ -1971,7 +4082,7 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2028,40 +4139,36 @@ class AutoApi
     }
 
     /**
-     * Operation patchAutoFlowsById
+     * Operation getAutoTemplates
      *
-     * Updates one automation&#39;s metadata in place.
+     * Returns the starter automations: a name, what it does, the instructions it runs and the schedule it suggests, in the caller&#39;s own zone.
      *
-     * @param  string $id ID is the flow to update, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PatchFlowIn $patch_flow_in patch_flow_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoFlowsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoTemplates'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Flow
+     * @return \Hanzo\Cloud\Model\AutoStarterPage|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function patchAutoFlowsById($id, $patch_flow_in, string $contentType = self::contentTypes['patchAutoFlowsById'][0])
+    public function getAutoTemplates(string $contentType = self::contentTypes['getAutoTemplates'][0])
     {
-        list($response) = $this->patchAutoFlowsByIdWithHttpInfo($id, $patch_flow_in, $contentType);
+        list($response) = $this->getAutoTemplatesWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation patchAutoFlowsByIdWithHttpInfo
+     * Operation getAutoTemplatesWithHttpInfo
      *
-     * Updates one automation&#39;s metadata in place.
+     * Returns the starter automations: a name, what it does, the instructions it runs and the schedule it suggests, in the caller&#39;s own zone.
      *
-     * @param  string $id ID is the flow to update, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PatchFlowIn $patch_flow_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoFlowsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoTemplates'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Flow, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoStarterPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAutoFlowsByIdWithHttpInfo($id, $patch_flow_in, string $contentType = self::contentTypes['patchAutoFlowsById'][0])
+    public function getAutoTemplatesWithHttpInfo(string $contentType = self::contentTypes['getAutoTemplates'][0])
     {
-        $request = $this->patchAutoFlowsByIdRequest($id, $patch_flow_in, $contentType);
+        $request = $this->getAutoTemplatesRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2089,7 +4196,13 @@ class AutoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Flow',
+                        '\Hanzo\Cloud\Model\AutoStarterPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2111,7 +4224,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Flow',
+                '\Hanzo\Cloud\Model\AutoStarterPage',
                 $request,
                 $response,
             );
@@ -2120,7 +4233,15 @@ class AutoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Flow',
+                        '\Hanzo\Cloud\Model\AutoStarterPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2133,20 +4254,18 @@ class AutoApi
     }
 
     /**
-     * Operation patchAutoFlowsByIdAsync
+     * Operation getAutoTemplatesAsync
      *
-     * Updates one automation&#39;s metadata in place.
+     * Returns the starter automations: a name, what it does, the instructions it runs and the schedule it suggests, in the caller&#39;s own zone.
      *
-     * @param  string $id ID is the flow to update, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PatchFlowIn $patch_flow_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoFlowsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoTemplates'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAutoFlowsByIdAsync($id, $patch_flow_in, string $contentType = self::contentTypes['patchAutoFlowsById'][0])
+    public function getAutoTemplatesAsync(string $contentType = self::contentTypes['getAutoTemplates'][0])
     {
-        return $this->patchAutoFlowsByIdAsyncWithHttpInfo($id, $patch_flow_in, $contentType)
+        return $this->getAutoTemplatesAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2155,21 +4274,19 @@ class AutoApi
     }
 
     /**
-     * Operation patchAutoFlowsByIdAsyncWithHttpInfo
+     * Operation getAutoTemplatesAsyncWithHttpInfo
      *
-     * Updates one automation&#39;s metadata in place.
+     * Returns the starter automations: a name, what it does, the instructions it runs and the schedule it suggests, in the caller&#39;s own zone.
      *
-     * @param  string $id ID is the flow to update, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PatchFlowIn $patch_flow_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoFlowsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoTemplates'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAutoFlowsByIdAsyncWithHttpInfo($id, $patch_flow_in, string $contentType = self::contentTypes['patchAutoFlowsById'][0])
+    public function getAutoTemplatesAsyncWithHttpInfo(string $contentType = self::contentTypes['getAutoTemplates'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Flow';
-        $request = $this->patchAutoFlowsByIdRequest($id, $patch_flow_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AutoStarterPage';
+        $request = $this->getAutoTemplatesRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2208,34 +4325,308 @@ class AutoApi
     }
 
     /**
-     * Create request for operation 'patchAutoFlowsById'
+     * Create request for operation 'getAutoTemplates'
      *
-     * @param  string $id ID is the flow to update, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PatchFlowIn $patch_flow_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoFlowsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAutoTemplates'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAutoFlowsByIdRequest($id, $patch_flow_in, string $contentType = self::contentTypes['patchAutoFlowsById'][0])
+    public function getAutoTemplatesRequest(string $contentType = self::contentTypes['getAutoTemplates'][0])
+    {
+
+
+        $resourcePath = '/v1/auto/templates';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation patchAutoAutomationsById
+     *
+     * Changes an automation, for the person it runs as: any field it was created with, and &#x60;enabled&#x60;, which arms or disarms its schedule.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoAutomationPatch $auto_automation_patch auto_automation_patch (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AutoAutomation|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function patchAutoAutomationsById($id, $auto_automation_patch, string $contentType = self::contentTypes['patchAutoAutomationsById'][0])
+    {
+        list($response) = $this->patchAutoAutomationsByIdWithHttpInfo($id, $auto_automation_patch, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation patchAutoAutomationsByIdWithHttpInfo
+     *
+     * Changes an automation, for the person it runs as: any field it was created with, and &#x60;enabled&#x60;, which arms or disarms its schedule.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoAutomationPatch $auto_automation_patch (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AutoAutomation|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function patchAutoAutomationsByIdWithHttpInfo($id, $auto_automation_patch, string $contentType = self::contentTypes['patchAutoAutomationsById'][0])
+    {
+        $request = $this->patchAutoAutomationsByIdRequest($id, $auto_automation_patch, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AutoAutomation',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AutoAutomation',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AutoAutomation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation patchAutoAutomationsByIdAsync
+     *
+     * Changes an automation, for the person it runs as: any field it was created with, and &#x60;enabled&#x60;, which arms or disarms its schedule.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoAutomationPatch $auto_automation_patch (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchAutoAutomationsByIdAsync($id, $auto_automation_patch, string $contentType = self::contentTypes['patchAutoAutomationsById'][0])
+    {
+        return $this->patchAutoAutomationsByIdAsyncWithHttpInfo($id, $auto_automation_patch, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation patchAutoAutomationsByIdAsyncWithHttpInfo
+     *
+     * Changes an automation, for the person it runs as: any field it was created with, and &#x60;enabled&#x60;, which arms or disarms its schedule.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoAutomationPatch $auto_automation_patch (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchAutoAutomationsByIdAsyncWithHttpInfo($id, $auto_automation_patch, string $contentType = self::contentTypes['patchAutoAutomationsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AutoAutomation';
+        $request = $this->patchAutoAutomationsByIdRequest($id, $auto_automation_patch, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'patchAutoAutomationsById'
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoAutomationPatch $auto_automation_patch (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoAutomationsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function patchAutoAutomationsByIdRequest($id, $auto_automation_patch, string $contentType = self::contentTypes['patchAutoAutomationsById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling patchAutoFlowsById'
+                'Missing the required parameter $id when calling patchAutoAutomationsById'
             );
         }
 
-        // verify the required parameter 'patch_flow_in' is set
-        if ($patch_flow_in === null || (is_array($patch_flow_in) && count($patch_flow_in) === 0)) {
+        // verify the required parameter 'auto_automation_patch' is set
+        if ($auto_automation_patch === null || (is_array($auto_automation_patch) && count($auto_automation_patch) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $patch_flow_in when calling patchAutoFlowsById'
+                'Missing the required parameter $auto_automation_patch when calling patchAutoAutomationsById'
             );
         }
 
 
-        $resourcePath = '/v1/auto/flows/{id}';
+        $resourcePath = '/v1/auto/automations/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2255,18 +4646,18 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($patch_flow_in)) {
+        if (isset($auto_automation_patch)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($patch_flow_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($auto_automation_patch));
             } else {
-                $httpBody = $patch_flow_in;
+                $httpBody = $auto_automation_patch;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2319,40 +4710,40 @@ class AutoApi
     }
 
     /**
-     * Operation postAutoConnectorsByIdRun
+     * Operation patchAutoFlowsById
      *
-     * Run executes one connector action in-process and answers the outcome.
+     * Updates one automation&#39;s metadata in place.
      *
-     * @param  string $id ID is the connector to run, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RunIn $run_in run_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoConnectorsByIdRun'] to see the possible values for this operation
+     * @param  string $id ID is the flow to update, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoPatchFlowIn $auto_patch_flow_in auto_patch_flow_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoFlowsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RunResp
+     * @return \Hanzo\Cloud\Model\AutoFlow|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAutoConnectorsByIdRun($id, $run_in, string $contentType = self::contentTypes['postAutoConnectorsByIdRun'][0])
+    public function patchAutoFlowsById($id, $auto_patch_flow_in, string $contentType = self::contentTypes['patchAutoFlowsById'][0])
     {
-        list($response) = $this->postAutoConnectorsByIdRunWithHttpInfo($id, $run_in, $contentType);
+        list($response) = $this->patchAutoFlowsByIdWithHttpInfo($id, $auto_patch_flow_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAutoConnectorsByIdRunWithHttpInfo
+     * Operation patchAutoFlowsByIdWithHttpInfo
      *
-     * Run executes one connector action in-process and answers the outcome.
+     * Updates one automation&#39;s metadata in place.
      *
-     * @param  string $id ID is the connector to run, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RunIn $run_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoConnectorsByIdRun'] to see the possible values for this operation
+     * @param  string $id ID is the flow to update, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoPatchFlowIn $auto_patch_flow_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoFlowsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RunResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoFlow|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAutoConnectorsByIdRunWithHttpInfo($id, $run_in, string $contentType = self::contentTypes['postAutoConnectorsByIdRun'][0])
+    public function patchAutoFlowsByIdWithHttpInfo($id, $auto_patch_flow_in, string $contentType = self::contentTypes['patchAutoFlowsById'][0])
     {
-        $request = $this->postAutoConnectorsByIdRunRequest($id, $run_in, $contentType);
+        $request = $this->patchAutoFlowsByIdRequest($id, $auto_patch_flow_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2380,7 +4771,13 @@ class AutoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RunResp',
+                        '\Hanzo\Cloud\Model\AutoFlow',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2402,7 +4799,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RunResp',
+                '\Hanzo\Cloud\Model\AutoFlow',
                 $request,
                 $response,
             );
@@ -2411,7 +4808,15 @@ class AutoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RunResp',
+                        '\Hanzo\Cloud\Model\AutoFlow',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2424,20 +4829,20 @@ class AutoApi
     }
 
     /**
-     * Operation postAutoConnectorsByIdRunAsync
+     * Operation patchAutoFlowsByIdAsync
      *
-     * Run executes one connector action in-process and answers the outcome.
+     * Updates one automation&#39;s metadata in place.
      *
-     * @param  string $id ID is the connector to run, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RunIn $run_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoConnectorsByIdRun'] to see the possible values for this operation
+     * @param  string $id ID is the flow to update, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoPatchFlowIn $auto_patch_flow_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoFlowsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAutoConnectorsByIdRunAsync($id, $run_in, string $contentType = self::contentTypes['postAutoConnectorsByIdRun'][0])
+    public function patchAutoFlowsByIdAsync($id, $auto_patch_flow_in, string $contentType = self::contentTypes['patchAutoFlowsById'][0])
     {
-        return $this->postAutoConnectorsByIdRunAsyncWithHttpInfo($id, $run_in, $contentType)
+        return $this->patchAutoFlowsByIdAsyncWithHttpInfo($id, $auto_patch_flow_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2446,21 +4851,21 @@ class AutoApi
     }
 
     /**
-     * Operation postAutoConnectorsByIdRunAsyncWithHttpInfo
+     * Operation patchAutoFlowsByIdAsyncWithHttpInfo
      *
-     * Run executes one connector action in-process and answers the outcome.
+     * Updates one automation&#39;s metadata in place.
      *
-     * @param  string $id ID is the connector to run, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RunIn $run_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoConnectorsByIdRun'] to see the possible values for this operation
+     * @param  string $id ID is the flow to update, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoPatchFlowIn $auto_patch_flow_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoFlowsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAutoConnectorsByIdRunAsyncWithHttpInfo($id, $run_in, string $contentType = self::contentTypes['postAutoConnectorsByIdRun'][0])
+    public function patchAutoFlowsByIdAsyncWithHttpInfo($id, $auto_patch_flow_in, string $contentType = self::contentTypes['patchAutoFlowsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RunResp';
-        $request = $this->postAutoConnectorsByIdRunRequest($id, $run_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AutoFlow';
+        $request = $this->patchAutoFlowsByIdRequest($id, $auto_patch_flow_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2499,34 +4904,34 @@ class AutoApi
     }
 
     /**
-     * Create request for operation 'postAutoConnectorsByIdRun'
+     * Create request for operation 'patchAutoFlowsById'
      *
-     * @param  string $id ID is the connector to run, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RunIn $run_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoConnectorsByIdRun'] to see the possible values for this operation
+     * @param  string $id ID is the flow to update, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoPatchFlowIn $auto_patch_flow_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAutoFlowsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAutoConnectorsByIdRunRequest($id, $run_in, string $contentType = self::contentTypes['postAutoConnectorsByIdRun'][0])
+    public function patchAutoFlowsByIdRequest($id, $auto_patch_flow_in, string $contentType = self::contentTypes['patchAutoFlowsById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postAutoConnectorsByIdRun'
+                'Missing the required parameter $id when calling patchAutoFlowsById'
             );
         }
 
-        // verify the required parameter 'run_in' is set
-        if ($run_in === null || (is_array($run_in) && count($run_in) === 0)) {
+        // verify the required parameter 'auto_patch_flow_in' is set
+        if ($auto_patch_flow_in === null || (is_array($auto_patch_flow_in) && count($auto_patch_flow_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $run_in when calling postAutoConnectorsByIdRun'
+                'Missing the required parameter $auto_patch_flow_in when calling patchAutoFlowsById'
             );
         }
 
 
-        $resourcePath = '/v1/auto/connectors/{id}/run';
+        $resourcePath = '/v1/auto/flows/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2546,18 +4951,1199 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($run_in)) {
+        if (isset($auto_patch_flow_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($run_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($auto_patch_flow_in));
             } else {
-                $httpBody = $run_in;
+                $httpBody = $auto_patch_flow_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postAutoAutomations
+     *
+     * Creates an automation and arms its schedule.
+     *
+     * @param  \Hanzo\Cloud\Model\AutoAutomationIn $auto_automation_in auto_automation_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomations'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AutoAutomation|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postAutoAutomations($auto_automation_in, string $contentType = self::contentTypes['postAutoAutomations'][0])
+    {
+        list($response) = $this->postAutoAutomationsWithHttpInfo($auto_automation_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postAutoAutomationsWithHttpInfo
+     *
+     * Creates an automation and arms its schedule.
+     *
+     * @param  \Hanzo\Cloud\Model\AutoAutomationIn $auto_automation_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomations'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AutoAutomation|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAutoAutomationsWithHttpInfo($auto_automation_in, string $contentType = self::contentTypes['postAutoAutomations'][0])
+    {
+        $request = $this->postAutoAutomationsRequest($auto_automation_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AutoAutomation',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AutoAutomation',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AutoAutomation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postAutoAutomationsAsync
+     *
+     * Creates an automation and arms its schedule.
+     *
+     * @param  \Hanzo\Cloud\Model\AutoAutomationIn $auto_automation_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAutoAutomationsAsync($auto_automation_in, string $contentType = self::contentTypes['postAutoAutomations'][0])
+    {
+        return $this->postAutoAutomationsAsyncWithHttpInfo($auto_automation_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postAutoAutomationsAsyncWithHttpInfo
+     *
+     * Creates an automation and arms its schedule.
+     *
+     * @param  \Hanzo\Cloud\Model\AutoAutomationIn $auto_automation_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAutoAutomationsAsyncWithHttpInfo($auto_automation_in, string $contentType = self::contentTypes['postAutoAutomations'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AutoAutomation';
+        $request = $this->postAutoAutomationsRequest($auto_automation_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postAutoAutomations'
+     *
+     * @param  \Hanzo\Cloud\Model\AutoAutomationIn $auto_automation_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postAutoAutomationsRequest($auto_automation_in, string $contentType = self::contentTypes['postAutoAutomations'][0])
+    {
+
+        // verify the required parameter 'auto_automation_in' is set
+        if ($auto_automation_in === null || (is_array($auto_automation_in) && count($auto_automation_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $auto_automation_in when calling postAutoAutomations'
+            );
+        }
+
+
+        $resourcePath = '/v1/auto/automations';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($auto_automation_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($auto_automation_in));
+            } else {
+                $httpBody = $auto_automation_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postAutoAutomationsByIdRun
+     *
+     * Starts one run now, whether or not its schedule is armed.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomationsByIdRun'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AutoRunStarted|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postAutoAutomationsByIdRun($id, string $contentType = self::contentTypes['postAutoAutomationsByIdRun'][0])
+    {
+        list($response) = $this->postAutoAutomationsByIdRunWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postAutoAutomationsByIdRunWithHttpInfo
+     *
+     * Starts one run now, whether or not its schedule is armed.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomationsByIdRun'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AutoRunStarted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAutoAutomationsByIdRunWithHttpInfo($id, string $contentType = self::contentTypes['postAutoAutomationsByIdRun'][0])
+    {
+        $request = $this->postAutoAutomationsByIdRunRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AutoRunStarted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AutoRunStarted',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AutoRunStarted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postAutoAutomationsByIdRunAsync
+     *
+     * Starts one run now, whether or not its schedule is armed.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomationsByIdRun'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAutoAutomationsByIdRunAsync($id, string $contentType = self::contentTypes['postAutoAutomationsByIdRun'][0])
+    {
+        return $this->postAutoAutomationsByIdRunAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postAutoAutomationsByIdRunAsyncWithHttpInfo
+     *
+     * Starts one run now, whether or not its schedule is armed.
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomationsByIdRun'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAutoAutomationsByIdRunAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAutoAutomationsByIdRun'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AutoRunStarted';
+        $request = $this->postAutoAutomationsByIdRunRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postAutoAutomationsByIdRun'
+     *
+     * @param  string $id ID is the automation, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomationsByIdRun'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postAutoAutomationsByIdRunRequest($id, string $contentType = self::contentTypes['postAutoAutomationsByIdRun'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postAutoAutomationsByIdRun'
+            );
+        }
+
+
+        $resourcePath = '/v1/auto/automations/{id}/run';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postAutoAutomationsByIdRunsByRunReview
+     *
+     * Answers a run that holds a post for review, for the person the automation runs as: &#x60;post&#x60; true posts it to the automation&#39;s accounts and answers the run while it posts; false discards it.
+     *
+     * @param  string $id ID is the automation, and Run its run in review, from the path. (required)
+     * @param  string $run run (required)
+     * @param  \Hanzo\Cloud\Model\AutoReviewIn $auto_review_in auto_review_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomationsByIdRunsByRunReview'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AutoAutomationRun|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postAutoAutomationsByIdRunsByRunReview($id, $run, $auto_review_in, string $contentType = self::contentTypes['postAutoAutomationsByIdRunsByRunReview'][0])
+    {
+        list($response) = $this->postAutoAutomationsByIdRunsByRunReviewWithHttpInfo($id, $run, $auto_review_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postAutoAutomationsByIdRunsByRunReviewWithHttpInfo
+     *
+     * Answers a run that holds a post for review, for the person the automation runs as: &#x60;post&#x60; true posts it to the automation&#39;s accounts and answers the run while it posts; false discards it.
+     *
+     * @param  string $id ID is the automation, and Run its run in review, from the path. (required)
+     * @param  string $run (required)
+     * @param  \Hanzo\Cloud\Model\AutoReviewIn $auto_review_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomationsByIdRunsByRunReview'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AutoAutomationRun|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAutoAutomationsByIdRunsByRunReviewWithHttpInfo($id, $run, $auto_review_in, string $contentType = self::contentTypes['postAutoAutomationsByIdRunsByRunReview'][0])
+    {
+        $request = $this->postAutoAutomationsByIdRunsByRunReviewRequest($id, $run, $auto_review_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AutoAutomationRun',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AutoAutomationRun',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AutoAutomationRun',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postAutoAutomationsByIdRunsByRunReviewAsync
+     *
+     * Answers a run that holds a post for review, for the person the automation runs as: &#x60;post&#x60; true posts it to the automation&#39;s accounts and answers the run while it posts; false discards it.
+     *
+     * @param  string $id ID is the automation, and Run its run in review, from the path. (required)
+     * @param  string $run (required)
+     * @param  \Hanzo\Cloud\Model\AutoReviewIn $auto_review_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomationsByIdRunsByRunReview'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAutoAutomationsByIdRunsByRunReviewAsync($id, $run, $auto_review_in, string $contentType = self::contentTypes['postAutoAutomationsByIdRunsByRunReview'][0])
+    {
+        return $this->postAutoAutomationsByIdRunsByRunReviewAsyncWithHttpInfo($id, $run, $auto_review_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postAutoAutomationsByIdRunsByRunReviewAsyncWithHttpInfo
+     *
+     * Answers a run that holds a post for review, for the person the automation runs as: &#x60;post&#x60; true posts it to the automation&#39;s accounts and answers the run while it posts; false discards it.
+     *
+     * @param  string $id ID is the automation, and Run its run in review, from the path. (required)
+     * @param  string $run (required)
+     * @param  \Hanzo\Cloud\Model\AutoReviewIn $auto_review_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomationsByIdRunsByRunReview'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAutoAutomationsByIdRunsByRunReviewAsyncWithHttpInfo($id, $run, $auto_review_in, string $contentType = self::contentTypes['postAutoAutomationsByIdRunsByRunReview'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AutoAutomationRun';
+        $request = $this->postAutoAutomationsByIdRunsByRunReviewRequest($id, $run, $auto_review_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postAutoAutomationsByIdRunsByRunReview'
+     *
+     * @param  string $id ID is the automation, and Run its run in review, from the path. (required)
+     * @param  string $run (required)
+     * @param  \Hanzo\Cloud\Model\AutoReviewIn $auto_review_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoAutomationsByIdRunsByRunReview'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postAutoAutomationsByIdRunsByRunReviewRequest($id, $run, $auto_review_in, string $contentType = self::contentTypes['postAutoAutomationsByIdRunsByRunReview'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postAutoAutomationsByIdRunsByRunReview'
+            );
+        }
+
+        // verify the required parameter 'run' is set
+        if ($run === null || (is_array($run) && count($run) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $run when calling postAutoAutomationsByIdRunsByRunReview'
+            );
+        }
+
+        // verify the required parameter 'auto_review_in' is set
+        if ($auto_review_in === null || (is_array($auto_review_in) && count($auto_review_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $auto_review_in when calling postAutoAutomationsByIdRunsByRunReview'
+            );
+        }
+
+
+        $resourcePath = '/v1/auto/automations/{id}/runs/{run}/review';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($run !== null) {
+            $resourcePath = str_replace(
+                '{' . 'run' . '}',
+                ObjectSerializer::toPathValue($run),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($auto_review_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($auto_review_in));
+            } else {
+                $httpBody = $auto_review_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postAutoCron
+     *
+     * Reads a schedule said in words — \&quot;every 5 minutes\&quot;, \&quot;weekdays at 8:30\&quot;, \&quot;every monday at 9am\&quot;, \&quot;tomorrow at 7pm\&quot;, \&quot;in 20 minutes\&quot;, or a five-field cron expression — in your time zone, and answers the schedule an automation takes, said back in plain words, with when it would first run.
+     *
+     * @param  \Hanzo\Cloud\Model\AutoWhenIn $auto_when_in auto_when_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoCron'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AutoWhenOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postAutoCron($auto_when_in, string $contentType = self::contentTypes['postAutoCron'][0])
+    {
+        list($response) = $this->postAutoCronWithHttpInfo($auto_when_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postAutoCronWithHttpInfo
+     *
+     * Reads a schedule said in words — \&quot;every 5 minutes\&quot;, \&quot;weekdays at 8:30\&quot;, \&quot;every monday at 9am\&quot;, \&quot;tomorrow at 7pm\&quot;, \&quot;in 20 minutes\&quot;, or a five-field cron expression — in your time zone, and answers the schedule an automation takes, said back in plain words, with when it would first run.
+     *
+     * @param  \Hanzo\Cloud\Model\AutoWhenIn $auto_when_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoCron'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AutoWhenOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAutoCronWithHttpInfo($auto_when_in, string $contentType = self::contentTypes['postAutoCron'][0])
+    {
+        $request = $this->postAutoCronRequest($auto_when_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AutoWhenOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AutoWhenOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AutoWhenOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postAutoCronAsync
+     *
+     * Reads a schedule said in words — \&quot;every 5 minutes\&quot;, \&quot;weekdays at 8:30\&quot;, \&quot;every monday at 9am\&quot;, \&quot;tomorrow at 7pm\&quot;, \&quot;in 20 minutes\&quot;, or a five-field cron expression — in your time zone, and answers the schedule an automation takes, said back in plain words, with when it would first run.
+     *
+     * @param  \Hanzo\Cloud\Model\AutoWhenIn $auto_when_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoCron'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAutoCronAsync($auto_when_in, string $contentType = self::contentTypes['postAutoCron'][0])
+    {
+        return $this->postAutoCronAsyncWithHttpInfo($auto_when_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postAutoCronAsyncWithHttpInfo
+     *
+     * Reads a schedule said in words — \&quot;every 5 minutes\&quot;, \&quot;weekdays at 8:30\&quot;, \&quot;every monday at 9am\&quot;, \&quot;tomorrow at 7pm\&quot;, \&quot;in 20 minutes\&quot;, or a five-field cron expression — in your time zone, and answers the schedule an automation takes, said back in plain words, with when it would first run.
+     *
+     * @param  \Hanzo\Cloud\Model\AutoWhenIn $auto_when_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoCron'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAutoCronAsyncWithHttpInfo($auto_when_in, string $contentType = self::contentTypes['postAutoCron'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AutoWhenOut';
+        $request = $this->postAutoCronRequest($auto_when_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postAutoCron'
+     *
+     * @param  \Hanzo\Cloud\Model\AutoWhenIn $auto_when_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoCron'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postAutoCronRequest($auto_when_in, string $contentType = self::contentTypes['postAutoCron'][0])
+    {
+
+        // verify the required parameter 'auto_when_in' is set
+        if ($auto_when_in === null || (is_array($auto_when_in) && count($auto_when_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $auto_when_in when calling postAutoCron'
+            );
+        }
+
+
+        $resourcePath = '/v1/auto/cron';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($auto_when_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($auto_when_in));
+            } else {
+                $httpBody = $auto_when_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2614,16 +6200,16 @@ class AutoApi
      *
      * Creates an automation and its initial DRAFT version in one call.
      *
-     * @param  \Hanzo\Cloud\Model\CreateFlowReq $create_flow_req create_flow_req (required)
+     * @param  \Hanzo\Cloud\Model\AutoCreateFlowReq $auto_create_flow_req auto_create_flow_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoFlows'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PopulatedFlow
+     * @return \Hanzo\Cloud\Model\AutoPopulatedFlow|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAutoFlows($create_flow_req, string $contentType = self::contentTypes['postAutoFlows'][0])
+    public function postAutoFlows($auto_create_flow_req, string $contentType = self::contentTypes['postAutoFlows'][0])
     {
-        list($response) = $this->postAutoFlowsWithHttpInfo($create_flow_req, $contentType);
+        list($response) = $this->postAutoFlowsWithHttpInfo($auto_create_flow_req, $contentType);
         return $response;
     }
 
@@ -2632,16 +6218,16 @@ class AutoApi
      *
      * Creates an automation and its initial DRAFT version in one call.
      *
-     * @param  \Hanzo\Cloud\Model\CreateFlowReq $create_flow_req (required)
+     * @param  \Hanzo\Cloud\Model\AutoCreateFlowReq $auto_create_flow_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoFlows'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PopulatedFlow, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoPopulatedFlow|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAutoFlowsWithHttpInfo($create_flow_req, string $contentType = self::contentTypes['postAutoFlows'][0])
+    public function postAutoFlowsWithHttpInfo($auto_create_flow_req, string $contentType = self::contentTypes['postAutoFlows'][0])
     {
-        $request = $this->postAutoFlowsRequest($create_flow_req, $contentType);
+        $request = $this->postAutoFlowsRequest($auto_create_flow_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2669,7 +6255,13 @@ class AutoApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PopulatedFlow',
+                        '\Hanzo\Cloud\Model\AutoPopulatedFlow',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2691,7 +6283,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PopulatedFlow',
+                '\Hanzo\Cloud\Model\AutoPopulatedFlow',
                 $request,
                 $response,
             );
@@ -2700,7 +6292,15 @@ class AutoApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PopulatedFlow',
+                        '\Hanzo\Cloud\Model\AutoPopulatedFlow',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2717,15 +6317,15 @@ class AutoApi
      *
      * Creates an automation and its initial DRAFT version in one call.
      *
-     * @param  \Hanzo\Cloud\Model\CreateFlowReq $create_flow_req (required)
+     * @param  \Hanzo\Cloud\Model\AutoCreateFlowReq $auto_create_flow_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoFlows'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAutoFlowsAsync($create_flow_req, string $contentType = self::contentTypes['postAutoFlows'][0])
+    public function postAutoFlowsAsync($auto_create_flow_req, string $contentType = self::contentTypes['postAutoFlows'][0])
     {
-        return $this->postAutoFlowsAsyncWithHttpInfo($create_flow_req, $contentType)
+        return $this->postAutoFlowsAsyncWithHttpInfo($auto_create_flow_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2738,16 +6338,16 @@ class AutoApi
      *
      * Creates an automation and its initial DRAFT version in one call.
      *
-     * @param  \Hanzo\Cloud\Model\CreateFlowReq $create_flow_req (required)
+     * @param  \Hanzo\Cloud\Model\AutoCreateFlowReq $auto_create_flow_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoFlows'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAutoFlowsAsyncWithHttpInfo($create_flow_req, string $contentType = self::contentTypes['postAutoFlows'][0])
+    public function postAutoFlowsAsyncWithHttpInfo($auto_create_flow_req, string $contentType = self::contentTypes['postAutoFlows'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PopulatedFlow';
-        $request = $this->postAutoFlowsRequest($create_flow_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AutoPopulatedFlow';
+        $request = $this->postAutoFlowsRequest($auto_create_flow_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2788,19 +6388,19 @@ class AutoApi
     /**
      * Create request for operation 'postAutoFlows'
      *
-     * @param  \Hanzo\Cloud\Model\CreateFlowReq $create_flow_req (required)
+     * @param  \Hanzo\Cloud\Model\AutoCreateFlowReq $auto_create_flow_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoFlows'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAutoFlowsRequest($create_flow_req, string $contentType = self::contentTypes['postAutoFlows'][0])
+    public function postAutoFlowsRequest($auto_create_flow_req, string $contentType = self::contentTypes['postAutoFlows'][0])
     {
 
-        // verify the required parameter 'create_flow_req' is set
-        if ($create_flow_req === null || (is_array($create_flow_req) && count($create_flow_req) === 0)) {
+        // verify the required parameter 'auto_create_flow_req' is set
+        if ($auto_create_flow_req === null || (is_array($auto_create_flow_req) && count($auto_create_flow_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_flow_req when calling postAutoFlows'
+                'Missing the required parameter $auto_create_flow_req when calling postAutoFlows'
             );
         }
 
@@ -2817,18 +6417,18 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($create_flow_req)) {
+        if (isset($auto_create_flow_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_flow_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($auto_create_flow_req));
             } else {
-                $httpBody = $create_flow_req;
+                $httpBody = $auto_create_flow_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2890,7 +6490,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Flow
+     * @return \Hanzo\Cloud\Model\AutoFlow|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postAutoFlowsByIdDisable($id, string $contentType = self::contentTypes['postAutoFlowsByIdDisable'][0])
     {
@@ -2908,7 +6508,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Flow, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoFlow|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postAutoFlowsByIdDisableWithHttpInfo($id, string $contentType = self::contentTypes['postAutoFlowsByIdDisable'][0])
     {
@@ -2940,7 +6540,13 @@ class AutoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Flow',
+                        '\Hanzo\Cloud\Model\AutoFlow',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2962,7 +6568,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Flow',
+                '\Hanzo\Cloud\Model\AutoFlow',
                 $request,
                 $response,
             );
@@ -2971,7 +6577,15 @@ class AutoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Flow',
+                        '\Hanzo\Cloud\Model\AutoFlow',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3017,7 +6631,7 @@ class AutoApi
      */
     public function postAutoFlowsByIdDisableAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAutoFlowsByIdDisable'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Flow';
+        $returnType = '\Hanzo\Cloud\Model\AutoFlow';
         $request = $this->postAutoFlowsByIdDisableRequest($id, $contentType);
 
         return $this->client
@@ -3096,7 +6710,7 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3162,7 +6776,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Flow
+     * @return \Hanzo\Cloud\Model\AutoFlow|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postAutoFlowsByIdEnable($id, string $contentType = self::contentTypes['postAutoFlowsByIdEnable'][0])
     {
@@ -3180,7 +6794,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Flow, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoFlow|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postAutoFlowsByIdEnableWithHttpInfo($id, string $contentType = self::contentTypes['postAutoFlowsByIdEnable'][0])
     {
@@ -3212,7 +6826,13 @@ class AutoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Flow',
+                        '\Hanzo\Cloud\Model\AutoFlow',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3234,7 +6854,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Flow',
+                '\Hanzo\Cloud\Model\AutoFlow',
                 $request,
                 $response,
             );
@@ -3243,7 +6863,15 @@ class AutoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Flow',
+                        '\Hanzo\Cloud\Model\AutoFlow',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3289,7 +6917,7 @@ class AutoApi
      */
     public function postAutoFlowsByIdEnableAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAutoFlowsByIdEnable'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Flow';
+        $returnType = '\Hanzo\Cloud\Model\AutoFlow';
         $request = $this->postAutoFlowsByIdEnableRequest($id, $contentType);
 
         return $this->client
@@ -3368,7 +6996,7 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3656,7 +7284,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FlowRun
+     * @return \Hanzo\Cloud\Model\AutoFlowRun|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postAutoFlowsByIdRun($id, string $contentType = self::contentTypes['postAutoFlowsByIdRun'][0])
     {
@@ -3674,7 +7302,7 @@ class AutoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FlowRun, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoFlowRun|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postAutoFlowsByIdRunWithHttpInfo($id, string $contentType = self::contentTypes['postAutoFlowsByIdRun'][0])
     {
@@ -3706,7 +7334,13 @@ class AutoApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FlowRun',
+                        '\Hanzo\Cloud\Model\AutoFlowRun',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3728,7 +7362,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FlowRun',
+                '\Hanzo\Cloud\Model\AutoFlowRun',
                 $request,
                 $response,
             );
@@ -3737,7 +7371,15 @@ class AutoApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FlowRun',
+                        '\Hanzo\Cloud\Model\AutoFlowRun',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3783,7 +7425,7 @@ class AutoApi
      */
     public function postAutoFlowsByIdRunAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAutoFlowsByIdRun'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FlowRun';
+        $returnType = '\Hanzo\Cloud\Model\AutoFlowRun';
         $request = $this->postAutoFlowsByIdRunRequest($id, $contentType);
 
         return $this->client
@@ -3862,7 +7504,7 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3924,16 +7566,16 @@ class AutoApi
      * Adds a new DRAFT version to a flow.
      *
      * @param  string $id ID is the flow to add a version to, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CreateVersionIn $create_version_in create_version_in (required)
+     * @param  \Hanzo\Cloud\Model\AutoCreateVersionIn $auto_create_version_in auto_create_version_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoFlowsByIdVersions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FlowVersion
+     * @return \Hanzo\Cloud\Model\AutoFlowVersion|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAutoFlowsByIdVersions($id, $create_version_in, string $contentType = self::contentTypes['postAutoFlowsByIdVersions'][0])
+    public function postAutoFlowsByIdVersions($id, $auto_create_version_in, string $contentType = self::contentTypes['postAutoFlowsByIdVersions'][0])
     {
-        list($response) = $this->postAutoFlowsByIdVersionsWithHttpInfo($id, $create_version_in, $contentType);
+        list($response) = $this->postAutoFlowsByIdVersionsWithHttpInfo($id, $auto_create_version_in, $contentType);
         return $response;
     }
 
@@ -3943,16 +7585,16 @@ class AutoApi
      * Adds a new DRAFT version to a flow.
      *
      * @param  string $id ID is the flow to add a version to, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CreateVersionIn $create_version_in (required)
+     * @param  \Hanzo\Cloud\Model\AutoCreateVersionIn $auto_create_version_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoFlowsByIdVersions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FlowVersion, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AutoFlowVersion|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAutoFlowsByIdVersionsWithHttpInfo($id, $create_version_in, string $contentType = self::contentTypes['postAutoFlowsByIdVersions'][0])
+    public function postAutoFlowsByIdVersionsWithHttpInfo($id, $auto_create_version_in, string $contentType = self::contentTypes['postAutoFlowsByIdVersions'][0])
     {
-        $request = $this->postAutoFlowsByIdVersionsRequest($id, $create_version_in, $contentType);
+        $request = $this->postAutoFlowsByIdVersionsRequest($id, $auto_create_version_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3980,7 +7622,13 @@ class AutoApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FlowVersion',
+                        '\Hanzo\Cloud\Model\AutoFlowVersion',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4002,7 +7650,7 @@ class AutoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FlowVersion',
+                '\Hanzo\Cloud\Model\AutoFlowVersion',
                 $request,
                 $response,
             );
@@ -4011,7 +7659,15 @@ class AutoApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FlowVersion',
+                        '\Hanzo\Cloud\Model\AutoFlowVersion',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4029,15 +7685,15 @@ class AutoApi
      * Adds a new DRAFT version to a flow.
      *
      * @param  string $id ID is the flow to add a version to, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CreateVersionIn $create_version_in (required)
+     * @param  \Hanzo\Cloud\Model\AutoCreateVersionIn $auto_create_version_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoFlowsByIdVersions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAutoFlowsByIdVersionsAsync($id, $create_version_in, string $contentType = self::contentTypes['postAutoFlowsByIdVersions'][0])
+    public function postAutoFlowsByIdVersionsAsync($id, $auto_create_version_in, string $contentType = self::contentTypes['postAutoFlowsByIdVersions'][0])
     {
-        return $this->postAutoFlowsByIdVersionsAsyncWithHttpInfo($id, $create_version_in, $contentType)
+        return $this->postAutoFlowsByIdVersionsAsyncWithHttpInfo($id, $auto_create_version_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4051,16 +7707,16 @@ class AutoApi
      * Adds a new DRAFT version to a flow.
      *
      * @param  string $id ID is the flow to add a version to, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CreateVersionIn $create_version_in (required)
+     * @param  \Hanzo\Cloud\Model\AutoCreateVersionIn $auto_create_version_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoFlowsByIdVersions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAutoFlowsByIdVersionsAsyncWithHttpInfo($id, $create_version_in, string $contentType = self::contentTypes['postAutoFlowsByIdVersions'][0])
+    public function postAutoFlowsByIdVersionsAsyncWithHttpInfo($id, $auto_create_version_in, string $contentType = self::contentTypes['postAutoFlowsByIdVersions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FlowVersion';
-        $request = $this->postAutoFlowsByIdVersionsRequest($id, $create_version_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AutoFlowVersion';
+        $request = $this->postAutoFlowsByIdVersionsRequest($id, $auto_create_version_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4102,13 +7758,13 @@ class AutoApi
      * Create request for operation 'postAutoFlowsByIdVersions'
      *
      * @param  string $id ID is the flow to add a version to, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CreateVersionIn $create_version_in (required)
+     * @param  \Hanzo\Cloud\Model\AutoCreateVersionIn $auto_create_version_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoFlowsByIdVersions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAutoFlowsByIdVersionsRequest($id, $create_version_in, string $contentType = self::contentTypes['postAutoFlowsByIdVersions'][0])
+    public function postAutoFlowsByIdVersionsRequest($id, $auto_create_version_in, string $contentType = self::contentTypes['postAutoFlowsByIdVersions'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -4118,10 +7774,10 @@ class AutoApi
             );
         }
 
-        // verify the required parameter 'create_version_in' is set
-        if ($create_version_in === null || (is_array($create_version_in) && count($create_version_in) === 0)) {
+        // verify the required parameter 'auto_create_version_in' is set
+        if ($auto_create_version_in === null || (is_array($auto_create_version_in) && count($auto_create_version_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_version_in when calling postAutoFlowsByIdVersions'
+                'Missing the required parameter $auto_create_version_in when calling postAutoFlowsByIdVersions'
             );
         }
 
@@ -4146,18 +7802,18 @@ class AutoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($create_version_in)) {
+        if (isset($auto_create_version_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_version_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($auto_create_version_in));
             } else {
-                $httpBody = $create_version_in;
+                $httpBody = $auto_create_version_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4402,6 +8058,311 @@ class AutoApi
 
         // for model (json/xml)
         if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postAutoProviderByIdRun
+     *
+     * Executes one provider action in-process and answers the outcome.
+     *
+     * @param  string $id ID is the provider to run, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoRunIn $auto_run_in auto_run_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoProviderByIdRun'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AutoRunResp|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postAutoProviderByIdRun($id, $auto_run_in, string $contentType = self::contentTypes['postAutoProviderByIdRun'][0])
+    {
+        list($response) = $this->postAutoProviderByIdRunWithHttpInfo($id, $auto_run_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postAutoProviderByIdRunWithHttpInfo
+     *
+     * Executes one provider action in-process and answers the outcome.
+     *
+     * @param  string $id ID is the provider to run, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoRunIn $auto_run_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoProviderByIdRun'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AutoRunResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAutoProviderByIdRunWithHttpInfo($id, $auto_run_in, string $contentType = self::contentTypes['postAutoProviderByIdRun'][0])
+    {
+        $request = $this->postAutoProviderByIdRunRequest($id, $auto_run_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AutoRunResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AutoRunResp',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AutoRunResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postAutoProviderByIdRunAsync
+     *
+     * Executes one provider action in-process and answers the outcome.
+     *
+     * @param  string $id ID is the provider to run, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoRunIn $auto_run_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoProviderByIdRun'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAutoProviderByIdRunAsync($id, $auto_run_in, string $contentType = self::contentTypes['postAutoProviderByIdRun'][0])
+    {
+        return $this->postAutoProviderByIdRunAsyncWithHttpInfo($id, $auto_run_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postAutoProviderByIdRunAsyncWithHttpInfo
+     *
+     * Executes one provider action in-process and answers the outcome.
+     *
+     * @param  string $id ID is the provider to run, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoRunIn $auto_run_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoProviderByIdRun'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAutoProviderByIdRunAsyncWithHttpInfo($id, $auto_run_in, string $contentType = self::contentTypes['postAutoProviderByIdRun'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AutoRunResp';
+        $request = $this->postAutoProviderByIdRunRequest($id, $auto_run_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postAutoProviderByIdRun'
+     *
+     * @param  string $id ID is the provider to run, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AutoRunIn $auto_run_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAutoProviderByIdRun'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postAutoProviderByIdRunRequest($id, $auto_run_in, string $contentType = self::contentTypes['postAutoProviderByIdRun'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postAutoProviderByIdRun'
+            );
+        }
+
+        // verify the required parameter 'auto_run_in' is set
+        if ($auto_run_in === null || (is_array($auto_run_in) && count($auto_run_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $auto_run_in when calling postAutoProviderByIdRun'
+            );
+        }
+
+
+        $resourcePath = '/v1/auto/provider/{id}/run';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($auto_run_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($auto_run_in));
+            } else {
+                $httpBody = $auto_run_in;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {

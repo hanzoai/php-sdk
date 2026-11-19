@@ -65,12 +65,14 @@ class IamInvitation implements ModelInterface, ArrayAccess, \JsonSerializable
         'deleted' => 'bool',
         'display_name' => 'string',
         'email' => 'string',
+        'generated' => 'bool',
         'id' => 'string',
         'is_regexp' => 'bool',
         'name' => 'string',
         'owner' => 'string',
         'phone' => 'string',
         'quota' => 'int',
+        'sent_time' => 'string',
         'signup_group' => 'string',
         'state' => 'string',
         'updated_at' => '\DateTime',
@@ -95,12 +97,14 @@ class IamInvitation implements ModelInterface, ArrayAccess, \JsonSerializable
         'deleted' => null,
         'display_name' => null,
         'email' => null,
+        'generated' => null,
         'id' => null,
         'is_regexp' => null,
         'name' => null,
         'owner' => null,
         'phone' => null,
         'quota' => 'int64',
+        'sent_time' => null,
         'signup_group' => null,
         'state' => null,
         'updated_at' => 'date-time',
@@ -123,12 +127,14 @@ class IamInvitation implements ModelInterface, ArrayAccess, \JsonSerializable
         'deleted' => false,
         'display_name' => false,
         'email' => false,
+        'generated' => false,
         'id' => false,
         'is_regexp' => false,
         'name' => false,
         'owner' => false,
         'phone' => false,
         'quota' => false,
+        'sent_time' => false,
         'signup_group' => false,
         'state' => false,
         'updated_at' => false,
@@ -231,12 +237,14 @@ class IamInvitation implements ModelInterface, ArrayAccess, \JsonSerializable
         'deleted' => 'deleted',
         'display_name' => 'displayName',
         'email' => 'email',
+        'generated' => 'generated',
         'id' => 'id',
         'is_regexp' => 'isRegexp',
         'name' => 'name',
         'owner' => 'owner',
         'phone' => 'phone',
         'quota' => 'quota',
+        'sent_time' => 'sentTime',
         'signup_group' => 'signupGroup',
         'state' => 'state',
         'updated_at' => 'updatedAt',
@@ -259,12 +267,14 @@ class IamInvitation implements ModelInterface, ArrayAccess, \JsonSerializable
         'deleted' => 'setDeleted',
         'display_name' => 'setDisplayName',
         'email' => 'setEmail',
+        'generated' => 'setGenerated',
         'id' => 'setId',
         'is_regexp' => 'setIsRegexp',
         'name' => 'setName',
         'owner' => 'setOwner',
         'phone' => 'setPhone',
         'quota' => 'setQuota',
+        'sent_time' => 'setSentTime',
         'signup_group' => 'setSignupGroup',
         'state' => 'setState',
         'updated_at' => 'setUpdatedAt',
@@ -287,12 +297,14 @@ class IamInvitation implements ModelInterface, ArrayAccess, \JsonSerializable
         'deleted' => 'getDeleted',
         'display_name' => 'getDisplayName',
         'email' => 'getEmail',
+        'generated' => 'getGenerated',
         'id' => 'getId',
         'is_regexp' => 'getIsRegexp',
         'name' => 'getName',
         'owner' => 'getOwner',
         'phone' => 'getPhone',
         'quota' => 'getQuota',
+        'sent_time' => 'getSentTime',
         'signup_group' => 'getSignupGroup',
         'state' => 'getState',
         'updated_at' => 'getUpdatedAt',
@@ -366,12 +378,14 @@ class IamInvitation implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('deleted', $data ?? [], null);
         $this->setIfExists('display_name', $data ?? [], null);
         $this->setIfExists('email', $data ?? [], null);
+        $this->setIfExists('generated', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('is_regexp', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('owner', $data ?? [], null);
         $this->setIfExists('phone', $data ?? [], null);
         $this->setIfExists('quota', $data ?? [], null);
+        $this->setIfExists('sent_time', $data ?? [], null);
         $this->setIfExists('signup_group', $data ?? [], null);
         $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
@@ -639,6 +653,33 @@ class IamInvitation implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets generated
+     *
+     * @return bool|null
+     */
+    public function getGenerated()
+    {
+        return $this->container['generated'];
+    }
+
+    /**
+     * Sets generated
+     *
+     * @param bool|null $generated Generated reports that IAM minted Code itself, from crypto/rand, when the invitation was created. Only such a code is compared without limit; any code a caller wrote is compared only while the org is not being guessed at, however it looks, because a code that looks random need not be.
+     *
+     * @return self
+     */
+    public function setGenerated($generated)
+    {
+        if (is_null($generated)) {
+            throw new \InvalidArgumentException('non-nullable generated cannot be null');
+        }
+        $this->container['generated'] = $generated;
+
+        return $this;
+    }
+
+    /**
      * Gets id
      *
      * @return string|null
@@ -651,7 +692,7 @@ class IamInvitation implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string|null $id Persisted fields
      *
      * @return self
      */
@@ -796,6 +837,33 @@ class IamInvitation implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable quota cannot be null');
         }
         $this->container['quota'] = $quota;
+
+        return $this;
+    }
+
+    /**
+     * Gets sent_time
+     *
+     * @return string|null
+     */
+    public function getSentTime()
+    {
+        return $this->container['sent_time'];
+    }
+
+    /**
+     * Sets sent_time
+     *
+     * @param string|null $sent_time SentTime is when an email about this invitation last went to its pinned address (RFC 3339), \"\" when none has. It paces resends, so the send endpoint cannot be used to mail one address over and over.
+     *
+     * @return self
+     */
+    public function setSentTime($sent_time)
+    {
+        if (is_null($sent_time)) {
+            throw new \InvalidArgumentException('non-nullable sent_time cannot be null');
+        }
+        $this->container['sent_time'] = $sent_time;
 
         return $this;
     }

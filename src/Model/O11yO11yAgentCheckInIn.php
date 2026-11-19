@@ -60,7 +60,7 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
         'account_id' => 'string',
         'cloud_integration_id' => 'mixed',
         'cloud_account_id' => 'string',
-        'data' => 'array<string,object>',
+        'data' => 'array<string,mixed>',
         'provider_account_id' => 'string'
     ];
 
@@ -330,7 +330,7 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets account_id
      *
-     * @param string|null $account_id account_id
+     * @param string|null $account_id following are backward compatible fields for older running agents, hence snake case JSON keys. Which get mapped to new fields in AgentCheckInRequest
      *
      * @return self
      */
@@ -391,7 +391,7 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets cloud_account_id
      *
-     * @param string|null $cloud_account_id cloud_account_id
+     * @param string|null $cloud_account_id => ProviderAccountID
      *
      * @return self
      */
@@ -408,7 +408,7 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Gets data
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getData()
     {
@@ -418,7 +418,7 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets data
      *
-     * @param array<string,object>|null $data data
+     * @param array<string,mixed>|null $data data
      *
      * @return self
      */

@@ -58,7 +58,6 @@ class O11yO11ySentryProject implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPITypes = [
         'created_at' => '\DateTime',
-        'dsn' => 'string',
         'id' => 'string',
         'name' => 'string',
         'platform' => 'string',
@@ -76,7 +75,6 @@ class O11yO11ySentryProject implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPIFormats = [
         'created_at' => 'date-time',
-        'dsn' => null,
         'id' => null,
         'name' => null,
         'platform' => null,
@@ -92,7 +90,6 @@ class O11yO11ySentryProject implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static array $openAPINullables = [
         'created_at' => false,
-        'dsn' => false,
         'id' => false,
         'name' => false,
         'platform' => false,
@@ -188,7 +185,6 @@ class O11yO11ySentryProject implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $attributeMap = [
         'created_at' => 'createdAt',
-        'dsn' => 'dsn',
         'id' => 'id',
         'name' => 'name',
         'platform' => 'platform',
@@ -204,7 +200,6 @@ class O11yO11ySentryProject implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $setters = [
         'created_at' => 'setCreatedAt',
-        'dsn' => 'setDsn',
         'id' => 'setId',
         'name' => 'setName',
         'platform' => 'setPlatform',
@@ -220,7 +215,6 @@ class O11yO11ySentryProject implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $getters = [
         'created_at' => 'getCreatedAt',
-        'dsn' => 'getDsn',
         'id' => 'getId',
         'name' => 'getName',
         'platform' => 'getPlatform',
@@ -287,7 +281,6 @@ class O11yO11ySentryProject implements ModelInterface, ArrayAccess, \JsonSeriali
     public function __construct(?array $data = null)
     {
         $this->setIfExists('created_at', $data ?? [], null);
-        $this->setIfExists('dsn', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('platform', $data ?? [], null);
@@ -361,33 +354,6 @@ class O11yO11ySentryProject implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable created_at cannot be null');
         }
         $this->container['created_at'] = $created_at;
-
-        return $this;
-    }
-
-    /**
-     * Gets dsn
-     *
-     * @return string|null
-     */
-    public function getDsn()
-    {
-        return $this->container['dsn'];
-    }
-
-    /**
-     * Sets dsn
-     *
-     * @param string|null $dsn DSN is the project's freshly-derived ingest DSN.
-     *
-     * @return self
-     */
-    public function setDsn($dsn)
-    {
-        if (is_null($dsn)) {
-            throw new \InvalidArgumentException('non-nullable dsn cannot be null');
-        }
-        $this->container['dsn'] = $dsn;
 
         return $this;
     }

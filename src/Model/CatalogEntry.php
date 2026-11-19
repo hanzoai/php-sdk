@@ -49,7 +49,7 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'catalogEntry';
+    protected static $openAPIModelName = 'catalog.Entry';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,11 +57,25 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'configured' => 'bool',
+        'archetype' => 'string',
         'description' => 'string',
-        'display_name' => 'string',
+        'forkable' => 'bool',
+        'id' => 'string',
         'kind' => 'string',
-        'provider' => 'string'
+        'language' => 'string',
+        'license' => 'string',
+        'name' => 'string',
+        'note' => 'string',
+        'org' => 'string',
+        'origin' => 'string',
+        'repo' => 'string',
+        'scope' => 'string',
+        'stars' => 'int',
+        'template' => 'string',
+        'title' => 'string',
+        'updated' => 'string',
+        'upstream' => 'string',
+        'url' => 'string'
     ];
 
     /**
@@ -72,11 +86,25 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'configured' => null,
+        'archetype' => null,
         'description' => null,
-        'display_name' => null,
+        'forkable' => null,
+        'id' => null,
         'kind' => null,
-        'provider' => null
+        'language' => null,
+        'license' => null,
+        'name' => null,
+        'note' => null,
+        'org' => null,
+        'origin' => null,
+        'repo' => null,
+        'scope' => null,
+        'stars' => 'int64',
+        'template' => null,
+        'title' => null,
+        'updated' => null,
+        'upstream' => null,
+        'url' => null
     ];
 
     /**
@@ -85,11 +113,25 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'configured' => false,
+        'archetype' => false,
         'description' => false,
-        'display_name' => false,
+        'forkable' => false,
+        'id' => false,
         'kind' => false,
-        'provider' => false
+        'language' => false,
+        'license' => false,
+        'name' => false,
+        'note' => false,
+        'org' => false,
+        'origin' => false,
+        'repo' => false,
+        'scope' => false,
+        'stars' => false,
+        'template' => false,
+        'title' => false,
+        'updated' => false,
+        'upstream' => false,
+        'url' => false
     ];
 
     /**
@@ -178,11 +220,25 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'configured' => 'configured',
+        'archetype' => 'archetype',
         'description' => 'description',
-        'display_name' => 'displayName',
+        'forkable' => 'forkable',
+        'id' => 'id',
         'kind' => 'kind',
-        'provider' => 'provider'
+        'language' => 'language',
+        'license' => 'license',
+        'name' => 'name',
+        'note' => 'note',
+        'org' => 'org',
+        'origin' => 'origin',
+        'repo' => 'repo',
+        'scope' => 'scope',
+        'stars' => 'stars',
+        'template' => 'template',
+        'title' => 'title',
+        'updated' => 'updated',
+        'upstream' => 'upstream',
+        'url' => 'url'
     ];
 
     /**
@@ -191,11 +247,25 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'configured' => 'setConfigured',
+        'archetype' => 'setArchetype',
         'description' => 'setDescription',
-        'display_name' => 'setDisplayName',
+        'forkable' => 'setForkable',
+        'id' => 'setId',
         'kind' => 'setKind',
-        'provider' => 'setProvider'
+        'language' => 'setLanguage',
+        'license' => 'setLicense',
+        'name' => 'setName',
+        'note' => 'setNote',
+        'org' => 'setOrg',
+        'origin' => 'setOrigin',
+        'repo' => 'setRepo',
+        'scope' => 'setScope',
+        'stars' => 'setStars',
+        'template' => 'setTemplate',
+        'title' => 'setTitle',
+        'updated' => 'setUpdated',
+        'upstream' => 'setUpstream',
+        'url' => 'setUrl'
     ];
 
     /**
@@ -204,11 +274,25 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'configured' => 'getConfigured',
+        'archetype' => 'getArchetype',
         'description' => 'getDescription',
-        'display_name' => 'getDisplayName',
+        'forkable' => 'getForkable',
+        'id' => 'getId',
         'kind' => 'getKind',
-        'provider' => 'getProvider'
+        'language' => 'getLanguage',
+        'license' => 'getLicense',
+        'name' => 'getName',
+        'note' => 'getNote',
+        'org' => 'getOrg',
+        'origin' => 'getOrigin',
+        'repo' => 'getRepo',
+        'scope' => 'getScope',
+        'stars' => 'getStars',
+        'template' => 'getTemplate',
+        'title' => 'getTitle',
+        'updated' => 'getUpdated',
+        'upstream' => 'getUpstream',
+        'url' => 'getUrl'
     ];
 
     /**
@@ -268,11 +352,25 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('configured', $data ?? [], null);
+        $this->setIfExists('archetype', $data ?? [], null);
         $this->setIfExists('description', $data ?? [], null);
-        $this->setIfExists('display_name', $data ?? [], null);
+        $this->setIfExists('forkable', $data ?? [], null);
+        $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('kind', $data ?? [], null);
-        $this->setIfExists('provider', $data ?? [], null);
+        $this->setIfExists('language', $data ?? [], null);
+        $this->setIfExists('license', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
+        $this->setIfExists('note', $data ?? [], null);
+        $this->setIfExists('org', $data ?? [], null);
+        $this->setIfExists('origin', $data ?? [], null);
+        $this->setIfExists('repo', $data ?? [], null);
+        $this->setIfExists('scope', $data ?? [], null);
+        $this->setIfExists('stars', $data ?? [], null);
+        $this->setIfExists('template', $data ?? [], null);
+        $this->setIfExists('title', $data ?? [], null);
+        $this->setIfExists('updated', $data ?? [], null);
+        $this->setIfExists('upstream', $data ?? [], null);
+        $this->setIfExists('url', $data ?? [], null);
     }
 
     /**
@@ -318,28 +416,28 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets configured
+     * Gets archetype
      *
-     * @return bool|null
+     * @return string|null
      */
-    public function getConfigured()
+    public function getArchetype()
     {
-        return $this->container['configured'];
+        return $this->container['archetype'];
     }
 
     /**
-     * Sets configured
+     * Sets archetype
      *
-     * @param bool|null $configured Configured is whether THIS DEPLOYMENT holds the OAuth client credentials for the provider. False means Connect would dead-end, so the console can offer it disabled instead of broken. It is deployment-wide and says nothing about whether the caller's org has connected the source — that is the connector list's `status`.
+     * @param string|null $archetype Archetype is WHAT KIND OF THING this is, from a closed and ordered list — model | contract | chain | sdk | template | infra | site | app — derived from the repository's own topics, name and description, first match winning, and always `site` for a deployed site. It is DERIVED, never guessed by a model, because a wrong archetype hides a row from the browse rail more thoroughly than a missing one does. Empty when no topic matched: unclassified, not uncategorisable.
      *
      * @return self
      */
-    public function setConfigured($configured)
+    public function setArchetype($archetype)
     {
-        if (is_null($configured)) {
-            throw new \InvalidArgumentException('non-nullable configured cannot be null');
+        if (is_null($archetype)) {
+            throw new \InvalidArgumentException('non-nullable archetype cannot be null');
         }
-        $this->container['configured'] = $configured;
+        $this->container['archetype'] = $archetype;
 
         return $this;
     }
@@ -357,7 +455,7 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets description
      *
-     * @param string|null $description Description is one line of shop copy: what connecting this source pulls in. Native connectors carry written prose; a piece-backed one reads \"activepieces connector (<piece>)\".
+     * @param string|null $description Description is the repository's own one-line GitHub description, carried verbatim. It comes from the SOURCE half of a row, so a site that was never matched to a repository has none, and nothing here is written by us.
      *
      * @return self
      */
@@ -372,28 +470,55 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets display_name
+     * Gets forkable
      *
-     * @return string|null
+     * @return bool|null
      */
-    public function getDisplayName()
+    public function getForkable()
     {
-        return $this->container['display_name'];
+        return $this->container['forkable'];
     }
 
     /**
-     * Sets display_name
+     * Sets forkable
      *
-     * @param string|null $display_name DisplayName is the label to show a person. First-party connectors carry a written name (\"GitHub\", \"Google Drive\"); a piece-backed one falls back to the provider capitalized, because the rich activepieces metadata lives behind a cross-service call this read will not make.
+     * @param bool|null $forkable Forkable is NOT omitempty: false is an answer here, not a missing field. Omitted, a client could not tell \"you cannot fork this\" from \"nobody said\".
      *
      * @return self
      */
-    public function setDisplayName($display_name)
+    public function setForkable($forkable)
     {
-        if (is_null($display_name)) {
-            throw new \InvalidArgumentException('non-nullable display_name cannot be null');
+        if (is_null($forkable)) {
+            throw new \InvalidArgumentException('non-nullable forkable cannot be null');
         }
-        $this->container['display_name'] = $display_name;
+        $this->container['forkable'] = $forkable;
+
+        return $this;
+    }
+
+    /**
+     * Gets id
+     *
+     * @return string|null
+     */
+    public function getId()
+    {
+        return $this->container['id'];
+    }
+
+    /**
+     * Sets id
+     *
+     * @param string|null $id ID is \"<org>/<name>\" and is the corpus's primary key: a re-published entry updates in place under it rather than accumulating duplicates, so it is the one handle stable enough to link to or to name in a `template` filter. Two orgs can spell the same id, and `canonical` picks which one keeps it.
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('non-nullable id cannot be null');
+        }
+        $this->container['id'] = $id;
 
         return $this;
     }
@@ -411,7 +536,7 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets kind
      *
-     * @param string|null $kind \"native\" | \"piece\"
+     * @param string|null $kind repo | site
      *
      * @return self
      */
@@ -426,28 +551,379 @@ class CatalogEntry implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets provider
+     * Gets language
      *
      * @return string|null
      */
-    public function getProvider()
+    public function getLanguage()
     {
-        return $this->container['provider'];
+        return $this->container['language'];
     }
 
     /**
-     * Sets provider
+     * Sets language
      *
-     * @param string|null $provider Provider is the source's id and the address every connector op takes it by (/v1/knowledge/connectors/:provider). One of github, slack, google, notion.
+     * @param string|null $language Language is the repository's primary implementation language as GitHub computes it (\"Go\", \"TypeScript\"), and the case is GitHub's. Empty for a site with no source half and for a repository GitHub could not classify.
      *
      * @return self
      */
-    public function setProvider($provider)
+    public function setLanguage($language)
     {
-        if (is_null($provider)) {
-            throw new \InvalidArgumentException('non-nullable provider cannot be null');
+        if (is_null($language)) {
+            throw new \InvalidArgumentException('non-nullable language cannot be null');
         }
-        $this->container['provider'] = $provider;
+        $this->container['language'] = $language;
+
+        return $this;
+    }
+
+    /**
+     * Gets license
+     *
+     * @return string|null
+     */
+    public function getLicense()
+    {
+        return $this->container['license'];
+    }
+
+    /**
+     * Sets license
+     *
+     * @param string|null $license License is the terms that upstream work carries, in whichever form the half that credited it had: an SPDX id (\"MIT\", \"Apache-2.0\") on a GitHub fork, free text on a site whose publisher declared it. GitHub's NOASSERTION — \"we could not identify it\" — reads as none rather than as a licence by that name. So empty means UNDECLARED and never unencumbered, and Upstream is what says whether the question applies at all.
+     *
+     * @return self
+     */
+    public function setLicense($license)
+    {
+        if (is_null($license)) {
+            throw new \InvalidArgumentException('non-nullable license cannot be null');
+        }
+        $this->container['license'] = $license;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return string|null
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param string|null $name Name is the short identifier inside the org — the repository's name, or the site's slug — and is the half of ID after the slash. Not a display name; Title is.
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
+        }
+        $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets note
+     *
+     * @return string|null
+     */
+    public function getNote()
+    {
+        return $this->container['note'];
+    }
+
+    /**
+     * Sets note
+     *
+     * @param string|null $note Note is why a row is NOT in the published catalog, set by the admission gate (gate.go) on the sites it holds back. It is the difference between a demo that silently vanished from the public lens and one whose owner can read the reason and fix it. A published row never carries one.
+     *
+     * @return self
+     */
+    public function setNote($note)
+    {
+        if (is_null($note)) {
+            throw new \InvalidArgumentException('non-nullable note cannot be null');
+        }
+        $this->container['note'] = $note;
+
+        return $this;
+    }
+
+    /**
+     * Gets org
+     *
+     * @return string|null
+     */
+    public function getOrg()
+    {
+        return $this->container['org'];
+    }
+
+    /**
+     * Sets org
+     *
+     * @param string|null $org hanzo | lux | zoo
+     *
+     * @return self
+     */
+    public function setOrg($org)
+    {
+        if (is_null($org)) {
+            throw new \InvalidArgumentException('non-nullable org cannot be null');
+        }
+        $this->container['org'] = $org;
+
+        return $this;
+    }
+
+    /**
+     * Gets origin
+     *
+     * @return string|null
+     */
+    public function getOrigin()
+    {
+        return $this->container['origin'];
+    }
+
+    /**
+     * Sets origin
+     *
+     * @param string|null $origin Origin is WHAT THIS IS TO YOU: template | community | third-party | product (origin.go owns the four nouns and derives them). Not omitempty, for the same reason Forkable is not: every row has an answer, and a missing one is exactly the flattening this field exists to end.
+     *
+     * @return self
+     */
+    public function setOrigin($origin)
+    {
+        if (is_null($origin)) {
+            throw new \InvalidArgumentException('non-nullable origin cannot be null');
+        }
+        $this->container['origin'] = $origin;
+
+        return $this;
+    }
+
+    /**
+     * Gets repo
+     *
+     * @return string|null
+     */
+    public function getRepo()
+    {
+        return $this->container['repo'];
+    }
+
+    /**
+     * Sets repo
+     *
+     * @param string|null $repo source
+     *
+     * @return self
+     */
+    public function setRepo($repo)
+    {
+        if (is_null($repo)) {
+            throw new \InvalidArgumentException('non-nullable repo cannot be null');
+        }
+        $this->container['repo'] = $repo;
+
+        return $this;
+    }
+
+    /**
+     * Gets scope
+     *
+     * @return string|null
+     */
+    public function getScope()
+    {
+        return $this->container['scope'];
+    }
+
+    /**
+     * Sets scope
+     *
+     * @param string|null $scope Scope is provenance, not storage: \"public\" for a row from the published corpus, \"org\" for one only this caller can see. A UI that cannot tell them apart cannot warn before sharing a link.
+     *
+     * @return self
+     */
+    public function setScope($scope)
+    {
+        if (is_null($scope)) {
+            throw new \InvalidArgumentException('non-nullable scope cannot be null');
+        }
+        $this->container['scope'] = $scope;
+
+        return $this;
+    }
+
+    /**
+     * Gets stars
+     *
+     * @return int|null
+     */
+    public function getStars()
+    {
+        return $this->container['stars'];
+    }
+
+    /**
+     * Sets stars
+     *
+     * @param int|null $stars Stars is GitHub's stargazer count for the source repository, read at the last sync and never accumulated here. It is not a ranking — the page sorts on Updated — but it is the tiebreak when two orgs claim one ID. Absent for a site with no repository behind it, and for a repository nobody has starred.
+     *
+     * @return self
+     */
+    public function setStars($stars)
+    {
+        if (is_null($stars)) {
+            throw new \InvalidArgumentException('non-nullable stars cannot be null');
+        }
+        $this->container['stars'] = $stars;
+
+        return $this;
+    }
+
+    /**
+     * Gets template
+     *
+     * @return string|null
+     */
+    public function getTemplate()
+    {
+        return $this->container['template'];
+    }
+
+    /**
+     * Sets template
+     *
+     * @param string|null $template lineage, if forked from one
+     *
+     * @return self
+     */
+    public function setTemplate($template)
+    {
+        if (is_null($template)) {
+            throw new \InvalidArgumentException('non-nullable template cannot be null');
+        }
+        $this->container['template'] = $template;
+
+        return $this;
+    }
+
+    /**
+     * Gets title
+     *
+     * @return string|null
+     */
+    public function getTitle()
+    {
+        return $this->container['title'];
+    }
+
+    /**
+     * Sets title
+     *
+     * @param string|null $title Title is what to SHOW. A site's human name wins where it has one; a repo row falls back to the repository name, so on a repo this usually just repeats Name. Absent only for a site whose project was never named — render Name.
+     *
+     * @return self
+     */
+    public function setTitle($title)
+    {
+        if (is_null($title)) {
+            throw new \InvalidArgumentException('non-nullable title cannot be null');
+        }
+        $this->container['title'] = $title;
+
+        return $this;
+    }
+
+    /**
+     * Gets updated
+     *
+     * @return string|null
+     */
+    public function getUpdated()
+    {
+        return $this->container['updated'];
+    }
+
+    /**
+     * Sets updated
+     *
+     * @param string|null $updated Updated is when the thing last MOVED, as RFC 3339 in UTC: a repository's last push, or a site's last deploy. The page is ordered on it, most recent first, by comparing these strings — so the format is load-bearing and not cosmetic. Absent means the source reported no timestamp, and such a row sorts last.
+     *
+     * @return self
+     */
+    public function setUpdated($updated)
+    {
+        if (is_null($updated)) {
+            throw new \InvalidArgumentException('non-nullable updated cannot be null');
+        }
+        $this->container['updated'] = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Gets upstream
+     *
+     * @return string|null
+     */
+    public function getUpstream()
+    {
+        return $this->container['upstream'];
+    }
+
+    /**
+     * Sets upstream
+     *
+     * @param string|null $upstream Upstream/License credit the third-party work an entry was published from: the difference between \"this org built it\" and \"somebody else built it and we are showing it to you\".  WHO built it is Org, above — the account that paid for the project. There was once a separate admin-gated `official` boolean here claiming the same thing, and because it was gated it disagreed: apps Hanzo wrote and hosts were published by a script holding an ordinary org token, so it stayed false on all of them and this directory filed our own work as somebody else's. A field that restates an unforgeable fact can only ever be the wrong copy of it.
+     *
+     * @return self
+     */
+    public function setUpstream($upstream)
+    {
+        if (is_null($upstream)) {
+            throw new \InvalidArgumentException('non-nullable upstream cannot be null');
+        }
+        $this->container['upstream'] = $upstream;
+
+        return $this;
+    }
+
+    /**
+     * Gets url
+     *
+     * @return string|null
+     */
+    public function getUrl()
+    {
+        return $this->container['url'];
+    }
+
+    /**
+     * Sets url
+     *
+     * @param string|null $url live, if it is deployed
+     *
+     * @return self
+     */
+    public function setUrl($url)
+    {
+        if (is_null($url)) {
+            throw new \InvalidArgumentException('non-nullable url cannot be null');
+        }
+        $this->container['url'] = $url;
 
         return $this;
     }

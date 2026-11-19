@@ -83,9 +83,6 @@ class BotApi
         'postBotMembersSync' => [
             'application/json',
         ],
-        'postBotRuns' => [
-            'application/json',
-        ],
         'postBotRunsByRunidStop' => [
             'application/json',
         ],
@@ -146,7 +143,7 @@ class BotApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BotRoster
+     * @return \Hanzo\Cloud\Model\BotBotRoster|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBotMembers(string $contentType = self::contentTypes['getBotMembers'][0])
     {
@@ -163,7 +160,7 @@ class BotApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BotRoster, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BotBotRoster|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBotMembersWithHttpInfo(string $contentType = self::contentTypes['getBotMembers'][0])
     {
@@ -195,7 +192,13 @@ class BotApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BotRoster',
+                        '\Hanzo\Cloud\Model\BotBotRoster',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -217,7 +220,7 @@ class BotApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BotRoster',
+                '\Hanzo\Cloud\Model\BotBotRoster',
                 $request,
                 $response,
             );
@@ -226,7 +229,15 @@ class BotApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BotRoster',
+                        '\Hanzo\Cloud\Model\BotBotRoster',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -270,7 +281,7 @@ class BotApi
      */
     public function getBotMembersAsyncWithHttpInfo(string $contentType = self::contentTypes['getBotMembers'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BotRoster';
+        $returnType = '\Hanzo\Cloud\Model\BotBotRoster';
         $request = $this->getBotMembersRequest($contentType);
 
         return $this->client
@@ -333,7 +344,7 @@ class BotApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -392,13 +403,13 @@ class BotApi
     /**
      * Operation getBotRuns
      *
-     * List returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
+     * Returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBotRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BotRuns
+     * @return \Hanzo\Cloud\Model\BotBotRuns|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBotRuns(string $contentType = self::contentTypes['getBotRuns'][0])
     {
@@ -409,13 +420,13 @@ class BotApi
     /**
      * Operation getBotRunsWithHttpInfo
      *
-     * List returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
+     * Returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBotRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BotRuns, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BotBotRuns|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBotRunsWithHttpInfo(string $contentType = self::contentTypes['getBotRuns'][0])
     {
@@ -447,7 +458,13 @@ class BotApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BotRuns',
+                        '\Hanzo\Cloud\Model\BotBotRuns',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -469,7 +486,7 @@ class BotApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BotRuns',
+                '\Hanzo\Cloud\Model\BotBotRuns',
                 $request,
                 $response,
             );
@@ -478,7 +495,15 @@ class BotApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BotRuns',
+                        '\Hanzo\Cloud\Model\BotBotRuns',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -493,7 +518,7 @@ class BotApi
     /**
      * Operation getBotRunsAsync
      *
-     * List returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
+     * Returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBotRuns'] to see the possible values for this operation
      *
@@ -513,7 +538,7 @@ class BotApi
     /**
      * Operation getBotRunsAsyncWithHttpInfo
      *
-     * List returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
+     * Returns the caller org&#39;s live bot runs, read from the bot runtime and projected into the console contract with each run&#39;s live session URL derived here.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBotRuns'] to see the possible values for this operation
      *
@@ -522,7 +547,7 @@ class BotApi
      */
     public function getBotRunsAsyncWithHttpInfo(string $contentType = self::contentTypes['getBotRuns'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BotRuns';
+        $returnType = '\Hanzo\Cloud\Model\BotBotRuns';
         $request = $this->getBotRunsRequest($contentType);
 
         return $this->client
@@ -585,7 +610,7 @@ class BotApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -650,7 +675,7 @@ class BotApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BotSync
+     * @return \Hanzo\Cloud\Model\BotBotSync|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postBotMembersSync(string $contentType = self::contentTypes['postBotMembersSync'][0])
     {
@@ -667,7 +692,7 @@ class BotApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BotSync, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BotBotSync|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postBotMembersSyncWithHttpInfo(string $contentType = self::contentTypes['postBotMembersSync'][0])
     {
@@ -699,7 +724,13 @@ class BotApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BotSync',
+                        '\Hanzo\Cloud\Model\BotBotSync',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -721,7 +752,7 @@ class BotApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BotSync',
+                '\Hanzo\Cloud\Model\BotBotSync',
                 $request,
                 $response,
             );
@@ -730,7 +761,15 @@ class BotApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BotSync',
+                        '\Hanzo\Cloud\Model\BotBotSync',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -774,7 +813,7 @@ class BotApi
      */
     public function postBotMembersSyncAsyncWithHttpInfo(string $contentType = self::contentTypes['postBotMembersSync'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BotSync';
+        $returnType = '\Hanzo\Cloud\Model\BotBotSync';
         $request = $this->postBotMembersSyncRequest($contentType);
 
         return $this->client
@@ -837,209 +876,7 @@ class BotApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postBotRuns
-     *
-     * Answers 501 to every call: launching a bot run is not implemented.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBotRuns'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postBotRuns(string $contentType = self::contentTypes['postBotRuns'][0])
-    {
-        $this->postBotRunsWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postBotRunsWithHttpInfo
-     *
-     * Answers 501 to every call: launching a bot run is not implemented.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBotRuns'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postBotRunsWithHttpInfo(string $contentType = self::contentTypes['postBotRuns'][0])
-    {
-        $request = $this->postBotRunsRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postBotRunsAsync
-     *
-     * Answers 501 to every call: launching a bot run is not implemented.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBotRuns'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postBotRunsAsync(string $contentType = self::contentTypes['postBotRuns'][0])
-    {
-        return $this->postBotRunsAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postBotRunsAsyncWithHttpInfo
-     *
-     * Answers 501 to every call: launching a bot run is not implemented.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBotRuns'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postBotRunsAsyncWithHttpInfo(string $contentType = self::contentTypes['postBotRuns'][0])
-    {
-        $returnType = '';
-        $request = $this->postBotRunsRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postBotRuns'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBotRuns'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postBotRunsRequest(string $contentType = self::contentTypes['postBotRuns'][0])
-    {
-
-
-        $resourcePath = '/v1/bot/runs';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1098,14 +935,14 @@ class BotApi
     /**
      * Operation postBotRunsByRunidStop
      *
-     * Stop terminates one of the caller org&#39;s own bot runs and reports its terminal state.
+     * Terminates one of the caller org&#39;s own bot runs and reports its terminal state.
      *
      * @param  string $run_id RunID is the run to stop, as the bot runtime named it. It is read from the URL — the &#x60;{runId}&#x60; segment the router matched on — and a body carrying a different id cannot redirect the stop. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBotRunsByRunidStop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BotStopped
+     * @return \Hanzo\Cloud\Model\BotBotStopped|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postBotRunsByRunidStop($run_id, string $contentType = self::contentTypes['postBotRunsByRunidStop'][0])
     {
@@ -1116,14 +953,14 @@ class BotApi
     /**
      * Operation postBotRunsByRunidStopWithHttpInfo
      *
-     * Stop terminates one of the caller org&#39;s own bot runs and reports its terminal state.
+     * Terminates one of the caller org&#39;s own bot runs and reports its terminal state.
      *
      * @param  string $run_id RunID is the run to stop, as the bot runtime named it. It is read from the URL — the &#x60;{runId}&#x60; segment the router matched on — and a body carrying a different id cannot redirect the stop. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBotRunsByRunidStop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BotStopped, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BotBotStopped|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postBotRunsByRunidStopWithHttpInfo($run_id, string $contentType = self::contentTypes['postBotRunsByRunidStop'][0])
     {
@@ -1155,7 +992,13 @@ class BotApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BotStopped',
+                        '\Hanzo\Cloud\Model\BotBotStopped',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1177,7 +1020,7 @@ class BotApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BotStopped',
+                '\Hanzo\Cloud\Model\BotBotStopped',
                 $request,
                 $response,
             );
@@ -1186,7 +1029,15 @@ class BotApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BotStopped',
+                        '\Hanzo\Cloud\Model\BotBotStopped',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1201,7 +1052,7 @@ class BotApi
     /**
      * Operation postBotRunsByRunidStopAsync
      *
-     * Stop terminates one of the caller org&#39;s own bot runs and reports its terminal state.
+     * Terminates one of the caller org&#39;s own bot runs and reports its terminal state.
      *
      * @param  string $run_id RunID is the run to stop, as the bot runtime named it. It is read from the URL — the &#x60;{runId}&#x60; segment the router matched on — and a body carrying a different id cannot redirect the stop. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBotRunsByRunidStop'] to see the possible values for this operation
@@ -1222,7 +1073,7 @@ class BotApi
     /**
      * Operation postBotRunsByRunidStopAsyncWithHttpInfo
      *
-     * Stop terminates one of the caller org&#39;s own bot runs and reports its terminal state.
+     * Terminates one of the caller org&#39;s own bot runs and reports its terminal state.
      *
      * @param  string $run_id RunID is the run to stop, as the bot runtime named it. It is read from the URL — the &#x60;{runId}&#x60; segment the router matched on — and a body carrying a different id cannot redirect the stop. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBotRunsByRunidStop'] to see the possible values for this operation
@@ -1232,7 +1083,7 @@ class BotApi
      */
     public function postBotRunsByRunidStopAsyncWithHttpInfo($run_id, string $contentType = self::contentTypes['postBotRunsByRunidStop'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BotStopped';
+        $returnType = '\Hanzo\Cloud\Model\BotBotStopped';
         $request = $this->postBotRunsByRunidStopRequest($run_id, $contentType);
 
         return $this->client
@@ -1311,7 +1162,7 @@ class BotApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

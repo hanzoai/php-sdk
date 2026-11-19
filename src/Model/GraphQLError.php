@@ -58,7 +58,7 @@ class GraphQLError implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'message' => 'string',
-        'path' => 'string[]'
+        'path' => 'mixed[]'
     ];
 
     /**
@@ -326,7 +326,7 @@ class GraphQLError implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets path
      *
-     * @return string[]|null
+     * @return mixed[]|null
      */
     public function getPath()
     {
@@ -336,7 +336,7 @@ class GraphQLError implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets path
      *
-     * @param string[]|null $path path
+     * @param mixed[]|null $path path
      *
      * @return self
      */

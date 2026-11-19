@@ -152,6 +152,9 @@ class IamApi
         'getIamAccount' => [
             'application/json',
         ],
+        'getIamAccounts' => [
+            'application/json',
+        ],
         'getIamApplications' => [
             'application/json',
         ],
@@ -197,6 +200,9 @@ class IamApi
         'getIamKeysPrincipal' => [
             'application/json',
         ],
+        'getIamLink' => [
+            'application/json',
+        ],
         'getIamLinkedAccounts' => [
             'application/json',
         ],
@@ -207,6 +213,9 @@ class IamApi
             'application/json',
         ],
         'getIamOauthCallback' => [
+            'application/json',
+        ],
+        'getIamOauthDelegationKeys' => [
             'application/json',
         ],
         'getIamOauthLogout' => [
@@ -305,6 +314,9 @@ class IamApi
         'getOrganization' => [
             'application/json',
         ],
+        'getOrganizationTombstone' => [
+            'application/json',
+        ],
         'getProvider' => [
             'application/json',
         ],
@@ -341,10 +353,10 @@ class IamApi
         'postIamApplications' => [
             'application/json',
         ],
-        'postIamAssume' => [
+        'postIamAuditLogs' => [
             'application/json',
         ],
-        'postIamAuditLogs' => [
+        'postIamAuthIdentifier' => [
             'application/json',
         ],
         'postIamCerts' => [
@@ -354,6 +366,12 @@ class IamApi
             'application/json',
         ],
         'postIamInvitations' => [
+            'application/json',
+        ],
+        'postIamInvitationsAccept' => [
+            'application/json',
+        ],
+        'postIamInvitationsByOwnerByNameSend' => [
             'application/json',
         ],
         'postIamKeys' => [
@@ -377,7 +395,13 @@ class IamApi
         'postIamMfaSetupInitiate' => [
             'application/json',
         ],
+        'postIamOauthAgentIdentity' => [
+            'application/json',
+        ],
         'postIamOauthAuthorize' => [
+            'application/json',
+        ],
+        'postIamOauthCallback' => [
             'application/json',
         ],
         'postIamOauthDevice' => [
@@ -393,6 +417,9 @@ class IamApi
             'application/json',
         ],
         'postIamOauthLogout' => [
+            'application/json',
+        ],
+        'postIamOauthRefreshToken' => [
             'application/json',
         ],
         'postIamOauthRevoke' => [
@@ -417,9 +444,6 @@ class IamApi
             'application/json',
         ],
         'postIamRegistryToken' => [
-            'application/json',
-        ],
-        'postIamRelease' => [
             'application/json',
         ],
         'postIamRoles' => [
@@ -473,6 +497,12 @@ class IamApi
         'putIamAccount' => [
             'application/json',
         ],
+        'putIamAccounts' => [
+            'application/json',
+        ],
+        'putIamAddress' => [
+            'application/json',
+        ],
         'putIamApplicationsByOwnerByName' => [
             'application/json',
         ],
@@ -509,10 +539,16 @@ class IamApi
         'putIamTeamsByName' => [
             'application/json',
         ],
+        'putIamTerms' => [
+            'application/json',
+        ],
         'putIamUsersByOwnerByName' => [
             'application/json',
         ],
         'putIamWorkspacesByOwnerByName' => [
+            'application/json',
+        ],
+        'releaseOrganizationName' => [
             'application/json',
         ],
         'setOrganizationAvatar' => [
@@ -600,7 +636,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamProviderResult
+     * @return \Hanzo\Cloud\Model\IamProviderResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function addProvider($iam_provider, string $contentType = self::contentTypes['addProvider'][0])
     {
@@ -618,7 +654,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamProviderResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamProviderResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function addProviderWithHttpInfo($iam_provider, string $contentType = self::contentTypes['addProvider'][0])
     {
@@ -654,6 +690,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -682,6 +730,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamProviderResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -798,7 +862,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -871,7 +935,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamTokenResult
+     * @return \Hanzo\Cloud\Model\IamTokenResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function addToken($iam_token, string $contentType = self::contentTypes['addToken'][0])
     {
@@ -889,7 +953,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamTokenResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamTokenResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function addTokenWithHttpInfo($iam_token, string $contentType = self::contentTypes['addToken'][0])
     {
@@ -925,6 +989,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -953,6 +1029,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamTokenResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1069,7 +1161,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1142,7 +1234,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamWebauthnCredentialResult
+     * @return \Hanzo\Cloud\Model\IamWebauthnCredentialResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function addWebauthnCredential($iam_webauthn_credential, string $contentType = self::contentTypes['addWebauthnCredential'][0])
     {
@@ -1160,7 +1252,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamWebauthnCredentialResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamWebauthnCredentialResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function addWebauthnCredentialWithHttpInfo($iam_webauthn_credential, string $contentType = self::contentTypes['addWebauthnCredential'][0])
     {
@@ -1196,6 +1288,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1224,6 +1328,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamWebauthnCredentialResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1340,7 +1460,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1413,7 +1533,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamOrganization
+     * @return \Hanzo\Cloud\Model\IamOrganization|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function createOrganization($iam_create_organization_input, string $contentType = self::contentTypes['createOrganization'][0])
     {
@@ -1431,7 +1551,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamOrganization, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamOrganization|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function createOrganizationWithHttpInfo($iam_create_organization_input, string $contentType = self::contentTypes['createOrganization'][0])
     {
@@ -1467,6 +1587,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1495,6 +1627,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamOrganization',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1611,7 +1759,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1684,7 +1832,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamSession
+     * @return \Hanzo\Cloud\Model\IamSession|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function createSession($iam_create_session_in, string $contentType = self::contentTypes['createSession'][0])
     {
@@ -1702,7 +1850,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamSession, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamSession|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function createSessionWithHttpInfo($iam_create_session_in, string $contentType = self::contentTypes['createSession'][0])
     {
@@ -1738,6 +1886,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1766,6 +1926,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamSession',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1882,7 +2058,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1956,7 +2132,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamDeleteResult
+     * @return \Hanzo\Cloud\Model\IamDeleteResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIamApplicationsByOwnerByName($owner, $name, string $contentType = self::contentTypes['deleteIamApplicationsByOwnerByName'][0])
     {
@@ -1975,7 +2151,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamDeleteResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamDeleteResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIamApplicationsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamApplicationsByOwnerByName'][0])
     {
@@ -2011,6 +2187,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2039,6 +2227,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamDeleteResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2181,7 +2385,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2248,7 +2452,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamDeleteOutput
+     * @return \Hanzo\Cloud\Model\IamAuditlogsDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIamAuditLogsByOwnerByName($owner, $name, string $contentType = self::contentTypes['deleteIamAuditLogsByOwnerByName'][0])
     {
@@ -2267,7 +2471,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamDeleteOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAuditlogsDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIamAuditLogsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamAuditLogsByOwnerByName'][0])
     {
@@ -2299,7 +2503,19 @@ class IamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamDeleteOutput',
+                        '\Hanzo\Cloud\Model\IamAuditlogsDeleteOutput',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2321,7 +2537,7 @@ class IamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IamDeleteOutput',
+                '\Hanzo\Cloud\Model\IamAuditlogsDeleteOutput',
                 $request,
                 $response,
             );
@@ -2330,7 +2546,23 @@ class IamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamDeleteOutput',
+                        '\Hanzo\Cloud\Model\IamAuditlogsDeleteOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2378,7 +2610,7 @@ class IamApi
      */
     public function deleteIamAuditLogsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamAuditLogsByOwnerByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IamDeleteOutput';
+        $returnType = '\Hanzo\Cloud\Model\IamAuditlogsDeleteOutput';
         $request = $this->deleteIamAuditLogsByOwnerByNameRequest($owner, $name, $contentType);
 
         return $this->client
@@ -2473,7 +2705,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2540,7 +2772,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamCertsDeleteOutput
+     * @return \Hanzo\Cloud\Model\IamCertsDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIamCertsByOwnerByName($owner, $name, string $contentType = self::contentTypes['deleteIamCertsByOwnerByName'][0])
     {
@@ -2559,7 +2791,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamCertsDeleteOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamCertsDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIamCertsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamCertsByOwnerByName'][0])
     {
@@ -2595,6 +2827,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2623,6 +2867,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamCertsDeleteOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2765,7 +3025,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2832,7 +3092,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamInvitationsDeleteOutput
+     * @return \Hanzo\Cloud\Model\IamInvitationsDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIamInvitationsByOwnerByName($owner, $name, string $contentType = self::contentTypes['deleteIamInvitationsByOwnerByName'][0])
     {
@@ -2851,7 +3111,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamInvitationsDeleteOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamInvitationsDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIamInvitationsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamInvitationsByOwnerByName'][0])
     {
@@ -2887,6 +3147,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2915,6 +3187,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamInvitationsDeleteOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3057,7 +3345,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3124,7 +3412,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamDeleteResponse
+     * @return \Hanzo\Cloud\Model\IamKeysDeleteResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIamKeysByOwnerByName($owner, $name, string $contentType = self::contentTypes['deleteIamKeysByOwnerByName'][0])
     {
@@ -3143,7 +3431,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamDeleteResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamKeysDeleteResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIamKeysByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamKeysByOwnerByName'][0])
     {
@@ -3175,7 +3463,19 @@ class IamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamDeleteResponse',
+                        '\Hanzo\Cloud\Model\IamKeysDeleteResponse',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3197,7 +3497,7 @@ class IamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IamDeleteResponse',
+                '\Hanzo\Cloud\Model\IamKeysDeleteResponse',
                 $request,
                 $response,
             );
@@ -3206,7 +3506,23 @@ class IamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamDeleteResponse',
+                        '\Hanzo\Cloud\Model\IamKeysDeleteResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3254,7 +3570,7 @@ class IamApi
      */
     public function deleteIamKeysByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamKeysByOwnerByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IamDeleteResponse';
+        $returnType = '\Hanzo\Cloud\Model\IamKeysDeleteResponse';
         $request = $this->deleteIamKeysByOwnerByNameRequest($owner, $name, $contentType);
 
         return $this->client
@@ -3349,7 +3665,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3618,7 +3934,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamPermissionDeleteResponse
+     * @return \Hanzo\Cloud\Model\IamDeleteResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIamPermissionsByOwnerByName($owner, $name, string $contentType = self::contentTypes['deleteIamPermissionsByOwnerByName'][0])
     {
@@ -3637,7 +3953,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamPermissionDeleteResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamDeleteResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIamPermissionsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamPermissionsByOwnerByName'][0])
     {
@@ -3669,7 +3985,19 @@ class IamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamPermissionDeleteResponse',
+                        '\Hanzo\Cloud\Model\IamDeleteResponse',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3691,7 +4019,7 @@ class IamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IamPermissionDeleteResponse',
+                '\Hanzo\Cloud\Model\IamDeleteResponse',
                 $request,
                 $response,
             );
@@ -3700,7 +4028,23 @@ class IamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamPermissionDeleteResponse',
+                        '\Hanzo\Cloud\Model\IamDeleteResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3748,7 +4092,7 @@ class IamApi
      */
     public function deleteIamPermissionsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamPermissionsByOwnerByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IamPermissionDeleteResponse';
+        $returnType = '\Hanzo\Cloud\Model\IamDeleteResponse';
         $request = $this->deleteIamPermissionsByOwnerByNameRequest($owner, $name, $contentType);
 
         return $this->client
@@ -3843,7 +4187,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3910,7 +4254,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamProjectsDeleteOutput
+     * @return \Hanzo\Cloud\Model\IamProjectsDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIamProjectsByOwnerByName($owner, $name, string $contentType = self::contentTypes['deleteIamProjectsByOwnerByName'][0])
     {
@@ -3929,7 +4273,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamProjectsDeleteOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamProjectsDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIamProjectsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamProjectsByOwnerByName'][0])
     {
@@ -3965,6 +4309,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -3993,6 +4349,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamProjectsDeleteOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4135,7 +4507,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4196,13 +4568,13 @@ class IamApi
      *
      * Removes a role.
      *
-     * @param  string $owner owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamRolesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamRolesDeleteOutput
+     * @return \Hanzo\Cloud\Model\IamRolesDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIamRolesByOwnerByName($owner, $name, string $contentType = self::contentTypes['deleteIamRolesByOwnerByName'][0])
     {
@@ -4215,13 +4587,13 @@ class IamApi
      *
      * Removes a role.
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamRolesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamRolesDeleteOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamRolesDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIamRolesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamRolesByOwnerByName'][0])
     {
@@ -4257,6 +4629,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -4289,6 +4673,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -4301,7 +4701,7 @@ class IamApi
      *
      * Removes a role.
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamRolesByOwnerByName'] to see the possible values for this operation
      *
@@ -4323,7 +4723,7 @@ class IamApi
      *
      * Removes a role.
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamRolesByOwnerByName'] to see the possible values for this operation
      *
@@ -4374,7 +4774,7 @@ class IamApi
     /**
      * Create request for operation 'deleteIamRolesByOwnerByName'
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamRolesByOwnerByName'] to see the possible values for this operation
      *
@@ -4427,7 +4827,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4953,15 +5353,16 @@ class IamApi
      * Removes a team.
      *
      * @param  string $name name (required)
+     * @param  string|null $owner Owner is the organization the team belongs to: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamTeamsByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamTeamsDeleteOutput
+     * @return \Hanzo\Cloud\Model\IamTeamsDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function deleteIamTeamsByName($name, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
+    public function deleteIamTeamsByName($name, $owner = null, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
     {
-        list($response) = $this->deleteIamTeamsByNameWithHttpInfo($name, $contentType);
+        list($response) = $this->deleteIamTeamsByNameWithHttpInfo($name, $owner, $contentType);
         return $response;
     }
 
@@ -4971,15 +5372,16 @@ class IamApi
      * Removes a team.
      *
      * @param  string $name (required)
+     * @param  string|null $owner Owner is the organization the team belongs to: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamTeamsByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamTeamsDeleteOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamTeamsDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteIamTeamsByNameWithHttpInfo($name, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
+    public function deleteIamTeamsByNameWithHttpInfo($name, $owner = null, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
     {
-        $request = $this->deleteIamTeamsByNameRequest($name, $contentType);
+        $request = $this->deleteIamTeamsByNameRequest($name, $owner, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5008,6 +5410,18 @@ class IamApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamTeamsDeleteOutput',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5043,6 +5457,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -5056,14 +5486,15 @@ class IamApi
      * Removes a team.
      *
      * @param  string $name (required)
+     * @param  string|null $owner Owner is the organization the team belongs to: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamTeamsByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteIamTeamsByNameAsync($name, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
+    public function deleteIamTeamsByNameAsync($name, $owner = null, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
     {
-        return $this->deleteIamTeamsByNameAsyncWithHttpInfo($name, $contentType)
+        return $this->deleteIamTeamsByNameAsyncWithHttpInfo($name, $owner, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5077,15 +5508,16 @@ class IamApi
      * Removes a team.
      *
      * @param  string $name (required)
+     * @param  string|null $owner Owner is the organization the team belongs to: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamTeamsByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteIamTeamsByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
+    public function deleteIamTeamsByNameAsyncWithHttpInfo($name, $owner = null, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IamTeamsDeleteOutput';
-        $request = $this->deleteIamTeamsByNameRequest($name, $contentType);
+        $request = $this->deleteIamTeamsByNameRequest($name, $owner, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5127,12 +5559,13 @@ class IamApi
      * Create request for operation 'deleteIamTeamsByName'
      *
      * @param  string $name (required)
+     * @param  string|null $owner Owner is the organization the team belongs to: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamTeamsByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteIamTeamsByNameRequest($name, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
+    public function deleteIamTeamsByNameRequest($name, $owner = null, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
     {
 
         // verify the required parameter 'name' is set
@@ -5143,6 +5576,7 @@ class IamApi
         }
 
 
+
         $resourcePath = '/v1/iam/teams/{name}';
         $formParams = [];
         $queryParams = [];
@@ -5150,6 +5584,15 @@ class IamApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $owner,
+            'owner', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
         // path params
@@ -5163,7 +5606,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5224,13 +5667,13 @@ class IamApi
      *
      * Removes a person from your organization.
      *
-     * @param  string $owner owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamUsersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamUsersDeleteOutput
+     * @return \Hanzo\Cloud\Model\IamDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIamUsersByOwnerByName($owner, $name, string $contentType = self::contentTypes['deleteIamUsersByOwnerByName'][0])
     {
@@ -5243,13 +5686,13 @@ class IamApi
      *
      * Removes a person from your organization.
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamUsersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamUsersDeleteOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIamUsersByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamUsersByOwnerByName'][0])
     {
@@ -5281,7 +5724,19 @@ class IamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamUsersDeleteOutput',
+                        '\Hanzo\Cloud\Model\IamDeleteOutput',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5303,7 +5758,7 @@ class IamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IamUsersDeleteOutput',
+                '\Hanzo\Cloud\Model\IamDeleteOutput',
                 $request,
                 $response,
             );
@@ -5312,7 +5767,23 @@ class IamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamUsersDeleteOutput',
+                        '\Hanzo\Cloud\Model\IamDeleteOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5329,7 +5800,7 @@ class IamApi
      *
      * Removes a person from your organization.
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamUsersByOwnerByName'] to see the possible values for this operation
      *
@@ -5351,7 +5822,7 @@ class IamApi
      *
      * Removes a person from your organization.
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamUsersByOwnerByName'] to see the possible values for this operation
      *
@@ -5360,7 +5831,7 @@ class IamApi
      */
     public function deleteIamUsersByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamUsersByOwnerByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IamUsersDeleteOutput';
+        $returnType = '\Hanzo\Cloud\Model\IamDeleteOutput';
         $request = $this->deleteIamUsersByOwnerByNameRequest($owner, $name, $contentType);
 
         return $this->client
@@ -5402,7 +5873,7 @@ class IamApi
     /**
      * Create request for operation 'deleteIamUsersByOwnerByName'
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamUsersByOwnerByName'] to see the possible values for this operation
      *
@@ -5455,7 +5926,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5764,7 +6235,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamWorkspacesDeleteOutput
+     * @return \Hanzo\Cloud\Model\IamWorkspacesDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIamWorkspacesByOwnerByName($owner, $name, string $contentType = self::contentTypes['deleteIamWorkspacesByOwnerByName'][0])
     {
@@ -5783,7 +6254,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamWorkspacesDeleteOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamWorkspacesDeleteOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIamWorkspacesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteIamWorkspacesByOwnerByName'][0])
     {
@@ -5819,6 +6290,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -5847,6 +6330,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamWorkspacesDeleteOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5989,7 +6488,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6056,7 +6555,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamDeleteOrganizationOutput
+     * @return \Hanzo\Cloud\Model\IamDeleteOrganizationOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteOrganization($owner, $name, string $contentType = self::contentTypes['deleteOrganization'][0])
     {
@@ -6075,7 +6574,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamDeleteOrganizationOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamDeleteOrganizationOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteOrganizationWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteOrganization'][0])
     {
@@ -6111,6 +6610,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -6139,6 +6650,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamDeleteOrganizationOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6281,7 +6808,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6348,7 +6875,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamMutationResult
+     * @return \Hanzo\Cloud\Model\IamMutationResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteProvider($owner, $name, string $contentType = self::contentTypes['deleteProvider'][0])
     {
@@ -6367,7 +6894,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamMutationResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamMutationResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteProviderWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteProvider'][0])
     {
@@ -6403,6 +6930,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -6431,6 +6970,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamMutationResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6573,7 +7128,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6641,7 +7196,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamDeleteSessionOut
+     * @return \Hanzo\Cloud\Model\IamDeleteSessionOut|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteSession($owner, $name, $application, string $contentType = self::contentTypes['deleteSession'][0])
     {
@@ -6661,7 +7216,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamDeleteSessionOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamDeleteSessionOut|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteSessionWithHttpInfo($owner, $name, $application, string $contentType = self::contentTypes['deleteSession'][0])
     {
@@ -6697,6 +7252,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -6725,6 +7292,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamDeleteSessionOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6885,7 +7468,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6952,7 +7535,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamTokenMutation
+     * @return \Hanzo\Cloud\Model\IamTokenMutation|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteToken($owner, $name, string $contentType = self::contentTypes['deleteToken'][0])
     {
@@ -6971,7 +7554,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamTokenMutation, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamTokenMutation|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteTokenWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteToken'][0])
     {
@@ -7007,6 +7590,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -7035,6 +7630,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamTokenMutation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7177,7 +7788,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -7244,7 +7855,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamWebauthnCredentialMutationResult
+     * @return \Hanzo\Cloud\Model\IamWebauthnCredentialMutationResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteWebauthnCredential($owner, $name, string $contentType = self::contentTypes['deleteWebauthnCredential'][0])
     {
@@ -7263,7 +7874,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamWebauthnCredentialMutationResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamWebauthnCredentialMutationResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteWebauthnCredentialWithHttpInfo($owner, $name, string $contentType = self::contentTypes['deleteWebauthnCredential'][0])
     {
@@ -7299,6 +7910,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -7327,6 +7950,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamWebauthnCredentialMutationResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7469,7 +8108,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -7728,6 +8367,208 @@ class IamApi
     }
 
     /**
+     * Operation getIamAccounts
+     *
+     * Returns the people signed in on this browser, the most recent sign-in first — what the sign-in page lists when an application asks the person to choose an account.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamAccounts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getIamAccounts(string $contentType = self::contentTypes['getIamAccounts'][0])
+    {
+        $this->getIamAccountsWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation getIamAccountsWithHttpInfo
+     *
+     * Returns the people signed in on this browser, the most recent sign-in first — what the sign-in page lists when an application asks the person to choose an account.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamAccounts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getIamAccountsWithHttpInfo(string $contentType = self::contentTypes['getIamAccounts'][0])
+    {
+        $request = $this->getIamAccountsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getIamAccountsAsync
+     *
+     * Returns the people signed in on this browser, the most recent sign-in first — what the sign-in page lists when an application asks the person to choose an account.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamAccounts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getIamAccountsAsync(string $contentType = self::contentTypes['getIamAccounts'][0])
+    {
+        return $this->getIamAccountsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getIamAccountsAsyncWithHttpInfo
+     *
+     * Returns the people signed in on this browser, the most recent sign-in first — what the sign-in page lists when an application asks the person to choose an account.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamAccounts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getIamAccountsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIamAccounts'][0])
+    {
+        $returnType = '';
+        $request = $this->getIamAccountsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getIamAccounts'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamAccounts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getIamAccountsRequest(string $contentType = self::contentTypes['getIamAccounts'][0])
+    {
+
+
+        $resourcePath = '/v1/iam/accounts';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getIamApplications
      *
      * Returns the applications in one organization, newest first — each product or site your people sign in to, with the sign-in methods and redirect URIs it allows.
@@ -7737,7 +8578,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamApplicationListResult
+     * @return \Hanzo\Cloud\Model\IamApplicationListResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamApplications($owner, string $contentType = self::contentTypes['getIamApplications'][0])
     {
@@ -7755,7 +8596,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamApplicationListResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamApplicationListResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamApplicationsWithHttpInfo($owner, string $contentType = self::contentTypes['getIamApplications'][0])
     {
@@ -7791,6 +8632,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -7819,6 +8672,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamApplicationListResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7944,7 +8813,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -8011,7 +8880,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamApplication
+     * @return \Hanzo\Cloud\Model\IamApplication|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamApplicationsByOwnerByName($owner, $name, string $contentType = self::contentTypes['getIamApplicationsByOwnerByName'][0])
     {
@@ -8030,7 +8899,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamApplication, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamApplication|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamApplicationsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getIamApplicationsByOwnerByName'][0])
     {
@@ -8066,6 +8935,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -8094,6 +8975,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamApplication',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8236,7 +9133,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -8302,7 +9199,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamListOutput
+     * @return \Hanzo\Cloud\Model\IamAuditlogsListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamAuditLogs($owner = null, string $contentType = self::contentTypes['getIamAuditLogs'][0])
     {
@@ -8320,7 +9217,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamListOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAuditlogsListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamAuditLogsWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamAuditLogs'][0])
     {
@@ -8352,7 +9249,19 @@ class IamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamListOutput',
+                        '\Hanzo\Cloud\Model\IamAuditlogsListOutput',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8374,7 +9283,7 @@ class IamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IamListOutput',
+                '\Hanzo\Cloud\Model\IamAuditlogsListOutput',
                 $request,
                 $response,
             );
@@ -8383,7 +9292,23 @@ class IamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamListOutput',
+                        '\Hanzo\Cloud\Model\IamAuditlogsListOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8429,7 +9354,7 @@ class IamApi
      */
     public function getIamAuditLogsAsyncWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamAuditLogs'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IamListOutput';
+        $returnType = '\Hanzo\Cloud\Model\IamAuditlogsListOutput';
         $request = $this->getIamAuditLogsRequest($owner, $contentType);
 
         return $this->client
@@ -8503,7 +9428,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -8570,7 +9495,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamAuditLog
+     * @return \Hanzo\Cloud\Model\IamAuditLog|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamAuditLogsByOwnerByName($owner, $name, string $contentType = self::contentTypes['getIamAuditLogsByOwnerByName'][0])
     {
@@ -8589,7 +9514,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamAuditLog, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAuditLog|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamAuditLogsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getIamAuditLogsByOwnerByName'][0])
     {
@@ -8625,6 +9550,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -8653,6 +9590,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamAuditLog',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8795,7 +9748,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -8862,7 +9815,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer
+     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamAuthApplication($client_id = null, $response_type = null, string $contentType = self::contentTypes['getIamAuthApplication'][0])
     {
@@ -8881,7 +9834,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamAuthApplicationWithHttpInfo($client_id = null, $response_type = null, string $contentType = self::contentTypes['getIamAuthApplication'][0])
     {
@@ -8923,6 +9876,12 @@ class IamApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -8959,6 +9918,14 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9091,7 +10058,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -9157,7 +10124,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer
+     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamAuthMethods($client_id = null, string $contentType = self::contentTypes['getIamAuthMethods'][0])
     {
@@ -9175,7 +10142,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamAuthMethodsWithHttpInfo($client_id = null, string $contentType = self::contentTypes['getIamAuthMethods'][0])
     {
@@ -9217,6 +10184,12 @@ class IamApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -9253,6 +10226,14 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9372,7 +10353,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -9438,7 +10419,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamCertsListOutput
+     * @return \Hanzo\Cloud\Model\IamCertsListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamCerts($owner = null, string $contentType = self::contentTypes['getIamCerts'][0])
     {
@@ -9456,7 +10437,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamCertsListOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamCertsListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamCertsWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamCerts'][0])
     {
@@ -9492,6 +10473,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -9520,6 +10513,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamCertsListOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9639,7 +10648,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -9706,7 +10715,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamCert
+     * @return \Hanzo\Cloud\Model\IamCert|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamCertsByOwnerByName($owner, $name, string $contentType = self::contentTypes['getIamCertsByOwnerByName'][0])
     {
@@ -9725,7 +10734,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamCert, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamCert|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamCertsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getIamCertsByOwnerByName'][0])
     {
@@ -9761,6 +10770,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -9789,6 +10810,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamCert',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9931,7 +10968,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -10199,7 +11236,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamInvitationsListOutput
+     * @return \Hanzo\Cloud\Model\IamInvitationsListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamInvitations($owner = null, string $contentType = self::contentTypes['getIamInvitations'][0])
     {
@@ -10217,7 +11254,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamInvitationsListOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamInvitationsListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamInvitationsWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamInvitations'][0])
     {
@@ -10253,6 +11290,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -10281,6 +11330,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamInvitationsListOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -10400,7 +11465,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -10467,7 +11532,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamInvitation
+     * @return \Hanzo\Cloud\Model\IamInvitation|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamInvitationsByOwnerByName($owner, $name, string $contentType = self::contentTypes['getIamInvitationsByOwnerByName'][0])
     {
@@ -10486,7 +11551,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamInvitation, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamInvitation|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamInvitationsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getIamInvitationsByOwnerByName'][0])
     {
@@ -10522,6 +11587,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -10550,6 +11627,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamInvitation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -10692,7 +11785,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -10751,14 +11844,14 @@ class IamApi
     /**
      * Operation getIamKeys
      *
-     * Returns an organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
+     * Returns the API keys of an organization that you may see, newest first — what each is called, what it may reach, its publishable half, and when it was last used.
      *
      * @param  string|null $owner owner (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamKeys'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamListResponse
+     * @return \Hanzo\Cloud\Model\IamKeysListResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamKeys($owner = null, string $contentType = self::contentTypes['getIamKeys'][0])
     {
@@ -10769,14 +11862,14 @@ class IamApi
     /**
      * Operation getIamKeysWithHttpInfo
      *
-     * Returns an organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
+     * Returns the API keys of an organization that you may see, newest first — what each is called, what it may reach, its publishable half, and when it was last used.
      *
      * @param  string|null $owner (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamKeys'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamListResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamKeysListResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamKeysWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamKeys'][0])
     {
@@ -10808,7 +11901,19 @@ class IamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamListResponse',
+                        '\Hanzo\Cloud\Model\IamKeysListResponse',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -10830,7 +11935,7 @@ class IamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IamListResponse',
+                '\Hanzo\Cloud\Model\IamKeysListResponse',
                 $request,
                 $response,
             );
@@ -10839,7 +11944,23 @@ class IamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamListResponse',
+                        '\Hanzo\Cloud\Model\IamKeysListResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -10854,7 +11975,7 @@ class IamApi
     /**
      * Operation getIamKeysAsync
      *
-     * Returns an organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
+     * Returns the API keys of an organization that you may see, newest first — what each is called, what it may reach, its publishable half, and when it was last used.
      *
      * @param  string|null $owner (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamKeys'] to see the possible values for this operation
@@ -10875,7 +11996,7 @@ class IamApi
     /**
      * Operation getIamKeysAsyncWithHttpInfo
      *
-     * Returns an organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
+     * Returns the API keys of an organization that you may see, newest first — what each is called, what it may reach, its publishable half, and when it was last used.
      *
      * @param  string|null $owner (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamKeys'] to see the possible values for this operation
@@ -10885,7 +12006,7 @@ class IamApi
      */
     public function getIamKeysAsyncWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamKeys'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IamListResponse';
+        $returnType = '\Hanzo\Cloud\Model\IamKeysListResponse';
         $request = $this->getIamKeysRequest($owner, $contentType);
 
         return $this->client
@@ -10959,7 +12080,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -11026,7 +12147,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamKey
+     * @return \Hanzo\Cloud\Model\IamKey|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamKeysByOwnerByName($owner, $name, string $contentType = self::contentTypes['getIamKeysByOwnerByName'][0])
     {
@@ -11045,7 +12166,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamKey, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamKey|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamKeysByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getIamKeysByOwnerByName'][0])
     {
@@ -11081,6 +12202,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -11109,6 +12242,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamKey',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -11251,7 +12400,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -11712,6 +12861,208 @@ class IamApi
     }
 
     /**
+     * Operation getIamLink
+     *
+     * Continues a link in the browser of the person it is for: the browser opens the address POST /v1/iam/link answered, as a top-level navigation, signed in here as that person, and is sent on to the provider.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamLink'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getIamLink(string $contentType = self::contentTypes['getIamLink'][0])
+    {
+        $this->getIamLinkWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation getIamLinkWithHttpInfo
+     *
+     * Continues a link in the browser of the person it is for: the browser opens the address POST /v1/iam/link answered, as a top-level navigation, signed in here as that person, and is sent on to the provider.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamLink'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getIamLinkWithHttpInfo(string $contentType = self::contentTypes['getIamLink'][0])
+    {
+        $request = $this->getIamLinkRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getIamLinkAsync
+     *
+     * Continues a link in the browser of the person it is for: the browser opens the address POST /v1/iam/link answered, as a top-level navigation, signed in here as that person, and is sent on to the provider.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamLink'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getIamLinkAsync(string $contentType = self::contentTypes['getIamLink'][0])
+    {
+        return $this->getIamLinkAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getIamLinkAsyncWithHttpInfo
+     *
+     * Continues a link in the browser of the person it is for: the browser opens the address POST /v1/iam/link answered, as a top-level navigation, signed in here as that person, and is sent on to the provider.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamLink'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getIamLinkAsyncWithHttpInfo(string $contentType = self::contentTypes['getIamLink'][0])
+    {
+        $returnType = '';
+        $request = $this->getIamLinkRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getIamLink'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamLink'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getIamLinkRequest(string $contentType = self::contentTypes['getIamLink'][0])
+    {
+
+
+        $resourcePath = '/v1/iam/link';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getIamLinkedAccounts
      *
      * Returns the sign-in identities linked to the calling person&#39;s account — every provider they can currently sign in with.
@@ -11924,7 +13275,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer
+     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamMemberships($user = null, $org = null, string $contentType = self::contentTypes['getIamMemberships'][0])
     {
@@ -11943,7 +13294,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamMembershipsWithHttpInfo($user = null, $org = null, string $contentType = self::contentTypes['getIamMemberships'][0])
     {
@@ -11979,9 +13330,21 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -12017,10 +13380,26 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -12153,7 +13532,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -12546,6 +13925,208 @@ class IamApi
 
 
         $resourcePath = '/v1/iam/oauth/callback';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getIamOauthDelegationKeys
+     *
+     * Serves the public half of every delegation key, as a JWKS, to a confidential client allowed to delegate — the one resource server that verifies what it is handed, reading with the credential it delegates with.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamOauthDelegationKeys'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getIamOauthDelegationKeys(string $contentType = self::contentTypes['getIamOauthDelegationKeys'][0])
+    {
+        $this->getIamOauthDelegationKeysWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation getIamOauthDelegationKeysWithHttpInfo
+     *
+     * Serves the public half of every delegation key, as a JWKS, to a confidential client allowed to delegate — the one resource server that verifies what it is handed, reading with the credential it delegates with.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamOauthDelegationKeys'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getIamOauthDelegationKeysWithHttpInfo(string $contentType = self::contentTypes['getIamOauthDelegationKeys'][0])
+    {
+        $request = $this->getIamOauthDelegationKeysRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getIamOauthDelegationKeysAsync
+     *
+     * Serves the public half of every delegation key, as a JWKS, to a confidential client allowed to delegate — the one resource server that verifies what it is handed, reading with the credential it delegates with.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamOauthDelegationKeys'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getIamOauthDelegationKeysAsync(string $contentType = self::contentTypes['getIamOauthDelegationKeys'][0])
+    {
+        return $this->getIamOauthDelegationKeysAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getIamOauthDelegationKeysAsyncWithHttpInfo
+     *
+     * Serves the public half of every delegation key, as a JWKS, to a confidential client allowed to delegate — the one resource server that verifies what it is handed, reading with the credential it delegates with.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamOauthDelegationKeys'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getIamOauthDelegationKeysAsyncWithHttpInfo(string $contentType = self::contentTypes['getIamOauthDelegationKeys'][0])
+    {
+        $returnType = '';
+        $request = $this->getIamOauthDelegationKeysRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getIamOauthDelegationKeys'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamOauthDelegationKeys'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getIamOauthDelegationKeysRequest(string $contentType = self::contentTypes['getIamOauthDelegationKeys'][0])
+    {
+
+
+        $resourcePath = '/v1/iam/oauth/delegation/keys';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -13027,7 +14608,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamPermissionListResponse
+     * @return \Hanzo\Cloud\Model\IamListResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamPermissions($owner = null, string $contentType = self::contentTypes['getIamPermissions'][0])
     {
@@ -13045,7 +14626,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamPermissionListResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamListResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamPermissionsWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamPermissions'][0])
     {
@@ -13077,7 +14658,19 @@ class IamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamPermissionListResponse',
+                        '\Hanzo\Cloud\Model\IamListResponse',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -13099,7 +14692,7 @@ class IamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IamPermissionListResponse',
+                '\Hanzo\Cloud\Model\IamListResponse',
                 $request,
                 $response,
             );
@@ -13108,7 +14701,23 @@ class IamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamPermissionListResponse',
+                        '\Hanzo\Cloud\Model\IamListResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -13154,7 +14763,7 @@ class IamApi
      */
     public function getIamPermissionsAsyncWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamPermissions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IamPermissionListResponse';
+        $returnType = '\Hanzo\Cloud\Model\IamListResponse';
         $request = $this->getIamPermissionsRequest($owner, $contentType);
 
         return $this->client
@@ -13228,7 +14837,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -13295,7 +14904,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamPermission
+     * @return \Hanzo\Cloud\Model\IamPermission|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamPermissionsByOwnerByName($owner, $name, string $contentType = self::contentTypes['getIamPermissionsByOwnerByName'][0])
     {
@@ -13314,7 +14923,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamPermission, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamPermission|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamPermissionsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getIamPermissionsByOwnerByName'][0])
     {
@@ -13350,6 +14959,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -13378,6 +14999,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamPermission',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -13520,7 +15157,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -13586,7 +15223,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamProjectsListOutput
+     * @return \Hanzo\Cloud\Model\IamProjectsListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamProjects($owner = null, string $contentType = self::contentTypes['getIamProjects'][0])
     {
@@ -13604,7 +15241,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamProjectsListOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamProjectsListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamProjectsWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamProjects'][0])
     {
@@ -13640,6 +15277,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -13668,6 +15317,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamProjectsListOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -13787,7 +15452,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -13854,7 +15519,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamProject
+     * @return \Hanzo\Cloud\Model\IamProject|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamProjectsByOwnerByName($owner, $name, string $contentType = self::contentTypes['getIamProjectsByOwnerByName'][0])
     {
@@ -13873,7 +15538,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamProject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamProject|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamProjectsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getIamProjectsByOwnerByName'][0])
     {
@@ -13909,6 +15574,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -13937,6 +15614,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamProject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -14079,7 +15772,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -14544,12 +16237,12 @@ class IamApi
      *
      * Returns your organization&#39;s roles, newest first — each a named group of people that permissions are granted to.
      *
-     * @param  string|null $owner owner (optional)
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamRoles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamRolesListOutput
+     * @return \Hanzo\Cloud\Model\IamRolesListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamRoles($owner = null, string $contentType = self::contentTypes['getIamRoles'][0])
     {
@@ -14562,12 +16255,12 @@ class IamApi
      *
      * Returns your organization&#39;s roles, newest first — each a named group of people that permissions are granted to.
      *
-     * @param  string|null $owner (optional)
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamRoles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamRolesListOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamRolesListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamRolesWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamRoles'][0])
     {
@@ -14603,6 +16296,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -14635,6 +16340,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -14647,7 +16368,7 @@ class IamApi
      *
      * Returns your organization&#39;s roles, newest first — each a named group of people that permissions are granted to.
      *
-     * @param  string|null $owner (optional)
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamRoles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -14668,7 +16389,7 @@ class IamApi
      *
      * Returns your organization&#39;s roles, newest first — each a named group of people that permissions are granted to.
      *
-     * @param  string|null $owner (optional)
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamRoles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -14718,7 +16439,7 @@ class IamApi
     /**
      * Create request for operation 'getIamRoles'
      *
-     * @param  string|null $owner (optional)
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamRoles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -14750,7 +16471,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -14811,13 +16532,13 @@ class IamApi
      *
      * Returns one role: who is in it, and the roles it includes.
      *
-     * @param  string $owner owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamRolesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamRole
+     * @return \Hanzo\Cloud\Model\IamRole|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamRolesByOwnerByName($owner, $name, string $contentType = self::contentTypes['getIamRolesByOwnerByName'][0])
     {
@@ -14830,13 +16551,13 @@ class IamApi
      *
      * Returns one role: who is in it, and the roles it includes.
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamRolesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamRole, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamRole|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamRolesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getIamRolesByOwnerByName'][0])
     {
@@ -14872,6 +16593,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -14904,6 +16637,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -14916,7 +16665,7 @@ class IamApi
      *
      * Returns one role: who is in it, and the roles it includes.
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamRolesByOwnerByName'] to see the possible values for this operation
      *
@@ -14938,7 +16687,7 @@ class IamApi
      *
      * Returns one role: who is in it, and the roles it includes.
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamRolesByOwnerByName'] to see the possible values for this operation
      *
@@ -14989,7 +16738,7 @@ class IamApi
     /**
      * Create request for operation 'getIamRolesByOwnerByName'
      *
-     * @param  string $owner (required)
+     * @param  string $owner Owner is the organization the team belongs to: yours when left out. (required)
      * @param  string $name (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamRolesByOwnerByName'] to see the possible values for this operation
      *
@@ -15042,7 +16791,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -15107,7 +16856,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamListResponse
+     * @return \Hanzo\Cloud\Model\IamListResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamScimV2Resourcetypes(string $contentType = self::contentTypes['getIamScimV2Resourcetypes'][0])
     {
@@ -15124,7 +16873,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamListResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamListResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamScimV2ResourcetypesWithHttpInfo(string $contentType = self::contentTypes['getIamScimV2Resourcetypes'][0])
     {
@@ -15160,6 +16909,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -15188,6 +16949,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamListResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -15294,7 +17071,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -15360,7 +17137,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed|mixed
+     * @return mixed|\Hanzo\Cloud\Model\Approval|mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamScimV2ResourcetypesByName($name, string $contentType = self::contentTypes['getIamScimV2ResourcetypesByName'][0])
     {
@@ -15378,7 +17155,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed|mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\Approval|mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamScimV2ResourcetypesByNameWithHttpInfo($name, string $contentType = self::contentTypes['getIamScimV2ResourcetypesByName'][0])
     {
@@ -15414,9 +17191,21 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
                 case 404:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -15452,10 +17241,26 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -15580,7 +17385,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -15645,7 +17450,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamListResponse
+     * @return \Hanzo\Cloud\Model\IamListResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamScimV2Schemas(string $contentType = self::contentTypes['getIamScimV2Schemas'][0])
     {
@@ -15662,7 +17467,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamListResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamListResponse|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamScimV2SchemasWithHttpInfo(string $contentType = self::contentTypes['getIamScimV2Schemas'][0])
     {
@@ -15698,6 +17503,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -15726,6 +17543,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamListResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -15832,7 +17665,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -15898,7 +17731,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed|mixed
+     * @return mixed|\Hanzo\Cloud\Model\Approval|mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamScimV2SchemasById($id, string $contentType = self::contentTypes['getIamScimV2SchemasById'][0])
     {
@@ -15916,7 +17749,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed|mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\Approval|mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamScimV2SchemasByIdWithHttpInfo($id, string $contentType = self::contentTypes['getIamScimV2SchemasById'][0])
     {
@@ -15952,9 +17785,21 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
                 case 404:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -15990,10 +17835,26 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -16118,7 +17979,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -16183,7 +18044,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamConfig
+     * @return \Hanzo\Cloud\Model\IamConfig|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamScimV2Serviceproviderconfig(string $contentType = self::contentTypes['getIamScimV2Serviceproviderconfig'][0])
     {
@@ -16200,7 +18061,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamConfig, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamConfig|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamScimV2ServiceproviderconfigWithHttpInfo(string $contentType = self::contentTypes['getIamScimV2Serviceproviderconfig'][0])
     {
@@ -16236,6 +18097,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -16264,6 +18137,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamConfig',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -16370,7 +18259,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -16882,7 +18771,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer
+     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamServiceAccounts($organization = null, $p = null, $page_size = null, string $contentType = self::contentTypes['getIamServiceAccounts'][0])
     {
@@ -16902,7 +18791,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamServiceAccountsWithHttpInfo($organization = null, $p = null, $page_size = null, string $contentType = self::contentTypes['getIamServiceAccounts'][0])
     {
@@ -16938,9 +18827,21 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -16976,10 +18877,26 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -17125,7 +19042,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -17186,15 +19103,16 @@ class IamApi
      *
      * Returns your organization&#39;s teams, newest first — each a named set of people that roles and permissions are granted to.
      *
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeams'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamTeamsListOutput
+     * @return \Hanzo\Cloud\Model\IamTeamsListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getIamTeams(string $contentType = self::contentTypes['getIamTeams'][0])
+    public function getIamTeams($owner = null, string $contentType = self::contentTypes['getIamTeams'][0])
     {
-        list($response) = $this->getIamTeamsWithHttpInfo($contentType);
+        list($response) = $this->getIamTeamsWithHttpInfo($owner, $contentType);
         return $response;
     }
 
@@ -17203,15 +19121,16 @@ class IamApi
      *
      * Returns your organization&#39;s teams, newest first — each a named set of people that roles and permissions are granted to.
      *
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeams'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamTeamsListOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamTeamsListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIamTeamsWithHttpInfo(string $contentType = self::contentTypes['getIamTeams'][0])
+    public function getIamTeamsWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamTeams'][0])
     {
-        $request = $this->getIamTeamsRequest($contentType);
+        $request = $this->getIamTeamsRequest($owner, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -17240,6 +19159,18 @@ class IamApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamTeamsListOutput',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -17275,6 +19206,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -17287,14 +19234,15 @@ class IamApi
      *
      * Returns your organization&#39;s teams, newest first — each a named set of people that roles and permissions are granted to.
      *
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeams'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIamTeamsAsync(string $contentType = self::contentTypes['getIamTeams'][0])
+    public function getIamTeamsAsync($owner = null, string $contentType = self::contentTypes['getIamTeams'][0])
     {
-        return $this->getIamTeamsAsyncWithHttpInfo($contentType)
+        return $this->getIamTeamsAsyncWithHttpInfo($owner, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -17307,15 +19255,16 @@ class IamApi
      *
      * Returns your organization&#39;s teams, newest first — each a named set of people that roles and permissions are granted to.
      *
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeams'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIamTeamsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIamTeams'][0])
+    public function getIamTeamsAsyncWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamTeams'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IamTeamsListOutput';
-        $request = $this->getIamTeamsRequest($contentType);
+        $request = $this->getIamTeamsRequest($owner, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -17356,13 +19305,15 @@ class IamApi
     /**
      * Create request for operation 'getIamTeams'
      *
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeams'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIamTeamsRequest(string $contentType = self::contentTypes['getIamTeams'][0])
+    public function getIamTeamsRequest($owner = null, string $contentType = self::contentTypes['getIamTeams'][0])
     {
+
 
 
         $resourcePath = '/v1/iam/teams';
@@ -17372,12 +19323,21 @@ class IamApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $owner,
+            'owner', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -17439,15 +19399,16 @@ class IamApi
      * Returns one team: who is in it.
      *
      * @param  string $name name (required)
+     * @param  string|null $owner Owner is the organization the team belongs to: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeamsByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamTeam
+     * @return \Hanzo\Cloud\Model\IamTeam|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getIamTeamsByName($name, string $contentType = self::contentTypes['getIamTeamsByName'][0])
+    public function getIamTeamsByName($name, $owner = null, string $contentType = self::contentTypes['getIamTeamsByName'][0])
     {
-        list($response) = $this->getIamTeamsByNameWithHttpInfo($name, $contentType);
+        list($response) = $this->getIamTeamsByNameWithHttpInfo($name, $owner, $contentType);
         return $response;
     }
 
@@ -17457,15 +19418,16 @@ class IamApi
      * Returns one team: who is in it.
      *
      * @param  string $name (required)
+     * @param  string|null $owner Owner is the organization the team belongs to: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeamsByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamTeam, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamTeam|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIamTeamsByNameWithHttpInfo($name, string $contentType = self::contentTypes['getIamTeamsByName'][0])
+    public function getIamTeamsByNameWithHttpInfo($name, $owner = null, string $contentType = self::contentTypes['getIamTeamsByName'][0])
     {
-        $request = $this->getIamTeamsByNameRequest($name, $contentType);
+        $request = $this->getIamTeamsByNameRequest($name, $owner, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -17494,6 +19456,18 @@ class IamApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamTeam',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -17529,6 +19503,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -17542,14 +19532,15 @@ class IamApi
      * Returns one team: who is in it.
      *
      * @param  string $name (required)
+     * @param  string|null $owner Owner is the organization the team belongs to: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeamsByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIamTeamsByNameAsync($name, string $contentType = self::contentTypes['getIamTeamsByName'][0])
+    public function getIamTeamsByNameAsync($name, $owner = null, string $contentType = self::contentTypes['getIamTeamsByName'][0])
     {
-        return $this->getIamTeamsByNameAsyncWithHttpInfo($name, $contentType)
+        return $this->getIamTeamsByNameAsyncWithHttpInfo($name, $owner, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -17563,15 +19554,16 @@ class IamApi
      * Returns one team: who is in it.
      *
      * @param  string $name (required)
+     * @param  string|null $owner Owner is the organization the team belongs to: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeamsByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIamTeamsByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getIamTeamsByName'][0])
+    public function getIamTeamsByNameAsyncWithHttpInfo($name, $owner = null, string $contentType = self::contentTypes['getIamTeamsByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IamTeam';
-        $request = $this->getIamTeamsByNameRequest($name, $contentType);
+        $request = $this->getIamTeamsByNameRequest($name, $owner, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -17613,12 +19605,13 @@ class IamApi
      * Create request for operation 'getIamTeamsByName'
      *
      * @param  string $name (required)
+     * @param  string|null $owner Owner is the organization the team belongs to: yours when left out. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeamsByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIamTeamsByNameRequest($name, string $contentType = self::contentTypes['getIamTeamsByName'][0])
+    public function getIamTeamsByNameRequest($name, $owner = null, string $contentType = self::contentTypes['getIamTeamsByName'][0])
     {
 
         // verify the required parameter 'name' is set
@@ -17629,6 +19622,7 @@ class IamApi
         }
 
 
+
         $resourcePath = '/v1/iam/teams/{name}';
         $formParams = [];
         $queryParams = [];
@@ -17636,6 +19630,15 @@ class IamApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $owner,
+            'owner', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
         // path params
@@ -17649,7 +19652,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -17710,7 +19713,7 @@ class IamApi
      *
      * Returns a page of the people in an organization, with the total so you can page through the rest.
      *
-     * @param  string|null $owner owner (optional)
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string|null $email Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague&#39;s identity. (optional)
      * @param  int|null $limit limit (optional)
      * @param  int|null $offset offset (optional)
@@ -17718,7 +19721,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamUsersListOutput
+     * @return \Hanzo\Cloud\Model\IamListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamUsers($owner = null, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
     {
@@ -17731,7 +19734,7 @@ class IamApi
      *
      * Returns a page of the people in an organization, with the total so you can page through the rest.
      *
-     * @param  string|null $owner (optional)
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string|null $email Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague&#39;s identity. (optional)
      * @param  int|null $limit (optional)
      * @param  int|null $offset (optional)
@@ -17739,7 +19742,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamUsersListOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamUsersWithHttpInfo($owner = null, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
     {
@@ -17771,7 +19774,19 @@ class IamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamUsersListOutput',
+                        '\Hanzo\Cloud\Model\IamListOutput',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -17793,7 +19808,7 @@ class IamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IamUsersListOutput',
+                '\Hanzo\Cloud\Model\IamListOutput',
                 $request,
                 $response,
             );
@@ -17802,7 +19817,23 @@ class IamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamUsersListOutput',
+                        '\Hanzo\Cloud\Model\IamListOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -17819,7 +19850,7 @@ class IamApi
      *
      * Returns a page of the people in an organization, with the total so you can page through the rest.
      *
-     * @param  string|null $owner (optional)
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string|null $email Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague&#39;s identity. (optional)
      * @param  int|null $limit (optional)
      * @param  int|null $offset (optional)
@@ -17843,7 +19874,7 @@ class IamApi
      *
      * Returns a page of the people in an organization, with the total so you can page through the rest.
      *
-     * @param  string|null $owner (optional)
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string|null $email Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague&#39;s identity. (optional)
      * @param  int|null $limit (optional)
      * @param  int|null $offset (optional)
@@ -17854,7 +19885,7 @@ class IamApi
      */
     public function getIamUsersAsyncWithHttpInfo($owner = null, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IamUsersListOutput';
+        $returnType = '\Hanzo\Cloud\Model\IamListOutput';
         $request = $this->getIamUsersRequest($owner, $email, $limit, $offset, $contentType);
 
         return $this->client
@@ -17896,7 +19927,7 @@ class IamApi
     /**
      * Create request for operation 'getIamUsers'
      *
-     * @param  string|null $owner (optional)
+     * @param  string|null $owner Owner is the organization whose teams to list: yours when left out. (optional)
      * @param  string|null $email Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague&#39;s identity. (optional)
      * @param  int|null $limit (optional)
      * @param  int|null $offset (optional)
@@ -17961,7 +19992,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -18029,7 +20060,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamUser
+     * @return \Hanzo\Cloud\Model\IamUser|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamUsersByOwnerByName($owner, $name, $email = null, string $contentType = self::contentTypes['getIamUsersByOwnerByName'][0])
     {
@@ -18049,7 +20080,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamUser, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamUser|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamUsersByOwnerByNameWithHttpInfo($owner, $name, $email = null, string $contentType = self::contentTypes['getIamUsersByOwnerByName'][0])
     {
@@ -18085,6 +20116,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -18113,6 +20156,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamUser',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -18268,7 +20327,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -19748,7 +21807,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamWorkspacesListOutput
+     * @return \Hanzo\Cloud\Model\IamWorkspacesListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamWorkspaces($owner = null, string $contentType = self::contentTypes['getIamWorkspaces'][0])
     {
@@ -19766,7 +21825,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamWorkspacesListOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamWorkspacesListOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamWorkspacesWithHttpInfo($owner = null, string $contentType = self::contentTypes['getIamWorkspaces'][0])
     {
@@ -19802,6 +21861,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -19830,6 +21901,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamWorkspacesListOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -19949,7 +22036,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -20016,7 +22103,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamWorkspace
+     * @return \Hanzo\Cloud\Model\IamWorkspace|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIamWorkspacesByOwnerByName($owner, $name, string $contentType = self::contentTypes['getIamWorkspacesByOwnerByName'][0])
     {
@@ -20035,7 +22122,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamWorkspace, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamWorkspace|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIamWorkspacesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getIamWorkspacesByOwnerByName'][0])
     {
@@ -20071,6 +22158,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -20099,6 +22198,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamWorkspace',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -20241,7 +22356,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -20308,7 +22423,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamOrganization
+     * @return \Hanzo\Cloud\Model\IamOrganization|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getOrganization($owner, $name, string $contentType = self::contentTypes['getOrganization'][0])
     {
@@ -20327,7 +22442,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamOrganization, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamOrganization|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getOrganizationWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getOrganization'][0])
     {
@@ -20363,6 +22478,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -20391,6 +22518,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamOrganization',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -20533,7 +22676,327 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getOrganizationTombstone
+     *
+     * Returns what holds a deleted organization&#39;s name: when it was deleted and who founded it.
+     *
+     * @param  string $owner owner (required)
+     * @param  string $name name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrganizationTombstone'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamTombstone|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getOrganizationTombstone($owner, $name, string $contentType = self::contentTypes['getOrganizationTombstone'][0])
+    {
+        list($response) = $this->getOrganizationTombstoneWithHttpInfo($owner, $name, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getOrganizationTombstoneWithHttpInfo
+     *
+     * Returns what holds a deleted organization&#39;s name: when it was deleted and who founded it.
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrganizationTombstone'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamTombstone|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getOrganizationTombstoneWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getOrganizationTombstone'][0])
+    {
+        $request = $this->getOrganizationTombstoneRequest($owner, $name, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamTombstone',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamTombstone',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamTombstone',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getOrganizationTombstoneAsync
+     *
+     * Returns what holds a deleted organization&#39;s name: when it was deleted and who founded it.
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrganizationTombstone'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getOrganizationTombstoneAsync($owner, $name, string $contentType = self::contentTypes['getOrganizationTombstone'][0])
+    {
+        return $this->getOrganizationTombstoneAsyncWithHttpInfo($owner, $name, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getOrganizationTombstoneAsyncWithHttpInfo
+     *
+     * Returns what holds a deleted organization&#39;s name: when it was deleted and who founded it.
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrganizationTombstone'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getOrganizationTombstoneAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getOrganizationTombstone'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamTombstone';
+        $request = $this->getOrganizationTombstoneRequest($owner, $name, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getOrganizationTombstone'
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOrganizationTombstone'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getOrganizationTombstoneRequest($owner, $name, string $contentType = self::contentTypes['getOrganizationTombstone'][0])
+    {
+
+        // verify the required parameter 'owner' is set
+        if ($owner === null || (is_array($owner) && count($owner) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $owner when calling getOrganizationTombstone'
+            );
+        }
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling getOrganizationTombstone'
+            );
+        }
+
+
+        $resourcePath = '/v1/iam/organizations/tombstones/{owner}/{name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($owner !== null) {
+            $resourcePath = str_replace(
+                '{' . 'owner' . '}',
+                ObjectSerializer::toPathValue($owner),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -20600,7 +23063,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamProviderResult
+     * @return \Hanzo\Cloud\Model\IamProviderResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvider($owner, $name, string $contentType = self::contentTypes['getProvider'][0])
     {
@@ -20619,7 +23082,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamProviderResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamProviderResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProviderWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getProvider'][0])
     {
@@ -20655,6 +23118,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -20683,6 +23158,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamProviderResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -20825,7 +23316,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -20893,7 +23384,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamSession
+     * @return \Hanzo\Cloud\Model\IamSession|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSession($owner, $name, $application, string $contentType = self::contentTypes['getSession'][0])
     {
@@ -20913,7 +23404,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamSession, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamSession|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSessionWithHttpInfo($owner, $name, $application, string $contentType = self::contentTypes['getSession'][0])
     {
@@ -20949,6 +23440,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -20977,6 +23480,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamSession',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -21137,7 +23656,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -21204,7 +23723,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamTokenResult
+     * @return \Hanzo\Cloud\Model\IamTokenResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getToken($owner, $name, string $contentType = self::contentTypes['getToken'][0])
     {
@@ -21223,7 +23742,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamTokenResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamTokenResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTokenWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getToken'][0])
     {
@@ -21259,6 +23778,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -21287,6 +23818,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamTokenResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -21429,7 +23976,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -21496,7 +24043,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamWebauthnCredentialResult
+     * @return \Hanzo\Cloud\Model\IamWebauthnCredentialResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWebauthnCredential($owner, $name, string $contentType = self::contentTypes['getWebauthnCredential'][0])
     {
@@ -21515,7 +24062,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamWebauthnCredentialResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamWebauthnCredentialResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWebauthnCredentialWithHttpInfo($owner, $name, string $contentType = self::contentTypes['getWebauthnCredential'][0])
     {
@@ -21551,6 +24098,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -21579,6 +24138,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamWebauthnCredentialResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -21721,7 +24296,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -21790,7 +24365,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamListOrganizationsOutput
+     * @return \Hanzo\Cloud\Model\IamListOrganizationsOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listOrganizations($x_forwarded_for = null, $q = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['listOrganizations'][0])
     {
@@ -21811,7 +24386,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamListOrganizationsOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamListOrganizationsOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listOrganizationsWithHttpInfo($x_forwarded_for = null, $q = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['listOrganizations'][0])
     {
@@ -21847,6 +24422,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -21875,6 +24462,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamListOrganizationsOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -22028,7 +24631,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -22094,7 +24697,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamListProvidersOut
+     * @return \Hanzo\Cloud\Model\IamListProvidersOut|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listProviders($owner = null, string $contentType = self::contentTypes['listProviders'][0])
     {
@@ -22112,7 +24715,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamListProvidersOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamListProvidersOut|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listProvidersWithHttpInfo($owner = null, string $contentType = self::contentTypes['listProviders'][0])
     {
@@ -22148,6 +24751,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -22176,6 +24791,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamListProvidersOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -22295,7 +24926,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -22363,7 +24994,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamListSessionsOut
+     * @return \Hanzo\Cloud\Model\IamListSessionsOut|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listSessions($owner = null, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
     {
@@ -22383,7 +25014,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamListSessionsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamListSessionsOut|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listSessionsWithHttpInfo($owner = null, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
     {
@@ -22419,6 +25050,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -22447,6 +25090,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamListSessionsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -22592,7 +25251,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -22659,7 +25318,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamListTokensOut
+     * @return \Hanzo\Cloud\Model\IamListTokensOut|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listTokens($owner = null, $organization = null, string $contentType = self::contentTypes['listTokens'][0])
     {
@@ -22678,7 +25337,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamListTokensOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamListTokensOut|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listTokensWithHttpInfo($owner = null, $organization = null, string $contentType = self::contentTypes['listTokens'][0])
     {
@@ -22714,6 +25373,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -22742,6 +25413,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamListTokensOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -22874,7 +25561,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -22940,7 +25627,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamListWebauthnCredentialsOut
+     * @return \Hanzo\Cloud\Model\IamListWebauthnCredentialsOut|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function listWebauthnCredentials($user = null, string $contentType = self::contentTypes['listWebauthnCredentials'][0])
     {
@@ -22958,7 +25645,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamListWebauthnCredentialsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamListWebauthnCredentialsOut|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function listWebauthnCredentialsWithHttpInfo($user = null, string $contentType = self::contentTypes['listWebauthnCredentials'][0])
     {
@@ -22994,6 +25681,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -23022,6 +25721,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamListWebauthnCredentialsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -23141,7 +25856,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -23442,7 +26157,7 @@ class IamApi
     /**
      * Operation postIamAdminProvision
      *
-     * Sets up an account on someone&#39;s behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
+     * Founds an org on someone&#39;s behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAdminProvision'] to see the possible values for this operation
      *
@@ -23458,7 +26173,7 @@ class IamApi
     /**
      * Operation postIamAdminProvisionWithHttpInfo
      *
-     * Sets up an account on someone&#39;s behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
+     * Founds an org on someone&#39;s behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAdminProvision'] to see the possible values for this operation
      *
@@ -23506,7 +26221,7 @@ class IamApi
     /**
      * Operation postIamAdminProvisionAsync
      *
-     * Sets up an account on someone&#39;s behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
+     * Founds an org on someone&#39;s behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAdminProvision'] to see the possible values for this operation
      *
@@ -23526,7 +26241,7 @@ class IamApi
     /**
      * Operation postIamAdminProvisionAsyncWithHttpInfo
      *
-     * Sets up an account on someone&#39;s behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
+     * Founds an org on someone&#39;s behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAdminProvision'] to see the possible values for this operation
      *
@@ -23651,7 +26366,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamApplication
+     * @return \Hanzo\Cloud\Model\IamApplication|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postIamApplications($iam_application, string $contentType = self::contentTypes['postIamApplications'][0])
     {
@@ -23669,7 +26384,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamApplication, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamApplication|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postIamApplicationsWithHttpInfo($iam_application, string $contentType = self::contentTypes['postIamApplications'][0])
     {
@@ -23705,6 +26420,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -23733,6 +26460,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamApplication',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -23849,7 +26592,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -23913,42 +26656,38 @@ class IamApi
     }
 
     /**
-     * Operation postIamAssume
+     * Operation postIamAuditLogs
      *
-     * Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.
+     * Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
      *
-     * @param  \Hanzo\Cloud\Model\IamAssumeBody $iam_assume_body iam_assume_body (required)
-     * @param  string|null $authorization authorization (optional)
-     * @param  string|null $x_forwarded_for x_forwarded_for (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAssume'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\IamAuditlogsInput $iam_auditlogs_input iam_auditlogs_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuditLogs'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer
+     * @return \Hanzo\Cloud\Model\IamAuditLog|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postIamAssume($iam_assume_body, $authorization = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamAssume'][0])
+    public function postIamAuditLogs($iam_auditlogs_input, string $contentType = self::contentTypes['postIamAuditLogs'][0])
     {
-        list($response) = $this->postIamAssumeWithHttpInfo($iam_assume_body, $authorization, $x_forwarded_for, $contentType);
+        list($response) = $this->postIamAuditLogsWithHttpInfo($iam_auditlogs_input, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIamAssumeWithHttpInfo
+     * Operation postIamAuditLogsWithHttpInfo
      *
-     * Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.
+     * Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
      *
-     * @param  \Hanzo\Cloud\Model\IamAssumeBody $iam_assume_body (required)
-     * @param  string|null $authorization (optional)
-     * @param  string|null $x_forwarded_for (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAssume'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\IamAuditlogsInput $iam_auditlogs_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuditLogs'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAuditLog|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIamAssumeWithHttpInfo($iam_assume_body, $authorization = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamAssume'][0])
+    public function postIamAuditLogsWithHttpInfo($iam_auditlogs_input, string $contentType = self::contentTypes['postIamAuditLogs'][0])
     {
-        $request = $this->postIamAssumeRequest($iam_assume_body, $authorization, $x_forwarded_for, $contentType);
+        $request = $this->postIamAuditLogsRequest($iam_auditlogs_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -23976,31 +26715,19 @@ class IamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamAnswer',
+                        '\Hanzo\Cloud\Model\IamAuditLog',
                         $request,
                         $response,
                     );
-                case 400:
+                case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamAnswer',
+                        '\Hanzo\Cloud\Model\Approval',
                         $request,
                         $response,
                     );
-                case 401:
+                default:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamAnswer',
-                        $request,
-                        $response,
-                    );
-                case 403:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamAnswer',
-                        $request,
-                        $response,
-                    );
-                case 404:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamAnswer',
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -24022,7 +26749,7 @@ class IamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IamAnswer',
+                '\Hanzo\Cloud\Model\IamAuditLog',
                 $request,
                 $response,
             );
@@ -24031,39 +26758,23 @@ class IamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamAnswer',
+                        '\Hanzo\Cloud\Model\IamAuditLog',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 400:
+                case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamAnswer',
+                        '\Hanzo\Cloud\Model\Approval',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                default:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamAnswer',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamAnswer',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamAnswer',
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -24076,21 +26787,19 @@ class IamApi
     }
 
     /**
-     * Operation postIamAssumeAsync
+     * Operation postIamAuditLogsAsync
      *
-     * Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.
+     * Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
      *
-     * @param  \Hanzo\Cloud\Model\IamAssumeBody $iam_assume_body (required)
-     * @param  string|null $authorization (optional)
-     * @param  string|null $x_forwarded_for (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAssume'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\IamAuditlogsInput $iam_auditlogs_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuditLogs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIamAssumeAsync($iam_assume_body, $authorization = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamAssume'][0])
+    public function postIamAuditLogsAsync($iam_auditlogs_input, string $contentType = self::contentTypes['postIamAuditLogs'][0])
     {
-        return $this->postIamAssumeAsyncWithHttpInfo($iam_assume_body, $authorization, $x_forwarded_for, $contentType)
+        return $this->postIamAuditLogsAsyncWithHttpInfo($iam_auditlogs_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -24099,22 +26808,20 @@ class IamApi
     }
 
     /**
-     * Operation postIamAssumeAsyncWithHttpInfo
+     * Operation postIamAuditLogsAsyncWithHttpInfo
      *
-     * Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.
+     * Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
      *
-     * @param  \Hanzo\Cloud\Model\IamAssumeBody $iam_assume_body (required)
-     * @param  string|null $authorization (optional)
-     * @param  string|null $x_forwarded_for (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAssume'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\IamAuditlogsInput $iam_auditlogs_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuditLogs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIamAssumeAsyncWithHttpInfo($iam_assume_body, $authorization = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamAssume'][0])
+    public function postIamAuditLogsAsyncWithHttpInfo($iam_auditlogs_input, string $contentType = self::contentTypes['postIamAuditLogs'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IamAnswer';
-        $request = $this->postIamAssumeRequest($iam_assume_body, $authorization, $x_forwarded_for, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IamAuditLog';
+        $request = $this->postIamAuditLogsRequest($iam_auditlogs_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -24153,30 +26860,26 @@ class IamApi
     }
 
     /**
-     * Create request for operation 'postIamAssume'
+     * Create request for operation 'postIamAuditLogs'
      *
-     * @param  \Hanzo\Cloud\Model\IamAssumeBody $iam_assume_body (required)
-     * @param  string|null $authorization (optional)
-     * @param  string|null $x_forwarded_for (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAssume'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\IamAuditlogsInput $iam_auditlogs_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuditLogs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIamAssumeRequest($iam_assume_body, $authorization = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamAssume'][0])
+    public function postIamAuditLogsRequest($iam_auditlogs_input, string $contentType = self::contentTypes['postIamAuditLogs'][0])
     {
 
-        // verify the required parameter 'iam_assume_body' is set
-        if ($iam_assume_body === null || (is_array($iam_assume_body) && count($iam_assume_body) === 0)) {
+        // verify the required parameter 'iam_auditlogs_input' is set
+        if ($iam_auditlogs_input === null || (is_array($iam_auditlogs_input) && count($iam_auditlogs_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $iam_assume_body when calling postIamAssume'
+                'Missing the required parameter $iam_auditlogs_input when calling postIamAuditLogs'
             );
         }
 
 
-
-
-        $resourcePath = '/v1/iam/assume';
+        $resourcePath = '/v1/iam/audit-logs';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -24184,30 +26887,22 @@ class IamApi
         $multipart = false;
 
 
-        // header params
-        if ($authorization !== null) {
-            $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
-        }
-        // header params
-        if ($x_forwarded_for !== null) {
-            $headerParams['X-Forwarded-For'] = ObjectSerializer::toHeaderValue($x_forwarded_for);
-        }
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($iam_assume_body)) {
+        if (isset($iam_auditlogs_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_assume_body));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_auditlogs_input));
             } else {
-                $httpBody = $iam_assume_body;
+                $httpBody = $iam_auditlogs_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -24260,38 +26955,42 @@ class IamApi
     }
 
     /**
-     * Operation postIamAuditLogs
+     * Operation postIamAuthIdentifier
      *
-     * Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
+     * Answers whether an account holds an email address at an application, and whether that account signs in with a password.
      *
-     * @param  \Hanzo\Cloud\Model\IamInput $iam_input iam_input (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuditLogs'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\IamIdentifierBody $iam_identifier_body iam_identifier_body (required)
+     * @param  string|null $cf_connecting_ip cf_connecting_ip (optional)
+     * @param  string|null $x_forwarded_for x_forwarded_for (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuthIdentifier'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamAuditLog
+     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postIamAuditLogs($iam_input, string $contentType = self::contentTypes['postIamAuditLogs'][0])
+    public function postIamAuthIdentifier($iam_identifier_body, $cf_connecting_ip = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamAuthIdentifier'][0])
     {
-        list($response) = $this->postIamAuditLogsWithHttpInfo($iam_input, $contentType);
+        list($response) = $this->postIamAuthIdentifierWithHttpInfo($iam_identifier_body, $cf_connecting_ip, $x_forwarded_for, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIamAuditLogsWithHttpInfo
+     * Operation postIamAuthIdentifierWithHttpInfo
      *
-     * Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
+     * Answers whether an account holds an email address at an application, and whether that account signs in with a password.
      *
-     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuditLogs'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\IamIdentifierBody $iam_identifier_body (required)
+     * @param  string|null $cf_connecting_ip (optional)
+     * @param  string|null $x_forwarded_for (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuthIdentifier'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamAuditLog, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIamAuditLogsWithHttpInfo($iam_input, string $contentType = self::contentTypes['postIamAuditLogs'][0])
+    public function postIamAuthIdentifierWithHttpInfo($iam_identifier_body, $cf_connecting_ip = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamAuthIdentifier'][0])
     {
-        $request = $this->postIamAuditLogsRequest($iam_input, $contentType);
+        $request = $this->postIamAuthIdentifierRequest($iam_identifier_body, $cf_connecting_ip, $x_forwarded_for, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -24319,7 +27018,25 @@ class IamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamAuditLog',
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -24341,7 +27058,7 @@ class IamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IamAuditLog',
+                '\Hanzo\Cloud\Model\IamAnswer',
                 $request,
                 $response,
             );
@@ -24350,7 +27067,31 @@ class IamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamAuditLog',
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -24363,19 +27104,21 @@ class IamApi
     }
 
     /**
-     * Operation postIamAuditLogsAsync
+     * Operation postIamAuthIdentifierAsync
      *
-     * Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
+     * Answers whether an account holds an email address at an application, and whether that account signs in with a password.
      *
-     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuditLogs'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\IamIdentifierBody $iam_identifier_body (required)
+     * @param  string|null $cf_connecting_ip (optional)
+     * @param  string|null $x_forwarded_for (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuthIdentifier'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIamAuditLogsAsync($iam_input, string $contentType = self::contentTypes['postIamAuditLogs'][0])
+    public function postIamAuthIdentifierAsync($iam_identifier_body, $cf_connecting_ip = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamAuthIdentifier'][0])
     {
-        return $this->postIamAuditLogsAsyncWithHttpInfo($iam_input, $contentType)
+        return $this->postIamAuthIdentifierAsyncWithHttpInfo($iam_identifier_body, $cf_connecting_ip, $x_forwarded_for, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -24384,20 +27127,22 @@ class IamApi
     }
 
     /**
-     * Operation postIamAuditLogsAsyncWithHttpInfo
+     * Operation postIamAuthIdentifierAsyncWithHttpInfo
      *
-     * Records an audit entry, so activity from your own systems lands in the same trail as everything the Hanzo Cloud records for you.
+     * Answers whether an account holds an email address at an application, and whether that account signs in with a password.
      *
-     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuditLogs'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\IamIdentifierBody $iam_identifier_body (required)
+     * @param  string|null $cf_connecting_ip (optional)
+     * @param  string|null $x_forwarded_for (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuthIdentifier'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIamAuditLogsAsyncWithHttpInfo($iam_input, string $contentType = self::contentTypes['postIamAuditLogs'][0])
+    public function postIamAuthIdentifierAsyncWithHttpInfo($iam_identifier_body, $cf_connecting_ip = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamAuthIdentifier'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IamAuditLog';
-        $request = $this->postIamAuditLogsRequest($iam_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IamAnswer';
+        $request = $this->postIamAuthIdentifierRequest($iam_identifier_body, $cf_connecting_ip, $x_forwarded_for, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -24436,26 +27181,30 @@ class IamApi
     }
 
     /**
-     * Create request for operation 'postIamAuditLogs'
+     * Create request for operation 'postIamAuthIdentifier'
      *
-     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuditLogs'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\IamIdentifierBody $iam_identifier_body (required)
+     * @param  string|null $cf_connecting_ip (optional)
+     * @param  string|null $x_forwarded_for (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamAuthIdentifier'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIamAuditLogsRequest($iam_input, string $contentType = self::contentTypes['postIamAuditLogs'][0])
+    public function postIamAuthIdentifierRequest($iam_identifier_body, $cf_connecting_ip = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamAuthIdentifier'][0])
     {
 
-        // verify the required parameter 'iam_input' is set
-        if ($iam_input === null || (is_array($iam_input) && count($iam_input) === 0)) {
+        // verify the required parameter 'iam_identifier_body' is set
+        if ($iam_identifier_body === null || (is_array($iam_identifier_body) && count($iam_identifier_body) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $iam_input when calling postIamAuditLogs'
+                'Missing the required parameter $iam_identifier_body when calling postIamAuthIdentifier'
             );
         }
 
 
-        $resourcePath = '/v1/iam/audit-logs';
+
+
+        $resourcePath = '/v1/iam/auth/identifier';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -24463,22 +27212,30 @@ class IamApi
         $multipart = false;
 
 
+        // header params
+        if ($cf_connecting_ip !== null) {
+            $headerParams['CF-Connecting-IP'] = ObjectSerializer::toHeaderValue($cf_connecting_ip);
+        }
+        // header params
+        if ($x_forwarded_for !== null) {
+            $headerParams['X-Forwarded-For'] = ObjectSerializer::toHeaderValue($x_forwarded_for);
+        }
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($iam_input)) {
+        if (isset($iam_identifier_body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_identifier_body));
             } else {
-                $httpBody = $iam_input;
+                $httpBody = $iam_identifier_body;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -24540,7 +27297,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamCert
+     * @return \Hanzo\Cloud\Model\IamCert|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postIamCerts($iam_cert, string $contentType = self::contentTypes['postIamCerts'][0])
     {
@@ -24558,7 +27315,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamCert, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamCert|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postIamCertsWithHttpInfo($iam_cert, string $contentType = self::contentTypes['postIamCerts'][0])
     {
@@ -24594,6 +27351,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -24622,6 +27391,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamCert',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -24738,7 +27523,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -25013,7 +27798,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamInvitation
+     * @return \Hanzo\Cloud\Model\IamInvitation|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postIamInvitations($iam_invitations_input, string $contentType = self::contentTypes['postIamInvitations'][0])
     {
@@ -25031,7 +27816,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamInvitation, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamInvitation|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postIamInvitationsWithHttpInfo($iam_invitations_input, string $contentType = self::contentTypes['postIamInvitations'][0])
     {
@@ -25067,6 +27852,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -25095,6 +27892,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamInvitation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -25211,7 +28024,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -25275,6 +28088,751 @@ class IamApi
     }
 
     /**
+     * Operation postIamInvitationsAccept
+     *
+     * Joins the caller to an organization through an invitation, for a person who already has an account.
+     *
+     * @param  \Hanzo\Cloud\Model\IamAcceptBody $iam_accept_body iam_accept_body (required)
+     * @param  string|null $cookie cookie (optional)
+     * @param  string|null $authorization authorization (optional)
+     * @param  string|null $sec_fetch_site sec_fetch_site (optional)
+     * @param  string|null $origin origin (optional)
+     * @param  string|null $host host (optional)
+     * @param  string|null $content_type content_type (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamInvitationsAccept'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postIamInvitationsAccept($iam_accept_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['postIamInvitationsAccept'][0])
+    {
+        list($response) = $this->postIamInvitationsAcceptWithHttpInfo($iam_accept_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postIamInvitationsAcceptWithHttpInfo
+     *
+     * Joins the caller to an organization through an invitation, for a person who already has an account.
+     *
+     * @param  \Hanzo\Cloud\Model\IamAcceptBody $iam_accept_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamInvitationsAccept'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postIamInvitationsAcceptWithHttpInfo($iam_accept_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['postIamInvitationsAccept'][0])
+    {
+        $request = $this->postIamInvitationsAcceptRequest($iam_accept_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 502:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamAnswer',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 502:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postIamInvitationsAcceptAsync
+     *
+     * Joins the caller to an organization through an invitation, for a person who already has an account.
+     *
+     * @param  \Hanzo\Cloud\Model\IamAcceptBody $iam_accept_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamInvitationsAccept'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamInvitationsAcceptAsync($iam_accept_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['postIamInvitationsAccept'][0])
+    {
+        return $this->postIamInvitationsAcceptAsyncWithHttpInfo($iam_accept_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postIamInvitationsAcceptAsyncWithHttpInfo
+     *
+     * Joins the caller to an organization through an invitation, for a person who already has an account.
+     *
+     * @param  \Hanzo\Cloud\Model\IamAcceptBody $iam_accept_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamInvitationsAccept'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamInvitationsAcceptAsyncWithHttpInfo($iam_accept_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['postIamInvitationsAccept'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamAnswer';
+        $request = $this->postIamInvitationsAcceptRequest($iam_accept_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postIamInvitationsAccept'
+     *
+     * @param  \Hanzo\Cloud\Model\IamAcceptBody $iam_accept_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamInvitationsAccept'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postIamInvitationsAcceptRequest($iam_accept_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['postIamInvitationsAccept'][0])
+    {
+
+        // verify the required parameter 'iam_accept_body' is set
+        if ($iam_accept_body === null || (is_array($iam_accept_body) && count($iam_accept_body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $iam_accept_body when calling postIamInvitationsAccept'
+            );
+        }
+
+
+
+
+
+
+
+
+        $resourcePath = '/v1/iam/invitations/accept';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // header params
+        if ($cookie !== null) {
+            $headerParams['Cookie'] = ObjectSerializer::toHeaderValue($cookie);
+        }
+        // header params
+        if ($authorization !== null) {
+            $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
+        }
+        // header params
+        if ($sec_fetch_site !== null) {
+            $headerParams['Sec-Fetch-Site'] = ObjectSerializer::toHeaderValue($sec_fetch_site);
+        }
+        // header params
+        if ($origin !== null) {
+            $headerParams['Origin'] = ObjectSerializer::toHeaderValue($origin);
+        }
+        // header params
+        if ($host !== null) {
+            $headerParams['Host'] = ObjectSerializer::toHeaderValue($host);
+        }
+        // header params
+        if ($content_type !== null) {
+            $headerParams['Content-Type'] = ObjectSerializer::toHeaderValue($content_type);
+        }
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($iam_accept_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_accept_body));
+            } else {
+                $httpBody = $iam_accept_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postIamInvitationsByOwnerByNameSend
+     *
+     * Emails an invitation to the address it is pinned to: who invited them, to which organization, and the link that joins them.
+     *
+     * @param  string $owner owner (required)
+     * @param  string $name name (required)
+     * @param  string|null $authorization authorization (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamInvitationsByOwnerByNameSend'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamSendOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postIamInvitationsByOwnerByNameSend($owner, $name, $authorization = null, string $contentType = self::contentTypes['postIamInvitationsByOwnerByNameSend'][0])
+    {
+        list($response) = $this->postIamInvitationsByOwnerByNameSendWithHttpInfo($owner, $name, $authorization, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postIamInvitationsByOwnerByNameSendWithHttpInfo
+     *
+     * Emails an invitation to the address it is pinned to: who invited them, to which organization, and the link that joins them.
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string|null $authorization (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamInvitationsByOwnerByNameSend'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamSendOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postIamInvitationsByOwnerByNameSendWithHttpInfo($owner, $name, $authorization = null, string $contentType = self::contentTypes['postIamInvitationsByOwnerByNameSend'][0])
+    {
+        $request = $this->postIamInvitationsByOwnerByNameSendRequest($owner, $name, $authorization, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamSendOutput',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamSendOutput',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamSendOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postIamInvitationsByOwnerByNameSendAsync
+     *
+     * Emails an invitation to the address it is pinned to: who invited them, to which organization, and the link that joins them.
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string|null $authorization (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamInvitationsByOwnerByNameSend'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamInvitationsByOwnerByNameSendAsync($owner, $name, $authorization = null, string $contentType = self::contentTypes['postIamInvitationsByOwnerByNameSend'][0])
+    {
+        return $this->postIamInvitationsByOwnerByNameSendAsyncWithHttpInfo($owner, $name, $authorization, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postIamInvitationsByOwnerByNameSendAsyncWithHttpInfo
+     *
+     * Emails an invitation to the address it is pinned to: who invited them, to which organization, and the link that joins them.
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string|null $authorization (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamInvitationsByOwnerByNameSend'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamInvitationsByOwnerByNameSendAsyncWithHttpInfo($owner, $name, $authorization = null, string $contentType = self::contentTypes['postIamInvitationsByOwnerByNameSend'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamSendOutput';
+        $request = $this->postIamInvitationsByOwnerByNameSendRequest($owner, $name, $authorization, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postIamInvitationsByOwnerByNameSend'
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string|null $authorization (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamInvitationsByOwnerByNameSend'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postIamInvitationsByOwnerByNameSendRequest($owner, $name, $authorization = null, string $contentType = self::contentTypes['postIamInvitationsByOwnerByNameSend'][0])
+    {
+
+        // verify the required parameter 'owner' is set
+        if ($owner === null || (is_array($owner) && count($owner) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $owner when calling postIamInvitationsByOwnerByNameSend'
+            );
+        }
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling postIamInvitationsByOwnerByNameSend'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/iam/invitations/{owner}/{name}/send';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // header params
+        if ($authorization !== null) {
+            $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
+        }
+
+        // path params
+        if ($owner !== null) {
+            $resourcePath = str_replace(
+                '{' . 'owner' . '}',
+                ObjectSerializer::toPathValue($owner),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation postIamKeys
      *
      * Issues an API key.
@@ -25284,7 +28842,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamKey
+     * @return \Hanzo\Cloud\Model\IamKey|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postIamKeys($iam_key, string $contentType = self::contentTypes['postIamKeys'][0])
     {
@@ -25302,7 +28860,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamKey, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamKey|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postIamKeysWithHttpInfo($iam_key, string $contentType = self::contentTypes['postIamKeys'][0])
     {
@@ -25338,6 +28896,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -25366,6 +28936,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamKey',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -25482,7 +29068,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -26758,6 +30344,208 @@ class IamApi
     }
 
     /**
+     * Operation postIamOauthAgentIdentity
+     *
+     * Registers an agent that acts for the person whose email it names.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthAgentIdentity'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function postIamOauthAgentIdentity(string $contentType = self::contentTypes['postIamOauthAgentIdentity'][0])
+    {
+        $this->postIamOauthAgentIdentityWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation postIamOauthAgentIdentityWithHttpInfo
+     *
+     * Registers an agent that acts for the person whose email it names.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthAgentIdentity'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postIamOauthAgentIdentityWithHttpInfo(string $contentType = self::contentTypes['postIamOauthAgentIdentity'][0])
+    {
+        $request = $this->postIamOauthAgentIdentityRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postIamOauthAgentIdentityAsync
+     *
+     * Registers an agent that acts for the person whose email it names.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthAgentIdentity'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamOauthAgentIdentityAsync(string $contentType = self::contentTypes['postIamOauthAgentIdentity'][0])
+    {
+        return $this->postIamOauthAgentIdentityAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postIamOauthAgentIdentityAsyncWithHttpInfo
+     *
+     * Registers an agent that acts for the person whose email it names.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthAgentIdentity'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamOauthAgentIdentityAsyncWithHttpInfo(string $contentType = self::contentTypes['postIamOauthAgentIdentity'][0])
+    {
+        $returnType = '';
+        $request = $this->postIamOauthAgentIdentityRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postIamOauthAgentIdentity'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthAgentIdentity'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postIamOauthAgentIdentityRequest(string $contentType = self::contentTypes['postIamOauthAgentIdentity'][0])
+    {
+
+
+        $resourcePath = '/v1/iam/oauth/agent/identity';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation postIamOauthAuthorize
      *
      * Starts a sign-in — the address you send a browser to, and the beginning of every OAuth and OpenID Connect flow.
@@ -26892,6 +30680,208 @@ class IamApi
 
 
         $resourcePath = '/v1/iam/oauth/authorize';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postIamOauthCallback
+     *
+     * Completes the round-trip: it resolves and burns the single-use transaction (checking expiry + browser binding), exchanges and verifies the IdP response, links or provisions the local user, and mints the iam authorization code the relying party expects — then redirects to the original redirect_uri with code + state.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthCallback'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function postIamOauthCallback(string $contentType = self::contentTypes['postIamOauthCallback'][0])
+    {
+        $this->postIamOauthCallbackWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation postIamOauthCallbackWithHttpInfo
+     *
+     * Completes the round-trip: it resolves and burns the single-use transaction (checking expiry + browser binding), exchanges and verifies the IdP response, links or provisions the local user, and mints the iam authorization code the relying party expects — then redirects to the original redirect_uri with code + state.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthCallback'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postIamOauthCallbackWithHttpInfo(string $contentType = self::contentTypes['postIamOauthCallback'][0])
+    {
+        $request = $this->postIamOauthCallbackRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postIamOauthCallbackAsync
+     *
+     * Completes the round-trip: it resolves and burns the single-use transaction (checking expiry + browser binding), exchanges and verifies the IdP response, links or provisions the local user, and mints the iam authorization code the relying party expects — then redirects to the original redirect_uri with code + state.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthCallback'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamOauthCallbackAsync(string $contentType = self::contentTypes['postIamOauthCallback'][0])
+    {
+        return $this->postIamOauthCallbackAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postIamOauthCallbackAsyncWithHttpInfo
+     *
+     * Completes the round-trip: it resolves and burns the single-use transaction (checking expiry + browser binding), exchanges and verifies the IdP response, links or provisions the local user, and mints the iam authorization code the relying party expects — then redirects to the original redirect_uri with code + state.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthCallback'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamOauthCallbackAsyncWithHttpInfo(string $contentType = self::contentTypes['postIamOauthCallback'][0])
+    {
+        $returnType = '';
+        $request = $this->postIamOauthCallbackRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postIamOauthCallback'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthCallback'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postIamOauthCallbackRequest(string $contentType = self::contentTypes['postIamOauthCallback'][0])
+    {
+
+
+        $resourcePath = '/v1/iam/oauth/callback';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -27970,6 +31960,208 @@ class IamApi
     }
 
     /**
+     * Operation postIamOauthRefreshToken
+     *
+     * Exchanges what your application is holding for the tokens it needs — the one-time code from a finished sign-in, a refresh token, or your own client credentials when the caller is a program rather than a person.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthRefreshToken'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function postIamOauthRefreshToken(string $contentType = self::contentTypes['postIamOauthRefreshToken'][0])
+    {
+        $this->postIamOauthRefreshTokenWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation postIamOauthRefreshTokenWithHttpInfo
+     *
+     * Exchanges what your application is holding for the tokens it needs — the one-time code from a finished sign-in, a refresh token, or your own client credentials when the caller is a program rather than a person.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthRefreshToken'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postIamOauthRefreshTokenWithHttpInfo(string $contentType = self::contentTypes['postIamOauthRefreshToken'][0])
+    {
+        $request = $this->postIamOauthRefreshTokenRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postIamOauthRefreshTokenAsync
+     *
+     * Exchanges what your application is holding for the tokens it needs — the one-time code from a finished sign-in, a refresh token, or your own client credentials when the caller is a program rather than a person.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthRefreshToken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamOauthRefreshTokenAsync(string $contentType = self::contentTypes['postIamOauthRefreshToken'][0])
+    {
+        return $this->postIamOauthRefreshTokenAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postIamOauthRefreshTokenAsyncWithHttpInfo
+     *
+     * Exchanges what your application is holding for the tokens it needs — the one-time code from a finished sign-in, a refresh token, or your own client credentials when the caller is a program rather than a person.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthRefreshToken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamOauthRefreshTokenAsyncWithHttpInfo(string $contentType = self::contentTypes['postIamOauthRefreshToken'][0])
+    {
+        $returnType = '';
+        $request = $this->postIamOauthRefreshTokenRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postIamOauthRefreshToken'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamOauthRefreshToken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postIamOauthRefreshTokenRequest(string $contentType = self::contentTypes['postIamOauthRefreshToken'][0])
+    {
+
+
+        $resourcePath = '/v1/iam/oauth/refresh_token';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation postIamOauthRevoke
      *
      * Retires a token before it expires — what you call when someone signs out or a credential may have leaked.
@@ -28787,7 +32979,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamPermission
+     * @return \Hanzo\Cloud\Model\IamPermission|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postIamPermissions($iam_permission, string $contentType = self::contentTypes['postIamPermissions'][0])
     {
@@ -28805,7 +32997,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamPermission, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamPermission|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postIamPermissionsWithHttpInfo($iam_permission, string $contentType = self::contentTypes['postIamPermissions'][0])
     {
@@ -28841,6 +33033,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -28869,6 +33073,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamPermission',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -28985,7 +33205,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -29260,7 +33480,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamProject
+     * @return \Hanzo\Cloud\Model\IamProject|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postIamProjects($iam_projects_input, string $contentType = self::contentTypes['postIamProjects'][0])
     {
@@ -29278,7 +33498,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamProject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamProject|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postIamProjectsWithHttpInfo($iam_projects_input, string $contentType = self::contentTypes['postIamProjects'][0])
     {
@@ -29314,6 +33534,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -29342,6 +33574,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamProject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -29458,7 +33706,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -29724,339 +33972,20 @@ class IamApi
     }
 
     /**
-     * Operation postIamRelease
-     *
-     * Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
-     *
-     * @param  \Hanzo\Cloud\Model\IamAssumeBody $iam_assume_body iam_assume_body (required)
-     * @param  string|null $authorization authorization (optional)
-     * @param  string|null $x_forwarded_for x_forwarded_for (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamRelease'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer
-     */
-    public function postIamRelease($iam_assume_body, $authorization = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamRelease'][0])
-    {
-        list($response) = $this->postIamReleaseWithHttpInfo($iam_assume_body, $authorization, $x_forwarded_for, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postIamReleaseWithHttpInfo
-     *
-     * Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
-     *
-     * @param  \Hanzo\Cloud\Model\IamAssumeBody $iam_assume_body (required)
-     * @param  string|null $authorization (optional)
-     * @param  string|null $x_forwarded_for (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamRelease'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postIamReleaseWithHttpInfo($iam_assume_body, $authorization = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamRelease'][0])
-    {
-        $request = $this->postIamReleaseRequest($iam_assume_body, $authorization, $x_forwarded_for, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamAnswer',
-                        $request,
-                        $response,
-                    );
-                case 400:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamAnswer',
-                        $request,
-                        $response,
-                    );
-                case 401:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IamAnswer',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IamAnswer',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamAnswer',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamAnswer',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IamAnswer',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postIamReleaseAsync
-     *
-     * Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
-     *
-     * @param  \Hanzo\Cloud\Model\IamAssumeBody $iam_assume_body (required)
-     * @param  string|null $authorization (optional)
-     * @param  string|null $x_forwarded_for (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamRelease'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postIamReleaseAsync($iam_assume_body, $authorization = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamRelease'][0])
-    {
-        return $this->postIamReleaseAsyncWithHttpInfo($iam_assume_body, $authorization, $x_forwarded_for, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postIamReleaseAsyncWithHttpInfo
-     *
-     * Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
-     *
-     * @param  \Hanzo\Cloud\Model\IamAssumeBody $iam_assume_body (required)
-     * @param  string|null $authorization (optional)
-     * @param  string|null $x_forwarded_for (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamRelease'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postIamReleaseAsyncWithHttpInfo($iam_assume_body, $authorization = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamRelease'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\IamAnswer';
-        $request = $this->postIamReleaseRequest($iam_assume_body, $authorization, $x_forwarded_for, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postIamRelease'
-     *
-     * @param  \Hanzo\Cloud\Model\IamAssumeBody $iam_assume_body (required)
-     * @param  string|null $authorization (optional)
-     * @param  string|null $x_forwarded_for (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamRelease'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postIamReleaseRequest($iam_assume_body, $authorization = null, $x_forwarded_for = null, string $contentType = self::contentTypes['postIamRelease'][0])
-    {
-
-        // verify the required parameter 'iam_assume_body' is set
-        if ($iam_assume_body === null || (is_array($iam_assume_body) && count($iam_assume_body) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $iam_assume_body when calling postIamRelease'
-            );
-        }
-
-
-
-
-        $resourcePath = '/v1/iam/release';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-        // header params
-        if ($authorization !== null) {
-            $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
-        }
-        // header params
-        if ($x_forwarded_for !== null) {
-            $headerParams['X-Forwarded-For'] = ObjectSerializer::toHeaderValue($x_forwarded_for);
-        }
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($iam_assume_body)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_assume_body));
-            } else {
-                $httpBody = $iam_assume_body;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation postIamRoles
      *
      * Makes a role — a named group of people that permissions are granted to.
      *
-     * @param  \Hanzo\Cloud\Model\IamRolesInput $iam_roles_input iam_roles_input (required)
+     * @param  \Hanzo\Cloud\Model\IamInput $iam_input iam_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamRoles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamRole
+     * @return \Hanzo\Cloud\Model\IamRole|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postIamRoles($iam_roles_input, string $contentType = self::contentTypes['postIamRoles'][0])
+    public function postIamRoles($iam_input, string $contentType = self::contentTypes['postIamRoles'][0])
     {
-        list($response) = $this->postIamRolesWithHttpInfo($iam_roles_input, $contentType);
+        list($response) = $this->postIamRolesWithHttpInfo($iam_input, $contentType);
         return $response;
     }
 
@@ -30065,16 +33994,16 @@ class IamApi
      *
      * Makes a role — a named group of people that permissions are granted to.
      *
-     * @param  \Hanzo\Cloud\Model\IamRolesInput $iam_roles_input (required)
+     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamRoles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamRole, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamRole|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIamRolesWithHttpInfo($iam_roles_input, string $contentType = self::contentTypes['postIamRoles'][0])
+    public function postIamRolesWithHttpInfo($iam_input, string $contentType = self::contentTypes['postIamRoles'][0])
     {
-        $request = $this->postIamRolesRequest($iam_roles_input, $contentType);
+        $request = $this->postIamRolesRequest($iam_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -30103,6 +34032,18 @@ class IamApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamRole',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -30138,6 +34079,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -30150,15 +34107,15 @@ class IamApi
      *
      * Makes a role — a named group of people that permissions are granted to.
      *
-     * @param  \Hanzo\Cloud\Model\IamRolesInput $iam_roles_input (required)
+     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamRoles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIamRolesAsync($iam_roles_input, string $contentType = self::contentTypes['postIamRoles'][0])
+    public function postIamRolesAsync($iam_input, string $contentType = self::contentTypes['postIamRoles'][0])
     {
-        return $this->postIamRolesAsyncWithHttpInfo($iam_roles_input, $contentType)
+        return $this->postIamRolesAsyncWithHttpInfo($iam_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -30171,16 +34128,16 @@ class IamApi
      *
      * Makes a role — a named group of people that permissions are granted to.
      *
-     * @param  \Hanzo\Cloud\Model\IamRolesInput $iam_roles_input (required)
+     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamRoles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIamRolesAsyncWithHttpInfo($iam_roles_input, string $contentType = self::contentTypes['postIamRoles'][0])
+    public function postIamRolesAsyncWithHttpInfo($iam_input, string $contentType = self::contentTypes['postIamRoles'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IamRole';
-        $request = $this->postIamRolesRequest($iam_roles_input, $contentType);
+        $request = $this->postIamRolesRequest($iam_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -30221,19 +34178,19 @@ class IamApi
     /**
      * Create request for operation 'postIamRoles'
      *
-     * @param  \Hanzo\Cloud\Model\IamRolesInput $iam_roles_input (required)
+     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamRoles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIamRolesRequest($iam_roles_input, string $contentType = self::contentTypes['postIamRoles'][0])
+    public function postIamRolesRequest($iam_input, string $contentType = self::contentTypes['postIamRoles'][0])
     {
 
-        // verify the required parameter 'iam_roles_input' is set
-        if ($iam_roles_input === null || (is_array($iam_roles_input) && count($iam_roles_input) === 0)) {
+        // verify the required parameter 'iam_input' is set
+        if ($iam_input === null || (is_array($iam_input) && count($iam_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $iam_roles_input when calling postIamRoles'
+                'Missing the required parameter $iam_input when calling postIamRoles'
             );
         }
 
@@ -30250,18 +34207,18 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($iam_roles_input)) {
+        if (isset($iam_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_roles_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_input));
             } else {
-                $httpBody = $iam_roles_input;
+                $httpBody = $iam_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -31353,7 +35310,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamTeam
+     * @return \Hanzo\Cloud\Model\IamTeam|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postIamTeams($iam_teams_input, string $contentType = self::contentTypes['postIamTeams'][0])
     {
@@ -31371,7 +35328,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamTeam, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamTeam|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postIamTeamsWithHttpInfo($iam_teams_input, string $contentType = self::contentTypes['postIamTeams'][0])
     {
@@ -31407,6 +35364,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -31435,6 +35404,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamTeam',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -31551,7 +35536,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -32028,7 +36013,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamUser
+     * @return \Hanzo\Cloud\Model\IamUser|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postIamUsers($iam_create_input, string $contentType = self::contentTypes['postIamUsers'][0])
     {
@@ -32046,7 +36031,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamUser, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamUser|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postIamUsersWithHttpInfo($iam_create_input, string $contentType = self::contentTypes['postIamUsers'][0])
     {
@@ -32082,6 +36067,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -32110,6 +36107,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamUser',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -32226,7 +36239,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -33349,7 +37362,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamWorkspace
+     * @return \Hanzo\Cloud\Model\IamWorkspace|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postIamWorkspaces($iam_workspaces_input, string $contentType = self::contentTypes['postIamWorkspaces'][0])
     {
@@ -33367,7 +37380,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamWorkspace, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamWorkspace|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postIamWorkspacesWithHttpInfo($iam_workspaces_input, string $contentType = self::contentTypes['postIamWorkspaces'][0])
     {
@@ -33403,6 +37416,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -33431,6 +37456,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamWorkspace',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -33547,7 +37588,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -33618,15 +37659,19 @@ class IamApi
      * @param  \Hanzo\Cloud\Model\IamAccountBody $iam_account_body iam_account_body (required)
      * @param  string|null $cookie cookie (optional)
      * @param  string|null $authorization authorization (optional)
+     * @param  string|null $sec_fetch_site sec_fetch_site (optional)
+     * @param  string|null $origin origin (optional)
+     * @param  string|null $host host (optional)
+     * @param  string|null $content_type content_type (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAccount'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer
+     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putIamAccount($iam_account_body, $cookie = null, $authorization = null, string $contentType = self::contentTypes['putIamAccount'][0])
+    public function putIamAccount($iam_account_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamAccount'][0])
     {
-        list($response) = $this->putIamAccountWithHttpInfo($iam_account_body, $cookie, $authorization, $contentType);
+        list($response) = $this->putIamAccountWithHttpInfo($iam_account_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
         return $response;
     }
 
@@ -33638,15 +37683,19 @@ class IamApi
      * @param  \Hanzo\Cloud\Model\IamAccountBody $iam_account_body (required)
      * @param  string|null $cookie (optional)
      * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAccount'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putIamAccountWithHttpInfo($iam_account_body, $cookie = null, $authorization = null, string $contentType = self::contentTypes['putIamAccount'][0])
+    public function putIamAccountWithHttpInfo($iam_account_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamAccount'][0])
     {
-        $request = $this->putIamAccountRequest($iam_account_body, $cookie, $authorization, $contentType);
+        $request = $this->putIamAccountRequest($iam_account_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -33681,6 +37730,18 @@ class IamApi
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -33724,6 +37785,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -33739,14 +37816,18 @@ class IamApi
      * @param  \Hanzo\Cloud\Model\IamAccountBody $iam_account_body (required)
      * @param  string|null $cookie (optional)
      * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAccount'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIamAccountAsync($iam_account_body, $cookie = null, $authorization = null, string $contentType = self::contentTypes['putIamAccount'][0])
+    public function putIamAccountAsync($iam_account_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamAccount'][0])
     {
-        return $this->putIamAccountAsyncWithHttpInfo($iam_account_body, $cookie, $authorization, $contentType)
+        return $this->putIamAccountAsyncWithHttpInfo($iam_account_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -33762,15 +37843,19 @@ class IamApi
      * @param  \Hanzo\Cloud\Model\IamAccountBody $iam_account_body (required)
      * @param  string|null $cookie (optional)
      * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAccount'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIamAccountAsyncWithHttpInfo($iam_account_body, $cookie = null, $authorization = null, string $contentType = self::contentTypes['putIamAccount'][0])
+    public function putIamAccountAsyncWithHttpInfo($iam_account_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamAccount'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IamAnswer';
-        $request = $this->putIamAccountRequest($iam_account_body, $cookie, $authorization, $contentType);
+        $request = $this->putIamAccountRequest($iam_account_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -33814,12 +37899,16 @@ class IamApi
      * @param  \Hanzo\Cloud\Model\IamAccountBody $iam_account_body (required)
      * @param  string|null $cookie (optional)
      * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAccount'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putIamAccountRequest($iam_account_body, $cookie = null, $authorization = null, string $contentType = self::contentTypes['putIamAccount'][0])
+    public function putIamAccountRequest($iam_account_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamAccount'][0])
     {
 
         // verify the required parameter 'iam_account_body' is set
@@ -33828,6 +37917,10 @@ class IamApi
                 'Missing the required parameter $iam_account_body when calling putIamAccount'
             );
         }
+
+
+
+
 
 
 
@@ -33848,11 +37941,27 @@ class IamApi
         if ($authorization !== null) {
             $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
         }
+        // header params
+        if ($sec_fetch_site !== null) {
+            $headerParams['Sec-Fetch-Site'] = ObjectSerializer::toHeaderValue($sec_fetch_site);
+        }
+        // header params
+        if ($origin !== null) {
+            $headerParams['Origin'] = ObjectSerializer::toHeaderValue($origin);
+        }
+        // header params
+        if ($host !== null) {
+            $headerParams['Host'] = ObjectSerializer::toHeaderValue($host);
+        }
+        // header params
+        if ($content_type !== null) {
+            $headerParams['Content-Type'] = ObjectSerializer::toHeaderValue($content_type);
+        }
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -33916,6 +38025,595 @@ class IamApi
     }
 
     /**
+     * Operation putIamAccounts
+     *
+     * Makes one of the accounts signed in on this browser the current one — the account an account menu switches to — and answers the list in its new order, current first.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAccounts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function putIamAccounts(string $contentType = self::contentTypes['putIamAccounts'][0])
+    {
+        $this->putIamAccountsWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation putIamAccountsWithHttpInfo
+     *
+     * Makes one of the accounts signed in on this browser the current one — the account an account menu switches to — and answers the list in its new order, current first.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAccounts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putIamAccountsWithHttpInfo(string $contentType = self::contentTypes['putIamAccounts'][0])
+    {
+        $request = $this->putIamAccountsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putIamAccountsAsync
+     *
+     * Makes one of the accounts signed in on this browser the current one — the account an account menu switches to — and answers the list in its new order, current first.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAccounts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putIamAccountsAsync(string $contentType = self::contentTypes['putIamAccounts'][0])
+    {
+        return $this->putIamAccountsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putIamAccountsAsyncWithHttpInfo
+     *
+     * Makes one of the accounts signed in on this browser the current one — the account an account menu switches to — and answers the list in its new order, current first.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAccounts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putIamAccountsAsyncWithHttpInfo(string $contentType = self::contentTypes['putIamAccounts'][0])
+    {
+        $returnType = '';
+        $request = $this->putIamAccountsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putIamAccounts'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAccounts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putIamAccountsRequest(string $contentType = self::contentTypes['putIamAccounts'][0])
+    {
+
+
+        $resourcePath = '/v1/iam/accounts';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putIamAddress
+     *
+     * Adds an email address or a phone number to the calling person&#39;s own account, so they can sign in with it — by a code sent there, or to recover a password.
+     *
+     * @param  \Hanzo\Cloud\Model\IamAddressBody $iam_address_body iam_address_body (required)
+     * @param  string|null $cookie cookie (optional)
+     * @param  string|null $authorization authorization (optional)
+     * @param  string|null $sec_fetch_site sec_fetch_site (optional)
+     * @param  string|null $origin origin (optional)
+     * @param  string|null $host host (optional)
+     * @param  string|null $content_type content_type (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAddress'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putIamAddress($iam_address_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamAddress'][0])
+    {
+        list($response) = $this->putIamAddressWithHttpInfo($iam_address_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putIamAddressWithHttpInfo
+     *
+     * Adds an email address or a phone number to the calling person&#39;s own account, so they can sign in with it — by a code sent there, or to recover a password.
+     *
+     * @param  \Hanzo\Cloud\Model\IamAddressBody $iam_address_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAddress'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putIamAddressWithHttpInfo($iam_address_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamAddress'][0])
+    {
+        $request = $this->putIamAddressRequest($iam_address_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamAnswer',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putIamAddressAsync
+     *
+     * Adds an email address or a phone number to the calling person&#39;s own account, so they can sign in with it — by a code sent there, or to recover a password.
+     *
+     * @param  \Hanzo\Cloud\Model\IamAddressBody $iam_address_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAddress'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putIamAddressAsync($iam_address_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamAddress'][0])
+    {
+        return $this->putIamAddressAsyncWithHttpInfo($iam_address_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putIamAddressAsyncWithHttpInfo
+     *
+     * Adds an email address or a phone number to the calling person&#39;s own account, so they can sign in with it — by a code sent there, or to recover a password.
+     *
+     * @param  \Hanzo\Cloud\Model\IamAddressBody $iam_address_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAddress'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putIamAddressAsyncWithHttpInfo($iam_address_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamAddress'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamAnswer';
+        $request = $this->putIamAddressRequest($iam_address_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putIamAddress'
+     *
+     * @param  \Hanzo\Cloud\Model\IamAddressBody $iam_address_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAddress'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putIamAddressRequest($iam_address_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamAddress'][0])
+    {
+
+        // verify the required parameter 'iam_address_body' is set
+        if ($iam_address_body === null || (is_array($iam_address_body) && count($iam_address_body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $iam_address_body when calling putIamAddress'
+            );
+        }
+
+
+
+
+
+
+
+
+        $resourcePath = '/v1/iam/address';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // header params
+        if ($cookie !== null) {
+            $headerParams['Cookie'] = ObjectSerializer::toHeaderValue($cookie);
+        }
+        // header params
+        if ($authorization !== null) {
+            $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
+        }
+        // header params
+        if ($sec_fetch_site !== null) {
+            $headerParams['Sec-Fetch-Site'] = ObjectSerializer::toHeaderValue($sec_fetch_site);
+        }
+        // header params
+        if ($origin !== null) {
+            $headerParams['Origin'] = ObjectSerializer::toHeaderValue($origin);
+        }
+        // header params
+        if ($host !== null) {
+            $headerParams['Host'] = ObjectSerializer::toHeaderValue($host);
+        }
+        // header params
+        if ($content_type !== null) {
+            $headerParams['Content-Type'] = ObjectSerializer::toHeaderValue($content_type);
+        }
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($iam_address_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_address_body));
+            } else {
+                $httpBody = $iam_address_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation putIamApplicationsByOwnerByName
      *
      * Changes an application&#39;s display, its sign-in methods and the redirect URIs it may return to — the call that makes login work from a new host.
@@ -33927,7 +38625,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamApplication
+     * @return \Hanzo\Cloud\Model\IamApplication|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function putIamApplicationsByOwnerByName($owner, $name, $iam_application, string $contentType = self::contentTypes['putIamApplicationsByOwnerByName'][0])
     {
@@ -33947,7 +38645,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamApplication, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamApplication|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function putIamApplicationsByOwnerByNameWithHttpInfo($owner, $name, $iam_application, string $contentType = self::contentTypes['putIamApplicationsByOwnerByName'][0])
     {
@@ -33983,6 +38681,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -34011,6 +38721,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamApplication',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -34163,7 +38889,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -34233,16 +38959,16 @@ class IamApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
-     * @param  \Hanzo\Cloud\Model\IamInput $iam_input iam_input (required)
+     * @param  \Hanzo\Cloud\Model\IamAuditlogsInput $iam_auditlogs_input iam_auditlogs_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAuditLogsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamAuditLog
+     * @return \Hanzo\Cloud\Model\IamAuditLog|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putIamAuditLogsByOwnerByName($owner, $name, $iam_input, string $contentType = self::contentTypes['putIamAuditLogsByOwnerByName'][0])
+    public function putIamAuditLogsByOwnerByName($owner, $name, $iam_auditlogs_input, string $contentType = self::contentTypes['putIamAuditLogsByOwnerByName'][0])
     {
-        list($response) = $this->putIamAuditLogsByOwnerByNameWithHttpInfo($owner, $name, $iam_input, $contentType);
+        list($response) = $this->putIamAuditLogsByOwnerByNameWithHttpInfo($owner, $name, $iam_auditlogs_input, $contentType);
         return $response;
     }
 
@@ -34253,16 +38979,16 @@ class IamApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
+     * @param  \Hanzo\Cloud\Model\IamAuditlogsInput $iam_auditlogs_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAuditLogsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamAuditLog, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAuditLog|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putIamAuditLogsByOwnerByNameWithHttpInfo($owner, $name, $iam_input, string $contentType = self::contentTypes['putIamAuditLogsByOwnerByName'][0])
+    public function putIamAuditLogsByOwnerByNameWithHttpInfo($owner, $name, $iam_auditlogs_input, string $contentType = self::contentTypes['putIamAuditLogsByOwnerByName'][0])
     {
-        $request = $this->putIamAuditLogsByOwnerByNameRequest($owner, $name, $iam_input, $contentType);
+        $request = $this->putIamAuditLogsByOwnerByNameRequest($owner, $name, $iam_auditlogs_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -34291,6 +39017,18 @@ class IamApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamAuditLog',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -34326,6 +39064,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -34340,15 +39094,15 @@ class IamApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
+     * @param  \Hanzo\Cloud\Model\IamAuditlogsInput $iam_auditlogs_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAuditLogsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIamAuditLogsByOwnerByNameAsync($owner, $name, $iam_input, string $contentType = self::contentTypes['putIamAuditLogsByOwnerByName'][0])
+    public function putIamAuditLogsByOwnerByNameAsync($owner, $name, $iam_auditlogs_input, string $contentType = self::contentTypes['putIamAuditLogsByOwnerByName'][0])
     {
-        return $this->putIamAuditLogsByOwnerByNameAsyncWithHttpInfo($owner, $name, $iam_input, $contentType)
+        return $this->putIamAuditLogsByOwnerByNameAsyncWithHttpInfo($owner, $name, $iam_auditlogs_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -34363,16 +39117,16 @@ class IamApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
+     * @param  \Hanzo\Cloud\Model\IamAuditlogsInput $iam_auditlogs_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAuditLogsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIamAuditLogsByOwnerByNameAsyncWithHttpInfo($owner, $name, $iam_input, string $contentType = self::contentTypes['putIamAuditLogsByOwnerByName'][0])
+    public function putIamAuditLogsByOwnerByNameAsyncWithHttpInfo($owner, $name, $iam_auditlogs_input, string $contentType = self::contentTypes['putIamAuditLogsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IamAuditLog';
-        $request = $this->putIamAuditLogsByOwnerByNameRequest($owner, $name, $iam_input, $contentType);
+        $request = $this->putIamAuditLogsByOwnerByNameRequest($owner, $name, $iam_auditlogs_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -34415,13 +39169,13 @@ class IamApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
+     * @param  \Hanzo\Cloud\Model\IamAuditlogsInput $iam_auditlogs_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamAuditLogsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putIamAuditLogsByOwnerByNameRequest($owner, $name, $iam_input, string $contentType = self::contentTypes['putIamAuditLogsByOwnerByName'][0])
+    public function putIamAuditLogsByOwnerByNameRequest($owner, $name, $iam_auditlogs_input, string $contentType = self::contentTypes['putIamAuditLogsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -34438,10 +39192,10 @@ class IamApi
             );
         }
 
-        // verify the required parameter 'iam_input' is set
-        if ($iam_input === null || (is_array($iam_input) && count($iam_input) === 0)) {
+        // verify the required parameter 'iam_auditlogs_input' is set
+        if ($iam_auditlogs_input === null || (is_array($iam_auditlogs_input) && count($iam_auditlogs_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $iam_input when calling putIamAuditLogsByOwnerByName'
+                'Missing the required parameter $iam_auditlogs_input when calling putIamAuditLogsByOwnerByName'
             );
         }
 
@@ -34474,18 +39228,18 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($iam_input)) {
+        if (isset($iam_auditlogs_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_auditlogs_input));
             } else {
-                $httpBody = $iam_input;
+                $httpBody = $iam_auditlogs_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -34549,7 +39303,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamCert
+     * @return \Hanzo\Cloud\Model\IamCert|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function putIamCertsByOwnerByName($owner, $name, $iam_cert, string $contentType = self::contentTypes['putIamCertsByOwnerByName'][0])
     {
@@ -34569,7 +39323,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamCert, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamCert|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function putIamCertsByOwnerByNameWithHttpInfo($owner, $name, $iam_cert, string $contentType = self::contentTypes['putIamCertsByOwnerByName'][0])
     {
@@ -34605,6 +39359,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -34633,6 +39399,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamCert',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -34785,7 +39567,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -35062,7 +39844,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamInvitation
+     * @return \Hanzo\Cloud\Model\IamInvitation|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function putIamInvitationsByOwnerByName($owner, $name, $iam_invitations_input, string $contentType = self::contentTypes['putIamInvitationsByOwnerByName'][0])
     {
@@ -35082,7 +39864,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamInvitation, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamInvitation|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function putIamInvitationsByOwnerByNameWithHttpInfo($owner, $name, $iam_invitations_input, string $contentType = self::contentTypes['putIamInvitationsByOwnerByName'][0])
     {
@@ -35118,6 +39900,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -35146,6 +39940,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamInvitation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -35298,7 +40108,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -35364,7 +40174,7 @@ class IamApi
     /**
      * Operation putIamKeysByOwnerByName
      *
-     * Changes what a key is called or what it may reach.
+     * Changes what a key is called, what it may reach, when it expires, or revokes it.
      *
      * @param  string $owner Owner is the tenant that holds the key; Name is unique within Owner. (required)
      * @param  string $name name (required)
@@ -35373,7 +40183,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamKey
+     * @return \Hanzo\Cloud\Model\IamKey|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function putIamKeysByOwnerByName($owner, $name, $iam_key, string $contentType = self::contentTypes['putIamKeysByOwnerByName'][0])
     {
@@ -35384,7 +40194,7 @@ class IamApi
     /**
      * Operation putIamKeysByOwnerByNameWithHttpInfo
      *
-     * Changes what a key is called or what it may reach.
+     * Changes what a key is called, what it may reach, when it expires, or revokes it.
      *
      * @param  string $owner Owner is the tenant that holds the key; Name is unique within Owner. (required)
      * @param  string $name (required)
@@ -35393,7 +40203,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamKey, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamKey|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function putIamKeysByOwnerByNameWithHttpInfo($owner, $name, $iam_key, string $contentType = self::contentTypes['putIamKeysByOwnerByName'][0])
     {
@@ -35429,6 +40239,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -35461,6 +40283,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -35471,7 +40309,7 @@ class IamApi
     /**
      * Operation putIamKeysByOwnerByNameAsync
      *
-     * Changes what a key is called or what it may reach.
+     * Changes what a key is called, what it may reach, when it expires, or revokes it.
      *
      * @param  string $owner Owner is the tenant that holds the key; Name is unique within Owner. (required)
      * @param  string $name (required)
@@ -35494,7 +40332,7 @@ class IamApi
     /**
      * Operation putIamKeysByOwnerByNameAsyncWithHttpInfo
      *
-     * Changes what a key is called or what it may reach.
+     * Changes what a key is called, what it may reach, when it expires, or revokes it.
      *
      * @param  string $owner Owner is the tenant that holds the key; Name is unique within Owner. (required)
      * @param  string $name (required)
@@ -35609,7 +40447,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -35680,15 +40518,19 @@ class IamApi
      * @param  \Hanzo\Cloud\Model\IamPasswordBody $iam_password_body iam_password_body (required)
      * @param  string|null $cookie cookie (optional)
      * @param  string|null $authorization authorization (optional)
+     * @param  string|null $sec_fetch_site sec_fetch_site (optional)
+     * @param  string|null $origin origin (optional)
+     * @param  string|null $host host (optional)
+     * @param  string|null $content_type content_type (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamPassword'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer
+     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putIamPassword($iam_password_body, $cookie = null, $authorization = null, string $contentType = self::contentTypes['putIamPassword'][0])
+    public function putIamPassword($iam_password_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamPassword'][0])
     {
-        list($response) = $this->putIamPasswordWithHttpInfo($iam_password_body, $cookie, $authorization, $contentType);
+        list($response) = $this->putIamPasswordWithHttpInfo($iam_password_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
         return $response;
     }
 
@@ -35700,15 +40542,19 @@ class IamApi
      * @param  \Hanzo\Cloud\Model\IamPasswordBody $iam_password_body (required)
      * @param  string|null $cookie (optional)
      * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamPassword'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putIamPasswordWithHttpInfo($iam_password_body, $cookie = null, $authorization = null, string $contentType = self::contentTypes['putIamPassword'][0])
+    public function putIamPasswordWithHttpInfo($iam_password_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamPassword'][0])
     {
-        $request = $this->putIamPasswordRequest($iam_password_body, $cookie, $authorization, $contentType);
+        $request = $this->putIamPasswordRequest($iam_password_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -35743,6 +40589,18 @@ class IamApi
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -35786,6 +40644,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -35801,14 +40675,18 @@ class IamApi
      * @param  \Hanzo\Cloud\Model\IamPasswordBody $iam_password_body (required)
      * @param  string|null $cookie (optional)
      * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamPassword'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIamPasswordAsync($iam_password_body, $cookie = null, $authorization = null, string $contentType = self::contentTypes['putIamPassword'][0])
+    public function putIamPasswordAsync($iam_password_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamPassword'][0])
     {
-        return $this->putIamPasswordAsyncWithHttpInfo($iam_password_body, $cookie, $authorization, $contentType)
+        return $this->putIamPasswordAsyncWithHttpInfo($iam_password_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -35824,15 +40702,19 @@ class IamApi
      * @param  \Hanzo\Cloud\Model\IamPasswordBody $iam_password_body (required)
      * @param  string|null $cookie (optional)
      * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamPassword'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIamPasswordAsyncWithHttpInfo($iam_password_body, $cookie = null, $authorization = null, string $contentType = self::contentTypes['putIamPassword'][0])
+    public function putIamPasswordAsyncWithHttpInfo($iam_password_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamPassword'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IamAnswer';
-        $request = $this->putIamPasswordRequest($iam_password_body, $cookie, $authorization, $contentType);
+        $request = $this->putIamPasswordRequest($iam_password_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -35876,12 +40758,16 @@ class IamApi
      * @param  \Hanzo\Cloud\Model\IamPasswordBody $iam_password_body (required)
      * @param  string|null $cookie (optional)
      * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamPassword'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putIamPasswordRequest($iam_password_body, $cookie = null, $authorization = null, string $contentType = self::contentTypes['putIamPassword'][0])
+    public function putIamPasswordRequest($iam_password_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, string $contentType = self::contentTypes['putIamPassword'][0])
     {
 
         // verify the required parameter 'iam_password_body' is set
@@ -35890,6 +40776,10 @@ class IamApi
                 'Missing the required parameter $iam_password_body when calling putIamPassword'
             );
         }
+
+
+
+
 
 
 
@@ -35910,11 +40800,27 @@ class IamApi
         if ($authorization !== null) {
             $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
         }
+        // header params
+        if ($sec_fetch_site !== null) {
+            $headerParams['Sec-Fetch-Site'] = ObjectSerializer::toHeaderValue($sec_fetch_site);
+        }
+        // header params
+        if ($origin !== null) {
+            $headerParams['Origin'] = ObjectSerializer::toHeaderValue($origin);
+        }
+        // header params
+        if ($host !== null) {
+            $headerParams['Host'] = ObjectSerializer::toHeaderValue($host);
+        }
+        // header params
+        if ($content_type !== null) {
+            $headerParams['Content-Type'] = ObjectSerializer::toHeaderValue($content_type);
+        }
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -35989,7 +40895,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamPermission
+     * @return \Hanzo\Cloud\Model\IamPermission|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function putIamPermissionsByOwnerByName($owner, $name, $iam_permission, string $contentType = self::contentTypes['putIamPermissionsByOwnerByName'][0])
     {
@@ -36009,7 +40915,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamPermission, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamPermission|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function putIamPermissionsByOwnerByNameWithHttpInfo($owner, $name, $iam_permission, string $contentType = self::contentTypes['putIamPermissionsByOwnerByName'][0])
     {
@@ -36045,6 +40951,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -36073,6 +40991,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamPermission',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -36225,7 +41159,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -36300,7 +41234,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamProject
+     * @return \Hanzo\Cloud\Model\IamProject|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function putIamProjectsByOwnerByName($owner, $name, $iam_projects_input, string $contentType = self::contentTypes['putIamProjectsByOwnerByName'][0])
     {
@@ -36320,7 +41254,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamProject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamProject|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function putIamProjectsByOwnerByNameWithHttpInfo($owner, $name, $iam_projects_input, string $contentType = self::contentTypes['putIamProjectsByOwnerByName'][0])
     {
@@ -36356,6 +41290,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -36384,6 +41330,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamProject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -36536,7 +41498,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -36604,18 +41566,18 @@ class IamApi
      *
      * Changes who is in a role, or which roles it includes.
      *
-     * @param  string $owner owner (required)
-     * @param  string $name name (required)
-     * @param  \Hanzo\Cloud\Model\IamRolesInput $iam_roles_input iam_roles_input (required)
+     * @param  string $owner Owner is the organization the team belongs to. Leave it out and it is yours, from your credentials; name another only if you administer it. (required)
+     * @param  string $name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. (required)
+     * @param  \Hanzo\Cloud\Model\IamInput $iam_input iam_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamRolesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamRole
+     * @return \Hanzo\Cloud\Model\IamRole|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putIamRolesByOwnerByName($owner, $name, $iam_roles_input, string $contentType = self::contentTypes['putIamRolesByOwnerByName'][0])
+    public function putIamRolesByOwnerByName($owner, $name, $iam_input, string $contentType = self::contentTypes['putIamRolesByOwnerByName'][0])
     {
-        list($response) = $this->putIamRolesByOwnerByNameWithHttpInfo($owner, $name, $iam_roles_input, $contentType);
+        list($response) = $this->putIamRolesByOwnerByNameWithHttpInfo($owner, $name, $iam_input, $contentType);
         return $response;
     }
 
@@ -36624,18 +41586,18 @@ class IamApi
      *
      * Changes who is in a role, or which roles it includes.
      *
-     * @param  string $owner (required)
-     * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\IamRolesInput $iam_roles_input (required)
+     * @param  string $owner Owner is the organization the team belongs to. Leave it out and it is yours, from your credentials; name another only if you administer it. (required)
+     * @param  string $name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. (required)
+     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamRolesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamRole, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamRole|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putIamRolesByOwnerByNameWithHttpInfo($owner, $name, $iam_roles_input, string $contentType = self::contentTypes['putIamRolesByOwnerByName'][0])
+    public function putIamRolesByOwnerByNameWithHttpInfo($owner, $name, $iam_input, string $contentType = self::contentTypes['putIamRolesByOwnerByName'][0])
     {
-        $request = $this->putIamRolesByOwnerByNameRequest($owner, $name, $iam_roles_input, $contentType);
+        $request = $this->putIamRolesByOwnerByNameRequest($owner, $name, $iam_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -36664,6 +41626,18 @@ class IamApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamRole',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -36699,6 +41673,22 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -36711,17 +41701,17 @@ class IamApi
      *
      * Changes who is in a role, or which roles it includes.
      *
-     * @param  string $owner (required)
-     * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\IamRolesInput $iam_roles_input (required)
+     * @param  string $owner Owner is the organization the team belongs to. Leave it out and it is yours, from your credentials; name another only if you administer it. (required)
+     * @param  string $name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. (required)
+     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamRolesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIamRolesByOwnerByNameAsync($owner, $name, $iam_roles_input, string $contentType = self::contentTypes['putIamRolesByOwnerByName'][0])
+    public function putIamRolesByOwnerByNameAsync($owner, $name, $iam_input, string $contentType = self::contentTypes['putIamRolesByOwnerByName'][0])
     {
-        return $this->putIamRolesByOwnerByNameAsyncWithHttpInfo($owner, $name, $iam_roles_input, $contentType)
+        return $this->putIamRolesByOwnerByNameAsyncWithHttpInfo($owner, $name, $iam_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -36734,18 +41724,18 @@ class IamApi
      *
      * Changes who is in a role, or which roles it includes.
      *
-     * @param  string $owner (required)
-     * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\IamRolesInput $iam_roles_input (required)
+     * @param  string $owner Owner is the organization the team belongs to. Leave it out and it is yours, from your credentials; name another only if you administer it. (required)
+     * @param  string $name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. (required)
+     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamRolesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIamRolesByOwnerByNameAsyncWithHttpInfo($owner, $name, $iam_roles_input, string $contentType = self::contentTypes['putIamRolesByOwnerByName'][0])
+    public function putIamRolesByOwnerByNameAsyncWithHttpInfo($owner, $name, $iam_input, string $contentType = self::contentTypes['putIamRolesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IamRole';
-        $request = $this->putIamRolesByOwnerByNameRequest($owner, $name, $iam_roles_input, $contentType);
+        $request = $this->putIamRolesByOwnerByNameRequest($owner, $name, $iam_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -36786,15 +41776,15 @@ class IamApi
     /**
      * Create request for operation 'putIamRolesByOwnerByName'
      *
-     * @param  string $owner (required)
-     * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\IamRolesInput $iam_roles_input (required)
+     * @param  string $owner Owner is the organization the team belongs to. Leave it out and it is yours, from your credentials; name another only if you administer it. (required)
+     * @param  string $name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. (required)
+     * @param  \Hanzo\Cloud\Model\IamInput $iam_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamRolesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putIamRolesByOwnerByNameRequest($owner, $name, $iam_roles_input, string $contentType = self::contentTypes['putIamRolesByOwnerByName'][0])
+    public function putIamRolesByOwnerByNameRequest($owner, $name, $iam_input, string $contentType = self::contentTypes['putIamRolesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -36811,10 +41801,10 @@ class IamApi
             );
         }
 
-        // verify the required parameter 'iam_roles_input' is set
-        if ($iam_roles_input === null || (is_array($iam_roles_input) && count($iam_roles_input) === 0)) {
+        // verify the required parameter 'iam_input' is set
+        if ($iam_input === null || (is_array($iam_input) && count($iam_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $iam_roles_input when calling putIamRolesByOwnerByName'
+                'Missing the required parameter $iam_input when calling putIamRolesByOwnerByName'
             );
         }
 
@@ -36847,18 +41837,18 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($iam_roles_input)) {
+        if (isset($iam_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_roles_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_input));
             } else {
-                $httpBody = $iam_roles_input;
+                $httpBody = $iam_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -37163,7 +42153,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamTeam
+     * @return \Hanzo\Cloud\Model\IamTeam|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function putIamTeamsByName($name, $iam_teams_input, string $contentType = self::contentTypes['putIamTeamsByName'][0])
     {
@@ -37182,7 +42172,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamTeam, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamTeam|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function putIamTeamsByNameWithHttpInfo($name, $iam_teams_input, string $contentType = self::contentTypes['putIamTeamsByName'][0])
     {
@@ -37218,6 +42208,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -37246,6 +42248,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamTeam',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -37380,7 +42398,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -37444,6 +42462,389 @@ class IamApi
     }
 
     /**
+     * Operation putIamTerms
+     *
+     * Records that the signed-in caller accepted the terms and the acceptable use policy, at the versions named.
+     *
+     * @param  \Hanzo\Cloud\Model\IamTermsBody $iam_terms_body iam_terms_body (required)
+     * @param  string|null $cookie cookie (optional)
+     * @param  string|null $authorization authorization (optional)
+     * @param  string|null $sec_fetch_site sec_fetch_site (optional)
+     * @param  string|null $origin origin (optional)
+     * @param  string|null $host host (optional)
+     * @param  string|null $content_type content_type (optional)
+     * @param  string|null $x_forwarded_for x_forwarded_for (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamTerms'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putIamTerms($iam_terms_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, $x_forwarded_for = null, string $contentType = self::contentTypes['putIamTerms'][0])
+    {
+        list($response) = $this->putIamTermsWithHttpInfo($iam_terms_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $x_forwarded_for, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putIamTermsWithHttpInfo
+     *
+     * Records that the signed-in caller accepted the terms and the acceptable use policy, at the versions named.
+     *
+     * @param  \Hanzo\Cloud\Model\IamTermsBody $iam_terms_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string|null $x_forwarded_for (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamTerms'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\IamAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putIamTermsWithHttpInfo($iam_terms_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, $x_forwarded_for = null, string $contentType = self::contentTypes['putIamTerms'][0])
+    {
+        $request = $this->putIamTermsRequest($iam_terms_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $x_forwarded_for, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamAnswer',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putIamTermsAsync
+     *
+     * Records that the signed-in caller accepted the terms and the acceptable use policy, at the versions named.
+     *
+     * @param  \Hanzo\Cloud\Model\IamTermsBody $iam_terms_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string|null $x_forwarded_for (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamTerms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putIamTermsAsync($iam_terms_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, $x_forwarded_for = null, string $contentType = self::contentTypes['putIamTerms'][0])
+    {
+        return $this->putIamTermsAsyncWithHttpInfo($iam_terms_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $x_forwarded_for, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putIamTermsAsyncWithHttpInfo
+     *
+     * Records that the signed-in caller accepted the terms and the acceptable use policy, at the versions named.
+     *
+     * @param  \Hanzo\Cloud\Model\IamTermsBody $iam_terms_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string|null $x_forwarded_for (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamTerms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putIamTermsAsyncWithHttpInfo($iam_terms_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, $x_forwarded_for = null, string $contentType = self::contentTypes['putIamTerms'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamAnswer';
+        $request = $this->putIamTermsRequest($iam_terms_body, $cookie, $authorization, $sec_fetch_site, $origin, $host, $content_type, $x_forwarded_for, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putIamTerms'
+     *
+     * @param  \Hanzo\Cloud\Model\IamTermsBody $iam_terms_body (required)
+     * @param  string|null $cookie (optional)
+     * @param  string|null $authorization (optional)
+     * @param  string|null $sec_fetch_site (optional)
+     * @param  string|null $origin (optional)
+     * @param  string|null $host (optional)
+     * @param  string|null $content_type (optional)
+     * @param  string|null $x_forwarded_for (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamTerms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putIamTermsRequest($iam_terms_body, $cookie = null, $authorization = null, $sec_fetch_site = null, $origin = null, $host = null, $content_type = null, $x_forwarded_for = null, string $contentType = self::contentTypes['putIamTerms'][0])
+    {
+
+        // verify the required parameter 'iam_terms_body' is set
+        if ($iam_terms_body === null || (is_array($iam_terms_body) && count($iam_terms_body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $iam_terms_body when calling putIamTerms'
+            );
+        }
+
+
+
+
+
+
+
+
+
+        $resourcePath = '/v1/iam/terms';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // header params
+        if ($cookie !== null) {
+            $headerParams['Cookie'] = ObjectSerializer::toHeaderValue($cookie);
+        }
+        // header params
+        if ($authorization !== null) {
+            $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
+        }
+        // header params
+        if ($sec_fetch_site !== null) {
+            $headerParams['Sec-Fetch-Site'] = ObjectSerializer::toHeaderValue($sec_fetch_site);
+        }
+        // header params
+        if ($origin !== null) {
+            $headerParams['Origin'] = ObjectSerializer::toHeaderValue($origin);
+        }
+        // header params
+        if ($host !== null) {
+            $headerParams['Host'] = ObjectSerializer::toHeaderValue($host);
+        }
+        // header params
+        if ($content_type !== null) {
+            $headerParams['Content-Type'] = ObjectSerializer::toHeaderValue($content_type);
+        }
+        // header params
+        if ($x_forwarded_for !== null) {
+            $headerParams['X-Forwarded-For'] = ObjectSerializer::toHeaderValue($x_forwarded_for);
+        }
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($iam_terms_body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_terms_body));
+            } else {
+                $httpBody = $iam_terms_body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation putIamUsersByOwnerByName
      *
      * Changes a person&#39;s profile, their roles, or the credentials they sign in with.
@@ -37455,7 +42856,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamUser
+     * @return \Hanzo\Cloud\Model\IamUser|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function putIamUsersByOwnerByName($owner, $name, $iam_update_input, string $contentType = self::contentTypes['putIamUsersByOwnerByName'][0])
     {
@@ -37475,7 +42876,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamUser, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamUser|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function putIamUsersByOwnerByNameWithHttpInfo($owner, $name, $iam_update_input, string $contentType = self::contentTypes['putIamUsersByOwnerByName'][0])
     {
@@ -37511,6 +42912,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -37539,6 +42952,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamUser',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -37691,7 +43120,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -37766,7 +43195,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamWorkspace
+     * @return \Hanzo\Cloud\Model\IamWorkspace|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function putIamWorkspacesByOwnerByName($owner, $name, $iam_workspaces_input, string $contentType = self::contentTypes['putIamWorkspacesByOwnerByName'][0])
     {
@@ -37786,7 +43215,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamWorkspace, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamWorkspace|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function putIamWorkspacesByOwnerByNameWithHttpInfo($owner, $name, $iam_workspaces_input, string $contentType = self::contentTypes['putIamWorkspacesByOwnerByName'][0])
     {
@@ -37822,6 +43251,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -37850,6 +43291,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamWorkspace',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -38002,7 +43459,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -38066,6 +43523,326 @@ class IamApi
     }
 
     /**
+     * Operation releaseOrganizationName
+     *
+     * Frees the name of a deleted organization so it can be founded again.
+     *
+     * @param  string $owner owner (required)
+     * @param  string $name name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['releaseOrganizationName'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamReleaseOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function releaseOrganizationName($owner, $name, string $contentType = self::contentTypes['releaseOrganizationName'][0])
+    {
+        list($response) = $this->releaseOrganizationNameWithHttpInfo($owner, $name, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation releaseOrganizationNameWithHttpInfo
+     *
+     * Frees the name of a deleted organization so it can be founded again.
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['releaseOrganizationName'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamReleaseOutput|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function releaseOrganizationNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['releaseOrganizationName'][0])
+    {
+        $request = $this->releaseOrganizationNameRequest($owner, $name, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamReleaseOutput',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamReleaseOutput',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamReleaseOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation releaseOrganizationNameAsync
+     *
+     * Frees the name of a deleted organization so it can be founded again.
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['releaseOrganizationName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function releaseOrganizationNameAsync($owner, $name, string $contentType = self::contentTypes['releaseOrganizationName'][0])
+    {
+        return $this->releaseOrganizationNameAsyncWithHttpInfo($owner, $name, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation releaseOrganizationNameAsyncWithHttpInfo
+     *
+     * Frees the name of a deleted organization so it can be founded again.
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['releaseOrganizationName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function releaseOrganizationNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['releaseOrganizationName'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamReleaseOutput';
+        $request = $this->releaseOrganizationNameRequest($owner, $name, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'releaseOrganizationName'
+     *
+     * @param  string $owner (required)
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['releaseOrganizationName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function releaseOrganizationNameRequest($owner, $name, string $contentType = self::contentTypes['releaseOrganizationName'][0])
+    {
+
+        // verify the required parameter 'owner' is set
+        if ($owner === null || (is_array($owner) && count($owner) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $owner when calling releaseOrganizationName'
+            );
+        }
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling releaseOrganizationName'
+            );
+        }
+
+
+        $resourcePath = '/v1/iam/organizations/tombstones/{owner}/{name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($owner !== null) {
+            $resourcePath = str_replace(
+                '{' . 'owner' . '}',
+                ObjectSerializer::toPathValue($owner),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation setOrganizationAvatar
      *
      * Changes how an organization appears across Hanzo: the square mark beside its name, as an uploaded image or as a single emoji.
@@ -38075,7 +43852,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamOrganization
+     * @return \Hanzo\Cloud\Model\IamOrganization|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function setOrganizationAvatar($iam_set_avatar_input, string $contentType = self::contentTypes['setOrganizationAvatar'][0])
     {
@@ -38093,7 +43870,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamOrganization, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamOrganization|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function setOrganizationAvatarWithHttpInfo($iam_set_avatar_input, string $contentType = self::contentTypes['setOrganizationAvatar'][0])
     {
@@ -38129,6 +43906,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -38157,6 +43946,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamOrganization',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -38273,7 +44078,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -38346,7 +44151,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamOrganization
+     * @return \Hanzo\Cloud\Model\IamOrganization|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function setOrganizationProfile($iam_set_profile_input, string $contentType = self::contentTypes['setOrganizationProfile'][0])
     {
@@ -38364,7 +44169,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamOrganization, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamOrganization|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function setOrganizationProfileWithHttpInfo($iam_set_profile_input, string $contentType = self::contentTypes['setOrganizationProfile'][0])
     {
@@ -38400,6 +44205,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -38428,6 +44245,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamOrganization',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -38544,7 +44377,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -38619,7 +44452,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamOrganization
+     * @return \Hanzo\Cloud\Model\IamOrganization|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function updateOrganization($owner, $name, $iam_update_organization_input, string $contentType = self::contentTypes['updateOrganization'][0])
     {
@@ -38639,7 +44472,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamOrganization, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamOrganization|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateOrganizationWithHttpInfo($owner, $name, $iam_update_organization_input, string $contentType = self::contentTypes['updateOrganization'][0])
     {
@@ -38675,6 +44508,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -38703,6 +44548,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamOrganization',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -38855,7 +44716,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -38930,7 +44791,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamMutationResult
+     * @return \Hanzo\Cloud\Model\IamMutationResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function updateProvider($owner, $name, $iam_provider, string $contentType = self::contentTypes['updateProvider'][0])
     {
@@ -38950,7 +44811,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamMutationResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamMutationResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateProviderWithHttpInfo($owner, $name, $iam_provider, string $contentType = self::contentTypes['updateProvider'][0])
     {
@@ -38986,6 +44847,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -39014,6 +44887,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamMutationResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -39166,7 +45055,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -39242,7 +45131,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamSession
+     * @return \Hanzo\Cloud\Model\IamSession|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function updateSession($owner, $name, $application, $iam_update_session_in, string $contentType = self::contentTypes['updateSession'][0])
     {
@@ -39263,7 +45152,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamSession, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamSession|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateSessionWithHttpInfo($owner, $name, $application, $iam_update_session_in, string $contentType = self::contentTypes['updateSession'][0])
     {
@@ -39299,6 +45188,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -39327,6 +45228,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamSession',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -39497,7 +45414,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -39572,7 +45489,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamTokenMutation
+     * @return \Hanzo\Cloud\Model\IamTokenMutation|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function updateToken($owner, $name, $iam_token, string $contentType = self::contentTypes['updateToken'][0])
     {
@@ -39592,7 +45509,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamTokenMutation, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamTokenMutation|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateTokenWithHttpInfo($owner, $name, $iam_token, string $contentType = self::contentTypes['updateToken'][0])
     {
@@ -39628,6 +45545,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -39656,6 +45585,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamTokenMutation',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -39808,7 +45753,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -39883,7 +45828,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamWebauthnCredentialMutationResult
+     * @return \Hanzo\Cloud\Model\IamWebauthnCredentialMutationResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function updateWebauthnCredential($owner, $name, $iam_webauthn_credential, string $contentType = self::contentTypes['updateWebauthnCredential'][0])
     {
@@ -39903,7 +45848,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamWebauthnCredentialMutationResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamWebauthnCredentialMutationResult|\Hanzo\Cloud\Model\Approval|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateWebauthnCredentialWithHttpInfo($owner, $name, $iam_webauthn_credential, string $contentType = self::contentTypes['updateWebauthnCredential'][0])
     {
@@ -39939,6 +45884,18 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Approval',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -39967,6 +45924,22 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamWebauthnCredentialMutationResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Approval',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -40119,7 +46092,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -40193,7 +46166,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply
+     * @return \Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function upsertApplication($iam_registration, $authorization = null, string $contentType = self::contentTypes['upsertApplication'][0])
     {
@@ -40212,7 +46185,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function upsertApplicationWithHttpInfo($iam_registration, $authorization = null, string $contentType = self::contentTypes['upsertApplication'][0])
     {
@@ -40260,9 +46233,21 @@ class IamApi
                         $request,
                         $response,
                     );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamReply',
+                        $request,
+                        $response,
+                    );
                 case 500:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamReply',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -40314,10 +46299,26 @@ class IamApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamReply',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamReply',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -40442,7 +46443,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -40516,7 +46517,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply
+     * @return \Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function upsertUser($iam_person, $authorization = null, string $contentType = self::contentTypes['upsertUser'][0])
     {
@@ -40535,7 +46536,7 @@ class IamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\IamReply|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function upsertUserWithHttpInfo($iam_person, $authorization = null, string $contentType = self::contentTypes['upsertUser'][0])
     {
@@ -40586,6 +46587,12 @@ class IamApi
                 case 500:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\IamReply',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -40641,6 +46648,14 @@ class IamApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\IamReply',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -40765,7 +46780,7 @@ class IamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

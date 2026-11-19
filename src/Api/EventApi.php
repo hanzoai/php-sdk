@@ -74,6 +74,9 @@ class EventApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'getEventEconomic' => [
+            'application/json',
+        ],
         'getEventErrors' => [
             'application/json',
         ],
@@ -89,6 +92,9 @@ class EventApi
         'getEventOverview' => [
             'application/json',
         ],
+        'getEventPixelByKey' => [
+            'application/json',
+        ],
         'getEventTagJs' => [
             'application/json',
         ],
@@ -101,11 +107,8 @@ class EventApi
         'postEvent' => [
             'application/json',
         ],
-        'postEventByProjectEnvelope' => [
-            'application/octet-stream',
-        ],
-        'postEventByProjectStore' => [
-            'application/octet-stream',
+        'postEventEconomicDispute' => [
+            'application/json',
         ],
         'postEventReplay' => [
             'application/json',
@@ -159,16 +162,363 @@ class EventApi
     }
 
     /**
+     * Operation getEventEconomic
+     *
+     * Returns, oldest first and paged, the payments the caller&#39;s org made or received in a year, with the ones a correction restates named and what either party disputes — for the org&#39;s admins.
+     *
+     * @param  int $year Year is the calendar year to read, UTC. (required)
+     * @param  string|null $counterparty Counterparty keeps only payments with this org on the other side. (optional)
+     * @param  string|null $rail Rail keeps only payments that moved on this rail. (optional)
+     * @param  string|null $cursor Cursor continues from the next of the page before; empty starts the year. (optional)
+     * @param  int|null $limit Limit is how many events to answer, default 100 and at most 1000. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventEconomic'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\EventEconomics|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getEventEconomic($year, $counterparty = null, $rail = null, $cursor = null, $limit = null, string $contentType = self::contentTypes['getEventEconomic'][0])
+    {
+        list($response) = $this->getEventEconomicWithHttpInfo($year, $counterparty, $rail, $cursor, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getEventEconomicWithHttpInfo
+     *
+     * Returns, oldest first and paged, the payments the caller&#39;s org made or received in a year, with the ones a correction restates named and what either party disputes — for the org&#39;s admins.
+     *
+     * @param  int $year Year is the calendar year to read, UTC. (required)
+     * @param  string|null $counterparty Counterparty keeps only payments with this org on the other side. (optional)
+     * @param  string|null $rail Rail keeps only payments that moved on this rail. (optional)
+     * @param  string|null $cursor Cursor continues from the next of the page before; empty starts the year. (optional)
+     * @param  int|null $limit Limit is how many events to answer, default 100 and at most 1000. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventEconomic'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\EventEconomics|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getEventEconomicWithHttpInfo($year, $counterparty = null, $rail = null, $cursor = null, $limit = null, string $contentType = self::contentTypes['getEventEconomic'][0])
+    {
+        $request = $this->getEventEconomicRequest($year, $counterparty, $rail, $cursor, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\EventEconomics',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\EventEconomics',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\EventEconomics',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getEventEconomicAsync
+     *
+     * Returns, oldest first and paged, the payments the caller&#39;s org made or received in a year, with the ones a correction restates named and what either party disputes — for the org&#39;s admins.
+     *
+     * @param  int $year Year is the calendar year to read, UTC. (required)
+     * @param  string|null $counterparty Counterparty keeps only payments with this org on the other side. (optional)
+     * @param  string|null $rail Rail keeps only payments that moved on this rail. (optional)
+     * @param  string|null $cursor Cursor continues from the next of the page before; empty starts the year. (optional)
+     * @param  int|null $limit Limit is how many events to answer, default 100 and at most 1000. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventEconomic'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getEventEconomicAsync($year, $counterparty = null, $rail = null, $cursor = null, $limit = null, string $contentType = self::contentTypes['getEventEconomic'][0])
+    {
+        return $this->getEventEconomicAsyncWithHttpInfo($year, $counterparty, $rail, $cursor, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getEventEconomicAsyncWithHttpInfo
+     *
+     * Returns, oldest first and paged, the payments the caller&#39;s org made or received in a year, with the ones a correction restates named and what either party disputes — for the org&#39;s admins.
+     *
+     * @param  int $year Year is the calendar year to read, UTC. (required)
+     * @param  string|null $counterparty Counterparty keeps only payments with this org on the other side. (optional)
+     * @param  string|null $rail Rail keeps only payments that moved on this rail. (optional)
+     * @param  string|null $cursor Cursor continues from the next of the page before; empty starts the year. (optional)
+     * @param  int|null $limit Limit is how many events to answer, default 100 and at most 1000. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventEconomic'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getEventEconomicAsyncWithHttpInfo($year, $counterparty = null, $rail = null, $cursor = null, $limit = null, string $contentType = self::contentTypes['getEventEconomic'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\EventEconomics';
+        $request = $this->getEventEconomicRequest($year, $counterparty, $rail, $cursor, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getEventEconomic'
+     *
+     * @param  int $year Year is the calendar year to read, UTC. (required)
+     * @param  string|null $counterparty Counterparty keeps only payments with this org on the other side. (optional)
+     * @param  string|null $rail Rail keeps only payments that moved on this rail. (optional)
+     * @param  string|null $cursor Cursor continues from the next of the page before; empty starts the year. (optional)
+     * @param  int|null $limit Limit is how many events to answer, default 100 and at most 1000. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventEconomic'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getEventEconomicRequest($year, $counterparty = null, $rail = null, $cursor = null, $limit = null, string $contentType = self::contentTypes['getEventEconomic'][0])
+    {
+
+        // verify the required parameter 'year' is set
+        if ($year === null || (is_array($year) && count($year) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $year when calling getEventEconomic'
+            );
+        }
+
+
+
+
+
+
+        $resourcePath = '/v1/event/economic';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $year,
+            'year', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $counterparty,
+            'counterparty', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $rail,
+            'rail', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getEventErrors
      *
-     * Errors returns the caller org&#39;s most recently captured errors, newest first.
+     * Returns the caller org&#39;s most recently captured errors, newest first.
      *
      * @param  int|null $limit Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventErrors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ErrorList
+     * @return \Hanzo\Cloud\Model\EventErrorList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEventErrors($limit = null, string $contentType = self::contentTypes['getEventErrors'][0])
     {
@@ -179,14 +529,14 @@ class EventApi
     /**
      * Operation getEventErrorsWithHttpInfo
      *
-     * Errors returns the caller org&#39;s most recently captured errors, newest first.
+     * Returns the caller org&#39;s most recently captured errors, newest first.
      *
      * @param  int|null $limit Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventErrors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ErrorList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EventErrorList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEventErrorsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getEventErrors'][0])
     {
@@ -218,7 +568,13 @@ class EventApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ErrorList',
+                        '\Hanzo\Cloud\Model\EventErrorList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -240,7 +596,7 @@ class EventApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ErrorList',
+                '\Hanzo\Cloud\Model\EventErrorList',
                 $request,
                 $response,
             );
@@ -249,7 +605,15 @@ class EventApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ErrorList',
+                        '\Hanzo\Cloud\Model\EventErrorList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -264,7 +628,7 @@ class EventApi
     /**
      * Operation getEventErrorsAsync
      *
-     * Errors returns the caller org&#39;s most recently captured errors, newest first.
+     * Returns the caller org&#39;s most recently captured errors, newest first.
      *
      * @param  int|null $limit Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventErrors'] to see the possible values for this operation
@@ -285,7 +649,7 @@ class EventApi
     /**
      * Operation getEventErrorsAsyncWithHttpInfo
      *
-     * Errors returns the caller org&#39;s most recently captured errors, newest first.
+     * Returns the caller org&#39;s most recently captured errors, newest first.
      *
      * @param  int|null $limit Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventErrors'] to see the possible values for this operation
@@ -295,7 +659,7 @@ class EventApi
      */
     public function getEventErrorsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getEventErrors'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ErrorList';
+        $returnType = '\Hanzo\Cloud\Model\EventErrorList';
         $request = $this->getEventErrorsRequest($limit, $contentType);
 
         return $this->client
@@ -369,7 +733,7 @@ class EventApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -428,13 +792,13 @@ class EventApi
     /**
      * Operation getEventHealth
      *
-     * Health reports whether the event plane can take a write and the warehouse can answer a read.
+     * Reports whether the event plane can take a write and the warehouse can answer a read.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\HealthReport|\Hanzo\Cloud\Model\HealthReport
+     * @return \Hanzo\Cloud\Model\EventHealthReport|\Hanzo\Cloud\Model\EventHealthReport|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEventHealth(string $contentType = self::contentTypes['getEventHealth'][0])
     {
@@ -445,13 +809,13 @@ class EventApi
     /**
      * Operation getEventHealthWithHttpInfo
      *
-     * Health reports whether the event plane can take a write and the warehouse can answer a read.
+     * Reports whether the event plane can take a write and the warehouse can answer a read.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\HealthReport|\Hanzo\Cloud\Model\HealthReport, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EventHealthReport|\Hanzo\Cloud\Model\EventHealthReport|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEventHealthWithHttpInfo(string $contentType = self::contentTypes['getEventHealth'][0])
     {
@@ -483,13 +847,19 @@ class EventApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\HealthReport',
+                        '\Hanzo\Cloud\Model\EventHealthReport',
                         $request,
                         $response,
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\HealthReport',
+                        '\Hanzo\Cloud\Model\EventHealthReport',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -511,7 +881,7 @@ class EventApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\HealthReport',
+                '\Hanzo\Cloud\Model\EventHealthReport',
                 $request,
                 $response,
             );
@@ -520,7 +890,7 @@ class EventApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\HealthReport',
+                        '\Hanzo\Cloud\Model\EventHealthReport',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -528,7 +898,15 @@ class EventApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\HealthReport',
+                        '\Hanzo\Cloud\Model\EventHealthReport',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -543,7 +921,7 @@ class EventApi
     /**
      * Operation getEventHealthAsync
      *
-     * Health reports whether the event plane can take a write and the warehouse can answer a read.
+     * Reports whether the event plane can take a write and the warehouse can answer a read.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventHealth'] to see the possible values for this operation
      *
@@ -563,7 +941,7 @@ class EventApi
     /**
      * Operation getEventHealthAsyncWithHttpInfo
      *
-     * Health reports whether the event plane can take a write and the warehouse can answer a read.
+     * Reports whether the event plane can take a write and the warehouse can answer a read.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventHealth'] to see the possible values for this operation
      *
@@ -572,7 +950,7 @@ class EventApi
      */
     public function getEventHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getEventHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\HealthReport';
+        $returnType = '\Hanzo\Cloud\Model\EventHealthReport';
         $request = $this->getEventHealthRequest($contentType);
 
         return $this->client
@@ -635,7 +1013,7 @@ class EventApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -697,15 +1075,16 @@ class EventApi
      * Returns the caller org&#39;s most recent product events, newest first.
      *
      * @param  int|null $limit Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
+     * @param  string|null $impersonated Impersonated is which events to return against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventInsightsEvents'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EventList
+     * @return \Hanzo\Cloud\Model\EventEventList|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getEventInsightsEvents($limit = null, string $contentType = self::contentTypes['getEventInsightsEvents'][0])
+    public function getEventInsightsEvents($limit = null, $impersonated = null, string $contentType = self::contentTypes['getEventInsightsEvents'][0])
     {
-        list($response) = $this->getEventInsightsEventsWithHttpInfo($limit, $contentType);
+        list($response) = $this->getEventInsightsEventsWithHttpInfo($limit, $impersonated, $contentType);
         return $response;
     }
 
@@ -715,15 +1094,16 @@ class EventApi
      * Returns the caller org&#39;s most recent product events, newest first.
      *
      * @param  int|null $limit Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
+     * @param  string|null $impersonated Impersonated is which events to return against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventInsightsEvents'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EventList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EventEventList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getEventInsightsEventsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getEventInsightsEvents'][0])
+    public function getEventInsightsEventsWithHttpInfo($limit = null, $impersonated = null, string $contentType = self::contentTypes['getEventInsightsEvents'][0])
     {
-        $request = $this->getEventInsightsEventsRequest($limit, $contentType);
+        $request = $this->getEventInsightsEventsRequest($limit, $impersonated, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -751,7 +1131,13 @@ class EventApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EventList',
+                        '\Hanzo\Cloud\Model\EventEventList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -773,7 +1159,7 @@ class EventApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EventList',
+                '\Hanzo\Cloud\Model\EventEventList',
                 $request,
                 $response,
             );
@@ -782,7 +1168,15 @@ class EventApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EventList',
+                        '\Hanzo\Cloud\Model\EventEventList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -800,14 +1194,15 @@ class EventApi
      * Returns the caller org&#39;s most recent product events, newest first.
      *
      * @param  int|null $limit Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
+     * @param  string|null $impersonated Impersonated is which events to return against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventInsightsEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getEventInsightsEventsAsync($limit = null, string $contentType = self::contentTypes['getEventInsightsEvents'][0])
+    public function getEventInsightsEventsAsync($limit = null, $impersonated = null, string $contentType = self::contentTypes['getEventInsightsEvents'][0])
     {
-        return $this->getEventInsightsEventsAsyncWithHttpInfo($limit, $contentType)
+        return $this->getEventInsightsEventsAsyncWithHttpInfo($limit, $impersonated, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -821,15 +1216,16 @@ class EventApi
      * Returns the caller org&#39;s most recent product events, newest first.
      *
      * @param  int|null $limit Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
+     * @param  string|null $impersonated Impersonated is which events to return against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventInsightsEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getEventInsightsEventsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getEventInsightsEvents'][0])
+    public function getEventInsightsEventsAsyncWithHttpInfo($limit = null, $impersonated = null, string $contentType = self::contentTypes['getEventInsightsEvents'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EventList';
-        $request = $this->getEventInsightsEventsRequest($limit, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EventEventList';
+        $request = $this->getEventInsightsEventsRequest($limit, $impersonated, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -871,13 +1267,15 @@ class EventApi
      * Create request for operation 'getEventInsightsEvents'
      *
      * @param  int|null $limit Limit is how many rows to return, newest first. Default 50, maximum 200; a value at or below zero, or one that is not a number, takes the default. (optional)
+     * @param  string|null $impersonated Impersonated is which events to return against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventInsightsEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getEventInsightsEventsRequest($limit = null, string $contentType = self::contentTypes['getEventInsightsEvents'][0])
+    public function getEventInsightsEventsRequest($limit = null, $impersonated = null, string $contentType = self::contentTypes['getEventInsightsEvents'][0])
     {
+
 
 
 
@@ -897,12 +1295,21 @@ class EventApi
             true, // explode
             false // required
         ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $impersonated,
+            'impersonated', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -967,7 +1374,7 @@ class EventApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\InsightsStatus
+     * @return \Hanzo\Cloud\Model\EventInsightsStatus|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEventInsightsHealth(string $contentType = self::contentTypes['getEventInsightsHealth'][0])
     {
@@ -984,7 +1391,7 @@ class EventApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\InsightsStatus, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EventInsightsStatus|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEventInsightsHealthWithHttpInfo(string $contentType = self::contentTypes['getEventInsightsHealth'][0])
     {
@@ -1016,7 +1423,13 @@ class EventApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\InsightsStatus',
+                        '\Hanzo\Cloud\Model\EventInsightsStatus',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1038,7 +1451,7 @@ class EventApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\InsightsStatus',
+                '\Hanzo\Cloud\Model\EventInsightsStatus',
                 $request,
                 $response,
             );
@@ -1047,7 +1460,15 @@ class EventApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\InsightsStatus',
+                        '\Hanzo\Cloud\Model\EventInsightsStatus',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1091,7 +1512,7 @@ class EventApi
      */
     public function getEventInsightsHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getEventInsightsHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\InsightsStatus';
+        $returnType = '\Hanzo\Cloud\Model\EventInsightsStatus';
         $request = $this->getEventInsightsHealthRequest($contentType);
 
         return $this->client
@@ -1154,7 +1575,7 @@ class EventApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1213,40 +1634,42 @@ class EventApi
     /**
      * Operation getEventOverview
      *
-     * Overview returns the caller org&#39;s analytics KPIs for one time window.
+     * Returns the caller org&#39;s analytics KPIs for one time window.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
      * @param  string|null $end End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
+     * @param  string|null $impersonated Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventOverview'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Overview
+     * @return \Hanzo\Cloud\Model\EventOverview|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getEventOverview($range = null, $start = null, $end = null, string $contentType = self::contentTypes['getEventOverview'][0])
+    public function getEventOverview($range = null, $start = null, $end = null, $impersonated = null, string $contentType = self::contentTypes['getEventOverview'][0])
     {
-        list($response) = $this->getEventOverviewWithHttpInfo($range, $start, $end, $contentType);
+        list($response) = $this->getEventOverviewWithHttpInfo($range, $start, $end, $impersonated, $contentType);
         return $response;
     }
 
     /**
      * Operation getEventOverviewWithHttpInfo
      *
-     * Overview returns the caller org&#39;s analytics KPIs for one time window.
+     * Returns the caller org&#39;s analytics KPIs for one time window.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
      * @param  string|null $end End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
+     * @param  string|null $impersonated Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventOverview'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Overview, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EventOverview|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getEventOverviewWithHttpInfo($range = null, $start = null, $end = null, string $contentType = self::contentTypes['getEventOverview'][0])
+    public function getEventOverviewWithHttpInfo($range = null, $start = null, $end = null, $impersonated = null, string $contentType = self::contentTypes['getEventOverview'][0])
     {
-        $request = $this->getEventOverviewRequest($range, $start, $end, $contentType);
+        $request = $this->getEventOverviewRequest($range, $start, $end, $impersonated, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1274,7 +1697,13 @@ class EventApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Overview',
+                        '\Hanzo\Cloud\Model\EventOverview',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1296,7 +1725,7 @@ class EventApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Overview',
+                '\Hanzo\Cloud\Model\EventOverview',
                 $request,
                 $response,
             );
@@ -1305,7 +1734,15 @@ class EventApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Overview',
+                        '\Hanzo\Cloud\Model\EventOverview',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1320,19 +1757,20 @@ class EventApi
     /**
      * Operation getEventOverviewAsync
      *
-     * Overview returns the caller org&#39;s analytics KPIs for one time window.
+     * Returns the caller org&#39;s analytics KPIs for one time window.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
      * @param  string|null $end End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
+     * @param  string|null $impersonated Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventOverview'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getEventOverviewAsync($range = null, $start = null, $end = null, string $contentType = self::contentTypes['getEventOverview'][0])
+    public function getEventOverviewAsync($range = null, $start = null, $end = null, $impersonated = null, string $contentType = self::contentTypes['getEventOverview'][0])
     {
-        return $this->getEventOverviewAsyncWithHttpInfo($range, $start, $end, $contentType)
+        return $this->getEventOverviewAsyncWithHttpInfo($range, $start, $end, $impersonated, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1343,20 +1781,21 @@ class EventApi
     /**
      * Operation getEventOverviewAsyncWithHttpInfo
      *
-     * Overview returns the caller org&#39;s analytics KPIs for one time window.
+     * Returns the caller org&#39;s analytics KPIs for one time window.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
      * @param  string|null $end End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
+     * @param  string|null $impersonated Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventOverview'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getEventOverviewAsyncWithHttpInfo($range = null, $start = null, $end = null, string $contentType = self::contentTypes['getEventOverview'][0])
+    public function getEventOverviewAsyncWithHttpInfo($range = null, $start = null, $end = null, $impersonated = null, string $contentType = self::contentTypes['getEventOverview'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Overview';
-        $request = $this->getEventOverviewRequest($range, $start, $end, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EventOverview';
+        $request = $this->getEventOverviewRequest($range, $start, $end, $impersonated, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1400,13 +1839,15 @@ class EventApi
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
      * @param  string|null $end End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
+     * @param  string|null $impersonated Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventOverview'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getEventOverviewRequest($range = null, $start = null, $end = null, string $contentType = self::contentTypes['getEventOverview'][0])
+    public function getEventOverviewRequest($range = null, $start = null, $end = null, $impersonated = null, string $contentType = self::contentTypes['getEventOverview'][0])
     {
+
 
 
 
@@ -1446,12 +1887,296 @@ class EventApi
             true, // explode
             false // required
         ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $impersonated,
+            'impersonated', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getEventPixelByKey
+     *
+     * A site&#39;s default pixel — a page view from an image, for a page that runs no script
+     *
+     * @param  string $key key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventPixelByKey'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \SplFileObject
+     */
+    public function getEventPixelByKey($key, string $contentType = self::contentTypes['getEventPixelByKey'][0])
+    {
+        list($response) = $this->getEventPixelByKeyWithHttpInfo($key, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getEventPixelByKeyWithHttpInfo
+     *
+     * A site&#39;s default pixel — a page view from an image, for a page that runs no script
+     *
+     * @param  string $key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventPixelByKey'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getEventPixelByKeyWithHttpInfo($key, string $contentType = self::contentTypes['getEventPixelByKey'][0])
+    {
+        $request = $this->getEventPixelByKeyRequest($key, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                
+            }
+
+            if ($this->responseWithinRangeCode('2XX', $statusCode)) {
+                return $this->handleResponseWithDataType(
+                    '\SplFileObject',
+                    $request,
+                    $response,
+                );
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\SplFileObject',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                
+            }
+        
+            if ($this->responseWithinRangeCode('2XX', $e->getCode())) {
+                $data = ObjectSerializer::deserialize(
+                    $e->getResponseBody(),
+                    '\SplFileObject',
+                    $e->getResponseHeaders()
+                );
+                $e->setResponseObject($data);
+                throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getEventPixelByKeyAsync
+     *
+     * A site&#39;s default pixel — a page view from an image, for a page that runs no script
+     *
+     * @param  string $key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventPixelByKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getEventPixelByKeyAsync($key, string $contentType = self::contentTypes['getEventPixelByKey'][0])
+    {
+        return $this->getEventPixelByKeyAsyncWithHttpInfo($key, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getEventPixelByKeyAsyncWithHttpInfo
+     *
+     * A site&#39;s default pixel — a page view from an image, for a page that runs no script
+     *
+     * @param  string $key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventPixelByKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getEventPixelByKeyAsyncWithHttpInfo($key, string $contentType = self::contentTypes['getEventPixelByKey'][0])
+    {
+        $returnType = '\SplFileObject';
+        $request = $this->getEventPixelByKeyRequest($key, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getEventPixelByKey'
+     *
+     * @param  string $key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventPixelByKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getEventPixelByKeyRequest($key, string $contentType = self::contentTypes['getEventPixelByKey'][0])
+    {
+
+        // verify the required parameter 'key' is set
+        if ($key === null || (is_array($key) && count($key) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $key when calling getEventPixelByKey'
+            );
+        }
+
+
+        $resourcePath = '/v1/event/pixel/{key}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($key !== null) {
+            $resourcePath = str_replace(
+                '{' . 'key' . '}',
+                ObjectSerializer::toPathValue($key),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['image/gif', ],
             $contentType,
             $multipart
         );
@@ -1765,7 +2490,7 @@ class EventApi
     /**
      * Operation getEventTimeseries
      *
-     * Timeseries returns the caller org&#39;s LLM usage over time as an evenly-spaced series.
+     * Returns the caller org&#39;s LLM usage over time as an evenly-spaced series.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
@@ -1774,7 +2499,7 @@ class EventApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Timeseries
+     * @return \Hanzo\Cloud\Model\EventTimeseries|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEventTimeseries($range = null, $start = null, $end = null, string $contentType = self::contentTypes['getEventTimeseries'][0])
     {
@@ -1785,7 +2510,7 @@ class EventApi
     /**
      * Operation getEventTimeseriesWithHttpInfo
      *
-     * Timeseries returns the caller org&#39;s LLM usage over time as an evenly-spaced series.
+     * Returns the caller org&#39;s LLM usage over time as an evenly-spaced series.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
@@ -1794,7 +2519,7 @@ class EventApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Timeseries, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EventTimeseries|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEventTimeseriesWithHttpInfo($range = null, $start = null, $end = null, string $contentType = self::contentTypes['getEventTimeseries'][0])
     {
@@ -1826,7 +2551,13 @@ class EventApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Timeseries',
+                        '\Hanzo\Cloud\Model\EventTimeseries',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1848,7 +2579,7 @@ class EventApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Timeseries',
+                '\Hanzo\Cloud\Model\EventTimeseries',
                 $request,
                 $response,
             );
@@ -1857,7 +2588,15 @@ class EventApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Timeseries',
+                        '\Hanzo\Cloud\Model\EventTimeseries',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1872,7 +2611,7 @@ class EventApi
     /**
      * Operation getEventTimeseriesAsync
      *
-     * Timeseries returns the caller org&#39;s LLM usage over time as an evenly-spaced series.
+     * Returns the caller org&#39;s LLM usage over time as an evenly-spaced series.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
@@ -1895,7 +2634,7 @@ class EventApi
     /**
      * Operation getEventTimeseriesAsyncWithHttpInfo
      *
-     * Timeseries returns the caller org&#39;s LLM usage over time as an evenly-spaced series.
+     * Returns the caller org&#39;s LLM usage over time as an evenly-spaced series.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
@@ -1907,7 +2646,7 @@ class EventApi
      */
     public function getEventTimeseriesAsyncWithHttpInfo($range = null, $start = null, $end = null, string $contentType = self::contentTypes['getEventTimeseries'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Timeseries';
+        $returnType = '\Hanzo\Cloud\Model\EventTimeseries';
         $request = $this->getEventTimeseriesRequest($range, $start, $end, $contentType);
 
         return $this->client
@@ -2003,7 +2742,7 @@ class EventApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2062,42 +2801,44 @@ class EventApi
     /**
      * Operation getEventTop
      *
-     * Top returns the caller org&#39;s ranked lenses for one window, five of them at once.
+     * Returns the caller org&#39;s ranked lenses for one window, five of them at once.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
      * @param  string|null $end End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
      * @param  int|null $limit Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default. (optional)
+     * @param  string|null $impersonated Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventTop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Top
+     * @return \Hanzo\Cloud\Model\EventTop|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getEventTop($range = null, $start = null, $end = null, $limit = null, string $contentType = self::contentTypes['getEventTop'][0])
+    public function getEventTop($range = null, $start = null, $end = null, $limit = null, $impersonated = null, string $contentType = self::contentTypes['getEventTop'][0])
     {
-        list($response) = $this->getEventTopWithHttpInfo($range, $start, $end, $limit, $contentType);
+        list($response) = $this->getEventTopWithHttpInfo($range, $start, $end, $limit, $impersonated, $contentType);
         return $response;
     }
 
     /**
      * Operation getEventTopWithHttpInfo
      *
-     * Top returns the caller org&#39;s ranked lenses for one window, five of them at once.
+     * Returns the caller org&#39;s ranked lenses for one window, five of them at once.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
      * @param  string|null $end End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
      * @param  int|null $limit Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default. (optional)
+     * @param  string|null $impersonated Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventTop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Top, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EventTop|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getEventTopWithHttpInfo($range = null, $start = null, $end = null, $limit = null, string $contentType = self::contentTypes['getEventTop'][0])
+    public function getEventTopWithHttpInfo($range = null, $start = null, $end = null, $limit = null, $impersonated = null, string $contentType = self::contentTypes['getEventTop'][0])
     {
-        $request = $this->getEventTopRequest($range, $start, $end, $limit, $contentType);
+        $request = $this->getEventTopRequest($range, $start, $end, $limit, $impersonated, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2125,7 +2866,13 @@ class EventApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Top',
+                        '\Hanzo\Cloud\Model\EventTop',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2147,7 +2894,7 @@ class EventApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Top',
+                '\Hanzo\Cloud\Model\EventTop',
                 $request,
                 $response,
             );
@@ -2156,7 +2903,15 @@ class EventApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Top',
+                        '\Hanzo\Cloud\Model\EventTop',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2171,20 +2926,21 @@ class EventApi
     /**
      * Operation getEventTopAsync
      *
-     * Top returns the caller org&#39;s ranked lenses for one window, five of them at once.
+     * Returns the caller org&#39;s ranked lenses for one window, five of them at once.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
      * @param  string|null $end End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
      * @param  int|null $limit Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default. (optional)
+     * @param  string|null $impersonated Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventTop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getEventTopAsync($range = null, $start = null, $end = null, $limit = null, string $contentType = self::contentTypes['getEventTop'][0])
+    public function getEventTopAsync($range = null, $start = null, $end = null, $limit = null, $impersonated = null, string $contentType = self::contentTypes['getEventTop'][0])
     {
-        return $this->getEventTopAsyncWithHttpInfo($range, $start, $end, $limit, $contentType)
+        return $this->getEventTopAsyncWithHttpInfo($range, $start, $end, $limit, $impersonated, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2195,21 +2951,22 @@ class EventApi
     /**
      * Operation getEventTopAsyncWithHttpInfo
      *
-     * Top returns the caller org&#39;s ranked lenses for one window, five of them at once.
+     * Returns the caller org&#39;s ranked lenses for one window, five of them at once.
      *
      * @param  string|null $range Range is a relative window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all. Default 24h. Ignored when both start and end are given. An unknown value, or one past the 730-day horizon, is a 400. (optional)
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
      * @param  string|null $end End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
      * @param  int|null $limit Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default. (optional)
+     * @param  string|null $impersonated Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventTop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getEventTopAsyncWithHttpInfo($range = null, $start = null, $end = null, $limit = null, string $contentType = self::contentTypes['getEventTop'][0])
+    public function getEventTopAsyncWithHttpInfo($range = null, $start = null, $end = null, $limit = null, $impersonated = null, string $contentType = self::contentTypes['getEventTop'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Top';
-        $request = $this->getEventTopRequest($range, $start, $end, $limit, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EventTop';
+        $request = $this->getEventTopRequest($range, $start, $end, $limit, $impersonated, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2254,13 +3011,15 @@ class EventApi
      * @param  string|null $start Start is the inclusive lower bound of a custom window, RFC3339. Requires end. (optional)
      * @param  string|null $end End is the exclusive upper bound of a custom window, RFC3339. Requires start. (optional)
      * @param  int|null $limit Limit bounds every ranked lens in the response. Default 10, maximum 100; a value at or below zero, or one that is not a number, takes the default. (optional)
+     * @param  string|null $impersonated Impersonated is which events the product-event lenses count against the mark a platform operator leaves acting as someone else: exclude (the default, the tenant&#39;s own traffic), include, or only. Anything else is a 400. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEventTop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getEventTopRequest($range = null, $start = null, $end = null, $limit = null, string $contentType = self::contentTypes['getEventTop'][0])
+    public function getEventTopRequest($range = null, $start = null, $end = null, $limit = null, $impersonated = null, string $contentType = self::contentTypes['getEventTop'][0])
     {
+
 
 
 
@@ -2310,12 +3069,21 @@ class EventApi
             true, // explode
             false // required
         ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $impersonated,
+            'impersonated', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2640,39 +3408,38 @@ class EventApi
     }
 
     /**
-     * Operation postEventByProjectEnvelope
+     * Operation postEventEconomicDispute
      *
-     * Sentry SDK envelope ingest — errors and traces from an unmodified Sentry client
+     * Records that the caller&#39;s org disputes one payment it is party to — for the org&#39;s admins.
      *
-     * @param  string $project project (required)
-     * @param  \SplFileObject|null $body body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventByProjectEnvelope'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\EventDisputeIn $event_dispute_in event_dispute_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventEconomicDispute'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\EventEconomicDispute|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEventByProjectEnvelope($project, $body = null, string $contentType = self::contentTypes['postEventByProjectEnvelope'][0])
+    public function postEventEconomicDispute($event_dispute_in, string $contentType = self::contentTypes['postEventEconomicDispute'][0])
     {
-        $this->postEventByProjectEnvelopeWithHttpInfo($project, $body, $contentType);
+        list($response) = $this->postEventEconomicDisputeWithHttpInfo($event_dispute_in, $contentType);
+        return $response;
     }
 
     /**
-     * Operation postEventByProjectEnvelopeWithHttpInfo
+     * Operation postEventEconomicDisputeWithHttpInfo
      *
-     * Sentry SDK envelope ingest — errors and traces from an unmodified Sentry client
+     * Records that the caller&#39;s org disputes one payment it is party to — for the org&#39;s admins.
      *
-     * @param  string $project (required)
-     * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventByProjectEnvelope'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\EventDisputeIn $event_dispute_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventEconomicDispute'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EventEconomicDispute|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEventByProjectEnvelopeWithHttpInfo($project, $body = null, string $contentType = self::contentTypes['postEventByProjectEnvelope'][0])
+    public function postEventEconomicDisputeWithHttpInfo($event_dispute_in, string $contentType = self::contentTypes['postEventEconomicDispute'][0])
     {
-        $request = $this->postEventByProjectEnvelopeRequest($project, $body, $contentType);
+        $request = $this->postEventEconomicDisputeRequest($event_dispute_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2697,9 +3464,59 @@ class EventApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\EventEconomicDispute',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\EventEconomicDispute',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\EventEconomicDispute',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -2708,20 +3525,19 @@ class EventApi
     }
 
     /**
-     * Operation postEventByProjectEnvelopeAsync
+     * Operation postEventEconomicDisputeAsync
      *
-     * Sentry SDK envelope ingest — errors and traces from an unmodified Sentry client
+     * Records that the caller&#39;s org disputes one payment it is party to — for the org&#39;s admins.
      *
-     * @param  string $project (required)
-     * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventByProjectEnvelope'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\EventDisputeIn $event_dispute_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventEconomicDispute'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEventByProjectEnvelopeAsync($project, $body = null, string $contentType = self::contentTypes['postEventByProjectEnvelope'][0])
+    public function postEventEconomicDisputeAsync($event_dispute_in, string $contentType = self::contentTypes['postEventEconomicDispute'][0])
     {
-        return $this->postEventByProjectEnvelopeAsyncWithHttpInfo($project, $body, $contentType)
+        return $this->postEventEconomicDisputeAsyncWithHttpInfo($event_dispute_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2730,262 +3546,39 @@ class EventApi
     }
 
     /**
-     * Operation postEventByProjectEnvelopeAsyncWithHttpInfo
+     * Operation postEventEconomicDisputeAsyncWithHttpInfo
      *
-     * Sentry SDK envelope ingest — errors and traces from an unmodified Sentry client
+     * Records that the caller&#39;s org disputes one payment it is party to — for the org&#39;s admins.
      *
-     * @param  string $project (required)
-     * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventByProjectEnvelope'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\EventDisputeIn $event_dispute_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventEconomicDispute'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEventByProjectEnvelopeAsyncWithHttpInfo($project, $body = null, string $contentType = self::contentTypes['postEventByProjectEnvelope'][0])
+    public function postEventEconomicDisputeAsyncWithHttpInfo($event_dispute_in, string $contentType = self::contentTypes['postEventEconomicDispute'][0])
     {
-        $returnType = '';
-        $request = $this->postEventByProjectEnvelopeRequest($project, $body, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EventEconomicDispute';
+        $request = $this->postEventEconomicDisputeRequest($event_dispute_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postEventByProjectEnvelope'
-     *
-     * @param  string $project (required)
-     * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventByProjectEnvelope'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postEventByProjectEnvelopeRequest($project, $body = null, string $contentType = self::contentTypes['postEventByProjectEnvelope'][0])
-    {
-
-        // verify the required parameter 'project' is set
-        if ($project === null || (is_array($project) && count($project) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $project when calling postEventByProjectEnvelope'
-            );
-        }
-
-
-
-        $resourcePath = '/v1/event/{project}/envelope';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($project !== null) {
-            $resourcePath = str_replace(
-                '{' . 'project' . '}',
-                ObjectSerializer::toPathValue($project),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($body)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
-            } else {
-                $httpBody = $body;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
                     }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
 
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postEventByProjectStore
-     *
-     * Sentry SDK store ingest — the legacy single-event wire
-     *
-     * @param  string $project project (required)
-     * @param  \SplFileObject|null $body body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventByProjectStore'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postEventByProjectStore($project, $body = null, string $contentType = self::contentTypes['postEventByProjectStore'][0])
-    {
-        $this->postEventByProjectStoreWithHttpInfo($project, $body, $contentType);
-    }
-
-    /**
-     * Operation postEventByProjectStoreWithHttpInfo
-     *
-     * Sentry SDK store ingest — the legacy single-event wire
-     *
-     * @param  string $project (required)
-     * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventByProjectStore'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postEventByProjectStoreWithHttpInfo($project, $body = null, string $contentType = self::contentTypes['postEventByProjectStore'][0])
-    {
-        $request = $this->postEventByProjectStoreRequest($project, $body, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postEventByProjectStoreAsync
-     *
-     * Sentry SDK store ingest — the legacy single-event wire
-     *
-     * @param  string $project (required)
-     * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventByProjectStore'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postEventByProjectStoreAsync($project, $body = null, string $contentType = self::contentTypes['postEventByProjectStore'][0])
-    {
-        return $this->postEventByProjectStoreAsyncWithHttpInfo($project, $body, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postEventByProjectStoreAsyncWithHttpInfo
-     *
-     * Sentry SDK store ingest — the legacy single-event wire
-     *
-     * @param  string $project (required)
-     * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventByProjectStore'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postEventByProjectStoreAsyncWithHttpInfo($project, $body = null, string $contentType = self::contentTypes['postEventByProjectStore'][0])
-    {
-        $returnType = '';
-        $request = $this->postEventByProjectStoreRequest($project, $body, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -3005,28 +3598,26 @@ class EventApi
     }
 
     /**
-     * Create request for operation 'postEventByProjectStore'
+     * Create request for operation 'postEventEconomicDispute'
      *
-     * @param  string $project (required)
-     * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventByProjectStore'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\EventDisputeIn $event_dispute_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEventEconomicDispute'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEventByProjectStoreRequest($project, $body = null, string $contentType = self::contentTypes['postEventByProjectStore'][0])
+    public function postEventEconomicDisputeRequest($event_dispute_in, string $contentType = self::contentTypes['postEventEconomicDispute'][0])
     {
 
-        // verify the required parameter 'project' is set
-        if ($project === null || (is_array($project) && count($project) === 0)) {
+        // verify the required parameter 'event_dispute_in' is set
+        if ($event_dispute_in === null || (is_array($event_dispute_in) && count($event_dispute_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $project when calling postEventByProjectStore'
+                'Missing the required parameter $event_dispute_in when calling postEventEconomicDispute'
             );
         }
 
 
-
-        $resourcePath = '/v1/event/{project}/store';
+        $resourcePath = '/v1/event/economic/dispute';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3035,29 +3626,21 @@ class EventApi
 
 
 
-        // path params
-        if ($project !== null) {
-            $resourcePath = str_replace(
-                '{' . 'project' . '}',
-                ObjectSerializer::toPathValue($project),
-                $resourcePath
-            );
-        }
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($body)) {
+        if (isset($event_dispute_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($event_dispute_in));
             } else {
-                $httpBody = $body;
+                $httpBody = $event_dispute_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

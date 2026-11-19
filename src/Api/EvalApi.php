@@ -229,6 +229,14 @@ class EvalApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -336,7 +344,7 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -402,7 +410,7 @@ class EvalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DatasetList
+     * @return \Hanzo\Cloud\Model\EvalDatasetList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEvalDatasets($limit = null, string $contentType = self::contentTypes['getEvalDatasets'][0])
     {
@@ -420,7 +428,7 @@ class EvalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DatasetList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalDatasetList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEvalDatasetsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getEvalDatasets'][0])
     {
@@ -452,7 +460,13 @@ class EvalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DatasetList',
+                        '\Hanzo\Cloud\Model\EvalDatasetList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -474,7 +488,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DatasetList',
+                '\Hanzo\Cloud\Model\EvalDatasetList',
                 $request,
                 $response,
             );
@@ -483,7 +497,15 @@ class EvalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DatasetList',
+                        '\Hanzo\Cloud\Model\EvalDatasetList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -529,7 +551,7 @@ class EvalApi
      */
     public function getEvalDatasetsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getEvalDatasets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DatasetList';
+        $returnType = '\Hanzo\Cloud\Model\EvalDatasetList';
         $request = $this->getEvalDatasetsRequest($limit, $contentType);
 
         return $this->client
@@ -603,7 +625,7 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -669,7 +691,7 @@ class EvalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DatasetView
+     * @return \Hanzo\Cloud\Model\EvalDatasetView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEvalDatasetsByName($name, string $contentType = self::contentTypes['getEvalDatasetsByName'][0])
     {
@@ -687,7 +709,7 @@ class EvalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DatasetView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalDatasetView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEvalDatasetsByNameWithHttpInfo($name, string $contentType = self::contentTypes['getEvalDatasetsByName'][0])
     {
@@ -719,7 +741,13 @@ class EvalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DatasetView',
+                        '\Hanzo\Cloud\Model\EvalDatasetView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -741,7 +769,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DatasetView',
+                '\Hanzo\Cloud\Model\EvalDatasetView',
                 $request,
                 $response,
             );
@@ -750,7 +778,15 @@ class EvalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DatasetView',
+                        '\Hanzo\Cloud\Model\EvalDatasetView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -796,7 +832,7 @@ class EvalApi
      */
     public function getEvalDatasetsByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getEvalDatasetsByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DatasetView';
+        $returnType = '\Hanzo\Cloud\Model\EvalDatasetView';
         $request = $this->getEvalDatasetsByNameRequest($name, $contentType);
 
         return $this->client
@@ -875,7 +911,7 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -937,12 +973,12 @@ class EvalApi
      * Is the examples in one of your datasets — the set is named in the path, because this collection only exists inside one.
      *
      * @param  string $name Dataset is the set to read, from the path — this collection only exists inside one. (required)
-     * @param  int|null $limit limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalDatasetsByNameItems'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ItemList
+     * @return \Hanzo\Cloud\Model\EvalItemList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEvalDatasetsByNameItems($name, $limit = null, string $contentType = self::contentTypes['getEvalDatasetsByNameItems'][0])
     {
@@ -956,12 +992,12 @@ class EvalApi
      * Is the examples in one of your datasets — the set is named in the path, because this collection only exists inside one.
      *
      * @param  string $name Dataset is the set to read, from the path — this collection only exists inside one. (required)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalDatasetsByNameItems'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ItemList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalItemList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEvalDatasetsByNameItemsWithHttpInfo($name, $limit = null, string $contentType = self::contentTypes['getEvalDatasetsByNameItems'][0])
     {
@@ -993,7 +1029,13 @@ class EvalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ItemList',
+                        '\Hanzo\Cloud\Model\EvalItemList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1015,7 +1057,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ItemList',
+                '\Hanzo\Cloud\Model\EvalItemList',
                 $request,
                 $response,
             );
@@ -1024,7 +1066,15 @@ class EvalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ItemList',
+                        '\Hanzo\Cloud\Model\EvalItemList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1042,7 +1092,7 @@ class EvalApi
      * Is the examples in one of your datasets — the set is named in the path, because this collection only exists inside one.
      *
      * @param  string $name Dataset is the set to read, from the path — this collection only exists inside one. (required)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalDatasetsByNameItems'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1064,7 +1114,7 @@ class EvalApi
      * Is the examples in one of your datasets — the set is named in the path, because this collection only exists inside one.
      *
      * @param  string $name Dataset is the set to read, from the path — this collection only exists inside one. (required)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalDatasetsByNameItems'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1072,7 +1122,7 @@ class EvalApi
      */
     public function getEvalDatasetsByNameItemsAsyncWithHttpInfo($name, $limit = null, string $contentType = self::contentTypes['getEvalDatasetsByNameItems'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ItemList';
+        $returnType = '\Hanzo\Cloud\Model\EvalItemList';
         $request = $this->getEvalDatasetsByNameItemsRequest($name, $limit, $contentType);
 
         return $this->client
@@ -1115,7 +1165,7 @@ class EvalApi
      * Create request for operation 'getEvalDatasetsByNameItems'
      *
      * @param  string $name Dataset is the set to read, from the path — this collection only exists inside one. (required)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalDatasetsByNameItems'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1162,7 +1212,7 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1228,7 +1278,7 @@ class EvalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EvaluatorList
+     * @return \Hanzo\Cloud\Model\EvalEvaluatorList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEvalEvaluators($limit = null, string $contentType = self::contentTypes['getEvalEvaluators'][0])
     {
@@ -1246,7 +1296,7 @@ class EvalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EvaluatorList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalEvaluatorList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEvalEvaluatorsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getEvalEvaluators'][0])
     {
@@ -1278,7 +1328,13 @@ class EvalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EvaluatorList',
+                        '\Hanzo\Cloud\Model\EvalEvaluatorList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1300,7 +1356,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EvaluatorList',
+                '\Hanzo\Cloud\Model\EvalEvaluatorList',
                 $request,
                 $response,
             );
@@ -1309,7 +1365,15 @@ class EvalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EvaluatorList',
+                        '\Hanzo\Cloud\Model\EvalEvaluatorList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1355,7 +1419,7 @@ class EvalApi
      */
     public function getEvalEvaluatorsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getEvalEvaluators'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EvaluatorList';
+        $returnType = '\Hanzo\Cloud\Model\EvalEvaluatorList';
         $request = $this->getEvalEvaluatorsRequest($limit, $contentType);
 
         return $this->client
@@ -1429,7 +1493,7 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1496,7 +1560,7 @@ class EvalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Board
+     * @return \Hanzo\Cloud\Model\EvalBoard|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEvalMetrics($range = null, $interval = null, string $contentType = self::contentTypes['getEvalMetrics'][0])
     {
@@ -1515,7 +1579,7 @@ class EvalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Board, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEvalMetricsWithHttpInfo($range = null, $interval = null, string $contentType = self::contentTypes['getEvalMetrics'][0])
     {
@@ -1547,7 +1611,13 @@ class EvalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Board',
+                        '\Hanzo\Cloud\Model\EvalBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1569,7 +1639,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Board',
+                '\Hanzo\Cloud\Model\EvalBoard',
                 $request,
                 $response,
             );
@@ -1578,7 +1648,15 @@ class EvalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Board',
+                        '\Hanzo\Cloud\Model\EvalBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1626,7 +1704,7 @@ class EvalApi
      */
     public function getEvalMetricsAsyncWithHttpInfo($range = null, $interval = null, string $contentType = self::contentTypes['getEvalMetrics'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Board';
+        $returnType = '\Hanzo\Cloud\Model\EvalBoard';
         $request = $this->getEvalMetricsRequest($range, $interval, $contentType);
 
         return $this->client
@@ -1711,7 +1789,7 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1777,7 +1855,7 @@ class EvalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ScoreConfigList
+     * @return \Hanzo\Cloud\Model\EvalScoreConfigList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEvalRubrics($limit = null, string $contentType = self::contentTypes['getEvalRubrics'][0])
     {
@@ -1795,7 +1873,7 @@ class EvalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ScoreConfigList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalScoreConfigList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEvalRubricsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getEvalRubrics'][0])
     {
@@ -1827,7 +1905,13 @@ class EvalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ScoreConfigList',
+                        '\Hanzo\Cloud\Model\EvalScoreConfigList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1849,7 +1933,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ScoreConfigList',
+                '\Hanzo\Cloud\Model\EvalScoreConfigList',
                 $request,
                 $response,
             );
@@ -1858,7 +1942,15 @@ class EvalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ScoreConfigList',
+                        '\Hanzo\Cloud\Model\EvalScoreConfigList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1904,7 +1996,7 @@ class EvalApi
      */
     public function getEvalRubricsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getEvalRubrics'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ScoreConfigList';
+        $returnType = '\Hanzo\Cloud\Model\EvalScoreConfigList';
         $request = $this->getEvalRubricsRequest($limit, $contentType);
 
         return $this->client
@@ -1978,7 +2070,7 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2040,12 +2132,12 @@ class EvalApi
      * Is your past runs and how they scored — the dataset and model, the judge model, how many examples were attempted and how many scored, the average score, and when it happened.
      *
      * @param  string|null $dataset_name Dataset narrows to the runs against one dataset. (optional)
-     * @param  int|null $limit limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Runs
+     * @return \Hanzo\Cloud\Model\EvalRuns|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEvalRuns($dataset_name = null, $limit = null, string $contentType = self::contentTypes['getEvalRuns'][0])
     {
@@ -2059,12 +2151,12 @@ class EvalApi
      * Is your past runs and how they scored — the dataset and model, the judge model, how many examples were attempted and how many scored, the average score, and when it happened.
      *
      * @param  string|null $dataset_name Dataset narrows to the runs against one dataset. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Runs, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalRuns|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEvalRunsWithHttpInfo($dataset_name = null, $limit = null, string $contentType = self::contentTypes['getEvalRuns'][0])
     {
@@ -2096,7 +2188,13 @@ class EvalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Runs',
+                        '\Hanzo\Cloud\Model\EvalRuns',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2118,7 +2216,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Runs',
+                '\Hanzo\Cloud\Model\EvalRuns',
                 $request,
                 $response,
             );
@@ -2127,7 +2225,15 @@ class EvalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Runs',
+                        '\Hanzo\Cloud\Model\EvalRuns',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2145,7 +2251,7 @@ class EvalApi
      * Is your past runs and how they scored — the dataset and model, the judge model, how many examples were attempted and how many scored, the average score, and when it happened.
      *
      * @param  string|null $dataset_name Dataset narrows to the runs against one dataset. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2167,7 +2273,7 @@ class EvalApi
      * Is your past runs and how they scored — the dataset and model, the judge model, how many examples were attempted and how many scored, the average score, and when it happened.
      *
      * @param  string|null $dataset_name Dataset narrows to the runs against one dataset. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2175,7 +2281,7 @@ class EvalApi
      */
     public function getEvalRunsAsyncWithHttpInfo($dataset_name = null, $limit = null, string $contentType = self::contentTypes['getEvalRuns'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Runs';
+        $returnType = '\Hanzo\Cloud\Model\EvalRuns';
         $request = $this->getEvalRunsRequest($dataset_name, $limit, $contentType);
 
         return $this->client
@@ -2218,7 +2324,7 @@ class EvalApi
      * Create request for operation 'getEvalRuns'
      *
      * @param  string|null $dataset_name Dataset narrows to the runs against one dataset. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2260,7 +2366,7 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2324,12 +2430,12 @@ class EvalApi
      * @param  string|null $name Name narrows to one score name. (optional)
      * @param  string|null $run_name RunName narrows to the scores of one run. (optional)
      * @param  string|null $trace_id TraceID narrows to the scores on one model call. (optional)
-     * @param  int|null $limit limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalScores'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ScoreList
+     * @return \Hanzo\Cloud\Model\EvalScoreList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEvalScores($name = null, $run_name = null, $trace_id = null, $limit = null, string $contentType = self::contentTypes['getEvalScores'][0])
     {
@@ -2345,12 +2451,12 @@ class EvalApi
      * @param  string|null $name Name narrows to one score name. (optional)
      * @param  string|null $run_name RunName narrows to the scores of one run. (optional)
      * @param  string|null $trace_id TraceID narrows to the scores on one model call. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalScores'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ScoreList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalScoreList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEvalScoresWithHttpInfo($name = null, $run_name = null, $trace_id = null, $limit = null, string $contentType = self::contentTypes['getEvalScores'][0])
     {
@@ -2382,7 +2488,13 @@ class EvalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ScoreList',
+                        '\Hanzo\Cloud\Model\EvalScoreList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2404,7 +2516,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ScoreList',
+                '\Hanzo\Cloud\Model\EvalScoreList',
                 $request,
                 $response,
             );
@@ -2413,7 +2525,15 @@ class EvalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ScoreList',
+                        '\Hanzo\Cloud\Model\EvalScoreList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2433,7 +2553,7 @@ class EvalApi
      * @param  string|null $name Name narrows to one score name. (optional)
      * @param  string|null $run_name RunName narrows to the scores of one run. (optional)
      * @param  string|null $trace_id TraceID narrows to the scores on one model call. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalScores'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2457,7 +2577,7 @@ class EvalApi
      * @param  string|null $name Name narrows to one score name. (optional)
      * @param  string|null $run_name RunName narrows to the scores of one run. (optional)
      * @param  string|null $trace_id TraceID narrows to the scores on one model call. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalScores'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2465,7 +2585,7 @@ class EvalApi
      */
     public function getEvalScoresAsyncWithHttpInfo($name = null, $run_name = null, $trace_id = null, $limit = null, string $contentType = self::contentTypes['getEvalScores'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ScoreList';
+        $returnType = '\Hanzo\Cloud\Model\EvalScoreList';
         $request = $this->getEvalScoresRequest($name, $run_name, $trace_id, $limit, $contentType);
 
         return $this->client
@@ -2510,7 +2630,7 @@ class EvalApi
      * @param  string|null $name Name narrows to one score name. (optional)
      * @param  string|null $run_name RunName narrows to the scores of one run. (optional)
      * @param  string|null $trace_id TraceID narrows to the scores on one model call. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalScores'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2572,7 +2692,7 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2636,12 +2756,12 @@ class EvalApi
      * @param  string|null $session_id SessionID narrows to one session, which for an evaluation is one run. (optional)
      * @param  string|null $run_name RunName narrows to the calls one run made. (optional)
      * @param  string|null $dataset_name Dataset narrows to the calls made against one dataset. (optional)
-     * @param  int|null $limit limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalTraces'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TraceList
+     * @return \Hanzo\Cloud\Model\EvalTraceList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEvalTraces($session_id = null, $run_name = null, $dataset_name = null, $limit = null, string $contentType = self::contentTypes['getEvalTraces'][0])
     {
@@ -2657,12 +2777,12 @@ class EvalApi
      * @param  string|null $session_id SessionID narrows to one session, which for an evaluation is one run. (optional)
      * @param  string|null $run_name RunName narrows to the calls one run made. (optional)
      * @param  string|null $dataset_name Dataset narrows to the calls made against one dataset. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalTraces'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TraceList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalTraceList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEvalTracesWithHttpInfo($session_id = null, $run_name = null, $dataset_name = null, $limit = null, string $contentType = self::contentTypes['getEvalTraces'][0])
     {
@@ -2694,7 +2814,13 @@ class EvalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TraceList',
+                        '\Hanzo\Cloud\Model\EvalTraceList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2716,7 +2842,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TraceList',
+                '\Hanzo\Cloud\Model\EvalTraceList',
                 $request,
                 $response,
             );
@@ -2725,7 +2851,15 @@ class EvalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TraceList',
+                        '\Hanzo\Cloud\Model\EvalTraceList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2745,7 +2879,7 @@ class EvalApi
      * @param  string|null $session_id SessionID narrows to one session, which for an evaluation is one run. (optional)
      * @param  string|null $run_name RunName narrows to the calls one run made. (optional)
      * @param  string|null $dataset_name Dataset narrows to the calls made against one dataset. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalTraces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2769,7 +2903,7 @@ class EvalApi
      * @param  string|null $session_id SessionID narrows to one session, which for an evaluation is one run. (optional)
      * @param  string|null $run_name RunName narrows to the calls one run made. (optional)
      * @param  string|null $dataset_name Dataset narrows to the calls made against one dataset. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalTraces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2777,7 +2911,7 @@ class EvalApi
      */
     public function getEvalTracesAsyncWithHttpInfo($session_id = null, $run_name = null, $dataset_name = null, $limit = null, string $contentType = self::contentTypes['getEvalTraces'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TraceList';
+        $returnType = '\Hanzo\Cloud\Model\EvalTraceList';
         $request = $this->getEvalTracesRequest($session_id, $run_name, $dataset_name, $limit, $contentType);
 
         return $this->client
@@ -2822,7 +2956,7 @@ class EvalApi
      * @param  string|null $session_id SessionID narrows to one session, which for an evaluation is one run. (optional)
      * @param  string|null $run_name RunName narrows to the calls one run made. (optional)
      * @param  string|null $dataset_name Dataset narrows to the calls made against one dataset. (optional)
-     * @param  int|null $limit (optional)
+     * @param  int|null $limit Limit caps the rows returned. It defaults to 100 and is capped at 500; a non-positive or unparseable value falls back to the default rather than failing, because a typo about paging is not a reason to refuse a read. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEvalTraces'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2884,7 +3018,7 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2945,16 +3079,16 @@ class EvalApi
      *
      * Writes a dataset — the named set of graded examples a run scores a model against — under the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\DatasetReq $dataset_req dataset_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalDatasetReq $eval_dataset_req eval_dataset_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalDatasets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DatasetView
+     * @return \Hanzo\Cloud\Model\EvalDatasetView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEvalDatasets($dataset_req, string $contentType = self::contentTypes['postEvalDatasets'][0])
+    public function postEvalDatasets($eval_dataset_req, string $contentType = self::contentTypes['postEvalDatasets'][0])
     {
-        list($response) = $this->postEvalDatasetsWithHttpInfo($dataset_req, $contentType);
+        list($response) = $this->postEvalDatasetsWithHttpInfo($eval_dataset_req, $contentType);
         return $response;
     }
 
@@ -2963,16 +3097,16 @@ class EvalApi
      *
      * Writes a dataset — the named set of graded examples a run scores a model against — under the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\DatasetReq $dataset_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalDatasetReq $eval_dataset_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalDatasets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DatasetView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalDatasetView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEvalDatasetsWithHttpInfo($dataset_req, string $contentType = self::contentTypes['postEvalDatasets'][0])
+    public function postEvalDatasetsWithHttpInfo($eval_dataset_req, string $contentType = self::contentTypes['postEvalDatasets'][0])
     {
-        $request = $this->postEvalDatasetsRequest($dataset_req, $contentType);
+        $request = $this->postEvalDatasetsRequest($eval_dataset_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3000,7 +3134,13 @@ class EvalApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DatasetView',
+                        '\Hanzo\Cloud\Model\EvalDatasetView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3022,7 +3162,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DatasetView',
+                '\Hanzo\Cloud\Model\EvalDatasetView',
                 $request,
                 $response,
             );
@@ -3031,7 +3171,15 @@ class EvalApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DatasetView',
+                        '\Hanzo\Cloud\Model\EvalDatasetView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3048,15 +3196,15 @@ class EvalApi
      *
      * Writes a dataset — the named set of graded examples a run scores a model against — under the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\DatasetReq $dataset_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalDatasetReq $eval_dataset_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalDatasets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalDatasetsAsync($dataset_req, string $contentType = self::contentTypes['postEvalDatasets'][0])
+    public function postEvalDatasetsAsync($eval_dataset_req, string $contentType = self::contentTypes['postEvalDatasets'][0])
     {
-        return $this->postEvalDatasetsAsyncWithHttpInfo($dataset_req, $contentType)
+        return $this->postEvalDatasetsAsyncWithHttpInfo($eval_dataset_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3069,16 +3217,16 @@ class EvalApi
      *
      * Writes a dataset — the named set of graded examples a run scores a model against — under the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\DatasetReq $dataset_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalDatasetReq $eval_dataset_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalDatasets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalDatasetsAsyncWithHttpInfo($dataset_req, string $contentType = self::contentTypes['postEvalDatasets'][0])
+    public function postEvalDatasetsAsyncWithHttpInfo($eval_dataset_req, string $contentType = self::contentTypes['postEvalDatasets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DatasetView';
-        $request = $this->postEvalDatasetsRequest($dataset_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EvalDatasetView';
+        $request = $this->postEvalDatasetsRequest($eval_dataset_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3119,19 +3267,19 @@ class EvalApi
     /**
      * Create request for operation 'postEvalDatasets'
      *
-     * @param  \Hanzo\Cloud\Model\DatasetReq $dataset_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalDatasetReq $eval_dataset_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalDatasets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEvalDatasetsRequest($dataset_req, string $contentType = self::contentTypes['postEvalDatasets'][0])
+    public function postEvalDatasetsRequest($eval_dataset_req, string $contentType = self::contentTypes['postEvalDatasets'][0])
     {
 
-        // verify the required parameter 'dataset_req' is set
-        if ($dataset_req === null || (is_array($dataset_req) && count($dataset_req) === 0)) {
+        // verify the required parameter 'eval_dataset_req' is set
+        if ($eval_dataset_req === null || (is_array($eval_dataset_req) && count($eval_dataset_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $dataset_req when calling postEvalDatasets'
+                'Missing the required parameter $eval_dataset_req when calling postEvalDatasets'
             );
         }
 
@@ -3148,18 +3296,18 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($dataset_req)) {
+        if (isset($eval_dataset_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($dataset_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($eval_dataset_req));
             } else {
-                $httpBody = $dataset_req;
+                $httpBody = $eval_dataset_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3217,16 +3365,16 @@ class EvalApi
      * Writes one graded example — its input, its expected output, free-form metadata and a status — into the dataset named in the path, and answers 201 with it.
      *
      * @param  string $name name (required)
-     * @param  \Hanzo\Cloud\Model\ItemReq $item_req item_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalItemReq $eval_item_req eval_item_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalDatasetsByNameItems'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ItemView
+     * @return \Hanzo\Cloud\Model\EvalItemView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEvalDatasetsByNameItems($name, $item_req, string $contentType = self::contentTypes['postEvalDatasetsByNameItems'][0])
+    public function postEvalDatasetsByNameItems($name, $eval_item_req, string $contentType = self::contentTypes['postEvalDatasetsByNameItems'][0])
     {
-        list($response) = $this->postEvalDatasetsByNameItemsWithHttpInfo($name, $item_req, $contentType);
+        list($response) = $this->postEvalDatasetsByNameItemsWithHttpInfo($name, $eval_item_req, $contentType);
         return $response;
     }
 
@@ -3236,16 +3384,16 @@ class EvalApi
      * Writes one graded example — its input, its expected output, free-form metadata and a status — into the dataset named in the path, and answers 201 with it.
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\ItemReq $item_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalItemReq $eval_item_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalDatasetsByNameItems'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ItemView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalItemView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEvalDatasetsByNameItemsWithHttpInfo($name, $item_req, string $contentType = self::contentTypes['postEvalDatasetsByNameItems'][0])
+    public function postEvalDatasetsByNameItemsWithHttpInfo($name, $eval_item_req, string $contentType = self::contentTypes['postEvalDatasetsByNameItems'][0])
     {
-        $request = $this->postEvalDatasetsByNameItemsRequest($name, $item_req, $contentType);
+        $request = $this->postEvalDatasetsByNameItemsRequest($name, $eval_item_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3273,7 +3421,13 @@ class EvalApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ItemView',
+                        '\Hanzo\Cloud\Model\EvalItemView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3295,7 +3449,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ItemView',
+                '\Hanzo\Cloud\Model\EvalItemView',
                 $request,
                 $response,
             );
@@ -3304,7 +3458,15 @@ class EvalApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ItemView',
+                        '\Hanzo\Cloud\Model\EvalItemView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3322,15 +3484,15 @@ class EvalApi
      * Writes one graded example — its input, its expected output, free-form metadata and a status — into the dataset named in the path, and answers 201 with it.
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\ItemReq $item_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalItemReq $eval_item_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalDatasetsByNameItems'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalDatasetsByNameItemsAsync($name, $item_req, string $contentType = self::contentTypes['postEvalDatasetsByNameItems'][0])
+    public function postEvalDatasetsByNameItemsAsync($name, $eval_item_req, string $contentType = self::contentTypes['postEvalDatasetsByNameItems'][0])
     {
-        return $this->postEvalDatasetsByNameItemsAsyncWithHttpInfo($name, $item_req, $contentType)
+        return $this->postEvalDatasetsByNameItemsAsyncWithHttpInfo($name, $eval_item_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3344,16 +3506,16 @@ class EvalApi
      * Writes one graded example — its input, its expected output, free-form metadata and a status — into the dataset named in the path, and answers 201 with it.
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\ItemReq $item_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalItemReq $eval_item_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalDatasetsByNameItems'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalDatasetsByNameItemsAsyncWithHttpInfo($name, $item_req, string $contentType = self::contentTypes['postEvalDatasetsByNameItems'][0])
+    public function postEvalDatasetsByNameItemsAsyncWithHttpInfo($name, $eval_item_req, string $contentType = self::contentTypes['postEvalDatasetsByNameItems'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ItemView';
-        $request = $this->postEvalDatasetsByNameItemsRequest($name, $item_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EvalItemView';
+        $request = $this->postEvalDatasetsByNameItemsRequest($name, $eval_item_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3395,13 +3557,13 @@ class EvalApi
      * Create request for operation 'postEvalDatasetsByNameItems'
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\ItemReq $item_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalItemReq $eval_item_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalDatasetsByNameItems'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEvalDatasetsByNameItemsRequest($name, $item_req, string $contentType = self::contentTypes['postEvalDatasetsByNameItems'][0])
+    public function postEvalDatasetsByNameItemsRequest($name, $eval_item_req, string $contentType = self::contentTypes['postEvalDatasetsByNameItems'][0])
     {
 
         // verify the required parameter 'name' is set
@@ -3411,10 +3573,10 @@ class EvalApi
             );
         }
 
-        // verify the required parameter 'item_req' is set
-        if ($item_req === null || (is_array($item_req) && count($item_req) === 0)) {
+        // verify the required parameter 'eval_item_req' is set
+        if ($eval_item_req === null || (is_array($eval_item_req) && count($eval_item_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $item_req when calling postEvalDatasetsByNameItems'
+                'Missing the required parameter $eval_item_req when calling postEvalDatasetsByNameItems'
             );
         }
 
@@ -3439,18 +3601,18 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($item_req)) {
+        if (isset($eval_item_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($item_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($eval_item_req));
             } else {
-                $httpBody = $item_req;
+                $httpBody = $eval_item_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3507,16 +3669,16 @@ class EvalApi
      *
      * Saves a reusable judge for the caller&#39;s org — the judge model and the written criteria it grades against — and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluatorReq $evaluator_req evaluator_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalEvaluatorReq $eval_evaluator_req eval_evaluator_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalEvaluators'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EvaluatorView
+     * @return \Hanzo\Cloud\Model\EvalEvaluatorView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEvalEvaluators($evaluator_req, string $contentType = self::contentTypes['postEvalEvaluators'][0])
+    public function postEvalEvaluators($eval_evaluator_req, string $contentType = self::contentTypes['postEvalEvaluators'][0])
     {
-        list($response) = $this->postEvalEvaluatorsWithHttpInfo($evaluator_req, $contentType);
+        list($response) = $this->postEvalEvaluatorsWithHttpInfo($eval_evaluator_req, $contentType);
         return $response;
     }
 
@@ -3525,16 +3687,16 @@ class EvalApi
      *
      * Saves a reusable judge for the caller&#39;s org — the judge model and the written criteria it grades against — and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluatorReq $evaluator_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalEvaluatorReq $eval_evaluator_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalEvaluators'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EvaluatorView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalEvaluatorView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEvalEvaluatorsWithHttpInfo($evaluator_req, string $contentType = self::contentTypes['postEvalEvaluators'][0])
+    public function postEvalEvaluatorsWithHttpInfo($eval_evaluator_req, string $contentType = self::contentTypes['postEvalEvaluators'][0])
     {
-        $request = $this->postEvalEvaluatorsRequest($evaluator_req, $contentType);
+        $request = $this->postEvalEvaluatorsRequest($eval_evaluator_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3562,7 +3724,13 @@ class EvalApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EvaluatorView',
+                        '\Hanzo\Cloud\Model\EvalEvaluatorView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3584,7 +3752,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EvaluatorView',
+                '\Hanzo\Cloud\Model\EvalEvaluatorView',
                 $request,
                 $response,
             );
@@ -3593,7 +3761,15 @@ class EvalApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EvaluatorView',
+                        '\Hanzo\Cloud\Model\EvalEvaluatorView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3610,15 +3786,15 @@ class EvalApi
      *
      * Saves a reusable judge for the caller&#39;s org — the judge model and the written criteria it grades against — and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluatorReq $evaluator_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalEvaluatorReq $eval_evaluator_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalEvaluators'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalEvaluatorsAsync($evaluator_req, string $contentType = self::contentTypes['postEvalEvaluators'][0])
+    public function postEvalEvaluatorsAsync($eval_evaluator_req, string $contentType = self::contentTypes['postEvalEvaluators'][0])
     {
-        return $this->postEvalEvaluatorsAsyncWithHttpInfo($evaluator_req, $contentType)
+        return $this->postEvalEvaluatorsAsyncWithHttpInfo($eval_evaluator_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3631,16 +3807,16 @@ class EvalApi
      *
      * Saves a reusable judge for the caller&#39;s org — the judge model and the written criteria it grades against — and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluatorReq $evaluator_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalEvaluatorReq $eval_evaluator_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalEvaluators'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalEvaluatorsAsyncWithHttpInfo($evaluator_req, string $contentType = self::contentTypes['postEvalEvaluators'][0])
+    public function postEvalEvaluatorsAsyncWithHttpInfo($eval_evaluator_req, string $contentType = self::contentTypes['postEvalEvaluators'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EvaluatorView';
-        $request = $this->postEvalEvaluatorsRequest($evaluator_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EvalEvaluatorView';
+        $request = $this->postEvalEvaluatorsRequest($eval_evaluator_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3681,19 +3857,19 @@ class EvalApi
     /**
      * Create request for operation 'postEvalEvaluators'
      *
-     * @param  \Hanzo\Cloud\Model\EvaluatorReq $evaluator_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalEvaluatorReq $eval_evaluator_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalEvaluators'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEvalEvaluatorsRequest($evaluator_req, string $contentType = self::contentTypes['postEvalEvaluators'][0])
+    public function postEvalEvaluatorsRequest($eval_evaluator_req, string $contentType = self::contentTypes['postEvalEvaluators'][0])
     {
 
-        // verify the required parameter 'evaluator_req' is set
-        if ($evaluator_req === null || (is_array($evaluator_req) && count($evaluator_req) === 0)) {
+        // verify the required parameter 'eval_evaluator_req' is set
+        if ($eval_evaluator_req === null || (is_array($eval_evaluator_req) && count($eval_evaluator_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $evaluator_req when calling postEvalEvaluators'
+                'Missing the required parameter $eval_evaluator_req when calling postEvalEvaluators'
             );
         }
 
@@ -3710,18 +3886,18 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($evaluator_req)) {
+        if (isset($eval_evaluator_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($evaluator_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($eval_evaluator_req));
             } else {
-                $httpBody = $evaluator_req;
+                $httpBody = $eval_evaluator_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3778,16 +3954,16 @@ class EvalApi
      *
      * Defines the shape of one score name for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\ScoreConfigReq $score_config_req score_config_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalScoreConfigReq $eval_score_config_req eval_score_config_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalRubrics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ScoreConfigView
+     * @return \Hanzo\Cloud\Model\EvalScoreConfigView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEvalRubrics($score_config_req, string $contentType = self::contentTypes['postEvalRubrics'][0])
+    public function postEvalRubrics($eval_score_config_req, string $contentType = self::contentTypes['postEvalRubrics'][0])
     {
-        list($response) = $this->postEvalRubricsWithHttpInfo($score_config_req, $contentType);
+        list($response) = $this->postEvalRubricsWithHttpInfo($eval_score_config_req, $contentType);
         return $response;
     }
 
@@ -3796,16 +3972,16 @@ class EvalApi
      *
      * Defines the shape of one score name for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\ScoreConfigReq $score_config_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalScoreConfigReq $eval_score_config_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalRubrics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ScoreConfigView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalScoreConfigView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEvalRubricsWithHttpInfo($score_config_req, string $contentType = self::contentTypes['postEvalRubrics'][0])
+    public function postEvalRubricsWithHttpInfo($eval_score_config_req, string $contentType = self::contentTypes['postEvalRubrics'][0])
     {
-        $request = $this->postEvalRubricsRequest($score_config_req, $contentType);
+        $request = $this->postEvalRubricsRequest($eval_score_config_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3833,7 +4009,13 @@ class EvalApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ScoreConfigView',
+                        '\Hanzo\Cloud\Model\EvalScoreConfigView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3855,7 +4037,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ScoreConfigView',
+                '\Hanzo\Cloud\Model\EvalScoreConfigView',
                 $request,
                 $response,
             );
@@ -3864,7 +4046,15 @@ class EvalApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ScoreConfigView',
+                        '\Hanzo\Cloud\Model\EvalScoreConfigView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3881,15 +4071,15 @@ class EvalApi
      *
      * Defines the shape of one score name for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\ScoreConfigReq $score_config_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalScoreConfigReq $eval_score_config_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalRubrics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalRubricsAsync($score_config_req, string $contentType = self::contentTypes['postEvalRubrics'][0])
+    public function postEvalRubricsAsync($eval_score_config_req, string $contentType = self::contentTypes['postEvalRubrics'][0])
     {
-        return $this->postEvalRubricsAsyncWithHttpInfo($score_config_req, $contentType)
+        return $this->postEvalRubricsAsyncWithHttpInfo($eval_score_config_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3902,16 +4092,16 @@ class EvalApi
      *
      * Defines the shape of one score name for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\ScoreConfigReq $score_config_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalScoreConfigReq $eval_score_config_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalRubrics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalRubricsAsyncWithHttpInfo($score_config_req, string $contentType = self::contentTypes['postEvalRubrics'][0])
+    public function postEvalRubricsAsyncWithHttpInfo($eval_score_config_req, string $contentType = self::contentTypes['postEvalRubrics'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ScoreConfigView';
-        $request = $this->postEvalRubricsRequest($score_config_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EvalScoreConfigView';
+        $request = $this->postEvalRubricsRequest($eval_score_config_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3952,19 +4142,19 @@ class EvalApi
     /**
      * Create request for operation 'postEvalRubrics'
      *
-     * @param  \Hanzo\Cloud\Model\ScoreConfigReq $score_config_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalScoreConfigReq $eval_score_config_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalRubrics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEvalRubricsRequest($score_config_req, string $contentType = self::contentTypes['postEvalRubrics'][0])
+    public function postEvalRubricsRequest($eval_score_config_req, string $contentType = self::contentTypes['postEvalRubrics'][0])
     {
 
-        // verify the required parameter 'score_config_req' is set
-        if ($score_config_req === null || (is_array($score_config_req) && count($score_config_req) === 0)) {
+        // verify the required parameter 'eval_score_config_req' is set
+        if ($eval_score_config_req === null || (is_array($eval_score_config_req) && count($eval_score_config_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $score_config_req when calling postEvalRubrics'
+                'Missing the required parameter $eval_score_config_req when calling postEvalRubrics'
             );
         }
 
@@ -3981,18 +4171,18 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($score_config_req)) {
+        if (isset($eval_score_config_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($score_config_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($eval_score_config_req));
             } else {
-                $httpBody = $score_config_req;
+                $httpBody = $eval_score_config_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4049,17 +4239,17 @@ class EvalApi
      *
      * Runs a real evaluation and answers the summary when it is finished — this is synchronous work, not a job id.
      *
-     * @param  \Hanzo\Cloud\Model\RunRequest $run_request run_request (required)
+     * @param  \Hanzo\Cloud\Model\EvalRunRequest $eval_run_request eval_run_request (required)
      * @param  string|null $authorization authorization (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RunSummary|\Hanzo\Cloud\Model\RunSummary
+     * @return \Hanzo\Cloud\Model\EvalRunSummary|\Hanzo\Cloud\Model\EvalRunSummary|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEvalRuns($run_request, $authorization = null, string $contentType = self::contentTypes['postEvalRuns'][0])
+    public function postEvalRuns($eval_run_request, $authorization = null, string $contentType = self::contentTypes['postEvalRuns'][0])
     {
-        list($response) = $this->postEvalRunsWithHttpInfo($run_request, $authorization, $contentType);
+        list($response) = $this->postEvalRunsWithHttpInfo($eval_run_request, $authorization, $contentType);
         return $response;
     }
 
@@ -4068,17 +4258,17 @@ class EvalApi
      *
      * Runs a real evaluation and answers the summary when it is finished — this is synchronous work, not a job id.
      *
-     * @param  \Hanzo\Cloud\Model\RunRequest $run_request (required)
+     * @param  \Hanzo\Cloud\Model\EvalRunRequest $eval_run_request (required)
      * @param  string|null $authorization (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RunSummary|\Hanzo\Cloud\Model\RunSummary, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalRunSummary|\Hanzo\Cloud\Model\EvalRunSummary|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEvalRunsWithHttpInfo($run_request, $authorization = null, string $contentType = self::contentTypes['postEvalRuns'][0])
+    public function postEvalRunsWithHttpInfo($eval_run_request, $authorization = null, string $contentType = self::contentTypes['postEvalRuns'][0])
     {
-        $request = $this->postEvalRunsRequest($run_request, $authorization, $contentType);
+        $request = $this->postEvalRunsRequest($eval_run_request, $authorization, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4106,13 +4296,19 @@ class EvalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RunSummary',
+                        '\Hanzo\Cloud\Model\EvalRunSummary',
                         $request,
                         $response,
                     );
                 case 502:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RunSummary',
+                        '\Hanzo\Cloud\Model\EvalRunSummary',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4134,7 +4330,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RunSummary',
+                '\Hanzo\Cloud\Model\EvalRunSummary',
                 $request,
                 $response,
             );
@@ -4143,7 +4339,7 @@ class EvalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RunSummary',
+                        '\Hanzo\Cloud\Model\EvalRunSummary',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4151,7 +4347,15 @@ class EvalApi
                 case 502:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RunSummary',
+                        '\Hanzo\Cloud\Model\EvalRunSummary',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4168,16 +4372,16 @@ class EvalApi
      *
      * Runs a real evaluation and answers the summary when it is finished — this is synchronous work, not a job id.
      *
-     * @param  \Hanzo\Cloud\Model\RunRequest $run_request (required)
+     * @param  \Hanzo\Cloud\Model\EvalRunRequest $eval_run_request (required)
      * @param  string|null $authorization (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalRunsAsync($run_request, $authorization = null, string $contentType = self::contentTypes['postEvalRuns'][0])
+    public function postEvalRunsAsync($eval_run_request, $authorization = null, string $contentType = self::contentTypes['postEvalRuns'][0])
     {
-        return $this->postEvalRunsAsyncWithHttpInfo($run_request, $authorization, $contentType)
+        return $this->postEvalRunsAsyncWithHttpInfo($eval_run_request, $authorization, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4190,17 +4394,17 @@ class EvalApi
      *
      * Runs a real evaluation and answers the summary when it is finished — this is synchronous work, not a job id.
      *
-     * @param  \Hanzo\Cloud\Model\RunRequest $run_request (required)
+     * @param  \Hanzo\Cloud\Model\EvalRunRequest $eval_run_request (required)
      * @param  string|null $authorization (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalRunsAsyncWithHttpInfo($run_request, $authorization = null, string $contentType = self::contentTypes['postEvalRuns'][0])
+    public function postEvalRunsAsyncWithHttpInfo($eval_run_request, $authorization = null, string $contentType = self::contentTypes['postEvalRuns'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RunSummary';
-        $request = $this->postEvalRunsRequest($run_request, $authorization, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EvalRunSummary';
+        $request = $this->postEvalRunsRequest($eval_run_request, $authorization, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4241,20 +4445,20 @@ class EvalApi
     /**
      * Create request for operation 'postEvalRuns'
      *
-     * @param  \Hanzo\Cloud\Model\RunRequest $run_request (required)
+     * @param  \Hanzo\Cloud\Model\EvalRunRequest $eval_run_request (required)
      * @param  string|null $authorization (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEvalRunsRequest($run_request, $authorization = null, string $contentType = self::contentTypes['postEvalRuns'][0])
+    public function postEvalRunsRequest($eval_run_request, $authorization = null, string $contentType = self::contentTypes['postEvalRuns'][0])
     {
 
-        // verify the required parameter 'run_request' is set
-        if ($run_request === null || (is_array($run_request) && count($run_request) === 0)) {
+        // verify the required parameter 'eval_run_request' is set
+        if ($eval_run_request === null || (is_array($eval_run_request) && count($eval_run_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $run_request when calling postEvalRuns'
+                'Missing the required parameter $eval_run_request when calling postEvalRuns'
             );
         }
 
@@ -4276,18 +4480,18 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($run_request)) {
+        if (isset($eval_run_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($run_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($eval_run_request));
             } else {
-                $httpBody = $run_request;
+                $httpBody = $eval_run_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4344,16 +4548,16 @@ class EvalApi
      *
      * Files one score event for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\ScoreReq $score_req score_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalScoreReq $eval_score_req eval_score_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalScores'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ScoreView
+     * @return \Hanzo\Cloud\Model\EvalScoreView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEvalScores($score_req, string $contentType = self::contentTypes['postEvalScores'][0])
+    public function postEvalScores($eval_score_req, string $contentType = self::contentTypes['postEvalScores'][0])
     {
-        list($response) = $this->postEvalScoresWithHttpInfo($score_req, $contentType);
+        list($response) = $this->postEvalScoresWithHttpInfo($eval_score_req, $contentType);
         return $response;
     }
 
@@ -4362,16 +4566,16 @@ class EvalApi
      *
      * Files one score event for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\ScoreReq $score_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalScoreReq $eval_score_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalScores'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ScoreView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EvalScoreView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEvalScoresWithHttpInfo($score_req, string $contentType = self::contentTypes['postEvalScores'][0])
+    public function postEvalScoresWithHttpInfo($eval_score_req, string $contentType = self::contentTypes['postEvalScores'][0])
     {
-        $request = $this->postEvalScoresRequest($score_req, $contentType);
+        $request = $this->postEvalScoresRequest($eval_score_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4399,7 +4603,13 @@ class EvalApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ScoreView',
+                        '\Hanzo\Cloud\Model\EvalScoreView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4421,7 +4631,7 @@ class EvalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ScoreView',
+                '\Hanzo\Cloud\Model\EvalScoreView',
                 $request,
                 $response,
             );
@@ -4430,7 +4640,15 @@ class EvalApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ScoreView',
+                        '\Hanzo\Cloud\Model\EvalScoreView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4447,15 +4665,15 @@ class EvalApi
      *
      * Files one score event for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\ScoreReq $score_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalScoreReq $eval_score_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalScores'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalScoresAsync($score_req, string $contentType = self::contentTypes['postEvalScores'][0])
+    public function postEvalScoresAsync($eval_score_req, string $contentType = self::contentTypes['postEvalScores'][0])
     {
-        return $this->postEvalScoresAsyncWithHttpInfo($score_req, $contentType)
+        return $this->postEvalScoresAsyncWithHttpInfo($eval_score_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4468,16 +4686,16 @@ class EvalApi
      *
      * Files one score event for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\ScoreReq $score_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalScoreReq $eval_score_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalScores'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEvalScoresAsyncWithHttpInfo($score_req, string $contentType = self::contentTypes['postEvalScores'][0])
+    public function postEvalScoresAsyncWithHttpInfo($eval_score_req, string $contentType = self::contentTypes['postEvalScores'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ScoreView';
-        $request = $this->postEvalScoresRequest($score_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EvalScoreView';
+        $request = $this->postEvalScoresRequest($eval_score_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4518,19 +4736,19 @@ class EvalApi
     /**
      * Create request for operation 'postEvalScores'
      *
-     * @param  \Hanzo\Cloud\Model\ScoreReq $score_req (required)
+     * @param  \Hanzo\Cloud\Model\EvalScoreReq $eval_score_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEvalScores'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEvalScoresRequest($score_req, string $contentType = self::contentTypes['postEvalScores'][0])
+    public function postEvalScoresRequest($eval_score_req, string $contentType = self::contentTypes['postEvalScores'][0])
     {
 
-        // verify the required parameter 'score_req' is set
-        if ($score_req === null || (is_array($score_req) && count($score_req) === 0)) {
+        // verify the required parameter 'eval_score_req' is set
+        if ($eval_score_req === null || (is_array($eval_score_req) && count($eval_score_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $score_req when calling postEvalScores'
+                'Missing the required parameter $eval_score_req when calling postEvalScores'
             );
         }
 
@@ -4547,18 +4765,18 @@ class EvalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($score_req)) {
+        if (isset($eval_score_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($score_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($eval_score_req));
             } else {
-                $httpBody = $score_req;
+                $httpBody = $eval_score_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

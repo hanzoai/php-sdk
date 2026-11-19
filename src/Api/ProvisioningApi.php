@@ -265,6 +265,14 @@ class ProvisioningApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -372,7 +380,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -431,7 +439,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningDocdbByName
      *
-     * DropDocDB deprovisions one Hanzo DocDB database.
+     * Deprovisions one Hanzo DocDB database.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningDocdbByName'] to see the possible values for this operation
@@ -448,7 +456,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningDocdbByNameWithHttpInfo
      *
-     * DropDocDB deprovisions one Hanzo DocDB database.
+     * Deprovisions one Hanzo DocDB database.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningDocdbByName'] to see the possible values for this operation
@@ -487,6 +495,14 @@ class ProvisioningApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -497,7 +513,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningDocdbByNameAsync
      *
-     * DropDocDB deprovisions one Hanzo DocDB database.
+     * Deprovisions one Hanzo DocDB database.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningDocdbByName'] to see the possible values for this operation
@@ -518,7 +534,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningDocdbByNameAsyncWithHttpInfo
      *
-     * DropDocDB deprovisions one Hanzo DocDB database.
+     * Deprovisions one Hanzo DocDB database.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningDocdbByName'] to see the possible values for this operation
@@ -594,7 +610,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -653,7 +669,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningKvByName
      *
-     * DropKV deprovisions one Hanzo KV store.
+     * Deprovisions one Hanzo KV store.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningKvByName'] to see the possible values for this operation
@@ -670,7 +686,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningKvByNameWithHttpInfo
      *
-     * DropKV deprovisions one Hanzo KV store.
+     * Deprovisions one Hanzo KV store.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningKvByName'] to see the possible values for this operation
@@ -709,6 +725,14 @@ class ProvisioningApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -719,7 +743,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningKvByNameAsync
      *
-     * DropKV deprovisions one Hanzo KV store.
+     * Deprovisions one Hanzo KV store.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningKvByName'] to see the possible values for this operation
@@ -740,7 +764,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningKvByNameAsyncWithHttpInfo
      *
-     * DropKV deprovisions one Hanzo KV store.
+     * Deprovisions one Hanzo KV store.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningKvByName'] to see the possible values for this operation
@@ -816,7 +840,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -931,6 +955,14 @@ class ProvisioningApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1038,7 +1070,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1153,6 +1185,14 @@ class ProvisioningApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1260,7 +1300,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1319,7 +1359,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningSqlByName
      *
-     * DropSQL deprovisions one Hanzo SQL database.
+     * Deprovisions one Hanzo SQL database.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningSqlByName'] to see the possible values for this operation
@@ -1336,7 +1376,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningSqlByNameWithHttpInfo
      *
-     * DropSQL deprovisions one Hanzo SQL database.
+     * Deprovisions one Hanzo SQL database.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningSqlByName'] to see the possible values for this operation
@@ -1375,6 +1415,14 @@ class ProvisioningApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1385,7 +1433,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningSqlByNameAsync
      *
-     * DropSQL deprovisions one Hanzo SQL database.
+     * Deprovisions one Hanzo SQL database.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningSqlByName'] to see the possible values for this operation
@@ -1406,7 +1454,7 @@ class ProvisioningApi
     /**
      * Operation deleteProvisioningSqlByNameAsyncWithHttpInfo
      *
-     * DropSQL deprovisions one Hanzo SQL database.
+     * Deprovisions one Hanzo SQL database.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteProvisioningSqlByName'] to see the possible values for this operation
@@ -1482,7 +1530,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1597,6 +1645,14 @@ class ProvisioningApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1704,7 +1760,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1769,7 +1825,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedSummary[]
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningDatastore(string $contentType = self::contentTypes['getProvisioningDatastore'][0])
     {
@@ -1786,7 +1842,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedSummary[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningDatastoreWithHttpInfo(string $contentType = self::contentTypes['getProvisioningDatastore'][0])
     {
@@ -1818,7 +1874,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1840,7 +1902,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
                 $request,
                 $response,
             );
@@ -1849,7 +1911,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1893,7 +1963,7 @@ class ProvisioningApi
      */
     public function getProvisioningDatastoreAsyncWithHttpInfo(string $contentType = self::contentTypes['getProvisioningDatastore'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedSummary[]';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]';
         $request = $this->getProvisioningDatastoreRequest($contentType);
 
         return $this->client
@@ -1956,7 +2026,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2022,7 +2092,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedResource
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningDatastoreByName($name, string $contentType = self::contentTypes['getProvisioningDatastoreByName'][0])
     {
@@ -2040,7 +2110,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedResource, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningDatastoreByNameWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningDatastoreByName'][0])
     {
@@ -2072,7 +2142,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2094,7 +2170,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedResource',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
                 $request,
                 $response,
             );
@@ -2103,7 +2179,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2149,7 +2233,7 @@ class ProvisioningApi
      */
     public function getProvisioningDatastoreByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningDatastoreByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedResource';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedResource';
         $request = $this->getProvisioningDatastoreByNameRequest($name, $contentType);
 
         return $this->client
@@ -2228,7 +2312,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2287,13 +2371,13 @@ class ProvisioningApi
     /**
      * Operation getProvisioningDocdb
      *
-     * ListDocDB lists the caller org&#39;s Hanzo DocDB document databases.
+     * Lists the caller org&#39;s Hanzo DocDB document databases.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningDocdb'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedSummary[]
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningDocdb(string $contentType = self::contentTypes['getProvisioningDocdb'][0])
     {
@@ -2304,13 +2388,13 @@ class ProvisioningApi
     /**
      * Operation getProvisioningDocdbWithHttpInfo
      *
-     * ListDocDB lists the caller org&#39;s Hanzo DocDB document databases.
+     * Lists the caller org&#39;s Hanzo DocDB document databases.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningDocdb'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedSummary[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningDocdbWithHttpInfo(string $contentType = self::contentTypes['getProvisioningDocdb'][0])
     {
@@ -2342,7 +2426,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2364,7 +2454,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
                 $request,
                 $response,
             );
@@ -2373,7 +2463,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2388,7 +2486,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningDocdbAsync
      *
-     * ListDocDB lists the caller org&#39;s Hanzo DocDB document databases.
+     * Lists the caller org&#39;s Hanzo DocDB document databases.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningDocdb'] to see the possible values for this operation
      *
@@ -2408,7 +2506,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningDocdbAsyncWithHttpInfo
      *
-     * ListDocDB lists the caller org&#39;s Hanzo DocDB document databases.
+     * Lists the caller org&#39;s Hanzo DocDB document databases.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningDocdb'] to see the possible values for this operation
      *
@@ -2417,7 +2515,7 @@ class ProvisioningApi
      */
     public function getProvisioningDocdbAsyncWithHttpInfo(string $contentType = self::contentTypes['getProvisioningDocdb'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedSummary[]';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]';
         $request = $this->getProvisioningDocdbRequest($contentType);
 
         return $this->client
@@ -2480,7 +2578,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2539,14 +2637,14 @@ class ProvisioningApi
     /**
      * Operation getProvisioningDocdbByName
      *
-     * GetDocDB returns one Hanzo DocDB database&#39;s metadata.
+     * Returns one Hanzo DocDB database&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningDocdbByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedResource
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningDocdbByName($name, string $contentType = self::contentTypes['getProvisioningDocdbByName'][0])
     {
@@ -2557,14 +2655,14 @@ class ProvisioningApi
     /**
      * Operation getProvisioningDocdbByNameWithHttpInfo
      *
-     * GetDocDB returns one Hanzo DocDB database&#39;s metadata.
+     * Returns one Hanzo DocDB database&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningDocdbByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedResource, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningDocdbByNameWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningDocdbByName'][0])
     {
@@ -2596,7 +2694,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2618,7 +2722,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedResource',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
                 $request,
                 $response,
             );
@@ -2627,7 +2731,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2642,7 +2754,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningDocdbByNameAsync
      *
-     * GetDocDB returns one Hanzo DocDB database&#39;s metadata.
+     * Returns one Hanzo DocDB database&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningDocdbByName'] to see the possible values for this operation
@@ -2663,7 +2775,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningDocdbByNameAsyncWithHttpInfo
      *
-     * GetDocDB returns one Hanzo DocDB database&#39;s metadata.
+     * Returns one Hanzo DocDB database&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningDocdbByName'] to see the possible values for this operation
@@ -2673,7 +2785,7 @@ class ProvisioningApi
      */
     public function getProvisioningDocdbByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningDocdbByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedResource';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedResource';
         $request = $this->getProvisioningDocdbByNameRequest($name, $contentType);
 
         return $this->client
@@ -2752,7 +2864,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2811,13 +2923,13 @@ class ProvisioningApi
     /**
      * Operation getProvisioningKv
      *
-     * ListKV lists the caller org&#39;s Hanzo KV stores.
+     * Lists the caller org&#39;s Hanzo KV stores.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningKv'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedSummary[]
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningKv(string $contentType = self::contentTypes['getProvisioningKv'][0])
     {
@@ -2828,13 +2940,13 @@ class ProvisioningApi
     /**
      * Operation getProvisioningKvWithHttpInfo
      *
-     * ListKV lists the caller org&#39;s Hanzo KV stores.
+     * Lists the caller org&#39;s Hanzo KV stores.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningKv'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedSummary[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningKvWithHttpInfo(string $contentType = self::contentTypes['getProvisioningKv'][0])
     {
@@ -2866,7 +2978,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2888,7 +3006,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
                 $request,
                 $response,
             );
@@ -2897,7 +3015,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2912,7 +3038,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningKvAsync
      *
-     * ListKV lists the caller org&#39;s Hanzo KV stores.
+     * Lists the caller org&#39;s Hanzo KV stores.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningKv'] to see the possible values for this operation
      *
@@ -2932,7 +3058,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningKvAsyncWithHttpInfo
      *
-     * ListKV lists the caller org&#39;s Hanzo KV stores.
+     * Lists the caller org&#39;s Hanzo KV stores.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningKv'] to see the possible values for this operation
      *
@@ -2941,7 +3067,7 @@ class ProvisioningApi
      */
     public function getProvisioningKvAsyncWithHttpInfo(string $contentType = self::contentTypes['getProvisioningKv'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedSummary[]';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]';
         $request = $this->getProvisioningKvRequest($contentType);
 
         return $this->client
@@ -3004,7 +3130,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3063,14 +3189,14 @@ class ProvisioningApi
     /**
      * Operation getProvisioningKvByName
      *
-     * GetKV returns one Hanzo KV store&#39;s metadata.
+     * Returns one Hanzo KV store&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningKvByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedResource
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningKvByName($name, string $contentType = self::contentTypes['getProvisioningKvByName'][0])
     {
@@ -3081,14 +3207,14 @@ class ProvisioningApi
     /**
      * Operation getProvisioningKvByNameWithHttpInfo
      *
-     * GetKV returns one Hanzo KV store&#39;s metadata.
+     * Returns one Hanzo KV store&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningKvByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedResource, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningKvByNameWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningKvByName'][0])
     {
@@ -3120,7 +3246,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3142,7 +3274,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedResource',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
                 $request,
                 $response,
             );
@@ -3151,7 +3283,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3166,7 +3306,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningKvByNameAsync
      *
-     * GetKV returns one Hanzo KV store&#39;s metadata.
+     * Returns one Hanzo KV store&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningKvByName'] to see the possible values for this operation
@@ -3187,7 +3327,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningKvByNameAsyncWithHttpInfo
      *
-     * GetKV returns one Hanzo KV store&#39;s metadata.
+     * Returns one Hanzo KV store&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningKvByName'] to see the possible values for this operation
@@ -3197,7 +3337,7 @@ class ProvisioningApi
      */
     public function getProvisioningKvByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningKvByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedResource';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedResource';
         $request = $this->getProvisioningKvByNameRequest($name, $contentType);
 
         return $this->client
@@ -3276,7 +3416,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3341,7 +3481,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedSummary[]
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningS3(string $contentType = self::contentTypes['getProvisioningS3'][0])
     {
@@ -3358,7 +3498,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedSummary[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningS3WithHttpInfo(string $contentType = self::contentTypes['getProvisioningS3'][0])
     {
@@ -3390,7 +3530,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3412,7 +3558,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
                 $request,
                 $response,
             );
@@ -3421,7 +3567,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3465,7 +3619,7 @@ class ProvisioningApi
      */
     public function getProvisioningS3AsyncWithHttpInfo(string $contentType = self::contentTypes['getProvisioningS3'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedSummary[]';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]';
         $request = $this->getProvisioningS3Request($contentType);
 
         return $this->client
@@ -3528,7 +3682,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3594,7 +3748,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedResource
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningS3ByName($name, string $contentType = self::contentTypes['getProvisioningS3ByName'][0])
     {
@@ -3612,7 +3766,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedResource, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningS3ByNameWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningS3ByName'][0])
     {
@@ -3644,7 +3798,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3666,7 +3826,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedResource',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
                 $request,
                 $response,
             );
@@ -3675,7 +3835,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3721,7 +3889,7 @@ class ProvisioningApi
      */
     public function getProvisioningS3ByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningS3ByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedResource';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedResource';
         $request = $this->getProvisioningS3ByNameRequest($name, $contentType);
 
         return $this->client
@@ -3800,7 +3968,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3865,7 +4033,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedSummary[]
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningSearch(string $contentType = self::contentTypes['getProvisioningSearch'][0])
     {
@@ -3882,7 +4050,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedSummary[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningSearchWithHttpInfo(string $contentType = self::contentTypes['getProvisioningSearch'][0])
     {
@@ -3914,7 +4082,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3936,7 +4110,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
                 $request,
                 $response,
             );
@@ -3945,7 +4119,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3989,7 +4171,7 @@ class ProvisioningApi
      */
     public function getProvisioningSearchAsyncWithHttpInfo(string $contentType = self::contentTypes['getProvisioningSearch'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedSummary[]';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]';
         $request = $this->getProvisioningSearchRequest($contentType);
 
         return $this->client
@@ -4052,7 +4234,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4118,7 +4300,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedResource
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningSearchByName($name, string $contentType = self::contentTypes['getProvisioningSearchByName'][0])
     {
@@ -4136,7 +4318,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedResource, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningSearchByNameWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningSearchByName'][0])
     {
@@ -4168,7 +4350,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4190,7 +4378,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedResource',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
                 $request,
                 $response,
             );
@@ -4199,7 +4387,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4245,7 +4441,7 @@ class ProvisioningApi
      */
     public function getProvisioningSearchByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningSearchByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedResource';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedResource';
         $request = $this->getProvisioningSearchByNameRequest($name, $contentType);
 
         return $this->client
@@ -4324,7 +4520,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4383,13 +4579,13 @@ class ProvisioningApi
     /**
      * Operation getProvisioningSql
      *
-     * ListSQL lists the caller org&#39;s Hanzo SQL databases.
+     * Lists the caller org&#39;s Hanzo SQL databases.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningSql'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedSummary[]
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningSql(string $contentType = self::contentTypes['getProvisioningSql'][0])
     {
@@ -4400,13 +4596,13 @@ class ProvisioningApi
     /**
      * Operation getProvisioningSqlWithHttpInfo
      *
-     * ListSQL lists the caller org&#39;s Hanzo SQL databases.
+     * Lists the caller org&#39;s Hanzo SQL databases.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningSql'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedSummary[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningSqlWithHttpInfo(string $contentType = self::contentTypes['getProvisioningSql'][0])
     {
@@ -4438,7 +4634,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4460,7 +4662,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
                 $request,
                 $response,
             );
@@ -4469,7 +4671,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4484,7 +4694,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningSqlAsync
      *
-     * ListSQL lists the caller org&#39;s Hanzo SQL databases.
+     * Lists the caller org&#39;s Hanzo SQL databases.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningSql'] to see the possible values for this operation
      *
@@ -4504,7 +4714,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningSqlAsyncWithHttpInfo
      *
-     * ListSQL lists the caller org&#39;s Hanzo SQL databases.
+     * Lists the caller org&#39;s Hanzo SQL databases.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningSql'] to see the possible values for this operation
      *
@@ -4513,7 +4723,7 @@ class ProvisioningApi
      */
     public function getProvisioningSqlAsyncWithHttpInfo(string $contentType = self::contentTypes['getProvisioningSql'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedSummary[]';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]';
         $request = $this->getProvisioningSqlRequest($contentType);
 
         return $this->client
@@ -4576,7 +4786,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4635,14 +4845,14 @@ class ProvisioningApi
     /**
      * Operation getProvisioningSqlByName
      *
-     * GetSQL returns one Hanzo SQL database&#39;s metadata.
+     * Returns one Hanzo SQL database&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningSqlByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedResource
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningSqlByName($name, string $contentType = self::contentTypes['getProvisioningSqlByName'][0])
     {
@@ -4653,14 +4863,14 @@ class ProvisioningApi
     /**
      * Operation getProvisioningSqlByNameWithHttpInfo
      *
-     * GetSQL returns one Hanzo SQL database&#39;s metadata.
+     * Returns one Hanzo SQL database&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningSqlByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedResource, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningSqlByNameWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningSqlByName'][0])
     {
@@ -4692,7 +4902,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4714,7 +4930,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedResource',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
                 $request,
                 $response,
             );
@@ -4723,7 +4939,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4738,7 +4962,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningSqlByNameAsync
      *
-     * GetSQL returns one Hanzo SQL database&#39;s metadata.
+     * Returns one Hanzo SQL database&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningSqlByName'] to see the possible values for this operation
@@ -4759,7 +4983,7 @@ class ProvisioningApi
     /**
      * Operation getProvisioningSqlByNameAsyncWithHttpInfo
      *
-     * GetSQL returns one Hanzo SQL database&#39;s metadata.
+     * Returns one Hanzo SQL database&#39;s metadata.
      *
      * @param  string $name Name is the resource&#39;s org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProvisioningSqlByName'] to see the possible values for this operation
@@ -4769,7 +4993,7 @@ class ProvisioningApi
      */
     public function getProvisioningSqlByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningSqlByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedResource';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedResource';
         $request = $this->getProvisioningSqlByNameRequest($name, $contentType);
 
         return $this->client
@@ -4848,7 +5072,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4913,7 +5137,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedSummary[]
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningVector(string $contentType = self::contentTypes['getProvisioningVector'][0])
     {
@@ -4930,7 +5154,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedSummary[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningVectorWithHttpInfo(string $contentType = self::contentTypes['getProvisioningVector'][0])
     {
@@ -4962,7 +5186,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4984,7 +5214,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
                 $request,
                 $response,
             );
@@ -4993,7 +5223,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedSummary[]',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5037,7 +5275,7 @@ class ProvisioningApi
      */
     public function getProvisioningVectorAsyncWithHttpInfo(string $contentType = self::contentTypes['getProvisioningVector'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedSummary[]';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedSummary[]';
         $request = $this->getProvisioningVectorRequest($contentType);
 
         return $this->client
@@ -5100,7 +5338,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5166,7 +5404,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionedResource
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProvisioningVectorByName($name, string $contentType = self::contentTypes['getProvisioningVectorByName'][0])
     {
@@ -5184,7 +5422,7 @@ class ProvisioningApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionedResource, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionedResource|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProvisioningVectorByNameWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningVectorByName'][0])
     {
@@ -5216,7 +5454,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5238,7 +5482,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionedResource',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
                 $request,
                 $response,
             );
@@ -5247,7 +5491,15 @@ class ProvisioningApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionedResource',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionedResource',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5293,7 +5545,7 @@ class ProvisioningApi
      */
     public function getProvisioningVectorByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getProvisioningVectorByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionedResource';
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionedResource';
         $request = $this->getProvisioningVectorByNameRequest($name, $contentType);
 
         return $this->client
@@ -5372,7 +5624,7 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5433,16 +5685,16 @@ class ProvisioningApi
      *
      * Launches your org&#39;s OWN Hanzo Datastore instance and answers with its &#x60;datastore://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningDatastore'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionResult
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProvisioningDatastore($provision_request, string $contentType = self::contentTypes['postProvisioningDatastore'][0])
+    public function postProvisioningDatastore($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningDatastore'][0])
     {
-        list($response) = $this->postProvisioningDatastoreWithHttpInfo($provision_request, $contentType);
+        list($response) = $this->postProvisioningDatastoreWithHttpInfo($provisioning_provision_request, $contentType);
         return $response;
     }
 
@@ -5451,16 +5703,16 @@ class ProvisioningApi
      *
      * Launches your org&#39;s OWN Hanzo Datastore instance and answers with its &#x60;datastore://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningDatastore'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProvisioningDatastoreWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningDatastore'][0])
+    public function postProvisioningDatastoreWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningDatastore'][0])
     {
-        $request = $this->postProvisioningDatastoreRequest($provision_request, $contentType);
+        $request = $this->postProvisioningDatastoreRequest($provisioning_provision_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5488,7 +5740,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5510,7 +5768,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionResult',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
                 $request,
                 $response,
             );
@@ -5519,7 +5777,15 @@ class ProvisioningApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5536,15 +5802,15 @@ class ProvisioningApi
      *
      * Launches your org&#39;s OWN Hanzo Datastore instance and answers with its &#x60;datastore://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningDatastore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningDatastoreAsync($provision_request, string $contentType = self::contentTypes['postProvisioningDatastore'][0])
+    public function postProvisioningDatastoreAsync($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningDatastore'][0])
     {
-        return $this->postProvisioningDatastoreAsyncWithHttpInfo($provision_request, $contentType)
+        return $this->postProvisioningDatastoreAsyncWithHttpInfo($provisioning_provision_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5557,16 +5823,16 @@ class ProvisioningApi
      *
      * Launches your org&#39;s OWN Hanzo Datastore instance and answers with its &#x60;datastore://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningDatastore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningDatastoreAsyncWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningDatastore'][0])
+    public function postProvisioningDatastoreAsyncWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningDatastore'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionResult';
-        $request = $this->postProvisioningDatastoreRequest($provision_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionResult';
+        $request = $this->postProvisioningDatastoreRequest($provisioning_provision_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5607,19 +5873,19 @@ class ProvisioningApi
     /**
      * Create request for operation 'postProvisioningDatastore'
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningDatastore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProvisioningDatastoreRequest($provision_request, string $contentType = self::contentTypes['postProvisioningDatastore'][0])
+    public function postProvisioningDatastoreRequest($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningDatastore'][0])
     {
 
-        // verify the required parameter 'provision_request' is set
-        if ($provision_request === null || (is_array($provision_request) && count($provision_request) === 0)) {
+        // verify the required parameter 'provisioning_provision_request' is set
+        if ($provisioning_provision_request === null || (is_array($provisioning_provision_request) && count($provisioning_provision_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provision_request when calling postProvisioningDatastore'
+                'Missing the required parameter $provisioning_provision_request when calling postProvisioningDatastore'
             );
         }
 
@@ -5636,18 +5902,18 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($provision_request)) {
+        if (isset($provisioning_provision_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provision_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provisioning_provision_request));
             } else {
-                $httpBody = $provision_request;
+                $httpBody = $provisioning_provision_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5702,36 +5968,36 @@ class ProvisioningApi
     /**
      * Operation postProvisioningDocdb
      *
-     * CreateDocDB launches your org&#39;s OWN document-database instance and answers with its &#x60;mongodb://&#x60; connection string.
+     * Launches your org&#39;s OWN document-database instance and answers with its &#x60;mongodb://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningDocdb'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionResult
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProvisioningDocdb($provision_request, string $contentType = self::contentTypes['postProvisioningDocdb'][0])
+    public function postProvisioningDocdb($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningDocdb'][0])
     {
-        list($response) = $this->postProvisioningDocdbWithHttpInfo($provision_request, $contentType);
+        list($response) = $this->postProvisioningDocdbWithHttpInfo($provisioning_provision_request, $contentType);
         return $response;
     }
 
     /**
      * Operation postProvisioningDocdbWithHttpInfo
      *
-     * CreateDocDB launches your org&#39;s OWN document-database instance and answers with its &#x60;mongodb://&#x60; connection string.
+     * Launches your org&#39;s OWN document-database instance and answers with its &#x60;mongodb://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningDocdb'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProvisioningDocdbWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningDocdb'][0])
+    public function postProvisioningDocdbWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningDocdb'][0])
     {
-        $request = $this->postProvisioningDocdbRequest($provision_request, $contentType);
+        $request = $this->postProvisioningDocdbRequest($provisioning_provision_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5759,7 +6025,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5781,7 +6053,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionResult',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
                 $request,
                 $response,
             );
@@ -5790,7 +6062,15 @@ class ProvisioningApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5805,17 +6085,17 @@ class ProvisioningApi
     /**
      * Operation postProvisioningDocdbAsync
      *
-     * CreateDocDB launches your org&#39;s OWN document-database instance and answers with its &#x60;mongodb://&#x60; connection string.
+     * Launches your org&#39;s OWN document-database instance and answers with its &#x60;mongodb://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningDocdb'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningDocdbAsync($provision_request, string $contentType = self::contentTypes['postProvisioningDocdb'][0])
+    public function postProvisioningDocdbAsync($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningDocdb'][0])
     {
-        return $this->postProvisioningDocdbAsyncWithHttpInfo($provision_request, $contentType)
+        return $this->postProvisioningDocdbAsyncWithHttpInfo($provisioning_provision_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5826,18 +6106,18 @@ class ProvisioningApi
     /**
      * Operation postProvisioningDocdbAsyncWithHttpInfo
      *
-     * CreateDocDB launches your org&#39;s OWN document-database instance and answers with its &#x60;mongodb://&#x60; connection string.
+     * Launches your org&#39;s OWN document-database instance and answers with its &#x60;mongodb://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningDocdb'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningDocdbAsyncWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningDocdb'][0])
+    public function postProvisioningDocdbAsyncWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningDocdb'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionResult';
-        $request = $this->postProvisioningDocdbRequest($provision_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionResult';
+        $request = $this->postProvisioningDocdbRequest($provisioning_provision_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5878,19 +6158,19 @@ class ProvisioningApi
     /**
      * Create request for operation 'postProvisioningDocdb'
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningDocdb'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProvisioningDocdbRequest($provision_request, string $contentType = self::contentTypes['postProvisioningDocdb'][0])
+    public function postProvisioningDocdbRequest($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningDocdb'][0])
     {
 
-        // verify the required parameter 'provision_request' is set
-        if ($provision_request === null || (is_array($provision_request) && count($provision_request) === 0)) {
+        // verify the required parameter 'provisioning_provision_request' is set
+        if ($provisioning_provision_request === null || (is_array($provisioning_provision_request) && count($provisioning_provision_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provision_request when calling postProvisioningDocdb'
+                'Missing the required parameter $provisioning_provision_request when calling postProvisioningDocdb'
             );
         }
 
@@ -5907,18 +6187,18 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($provision_request)) {
+        if (isset($provisioning_provision_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provision_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provisioning_provision_request));
             } else {
-                $httpBody = $provision_request;
+                $httpBody = $provisioning_provision_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5973,36 +6253,36 @@ class ProvisioningApi
     /**
      * Operation postProvisioningKv
      *
-     * CreateKV launches your org&#39;s OWN key-value instance and answers with its &#x60;kv://&#x60; connection string.
+     * Launches your org&#39;s OWN key-value instance and answers with its &#x60;kv://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningKv'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionResult
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProvisioningKv($provision_request, string $contentType = self::contentTypes['postProvisioningKv'][0])
+    public function postProvisioningKv($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningKv'][0])
     {
-        list($response) = $this->postProvisioningKvWithHttpInfo($provision_request, $contentType);
+        list($response) = $this->postProvisioningKvWithHttpInfo($provisioning_provision_request, $contentType);
         return $response;
     }
 
     /**
      * Operation postProvisioningKvWithHttpInfo
      *
-     * CreateKV launches your org&#39;s OWN key-value instance and answers with its &#x60;kv://&#x60; connection string.
+     * Launches your org&#39;s OWN key-value instance and answers with its &#x60;kv://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningKv'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProvisioningKvWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningKv'][0])
+    public function postProvisioningKvWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningKv'][0])
     {
-        $request = $this->postProvisioningKvRequest($provision_request, $contentType);
+        $request = $this->postProvisioningKvRequest($provisioning_provision_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6030,7 +6310,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6052,7 +6338,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionResult',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
                 $request,
                 $response,
             );
@@ -6061,7 +6347,15 @@ class ProvisioningApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6076,17 +6370,17 @@ class ProvisioningApi
     /**
      * Operation postProvisioningKvAsync
      *
-     * CreateKV launches your org&#39;s OWN key-value instance and answers with its &#x60;kv://&#x60; connection string.
+     * Launches your org&#39;s OWN key-value instance and answers with its &#x60;kv://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningKv'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningKvAsync($provision_request, string $contentType = self::contentTypes['postProvisioningKv'][0])
+    public function postProvisioningKvAsync($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningKv'][0])
     {
-        return $this->postProvisioningKvAsyncWithHttpInfo($provision_request, $contentType)
+        return $this->postProvisioningKvAsyncWithHttpInfo($provisioning_provision_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6097,18 +6391,18 @@ class ProvisioningApi
     /**
      * Operation postProvisioningKvAsyncWithHttpInfo
      *
-     * CreateKV launches your org&#39;s OWN key-value instance and answers with its &#x60;kv://&#x60; connection string.
+     * Launches your org&#39;s OWN key-value instance and answers with its &#x60;kv://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningKv'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningKvAsyncWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningKv'][0])
+    public function postProvisioningKvAsyncWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningKv'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionResult';
-        $request = $this->postProvisioningKvRequest($provision_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionResult';
+        $request = $this->postProvisioningKvRequest($provisioning_provision_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6149,19 +6443,19 @@ class ProvisioningApi
     /**
      * Create request for operation 'postProvisioningKv'
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningKv'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProvisioningKvRequest($provision_request, string $contentType = self::contentTypes['postProvisioningKv'][0])
+    public function postProvisioningKvRequest($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningKv'][0])
     {
 
-        // verify the required parameter 'provision_request' is set
-        if ($provision_request === null || (is_array($provision_request) && count($provision_request) === 0)) {
+        // verify the required parameter 'provisioning_provision_request' is set
+        if ($provisioning_provision_request === null || (is_array($provisioning_provision_request) && count($provisioning_provision_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provision_request when calling postProvisioningKv'
+                'Missing the required parameter $provisioning_provision_request when calling postProvisioningKv'
             );
         }
 
@@ -6178,18 +6472,18 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($provision_request)) {
+        if (isset($provisioning_provision_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provision_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provisioning_provision_request));
             } else {
-                $httpBody = $provision_request;
+                $httpBody = $provisioning_provision_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6246,16 +6540,16 @@ class ProvisioningApi
      *
      * Creates an S3-compatible bucket inside the already-running shared object store and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningS3'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionResult
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProvisioningS3($provision_request, string $contentType = self::contentTypes['postProvisioningS3'][0])
+    public function postProvisioningS3($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningS3'][0])
     {
-        list($response) = $this->postProvisioningS3WithHttpInfo($provision_request, $contentType);
+        list($response) = $this->postProvisioningS3WithHttpInfo($provisioning_provision_request, $contentType);
         return $response;
     }
 
@@ -6264,16 +6558,16 @@ class ProvisioningApi
      *
      * Creates an S3-compatible bucket inside the already-running shared object store and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningS3'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProvisioningS3WithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningS3'][0])
+    public function postProvisioningS3WithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningS3'][0])
     {
-        $request = $this->postProvisioningS3Request($provision_request, $contentType);
+        $request = $this->postProvisioningS3Request($provisioning_provision_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6301,7 +6595,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6323,7 +6623,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionResult',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
                 $request,
                 $response,
             );
@@ -6332,7 +6632,15 @@ class ProvisioningApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6349,15 +6657,15 @@ class ProvisioningApi
      *
      * Creates an S3-compatible bucket inside the already-running shared object store and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningS3'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningS3Async($provision_request, string $contentType = self::contentTypes['postProvisioningS3'][0])
+    public function postProvisioningS3Async($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningS3'][0])
     {
-        return $this->postProvisioningS3AsyncWithHttpInfo($provision_request, $contentType)
+        return $this->postProvisioningS3AsyncWithHttpInfo($provisioning_provision_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6370,16 +6678,16 @@ class ProvisioningApi
      *
      * Creates an S3-compatible bucket inside the already-running shared object store and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningS3'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningS3AsyncWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningS3'][0])
+    public function postProvisioningS3AsyncWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningS3'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionResult';
-        $request = $this->postProvisioningS3Request($provision_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionResult';
+        $request = $this->postProvisioningS3Request($provisioning_provision_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6420,19 +6728,19 @@ class ProvisioningApi
     /**
      * Create request for operation 'postProvisioningS3'
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningS3'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProvisioningS3Request($provision_request, string $contentType = self::contentTypes['postProvisioningS3'][0])
+    public function postProvisioningS3Request($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningS3'][0])
     {
 
-        // verify the required parameter 'provision_request' is set
-        if ($provision_request === null || (is_array($provision_request) && count($provision_request) === 0)) {
+        // verify the required parameter 'provisioning_provision_request' is set
+        if ($provisioning_provision_request === null || (is_array($provisioning_provision_request) && count($provisioning_provision_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provision_request when calling postProvisioningS3'
+                'Missing the required parameter $provisioning_provision_request when calling postProvisioningS3'
             );
         }
 
@@ -6449,18 +6757,18 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($provision_request)) {
+        if (isset($provisioning_provision_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provision_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provisioning_provision_request));
             } else {
-                $httpBody = $provision_request;
+                $httpBody = $provisioning_provision_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6517,16 +6825,16 @@ class ProvisioningApi
      *
      * Creates a search index inside the already-running shared search backend and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionResult
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProvisioningSearch($provision_request, string $contentType = self::contentTypes['postProvisioningSearch'][0])
+    public function postProvisioningSearch($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningSearch'][0])
     {
-        list($response) = $this->postProvisioningSearchWithHttpInfo($provision_request, $contentType);
+        list($response) = $this->postProvisioningSearchWithHttpInfo($provisioning_provision_request, $contentType);
         return $response;
     }
 
@@ -6535,16 +6843,16 @@ class ProvisioningApi
      *
      * Creates a search index inside the already-running shared search backend and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProvisioningSearchWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningSearch'][0])
+    public function postProvisioningSearchWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningSearch'][0])
     {
-        $request = $this->postProvisioningSearchRequest($provision_request, $contentType);
+        $request = $this->postProvisioningSearchRequest($provisioning_provision_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6572,7 +6880,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6594,7 +6908,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionResult',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
                 $request,
                 $response,
             );
@@ -6603,7 +6917,15 @@ class ProvisioningApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6620,15 +6942,15 @@ class ProvisioningApi
      *
      * Creates a search index inside the already-running shared search backend and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningSearchAsync($provision_request, string $contentType = self::contentTypes['postProvisioningSearch'][0])
+    public function postProvisioningSearchAsync($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningSearch'][0])
     {
-        return $this->postProvisioningSearchAsyncWithHttpInfo($provision_request, $contentType)
+        return $this->postProvisioningSearchAsyncWithHttpInfo($provisioning_provision_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6641,16 +6963,16 @@ class ProvisioningApi
      *
      * Creates a search index inside the already-running shared search backend and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningSearchAsyncWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningSearch'][0])
+    public function postProvisioningSearchAsyncWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningSearch'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionResult';
-        $request = $this->postProvisioningSearchRequest($provision_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionResult';
+        $request = $this->postProvisioningSearchRequest($provisioning_provision_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6691,19 +7013,19 @@ class ProvisioningApi
     /**
      * Create request for operation 'postProvisioningSearch'
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProvisioningSearchRequest($provision_request, string $contentType = self::contentTypes['postProvisioningSearch'][0])
+    public function postProvisioningSearchRequest($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningSearch'][0])
     {
 
-        // verify the required parameter 'provision_request' is set
-        if ($provision_request === null || (is_array($provision_request) && count($provision_request) === 0)) {
+        // verify the required parameter 'provisioning_provision_request' is set
+        if ($provisioning_provision_request === null || (is_array($provisioning_provision_request) && count($provisioning_provision_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provision_request when calling postProvisioningSearch'
+                'Missing the required parameter $provisioning_provision_request when calling postProvisioningSearch'
             );
         }
 
@@ -6720,18 +7042,18 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($provision_request)) {
+        if (isset($provisioning_provision_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provision_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provisioning_provision_request));
             } else {
-                $httpBody = $provision_request;
+                $httpBody = $provisioning_provision_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6786,36 +7108,36 @@ class ProvisioningApi
     /**
      * Operation postProvisioningSql
      *
-     * CreateSQL launches your org&#39;s OWN PostgreSQL instance and answers with its &#x60;postgres://&#x60; connection string.
+     * Launches your org&#39;s OWN PostgreSQL instance and answers with its &#x60;postgres://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningSql'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionResult
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProvisioningSql($provision_request, string $contentType = self::contentTypes['postProvisioningSql'][0])
+    public function postProvisioningSql($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningSql'][0])
     {
-        list($response) = $this->postProvisioningSqlWithHttpInfo($provision_request, $contentType);
+        list($response) = $this->postProvisioningSqlWithHttpInfo($provisioning_provision_request, $contentType);
         return $response;
     }
 
     /**
      * Operation postProvisioningSqlWithHttpInfo
      *
-     * CreateSQL launches your org&#39;s OWN PostgreSQL instance and answers with its &#x60;postgres://&#x60; connection string.
+     * Launches your org&#39;s OWN PostgreSQL instance and answers with its &#x60;postgres://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningSql'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProvisioningSqlWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningSql'][0])
+    public function postProvisioningSqlWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningSql'][0])
     {
-        $request = $this->postProvisioningSqlRequest($provision_request, $contentType);
+        $request = $this->postProvisioningSqlRequest($provisioning_provision_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6843,7 +7165,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6865,7 +7193,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionResult',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
                 $request,
                 $response,
             );
@@ -6874,7 +7202,15 @@ class ProvisioningApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6889,17 +7225,17 @@ class ProvisioningApi
     /**
      * Operation postProvisioningSqlAsync
      *
-     * CreateSQL launches your org&#39;s OWN PostgreSQL instance and answers with its &#x60;postgres://&#x60; connection string.
+     * Launches your org&#39;s OWN PostgreSQL instance and answers with its &#x60;postgres://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningSql'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningSqlAsync($provision_request, string $contentType = self::contentTypes['postProvisioningSql'][0])
+    public function postProvisioningSqlAsync($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningSql'][0])
     {
-        return $this->postProvisioningSqlAsyncWithHttpInfo($provision_request, $contentType)
+        return $this->postProvisioningSqlAsyncWithHttpInfo($provisioning_provision_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6910,18 +7246,18 @@ class ProvisioningApi
     /**
      * Operation postProvisioningSqlAsyncWithHttpInfo
      *
-     * CreateSQL launches your org&#39;s OWN PostgreSQL instance and answers with its &#x60;postgres://&#x60; connection string.
+     * Launches your org&#39;s OWN PostgreSQL instance and answers with its &#x60;postgres://&#x60; connection string.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningSql'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningSqlAsyncWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningSql'][0])
+    public function postProvisioningSqlAsyncWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningSql'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionResult';
-        $request = $this->postProvisioningSqlRequest($provision_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionResult';
+        $request = $this->postProvisioningSqlRequest($provisioning_provision_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6962,19 +7298,19 @@ class ProvisioningApi
     /**
      * Create request for operation 'postProvisioningSql'
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningSql'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProvisioningSqlRequest($provision_request, string $contentType = self::contentTypes['postProvisioningSql'][0])
+    public function postProvisioningSqlRequest($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningSql'][0])
     {
 
-        // verify the required parameter 'provision_request' is set
-        if ($provision_request === null || (is_array($provision_request) && count($provision_request) === 0)) {
+        // verify the required parameter 'provisioning_provision_request' is set
+        if ($provisioning_provision_request === null || (is_array($provisioning_provision_request) && count($provisioning_provision_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provision_request when calling postProvisioningSql'
+                'Missing the required parameter $provisioning_provision_request when calling postProvisioningSql'
             );
         }
 
@@ -6991,18 +7327,18 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($provision_request)) {
+        if (isset($provisioning_provision_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provision_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provisioning_provision_request));
             } else {
-                $httpBody = $provision_request;
+                $httpBody = $provisioning_provision_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7059,16 +7395,16 @@ class ProvisioningApi
      *
      * Creates a vector collection inside the already-running shared vector backend and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningVector'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProvisionResult
+     * @return \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProvisioningVector($provision_request, string $contentType = self::contentTypes['postProvisioningVector'][0])
+    public function postProvisioningVector($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningVector'][0])
     {
-        list($response) = $this->postProvisioningVectorWithHttpInfo($provision_request, $contentType);
+        list($response) = $this->postProvisioningVectorWithHttpInfo($provisioning_provision_request, $contentType);
         return $response;
     }
 
@@ -7077,16 +7413,16 @@ class ProvisioningApi
      *
      * Creates a vector collection inside the already-running shared vector backend and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningVector'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProvisionResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProvisioningProvisionResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProvisioningVectorWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningVector'][0])
+    public function postProvisioningVectorWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningVector'][0])
     {
-        $request = $this->postProvisioningVectorRequest($provision_request, $contentType);
+        $request = $this->postProvisioningVectorRequest($provisioning_provision_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7114,7 +7450,13 @@ class ProvisioningApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7136,7 +7478,7 @@ class ProvisioningApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProvisionResult',
+                '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
                 $request,
                 $response,
             );
@@ -7145,7 +7487,15 @@ class ProvisioningApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProvisionResult',
+                        '\Hanzo\Cloud\Model\ProvisioningProvisionResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7162,15 +7512,15 @@ class ProvisioningApi
      *
      * Creates a vector collection inside the already-running shared vector backend and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningVector'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningVectorAsync($provision_request, string $contentType = self::contentTypes['postProvisioningVector'][0])
+    public function postProvisioningVectorAsync($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningVector'][0])
     {
-        return $this->postProvisioningVectorAsyncWithHttpInfo($provision_request, $contentType)
+        return $this->postProvisioningVectorAsyncWithHttpInfo($provisioning_provision_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7183,16 +7533,16 @@ class ProvisioningApi
      *
      * Creates a vector collection inside the already-running shared vector backend and answers with the endpoint that reaches it.
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningVector'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProvisioningVectorAsyncWithHttpInfo($provision_request, string $contentType = self::contentTypes['postProvisioningVector'][0])
+    public function postProvisioningVectorAsyncWithHttpInfo($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningVector'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProvisionResult';
-        $request = $this->postProvisioningVectorRequest($provision_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProvisioningProvisionResult';
+        $request = $this->postProvisioningVectorRequest($provisioning_provision_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7233,19 +7583,19 @@ class ProvisioningApi
     /**
      * Create request for operation 'postProvisioningVector'
      *
-     * @param  \Hanzo\Cloud\Model\ProvisionRequest $provision_request (required)
+     * @param  \Hanzo\Cloud\Model\ProvisioningProvisionRequest $provisioning_provision_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProvisioningVector'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProvisioningVectorRequest($provision_request, string $contentType = self::contentTypes['postProvisioningVector'][0])
+    public function postProvisioningVectorRequest($provisioning_provision_request, string $contentType = self::contentTypes['postProvisioningVector'][0])
     {
 
-        // verify the required parameter 'provision_request' is set
-        if ($provision_request === null || (is_array($provision_request) && count($provision_request) === 0)) {
+        // verify the required parameter 'provisioning_provision_request' is set
+        if ($provisioning_provision_request === null || (is_array($provisioning_provision_request) && count($provisioning_provision_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provision_request when calling postProvisioningVector'
+                'Missing the required parameter $provisioning_provision_request when calling postProvisioningVector'
             );
         }
 
@@ -7262,18 +7612,18 @@ class ProvisioningApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($provision_request)) {
+        if (isset($provisioning_provision_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provision_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($provisioning_provision_request));
             } else {
-                $httpBody = $provision_request;
+                $httpBody = $provisioning_provision_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

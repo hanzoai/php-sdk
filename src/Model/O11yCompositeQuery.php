@@ -57,14 +57,7 @@ class O11yCompositeQuery implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'builder_queries' => 'array<string,\Hanzo\Cloud\Model\O11yBuilderQuery>',
-        'ch_queries' => 'array<string,\Hanzo\Cloud\Model\O11yDatastoreQuery>',
-        'fill_gaps' => 'bool',
-        'panel_type' => 'string',
-        'prom_queries' => 'array<string,\Hanzo\Cloud\Model\O11yPromQuery>',
-        'queries' => '\Hanzo\Cloud\Model\O11yQueryEnvelope[]',
-        'query_type' => 'string',
-        'unit' => 'string'
+        'queries' => '\Hanzo\Cloud\Model\O11yQueryEnvelope[]'
     ];
 
     /**
@@ -75,14 +68,7 @@ class O11yCompositeQuery implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'builder_queries' => null,
-        'ch_queries' => null,
-        'fill_gaps' => null,
-        'panel_type' => null,
-        'prom_queries' => null,
-        'queries' => null,
-        'query_type' => null,
-        'unit' => null
+        'queries' => null
     ];
 
     /**
@@ -91,14 +77,7 @@ class O11yCompositeQuery implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'builder_queries' => false,
-        'ch_queries' => false,
-        'fill_gaps' => false,
-        'panel_type' => false,
-        'prom_queries' => false,
-        'queries' => false,
-        'query_type' => false,
-        'unit' => false
+        'queries' => false
     ];
 
     /**
@@ -187,14 +166,7 @@ class O11yCompositeQuery implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'builder_queries' => 'builderQueries',
-        'ch_queries' => 'chQueries',
-        'fill_gaps' => 'fillGaps',
-        'panel_type' => 'panelType',
-        'prom_queries' => 'promQueries',
-        'queries' => 'queries',
-        'query_type' => 'queryType',
-        'unit' => 'unit'
+        'queries' => 'queries'
     ];
 
     /**
@@ -203,14 +175,7 @@ class O11yCompositeQuery implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'builder_queries' => 'setBuilderQueries',
-        'ch_queries' => 'setChQueries',
-        'fill_gaps' => 'setFillGaps',
-        'panel_type' => 'setPanelType',
-        'prom_queries' => 'setPromQueries',
-        'queries' => 'setQueries',
-        'query_type' => 'setQueryType',
-        'unit' => 'setUnit'
+        'queries' => 'setQueries'
     ];
 
     /**
@@ -219,14 +184,7 @@ class O11yCompositeQuery implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'builder_queries' => 'getBuilderQueries',
-        'ch_queries' => 'getChQueries',
-        'fill_gaps' => 'getFillGaps',
-        'panel_type' => 'getPanelType',
-        'prom_queries' => 'getPromQueries',
-        'queries' => 'getQueries',
-        'query_type' => 'getQueryType',
-        'unit' => 'getUnit'
+        'queries' => 'getQueries'
     ];
 
     /**
@@ -286,14 +244,7 @@ class O11yCompositeQuery implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('builder_queries', $data ?? [], null);
-        $this->setIfExists('ch_queries', $data ?? [], null);
-        $this->setIfExists('fill_gaps', $data ?? [], null);
-        $this->setIfExists('panel_type', $data ?? [], null);
-        $this->setIfExists('prom_queries', $data ?? [], null);
         $this->setIfExists('queries', $data ?? [], null);
-        $this->setIfExists('query_type', $data ?? [], null);
-        $this->setIfExists('unit', $data ?? [], null);
     }
 
     /**
@@ -339,141 +290,6 @@ class O11yCompositeQuery implements ModelInterface, ArrayAccess, \JsonSerializab
 
 
     /**
-     * Gets builder_queries
-     *
-     * @return array<string,\Hanzo\Cloud\Model\O11yBuilderQuery>|null
-     */
-    public function getBuilderQueries()
-    {
-        return $this->container['builder_queries'];
-    }
-
-    /**
-     * Sets builder_queries
-     *
-     * @param array<string,\Hanzo\Cloud\Model\O11yBuilderQuery>|null $builder_queries builder_queries
-     *
-     * @return self
-     */
-    public function setBuilderQueries($builder_queries)
-    {
-        if (is_null($builder_queries)) {
-            throw new \InvalidArgumentException('non-nullable builder_queries cannot be null');
-        }
-        $this->container['builder_queries'] = $builder_queries;
-
-        return $this;
-    }
-
-    /**
-     * Gets ch_queries
-     *
-     * @return array<string,\Hanzo\Cloud\Model\O11yDatastoreQuery>|null
-     */
-    public function getChQueries()
-    {
-        return $this->container['ch_queries'];
-    }
-
-    /**
-     * Sets ch_queries
-     *
-     * @param array<string,\Hanzo\Cloud\Model\O11yDatastoreQuery>|null $ch_queries ch_queries
-     *
-     * @return self
-     */
-    public function setChQueries($ch_queries)
-    {
-        if (is_null($ch_queries)) {
-            throw new \InvalidArgumentException('non-nullable ch_queries cannot be null');
-        }
-        $this->container['ch_queries'] = $ch_queries;
-
-        return $this;
-    }
-
-    /**
-     * Gets fill_gaps
-     *
-     * @return bool|null
-     */
-    public function getFillGaps()
-    {
-        return $this->container['fill_gaps'];
-    }
-
-    /**
-     * Sets fill_gaps
-     *
-     * @param bool|null $fill_gaps FillGaps is used to fill the gaps in the time series data
-     *
-     * @return self
-     */
-    public function setFillGaps($fill_gaps)
-    {
-        if (is_null($fill_gaps)) {
-            throw new \InvalidArgumentException('non-nullable fill_gaps cannot be null');
-        }
-        $this->container['fill_gaps'] = $fill_gaps;
-
-        return $this;
-    }
-
-    /**
-     * Gets panel_type
-     *
-     * @return string|null
-     */
-    public function getPanelType()
-    {
-        return $this->container['panel_type'];
-    }
-
-    /**
-     * Sets panel_type
-     *
-     * @param string|null $panel_type panel_type
-     *
-     * @return self
-     */
-    public function setPanelType($panel_type)
-    {
-        if (is_null($panel_type)) {
-            throw new \InvalidArgumentException('non-nullable panel_type cannot be null');
-        }
-        $this->container['panel_type'] = $panel_type;
-
-        return $this;
-    }
-
-    /**
-     * Gets prom_queries
-     *
-     * @return array<string,\Hanzo\Cloud\Model\O11yPromQuery>|null
-     */
-    public function getPromQueries()
-    {
-        return $this->container['prom_queries'];
-    }
-
-    /**
-     * Sets prom_queries
-     *
-     * @param array<string,\Hanzo\Cloud\Model\O11yPromQuery>|null $prom_queries prom_queries
-     *
-     * @return self
-     */
-    public function setPromQueries($prom_queries)
-    {
-        if (is_null($prom_queries)) {
-            throw new \InvalidArgumentException('non-nullable prom_queries cannot be null');
-        }
-        $this->container['prom_queries'] = $prom_queries;
-
-        return $this;
-    }
-
-    /**
      * Gets queries
      *
      * @return \Hanzo\Cloud\Model\O11yQueryEnvelope[]|null
@@ -486,7 +302,7 @@ class O11yCompositeQuery implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets queries
      *
-     * @param \Hanzo\Cloud\Model\O11yQueryEnvelope[]|null $queries queries
+     * @param \Hanzo\Cloud\Model\O11yQueryEnvelope[]|null $queries Queries is the queries to use for the request.
      *
      * @return self
      */
@@ -496,60 +312,6 @@ class O11yCompositeQuery implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable queries cannot be null');
         }
         $this->container['queries'] = $queries;
-
-        return $this;
-    }
-
-    /**
-     * Gets query_type
-     *
-     * @return string|null
-     */
-    public function getQueryType()
-    {
-        return $this->container['query_type'];
-    }
-
-    /**
-     * Sets query_type
-     *
-     * @param string|null $query_type query_type
-     *
-     * @return self
-     */
-    public function setQueryType($query_type)
-    {
-        if (is_null($query_type)) {
-            throw new \InvalidArgumentException('non-nullable query_type cannot be null');
-        }
-        $this->container['query_type'] = $query_type;
-
-        return $this;
-    }
-
-    /**
-     * Gets unit
-     *
-     * @return string|null
-     */
-    public function getUnit()
-    {
-        return $this->container['unit'];
-    }
-
-    /**
-     * Sets unit
-     *
-     * @param string|null $unit Unit for the time series data shown in the graph This is used in alerts to format the value and threshold
-     *
-     * @return self
-     */
-    public function setUnit($unit)
-    {
-        if (is_null($unit)) {
-            throw new \InvalidArgumentException('non-nullable unit cannot be null');
-        }
-        $this->container['unit'] = $unit;
 
         return $this;
     }

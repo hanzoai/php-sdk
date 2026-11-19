@@ -74,7 +74,7 @@ class AccountApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
-        'deleteAccountKeys' => [
+        'deleteAccountKeysById' => [
             'application/json',
         ],
         'getAccountAppearance' => [
@@ -90,6 +90,9 @@ class AccountApi
             'application/json',
         ],
         'getAccountKeys' => [
+            'application/json',
+        ],
+        'patchAccountKeysById' => [
             'application/json',
         ],
         'postAccountAppearance' => [
@@ -153,38 +156,38 @@ class AccountApi
     }
 
     /**
-     * Operation deleteAccountKeys
+     * Operation deleteAccountKeysById
      *
-     * Revokes the caller&#39;s own API key of the requested class.
+     * Revokes exactly one API key, by id.
      *
-     * @param  string|null $type Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeys'] to see the possible values for this operation
+     * @param  string $id ID is the key to act on, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeysById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RevokedKey
+     * @return \Hanzo\Cloud\Model\AccountApiKey|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function deleteAccountKeys($type = null, string $contentType = self::contentTypes['deleteAccountKeys'][0])
+    public function deleteAccountKeysById($id, string $contentType = self::contentTypes['deleteAccountKeysById'][0])
     {
-        list($response) = $this->deleteAccountKeysWithHttpInfo($type, $contentType);
+        list($response) = $this->deleteAccountKeysByIdWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation deleteAccountKeysWithHttpInfo
+     * Operation deleteAccountKeysByIdWithHttpInfo
      *
-     * Revokes the caller&#39;s own API key of the requested class.
+     * Revokes exactly one API key, by id.
      *
-     * @param  string|null $type Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeys'] to see the possible values for this operation
+     * @param  string $id ID is the key to act on, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeysById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RevokedKey, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AccountApiKey|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAccountKeysWithHttpInfo($type = null, string $contentType = self::contentTypes['deleteAccountKeys'][0])
+    public function deleteAccountKeysByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteAccountKeysById'][0])
     {
-        $request = $this->deleteAccountKeysRequest($type, $contentType);
+        $request = $this->deleteAccountKeysByIdRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -212,7 +215,13 @@ class AccountApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RevokedKey',
+                        '\Hanzo\Cloud\Model\AccountApiKey',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -234,7 +243,7 @@ class AccountApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RevokedKey',
+                '\Hanzo\Cloud\Model\AccountApiKey',
                 $request,
                 $response,
             );
@@ -243,7 +252,15 @@ class AccountApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RevokedKey',
+                        '\Hanzo\Cloud\Model\AccountApiKey',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -256,19 +273,19 @@ class AccountApi
     }
 
     /**
-     * Operation deleteAccountKeysAsync
+     * Operation deleteAccountKeysByIdAsync
      *
-     * Revokes the caller&#39;s own API key of the requested class.
+     * Revokes exactly one API key, by id.
      *
-     * @param  string|null $type Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeys'] to see the possible values for this operation
+     * @param  string $id ID is the key to act on, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeysById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAccountKeysAsync($type = null, string $contentType = self::contentTypes['deleteAccountKeys'][0])
+    public function deleteAccountKeysByIdAsync($id, string $contentType = self::contentTypes['deleteAccountKeysById'][0])
     {
-        return $this->deleteAccountKeysAsyncWithHttpInfo($type, $contentType)
+        return $this->deleteAccountKeysByIdAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -277,20 +294,20 @@ class AccountApi
     }
 
     /**
-     * Operation deleteAccountKeysAsyncWithHttpInfo
+     * Operation deleteAccountKeysByIdAsyncWithHttpInfo
      *
-     * Revokes the caller&#39;s own API key of the requested class.
+     * Revokes exactly one API key, by id.
      *
-     * @param  string|null $type Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeys'] to see the possible values for this operation
+     * @param  string $id ID is the key to act on, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeysById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAccountKeysAsyncWithHttpInfo($type = null, string $contentType = self::contentTypes['deleteAccountKeys'][0])
+    public function deleteAccountKeysByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteAccountKeysById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RevokedKey';
-        $request = $this->deleteAccountKeysRequest($type, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AccountApiKey';
+        $request = $this->deleteAccountKeysByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -329,41 +346,46 @@ class AccountApi
     }
 
     /**
-     * Create request for operation 'deleteAccountKeys'
+     * Create request for operation 'deleteAccountKeysById'
      *
-     * @param  string|null $type Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeys'] to see the possible values for this operation
+     * @param  string $id ID is the key to act on, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeysById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteAccountKeysRequest($type = null, string $contentType = self::contentTypes['deleteAccountKeys'][0])
+    public function deleteAccountKeysByIdRequest($id, string $contentType = self::contentTypes['deleteAccountKeysById'][0])
     {
 
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteAccountKeysById'
+            );
+        }
 
 
-        $resourcePath = '/v1/account/keys';
+        $resourcePath = '/v1/account/keys/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $type,
-            'type', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
 
 
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -428,7 +450,7 @@ class AccountApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Appearance
+     * @return \Hanzo\Cloud\Model\AccountAppearance|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAccountAppearance(string $contentType = self::contentTypes['getAccountAppearance'][0])
     {
@@ -445,7 +467,7 @@ class AccountApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Appearance, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AccountAppearance|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAccountAppearanceWithHttpInfo(string $contentType = self::contentTypes['getAccountAppearance'][0])
     {
@@ -477,7 +499,13 @@ class AccountApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Appearance',
+                        '\Hanzo\Cloud\Model\AccountAppearance',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -499,7 +527,7 @@ class AccountApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Appearance',
+                '\Hanzo\Cloud\Model\AccountAppearance',
                 $request,
                 $response,
             );
@@ -508,7 +536,15 @@ class AccountApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Appearance',
+                        '\Hanzo\Cloud\Model\AccountAppearance',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -552,7 +588,7 @@ class AccountApi
      */
     public function getAccountAppearanceAsyncWithHttpInfo(string $contentType = self::contentTypes['getAccountAppearance'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Appearance';
+        $returnType = '\Hanzo\Cloud\Model\AccountAppearance';
         $request = $this->getAccountAppearanceRequest($contentType);
 
         return $this->client
@@ -615,7 +651,7 @@ class AccountApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -907,10 +943,6 @@ class AccountApi
             }
         }
 
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -936,13 +968,13 @@ class AccountApi
     /**
      * Operation getAccountCsrf
      *
-     * IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
+     * Mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountCsrf'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CsrfResp
+     * @return \Hanzo\Cloud\Model\AccountCsrfResp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAccountCsrf(string $contentType = self::contentTypes['getAccountCsrf'][0])
     {
@@ -953,13 +985,13 @@ class AccountApi
     /**
      * Operation getAccountCsrfWithHttpInfo
      *
-     * IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
+     * Mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountCsrf'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CsrfResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AccountCsrfResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAccountCsrfWithHttpInfo(string $contentType = self::contentTypes['getAccountCsrf'][0])
     {
@@ -991,7 +1023,13 @@ class AccountApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CsrfResp',
+                        '\Hanzo\Cloud\Model\AccountCsrfResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1013,7 +1051,7 @@ class AccountApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CsrfResp',
+                '\Hanzo\Cloud\Model\AccountCsrfResp',
                 $request,
                 $response,
             );
@@ -1022,7 +1060,15 @@ class AccountApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CsrfResp',
+                        '\Hanzo\Cloud\Model\AccountCsrfResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1037,7 +1083,7 @@ class AccountApi
     /**
      * Operation getAccountCsrfAsync
      *
-     * IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
+     * Mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountCsrf'] to see the possible values for this operation
      *
@@ -1057,7 +1103,7 @@ class AccountApi
     /**
      * Operation getAccountCsrfAsyncWithHttpInfo
      *
-     * IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
+     * Mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountCsrf'] to see the possible values for this operation
      *
@@ -1066,7 +1112,7 @@ class AccountApi
      */
     public function getAccountCsrfAsyncWithHttpInfo(string $contentType = self::contentTypes['getAccountCsrf'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CsrfResp';
+        $returnType = '\Hanzo\Cloud\Model\AccountCsrfResp';
         $request = $this->getAccountCsrfRequest($contentType);
 
         return $this->client
@@ -1129,7 +1175,7 @@ class AccountApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1195,7 +1241,7 @@ class AccountApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EmbedStatusResp
+     * @return \Hanzo\Cloud\Model\AccountEmbedStatusResp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAccountEmbed($app = null, string $contentType = self::contentTypes['getAccountEmbed'][0])
     {
@@ -1213,7 +1259,7 @@ class AccountApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EmbedStatusResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AccountEmbedStatusResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAccountEmbedWithHttpInfo($app = null, string $contentType = self::contentTypes['getAccountEmbed'][0])
     {
@@ -1245,7 +1291,13 @@ class AccountApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EmbedStatusResp',
+                        '\Hanzo\Cloud\Model\AccountEmbedStatusResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1267,7 +1319,7 @@ class AccountApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EmbedStatusResp',
+                '\Hanzo\Cloud\Model\AccountEmbedStatusResp',
                 $request,
                 $response,
             );
@@ -1276,7 +1328,15 @@ class AccountApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EmbedStatusResp',
+                        '\Hanzo\Cloud\Model\AccountEmbedStatusResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1322,7 +1382,7 @@ class AccountApi
      */
     public function getAccountEmbedAsyncWithHttpInfo($app = null, string $contentType = self::contentTypes['getAccountEmbed'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EmbedStatusResp';
+        $returnType = '\Hanzo\Cloud\Model\AccountEmbedStatusResp';
         $request = $this->getAccountEmbedRequest($app, $contentType);
 
         return $this->client
@@ -1396,7 +1456,7 @@ class AccountApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1455,13 +1515,13 @@ class AccountApi
     /**
      * Operation getAccountKeys
      *
-     * Returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
+     * Returns the API keys the caller may see, newest first: their own, or every key the org holds when the caller administers it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountKeys'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ApiKeyList
+     * @return \Hanzo\Cloud\Model\AccountApiKeyList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAccountKeys(string $contentType = self::contentTypes['getAccountKeys'][0])
     {
@@ -1472,13 +1532,13 @@ class AccountApi
     /**
      * Operation getAccountKeysWithHttpInfo
      *
-     * Returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
+     * Returns the API keys the caller may see, newest first: their own, or every key the org holds when the caller administers it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountKeys'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ApiKeyList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AccountApiKeyList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAccountKeysWithHttpInfo(string $contentType = self::contentTypes['getAccountKeys'][0])
     {
@@ -1510,7 +1570,13 @@ class AccountApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ApiKeyList',
+                        '\Hanzo\Cloud\Model\AccountApiKeyList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1532,7 +1598,7 @@ class AccountApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ApiKeyList',
+                '\Hanzo\Cloud\Model\AccountApiKeyList',
                 $request,
                 $response,
             );
@@ -1541,7 +1607,15 @@ class AccountApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ApiKeyList',
+                        '\Hanzo\Cloud\Model\AccountApiKeyList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1556,7 +1630,7 @@ class AccountApi
     /**
      * Operation getAccountKeysAsync
      *
-     * Returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
+     * Returns the API keys the caller may see, newest first: their own, or every key the org holds when the caller administers it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountKeys'] to see the possible values for this operation
      *
@@ -1576,7 +1650,7 @@ class AccountApi
     /**
      * Operation getAccountKeysAsyncWithHttpInfo
      *
-     * Returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
+     * Returns the API keys the caller may see, newest first: their own, or every key the org holds when the caller administers it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountKeys'] to see the possible values for this operation
      *
@@ -1585,7 +1659,7 @@ class AccountApi
      */
     public function getAccountKeysAsyncWithHttpInfo(string $contentType = self::contentTypes['getAccountKeys'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ApiKeyList';
+        $returnType = '\Hanzo\Cloud\Model\AccountApiKeyList';
         $request = $this->getAccountKeysRequest($contentType);
 
         return $this->client
@@ -1648,7 +1722,7 @@ class AccountApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1705,38 +1779,40 @@ class AccountApi
     }
 
     /**
-     * Operation postAccountAppearance
+     * Operation patchAccountKeysById
      *
-     * Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
+     * Changes one key&#39;s name, permissions, budget, rate or expiry.
      *
-     * @param  \Hanzo\Cloud\Model\Appearance $appearance appearance (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
+     * @param  string $id ID is the key to edit, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AccountKeyEdit $account_key_edit account_key_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAccountKeysById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Appearance
+     * @return \Hanzo\Cloud\Model\AccountApiKey|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAccountAppearance($appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
+    public function patchAccountKeysById($id, $account_key_edit, string $contentType = self::contentTypes['patchAccountKeysById'][0])
     {
-        list($response) = $this->postAccountAppearanceWithHttpInfo($appearance, $contentType);
+        list($response) = $this->patchAccountKeysByIdWithHttpInfo($id, $account_key_edit, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAccountAppearanceWithHttpInfo
+     * Operation patchAccountKeysByIdWithHttpInfo
      *
-     * Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
+     * Changes one key&#39;s name, permissions, budget, rate or expiry.
      *
-     * @param  \Hanzo\Cloud\Model\Appearance $appearance (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
+     * @param  string $id ID is the key to edit, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AccountKeyEdit $account_key_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAccountKeysById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Appearance, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AccountApiKey|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAccountAppearanceWithHttpInfo($appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
+    public function patchAccountKeysByIdWithHttpInfo($id, $account_key_edit, string $contentType = self::contentTypes['patchAccountKeysById'][0])
     {
-        $request = $this->postAccountAppearanceRequest($appearance, $contentType);
+        $request = $this->patchAccountKeysByIdRequest($id, $account_key_edit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1764,7 +1840,13 @@ class AccountApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Appearance',
+                        '\Hanzo\Cloud\Model\AccountApiKey',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1786,7 +1868,7 @@ class AccountApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Appearance',
+                '\Hanzo\Cloud\Model\AccountApiKey',
                 $request,
                 $response,
             );
@@ -1795,7 +1877,318 @@ class AccountApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Appearance',
+                        '\Hanzo\Cloud\Model\AccountApiKey',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation patchAccountKeysByIdAsync
+     *
+     * Changes one key&#39;s name, permissions, budget, rate or expiry.
+     *
+     * @param  string $id ID is the key to edit, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AccountKeyEdit $account_key_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAccountKeysById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchAccountKeysByIdAsync($id, $account_key_edit, string $contentType = self::contentTypes['patchAccountKeysById'][0])
+    {
+        return $this->patchAccountKeysByIdAsyncWithHttpInfo($id, $account_key_edit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation patchAccountKeysByIdAsyncWithHttpInfo
+     *
+     * Changes one key&#39;s name, permissions, budget, rate or expiry.
+     *
+     * @param  string $id ID is the key to edit, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AccountKeyEdit $account_key_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAccountKeysById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchAccountKeysByIdAsyncWithHttpInfo($id, $account_key_edit, string $contentType = self::contentTypes['patchAccountKeysById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AccountApiKey';
+        $request = $this->patchAccountKeysByIdRequest($id, $account_key_edit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'patchAccountKeysById'
+     *
+     * @param  string $id ID is the key to edit, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\AccountKeyEdit $account_key_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAccountKeysById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function patchAccountKeysByIdRequest($id, $account_key_edit, string $contentType = self::contentTypes['patchAccountKeysById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling patchAccountKeysById'
+            );
+        }
+
+        // verify the required parameter 'account_key_edit' is set
+        if ($account_key_edit === null || (is_array($account_key_edit) && count($account_key_edit) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account_key_edit when calling patchAccountKeysById'
+            );
+        }
+
+
+        $resourcePath = '/v1/account/keys/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($account_key_edit)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($account_key_edit));
+            } else {
+                $httpBody = $account_key_edit;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postAccountAppearance
+     *
+     * Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
+     *
+     * @param  \Hanzo\Cloud\Model\AccountAppearance $account_appearance account_appearance (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AccountAppearance|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postAccountAppearance($account_appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
+    {
+        list($response) = $this->postAccountAppearanceWithHttpInfo($account_appearance, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postAccountAppearanceWithHttpInfo
+     *
+     * Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
+     *
+     * @param  \Hanzo\Cloud\Model\AccountAppearance $account_appearance (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AccountAppearance|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAccountAppearanceWithHttpInfo($account_appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
+    {
+        $request = $this->postAccountAppearanceRequest($account_appearance, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AccountAppearance',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AccountAppearance',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AccountAppearance',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1812,15 +2205,15 @@ class AccountApi
      *
      * Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
      *
-     * @param  \Hanzo\Cloud\Model\Appearance $appearance (required)
+     * @param  \Hanzo\Cloud\Model\AccountAppearance $account_appearance (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountAppearanceAsync($appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
+    public function postAccountAppearanceAsync($account_appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
     {
-        return $this->postAccountAppearanceAsyncWithHttpInfo($appearance, $contentType)
+        return $this->postAccountAppearanceAsyncWithHttpInfo($account_appearance, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1833,16 +2226,16 @@ class AccountApi
      *
      * Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
      *
-     * @param  \Hanzo\Cloud\Model\Appearance $appearance (required)
+     * @param  \Hanzo\Cloud\Model\AccountAppearance $account_appearance (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountAppearanceAsyncWithHttpInfo($appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
+    public function postAccountAppearanceAsyncWithHttpInfo($account_appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Appearance';
-        $request = $this->postAccountAppearanceRequest($appearance, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AccountAppearance';
+        $request = $this->postAccountAppearanceRequest($account_appearance, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1883,19 +2276,19 @@ class AccountApi
     /**
      * Create request for operation 'postAccountAppearance'
      *
-     * @param  \Hanzo\Cloud\Model\Appearance $appearance (required)
+     * @param  \Hanzo\Cloud\Model\AccountAppearance $account_appearance (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAccountAppearanceRequest($appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
+    public function postAccountAppearanceRequest($account_appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
     {
 
-        // verify the required parameter 'appearance' is set
-        if ($appearance === null || (is_array($appearance) && count($appearance) === 0)) {
+        // verify the required parameter 'account_appearance' is set
+        if ($account_appearance === null || (is_array($account_appearance) && count($account_appearance) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $appearance when calling postAccountAppearance'
+                'Missing the required parameter $account_appearance when calling postAccountAppearance'
             );
         }
 
@@ -1912,18 +2305,18 @@ class AccountApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($appearance)) {
+        if (isset($account_appearance)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($appearance));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($account_appearance));
             } else {
-                $httpBody = $appearance;
+                $httpBody = $account_appearance;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2180,36 +2573,36 @@ class AccountApi
     /**
      * Operation postAccountKeys
      *
-     * Creates — or rotates — the caller&#39;s API key of the requested type and returns it ONCE.
+     * Creates a NEW API key and returns its secret ONCE.
      *
-     * @param  \Hanzo\Cloud\Model\KeyTypeIn $key_type_in key_type_in (required)
+     * @param  \Hanzo\Cloud\Model\AccountKeyIn $account_key_in account_key_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountKeys'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MintedKey
+     * @return \Hanzo\Cloud\Model\AccountApiKey|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAccountKeys($key_type_in, string $contentType = self::contentTypes['postAccountKeys'][0])
+    public function postAccountKeys($account_key_in, string $contentType = self::contentTypes['postAccountKeys'][0])
     {
-        list($response) = $this->postAccountKeysWithHttpInfo($key_type_in, $contentType);
+        list($response) = $this->postAccountKeysWithHttpInfo($account_key_in, $contentType);
         return $response;
     }
 
     /**
      * Operation postAccountKeysWithHttpInfo
      *
-     * Creates — or rotates — the caller&#39;s API key of the requested type and returns it ONCE.
+     * Creates a NEW API key and returns its secret ONCE.
      *
-     * @param  \Hanzo\Cloud\Model\KeyTypeIn $key_type_in (required)
+     * @param  \Hanzo\Cloud\Model\AccountKeyIn $account_key_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountKeys'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MintedKey, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AccountApiKey|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAccountKeysWithHttpInfo($key_type_in, string $contentType = self::contentTypes['postAccountKeys'][0])
+    public function postAccountKeysWithHttpInfo($account_key_in, string $contentType = self::contentTypes['postAccountKeys'][0])
     {
-        $request = $this->postAccountKeysRequest($key_type_in, $contentType);
+        $request = $this->postAccountKeysRequest($account_key_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2237,7 +2630,13 @@ class AccountApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MintedKey',
+                        '\Hanzo\Cloud\Model\AccountApiKey',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2259,7 +2658,7 @@ class AccountApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MintedKey',
+                '\Hanzo\Cloud\Model\AccountApiKey',
                 $request,
                 $response,
             );
@@ -2268,7 +2667,15 @@ class AccountApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MintedKey',
+                        '\Hanzo\Cloud\Model\AccountApiKey',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2283,17 +2690,17 @@ class AccountApi
     /**
      * Operation postAccountKeysAsync
      *
-     * Creates — or rotates — the caller&#39;s API key of the requested type and returns it ONCE.
+     * Creates a NEW API key and returns its secret ONCE.
      *
-     * @param  \Hanzo\Cloud\Model\KeyTypeIn $key_type_in (required)
+     * @param  \Hanzo\Cloud\Model\AccountKeyIn $account_key_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountKeys'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountKeysAsync($key_type_in, string $contentType = self::contentTypes['postAccountKeys'][0])
+    public function postAccountKeysAsync($account_key_in, string $contentType = self::contentTypes['postAccountKeys'][0])
     {
-        return $this->postAccountKeysAsyncWithHttpInfo($key_type_in, $contentType)
+        return $this->postAccountKeysAsyncWithHttpInfo($account_key_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2304,18 +2711,18 @@ class AccountApi
     /**
      * Operation postAccountKeysAsyncWithHttpInfo
      *
-     * Creates — or rotates — the caller&#39;s API key of the requested type and returns it ONCE.
+     * Creates a NEW API key and returns its secret ONCE.
      *
-     * @param  \Hanzo\Cloud\Model\KeyTypeIn $key_type_in (required)
+     * @param  \Hanzo\Cloud\Model\AccountKeyIn $account_key_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountKeys'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountKeysAsyncWithHttpInfo($key_type_in, string $contentType = self::contentTypes['postAccountKeys'][0])
+    public function postAccountKeysAsyncWithHttpInfo($account_key_in, string $contentType = self::contentTypes['postAccountKeys'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MintedKey';
-        $request = $this->postAccountKeysRequest($key_type_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AccountApiKey';
+        $request = $this->postAccountKeysRequest($account_key_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2356,19 +2763,19 @@ class AccountApi
     /**
      * Create request for operation 'postAccountKeys'
      *
-     * @param  \Hanzo\Cloud\Model\KeyTypeIn $key_type_in (required)
+     * @param  \Hanzo\Cloud\Model\AccountKeyIn $account_key_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountKeys'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAccountKeysRequest($key_type_in, string $contentType = self::contentTypes['postAccountKeys'][0])
+    public function postAccountKeysRequest($account_key_in, string $contentType = self::contentTypes['postAccountKeys'][0])
     {
 
-        // verify the required parameter 'key_type_in' is set
-        if ($key_type_in === null || (is_array($key_type_in) && count($key_type_in) === 0)) {
+        // verify the required parameter 'account_key_in' is set
+        if ($account_key_in === null || (is_array($account_key_in) && count($account_key_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $key_type_in when calling postAccountKeys'
+                'Missing the required parameter $account_key_in when calling postAccountKeys'
             );
         }
 
@@ -2385,18 +2792,18 @@ class AccountApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($key_type_in)) {
+        if (isset($account_key_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($key_type_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($account_key_in));
             } else {
-                $httpBody = $key_type_in;
+                $httpBody = $account_key_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2451,36 +2858,36 @@ class AccountApi
     /**
      * Operation postAccountOrgs
      *
-     * Onboard creates the caller&#39;s organization.
+     * Creates an organization and makes the caller its owner.
      *
-     * @param  \Hanzo\Cloud\Model\OnboardReq $onboard_req onboard_req (required)
+     * @param  \Hanzo\Cloud\Model\AccountOnboardReq $account_onboard_req account_onboard_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountOrgs'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OnboardResp
+     * @return \Hanzo\Cloud\Model\AccountOnboardResp|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAccountOrgs($onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
+    public function postAccountOrgs($account_onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
     {
-        list($response) = $this->postAccountOrgsWithHttpInfo($onboard_req, $contentType);
+        list($response) = $this->postAccountOrgsWithHttpInfo($account_onboard_req, $contentType);
         return $response;
     }
 
     /**
      * Operation postAccountOrgsWithHttpInfo
      *
-     * Onboard creates the caller&#39;s organization.
+     * Creates an organization and makes the caller its owner.
      *
-     * @param  \Hanzo\Cloud\Model\OnboardReq $onboard_req (required)
+     * @param  \Hanzo\Cloud\Model\AccountOnboardReq $account_onboard_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountOrgs'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OnboardResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AccountOnboardResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAccountOrgsWithHttpInfo($onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
+    public function postAccountOrgsWithHttpInfo($account_onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
     {
-        $request = $this->postAccountOrgsRequest($onboard_req, $contentType);
+        $request = $this->postAccountOrgsRequest($account_onboard_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2508,7 +2915,13 @@ class AccountApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OnboardResp',
+                        '\Hanzo\Cloud\Model\AccountOnboardResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2530,7 +2943,7 @@ class AccountApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OnboardResp',
+                '\Hanzo\Cloud\Model\AccountOnboardResp',
                 $request,
                 $response,
             );
@@ -2539,7 +2952,15 @@ class AccountApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OnboardResp',
+                        '\Hanzo\Cloud\Model\AccountOnboardResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2554,17 +2975,17 @@ class AccountApi
     /**
      * Operation postAccountOrgsAsync
      *
-     * Onboard creates the caller&#39;s organization.
+     * Creates an organization and makes the caller its owner.
      *
-     * @param  \Hanzo\Cloud\Model\OnboardReq $onboard_req (required)
+     * @param  \Hanzo\Cloud\Model\AccountOnboardReq $account_onboard_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountOrgs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountOrgsAsync($onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
+    public function postAccountOrgsAsync($account_onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
     {
-        return $this->postAccountOrgsAsyncWithHttpInfo($onboard_req, $contentType)
+        return $this->postAccountOrgsAsyncWithHttpInfo($account_onboard_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2575,18 +2996,18 @@ class AccountApi
     /**
      * Operation postAccountOrgsAsyncWithHttpInfo
      *
-     * Onboard creates the caller&#39;s organization.
+     * Creates an organization and makes the caller its owner.
      *
-     * @param  \Hanzo\Cloud\Model\OnboardReq $onboard_req (required)
+     * @param  \Hanzo\Cloud\Model\AccountOnboardReq $account_onboard_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountOrgs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountOrgsAsyncWithHttpInfo($onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
+    public function postAccountOrgsAsyncWithHttpInfo($account_onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OnboardResp';
-        $request = $this->postAccountOrgsRequest($onboard_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AccountOnboardResp';
+        $request = $this->postAccountOrgsRequest($account_onboard_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2627,19 +3048,19 @@ class AccountApi
     /**
      * Create request for operation 'postAccountOrgs'
      *
-     * @param  \Hanzo\Cloud\Model\OnboardReq $onboard_req (required)
+     * @param  \Hanzo\Cloud\Model\AccountOnboardReq $account_onboard_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountOrgs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAccountOrgsRequest($onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
+    public function postAccountOrgsRequest($account_onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
     {
 
-        // verify the required parameter 'onboard_req' is set
-        if ($onboard_req === null || (is_array($onboard_req) && count($onboard_req) === 0)) {
+        // verify the required parameter 'account_onboard_req' is set
+        if ($account_onboard_req === null || (is_array($account_onboard_req) && count($account_onboard_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $onboard_req when calling postAccountOrgs'
+                'Missing the required parameter $account_onboard_req when calling postAccountOrgs'
             );
         }
 
@@ -2656,18 +3077,18 @@ class AccountApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($onboard_req)) {
+        if (isset($account_onboard_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($onboard_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($account_onboard_req));
             } else {
-                $httpBody = $onboard_req;
+                $httpBody = $account_onboard_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

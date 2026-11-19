@@ -57,20 +57,16 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'action' => 'string',
-        'client_ip' => 'string',
         'created_time' => 'string',
-        'is_triggered' => 'bool',
-        'language' => 'string',
-        'method' => 'string',
+        'description' => 'string',
+        'display_name' => 'string',
+        'domains' => 'string[]',
+        'is_enabled' => 'bool',
         'name' => 'string',
-        'object' => 'string',
-        'organization' => 'string',
         'owner' => 'string',
-        'request_uri' => 'string',
-        'response' => 'string',
-        'status_code' => 'int',
-        'user' => 'string'
+        'roles' => 'string[]',
+        'teams' => 'string[]',
+        'users' => 'string[]'
     ];
 
     /**
@@ -81,20 +77,16 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'action' => null,
-        'client_ip' => null,
         'created_time' => null,
-        'is_triggered' => null,
-        'language' => null,
-        'method' => null,
+        'description' => null,
+        'display_name' => null,
+        'domains' => null,
+        'is_enabled' => null,
         'name' => null,
-        'object' => null,
-        'organization' => null,
         'owner' => null,
-        'request_uri' => null,
-        'response' => null,
-        'status_code' => 'int64',
-        'user' => null
+        'roles' => null,
+        'teams' => null,
+        'users' => null
     ];
 
     /**
@@ -103,20 +95,16 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'action' => false,
-        'client_ip' => false,
         'created_time' => false,
-        'is_triggered' => false,
-        'language' => false,
-        'method' => false,
+        'description' => false,
+        'display_name' => false,
+        'domains' => false,
+        'is_enabled' => false,
         'name' => false,
-        'object' => false,
-        'organization' => false,
         'owner' => false,
-        'request_uri' => false,
-        'response' => false,
-        'status_code' => false,
-        'user' => false
+        'roles' => false,
+        'teams' => false,
+        'users' => false
     ];
 
     /**
@@ -205,20 +193,16 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'action' => 'action',
-        'client_ip' => 'clientIp',
         'created_time' => 'createdTime',
-        'is_triggered' => 'isTriggered',
-        'language' => 'language',
-        'method' => 'method',
+        'description' => 'description',
+        'display_name' => 'displayName',
+        'domains' => 'domains',
+        'is_enabled' => 'isEnabled',
         'name' => 'name',
-        'object' => 'object',
-        'organization' => 'organization',
         'owner' => 'owner',
-        'request_uri' => 'requestUri',
-        'response' => 'response',
-        'status_code' => 'statusCode',
-        'user' => 'user'
+        'roles' => 'roles',
+        'teams' => 'teams',
+        'users' => 'users'
     ];
 
     /**
@@ -227,20 +211,16 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'action' => 'setAction',
-        'client_ip' => 'setClientIp',
         'created_time' => 'setCreatedTime',
-        'is_triggered' => 'setIsTriggered',
-        'language' => 'setLanguage',
-        'method' => 'setMethod',
+        'description' => 'setDescription',
+        'display_name' => 'setDisplayName',
+        'domains' => 'setDomains',
+        'is_enabled' => 'setIsEnabled',
         'name' => 'setName',
-        'object' => 'setObject',
-        'organization' => 'setOrganization',
         'owner' => 'setOwner',
-        'request_uri' => 'setRequestUri',
-        'response' => 'setResponse',
-        'status_code' => 'setStatusCode',
-        'user' => 'setUser'
+        'roles' => 'setRoles',
+        'teams' => 'setTeams',
+        'users' => 'setUsers'
     ];
 
     /**
@@ -249,20 +229,16 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'action' => 'getAction',
-        'client_ip' => 'getClientIp',
         'created_time' => 'getCreatedTime',
-        'is_triggered' => 'getIsTriggered',
-        'language' => 'getLanguage',
-        'method' => 'getMethod',
+        'description' => 'getDescription',
+        'display_name' => 'getDisplayName',
+        'domains' => 'getDomains',
+        'is_enabled' => 'getIsEnabled',
         'name' => 'getName',
-        'object' => 'getObject',
-        'organization' => 'getOrganization',
         'owner' => 'getOwner',
-        'request_uri' => 'getRequestUri',
-        'response' => 'getResponse',
-        'status_code' => 'getStatusCode',
-        'user' => 'getUser'
+        'roles' => 'getRoles',
+        'teams' => 'getTeams',
+        'users' => 'getUsers'
     ];
 
     /**
@@ -322,20 +298,16 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('action', $data ?? [], null);
-        $this->setIfExists('client_ip', $data ?? [], null);
         $this->setIfExists('created_time', $data ?? [], null);
-        $this->setIfExists('is_triggered', $data ?? [], null);
-        $this->setIfExists('language', $data ?? [], null);
-        $this->setIfExists('method', $data ?? [], null);
+        $this->setIfExists('description', $data ?? [], null);
+        $this->setIfExists('display_name', $data ?? [], null);
+        $this->setIfExists('domains', $data ?? [], null);
+        $this->setIfExists('is_enabled', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
-        $this->setIfExists('object', $data ?? [], null);
-        $this->setIfExists('organization', $data ?? [], null);
         $this->setIfExists('owner', $data ?? [], null);
-        $this->setIfExists('request_uri', $data ?? [], null);
-        $this->setIfExists('response', $data ?? [], null);
-        $this->setIfExists('status_code', $data ?? [], null);
-        $this->setIfExists('user', $data ?? [], null);
+        $this->setIfExists('roles', $data ?? [], null);
+        $this->setIfExists('teams', $data ?? [], null);
+        $this->setIfExists('users', $data ?? [], null);
     }
 
     /**
@@ -381,60 +353,6 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets action
-     *
-     * @return string|null
-     */
-    public function getAction()
-    {
-        return $this->container['action'];
-    }
-
-    /**
-     * Sets action
-     *
-     * @param string|null $action action
-     *
-     * @return self
-     */
-    public function setAction($action)
-    {
-        if (is_null($action)) {
-            throw new \InvalidArgumentException('non-nullable action cannot be null');
-        }
-        $this->container['action'] = $action;
-
-        return $this;
-    }
-
-    /**
-     * Gets client_ip
-     *
-     * @return string|null
-     */
-    public function getClientIp()
-    {
-        return $this->container['client_ip'];
-    }
-
-    /**
-     * Sets client_ip
-     *
-     * @param string|null $client_ip client_ip
-     *
-     * @return self
-     */
-    public function setClientIp($client_ip)
-    {
-        if (is_null($client_ip)) {
-            throw new \InvalidArgumentException('non-nullable client_ip cannot be null');
-        }
-        $this->container['client_ip'] = $client_ip;
-
-        return $this;
-    }
-
-    /**
      * Gets created_time
      *
      * @return string|null
@@ -462,82 +380,109 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets is_triggered
+     * Gets description
+     *
+     * @return string|null
+     */
+    public function getDescription()
+    {
+        return $this->container['description'];
+    }
+
+    /**
+     * Sets description
+     *
+     * @param string|null $description description
+     *
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        if (is_null($description)) {
+            throw new \InvalidArgumentException('non-nullable description cannot be null');
+        }
+        $this->container['description'] = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets display_name
+     *
+     * @return string|null
+     */
+    public function getDisplayName()
+    {
+        return $this->container['display_name'];
+    }
+
+    /**
+     * Sets display_name
+     *
+     * @param string|null $display_name display_name
+     *
+     * @return self
+     */
+    public function setDisplayName($display_name)
+    {
+        if (is_null($display_name)) {
+            throw new \InvalidArgumentException('non-nullable display_name cannot be null');
+        }
+        $this->container['display_name'] = $display_name;
+
+        return $this;
+    }
+
+    /**
+     * Gets domains
+     *
+     * @return string[]|null
+     */
+    public function getDomains()
+    {
+        return $this->container['domains'];
+    }
+
+    /**
+     * Sets domains
+     *
+     * @param string[]|null $domains domains
+     *
+     * @return self
+     */
+    public function setDomains($domains)
+    {
+        if (is_null($domains)) {
+            throw new \InvalidArgumentException('non-nullable domains cannot be null');
+        }
+        $this->container['domains'] = $domains;
+
+        return $this;
+    }
+
+    /**
+     * Gets is_enabled
      *
      * @return bool|null
      */
-    public function getIsTriggered()
+    public function getIsEnabled()
     {
-        return $this->container['is_triggered'];
+        return $this->container['is_enabled'];
     }
 
     /**
-     * Sets is_triggered
+     * Sets is_enabled
      *
-     * @param bool|null $is_triggered is_triggered
+     * @param bool|null $is_enabled is_enabled
      *
      * @return self
      */
-    public function setIsTriggered($is_triggered)
+    public function setIsEnabled($is_enabled)
     {
-        if (is_null($is_triggered)) {
-            throw new \InvalidArgumentException('non-nullable is_triggered cannot be null');
+        if (is_null($is_enabled)) {
+            throw new \InvalidArgumentException('non-nullable is_enabled cannot be null');
         }
-        $this->container['is_triggered'] = $is_triggered;
-
-        return $this;
-    }
-
-    /**
-     * Gets language
-     *
-     * @return string|null
-     */
-    public function getLanguage()
-    {
-        return $this->container['language'];
-    }
-
-    /**
-     * Sets language
-     *
-     * @param string|null $language language
-     *
-     * @return self
-     */
-    public function setLanguage($language)
-    {
-        if (is_null($language)) {
-            throw new \InvalidArgumentException('non-nullable language cannot be null');
-        }
-        $this->container['language'] = $language;
-
-        return $this;
-    }
-
-    /**
-     * Gets method
-     *
-     * @return string|null
-     */
-    public function getMethod()
-    {
-        return $this->container['method'];
-    }
-
-    /**
-     * Sets method
-     *
-     * @param string|null $method method
-     *
-     * @return self
-     */
-    public function setMethod($method)
-    {
-        if (is_null($method)) {
-            throw new \InvalidArgumentException('non-nullable method cannot be null');
-        }
-        $this->container['method'] = $method;
+        $this->container['is_enabled'] = $is_enabled;
 
         return $this;
     }
@@ -555,7 +500,7 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string|null $name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL.
      *
      * @return self
      */
@@ -565,60 +510,6 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets object
-     *
-     * @return string|null
-     */
-    public function getObject()
-    {
-        return $this->container['object'];
-    }
-
-    /**
-     * Sets object
-     *
-     * @param string|null $object object
-     *
-     * @return self
-     */
-    public function setObject($object)
-    {
-        if (is_null($object)) {
-            throw new \InvalidArgumentException('non-nullable object cannot be null');
-        }
-        $this->container['object'] = $object;
-
-        return $this;
-    }
-
-    /**
-     * Gets organization
-     *
-     * @return string|null
-     */
-    public function getOrganization()
-    {
-        return $this->container['organization'];
-    }
-
-    /**
-     * Sets organization
-     *
-     * @param string|null $organization organization
-     *
-     * @return self
-     */
-    public function setOrganization($organization)
-    {
-        if (is_null($organization)) {
-            throw new \InvalidArgumentException('non-nullable organization cannot be null');
-        }
-        $this->container['organization'] = $organization;
 
         return $this;
     }
@@ -636,7 +527,7 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets owner
      *
-     * @param string|null $owner owner
+     * @param string|null $owner Owner is the organization the team belongs to. Leave it out and it is yours, from your credentials; name another only if you administer it.
      *
      * @return self
      */
@@ -651,109 +542,82 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets request_uri
+     * Gets roles
      *
-     * @return string|null
+     * @return string[]|null
      */
-    public function getRequestUri()
+    public function getRoles()
     {
-        return $this->container['request_uri'];
+        return $this->container['roles'];
     }
 
     /**
-     * Sets request_uri
+     * Sets roles
      *
-     * @param string|null $request_uri request_uri
+     * @param string[]|null $roles roles
      *
      * @return self
      */
-    public function setRequestUri($request_uri)
+    public function setRoles($roles)
     {
-        if (is_null($request_uri)) {
-            throw new \InvalidArgumentException('non-nullable request_uri cannot be null');
+        if (is_null($roles)) {
+            throw new \InvalidArgumentException('non-nullable roles cannot be null');
         }
-        $this->container['request_uri'] = $request_uri;
+        $this->container['roles'] = $roles;
 
         return $this;
     }
 
     /**
-     * Gets response
+     * Gets teams
      *
-     * @return string|null
+     * @return string[]|null
      */
-    public function getResponse()
+    public function getTeams()
     {
-        return $this->container['response'];
+        return $this->container['teams'];
     }
 
     /**
-     * Sets response
+     * Sets teams
      *
-     * @param string|null $response response
+     * @param string[]|null $teams teams
      *
      * @return self
      */
-    public function setResponse($response)
+    public function setTeams($teams)
     {
-        if (is_null($response)) {
-            throw new \InvalidArgumentException('non-nullable response cannot be null');
+        if (is_null($teams)) {
+            throw new \InvalidArgumentException('non-nullable teams cannot be null');
         }
-        $this->container['response'] = $response;
+        $this->container['teams'] = $teams;
 
         return $this;
     }
 
     /**
-     * Gets status_code
+     * Gets users
      *
-     * @return int|null
+     * @return string[]|null
      */
-    public function getStatusCode()
+    public function getUsers()
     {
-        return $this->container['status_code'];
+        return $this->container['users'];
     }
 
     /**
-     * Sets status_code
+     * Sets users
      *
-     * @param int|null $status_code status_code
+     * @param string[]|null $users users
      *
      * @return self
      */
-    public function setStatusCode($status_code)
+    public function setUsers($users)
     {
-        if (is_null($status_code)) {
-            throw new \InvalidArgumentException('non-nullable status_code cannot be null');
+        if (is_null($users)) {
+            throw new \InvalidArgumentException('non-nullable users cannot be null');
         }
-        $this->container['status_code'] = $status_code;
-
-        return $this;
-    }
-
-    /**
-     * Gets user
-     *
-     * @return string|null
-     */
-    public function getUser()
-    {
-        return $this->container['user'];
-    }
-
-    /**
-     * Sets user
-     *
-     * @param string|null $user user
-     *
-     * @return self
-     */
-    public function setUser($user)
-    {
-        if (is_null($user)) {
-            throw new \InvalidArgumentException('non-nullable user cannot be null');
-        }
-        $this->container['user'] = $user;
+        $this->container['users'] = $users;
 
         return $this;
     }

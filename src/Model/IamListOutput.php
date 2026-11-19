@@ -57,8 +57,8 @@ class IamListOutput implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'audit_logs' => '\Hanzo\Cloud\Model\IamAuditLog[]',
-        'total' => 'int'
+        'total' => 'int',
+        'users' => '\Hanzo\Cloud\Model\IamUser[]'
     ];
 
     /**
@@ -69,8 +69,8 @@ class IamListOutput implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'audit_logs' => null,
-        'total' => 'int64'
+        'total' => 'int64',
+        'users' => null
     ];
 
     /**
@@ -79,8 +79,8 @@ class IamListOutput implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'audit_logs' => false,
-        'total' => false
+        'total' => false,
+        'users' => false
     ];
 
     /**
@@ -169,8 +169,8 @@ class IamListOutput implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'audit_logs' => 'auditLogs',
-        'total' => 'total'
+        'total' => 'total',
+        'users' => 'users'
     ];
 
     /**
@@ -179,8 +179,8 @@ class IamListOutput implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'audit_logs' => 'setAuditLogs',
-        'total' => 'setTotal'
+        'total' => 'setTotal',
+        'users' => 'setUsers'
     ];
 
     /**
@@ -189,8 +189,8 @@ class IamListOutput implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'audit_logs' => 'getAuditLogs',
-        'total' => 'getTotal'
+        'total' => 'getTotal',
+        'users' => 'getUsers'
     ];
 
     /**
@@ -250,8 +250,8 @@ class IamListOutput implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('audit_logs', $data ?? [], null);
         $this->setIfExists('total', $data ?? [], null);
+        $this->setIfExists('users', $data ?? [], null);
     }
 
     /**
@@ -297,33 +297,6 @@ class IamListOutput implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets audit_logs
-     *
-     * @return \Hanzo\Cloud\Model\IamAuditLog[]|null
-     */
-    public function getAuditLogs()
-    {
-        return $this->container['audit_logs'];
-    }
-
-    /**
-     * Sets audit_logs
-     *
-     * @param \Hanzo\Cloud\Model\IamAuditLog[]|null $audit_logs audit_logs
-     *
-     * @return self
-     */
-    public function setAuditLogs($audit_logs)
-    {
-        if (is_null($audit_logs)) {
-            throw new \InvalidArgumentException('non-nullable audit_logs cannot be null');
-        }
-        $this->container['audit_logs'] = $audit_logs;
-
-        return $this;
-    }
-
-    /**
      * Gets total
      *
      * @return int|null
@@ -346,6 +319,33 @@ class IamListOutput implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable total cannot be null');
         }
         $this->container['total'] = $total;
+
+        return $this;
+    }
+
+    /**
+     * Gets users
+     *
+     * @return \Hanzo\Cloud\Model\IamUser[]|null
+     */
+    public function getUsers()
+    {
+        return $this->container['users'];
+    }
+
+    /**
+     * Sets users
+     *
+     * @param \Hanzo\Cloud\Model\IamUser[]|null $users users
+     *
+     * @return self
+     */
+    public function setUsers($users)
+    {
+        if (is_null($users)) {
+            throw new \InvalidArgumentException('non-nullable users cannot be null');
+        }
+        $this->container['users'] = $users;
 
         return $this;
     }

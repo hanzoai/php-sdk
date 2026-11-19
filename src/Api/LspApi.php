@@ -142,16 +142,16 @@ class LspApi
      *
      * Offers the candidates a language server has at a position, typed and resolved through the repository&#39;s dependencies rather than guessed from text.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspComplete'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Answer
+     * @return \Hanzo\Cloud\Model\LspAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postLspComplete($query, string $contentType = self::contentTypes['postLspComplete'][0])
+    public function postLspComplete($lsp_query, string $contentType = self::contentTypes['postLspComplete'][0])
     {
-        list($response) = $this->postLspCompleteWithHttpInfo($query, $contentType);
+        list($response) = $this->postLspCompleteWithHttpInfo($lsp_query, $contentType);
         return $response;
     }
 
@@ -160,16 +160,16 @@ class LspApi
      *
      * Offers the candidates a language server has at a position, typed and resolved through the repository&#39;s dependencies rather than guessed from text.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspComplete'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Answer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LspAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postLspCompleteWithHttpInfo($query, string $contentType = self::contentTypes['postLspComplete'][0])
+    public function postLspCompleteWithHttpInfo($lsp_query, string $contentType = self::contentTypes['postLspComplete'][0])
     {
-        $request = $this->postLspCompleteRequest($query, $contentType);
+        $request = $this->postLspCompleteRequest($lsp_query, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -197,7 +197,13 @@ class LspApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Answer',
+                        '\Hanzo\Cloud\Model\LspAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -219,7 +225,7 @@ class LspApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Answer',
+                '\Hanzo\Cloud\Model\LspAnswer',
                 $request,
                 $response,
             );
@@ -228,7 +234,15 @@ class LspApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Answer',
+                        '\Hanzo\Cloud\Model\LspAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -245,15 +259,15 @@ class LspApi
      *
      * Offers the candidates a language server has at a position, typed and resolved through the repository&#39;s dependencies rather than guessed from text.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspComplete'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLspCompleteAsync($query, string $contentType = self::contentTypes['postLspComplete'][0])
+    public function postLspCompleteAsync($lsp_query, string $contentType = self::contentTypes['postLspComplete'][0])
     {
-        return $this->postLspCompleteAsyncWithHttpInfo($query, $contentType)
+        return $this->postLspCompleteAsyncWithHttpInfo($lsp_query, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -266,16 +280,16 @@ class LspApi
      *
      * Offers the candidates a language server has at a position, typed and resolved through the repository&#39;s dependencies rather than guessed from text.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspComplete'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLspCompleteAsyncWithHttpInfo($query, string $contentType = self::contentTypes['postLspComplete'][0])
+    public function postLspCompleteAsyncWithHttpInfo($lsp_query, string $contentType = self::contentTypes['postLspComplete'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Answer';
-        $request = $this->postLspCompleteRequest($query, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LspAnswer';
+        $request = $this->postLspCompleteRequest($lsp_query, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -316,19 +330,19 @@ class LspApi
     /**
      * Create request for operation 'postLspComplete'
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspComplete'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postLspCompleteRequest($query, string $contentType = self::contentTypes['postLspComplete'][0])
+    public function postLspCompleteRequest($lsp_query, string $contentType = self::contentTypes['postLspComplete'][0])
     {
 
-        // verify the required parameter 'query' is set
-        if ($query === null || (is_array($query) && count($query) === 0)) {
+        // verify the required parameter 'lsp_query' is set
+        if ($lsp_query === null || (is_array($lsp_query) && count($lsp_query) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $query when calling postLspComplete'
+                'Missing the required parameter $lsp_query when calling postLspComplete'
             );
         }
 
@@ -345,18 +359,18 @@ class LspApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($query)) {
+        if (isset($lsp_query)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($query));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($lsp_query));
             } else {
-                $httpBody = $query;
+                $httpBody = $lsp_query;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -413,16 +427,16 @@ class LspApi
      *
      * Reports every problem the language server finds in one file — compile errors, type errors and lints, each with its span and its severity (1 error, 2 warning, 3 information, 4 hint).
      *
-     * @param  \Hanzo\Cloud\Model\Query $query query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspDiagnostics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Answer
+     * @return \Hanzo\Cloud\Model\LspAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postLspDiagnostics($query, string $contentType = self::contentTypes['postLspDiagnostics'][0])
+    public function postLspDiagnostics($lsp_query, string $contentType = self::contentTypes['postLspDiagnostics'][0])
     {
-        list($response) = $this->postLspDiagnosticsWithHttpInfo($query, $contentType);
+        list($response) = $this->postLspDiagnosticsWithHttpInfo($lsp_query, $contentType);
         return $response;
     }
 
@@ -431,16 +445,16 @@ class LspApi
      *
      * Reports every problem the language server finds in one file — compile errors, type errors and lints, each with its span and its severity (1 error, 2 warning, 3 information, 4 hint).
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspDiagnostics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Answer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LspAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postLspDiagnosticsWithHttpInfo($query, string $contentType = self::contentTypes['postLspDiagnostics'][0])
+    public function postLspDiagnosticsWithHttpInfo($lsp_query, string $contentType = self::contentTypes['postLspDiagnostics'][0])
     {
-        $request = $this->postLspDiagnosticsRequest($query, $contentType);
+        $request = $this->postLspDiagnosticsRequest($lsp_query, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -468,7 +482,13 @@ class LspApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Answer',
+                        '\Hanzo\Cloud\Model\LspAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -490,7 +510,7 @@ class LspApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Answer',
+                '\Hanzo\Cloud\Model\LspAnswer',
                 $request,
                 $response,
             );
@@ -499,7 +519,15 @@ class LspApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Answer',
+                        '\Hanzo\Cloud\Model\LspAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -516,15 +544,15 @@ class LspApi
      *
      * Reports every problem the language server finds in one file — compile errors, type errors and lints, each with its span and its severity (1 error, 2 warning, 3 information, 4 hint).
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspDiagnostics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLspDiagnosticsAsync($query, string $contentType = self::contentTypes['postLspDiagnostics'][0])
+    public function postLspDiagnosticsAsync($lsp_query, string $contentType = self::contentTypes['postLspDiagnostics'][0])
     {
-        return $this->postLspDiagnosticsAsyncWithHttpInfo($query, $contentType)
+        return $this->postLspDiagnosticsAsyncWithHttpInfo($lsp_query, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -537,16 +565,16 @@ class LspApi
      *
      * Reports every problem the language server finds in one file — compile errors, type errors and lints, each with its span and its severity (1 error, 2 warning, 3 information, 4 hint).
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspDiagnostics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLspDiagnosticsAsyncWithHttpInfo($query, string $contentType = self::contentTypes['postLspDiagnostics'][0])
+    public function postLspDiagnosticsAsyncWithHttpInfo($lsp_query, string $contentType = self::contentTypes['postLspDiagnostics'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Answer';
-        $request = $this->postLspDiagnosticsRequest($query, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LspAnswer';
+        $request = $this->postLspDiagnosticsRequest($lsp_query, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -587,19 +615,19 @@ class LspApi
     /**
      * Create request for operation 'postLspDiagnostics'
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspDiagnostics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postLspDiagnosticsRequest($query, string $contentType = self::contentTypes['postLspDiagnostics'][0])
+    public function postLspDiagnosticsRequest($lsp_query, string $contentType = self::contentTypes['postLspDiagnostics'][0])
     {
 
-        // verify the required parameter 'query' is set
-        if ($query === null || (is_array($query) && count($query) === 0)) {
+        // verify the required parameter 'lsp_query' is set
+        if ($lsp_query === null || (is_array($lsp_query) && count($lsp_query) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $query when calling postLspDiagnostics'
+                'Missing the required parameter $lsp_query when calling postLspDiagnostics'
             );
         }
 
@@ -616,18 +644,18 @@ class LspApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($query)) {
+        if (isset($lsp_query)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($query));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($lsp_query));
             } else {
-                $httpBody = $query;
+                $httpBody = $lsp_query;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -684,16 +712,16 @@ class LspApi
      *
      * Renders the type and documentation of the symbol at a position, as the language server itself renders it.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspHover'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Answer
+     * @return \Hanzo\Cloud\Model\LspAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postLspHover($query, string $contentType = self::contentTypes['postLspHover'][0])
+    public function postLspHover($lsp_query, string $contentType = self::contentTypes['postLspHover'][0])
     {
-        list($response) = $this->postLspHoverWithHttpInfo($query, $contentType);
+        list($response) = $this->postLspHoverWithHttpInfo($lsp_query, $contentType);
         return $response;
     }
 
@@ -702,16 +730,16 @@ class LspApi
      *
      * Renders the type and documentation of the symbol at a position, as the language server itself renders it.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspHover'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Answer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LspAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postLspHoverWithHttpInfo($query, string $contentType = self::contentTypes['postLspHover'][0])
+    public function postLspHoverWithHttpInfo($lsp_query, string $contentType = self::contentTypes['postLspHover'][0])
     {
-        $request = $this->postLspHoverRequest($query, $contentType);
+        $request = $this->postLspHoverRequest($lsp_query, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -739,7 +767,13 @@ class LspApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Answer',
+                        '\Hanzo\Cloud\Model\LspAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -761,7 +795,7 @@ class LspApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Answer',
+                '\Hanzo\Cloud\Model\LspAnswer',
                 $request,
                 $response,
             );
@@ -770,7 +804,15 @@ class LspApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Answer',
+                        '\Hanzo\Cloud\Model\LspAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -787,15 +829,15 @@ class LspApi
      *
      * Renders the type and documentation of the symbol at a position, as the language server itself renders it.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspHover'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLspHoverAsync($query, string $contentType = self::contentTypes['postLspHover'][0])
+    public function postLspHoverAsync($lsp_query, string $contentType = self::contentTypes['postLspHover'][0])
     {
-        return $this->postLspHoverAsyncWithHttpInfo($query, $contentType)
+        return $this->postLspHoverAsyncWithHttpInfo($lsp_query, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -808,16 +850,16 @@ class LspApi
      *
      * Renders the type and documentation of the symbol at a position, as the language server itself renders it.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspHover'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLspHoverAsyncWithHttpInfo($query, string $contentType = self::contentTypes['postLspHover'][0])
+    public function postLspHoverAsyncWithHttpInfo($lsp_query, string $contentType = self::contentTypes['postLspHover'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Answer';
-        $request = $this->postLspHoverRequest($query, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LspAnswer';
+        $request = $this->postLspHoverRequest($lsp_query, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -858,19 +900,19 @@ class LspApi
     /**
      * Create request for operation 'postLspHover'
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspHover'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postLspHoverRequest($query, string $contentType = self::contentTypes['postLspHover'][0])
+    public function postLspHoverRequest($lsp_query, string $contentType = self::contentTypes['postLspHover'][0])
     {
 
-        // verify the required parameter 'query' is set
-        if ($query === null || (is_array($query) && count($query) === 0)) {
+        // verify the required parameter 'lsp_query' is set
+        if ($lsp_query === null || (is_array($lsp_query) && count($lsp_query) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $query when calling postLspHover'
+                'Missing the required parameter $lsp_query when calling postLspHover'
             );
         }
 
@@ -887,18 +929,18 @@ class LspApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($query)) {
+        if (isset($lsp_query)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($query));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($lsp_query));
             } else {
-                $httpBody = $query;
+                $httpBody = $lsp_query;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -955,16 +997,16 @@ class LspApi
      *
      * Finds where a symbol lives: its definition, its references, its type or its implementations, chosen by relation (definition, reference, type, implementation — empty means definition).
      *
-     * @param  \Hanzo\Cloud\Model\Query $query query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspLocate'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Answer
+     * @return \Hanzo\Cloud\Model\LspAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postLspLocate($query, string $contentType = self::contentTypes['postLspLocate'][0])
+    public function postLspLocate($lsp_query, string $contentType = self::contentTypes['postLspLocate'][0])
     {
-        list($response) = $this->postLspLocateWithHttpInfo($query, $contentType);
+        list($response) = $this->postLspLocateWithHttpInfo($lsp_query, $contentType);
         return $response;
     }
 
@@ -973,16 +1015,16 @@ class LspApi
      *
      * Finds where a symbol lives: its definition, its references, its type or its implementations, chosen by relation (definition, reference, type, implementation — empty means definition).
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspLocate'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Answer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LspAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postLspLocateWithHttpInfo($query, string $contentType = self::contentTypes['postLspLocate'][0])
+    public function postLspLocateWithHttpInfo($lsp_query, string $contentType = self::contentTypes['postLspLocate'][0])
     {
-        $request = $this->postLspLocateRequest($query, $contentType);
+        $request = $this->postLspLocateRequest($lsp_query, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1010,7 +1052,13 @@ class LspApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Answer',
+                        '\Hanzo\Cloud\Model\LspAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1032,7 +1080,7 @@ class LspApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Answer',
+                '\Hanzo\Cloud\Model\LspAnswer',
                 $request,
                 $response,
             );
@@ -1041,7 +1089,15 @@ class LspApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Answer',
+                        '\Hanzo\Cloud\Model\LspAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1058,15 +1114,15 @@ class LspApi
      *
      * Finds where a symbol lives: its definition, its references, its type or its implementations, chosen by relation (definition, reference, type, implementation — empty means definition).
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspLocate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLspLocateAsync($query, string $contentType = self::contentTypes['postLspLocate'][0])
+    public function postLspLocateAsync($lsp_query, string $contentType = self::contentTypes['postLspLocate'][0])
     {
-        return $this->postLspLocateAsyncWithHttpInfo($query, $contentType)
+        return $this->postLspLocateAsyncWithHttpInfo($lsp_query, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1079,16 +1135,16 @@ class LspApi
      *
      * Finds where a symbol lives: its definition, its references, its type or its implementations, chosen by relation (definition, reference, type, implementation — empty means definition).
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspLocate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLspLocateAsyncWithHttpInfo($query, string $contentType = self::contentTypes['postLspLocate'][0])
+    public function postLspLocateAsyncWithHttpInfo($lsp_query, string $contentType = self::contentTypes['postLspLocate'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Answer';
-        $request = $this->postLspLocateRequest($query, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LspAnswer';
+        $request = $this->postLspLocateRequest($lsp_query, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1129,19 +1185,19 @@ class LspApi
     /**
      * Create request for operation 'postLspLocate'
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspLocate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postLspLocateRequest($query, string $contentType = self::contentTypes['postLspLocate'][0])
+    public function postLspLocateRequest($lsp_query, string $contentType = self::contentTypes['postLspLocate'][0])
     {
 
-        // verify the required parameter 'query' is set
-        if ($query === null || (is_array($query) && count($query) === 0)) {
+        // verify the required parameter 'lsp_query' is set
+        if ($lsp_query === null || (is_array($lsp_query) && count($lsp_query) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $query when calling postLspLocate'
+                'Missing the required parameter $lsp_query when calling postLspLocate'
             );
         }
 
@@ -1158,18 +1214,18 @@ class LspApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($query)) {
+        if (isset($lsp_query)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($query));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($lsp_query));
             } else {
-                $httpBody = $query;
+                $httpBody = $lsp_query;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1226,16 +1282,16 @@ class LspApi
      *
      * Outlines one file: every declaration in it, with its kind and its span.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspSymbols'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Answer
+     * @return \Hanzo\Cloud\Model\LspAnswer|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postLspSymbols($query, string $contentType = self::contentTypes['postLspSymbols'][0])
+    public function postLspSymbols($lsp_query, string $contentType = self::contentTypes['postLspSymbols'][0])
     {
-        list($response) = $this->postLspSymbolsWithHttpInfo($query, $contentType);
+        list($response) = $this->postLspSymbolsWithHttpInfo($lsp_query, $contentType);
         return $response;
     }
 
@@ -1244,16 +1300,16 @@ class LspApi
      *
      * Outlines one file: every declaration in it, with its kind and its span.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspSymbols'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Answer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LspAnswer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postLspSymbolsWithHttpInfo($query, string $contentType = self::contentTypes['postLspSymbols'][0])
+    public function postLspSymbolsWithHttpInfo($lsp_query, string $contentType = self::contentTypes['postLspSymbols'][0])
     {
-        $request = $this->postLspSymbolsRequest($query, $contentType);
+        $request = $this->postLspSymbolsRequest($lsp_query, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1281,7 +1337,13 @@ class LspApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Answer',
+                        '\Hanzo\Cloud\Model\LspAnswer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1303,7 +1365,7 @@ class LspApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Answer',
+                '\Hanzo\Cloud\Model\LspAnswer',
                 $request,
                 $response,
             );
@@ -1312,7 +1374,15 @@ class LspApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Answer',
+                        '\Hanzo\Cloud\Model\LspAnswer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1329,15 +1399,15 @@ class LspApi
      *
      * Outlines one file: every declaration in it, with its kind and its span.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspSymbols'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLspSymbolsAsync($query, string $contentType = self::contentTypes['postLspSymbols'][0])
+    public function postLspSymbolsAsync($lsp_query, string $contentType = self::contentTypes['postLspSymbols'][0])
     {
-        return $this->postLspSymbolsAsyncWithHttpInfo($query, $contentType)
+        return $this->postLspSymbolsAsyncWithHttpInfo($lsp_query, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1350,16 +1420,16 @@ class LspApi
      *
      * Outlines one file: every declaration in it, with its kind and its span.
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspSymbols'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLspSymbolsAsyncWithHttpInfo($query, string $contentType = self::contentTypes['postLspSymbols'][0])
+    public function postLspSymbolsAsyncWithHttpInfo($lsp_query, string $contentType = self::contentTypes['postLspSymbols'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Answer';
-        $request = $this->postLspSymbolsRequest($query, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LspAnswer';
+        $request = $this->postLspSymbolsRequest($lsp_query, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1400,19 +1470,19 @@ class LspApi
     /**
      * Create request for operation 'postLspSymbols'
      *
-     * @param  \Hanzo\Cloud\Model\Query $query (required)
+     * @param  \Hanzo\Cloud\Model\LspQuery $lsp_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLspSymbols'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postLspSymbolsRequest($query, string $contentType = self::contentTypes['postLspSymbols'][0])
+    public function postLspSymbolsRequest($lsp_query, string $contentType = self::contentTypes['postLspSymbols'][0])
     {
 
-        // verify the required parameter 'query' is set
-        if ($query === null || (is_array($query) && count($query) === 0)) {
+        // verify the required parameter 'lsp_query' is set
+        if ($lsp_query === null || (is_array($lsp_query) && count($lsp_query) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $query when calling postLspSymbols'
+                'Missing the required parameter $lsp_query when calling postLspSymbols'
             );
         }
 
@@ -1429,18 +1499,18 @@ class LspApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($query)) {
+        if (isset($lsp_query)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($query));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($lsp_query));
             } else {
-                $httpBody = $query;
+                $httpBody = $lsp_query;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

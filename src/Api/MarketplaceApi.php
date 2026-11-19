@@ -80,13 +80,70 @@ class MarketplaceApi
         'getMarketplace' => [
             'application/json',
         ],
+        'getMarketplaceJobs' => [
+            'application/json',
+        ],
+        'getMarketplaceJobsById' => [
+            'application/json',
+        ],
         'getMarketplaceListings' => [
+            'application/json',
+        ],
+        'getMarketplaceSeller' => [
+            'application/json',
+        ],
+        'getMarketplaceShop' => [
+            'application/json',
+        ],
+        'getMarketplaceShopById' => [
+            'application/json',
+        ],
+        'getMarketplaceShopByIdWeights' => [
+            'application/json',
+        ],
+        'patchMarketplaceListingsById' => [
             'application/json',
         ],
         'postMarketplaceInstall' => [
             'application/json',
         ],
+        'postMarketplaceJobs' => [
+            'application/json',
+        ],
+        'postMarketplaceJobsByIdAccept' => [
+            'application/json',
+        ],
+        'postMarketplaceJobsByIdCancel' => [
+            'application/json',
+        ],
+        'postMarketplaceJobsByIdDecline' => [
+            'application/json',
+        ],
+        'postMarketplaceJobsByIdDeliver' => [
+            'application/json',
+        ],
+        'postMarketplaceJobsByIdDispute' => [
+            'application/json',
+        ],
+        'postMarketplaceJobsByIdFeedback' => [
+            'application/json',
+        ],
+        'postMarketplaceJobsByIdRefund' => [
+            'application/json',
+        ],
+        'postMarketplaceJobsByIdRelease' => [
+            'application/json',
+        ],
         'postMarketplaceListings' => [
+            'application/json',
+        ],
+        'postMarketplaceListingsByIdVerify' => [
+            'application/json',
+        ],
+        'postMarketplaceSellerPayout' => [
+            'application/json',
+        ],
+        'postMarketplaceSellerPayoutVerify' => [
             'application/json',
         ],
         'postMarketplaceUninstall' => [
@@ -143,9 +200,9 @@ class MarketplaceApi
     /**
      * Operation deleteMarketplaceListingsById
      *
-     * Unpublish withdraws one of the caller org&#39;s listings from the marketplace and answers 204.
+     * Withdraws one of the caller org&#39;s listings from the marketplace and answers 204.
      *
-     * @param  string $id ID is the listing to unpublish, from the path. (required)
+     * @param  string $id ID is the listing, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketplaceListingsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -160,9 +217,9 @@ class MarketplaceApi
     /**
      * Operation deleteMarketplaceListingsByIdWithHttpInfo
      *
-     * Unpublish withdraws one of the caller org&#39;s listings from the marketplace and answers 204.
+     * Withdraws one of the caller org&#39;s listings from the marketplace and answers 204.
      *
-     * @param  string $id ID is the listing to unpublish, from the path. (required)
+     * @param  string $id ID is the listing, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketplaceListingsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -199,6 +256,14 @@ class MarketplaceApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -209,9 +274,9 @@ class MarketplaceApi
     /**
      * Operation deleteMarketplaceListingsByIdAsync
      *
-     * Unpublish withdraws one of the caller org&#39;s listings from the marketplace and answers 204.
+     * Withdraws one of the caller org&#39;s listings from the marketplace and answers 204.
      *
-     * @param  string $id ID is the listing to unpublish, from the path. (required)
+     * @param  string $id ID is the listing, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketplaceListingsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -230,9 +295,9 @@ class MarketplaceApi
     /**
      * Operation deleteMarketplaceListingsByIdAsyncWithHttpInfo
      *
-     * Unpublish withdraws one of the caller org&#39;s listings from the marketplace and answers 204.
+     * Withdraws one of the caller org&#39;s listings from the marketplace and answers 204.
      *
-     * @param  string $id ID is the listing to unpublish, from the path. (required)
+     * @param  string $id ID is the listing, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketplaceListingsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -269,7 +334,7 @@ class MarketplaceApi
     /**
      * Create request for operation 'deleteMarketplaceListingsById'
      *
-     * @param  string $id ID is the listing to unpublish, from the path. (required)
+     * @param  string $id ID is the listing, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteMarketplaceListingsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -306,7 +371,7 @@ class MarketplaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -365,13 +430,13 @@ class MarketplaceApi
     /**
      * Operation getMarketplace
      *
-     * Discover lists every tool and agent the caller can reach in their own org and project, enriched with any public listing&#39;s title, category and price, and with installed&#x3D;true on the ones already activated for that scope.
+     * Lists every tool and agent the caller can reach in their own org and project, enriched with any public listing&#39;s title, category and price, and with installed&#x3D;true on the ones already activated for that scope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplace'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MarketCatalog
+     * @return \Hanzo\Cloud\Model\MarketplaceMarketCatalog|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMarketplace(string $contentType = self::contentTypes['getMarketplace'][0])
     {
@@ -382,13 +447,13 @@ class MarketplaceApi
     /**
      * Operation getMarketplaceWithHttpInfo
      *
-     * Discover lists every tool and agent the caller can reach in their own org and project, enriched with any public listing&#39;s title, category and price, and with installed&#x3D;true on the ones already activated for that scope.
+     * Lists every tool and agent the caller can reach in their own org and project, enriched with any public listing&#39;s title, category and price, and with installed&#x3D;true on the ones already activated for that scope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplace'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MarketCatalog, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketplaceMarketCatalog|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMarketplaceWithHttpInfo(string $contentType = self::contentTypes['getMarketplace'][0])
     {
@@ -420,7 +485,13 @@ class MarketplaceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MarketCatalog',
+                        '\Hanzo\Cloud\Model\MarketplaceMarketCatalog',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -442,7 +513,7 @@ class MarketplaceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MarketCatalog',
+                '\Hanzo\Cloud\Model\MarketplaceMarketCatalog',
                 $request,
                 $response,
             );
@@ -451,7 +522,15 @@ class MarketplaceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MarketCatalog',
+                        '\Hanzo\Cloud\Model\MarketplaceMarketCatalog',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -466,7 +545,7 @@ class MarketplaceApi
     /**
      * Operation getMarketplaceAsync
      *
-     * Discover lists every tool and agent the caller can reach in their own org and project, enriched with any public listing&#39;s title, category and price, and with installed&#x3D;true on the ones already activated for that scope.
+     * Lists every tool and agent the caller can reach in their own org and project, enriched with any public listing&#39;s title, category and price, and with installed&#x3D;true on the ones already activated for that scope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplace'] to see the possible values for this operation
      *
@@ -486,7 +565,7 @@ class MarketplaceApi
     /**
      * Operation getMarketplaceAsyncWithHttpInfo
      *
-     * Discover lists every tool and agent the caller can reach in their own org and project, enriched with any public listing&#39;s title, category and price, and with installed&#x3D;true on the ones already activated for that scope.
+     * Lists every tool and agent the caller can reach in their own org and project, enriched with any public listing&#39;s title, category and price, and with installed&#x3D;true on the ones already activated for that scope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplace'] to see the possible values for this operation
      *
@@ -495,7 +574,7 @@ class MarketplaceApi
      */
     public function getMarketplaceAsyncWithHttpInfo(string $contentType = self::contentTypes['getMarketplace'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MarketCatalog';
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceMarketCatalog';
         $request = $this->getMarketplaceRequest($contentType);
 
         return $this->client
@@ -558,7 +637,589 @@ class MarketplaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketplaceJobs
+     *
+     * Lists the jobs the caller&#39;s org is a party to, newest first: as buyer, the work it hired — with the quotes it has not paid and the jobs being funded, each with the attempt that made it, so a hire whose answer was lost is found here — and as seller, the work it was hired for, which never includes another org&#39;s quote.
+     *
+     * @param  string|null $role Role is buyer — the jobs the caller&#39;s org hired for — or seller, the jobs it was hired for. Buyer when empty. (optional)
+     * @param  string|null $status Status keeps one state. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceJobs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceJobPage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketplaceJobs($role = null, $status = null, string $contentType = self::contentTypes['getMarketplaceJobs'][0])
+    {
+        list($response) = $this->getMarketplaceJobsWithHttpInfo($role, $status, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketplaceJobsWithHttpInfo
+     *
+     * Lists the jobs the caller&#39;s org is a party to, newest first: as buyer, the work it hired — with the quotes it has not paid and the jobs being funded, each with the attempt that made it, so a hire whose answer was lost is found here — and as seller, the work it was hired for, which never includes another org&#39;s quote.
+     *
+     * @param  string|null $role Role is buyer — the jobs the caller&#39;s org hired for — or seller, the jobs it was hired for. Buyer when empty. (optional)
+     * @param  string|null $status Status keeps one state. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceJobs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceJobPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketplaceJobsWithHttpInfo($role = null, $status = null, string $contentType = self::contentTypes['getMarketplaceJobs'][0])
+    {
+        $request = $this->getMarketplaceJobsRequest($role, $status, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceJobPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceJobPage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceJobPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketplaceJobsAsync
+     *
+     * Lists the jobs the caller&#39;s org is a party to, newest first: as buyer, the work it hired — with the quotes it has not paid and the jobs being funded, each with the attempt that made it, so a hire whose answer was lost is found here — and as seller, the work it was hired for, which never includes another org&#39;s quote.
+     *
+     * @param  string|null $role Role is buyer — the jobs the caller&#39;s org hired for — or seller, the jobs it was hired for. Buyer when empty. (optional)
+     * @param  string|null $status Status keeps one state. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceJobs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceJobsAsync($role = null, $status = null, string $contentType = self::contentTypes['getMarketplaceJobs'][0])
+    {
+        return $this->getMarketplaceJobsAsyncWithHttpInfo($role, $status, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketplaceJobsAsyncWithHttpInfo
+     *
+     * Lists the jobs the caller&#39;s org is a party to, newest first: as buyer, the work it hired — with the quotes it has not paid and the jobs being funded, each with the attempt that made it, so a hire whose answer was lost is found here — and as seller, the work it was hired for, which never includes another org&#39;s quote.
+     *
+     * @param  string|null $role Role is buyer — the jobs the caller&#39;s org hired for — or seller, the jobs it was hired for. Buyer when empty. (optional)
+     * @param  string|null $status Status keeps one state. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceJobs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceJobsAsyncWithHttpInfo($role = null, $status = null, string $contentType = self::contentTypes['getMarketplaceJobs'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceJobPage';
+        $request = $this->getMarketplaceJobsRequest($role, $status, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketplaceJobs'
+     *
+     * @param  string|null $role Role is buyer — the jobs the caller&#39;s org hired for — or seller, the jobs it was hired for. Buyer when empty. (optional)
+     * @param  string|null $status Status keeps one state. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceJobs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketplaceJobsRequest($role = null, $status = null, string $contentType = self::contentTypes['getMarketplaceJobs'][0])
+    {
+
+
+
+
+        $resourcePath = '/v1/marketplace/jobs';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $role,
+            'role', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $status,
+            'status', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketplaceJobsById
+     *
+     * Reads one job the caller&#39;s org is a party to.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceJobsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketplaceJobsById($id, string $contentType = self::contentTypes['getMarketplaceJobsById'][0])
+    {
+        list($response) = $this->getMarketplaceJobsByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketplaceJobsByIdWithHttpInfo
+     *
+     * Reads one job the caller&#39;s org is a party to.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceJobsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketplaceJobsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getMarketplaceJobsById'][0])
+    {
+        $request = $this->getMarketplaceJobsByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceJob',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketplaceJobsByIdAsync
+     *
+     * Reads one job the caller&#39;s org is a party to.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceJobsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceJobsByIdAsync($id, string $contentType = self::contentTypes['getMarketplaceJobsById'][0])
+    {
+        return $this->getMarketplaceJobsByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketplaceJobsByIdAsyncWithHttpInfo
+     *
+     * Reads one job the caller&#39;s org is a party to.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceJobsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceJobsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketplaceJobsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceJob';
+        $request = $this->getMarketplaceJobsByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketplaceJobsById'
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceJobsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketplaceJobsByIdRequest($id, string $contentType = self::contentTypes['getMarketplaceJobsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketplaceJobsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/jobs/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -617,34 +1278,36 @@ class MarketplaceApi
     /**
      * Operation getMarketplaceListings
      *
-     * Returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy.
+     * Returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy — optionally of one kind.
      *
+     * @param  string|null $kind Kind keeps one kind: agent, persona, app, skill, mcp, tool, expert or capability. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceListings'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ListingPage
+     * @return \Hanzo\Cloud\Model\MarketplaceListingPage|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getMarketplaceListings(string $contentType = self::contentTypes['getMarketplaceListings'][0])
+    public function getMarketplaceListings($kind = null, string $contentType = self::contentTypes['getMarketplaceListings'][0])
     {
-        list($response) = $this->getMarketplaceListingsWithHttpInfo($contentType);
+        list($response) = $this->getMarketplaceListingsWithHttpInfo($kind, $contentType);
         return $response;
     }
 
     /**
      * Operation getMarketplaceListingsWithHttpInfo
      *
-     * Returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy.
+     * Returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy — optionally of one kind.
      *
+     * @param  string|null $kind Kind keeps one kind: agent, persona, app, skill, mcp, tool, expert or capability. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceListings'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ListingPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketplaceListingPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getMarketplaceListingsWithHttpInfo(string $contentType = self::contentTypes['getMarketplaceListings'][0])
+    public function getMarketplaceListingsWithHttpInfo($kind = null, string $contentType = self::contentTypes['getMarketplaceListings'][0])
     {
-        $request = $this->getMarketplaceListingsRequest($contentType);
+        $request = $this->getMarketplaceListingsRequest($kind, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -672,7 +1335,13 @@ class MarketplaceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ListingPage',
+                        '\Hanzo\Cloud\Model\MarketplaceListingPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -694,7 +1363,7 @@ class MarketplaceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ListingPage',
+                '\Hanzo\Cloud\Model\MarketplaceListingPage',
                 $request,
                 $response,
             );
@@ -703,7 +1372,15 @@ class MarketplaceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ListingPage',
+                        '\Hanzo\Cloud\Model\MarketplaceListingPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -718,16 +1395,17 @@ class MarketplaceApi
     /**
      * Operation getMarketplaceListingsAsync
      *
-     * Returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy.
+     * Returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy — optionally of one kind.
      *
+     * @param  string|null $kind Kind keeps one kind: agent, persona, app, skill, mcp, tool, expert or capability. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceListings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMarketplaceListingsAsync(string $contentType = self::contentTypes['getMarketplaceListings'][0])
+    public function getMarketplaceListingsAsync($kind = null, string $contentType = self::contentTypes['getMarketplaceListings'][0])
     {
-        return $this->getMarketplaceListingsAsyncWithHttpInfo($contentType)
+        return $this->getMarketplaceListingsAsyncWithHttpInfo($kind, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -738,17 +1416,18 @@ class MarketplaceApi
     /**
      * Operation getMarketplaceListingsAsyncWithHttpInfo
      *
-     * Returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy.
+     * Returns the listings the caller&#39;s own org has published — what this org is offering, not what it can buy — optionally of one kind.
      *
+     * @param  string|null $kind Kind keeps one kind: agent, persona, app, skill, mcp, tool, expert or capability. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceListings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMarketplaceListingsAsyncWithHttpInfo(string $contentType = self::contentTypes['getMarketplaceListings'][0])
+    public function getMarketplaceListingsAsyncWithHttpInfo($kind = null, string $contentType = self::contentTypes['getMarketplaceListings'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ListingPage';
-        $request = $this->getMarketplaceListingsRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceListingPage';
+        $request = $this->getMarketplaceListingsRequest($kind, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -789,13 +1468,15 @@ class MarketplaceApi
     /**
      * Create request for operation 'getMarketplaceListings'
      *
+     * @param  string|null $kind Kind keeps one kind: agent, persona, app, skill, mcp, tool, expert or capability. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceListings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getMarketplaceListingsRequest(string $contentType = self::contentTypes['getMarketplaceListings'][0])
+    public function getMarketplaceListingsRequest($kind = null, string $contentType = self::contentTypes['getMarketplaceListings'][0])
     {
+
 
 
         $resourcePath = '/v1/marketplace/listings';
@@ -805,12 +1486,21 @@ class MarketplaceApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $kind,
+            'kind', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -867,38 +1557,38 @@ class MarketplaceApi
     }
 
     /**
-     * Operation postMarketplaceInstall
+     * Operation getMarketplaceSeller
      *
-     * Install activates one tool for the caller&#39;s own org and project.
+     * Answers where the caller&#39;s org stands as a seller, in one read: its founders&#39; identity verification (KYC) and legal entity (KYB), its tax form and whether it is certified and valid, its own sanctions screening — only what an org may see about itself — the payout wallet it proved, the TaxPrincipalCredentials signed for its agents, what it earned in the year from the economic events the rails stated, and the 1099s payers furnished it.
      *
-     * @param  \Hanzo\Cloud\Model\InstallReq $install_req install_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceInstall'] to see the possible values for this operation
+     * @param  int|null $year Year is the calendar year (UTC); the current one when zero. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceSeller'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\InstallState
+     * @return \Hanzo\Cloud\Model\MarketplaceOnboarding|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketplaceInstall($install_req, string $contentType = self::contentTypes['postMarketplaceInstall'][0])
+    public function getMarketplaceSeller($year = null, string $contentType = self::contentTypes['getMarketplaceSeller'][0])
     {
-        list($response) = $this->postMarketplaceInstallWithHttpInfo($install_req, $contentType);
+        list($response) = $this->getMarketplaceSellerWithHttpInfo($year, $contentType);
         return $response;
     }
 
     /**
-     * Operation postMarketplaceInstallWithHttpInfo
+     * Operation getMarketplaceSellerWithHttpInfo
      *
-     * Install activates one tool for the caller&#39;s own org and project.
+     * Answers where the caller&#39;s org stands as a seller, in one read: its founders&#39; identity verification (KYC) and legal entity (KYB), its tax form and whether it is certified and valid, its own sanctions screening — only what an org may see about itself — the payout wallet it proved, the TaxPrincipalCredentials signed for its agents, what it earned in the year from the economic events the rails stated, and the 1099s payers furnished it.
      *
-     * @param  \Hanzo\Cloud\Model\InstallReq $install_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceInstall'] to see the possible values for this operation
+     * @param  int|null $year Year is the calendar year (UTC); the current one when zero. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceSeller'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\InstallState, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketplaceOnboarding|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketplaceInstallWithHttpInfo($install_req, string $contentType = self::contentTypes['postMarketplaceInstall'][0])
+    public function getMarketplaceSellerWithHttpInfo($year = null, string $contentType = self::contentTypes['getMarketplaceSeller'][0])
     {
-        $request = $this->postMarketplaceInstallRequest($install_req, $contentType);
+        $request = $this->getMarketplaceSellerRequest($year, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -926,7 +1616,13 @@ class MarketplaceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\InstallState',
+                        '\Hanzo\Cloud\Model\MarketplaceOnboarding',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -948,7 +1644,7 @@ class MarketplaceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\InstallState',
+                '\Hanzo\Cloud\Model\MarketplaceOnboarding',
                 $request,
                 $response,
             );
@@ -957,7 +1653,1712 @@ class MarketplaceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\InstallState',
+                        '\Hanzo\Cloud\Model\MarketplaceOnboarding',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketplaceSellerAsync
+     *
+     * Answers where the caller&#39;s org stands as a seller, in one read: its founders&#39; identity verification (KYC) and legal entity (KYB), its tax form and whether it is certified and valid, its own sanctions screening — only what an org may see about itself — the payout wallet it proved, the TaxPrincipalCredentials signed for its agents, what it earned in the year from the economic events the rails stated, and the 1099s payers furnished it.
+     *
+     * @param  int|null $year Year is the calendar year (UTC); the current one when zero. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceSeller'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceSellerAsync($year = null, string $contentType = self::contentTypes['getMarketplaceSeller'][0])
+    {
+        return $this->getMarketplaceSellerAsyncWithHttpInfo($year, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketplaceSellerAsyncWithHttpInfo
+     *
+     * Answers where the caller&#39;s org stands as a seller, in one read: its founders&#39; identity verification (KYC) and legal entity (KYB), its tax form and whether it is certified and valid, its own sanctions screening — only what an org may see about itself — the payout wallet it proved, the TaxPrincipalCredentials signed for its agents, what it earned in the year from the economic events the rails stated, and the 1099s payers furnished it.
+     *
+     * @param  int|null $year Year is the calendar year (UTC); the current one when zero. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceSeller'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceSellerAsyncWithHttpInfo($year = null, string $contentType = self::contentTypes['getMarketplaceSeller'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceOnboarding';
+        $request = $this->getMarketplaceSellerRequest($year, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketplaceSeller'
+     *
+     * @param  int|null $year Year is the calendar year (UTC); the current one when zero. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceSeller'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketplaceSellerRequest($year = null, string $contentType = self::contentTypes['getMarketplaceSeller'][0])
+    {
+
+
+
+        $resourcePath = '/v1/marketplace/seller';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $year,
+            'year', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketplaceShop
+     *
+     * Searches every public listing of every kind — agents and personas to hire, apps, skills, Kai capabilities, MCP servers and tools — newest first, with facets by kind, category, price and rating, paged.
+     *
+     * @param  string|null $q Q keeps listings whose title, description, category, thing or seller contains every word of it, case-insensitively. (optional)
+     * @param  string|null $kind Kind keeps one kind: agent, persona, app, skill, mcp, tool or expert. (optional)
+     * @param  string|null $category Category keeps one category, exactly. (optional)
+     * @param  string|null $price Price keeps free listings or priced ones. (optional)
+     * @param  int|null $rating Rating keeps listings rated at least this many stars, 1 to 5. (optional)
+     * @param  string|null $seller Seller keeps one seller org&#39;s listings. (optional)
+     * @param  string|null $area Area keeps the experts who work on one area: configure, base, commerce, bot, agents, cloud, models, creative or freelance. (optional)
+     * @param  int|null $limit Limit is the page size: 48 by default, 200 at most. (optional)
+     * @param  int|null $offset Offset is where the page starts. (optional)
+     * @param  string|null $sort Sort orders experts, with kind&#x3D;expert: tokens (the token tier), level, points (the rewards program&#39;s, put last for an expert whose reward profile is not public), rating (unrated last), jobs (jobs completed), rate (the hourly rate, none last) or newest. It is newest by default. (optional)
+     * @param  string|null $dir Dir is the direction of Sort: desc by default, or asc. An expert the order cannot place stays last either way. (optional)
+     * @param  string|null $language Language keeps the experts who work in a language, a BCP 47 tag such as en, es or zh-cn; zh keeps zh-cn and zh-tw as well. With kind&#x3D;expert. (optional)
+     * @param  bool|null $verified Verified, true, keeps the experts staff verified; false keeps everyone. With kind&#x3D;expert. (optional)
+     * @param  int|null $min_level MinLevel keeps the experts whose public reward profile shows this level or higher; 0 keeps everyone. With kind&#x3D;expert. (optional)
+     * @param  string|null $badge Badge keeps the experts whose public reward profile holds a badge, by id such as first-merge. With kind&#x3D;expert. (optional)
+     * @param  string|null $token_tier TokenTier keeps the experts whose token tier is at least this: 100k, 1m, 5m, 10m, 100m, 1b, 10b, 100b or 1t. With kind&#x3D;expert. (optional)
+     * @param  string|null $rate_min RateMin keeps the experts whose hourly rate is at least this decimal USD amount; an expert with no hourly rate is kept by neither RateMin nor RateMax. With kind&#x3D;expert. (optional)
+     * @param  string|null $rate_max RateMax keeps the experts whose hourly rate is at most this decimal USD amount. With kind&#x3D;expert. (optional)
+     * @param  string|null $product Product orders the experts by their score in a product, best first, those with none last: dev, bot, team, base, commerce, cloud, agents, kai, enso, zen or creative. It is the order, so it is not given with Sort. With kind&#x3D;expert. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShop'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceShop|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketplaceShop($q = null, $kind = null, $category = null, $price = null, $rating = null, $seller = null, $area = null, $limit = null, $offset = null, $sort = null, $dir = null, $language = null, $verified = null, $min_level = null, $badge = null, $token_tier = null, $rate_min = null, $rate_max = null, $product = null, string $contentType = self::contentTypes['getMarketplaceShop'][0])
+    {
+        list($response) = $this->getMarketplaceShopWithHttpInfo($q, $kind, $category, $price, $rating, $seller, $area, $limit, $offset, $sort, $dir, $language, $verified, $min_level, $badge, $token_tier, $rate_min, $rate_max, $product, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketplaceShopWithHttpInfo
+     *
+     * Searches every public listing of every kind — agents and personas to hire, apps, skills, Kai capabilities, MCP servers and tools — newest first, with facets by kind, category, price and rating, paged.
+     *
+     * @param  string|null $q Q keeps listings whose title, description, category, thing or seller contains every word of it, case-insensitively. (optional)
+     * @param  string|null $kind Kind keeps one kind: agent, persona, app, skill, mcp, tool or expert. (optional)
+     * @param  string|null $category Category keeps one category, exactly. (optional)
+     * @param  string|null $price Price keeps free listings or priced ones. (optional)
+     * @param  int|null $rating Rating keeps listings rated at least this many stars, 1 to 5. (optional)
+     * @param  string|null $seller Seller keeps one seller org&#39;s listings. (optional)
+     * @param  string|null $area Area keeps the experts who work on one area: configure, base, commerce, bot, agents, cloud, models, creative or freelance. (optional)
+     * @param  int|null $limit Limit is the page size: 48 by default, 200 at most. (optional)
+     * @param  int|null $offset Offset is where the page starts. (optional)
+     * @param  string|null $sort Sort orders experts, with kind&#x3D;expert: tokens (the token tier), level, points (the rewards program&#39;s, put last for an expert whose reward profile is not public), rating (unrated last), jobs (jobs completed), rate (the hourly rate, none last) or newest. It is newest by default. (optional)
+     * @param  string|null $dir Dir is the direction of Sort: desc by default, or asc. An expert the order cannot place stays last either way. (optional)
+     * @param  string|null $language Language keeps the experts who work in a language, a BCP 47 tag such as en, es or zh-cn; zh keeps zh-cn and zh-tw as well. With kind&#x3D;expert. (optional)
+     * @param  bool|null $verified Verified, true, keeps the experts staff verified; false keeps everyone. With kind&#x3D;expert. (optional)
+     * @param  int|null $min_level MinLevel keeps the experts whose public reward profile shows this level or higher; 0 keeps everyone. With kind&#x3D;expert. (optional)
+     * @param  string|null $badge Badge keeps the experts whose public reward profile holds a badge, by id such as first-merge. With kind&#x3D;expert. (optional)
+     * @param  string|null $token_tier TokenTier keeps the experts whose token tier is at least this: 100k, 1m, 5m, 10m, 100m, 1b, 10b, 100b or 1t. With kind&#x3D;expert. (optional)
+     * @param  string|null $rate_min RateMin keeps the experts whose hourly rate is at least this decimal USD amount; an expert with no hourly rate is kept by neither RateMin nor RateMax. With kind&#x3D;expert. (optional)
+     * @param  string|null $rate_max RateMax keeps the experts whose hourly rate is at most this decimal USD amount. With kind&#x3D;expert. (optional)
+     * @param  string|null $product Product orders the experts by their score in a product, best first, those with none last: dev, bot, team, base, commerce, cloud, agents, kai, enso, zen or creative. It is the order, so it is not given with Sort. With kind&#x3D;expert. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShop'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceShop|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketplaceShopWithHttpInfo($q = null, $kind = null, $category = null, $price = null, $rating = null, $seller = null, $area = null, $limit = null, $offset = null, $sort = null, $dir = null, $language = null, $verified = null, $min_level = null, $badge = null, $token_tier = null, $rate_min = null, $rate_max = null, $product = null, string $contentType = self::contentTypes['getMarketplaceShop'][0])
+    {
+        $request = $this->getMarketplaceShopRequest($q, $kind, $category, $price, $rating, $seller, $area, $limit, $offset, $sort, $dir, $language, $verified, $min_level, $badge, $token_tier, $rate_min, $rate_max, $product, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceShop',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceShop',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceShop',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketplaceShopAsync
+     *
+     * Searches every public listing of every kind — agents and personas to hire, apps, skills, Kai capabilities, MCP servers and tools — newest first, with facets by kind, category, price and rating, paged.
+     *
+     * @param  string|null $q Q keeps listings whose title, description, category, thing or seller contains every word of it, case-insensitively. (optional)
+     * @param  string|null $kind Kind keeps one kind: agent, persona, app, skill, mcp, tool or expert. (optional)
+     * @param  string|null $category Category keeps one category, exactly. (optional)
+     * @param  string|null $price Price keeps free listings or priced ones. (optional)
+     * @param  int|null $rating Rating keeps listings rated at least this many stars, 1 to 5. (optional)
+     * @param  string|null $seller Seller keeps one seller org&#39;s listings. (optional)
+     * @param  string|null $area Area keeps the experts who work on one area: configure, base, commerce, bot, agents, cloud, models, creative or freelance. (optional)
+     * @param  int|null $limit Limit is the page size: 48 by default, 200 at most. (optional)
+     * @param  int|null $offset Offset is where the page starts. (optional)
+     * @param  string|null $sort Sort orders experts, with kind&#x3D;expert: tokens (the token tier), level, points (the rewards program&#39;s, put last for an expert whose reward profile is not public), rating (unrated last), jobs (jobs completed), rate (the hourly rate, none last) or newest. It is newest by default. (optional)
+     * @param  string|null $dir Dir is the direction of Sort: desc by default, or asc. An expert the order cannot place stays last either way. (optional)
+     * @param  string|null $language Language keeps the experts who work in a language, a BCP 47 tag such as en, es or zh-cn; zh keeps zh-cn and zh-tw as well. With kind&#x3D;expert. (optional)
+     * @param  bool|null $verified Verified, true, keeps the experts staff verified; false keeps everyone. With kind&#x3D;expert. (optional)
+     * @param  int|null $min_level MinLevel keeps the experts whose public reward profile shows this level or higher; 0 keeps everyone. With kind&#x3D;expert. (optional)
+     * @param  string|null $badge Badge keeps the experts whose public reward profile holds a badge, by id such as first-merge. With kind&#x3D;expert. (optional)
+     * @param  string|null $token_tier TokenTier keeps the experts whose token tier is at least this: 100k, 1m, 5m, 10m, 100m, 1b, 10b, 100b or 1t. With kind&#x3D;expert. (optional)
+     * @param  string|null $rate_min RateMin keeps the experts whose hourly rate is at least this decimal USD amount; an expert with no hourly rate is kept by neither RateMin nor RateMax. With kind&#x3D;expert. (optional)
+     * @param  string|null $rate_max RateMax keeps the experts whose hourly rate is at most this decimal USD amount. With kind&#x3D;expert. (optional)
+     * @param  string|null $product Product orders the experts by their score in a product, best first, those with none last: dev, bot, team, base, commerce, cloud, agents, kai, enso, zen or creative. It is the order, so it is not given with Sort. With kind&#x3D;expert. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShop'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceShopAsync($q = null, $kind = null, $category = null, $price = null, $rating = null, $seller = null, $area = null, $limit = null, $offset = null, $sort = null, $dir = null, $language = null, $verified = null, $min_level = null, $badge = null, $token_tier = null, $rate_min = null, $rate_max = null, $product = null, string $contentType = self::contentTypes['getMarketplaceShop'][0])
+    {
+        return $this->getMarketplaceShopAsyncWithHttpInfo($q, $kind, $category, $price, $rating, $seller, $area, $limit, $offset, $sort, $dir, $language, $verified, $min_level, $badge, $token_tier, $rate_min, $rate_max, $product, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketplaceShopAsyncWithHttpInfo
+     *
+     * Searches every public listing of every kind — agents and personas to hire, apps, skills, Kai capabilities, MCP servers and tools — newest first, with facets by kind, category, price and rating, paged.
+     *
+     * @param  string|null $q Q keeps listings whose title, description, category, thing or seller contains every word of it, case-insensitively. (optional)
+     * @param  string|null $kind Kind keeps one kind: agent, persona, app, skill, mcp, tool or expert. (optional)
+     * @param  string|null $category Category keeps one category, exactly. (optional)
+     * @param  string|null $price Price keeps free listings or priced ones. (optional)
+     * @param  int|null $rating Rating keeps listings rated at least this many stars, 1 to 5. (optional)
+     * @param  string|null $seller Seller keeps one seller org&#39;s listings. (optional)
+     * @param  string|null $area Area keeps the experts who work on one area: configure, base, commerce, bot, agents, cloud, models, creative or freelance. (optional)
+     * @param  int|null $limit Limit is the page size: 48 by default, 200 at most. (optional)
+     * @param  int|null $offset Offset is where the page starts. (optional)
+     * @param  string|null $sort Sort orders experts, with kind&#x3D;expert: tokens (the token tier), level, points (the rewards program&#39;s, put last for an expert whose reward profile is not public), rating (unrated last), jobs (jobs completed), rate (the hourly rate, none last) or newest. It is newest by default. (optional)
+     * @param  string|null $dir Dir is the direction of Sort: desc by default, or asc. An expert the order cannot place stays last either way. (optional)
+     * @param  string|null $language Language keeps the experts who work in a language, a BCP 47 tag such as en, es or zh-cn; zh keeps zh-cn and zh-tw as well. With kind&#x3D;expert. (optional)
+     * @param  bool|null $verified Verified, true, keeps the experts staff verified; false keeps everyone. With kind&#x3D;expert. (optional)
+     * @param  int|null $min_level MinLevel keeps the experts whose public reward profile shows this level or higher; 0 keeps everyone. With kind&#x3D;expert. (optional)
+     * @param  string|null $badge Badge keeps the experts whose public reward profile holds a badge, by id such as first-merge. With kind&#x3D;expert. (optional)
+     * @param  string|null $token_tier TokenTier keeps the experts whose token tier is at least this: 100k, 1m, 5m, 10m, 100m, 1b, 10b, 100b or 1t. With kind&#x3D;expert. (optional)
+     * @param  string|null $rate_min RateMin keeps the experts whose hourly rate is at least this decimal USD amount; an expert with no hourly rate is kept by neither RateMin nor RateMax. With kind&#x3D;expert. (optional)
+     * @param  string|null $rate_max RateMax keeps the experts whose hourly rate is at most this decimal USD amount. With kind&#x3D;expert. (optional)
+     * @param  string|null $product Product orders the experts by their score in a product, best first, those with none last: dev, bot, team, base, commerce, cloud, agents, kai, enso, zen or creative. It is the order, so it is not given with Sort. With kind&#x3D;expert. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShop'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceShopAsyncWithHttpInfo($q = null, $kind = null, $category = null, $price = null, $rating = null, $seller = null, $area = null, $limit = null, $offset = null, $sort = null, $dir = null, $language = null, $verified = null, $min_level = null, $badge = null, $token_tier = null, $rate_min = null, $rate_max = null, $product = null, string $contentType = self::contentTypes['getMarketplaceShop'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceShop';
+        $request = $this->getMarketplaceShopRequest($q, $kind, $category, $price, $rating, $seller, $area, $limit, $offset, $sort, $dir, $language, $verified, $min_level, $badge, $token_tier, $rate_min, $rate_max, $product, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketplaceShop'
+     *
+     * @param  string|null $q Q keeps listings whose title, description, category, thing or seller contains every word of it, case-insensitively. (optional)
+     * @param  string|null $kind Kind keeps one kind: agent, persona, app, skill, mcp, tool or expert. (optional)
+     * @param  string|null $category Category keeps one category, exactly. (optional)
+     * @param  string|null $price Price keeps free listings or priced ones. (optional)
+     * @param  int|null $rating Rating keeps listings rated at least this many stars, 1 to 5. (optional)
+     * @param  string|null $seller Seller keeps one seller org&#39;s listings. (optional)
+     * @param  string|null $area Area keeps the experts who work on one area: configure, base, commerce, bot, agents, cloud, models, creative or freelance. (optional)
+     * @param  int|null $limit Limit is the page size: 48 by default, 200 at most. (optional)
+     * @param  int|null $offset Offset is where the page starts. (optional)
+     * @param  string|null $sort Sort orders experts, with kind&#x3D;expert: tokens (the token tier), level, points (the rewards program&#39;s, put last for an expert whose reward profile is not public), rating (unrated last), jobs (jobs completed), rate (the hourly rate, none last) or newest. It is newest by default. (optional)
+     * @param  string|null $dir Dir is the direction of Sort: desc by default, or asc. An expert the order cannot place stays last either way. (optional)
+     * @param  string|null $language Language keeps the experts who work in a language, a BCP 47 tag such as en, es or zh-cn; zh keeps zh-cn and zh-tw as well. With kind&#x3D;expert. (optional)
+     * @param  bool|null $verified Verified, true, keeps the experts staff verified; false keeps everyone. With kind&#x3D;expert. (optional)
+     * @param  int|null $min_level MinLevel keeps the experts whose public reward profile shows this level or higher; 0 keeps everyone. With kind&#x3D;expert. (optional)
+     * @param  string|null $badge Badge keeps the experts whose public reward profile holds a badge, by id such as first-merge. With kind&#x3D;expert. (optional)
+     * @param  string|null $token_tier TokenTier keeps the experts whose token tier is at least this: 100k, 1m, 5m, 10m, 100m, 1b, 10b, 100b or 1t. With kind&#x3D;expert. (optional)
+     * @param  string|null $rate_min RateMin keeps the experts whose hourly rate is at least this decimal USD amount; an expert with no hourly rate is kept by neither RateMin nor RateMax. With kind&#x3D;expert. (optional)
+     * @param  string|null $rate_max RateMax keeps the experts whose hourly rate is at most this decimal USD amount. With kind&#x3D;expert. (optional)
+     * @param  string|null $product Product orders the experts by their score in a product, best first, those with none last: dev, bot, team, base, commerce, cloud, agents, kai, enso, zen or creative. It is the order, so it is not given with Sort. With kind&#x3D;expert. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShop'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketplaceShopRequest($q = null, $kind = null, $category = null, $price = null, $rating = null, $seller = null, $area = null, $limit = null, $offset = null, $sort = null, $dir = null, $language = null, $verified = null, $min_level = null, $badge = null, $token_tier = null, $rate_min = null, $rate_max = null, $product = null, string $contentType = self::contentTypes['getMarketplaceShop'][0])
+    {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $resourcePath = '/v1/marketplace/shop';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $q,
+            'q', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $kind,
+            'kind', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $category,
+            'category', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $price,
+            'price', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $rating,
+            'rating', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $seller,
+            'seller', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $area,
+            'area', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $offset,
+            'offset', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $sort,
+            'sort', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $dir,
+            'dir', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $language,
+            'language', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $verified,
+            'verified', // param base name
+            'boolean', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $min_level,
+            'minLevel', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $badge,
+            'badge', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $token_tier,
+            'tokenTier', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $rate_min,
+            'rateMin', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $rate_max,
+            'rateMax', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $product,
+            'product', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketplaceShopById
+     *
+     * Reads one public listing as the shop shows it — its seller&#39;s public face, its reputation and the ways to buy it.
+     *
+     * @param  string $id ID is the listing, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShopById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceShopListing|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketplaceShopById($id, string $contentType = self::contentTypes['getMarketplaceShopById'][0])
+    {
+        list($response) = $this->getMarketplaceShopByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketplaceShopByIdWithHttpInfo
+     *
+     * Reads one public listing as the shop shows it — its seller&#39;s public face, its reputation and the ways to buy it.
+     *
+     * @param  string $id ID is the listing, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShopById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceShopListing|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketplaceShopByIdWithHttpInfo($id, string $contentType = self::contentTypes['getMarketplaceShopById'][0])
+    {
+        $request = $this->getMarketplaceShopByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceShopListing',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceShopListing',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceShopListing',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketplaceShopByIdAsync
+     *
+     * Reads one public listing as the shop shows it — its seller&#39;s public face, its reputation and the ways to buy it.
+     *
+     * @param  string $id ID is the listing, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShopById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceShopByIdAsync($id, string $contentType = self::contentTypes['getMarketplaceShopById'][0])
+    {
+        return $this->getMarketplaceShopByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketplaceShopByIdAsyncWithHttpInfo
+     *
+     * Reads one public listing as the shop shows it — its seller&#39;s public face, its reputation and the ways to buy it.
+     *
+     * @param  string $id ID is the listing, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShopById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceShopByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketplaceShopById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceShopListing';
+        $request = $this->getMarketplaceShopByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketplaceShopById'
+     *
+     * @param  string $id ID is the listing, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShopById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketplaceShopByIdRequest($id, string $contentType = self::contentTypes['getMarketplaceShopById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketplaceShopById'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/shop/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMarketplaceShopByIdWeights
+     *
+     * Downloads an open-source Kai capability listing&#39;s .tar weights (base64) and shared representation metadata.
+     *
+     * @param  string $id ID is the listing, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShopByIdWeights'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceShopCapabilityWeights|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getMarketplaceShopByIdWeights($id, string $contentType = self::contentTypes['getMarketplaceShopByIdWeights'][0])
+    {
+        list($response) = $this->getMarketplaceShopByIdWeightsWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getMarketplaceShopByIdWeightsWithHttpInfo
+     *
+     * Downloads an open-source Kai capability listing&#39;s .tar weights (base64) and shared representation metadata.
+     *
+     * @param  string $id ID is the listing, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShopByIdWeights'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceShopCapabilityWeights|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMarketplaceShopByIdWeightsWithHttpInfo($id, string $contentType = self::contentTypes['getMarketplaceShopByIdWeights'][0])
+    {
+        $request = $this->getMarketplaceShopByIdWeightsRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceShopCapabilityWeights',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceShopCapabilityWeights',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceShopCapabilityWeights',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMarketplaceShopByIdWeightsAsync
+     *
+     * Downloads an open-source Kai capability listing&#39;s .tar weights (base64) and shared representation metadata.
+     *
+     * @param  string $id ID is the listing, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShopByIdWeights'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceShopByIdWeightsAsync($id, string $contentType = self::contentTypes['getMarketplaceShopByIdWeights'][0])
+    {
+        return $this->getMarketplaceShopByIdWeightsAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMarketplaceShopByIdWeightsAsyncWithHttpInfo
+     *
+     * Downloads an open-source Kai capability listing&#39;s .tar weights (base64) and shared representation metadata.
+     *
+     * @param  string $id ID is the listing, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShopByIdWeights'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMarketplaceShopByIdWeightsAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getMarketplaceShopByIdWeights'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceShopCapabilityWeights';
+        $request = $this->getMarketplaceShopByIdWeightsRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMarketplaceShopByIdWeights'
+     *
+     * @param  string $id ID is the listing, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMarketplaceShopByIdWeights'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getMarketplaceShopByIdWeightsRequest($id, string $contentType = self::contentTypes['getMarketplaceShopByIdWeights'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getMarketplaceShopByIdWeights'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/shop/{id}/weights';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation patchMarketplaceListingsById
+     *
+     * Edits one of the caller org&#39;s listings — its copy, price, payout wallet, visibility and documentation, and an expert&#39;s profile — under the same rules publish applies, and answers the listing as it now stands.
+     *
+     * @param  string $id ID is the listing to edit, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplacePatchReq $marketplace_patch_req marketplace_patch_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketplaceListingsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceListing|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function patchMarketplaceListingsById($id, $marketplace_patch_req, string $contentType = self::contentTypes['patchMarketplaceListingsById'][0])
+    {
+        list($response) = $this->patchMarketplaceListingsByIdWithHttpInfo($id, $marketplace_patch_req, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation patchMarketplaceListingsByIdWithHttpInfo
+     *
+     * Edits one of the caller org&#39;s listings — its copy, price, payout wallet, visibility and documentation, and an expert&#39;s profile — under the same rules publish applies, and answers the listing as it now stands.
+     *
+     * @param  string $id ID is the listing to edit, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplacePatchReq $marketplace_patch_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketplaceListingsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceListing|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function patchMarketplaceListingsByIdWithHttpInfo($id, $marketplace_patch_req, string $contentType = self::contentTypes['patchMarketplaceListingsById'][0])
+    {
+        $request = $this->patchMarketplaceListingsByIdRequest($id, $marketplace_patch_req, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceListing',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceListing',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceListing',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation patchMarketplaceListingsByIdAsync
+     *
+     * Edits one of the caller org&#39;s listings — its copy, price, payout wallet, visibility and documentation, and an expert&#39;s profile — under the same rules publish applies, and answers the listing as it now stands.
+     *
+     * @param  string $id ID is the listing to edit, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplacePatchReq $marketplace_patch_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketplaceListingsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchMarketplaceListingsByIdAsync($id, $marketplace_patch_req, string $contentType = self::contentTypes['patchMarketplaceListingsById'][0])
+    {
+        return $this->patchMarketplaceListingsByIdAsyncWithHttpInfo($id, $marketplace_patch_req, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation patchMarketplaceListingsByIdAsyncWithHttpInfo
+     *
+     * Edits one of the caller org&#39;s listings — its copy, price, payout wallet, visibility and documentation, and an expert&#39;s profile — under the same rules publish applies, and answers the listing as it now stands.
+     *
+     * @param  string $id ID is the listing to edit, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplacePatchReq $marketplace_patch_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketplaceListingsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchMarketplaceListingsByIdAsyncWithHttpInfo($id, $marketplace_patch_req, string $contentType = self::contentTypes['patchMarketplaceListingsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceListing';
+        $request = $this->patchMarketplaceListingsByIdRequest($id, $marketplace_patch_req, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'patchMarketplaceListingsById'
+     *
+     * @param  string $id ID is the listing to edit, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplacePatchReq $marketplace_patch_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchMarketplaceListingsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function patchMarketplaceListingsByIdRequest($id, $marketplace_patch_req, string $contentType = self::contentTypes['patchMarketplaceListingsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling patchMarketplaceListingsById'
+            );
+        }
+
+        // verify the required parameter 'marketplace_patch_req' is set
+        if ($marketplace_patch_req === null || (is_array($marketplace_patch_req) && count($marketplace_patch_req) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_patch_req when calling patchMarketplaceListingsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/listings/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketplace_patch_req)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_patch_req));
+            } else {
+                $httpBody = $marketplace_patch_req;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceInstall
+     *
+     * Activates one tool for the caller&#39;s own org and project.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplaceInstallReq $marketplace_install_req marketplace_install_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceInstall'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceInstallState|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceInstall($marketplace_install_req, string $contentType = self::contentTypes['postMarketplaceInstall'][0])
+    {
+        list($response) = $this->postMarketplaceInstallWithHttpInfo($marketplace_install_req, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceInstallWithHttpInfo
+     *
+     * Activates one tool for the caller&#39;s own org and project.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplaceInstallReq $marketplace_install_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceInstall'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceInstallState|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceInstallWithHttpInfo($marketplace_install_req, string $contentType = self::contentTypes['postMarketplaceInstall'][0])
+    {
+        $request = $this->postMarketplaceInstallRequest($marketplace_install_req, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceInstallState',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceInstallState',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceInstallState',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -972,17 +3373,17 @@ class MarketplaceApi
     /**
      * Operation postMarketplaceInstallAsync
      *
-     * Install activates one tool for the caller&#39;s own org and project.
+     * Activates one tool for the caller&#39;s own org and project.
      *
-     * @param  \Hanzo\Cloud\Model\InstallReq $install_req (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceInstallReq $marketplace_install_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceInstall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketplaceInstallAsync($install_req, string $contentType = self::contentTypes['postMarketplaceInstall'][0])
+    public function postMarketplaceInstallAsync($marketplace_install_req, string $contentType = self::contentTypes['postMarketplaceInstall'][0])
     {
-        return $this->postMarketplaceInstallAsyncWithHttpInfo($install_req, $contentType)
+        return $this->postMarketplaceInstallAsyncWithHttpInfo($marketplace_install_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -993,18 +3394,18 @@ class MarketplaceApi
     /**
      * Operation postMarketplaceInstallAsyncWithHttpInfo
      *
-     * Install activates one tool for the caller&#39;s own org and project.
+     * Activates one tool for the caller&#39;s own org and project.
      *
-     * @param  \Hanzo\Cloud\Model\InstallReq $install_req (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceInstallReq $marketplace_install_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceInstall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketplaceInstallAsyncWithHttpInfo($install_req, string $contentType = self::contentTypes['postMarketplaceInstall'][0])
+    public function postMarketplaceInstallAsyncWithHttpInfo($marketplace_install_req, string $contentType = self::contentTypes['postMarketplaceInstall'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\InstallState';
-        $request = $this->postMarketplaceInstallRequest($install_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceInstallState';
+        $request = $this->postMarketplaceInstallRequest($marketplace_install_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1045,19 +3446,19 @@ class MarketplaceApi
     /**
      * Create request for operation 'postMarketplaceInstall'
      *
-     * @param  \Hanzo\Cloud\Model\InstallReq $install_req (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceInstallReq $marketplace_install_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceInstall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketplaceInstallRequest($install_req, string $contentType = self::contentTypes['postMarketplaceInstall'][0])
+    public function postMarketplaceInstallRequest($marketplace_install_req, string $contentType = self::contentTypes['postMarketplaceInstall'][0])
     {
 
-        // verify the required parameter 'install_req' is set
-        if ($install_req === null || (is_array($install_req) && count($install_req) === 0)) {
+        // verify the required parameter 'marketplace_install_req' is set
+        if ($marketplace_install_req === null || (is_array($marketplace_install_req) && count($marketplace_install_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $install_req when calling postMarketplaceInstall'
+                'Missing the required parameter $marketplace_install_req when calling postMarketplaceInstall'
             );
         }
 
@@ -1074,18 +3475,18 @@ class MarketplaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($install_req)) {
+        if (isset($marketplace_install_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($install_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_install_req));
             } else {
-                $httpBody = $install_req;
+                $httpBody = $marketplace_install_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1138,38 +3539,38 @@ class MarketplaceApi
     }
 
     /**
-     * Operation postMarketplaceListings
+     * Operation postMarketplaceJobs
      *
-     * Publish offers one tool on the marketplace, optionally monetized.
+     * Hires another org for a piece of work, through a public listing or by a direct offer, and answers 201 with the job — open, waiting for the seller.
      *
-     * @param  \Hanzo\Cloud\Model\PublishReq $publish_req publish_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListings'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\MarketplaceHireIn $marketplace_hire_in marketplace_hire_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobs'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Listing
+     * @return \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketplaceListings($publish_req, string $contentType = self::contentTypes['postMarketplaceListings'][0])
+    public function postMarketplaceJobs($marketplace_hire_in, string $contentType = self::contentTypes['postMarketplaceJobs'][0])
     {
-        list($response) = $this->postMarketplaceListingsWithHttpInfo($publish_req, $contentType);
+        list($response) = $this->postMarketplaceJobsWithHttpInfo($marketplace_hire_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postMarketplaceListingsWithHttpInfo
+     * Operation postMarketplaceJobsWithHttpInfo
      *
-     * Publish offers one tool on the marketplace, optionally monetized.
+     * Hires another org for a piece of work, through a public listing or by a direct offer, and answers 201 with the job — open, waiting for the seller.
      *
-     * @param  \Hanzo\Cloud\Model\PublishReq $publish_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListings'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\MarketplaceHireIn $marketplace_hire_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobs'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Listing, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketplaceListingsWithHttpInfo($publish_req, string $contentType = self::contentTypes['postMarketplaceListings'][0])
+    public function postMarketplaceJobsWithHttpInfo($marketplace_hire_in, string $contentType = self::contentTypes['postMarketplaceJobs'][0])
     {
-        $request = $this->postMarketplaceListingsRequest($publish_req, $contentType);
+        $request = $this->postMarketplaceJobsRequest($marketplace_hire_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1197,7 +3598,13 @@ class MarketplaceApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Listing',
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1219,7 +3626,7 @@ class MarketplaceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Listing',
+                '\Hanzo\Cloud\Model\MarketplaceJob',
                 $request,
                 $response,
             );
@@ -1228,7 +3635,2664 @@ class MarketplaceApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Listing',
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceJobsAsync
+     *
+     * Hires another org for a piece of work, through a public listing or by a direct offer, and answers 201 with the job — open, waiting for the seller.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplaceHireIn $marketplace_hire_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsAsync($marketplace_hire_in, string $contentType = self::contentTypes['postMarketplaceJobs'][0])
+    {
+        return $this->postMarketplaceJobsAsyncWithHttpInfo($marketplace_hire_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceJobsAsyncWithHttpInfo
+     *
+     * Hires another org for a piece of work, through a public listing or by a direct offer, and answers 201 with the job — open, waiting for the seller.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplaceHireIn $marketplace_hire_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsAsyncWithHttpInfo($marketplace_hire_in, string $contentType = self::contentTypes['postMarketplaceJobs'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceJob';
+        $request = $this->postMarketplaceJobsRequest($marketplace_hire_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceJobs'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplaceHireIn $marketplace_hire_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceJobsRequest($marketplace_hire_in, string $contentType = self::contentTypes['postMarketplaceJobs'][0])
+    {
+
+        // verify the required parameter 'marketplace_hire_in' is set
+        if ($marketplace_hire_in === null || (is_array($marketplace_hire_in) && count($marketplace_hire_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_hire_in when calling postMarketplaceJobs'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/jobs';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketplace_hire_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_hire_in));
+            } else {
+                $httpBody = $marketplace_hire_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdAccept
+     *
+     * Accepts a job the caller&#39;s org was hired for: the seller takes the work on and the clock toward its deadline is the seller&#39;s.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdAccept'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceJobsByIdAccept($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdAccept'][0])
+    {
+        list($response) = $this->postMarketplaceJobsByIdAcceptWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdAcceptWithHttpInfo
+     *
+     * Accepts a job the caller&#39;s org was hired for: the seller takes the work on and the clock toward its deadline is the seller&#39;s.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdAccept'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceJobsByIdAcceptWithHttpInfo($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdAccept'][0])
+    {
+        $request = $this->postMarketplaceJobsByIdAcceptRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceJob',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdAcceptAsync
+     *
+     * Accepts a job the caller&#39;s org was hired for: the seller takes the work on and the clock toward its deadline is the seller&#39;s.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdAccept'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdAcceptAsync($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdAccept'][0])
+    {
+        return $this->postMarketplaceJobsByIdAcceptAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdAcceptAsyncWithHttpInfo
+     *
+     * Accepts a job the caller&#39;s org was hired for: the seller takes the work on and the clock toward its deadline is the seller&#39;s.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdAccept'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdAcceptAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdAccept'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceJob';
+        $request = $this->postMarketplaceJobsByIdAcceptRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceJobsByIdAccept'
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdAccept'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceJobsByIdAcceptRequest($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdAccept'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketplaceJobsByIdAccept'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/jobs/{id}/accept';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdCancel
+     *
+     * Takes back a job the caller&#39;s org opened, before the seller accepts it.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceJobsByIdCancel($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdCancel'][0])
+    {
+        list($response) = $this->postMarketplaceJobsByIdCancelWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdCancelWithHttpInfo
+     *
+     * Takes back a job the caller&#39;s org opened, before the seller accepts it.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceJobsByIdCancelWithHttpInfo($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdCancel'][0])
+    {
+        $request = $this->postMarketplaceJobsByIdCancelRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceJob',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdCancelAsync
+     *
+     * Takes back a job the caller&#39;s org opened, before the seller accepts it.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdCancelAsync($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdCancel'][0])
+    {
+        return $this->postMarketplaceJobsByIdCancelAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdCancelAsyncWithHttpInfo
+     *
+     * Takes back a job the caller&#39;s org opened, before the seller accepts it.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdCancelAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdCancel'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceJob';
+        $request = $this->postMarketplaceJobsByIdCancelRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceJobsByIdCancel'
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceJobsByIdCancelRequest($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdCancel'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketplaceJobsByIdCancel'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/jobs/{id}/cancel';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDecline
+     *
+     * Declines a job the caller&#39;s org was hired for, before any work.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDeclineIn $marketplace_decline_in marketplace_decline_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDecline'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceJobsByIdDecline($id, $marketplace_decline_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDecline'][0])
+    {
+        list($response) = $this->postMarketplaceJobsByIdDeclineWithHttpInfo($id, $marketplace_decline_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDeclineWithHttpInfo
+     *
+     * Declines a job the caller&#39;s org was hired for, before any work.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDeclineIn $marketplace_decline_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDecline'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceJobsByIdDeclineWithHttpInfo($id, $marketplace_decline_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDecline'][0])
+    {
+        $request = $this->postMarketplaceJobsByIdDeclineRequest($id, $marketplace_decline_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceJob',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDeclineAsync
+     *
+     * Declines a job the caller&#39;s org was hired for, before any work.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDeclineIn $marketplace_decline_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDecline'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdDeclineAsync($id, $marketplace_decline_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDecline'][0])
+    {
+        return $this->postMarketplaceJobsByIdDeclineAsyncWithHttpInfo($id, $marketplace_decline_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDeclineAsyncWithHttpInfo
+     *
+     * Declines a job the caller&#39;s org was hired for, before any work.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDeclineIn $marketplace_decline_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDecline'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdDeclineAsyncWithHttpInfo($id, $marketplace_decline_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDecline'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceJob';
+        $request = $this->postMarketplaceJobsByIdDeclineRequest($id, $marketplace_decline_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceJobsByIdDecline'
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDeclineIn $marketplace_decline_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDecline'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceJobsByIdDeclineRequest($id, $marketplace_decline_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDecline'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketplaceJobsByIdDecline'
+            );
+        }
+
+        // verify the required parameter 'marketplace_decline_in' is set
+        if ($marketplace_decline_in === null || (is_array($marketplace_decline_in) && count($marketplace_decline_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_decline_in when calling postMarketplaceJobsByIdDecline'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/jobs/{id}/decline';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketplace_decline_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_decline_in));
+            } else {
+                $httpBody = $marketplace_decline_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDeliver
+     *
+     * Records delivery of a job the caller&#39;s org accepted, before its deadline, and starts the review window: the buyer releases or disputes within it, or it releases itself when it closes.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDeliverIn $marketplace_deliver_in marketplace_deliver_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDeliver'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceJobsByIdDeliver($id, $marketplace_deliver_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDeliver'][0])
+    {
+        list($response) = $this->postMarketplaceJobsByIdDeliverWithHttpInfo($id, $marketplace_deliver_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDeliverWithHttpInfo
+     *
+     * Records delivery of a job the caller&#39;s org accepted, before its deadline, and starts the review window: the buyer releases or disputes within it, or it releases itself when it closes.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDeliverIn $marketplace_deliver_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDeliver'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceJobsByIdDeliverWithHttpInfo($id, $marketplace_deliver_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDeliver'][0])
+    {
+        $request = $this->postMarketplaceJobsByIdDeliverRequest($id, $marketplace_deliver_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceJob',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDeliverAsync
+     *
+     * Records delivery of a job the caller&#39;s org accepted, before its deadline, and starts the review window: the buyer releases or disputes within it, or it releases itself when it closes.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDeliverIn $marketplace_deliver_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDeliver'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdDeliverAsync($id, $marketplace_deliver_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDeliver'][0])
+    {
+        return $this->postMarketplaceJobsByIdDeliverAsyncWithHttpInfo($id, $marketplace_deliver_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDeliverAsyncWithHttpInfo
+     *
+     * Records delivery of a job the caller&#39;s org accepted, before its deadline, and starts the review window: the buyer releases or disputes within it, or it releases itself when it closes.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDeliverIn $marketplace_deliver_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDeliver'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdDeliverAsyncWithHttpInfo($id, $marketplace_deliver_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDeliver'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceJob';
+        $request = $this->postMarketplaceJobsByIdDeliverRequest($id, $marketplace_deliver_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceJobsByIdDeliver'
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDeliverIn $marketplace_deliver_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDeliver'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceJobsByIdDeliverRequest($id, $marketplace_deliver_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDeliver'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketplaceJobsByIdDeliver'
+            );
+        }
+
+        // verify the required parameter 'marketplace_deliver_in' is set
+        if ($marketplace_deliver_in === null || (is_array($marketplace_deliver_in) && count($marketplace_deliver_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_deliver_in when calling postMarketplaceJobsByIdDeliver'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/jobs/{id}/deliver';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketplace_deliver_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_deliver_in));
+            } else {
+                $httpBody = $marketplace_deliver_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDispute
+     *
+     * Stops a job for a ruling, as either party: before delivery (and before the deadline), or within the review window after it.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDisputeIn $marketplace_dispute_in marketplace_dispute_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDispute'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceJobsByIdDispute($id, $marketplace_dispute_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDispute'][0])
+    {
+        list($response) = $this->postMarketplaceJobsByIdDisputeWithHttpInfo($id, $marketplace_dispute_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDisputeWithHttpInfo
+     *
+     * Stops a job for a ruling, as either party: before delivery (and before the deadline), or within the review window after it.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDisputeIn $marketplace_dispute_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDispute'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceJobsByIdDisputeWithHttpInfo($id, $marketplace_dispute_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDispute'][0])
+    {
+        $request = $this->postMarketplaceJobsByIdDisputeRequest($id, $marketplace_dispute_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceJob',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDisputeAsync
+     *
+     * Stops a job for a ruling, as either party: before delivery (and before the deadline), or within the review window after it.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDisputeIn $marketplace_dispute_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDispute'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdDisputeAsync($id, $marketplace_dispute_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDispute'][0])
+    {
+        return $this->postMarketplaceJobsByIdDisputeAsyncWithHttpInfo($id, $marketplace_dispute_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdDisputeAsyncWithHttpInfo
+     *
+     * Stops a job for a ruling, as either party: before delivery (and before the deadline), or within the review window after it.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDisputeIn $marketplace_dispute_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDispute'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdDisputeAsyncWithHttpInfo($id, $marketplace_dispute_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDispute'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceJob';
+        $request = $this->postMarketplaceJobsByIdDisputeRequest($id, $marketplace_dispute_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceJobsByIdDispute'
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceDisputeIn $marketplace_dispute_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdDispute'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceJobsByIdDisputeRequest($id, $marketplace_dispute_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdDispute'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketplaceJobsByIdDispute'
+            );
+        }
+
+        // verify the required parameter 'marketplace_dispute_in' is set
+        if ($marketplace_dispute_in === null || (is_array($marketplace_dispute_in) && count($marketplace_dispute_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_dispute_in when calling postMarketplaceJobsByIdDispute'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/jobs/{id}/dispute';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketplace_dispute_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_dispute_in));
+            } else {
+                $httpBody = $marketplace_dispute_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdFeedback
+     *
+     * Rates the other party of a settled job — the seller when the caller&#39;s org bought, the buyer when it sold — once per party per job, and never edited.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceFeedbackIn $marketplace_feedback_in marketplace_feedback_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdFeedback'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceFeedback|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceJobsByIdFeedback($id, $marketplace_feedback_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdFeedback'][0])
+    {
+        list($response) = $this->postMarketplaceJobsByIdFeedbackWithHttpInfo($id, $marketplace_feedback_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdFeedbackWithHttpInfo
+     *
+     * Rates the other party of a settled job — the seller when the caller&#39;s org bought, the buyer when it sold — once per party per job, and never edited.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceFeedbackIn $marketplace_feedback_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdFeedback'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceFeedback|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceJobsByIdFeedbackWithHttpInfo($id, $marketplace_feedback_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdFeedback'][0])
+    {
+        $request = $this->postMarketplaceJobsByIdFeedbackRequest($id, $marketplace_feedback_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceFeedback',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceFeedback',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceFeedback',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdFeedbackAsync
+     *
+     * Rates the other party of a settled job — the seller when the caller&#39;s org bought, the buyer when it sold — once per party per job, and never edited.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceFeedbackIn $marketplace_feedback_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdFeedback'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdFeedbackAsync($id, $marketplace_feedback_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdFeedback'][0])
+    {
+        return $this->postMarketplaceJobsByIdFeedbackAsyncWithHttpInfo($id, $marketplace_feedback_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdFeedbackAsyncWithHttpInfo
+     *
+     * Rates the other party of a settled job — the seller when the caller&#39;s org bought, the buyer when it sold — once per party per job, and never edited.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceFeedbackIn $marketplace_feedback_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdFeedback'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdFeedbackAsyncWithHttpInfo($id, $marketplace_feedback_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdFeedback'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceFeedback';
+        $request = $this->postMarketplaceJobsByIdFeedbackRequest($id, $marketplace_feedback_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceJobsByIdFeedback'
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceFeedbackIn $marketplace_feedback_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdFeedback'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceJobsByIdFeedbackRequest($id, $marketplace_feedback_in, string $contentType = self::contentTypes['postMarketplaceJobsByIdFeedback'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketplaceJobsByIdFeedback'
+            );
+        }
+
+        // verify the required parameter 'marketplace_feedback_in' is set
+        if ($marketplace_feedback_in === null || (is_array($marketplace_feedback_in) && count($marketplace_feedback_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_feedback_in when calling postMarketplaceJobsByIdFeedback'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/jobs/{id}/feedback';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketplace_feedback_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_feedback_in));
+            } else {
+                $httpBody = $marketplace_feedback_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdRefund
+     *
+     * Refunds a job the caller&#39;s org accepted, as the seller, at any point before it is paid: nothing was moved, so the buyer&#39;s authorization is given up, never settled, and the amount it set aside returns to the buyer&#39;s wallet.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdRefund'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceJobsByIdRefund($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdRefund'][0])
+    {
+        list($response) = $this->postMarketplaceJobsByIdRefundWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdRefundWithHttpInfo
+     *
+     * Refunds a job the caller&#39;s org accepted, as the seller, at any point before it is paid: nothing was moved, so the buyer&#39;s authorization is given up, never settled, and the amount it set aside returns to the buyer&#39;s wallet.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdRefund'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceJobsByIdRefundWithHttpInfo($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdRefund'][0])
+    {
+        $request = $this->postMarketplaceJobsByIdRefundRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceJob',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdRefundAsync
+     *
+     * Refunds a job the caller&#39;s org accepted, as the seller, at any point before it is paid: nothing was moved, so the buyer&#39;s authorization is given up, never settled, and the amount it set aside returns to the buyer&#39;s wallet.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdRefund'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdRefundAsync($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdRefund'][0])
+    {
+        return $this->postMarketplaceJobsByIdRefundAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdRefundAsyncWithHttpInfo
+     *
+     * Refunds a job the caller&#39;s org accepted, as the seller, at any point before it is paid: nothing was moved, so the buyer&#39;s authorization is given up, never settled, and the amount it set aside returns to the buyer&#39;s wallet.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdRefund'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdRefundAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdRefund'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceJob';
+        $request = $this->postMarketplaceJobsByIdRefundRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceJobsByIdRefund'
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdRefund'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceJobsByIdRefundRequest($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdRefund'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketplaceJobsByIdRefund'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/jobs/{id}/refund';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdRelease
+     *
+     * Releases a job the caller&#39;s org is paying for, paying the seller the whole amount: the buyer&#39;s authorization is settled on the rail, once, and the rail states the payment.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdRelease'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceJobsByIdRelease($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdRelease'][0])
+    {
+        list($response) = $this->postMarketplaceJobsByIdReleaseWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdReleaseWithHttpInfo
+     *
+     * Releases a job the caller&#39;s org is paying for, paying the seller the whole amount: the buyer&#39;s authorization is settled on the rail, once, and the rail states the payment.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdRelease'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceJob|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceJobsByIdReleaseWithHttpInfo($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdRelease'][0])
+    {
+        $request = $this->postMarketplaceJobsByIdReleaseRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceJob',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceJob',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdReleaseAsync
+     *
+     * Releases a job the caller&#39;s org is paying for, paying the seller the whole amount: the buyer&#39;s authorization is settled on the rail, once, and the rail states the payment.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdRelease'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdReleaseAsync($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdRelease'][0])
+    {
+        return $this->postMarketplaceJobsByIdReleaseAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceJobsByIdReleaseAsyncWithHttpInfo
+     *
+     * Releases a job the caller&#39;s org is paying for, paying the seller the whole amount: the buyer&#39;s authorization is settled on the rail, once, and the rail states the payment.
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdRelease'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceJobsByIdReleaseAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdRelease'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceJob';
+        $request = $this->postMarketplaceJobsByIdReleaseRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceJobsByIdRelease'
+     *
+     * @param  string $id ID is the job, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceJobsByIdRelease'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceJobsByIdReleaseRequest($id, string $contentType = self::contentTypes['postMarketplaceJobsByIdRelease'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketplaceJobsByIdRelease'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/jobs/{id}/release';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceListings
+     *
+     * Offers one thing the caller&#39;s org owns on the marketplace — an agent, persona, app, skill, Kai capability or MCP server, or, for the platform, a tool sold per call — optionally monetized.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplacePublishReq $marketplace_publish_req marketplace_publish_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListings'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceListing|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceListings($marketplace_publish_req, string $contentType = self::contentTypes['postMarketplaceListings'][0])
+    {
+        list($response) = $this->postMarketplaceListingsWithHttpInfo($marketplace_publish_req, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceListingsWithHttpInfo
+     *
+     * Offers one thing the caller&#39;s org owns on the marketplace — an agent, persona, app, skill, Kai capability or MCP server, or, for the platform, a tool sold per call — optionally monetized.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplacePublishReq $marketplace_publish_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListings'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceListing|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceListingsWithHttpInfo($marketplace_publish_req, string $contentType = self::contentTypes['postMarketplaceListings'][0])
+    {
+        $request = $this->postMarketplaceListingsRequest($marketplace_publish_req, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceListing',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceListing',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceListing',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1243,17 +6307,17 @@ class MarketplaceApi
     /**
      * Operation postMarketplaceListingsAsync
      *
-     * Publish offers one tool on the marketplace, optionally monetized.
+     * Offers one thing the caller&#39;s org owns on the marketplace — an agent, persona, app, skill, Kai capability or MCP server, or, for the platform, a tool sold per call — optionally monetized.
      *
-     * @param  \Hanzo\Cloud\Model\PublishReq $publish_req (required)
+     * @param  \Hanzo\Cloud\Model\MarketplacePublishReq $marketplace_publish_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketplaceListingsAsync($publish_req, string $contentType = self::contentTypes['postMarketplaceListings'][0])
+    public function postMarketplaceListingsAsync($marketplace_publish_req, string $contentType = self::contentTypes['postMarketplaceListings'][0])
     {
-        return $this->postMarketplaceListingsAsyncWithHttpInfo($publish_req, $contentType)
+        return $this->postMarketplaceListingsAsyncWithHttpInfo($marketplace_publish_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1264,18 +6328,18 @@ class MarketplaceApi
     /**
      * Operation postMarketplaceListingsAsyncWithHttpInfo
      *
-     * Publish offers one tool on the marketplace, optionally monetized.
+     * Offers one thing the caller&#39;s org owns on the marketplace — an agent, persona, app, skill, Kai capability or MCP server, or, for the platform, a tool sold per call — optionally monetized.
      *
-     * @param  \Hanzo\Cloud\Model\PublishReq $publish_req (required)
+     * @param  \Hanzo\Cloud\Model\MarketplacePublishReq $marketplace_publish_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketplaceListingsAsyncWithHttpInfo($publish_req, string $contentType = self::contentTypes['postMarketplaceListings'][0])
+    public function postMarketplaceListingsAsyncWithHttpInfo($marketplace_publish_req, string $contentType = self::contentTypes['postMarketplaceListings'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Listing';
-        $request = $this->postMarketplaceListingsRequest($publish_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceListing';
+        $request = $this->postMarketplaceListingsRequest($marketplace_publish_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1316,19 +6380,19 @@ class MarketplaceApi
     /**
      * Create request for operation 'postMarketplaceListings'
      *
-     * @param  \Hanzo\Cloud\Model\PublishReq $publish_req (required)
+     * @param  \Hanzo\Cloud\Model\MarketplacePublishReq $marketplace_publish_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketplaceListingsRequest($publish_req, string $contentType = self::contentTypes['postMarketplaceListings'][0])
+    public function postMarketplaceListingsRequest($marketplace_publish_req, string $contentType = self::contentTypes['postMarketplaceListings'][0])
     {
 
-        // verify the required parameter 'publish_req' is set
-        if ($publish_req === null || (is_array($publish_req) && count($publish_req) === 0)) {
+        // verify the required parameter 'marketplace_publish_req' is set
+        if ($marketplace_publish_req === null || (is_array($marketplace_publish_req) && count($marketplace_publish_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $publish_req when calling postMarketplaceListings'
+                'Missing the required parameter $marketplace_publish_req when calling postMarketplaceListings'
             );
         }
 
@@ -1345,18 +6409,893 @@ class MarketplaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($publish_req)) {
+        if (isset($marketplace_publish_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($publish_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_publish_req));
             } else {
-                $httpBody = $publish_req;
+                $httpBody = $marketplace_publish_req;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceListingsByIdVerify
+     *
+     * Marks an expert listing verified, or takes the mark away, whichever org published it.
+     *
+     * @param  string $id ID is the expert listing, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceVerifyReq $marketplace_verify_req marketplace_verify_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListingsByIdVerify'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplaceListing|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceListingsByIdVerify($id, $marketplace_verify_req, string $contentType = self::contentTypes['postMarketplaceListingsByIdVerify'][0])
+    {
+        list($response) = $this->postMarketplaceListingsByIdVerifyWithHttpInfo($id, $marketplace_verify_req, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceListingsByIdVerifyWithHttpInfo
+     *
+     * Marks an expert listing verified, or takes the mark away, whichever org published it.
+     *
+     * @param  string $id ID is the expert listing, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceVerifyReq $marketplace_verify_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListingsByIdVerify'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplaceListing|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceListingsByIdVerifyWithHttpInfo($id, $marketplace_verify_req, string $contentType = self::contentTypes['postMarketplaceListingsByIdVerify'][0])
+    {
+        $request = $this->postMarketplaceListingsByIdVerifyRequest($id, $marketplace_verify_req, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplaceListing',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplaceListing',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplaceListing',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceListingsByIdVerifyAsync
+     *
+     * Marks an expert listing verified, or takes the mark away, whichever org published it.
+     *
+     * @param  string $id ID is the expert listing, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceVerifyReq $marketplace_verify_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListingsByIdVerify'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceListingsByIdVerifyAsync($id, $marketplace_verify_req, string $contentType = self::contentTypes['postMarketplaceListingsByIdVerify'][0])
+    {
+        return $this->postMarketplaceListingsByIdVerifyAsyncWithHttpInfo($id, $marketplace_verify_req, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceListingsByIdVerifyAsyncWithHttpInfo
+     *
+     * Marks an expert listing verified, or takes the mark away, whichever org published it.
+     *
+     * @param  string $id ID is the expert listing, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceVerifyReq $marketplace_verify_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListingsByIdVerify'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceListingsByIdVerifyAsyncWithHttpInfo($id, $marketplace_verify_req, string $contentType = self::contentTypes['postMarketplaceListingsByIdVerify'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceListing';
+        $request = $this->postMarketplaceListingsByIdVerifyRequest($id, $marketplace_verify_req, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceListingsByIdVerify'
+     *
+     * @param  string $id ID is the expert listing, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceVerifyReq $marketplace_verify_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceListingsByIdVerify'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceListingsByIdVerifyRequest($id, $marketplace_verify_req, string $contentType = self::contentTypes['postMarketplaceListingsByIdVerify'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postMarketplaceListingsByIdVerify'
+            );
+        }
+
+        // verify the required parameter 'marketplace_verify_req' is set
+        if ($marketplace_verify_req === null || (is_array($marketplace_verify_req) && count($marketplace_verify_req) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_verify_req when calling postMarketplaceListingsByIdVerify'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/listings/{id}/verify';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketplace_verify_req)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_verify_req));
+            } else {
+                $httpBody = $marketplace_verify_req;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceSellerPayout
+     *
+     * Starts binding one of the caller org&#39;s wallets as the wallet it is paid into: answers a challenge naming the org, the wallet and its address, to be signed with that wallet within fifteen minutes and sent to POST /v1/marketplace/seller/payout/verify.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplacePayoutIn $marketplace_payout_in marketplace_payout_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceSellerPayout'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplacePayoutChallenge|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceSellerPayout($marketplace_payout_in, string $contentType = self::contentTypes['postMarketplaceSellerPayout'][0])
+    {
+        list($response) = $this->postMarketplaceSellerPayoutWithHttpInfo($marketplace_payout_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceSellerPayoutWithHttpInfo
+     *
+     * Starts binding one of the caller org&#39;s wallets as the wallet it is paid into: answers a challenge naming the org, the wallet and its address, to be signed with that wallet within fifteen minutes and sent to POST /v1/marketplace/seller/payout/verify.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplacePayoutIn $marketplace_payout_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceSellerPayout'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplacePayoutChallenge|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceSellerPayoutWithHttpInfo($marketplace_payout_in, string $contentType = self::contentTypes['postMarketplaceSellerPayout'][0])
+    {
+        $request = $this->postMarketplaceSellerPayoutRequest($marketplace_payout_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplacePayoutChallenge',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplacePayoutChallenge',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplacePayoutChallenge',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceSellerPayoutAsync
+     *
+     * Starts binding one of the caller org&#39;s wallets as the wallet it is paid into: answers a challenge naming the org, the wallet and its address, to be signed with that wallet within fifteen minutes and sent to POST /v1/marketplace/seller/payout/verify.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplacePayoutIn $marketplace_payout_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceSellerPayout'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceSellerPayoutAsync($marketplace_payout_in, string $contentType = self::contentTypes['postMarketplaceSellerPayout'][0])
+    {
+        return $this->postMarketplaceSellerPayoutAsyncWithHttpInfo($marketplace_payout_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceSellerPayoutAsyncWithHttpInfo
+     *
+     * Starts binding one of the caller org&#39;s wallets as the wallet it is paid into: answers a challenge naming the org, the wallet and its address, to be signed with that wallet within fifteen minutes and sent to POST /v1/marketplace/seller/payout/verify.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplacePayoutIn $marketplace_payout_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceSellerPayout'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceSellerPayoutAsyncWithHttpInfo($marketplace_payout_in, string $contentType = self::contentTypes['postMarketplaceSellerPayout'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplacePayoutChallenge';
+        $request = $this->postMarketplaceSellerPayoutRequest($marketplace_payout_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceSellerPayout'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplacePayoutIn $marketplace_payout_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceSellerPayout'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceSellerPayoutRequest($marketplace_payout_in, string $contentType = self::contentTypes['postMarketplaceSellerPayout'][0])
+    {
+
+        // verify the required parameter 'marketplace_payout_in' is set
+        if ($marketplace_payout_in === null || (is_array($marketplace_payout_in) && count($marketplace_payout_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_payout_in when calling postMarketplaceSellerPayout'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/seller/payout';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketplace_payout_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_payout_in));
+            } else {
+                $httpBody = $marketplace_payout_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postMarketplaceSellerPayoutVerify
+     *
+     * Binds the caller org&#39;s payout wallet: the signature over its outstanding challenge is recovered, and must recover to the wallet&#39;s address, before the challenge expires.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplaceVerifyIn $marketplace_verify_in marketplace_verify_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceSellerPayoutVerify'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MarketplacePayout|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postMarketplaceSellerPayoutVerify($marketplace_verify_in, string $contentType = self::contentTypes['postMarketplaceSellerPayoutVerify'][0])
+    {
+        list($response) = $this->postMarketplaceSellerPayoutVerifyWithHttpInfo($marketplace_verify_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postMarketplaceSellerPayoutVerifyWithHttpInfo
+     *
+     * Binds the caller org&#39;s payout wallet: the signature over its outstanding challenge is recovered, and must recover to the wallet&#39;s address, before the challenge expires.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplaceVerifyIn $marketplace_verify_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceSellerPayoutVerify'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MarketplacePayout|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMarketplaceSellerPayoutVerifyWithHttpInfo($marketplace_verify_in, string $contentType = self::contentTypes['postMarketplaceSellerPayoutVerify'][0])
+    {
+        $request = $this->postMarketplaceSellerPayoutVerifyRequest($marketplace_verify_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MarketplacePayout',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MarketplacePayout',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MarketplacePayout',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMarketplaceSellerPayoutVerifyAsync
+     *
+     * Binds the caller org&#39;s payout wallet: the signature over its outstanding challenge is recovered, and must recover to the wallet&#39;s address, before the challenge expires.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplaceVerifyIn $marketplace_verify_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceSellerPayoutVerify'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceSellerPayoutVerifyAsync($marketplace_verify_in, string $contentType = self::contentTypes['postMarketplaceSellerPayoutVerify'][0])
+    {
+        return $this->postMarketplaceSellerPayoutVerifyAsyncWithHttpInfo($marketplace_verify_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMarketplaceSellerPayoutVerifyAsyncWithHttpInfo
+     *
+     * Binds the caller org&#39;s payout wallet: the signature over its outstanding challenge is recovered, and must recover to the wallet&#39;s address, before the challenge expires.
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplaceVerifyIn $marketplace_verify_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceSellerPayoutVerify'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMarketplaceSellerPayoutVerifyAsyncWithHttpInfo($marketplace_verify_in, string $contentType = self::contentTypes['postMarketplaceSellerPayoutVerify'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MarketplacePayout';
+        $request = $this->postMarketplaceSellerPayoutVerifyRequest($marketplace_verify_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMarketplaceSellerPayoutVerify'
+     *
+     * @param  \Hanzo\Cloud\Model\MarketplaceVerifyIn $marketplace_verify_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceSellerPayoutVerify'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMarketplaceSellerPayoutVerifyRequest($marketplace_verify_in, string $contentType = self::contentTypes['postMarketplaceSellerPayoutVerify'][0])
+    {
+
+        // verify the required parameter 'marketplace_verify_in' is set
+        if ($marketplace_verify_in === null || (is_array($marketplace_verify_in) && count($marketplace_verify_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $marketplace_verify_in when calling postMarketplaceSellerPayoutVerify'
+            );
+        }
+
+
+        $resourcePath = '/v1/marketplace/seller/payout/verify';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($marketplace_verify_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_verify_in));
+            } else {
+                $httpBody = $marketplace_verify_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1411,36 +7350,36 @@ class MarketplaceApi
     /**
      * Operation postMarketplaceUninstall
      *
-     * Uninstall deactivates one tool for the caller&#39;s own org and project, so it stops being dispatchable there.
+     * Deactivates one tool for the caller&#39;s own org and project, so it stops being dispatchable there.
      *
-     * @param  \Hanzo\Cloud\Model\InstallReq $install_req install_req (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceInstallReq $marketplace_install_req marketplace_install_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceUninstall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\InstallState
+     * @return \Hanzo\Cloud\Model\MarketplaceInstallState|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMarketplaceUninstall($install_req, string $contentType = self::contentTypes['postMarketplaceUninstall'][0])
+    public function postMarketplaceUninstall($marketplace_install_req, string $contentType = self::contentTypes['postMarketplaceUninstall'][0])
     {
-        list($response) = $this->postMarketplaceUninstallWithHttpInfo($install_req, $contentType);
+        list($response) = $this->postMarketplaceUninstallWithHttpInfo($marketplace_install_req, $contentType);
         return $response;
     }
 
     /**
      * Operation postMarketplaceUninstallWithHttpInfo
      *
-     * Uninstall deactivates one tool for the caller&#39;s own org and project, so it stops being dispatchable there.
+     * Deactivates one tool for the caller&#39;s own org and project, so it stops being dispatchable there.
      *
-     * @param  \Hanzo\Cloud\Model\InstallReq $install_req (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceInstallReq $marketplace_install_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceUninstall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\InstallState, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MarketplaceInstallState|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMarketplaceUninstallWithHttpInfo($install_req, string $contentType = self::contentTypes['postMarketplaceUninstall'][0])
+    public function postMarketplaceUninstallWithHttpInfo($marketplace_install_req, string $contentType = self::contentTypes['postMarketplaceUninstall'][0])
     {
-        $request = $this->postMarketplaceUninstallRequest($install_req, $contentType);
+        $request = $this->postMarketplaceUninstallRequest($marketplace_install_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1468,7 +7407,13 @@ class MarketplaceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\InstallState',
+                        '\Hanzo\Cloud\Model\MarketplaceInstallState',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1490,7 +7435,7 @@ class MarketplaceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\InstallState',
+                '\Hanzo\Cloud\Model\MarketplaceInstallState',
                 $request,
                 $response,
             );
@@ -1499,7 +7444,15 @@ class MarketplaceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\InstallState',
+                        '\Hanzo\Cloud\Model\MarketplaceInstallState',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1514,17 +7467,17 @@ class MarketplaceApi
     /**
      * Operation postMarketplaceUninstallAsync
      *
-     * Uninstall deactivates one tool for the caller&#39;s own org and project, so it stops being dispatchable there.
+     * Deactivates one tool for the caller&#39;s own org and project, so it stops being dispatchable there.
      *
-     * @param  \Hanzo\Cloud\Model\InstallReq $install_req (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceInstallReq $marketplace_install_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceUninstall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketplaceUninstallAsync($install_req, string $contentType = self::contentTypes['postMarketplaceUninstall'][0])
+    public function postMarketplaceUninstallAsync($marketplace_install_req, string $contentType = self::contentTypes['postMarketplaceUninstall'][0])
     {
-        return $this->postMarketplaceUninstallAsyncWithHttpInfo($install_req, $contentType)
+        return $this->postMarketplaceUninstallAsyncWithHttpInfo($marketplace_install_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1535,18 +7488,18 @@ class MarketplaceApi
     /**
      * Operation postMarketplaceUninstallAsyncWithHttpInfo
      *
-     * Uninstall deactivates one tool for the caller&#39;s own org and project, so it stops being dispatchable there.
+     * Deactivates one tool for the caller&#39;s own org and project, so it stops being dispatchable there.
      *
-     * @param  \Hanzo\Cloud\Model\InstallReq $install_req (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceInstallReq $marketplace_install_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceUninstall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMarketplaceUninstallAsyncWithHttpInfo($install_req, string $contentType = self::contentTypes['postMarketplaceUninstall'][0])
+    public function postMarketplaceUninstallAsyncWithHttpInfo($marketplace_install_req, string $contentType = self::contentTypes['postMarketplaceUninstall'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\InstallState';
-        $request = $this->postMarketplaceUninstallRequest($install_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MarketplaceInstallState';
+        $request = $this->postMarketplaceUninstallRequest($marketplace_install_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1587,19 +7540,19 @@ class MarketplaceApi
     /**
      * Create request for operation 'postMarketplaceUninstall'
      *
-     * @param  \Hanzo\Cloud\Model\InstallReq $install_req (required)
+     * @param  \Hanzo\Cloud\Model\MarketplaceInstallReq $marketplace_install_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMarketplaceUninstall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMarketplaceUninstallRequest($install_req, string $contentType = self::contentTypes['postMarketplaceUninstall'][0])
+    public function postMarketplaceUninstallRequest($marketplace_install_req, string $contentType = self::contentTypes['postMarketplaceUninstall'][0])
     {
 
-        // verify the required parameter 'install_req' is set
-        if ($install_req === null || (is_array($install_req) && count($install_req) === 0)) {
+        // verify the required parameter 'marketplace_install_req' is set
+        if ($marketplace_install_req === null || (is_array($marketplace_install_req) && count($marketplace_install_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $install_req when calling postMarketplaceUninstall'
+                'Missing the required parameter $marketplace_install_req when calling postMarketplaceUninstall'
             );
         }
 
@@ -1616,18 +7569,18 @@ class MarketplaceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($install_req)) {
+        if (isset($marketplace_install_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($install_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($marketplace_install_req));
             } else {
-                $httpBody = $install_req;
+                $httpBody = $marketplace_install_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

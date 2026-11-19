@@ -74,16 +74,49 @@ class SocialApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'deleteChannelById' => [
+            'application/json',
+        ],
+        'deletePostById' => [
+            'application/json',
+        ],
         'deleteSocialAccountsById' => [
             'application/json',
         ],
         'deleteSocialPostsById' => [
             'application/json',
         ],
+        'getChannel' => [
+            'application/json',
+        ],
+        'getChannelById' => [
+            'application/json',
+        ],
+        'getChannelByIdAnalytics' => [
+            'application/json',
+        ],
+        'getChannelGroups' => [
+            'application/json',
+        ],
+        'getChannelProviders' => [
+            'application/json',
+        ],
+        'getPost' => [
+            'application/json',
+        ],
+        'getPostById' => [
+            'application/json',
+        ],
+        'getPostByIdAnalytics' => [
+            'application/json',
+        ],
         'getSocialAccounts' => [
             'application/json',
         ],
         'getSocialAccountsById' => [
+            'application/json',
+        ],
+        'getSocialCredentials' => [
             'application/json',
         ],
         'getSocialPosts' => [
@@ -98,7 +131,19 @@ class SocialApi
         'getSocialSummary' => [
             'application/json',
         ],
+        'postChannelConnect' => [
+            'application/json',
+        ],
+        'postPost' => [
+            'application/json',
+        ],
+        'postPostByIdPublish' => [
+            'application/json',
+        ],
         'postSocialAccounts' => [
+            'application/json',
+        ],
+        'postSocialIngestPostizByIngesttoken' => [
             'application/json',
         ],
         'postSocialPosts' => [
@@ -107,7 +152,19 @@ class SocialApi
         'postSocialPostsByIdPublish' => [
             'application/json',
         ],
+        'putChannelById' => [
+            'application/json',
+        ],
+        'putChannelByIdGroup' => [
+            'application/json',
+        ],
+        'putPostById' => [
+            'application/json',
+        ],
         'putSocialAccountsById' => [
+            'application/json',
+        ],
+        'putSocialCredentials' => [
             'application/json',
         ],
         'putSocialPostsById' => [
@@ -159,6 +216,466 @@ class SocialApi
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Operation deleteChannelById
+     *
+     * Disconnects a social channel from the caller&#39;s organization and purges its sealed token from KMS.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteChannelById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteChannelById($id, string $contentType = self::contentTypes['deleteChannelById'][0])
+    {
+        $this->deleteChannelByIdWithHttpInfo($id, $contentType);
+    }
+
+    /**
+     * Operation deleteChannelByIdWithHttpInfo
+     *
+     * Disconnects a social channel from the caller&#39;s organization and purges its sealed token from KMS.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteChannelById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteChannelByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteChannelById'][0])
+    {
+        $request = $this->deleteChannelByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteChannelByIdAsync
+     *
+     * Disconnects a social channel from the caller&#39;s organization and purges its sealed token from KMS.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteChannelById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteChannelByIdAsync($id, string $contentType = self::contentTypes['deleteChannelById'][0])
+    {
+        return $this->deleteChannelByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteChannelByIdAsyncWithHttpInfo
+     *
+     * Disconnects a social channel from the caller&#39;s organization and purges its sealed token from KMS.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteChannelById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteChannelByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteChannelById'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteChannelByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteChannelById'
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteChannelById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteChannelByIdRequest($id, string $contentType = self::contentTypes['deleteChannelById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteChannelById'
+            );
+        }
+
+
+        $resourcePath = '/v1/channel/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deletePostById
+     *
+     * Removes one social post record from the caller&#39;s organization.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deletePostById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deletePostById($id, string $contentType = self::contentTypes['deletePostById'][0])
+    {
+        $this->deletePostByIdWithHttpInfo($id, $contentType);
+    }
+
+    /**
+     * Operation deletePostByIdWithHttpInfo
+     *
+     * Removes one social post record from the caller&#39;s organization.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deletePostById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deletePostByIdWithHttpInfo($id, string $contentType = self::contentTypes['deletePostById'][0])
+    {
+        $request = $this->deletePostByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deletePostByIdAsync
+     *
+     * Removes one social post record from the caller&#39;s organization.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deletePostById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deletePostByIdAsync($id, string $contentType = self::contentTypes['deletePostById'][0])
+    {
+        return $this->deletePostByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deletePostByIdAsyncWithHttpInfo
+     *
+     * Removes one social post record from the caller&#39;s organization.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deletePostById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deletePostByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deletePostById'][0])
+    {
+        $returnType = '';
+        $request = $this->deletePostByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deletePostById'
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deletePostById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deletePostByIdRequest($id, string $contentType = self::contentTypes['deletePostById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deletePostById'
+            );
+        }
+
+
+        $resourcePath = '/v1/post/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
     }
 
     /**
@@ -220,6 +737,14 @@ class SocialApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -327,7 +852,7 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -442,6 +967,14 @@ class SocialApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -549,7 +1082,7 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -606,6 +1139,2349 @@ class SocialApi
     }
 
     /**
+     * Operation getChannel
+     *
+     * Returns the caller organization&#39;s connected and registered social channels, optionally filtered by provider (&#x60;?provider&#x3D;x&#x60;) or employee/brand group (&#x60;?group&#x3D;Antje%20Worring&#x60;).
+     *
+     * @param  string|null $provider Provider keeps only channels on the named network (for example \&quot;x\&quot; or \&quot;linkedin\&quot;). Omit for all networks. (optional)
+     * @param  string|null $group Group keeps only channels belonging to the named employee or brand group (matching groupId or case-insensitive groupName). (optional)
+     * @param  string|null $limit Limit bounds the maximum number of channels returned (default 200, max 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannel'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialChannelList|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getChannel($provider = null, $group = null, $limit = null, string $contentType = self::contentTypes['getChannel'][0])
+    {
+        list($response) = $this->getChannelWithHttpInfo($provider, $group, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getChannelWithHttpInfo
+     *
+     * Returns the caller organization&#39;s connected and registered social channels, optionally filtered by provider (&#x60;?provider&#x3D;x&#x60;) or employee/brand group (&#x60;?group&#x3D;Antje%20Worring&#x60;).
+     *
+     * @param  string|null $provider Provider keeps only channels on the named network (for example \&quot;x\&quot; or \&quot;linkedin\&quot;). Omit for all networks. (optional)
+     * @param  string|null $group Group keeps only channels belonging to the named employee or brand group (matching groupId or case-insensitive groupName). (optional)
+     * @param  string|null $limit Limit bounds the maximum number of channels returned (default 200, max 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannel'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialChannelList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getChannelWithHttpInfo($provider = null, $group = null, $limit = null, string $contentType = self::contentTypes['getChannel'][0])
+    {
+        $request = $this->getChannelRequest($provider, $group, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialChannelList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialChannelList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialChannelList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getChannelAsync
+     *
+     * Returns the caller organization&#39;s connected and registered social channels, optionally filtered by provider (&#x60;?provider&#x3D;x&#x60;) or employee/brand group (&#x60;?group&#x3D;Antje%20Worring&#x60;).
+     *
+     * @param  string|null $provider Provider keeps only channels on the named network (for example \&quot;x\&quot; or \&quot;linkedin\&quot;). Omit for all networks. (optional)
+     * @param  string|null $group Group keeps only channels belonging to the named employee or brand group (matching groupId or case-insensitive groupName). (optional)
+     * @param  string|null $limit Limit bounds the maximum number of channels returned (default 200, max 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelAsync($provider = null, $group = null, $limit = null, string $contentType = self::contentTypes['getChannel'][0])
+    {
+        return $this->getChannelAsyncWithHttpInfo($provider, $group, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getChannelAsyncWithHttpInfo
+     *
+     * Returns the caller organization&#39;s connected and registered social channels, optionally filtered by provider (&#x60;?provider&#x3D;x&#x60;) or employee/brand group (&#x60;?group&#x3D;Antje%20Worring&#x60;).
+     *
+     * @param  string|null $provider Provider keeps only channels on the named network (for example \&quot;x\&quot; or \&quot;linkedin\&quot;). Omit for all networks. (optional)
+     * @param  string|null $group Group keeps only channels belonging to the named employee or brand group (matching groupId or case-insensitive groupName). (optional)
+     * @param  string|null $limit Limit bounds the maximum number of channels returned (default 200, max 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelAsyncWithHttpInfo($provider = null, $group = null, $limit = null, string $contentType = self::contentTypes['getChannel'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialChannelList';
+        $request = $this->getChannelRequest($provider, $group, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getChannel'
+     *
+     * @param  string|null $provider Provider keeps only channels on the named network (for example \&quot;x\&quot; or \&quot;linkedin\&quot;). Omit for all networks. (optional)
+     * @param  string|null $group Group keeps only channels belonging to the named employee or brand group (matching groupId or case-insensitive groupName). (optional)
+     * @param  string|null $limit Limit bounds the maximum number of channels returned (default 200, max 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getChannelRequest($provider = null, $group = null, $limit = null, string $contentType = self::contentTypes['getChannel'][0])
+    {
+
+
+
+
+
+        $resourcePath = '/v1/channel';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $provider,
+            'provider', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $group,
+            'group', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getChannelById
+     *
+     * Returns one connected social channel by id for the caller&#39;s organization.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialChannelItem|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getChannelById($id, string $contentType = self::contentTypes['getChannelById'][0])
+    {
+        list($response) = $this->getChannelByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getChannelByIdWithHttpInfo
+     *
+     * Returns one connected social channel by id for the caller&#39;s organization.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialChannelItem|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getChannelByIdWithHttpInfo($id, string $contentType = self::contentTypes['getChannelById'][0])
+    {
+        $request = $this->getChannelByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialChannelItem',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialChannelItem',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialChannelItem',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getChannelByIdAsync
+     *
+     * Returns one connected social channel by id for the caller&#39;s organization.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelByIdAsync($id, string $contentType = self::contentTypes['getChannelById'][0])
+    {
+        return $this->getChannelByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getChannelByIdAsyncWithHttpInfo
+     *
+     * Returns one connected social channel by id for the caller&#39;s organization.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getChannelById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialChannelItem';
+        $request = $this->getChannelByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getChannelById'
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getChannelByIdRequest($id, string $contentType = self::contentTypes['getChannelById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getChannelById'
+            );
+        }
+
+
+        $resourcePath = '/v1/channel/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getChannelByIdAnalytics
+     *
+     * Returns post delivery counts and upstream engagement metrics for one social channel.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string|null $days Days is the lookback window in days (7, 30, or 90; defaults to 7). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelByIdAnalytics'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialChannelAnalyticsOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getChannelByIdAnalytics($id, $days = null, string $contentType = self::contentTypes['getChannelByIdAnalytics'][0])
+    {
+        list($response) = $this->getChannelByIdAnalyticsWithHttpInfo($id, $days, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getChannelByIdAnalyticsWithHttpInfo
+     *
+     * Returns post delivery counts and upstream engagement metrics for one social channel.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string|null $days Days is the lookback window in days (7, 30, or 90; defaults to 7). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelByIdAnalytics'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialChannelAnalyticsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getChannelByIdAnalyticsWithHttpInfo($id, $days = null, string $contentType = self::contentTypes['getChannelByIdAnalytics'][0])
+    {
+        $request = $this->getChannelByIdAnalyticsRequest($id, $days, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialChannelAnalyticsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialChannelAnalyticsOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialChannelAnalyticsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getChannelByIdAnalyticsAsync
+     *
+     * Returns post delivery counts and upstream engagement metrics for one social channel.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string|null $days Days is the lookback window in days (7, 30, or 90; defaults to 7). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelByIdAnalytics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelByIdAnalyticsAsync($id, $days = null, string $contentType = self::contentTypes['getChannelByIdAnalytics'][0])
+    {
+        return $this->getChannelByIdAnalyticsAsyncWithHttpInfo($id, $days, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getChannelByIdAnalyticsAsyncWithHttpInfo
+     *
+     * Returns post delivery counts and upstream engagement metrics for one social channel.
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string|null $days Days is the lookback window in days (7, 30, or 90; defaults to 7). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelByIdAnalytics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelByIdAnalyticsAsyncWithHttpInfo($id, $days = null, string $contentType = self::contentTypes['getChannelByIdAnalytics'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialChannelAnalyticsOut';
+        $request = $this->getChannelByIdAnalyticsRequest($id, $days, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getChannelByIdAnalytics'
+     *
+     * @param  string $id ID is the channel identifier from the URL path. (required)
+     * @param  string|null $days Days is the lookback window in days (7, 30, or 90; defaults to 7). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelByIdAnalytics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getChannelByIdAnalyticsRequest($id, $days = null, string $contentType = self::contentTypes['getChannelByIdAnalytics'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getChannelByIdAnalytics'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/channel/{id}/analytics';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $days,
+            'days', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getChannelGroups
+     *
+     * Lists the employee and brand channel groups configured across the caller organization&#39;s channels (such as executive profiles and brand accounts) with channel counts.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelGroups'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialChannelGroupList|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getChannelGroups(string $contentType = self::contentTypes['getChannelGroups'][0])
+    {
+        list($response) = $this->getChannelGroupsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getChannelGroupsWithHttpInfo
+     *
+     * Lists the employee and brand channel groups configured across the caller organization&#39;s channels (such as executive profiles and brand accounts) with channel counts.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelGroups'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialChannelGroupList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getChannelGroupsWithHttpInfo(string $contentType = self::contentTypes['getChannelGroups'][0])
+    {
+        $request = $this->getChannelGroupsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialChannelGroupList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialChannelGroupList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialChannelGroupList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getChannelGroupsAsync
+     *
+     * Lists the employee and brand channel groups configured across the caller organization&#39;s channels (such as executive profiles and brand accounts) with channel counts.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelGroups'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelGroupsAsync(string $contentType = self::contentTypes['getChannelGroups'][0])
+    {
+        return $this->getChannelGroupsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getChannelGroupsAsyncWithHttpInfo
+     *
+     * Lists the employee and brand channel groups configured across the caller organization&#39;s channels (such as executive profiles and brand accounts) with channel counts.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelGroups'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelGroupsAsyncWithHttpInfo(string $contentType = self::contentTypes['getChannelGroups'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialChannelGroupList';
+        $request = $this->getChannelGroupsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getChannelGroups'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelGroups'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getChannelGroupsRequest(string $contentType = self::contentTypes['getChannelGroups'][0])
+    {
+
+
+        $resourcePath = '/v1/channel/groups';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getChannelProviders
+     *
+     * Lists every supported social and publishing network along with whether OAuth application credentials are ready on this deployment or sealed for the org.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelProviders'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialChannelProviderList|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getChannelProviders(string $contentType = self::contentTypes['getChannelProviders'][0])
+    {
+        list($response) = $this->getChannelProvidersWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getChannelProvidersWithHttpInfo
+     *
+     * Lists every supported social and publishing network along with whether OAuth application credentials are ready on this deployment or sealed for the org.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelProviders'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialChannelProviderList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getChannelProvidersWithHttpInfo(string $contentType = self::contentTypes['getChannelProviders'][0])
+    {
+        $request = $this->getChannelProvidersRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialChannelProviderList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialChannelProviderList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialChannelProviderList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getChannelProvidersAsync
+     *
+     * Lists every supported social and publishing network along with whether OAuth application credentials are ready on this deployment or sealed for the org.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelProviders'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelProvidersAsync(string $contentType = self::contentTypes['getChannelProviders'][0])
+    {
+        return $this->getChannelProvidersAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getChannelProvidersAsyncWithHttpInfo
+     *
+     * Lists every supported social and publishing network along with whether OAuth application credentials are ready on this deployment or sealed for the org.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelProviders'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelProvidersAsyncWithHttpInfo(string $contentType = self::contentTypes['getChannelProviders'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialChannelProviderList';
+        $request = $this->getChannelProvidersRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getChannelProviders'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelProviders'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getChannelProvidersRequest(string $contentType = self::contentTypes['getChannelProviders'][0])
+    {
+
+
+        $resourcePath = '/v1/channel/providers';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getPost
+     *
+     * Returns the caller organization&#39;s social posts, optionally filtered by status, network channel, specific channel ID (&#x60;accountId&#x60;), or employee/brand &#x60;group&#x60;.
+     *
+     * @param  string|null $status Status keeps only posts in one state (draft, scheduled, published, failed, or mirrored). (optional)
+     * @param  string|null $channel Channel keeps only posts targeting one social network (for example \&quot;x\&quot; or \&quot;linkedin\&quot;). (optional)
+     * @param  string|null $account_id AccountID keeps only posts targeting or published by one specific connected channel ID. (optional)
+     * @param  string|null $group Group keeps only posts belonging to one employee or brand channel group (for example \&quot;Antje Worring\&quot; or \&quot;Hanzo AI\&quot;). (optional)
+     * @param  string|null $limit Limit bounds the maximum number of posts returned (default 200, max 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPost'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialPostList|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getPost($status = null, $channel = null, $account_id = null, $group = null, $limit = null, string $contentType = self::contentTypes['getPost'][0])
+    {
+        list($response) = $this->getPostWithHttpInfo($status, $channel, $account_id, $group, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getPostWithHttpInfo
+     *
+     * Returns the caller organization&#39;s social posts, optionally filtered by status, network channel, specific channel ID (&#x60;accountId&#x60;), or employee/brand &#x60;group&#x60;.
+     *
+     * @param  string|null $status Status keeps only posts in one state (draft, scheduled, published, failed, or mirrored). (optional)
+     * @param  string|null $channel Channel keeps only posts targeting one social network (for example \&quot;x\&quot; or \&quot;linkedin\&quot;). (optional)
+     * @param  string|null $account_id AccountID keeps only posts targeting or published by one specific connected channel ID. (optional)
+     * @param  string|null $group Group keeps only posts belonging to one employee or brand channel group (for example \&quot;Antje Worring\&quot; or \&quot;Hanzo AI\&quot;). (optional)
+     * @param  string|null $limit Limit bounds the maximum number of posts returned (default 200, max 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPost'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialPostList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getPostWithHttpInfo($status = null, $channel = null, $account_id = null, $group = null, $limit = null, string $contentType = self::contentTypes['getPost'][0])
+    {
+        $request = $this->getPostRequest($status, $channel, $account_id, $group, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialPostList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialPostList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialPostList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getPostAsync
+     *
+     * Returns the caller organization&#39;s social posts, optionally filtered by status, network channel, specific channel ID (&#x60;accountId&#x60;), or employee/brand &#x60;group&#x60;.
+     *
+     * @param  string|null $status Status keeps only posts in one state (draft, scheduled, published, failed, or mirrored). (optional)
+     * @param  string|null $channel Channel keeps only posts targeting one social network (for example \&quot;x\&quot; or \&quot;linkedin\&quot;). (optional)
+     * @param  string|null $account_id AccountID keeps only posts targeting or published by one specific connected channel ID. (optional)
+     * @param  string|null $group Group keeps only posts belonging to one employee or brand channel group (for example \&quot;Antje Worring\&quot; or \&quot;Hanzo AI\&quot;). (optional)
+     * @param  string|null $limit Limit bounds the maximum number of posts returned (default 200, max 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPostAsync($status = null, $channel = null, $account_id = null, $group = null, $limit = null, string $contentType = self::contentTypes['getPost'][0])
+    {
+        return $this->getPostAsyncWithHttpInfo($status, $channel, $account_id, $group, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getPostAsyncWithHttpInfo
+     *
+     * Returns the caller organization&#39;s social posts, optionally filtered by status, network channel, specific channel ID (&#x60;accountId&#x60;), or employee/brand &#x60;group&#x60;.
+     *
+     * @param  string|null $status Status keeps only posts in one state (draft, scheduled, published, failed, or mirrored). (optional)
+     * @param  string|null $channel Channel keeps only posts targeting one social network (for example \&quot;x\&quot; or \&quot;linkedin\&quot;). (optional)
+     * @param  string|null $account_id AccountID keeps only posts targeting or published by one specific connected channel ID. (optional)
+     * @param  string|null $group Group keeps only posts belonging to one employee or brand channel group (for example \&quot;Antje Worring\&quot; or \&quot;Hanzo AI\&quot;). (optional)
+     * @param  string|null $limit Limit bounds the maximum number of posts returned (default 200, max 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPostAsyncWithHttpInfo($status = null, $channel = null, $account_id = null, $group = null, $limit = null, string $contentType = self::contentTypes['getPost'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialPostList';
+        $request = $this->getPostRequest($status, $channel, $account_id, $group, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getPost'
+     *
+     * @param  string|null $status Status keeps only posts in one state (draft, scheduled, published, failed, or mirrored). (optional)
+     * @param  string|null $channel Channel keeps only posts targeting one social network (for example \&quot;x\&quot; or \&quot;linkedin\&quot;). (optional)
+     * @param  string|null $account_id AccountID keeps only posts targeting or published by one specific connected channel ID. (optional)
+     * @param  string|null $group Group keeps only posts belonging to one employee or brand channel group (for example \&quot;Antje Worring\&quot; or \&quot;Hanzo AI\&quot;). (optional)
+     * @param  string|null $limit Limit bounds the maximum number of posts returned (default 200, max 1000). (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getPostRequest($status = null, $channel = null, $account_id = null, $group = null, $limit = null, string $contentType = self::contentTypes['getPost'][0])
+    {
+
+
+
+
+
+
+
+        $resourcePath = '/v1/post';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $status,
+            'status', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $channel,
+            'channel', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $account_id,
+            'accountId', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $group,
+            'group', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getPostById
+     *
+     * Returns one social post by id for the caller&#39;s organization.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPostById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialPostItem|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getPostById($id, string $contentType = self::contentTypes['getPostById'][0])
+    {
+        list($response) = $this->getPostByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getPostByIdWithHttpInfo
+     *
+     * Returns one social post by id for the caller&#39;s organization.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPostById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialPostItem|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getPostByIdWithHttpInfo($id, string $contentType = self::contentTypes['getPostById'][0])
+    {
+        $request = $this->getPostByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialPostItem',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialPostItem',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialPostItem',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getPostByIdAsync
+     *
+     * Returns one social post by id for the caller&#39;s organization.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPostById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPostByIdAsync($id, string $contentType = self::contentTypes['getPostById'][0])
+    {
+        return $this->getPostByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getPostByIdAsyncWithHttpInfo
+     *
+     * Returns one social post by id for the caller&#39;s organization.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPostById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPostByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getPostById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialPostItem';
+        $request = $this->getPostByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getPostById'
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPostById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getPostByIdRequest($id, string $contentType = self::contentTypes['getPostById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getPostById'
+            );
+        }
+
+
+        $resourcePath = '/v1/post/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getPostByIdAnalytics
+     *
+     * Returns delivery status, release URL, and upstream engagement metrics for one post.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPostByIdAnalytics'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialPostAnalyticsOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getPostByIdAnalytics($id, string $contentType = self::contentTypes['getPostByIdAnalytics'][0])
+    {
+        list($response) = $this->getPostByIdAnalyticsWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getPostByIdAnalyticsWithHttpInfo
+     *
+     * Returns delivery status, release URL, and upstream engagement metrics for one post.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPostByIdAnalytics'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialPostAnalyticsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getPostByIdAnalyticsWithHttpInfo($id, string $contentType = self::contentTypes['getPostByIdAnalytics'][0])
+    {
+        $request = $this->getPostByIdAnalyticsRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialPostAnalyticsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialPostAnalyticsOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialPostAnalyticsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getPostByIdAnalyticsAsync
+     *
+     * Returns delivery status, release URL, and upstream engagement metrics for one post.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPostByIdAnalytics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPostByIdAnalyticsAsync($id, string $contentType = self::contentTypes['getPostByIdAnalytics'][0])
+    {
+        return $this->getPostByIdAnalyticsAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getPostByIdAnalyticsAsyncWithHttpInfo
+     *
+     * Returns delivery status, release URL, and upstream engagement metrics for one post.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPostByIdAnalytics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPostByIdAnalyticsAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getPostByIdAnalytics'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialPostAnalyticsOut';
+        $request = $this->getPostByIdAnalyticsRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getPostByIdAnalytics'
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPostByIdAnalytics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getPostByIdAnalyticsRequest($id, string $contentType = self::contentTypes['getPostByIdAnalytics'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getPostByIdAnalytics'
+            );
+        }
+
+
+        $resourcePath = '/v1/post/{id}/analytics';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getSocialAccounts
      *
      * Returns the org&#39;s connected accounts — each one&#39;s id, network, handle, status and timestamps, most-recently-updated first.
@@ -616,7 +3492,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SocialAccounts
+     * @return \Hanzo\Cloud\Model\SocialSocialAccounts|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSocialAccounts($provider = null, $limit = null, string $contentType = self::contentTypes['getSocialAccounts'][0])
     {
@@ -635,7 +3511,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SocialAccounts, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SocialSocialAccounts|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSocialAccountsWithHttpInfo($provider = null, $limit = null, string $contentType = self::contentTypes['getSocialAccounts'][0])
     {
@@ -667,7 +3543,13 @@ class SocialApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SocialAccounts',
+                        '\Hanzo\Cloud\Model\SocialSocialAccounts',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -689,7 +3571,7 @@ class SocialApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SocialAccounts',
+                '\Hanzo\Cloud\Model\SocialSocialAccounts',
                 $request,
                 $response,
             );
@@ -698,7 +3580,15 @@ class SocialApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SocialAccounts',
+                        '\Hanzo\Cloud\Model\SocialSocialAccounts',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -746,7 +3636,7 @@ class SocialApi
      */
     public function getSocialAccountsAsyncWithHttpInfo($provider = null, $limit = null, string $contentType = self::contentTypes['getSocialAccounts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SocialAccounts';
+        $returnType = '\Hanzo\Cloud\Model\SocialSocialAccounts';
         $request = $this->getSocialAccountsRequest($provider, $limit, $contentType);
 
         return $this->client
@@ -831,7 +3721,7 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -897,7 +3787,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SocialAccount
+     * @return \Hanzo\Cloud\Model\SocialSocialAccount|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSocialAccountsById($id, string $contentType = self::contentTypes['getSocialAccountsById'][0])
     {
@@ -915,7 +3805,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SocialAccount, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SocialSocialAccount|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSocialAccountsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getSocialAccountsById'][0])
     {
@@ -947,7 +3837,13 @@ class SocialApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SocialAccount',
+                        '\Hanzo\Cloud\Model\SocialSocialAccount',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -969,7 +3865,7 @@ class SocialApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SocialAccount',
+                '\Hanzo\Cloud\Model\SocialSocialAccount',
                 $request,
                 $response,
             );
@@ -978,7 +3874,15 @@ class SocialApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SocialAccount',
+                        '\Hanzo\Cloud\Model\SocialSocialAccount',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1024,7 +3928,7 @@ class SocialApi
      */
     public function getSocialAccountsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getSocialAccountsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SocialAccount';
+        $returnType = '\Hanzo\Cloud\Model\SocialSocialAccount';
         $request = $this->getSocialAccountsByIdRequest($id, $contentType);
 
         return $this->client
@@ -1103,7 +4007,273 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getSocialCredentials
+     *
+     * Lists the apps this org has sealed.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSocialCredentials'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialOrgApps|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getSocialCredentials(string $contentType = self::contentTypes['getSocialCredentials'][0])
+    {
+        list($response) = $this->getSocialCredentialsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getSocialCredentialsWithHttpInfo
+     *
+     * Lists the apps this org has sealed.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSocialCredentials'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialOrgApps|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getSocialCredentialsWithHttpInfo(string $contentType = self::contentTypes['getSocialCredentials'][0])
+    {
+        $request = $this->getSocialCredentialsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialOrgApps',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialOrgApps',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialOrgApps',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getSocialCredentialsAsync
+     *
+     * Lists the apps this org has sealed.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSocialCredentials'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSocialCredentialsAsync(string $contentType = self::contentTypes['getSocialCredentials'][0])
+    {
+        return $this->getSocialCredentialsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getSocialCredentialsAsyncWithHttpInfo
+     *
+     * Lists the apps this org has sealed.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSocialCredentials'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSocialCredentialsAsyncWithHttpInfo(string $contentType = self::contentTypes['getSocialCredentials'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialOrgApps';
+        $request = $this->getSocialCredentialsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getSocialCredentials'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSocialCredentials'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getSocialCredentialsRequest(string $contentType = self::contentTypes['getSocialCredentials'][0])
+    {
+
+
+        $resourcePath = '/v1/social/credentials';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1170,7 +4340,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SocialPosts
+     * @return \Hanzo\Cloud\Model\SocialSocialPosts|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSocialPosts($status = null, $limit = null, string $contentType = self::contentTypes['getSocialPosts'][0])
     {
@@ -1189,7 +4359,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SocialPosts, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SocialSocialPosts|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSocialPostsWithHttpInfo($status = null, $limit = null, string $contentType = self::contentTypes['getSocialPosts'][0])
     {
@@ -1221,7 +4391,13 @@ class SocialApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SocialPosts',
+                        '\Hanzo\Cloud\Model\SocialSocialPosts',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1243,7 +4419,7 @@ class SocialApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SocialPosts',
+                '\Hanzo\Cloud\Model\SocialSocialPosts',
                 $request,
                 $response,
             );
@@ -1252,7 +4428,15 @@ class SocialApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SocialPosts',
+                        '\Hanzo\Cloud\Model\SocialSocialPosts',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1300,7 +4484,7 @@ class SocialApi
      */
     public function getSocialPostsAsyncWithHttpInfo($status = null, $limit = null, string $contentType = self::contentTypes['getSocialPosts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SocialPosts';
+        $returnType = '\Hanzo\Cloud\Model\SocialSocialPosts';
         $request = $this->getSocialPostsRequest($status, $limit, $contentType);
 
         return $this->client
@@ -1385,7 +4569,7 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1451,7 +4635,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SocialPost
+     * @return \Hanzo\Cloud\Model\SocialSocialPost|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSocialPostsById($id, string $contentType = self::contentTypes['getSocialPostsById'][0])
     {
@@ -1469,7 +4653,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SocialPost, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SocialSocialPost|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSocialPostsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getSocialPostsById'][0])
     {
@@ -1501,7 +4685,13 @@ class SocialApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SocialPost',
+                        '\Hanzo\Cloud\Model\SocialSocialPost',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1523,7 +4713,7 @@ class SocialApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SocialPost',
+                '\Hanzo\Cloud\Model\SocialSocialPost',
                 $request,
                 $response,
             );
@@ -1532,7 +4722,15 @@ class SocialApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SocialPost',
+                        '\Hanzo\Cloud\Model\SocialSocialPost',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1578,7 +4776,7 @@ class SocialApi
      */
     public function getSocialPostsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getSocialPostsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SocialPost';
+        $returnType = '\Hanzo\Cloud\Model\SocialSocialPost';
         $request = $this->getSocialPostsByIdRequest($id, $contentType);
 
         return $this->client
@@ -1657,7 +4855,7 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1722,7 +4920,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SocialProviders
+     * @return \Hanzo\Cloud\Model\SocialSocialProviders|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSocialProviders(string $contentType = self::contentTypes['getSocialProviders'][0])
     {
@@ -1739,7 +4937,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SocialProviders, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SocialSocialProviders|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSocialProvidersWithHttpInfo(string $contentType = self::contentTypes['getSocialProviders'][0])
     {
@@ -1771,7 +4969,13 @@ class SocialApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SocialProviders',
+                        '\Hanzo\Cloud\Model\SocialSocialProviders',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1793,7 +4997,7 @@ class SocialApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SocialProviders',
+                '\Hanzo\Cloud\Model\SocialSocialProviders',
                 $request,
                 $response,
             );
@@ -1802,7 +5006,15 @@ class SocialApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SocialProviders',
+                        '\Hanzo\Cloud\Model\SocialSocialProviders',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1846,7 +5058,7 @@ class SocialApi
      */
     public function getSocialProvidersAsyncWithHttpInfo(string $contentType = self::contentTypes['getSocialProviders'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SocialProviders';
+        $returnType = '\Hanzo\Cloud\Model\SocialSocialProviders';
         $request = $this->getSocialProvidersRequest($contentType);
 
         return $this->client
@@ -1909,7 +5121,7 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1974,7 +5186,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SocialSummary
+     * @return \Hanzo\Cloud\Model\SocialSocialSummary|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSocialSummary(string $contentType = self::contentTypes['getSocialSummary'][0])
     {
@@ -1991,7 +5203,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SocialSummary, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SocialSocialSummary|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSocialSummaryWithHttpInfo(string $contentType = self::contentTypes['getSocialSummary'][0])
     {
@@ -2023,7 +5235,13 @@ class SocialApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SocialSummary',
+                        '\Hanzo\Cloud\Model\SocialSocialSummary',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2045,7 +5263,7 @@ class SocialApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SocialSummary',
+                '\Hanzo\Cloud\Model\SocialSocialSummary',
                 $request,
                 $response,
             );
@@ -2054,7 +5272,15 @@ class SocialApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SocialSummary',
+                        '\Hanzo\Cloud\Model\SocialSocialSummary',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2098,7 +5324,7 @@ class SocialApi
      */
     public function getSocialSummaryAsyncWithHttpInfo(string $contentType = self::contentTypes['getSocialSummary'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SocialSummary';
+        $returnType = '\Hanzo\Cloud\Model\SocialSocialSummary';
         $request = $this->getSocialSummaryRequest($contentType);
 
         return $this->client
@@ -2161,7 +5387,7 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2218,38 +5444,323 @@ class SocialApi
     }
 
     /**
-     * Operation postSocialAccounts
+     * Operation postChannelConnect
      *
-     * Records a social account for the org and answers 201 with the stored row, including the generated id later calls address it by.
+     * Initiates a 3-legged OAuth flow (returning &#x60;authorizeUrl&#x60;) or immediately seals and connects a credentialed social channel into Hanzo KMS, optionally assigning it to an employee or brand group (&#x60;group&#x60;).
      *
-     * @param  \Hanzo\Cloud\Model\SocialAccountBody $social_account_body social_account_body (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialAccounts'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\SocialChannelConnectIn $social_channel_connect_in social_channel_connect_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelConnect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SocialAccount
+     * @return \Hanzo\Cloud\Model\SocialChannelConnectOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postSocialAccounts($social_account_body, string $contentType = self::contentTypes['postSocialAccounts'][0])
+    public function postChannelConnect($social_channel_connect_in, string $contentType = self::contentTypes['postChannelConnect'][0])
     {
-        list($response) = $this->postSocialAccountsWithHttpInfo($social_account_body, $contentType);
+        list($response) = $this->postChannelConnectWithHttpInfo($social_channel_connect_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postSocialAccountsWithHttpInfo
+     * Operation postChannelConnectWithHttpInfo
      *
-     * Records a social account for the org and answers 201 with the stored row, including the generated id later calls address it by.
+     * Initiates a 3-legged OAuth flow (returning &#x60;authorizeUrl&#x60;) or immediately seals and connects a credentialed social channel into Hanzo KMS, optionally assigning it to an employee or brand group (&#x60;group&#x60;).
      *
-     * @param  \Hanzo\Cloud\Model\SocialAccountBody $social_account_body (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialAccounts'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\SocialChannelConnectIn $social_channel_connect_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelConnect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SocialAccount, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SocialChannelConnectOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postSocialAccountsWithHttpInfo($social_account_body, string $contentType = self::contentTypes['postSocialAccounts'][0])
+    public function postChannelConnectWithHttpInfo($social_channel_connect_in, string $contentType = self::contentTypes['postChannelConnect'][0])
     {
-        $request = $this->postSocialAccountsRequest($social_account_body, $contentType);
+        $request = $this->postChannelConnectRequest($social_channel_connect_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialChannelConnectOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialChannelConnectOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialChannelConnectOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postChannelConnectAsync
+     *
+     * Initiates a 3-legged OAuth flow (returning &#x60;authorizeUrl&#x60;) or immediately seals and connects a credentialed social channel into Hanzo KMS, optionally assigning it to an employee or brand group (&#x60;group&#x60;).
+     *
+     * @param  \Hanzo\Cloud\Model\SocialChannelConnectIn $social_channel_connect_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelConnect'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postChannelConnectAsync($social_channel_connect_in, string $contentType = self::contentTypes['postChannelConnect'][0])
+    {
+        return $this->postChannelConnectAsyncWithHttpInfo($social_channel_connect_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postChannelConnectAsyncWithHttpInfo
+     *
+     * Initiates a 3-legged OAuth flow (returning &#x60;authorizeUrl&#x60;) or immediately seals and connects a credentialed social channel into Hanzo KMS, optionally assigning it to an employee or brand group (&#x60;group&#x60;).
+     *
+     * @param  \Hanzo\Cloud\Model\SocialChannelConnectIn $social_channel_connect_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelConnect'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postChannelConnectAsyncWithHttpInfo($social_channel_connect_in, string $contentType = self::contentTypes['postChannelConnect'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialChannelConnectOut';
+        $request = $this->postChannelConnectRequest($social_channel_connect_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postChannelConnect'
+     *
+     * @param  \Hanzo\Cloud\Model\SocialChannelConnectIn $social_channel_connect_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelConnect'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postChannelConnectRequest($social_channel_connect_in, string $contentType = self::contentTypes['postChannelConnect'][0])
+    {
+
+        // verify the required parameter 'social_channel_connect_in' is set
+        if ($social_channel_connect_in === null || (is_array($social_channel_connect_in) && count($social_channel_connect_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $social_channel_connect_in when calling postChannelConnect'
+            );
+        }
+
+
+        $resourcePath = '/v1/channel/connect';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($social_channel_connect_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_channel_connect_in));
+            } else {
+                $httpBody = $social_channel_connect_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postPost
+     *
+     * Stores a new draft, scheduled post, or immediate publish (&#x60;status: \&quot;now\&quot;&#x60;), supporting single-network, multi-network (&#x60;channels&#x60;), specific channel ID (&#x60;accountId&#x60; / &#x60;accountIds&#x60;), and employee/brand group (&#x60;group&#x60;) fanout.
+     *
+     * @param  \Hanzo\Cloud\Model\SocialPostCreateIn $social_post_create_in social_post_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPost'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialPostCreateOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postPost($social_post_create_in, string $contentType = self::contentTypes['postPost'][0])
+    {
+        list($response) = $this->postPostWithHttpInfo($social_post_create_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postPostWithHttpInfo
+     *
+     * Stores a new draft, scheduled post, or immediate publish (&#x60;status: \&quot;now\&quot;&#x60;), supporting single-network, multi-network (&#x60;channels&#x60;), specific channel ID (&#x60;accountId&#x60; / &#x60;accountIds&#x60;), and employee/brand group (&#x60;group&#x60;) fanout.
+     *
+     * @param  \Hanzo\Cloud\Model\SocialPostCreateIn $social_post_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPost'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialPostCreateOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postPostWithHttpInfo($social_post_create_in, string $contentType = self::contentTypes['postPost'][0])
+    {
+        $request = $this->postPostRequest($social_post_create_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2277,7 +5788,13 @@ class SocialApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SocialAccount',
+                        '\Hanzo\Cloud\Model\SocialPostCreateOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2299,7 +5816,7 @@ class SocialApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SocialAccount',
+                '\Hanzo\Cloud\Model\SocialPostCreateOut',
                 $request,
                 $response,
             );
@@ -2308,7 +5825,586 @@ class SocialApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SocialAccount',
+                        '\Hanzo\Cloud\Model\SocialPostCreateOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postPostAsync
+     *
+     * Stores a new draft, scheduled post, or immediate publish (&#x60;status: \&quot;now\&quot;&#x60;), supporting single-network, multi-network (&#x60;channels&#x60;), specific channel ID (&#x60;accountId&#x60; / &#x60;accountIds&#x60;), and employee/brand group (&#x60;group&#x60;) fanout.
+     *
+     * @param  \Hanzo\Cloud\Model\SocialPostCreateIn $social_post_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postPostAsync($social_post_create_in, string $contentType = self::contentTypes['postPost'][0])
+    {
+        return $this->postPostAsyncWithHttpInfo($social_post_create_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postPostAsyncWithHttpInfo
+     *
+     * Stores a new draft, scheduled post, or immediate publish (&#x60;status: \&quot;now\&quot;&#x60;), supporting single-network, multi-network (&#x60;channels&#x60;), specific channel ID (&#x60;accountId&#x60; / &#x60;accountIds&#x60;), and employee/brand group (&#x60;group&#x60;) fanout.
+     *
+     * @param  \Hanzo\Cloud\Model\SocialPostCreateIn $social_post_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postPostAsyncWithHttpInfo($social_post_create_in, string $contentType = self::contentTypes['postPost'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialPostCreateOut';
+        $request = $this->postPostRequest($social_post_create_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postPost'
+     *
+     * @param  \Hanzo\Cloud\Model\SocialPostCreateIn $social_post_create_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPost'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postPostRequest($social_post_create_in, string $contentType = self::contentTypes['postPost'][0])
+    {
+
+        // verify the required parameter 'social_post_create_in' is set
+        if ($social_post_create_in === null || (is_array($social_post_create_in) && count($social_post_create_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $social_post_create_in when calling postPost'
+            );
+        }
+
+
+        $resourcePath = '/v1/post';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($social_post_create_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_post_create_in));
+            } else {
+                $httpBody = $social_post_create_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postPostByIdPublish
+     *
+     * Immediately publishes a draft, scheduled, or failed post to its target channel(s) and returns the updated post record with its external post ID or failure reason.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPostByIdPublish'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialPostItem|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postPostByIdPublish($id, string $contentType = self::contentTypes['postPostByIdPublish'][0])
+    {
+        list($response) = $this->postPostByIdPublishWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postPostByIdPublishWithHttpInfo
+     *
+     * Immediately publishes a draft, scheduled, or failed post to its target channel(s) and returns the updated post record with its external post ID or failure reason.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPostByIdPublish'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialPostItem|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postPostByIdPublishWithHttpInfo($id, string $contentType = self::contentTypes['postPostByIdPublish'][0])
+    {
+        $request = $this->postPostByIdPublishRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialPostItem',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialPostItem',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialPostItem',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postPostByIdPublishAsync
+     *
+     * Immediately publishes a draft, scheduled, or failed post to its target channel(s) and returns the updated post record with its external post ID or failure reason.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPostByIdPublish'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postPostByIdPublishAsync($id, string $contentType = self::contentTypes['postPostByIdPublish'][0])
+    {
+        return $this->postPostByIdPublishAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postPostByIdPublishAsyncWithHttpInfo
+     *
+     * Immediately publishes a draft, scheduled, or failed post to its target channel(s) and returns the updated post record with its external post ID or failure reason.
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPostByIdPublish'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postPostByIdPublishAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postPostByIdPublish'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialPostItem';
+        $request = $this->postPostByIdPublishRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postPostByIdPublish'
+     *
+     * @param  string $id ID is the post identifier from the URL path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPostByIdPublish'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postPostByIdPublishRequest($id, string $contentType = self::contentTypes['postPostByIdPublish'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postPostByIdPublish'
+            );
+        }
+
+
+        $resourcePath = '/v1/post/{id}/publish';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postSocialAccounts
+     *
+     * Records a social account for the org and answers 201 with the stored row, including the generated id later calls address it by.
+     *
+     * @param  \Hanzo\Cloud\Model\SocialSocialAccountBody $social_social_account_body social_social_account_body (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialAccounts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialSocialAccount|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postSocialAccounts($social_social_account_body, string $contentType = self::contentTypes['postSocialAccounts'][0])
+    {
+        list($response) = $this->postSocialAccountsWithHttpInfo($social_social_account_body, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postSocialAccountsWithHttpInfo
+     *
+     * Records a social account for the org and answers 201 with the stored row, including the generated id later calls address it by.
+     *
+     * @param  \Hanzo\Cloud\Model\SocialSocialAccountBody $social_social_account_body (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialAccounts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialSocialAccount|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postSocialAccountsWithHttpInfo($social_social_account_body, string $contentType = self::contentTypes['postSocialAccounts'][0])
+    {
+        $request = $this->postSocialAccountsRequest($social_social_account_body, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialSocialAccount',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialSocialAccount',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialSocialAccount',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2325,15 +6421,15 @@ class SocialApi
      *
      * Records a social account for the org and answers 201 with the stored row, including the generated id later calls address it by.
      *
-     * @param  \Hanzo\Cloud\Model\SocialAccountBody $social_account_body (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialAccountBody $social_social_account_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialAccounts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSocialAccountsAsync($social_account_body, string $contentType = self::contentTypes['postSocialAccounts'][0])
+    public function postSocialAccountsAsync($social_social_account_body, string $contentType = self::contentTypes['postSocialAccounts'][0])
     {
-        return $this->postSocialAccountsAsyncWithHttpInfo($social_account_body, $contentType)
+        return $this->postSocialAccountsAsyncWithHttpInfo($social_social_account_body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2346,16 +6442,16 @@ class SocialApi
      *
      * Records a social account for the org and answers 201 with the stored row, including the generated id later calls address it by.
      *
-     * @param  \Hanzo\Cloud\Model\SocialAccountBody $social_account_body (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialAccountBody $social_social_account_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialAccounts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSocialAccountsAsyncWithHttpInfo($social_account_body, string $contentType = self::contentTypes['postSocialAccounts'][0])
+    public function postSocialAccountsAsyncWithHttpInfo($social_social_account_body, string $contentType = self::contentTypes['postSocialAccounts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SocialAccount';
-        $request = $this->postSocialAccountsRequest($social_account_body, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SocialSocialAccount';
+        $request = $this->postSocialAccountsRequest($social_social_account_body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2396,19 +6492,19 @@ class SocialApi
     /**
      * Create request for operation 'postSocialAccounts'
      *
-     * @param  \Hanzo\Cloud\Model\SocialAccountBody $social_account_body (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialAccountBody $social_social_account_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialAccounts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postSocialAccountsRequest($social_account_body, string $contentType = self::contentTypes['postSocialAccounts'][0])
+    public function postSocialAccountsRequest($social_social_account_body, string $contentType = self::contentTypes['postSocialAccounts'][0])
     {
 
-        // verify the required parameter 'social_account_body' is set
-        if ($social_account_body === null || (is_array($social_account_body) && count($social_account_body) === 0)) {
+        // verify the required parameter 'social_social_account_body' is set
+        if ($social_social_account_body === null || (is_array($social_social_account_body) && count($social_social_account_body) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $social_account_body when calling postSocialAccounts'
+                'Missing the required parameter $social_social_account_body when calling postSocialAccounts'
             );
         }
 
@@ -2425,20 +6521,242 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($social_account_body)) {
+        if (isset($social_social_account_body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_account_body));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_social_account_body));
             } else {
-                $httpBody = $social_account_body;
+                $httpBody = $social_social_account_body;
             }
         } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postSocialIngestPostizByIngesttoken
+     *
+     * Adapts ingestPostiz to a zip handler: it reads the bearer-free path token, decodes the body, and delegates.
+     *
+     * @param  string $ingest_token ingest_token (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialIngestPostizByIngesttoken'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function postSocialIngestPostizByIngesttoken($ingest_token, string $contentType = self::contentTypes['postSocialIngestPostizByIngesttoken'][0])
+    {
+        $this->postSocialIngestPostizByIngesttokenWithHttpInfo($ingest_token, $contentType);
+    }
+
+    /**
+     * Operation postSocialIngestPostizByIngesttokenWithHttpInfo
+     *
+     * Adapts ingestPostiz to a zip handler: it reads the bearer-free path token, decodes the body, and delegates.
+     *
+     * @param  string $ingest_token (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialIngestPostizByIngesttoken'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postSocialIngestPostizByIngesttokenWithHttpInfo($ingest_token, string $contentType = self::contentTypes['postSocialIngestPostizByIngesttoken'][0])
+    {
+        $request = $this->postSocialIngestPostizByIngesttokenRequest($ingest_token, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postSocialIngestPostizByIngesttokenAsync
+     *
+     * Adapts ingestPostiz to a zip handler: it reads the bearer-free path token, decodes the body, and delegates.
+     *
+     * @param  string $ingest_token (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialIngestPostizByIngesttoken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postSocialIngestPostizByIngesttokenAsync($ingest_token, string $contentType = self::contentTypes['postSocialIngestPostizByIngesttoken'][0])
+    {
+        return $this->postSocialIngestPostizByIngesttokenAsyncWithHttpInfo($ingest_token, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postSocialIngestPostizByIngesttokenAsyncWithHttpInfo
+     *
+     * Adapts ingestPostiz to a zip handler: it reads the bearer-free path token, decodes the body, and delegates.
+     *
+     * @param  string $ingest_token (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialIngestPostizByIngesttoken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postSocialIngestPostizByIngesttokenAsyncWithHttpInfo($ingest_token, string $contentType = self::contentTypes['postSocialIngestPostizByIngesttoken'][0])
+    {
+        $returnType = '';
+        $request = $this->postSocialIngestPostizByIngesttokenRequest($ingest_token, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postSocialIngestPostizByIngesttoken'
+     *
+     * @param  string $ingest_token (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialIngestPostizByIngesttoken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postSocialIngestPostizByIngesttokenRequest($ingest_token, string $contentType = self::contentTypes['postSocialIngestPostizByIngesttoken'][0])
+    {
+
+        // verify the required parameter 'ingest_token' is set
+        if ($ingest_token === null || (is_array($ingest_token) && count($ingest_token) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ingest_token when calling postSocialIngestPostizByIngesttoken'
+            );
+        }
+
+
+        $resourcePath = '/v1/social/ingest/postiz/{ingestToken}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($ingest_token !== null) {
+            $resourcePath = str_replace(
+                '{' . 'ingestToken' . '}',
+                ObjectSerializer::toPathValue($ingest_token),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -2493,16 +6811,16 @@ class SocialApi
      *
      * Stores a post for the org and answers 201 with the stored row.
      *
-     * @param  \Hanzo\Cloud\Model\SocialPostBody $social_post_body social_post_body (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialPostBody $social_social_post_body social_social_post_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialPosts'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SocialPost
+     * @return \Hanzo\Cloud\Model\SocialSocialPost|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postSocialPosts($social_post_body, string $contentType = self::contentTypes['postSocialPosts'][0])
+    public function postSocialPosts($social_social_post_body, string $contentType = self::contentTypes['postSocialPosts'][0])
     {
-        list($response) = $this->postSocialPostsWithHttpInfo($social_post_body, $contentType);
+        list($response) = $this->postSocialPostsWithHttpInfo($social_social_post_body, $contentType);
         return $response;
     }
 
@@ -2511,16 +6829,16 @@ class SocialApi
      *
      * Stores a post for the org and answers 201 with the stored row.
      *
-     * @param  \Hanzo\Cloud\Model\SocialPostBody $social_post_body (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialPostBody $social_social_post_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialPosts'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SocialPost, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SocialSocialPost|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postSocialPostsWithHttpInfo($social_post_body, string $contentType = self::contentTypes['postSocialPosts'][0])
+    public function postSocialPostsWithHttpInfo($social_social_post_body, string $contentType = self::contentTypes['postSocialPosts'][0])
     {
-        $request = $this->postSocialPostsRequest($social_post_body, $contentType);
+        $request = $this->postSocialPostsRequest($social_social_post_body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2548,7 +6866,13 @@ class SocialApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SocialPost',
+                        '\Hanzo\Cloud\Model\SocialSocialPost',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2570,7 +6894,7 @@ class SocialApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SocialPost',
+                '\Hanzo\Cloud\Model\SocialSocialPost',
                 $request,
                 $response,
             );
@@ -2579,7 +6903,15 @@ class SocialApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SocialPost',
+                        '\Hanzo\Cloud\Model\SocialSocialPost',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2596,15 +6928,15 @@ class SocialApi
      *
      * Stores a post for the org and answers 201 with the stored row.
      *
-     * @param  \Hanzo\Cloud\Model\SocialPostBody $social_post_body (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialPostBody $social_social_post_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialPosts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSocialPostsAsync($social_post_body, string $contentType = self::contentTypes['postSocialPosts'][0])
+    public function postSocialPostsAsync($social_social_post_body, string $contentType = self::contentTypes['postSocialPosts'][0])
     {
-        return $this->postSocialPostsAsyncWithHttpInfo($social_post_body, $contentType)
+        return $this->postSocialPostsAsyncWithHttpInfo($social_social_post_body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2617,16 +6949,16 @@ class SocialApi
      *
      * Stores a post for the org and answers 201 with the stored row.
      *
-     * @param  \Hanzo\Cloud\Model\SocialPostBody $social_post_body (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialPostBody $social_social_post_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialPosts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSocialPostsAsyncWithHttpInfo($social_post_body, string $contentType = self::contentTypes['postSocialPosts'][0])
+    public function postSocialPostsAsyncWithHttpInfo($social_social_post_body, string $contentType = self::contentTypes['postSocialPosts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SocialPost';
-        $request = $this->postSocialPostsRequest($social_post_body, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SocialSocialPost';
+        $request = $this->postSocialPostsRequest($social_social_post_body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2667,19 +6999,19 @@ class SocialApi
     /**
      * Create request for operation 'postSocialPosts'
      *
-     * @param  \Hanzo\Cloud\Model\SocialPostBody $social_post_body (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialPostBody $social_social_post_body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSocialPosts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postSocialPostsRequest($social_post_body, string $contentType = self::contentTypes['postSocialPosts'][0])
+    public function postSocialPostsRequest($social_social_post_body, string $contentType = self::contentTypes['postSocialPosts'][0])
     {
 
-        // verify the required parameter 'social_post_body' is set
-        if ($social_post_body === null || (is_array($social_post_body) && count($social_post_body) === 0)) {
+        // verify the required parameter 'social_social_post_body' is set
+        if ($social_social_post_body === null || (is_array($social_social_post_body) && count($social_social_post_body) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $social_post_body when calling postSocialPosts'
+                'Missing the required parameter $social_social_post_body when calling postSocialPosts'
             );
         }
 
@@ -2696,18 +7028,18 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($social_post_body)) {
+        if (isset($social_social_post_body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_post_body));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_social_post_body));
             } else {
-                $httpBody = $social_post_body;
+                $httpBody = $social_social_post_body;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2769,7 +7101,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SocialPost
+     * @return \Hanzo\Cloud\Model\SocialSocialPost|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postSocialPostsByIdPublish($id, string $contentType = self::contentTypes['postSocialPostsByIdPublish'][0])
     {
@@ -2787,7 +7119,7 @@ class SocialApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SocialPost, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SocialSocialPost|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postSocialPostsByIdPublishWithHttpInfo($id, string $contentType = self::contentTypes['postSocialPostsByIdPublish'][0])
     {
@@ -2819,7 +7151,13 @@ class SocialApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SocialPost',
+                        '\Hanzo\Cloud\Model\SocialSocialPost',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2841,7 +7179,7 @@ class SocialApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SocialPost',
+                '\Hanzo\Cloud\Model\SocialSocialPost',
                 $request,
                 $response,
             );
@@ -2850,7 +7188,15 @@ class SocialApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SocialPost',
+                        '\Hanzo\Cloud\Model\SocialSocialPost',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2896,7 +7242,7 @@ class SocialApi
      */
     public function postSocialPostsByIdPublishAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postSocialPostsByIdPublish'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SocialPost';
+        $returnType = '\Hanzo\Cloud\Model\SocialSocialPost';
         $request = $this->postSocialPostsByIdPublishRequest($id, $contentType);
 
         return $this->client
@@ -2975,7 +7321,7 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3032,40 +7378,40 @@ class SocialApi
     }
 
     /**
-     * Operation putSocialAccountsById
+     * Operation putChannelById
      *
-     * Replaces the account&#39;s network, handle and status with what the body carries, and answers with the stored row.
+     * Modifies a social channel&#39;s display metadata, status, group, or disabled flag.
      *
      * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\SocialAccountWrite $social_account_write social_account_write (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialAccountsById'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\SocialChannelUpdateIn $social_channel_update_in social_channel_update_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SocialAccount
+     * @return \Hanzo\Cloud\Model\SocialChannelItem|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putSocialAccountsById($id, $social_account_write, string $contentType = self::contentTypes['putSocialAccountsById'][0])
+    public function putChannelById($id, $social_channel_update_in, string $contentType = self::contentTypes['putChannelById'][0])
     {
-        list($response) = $this->putSocialAccountsByIdWithHttpInfo($id, $social_account_write, $contentType);
+        list($response) = $this->putChannelByIdWithHttpInfo($id, $social_channel_update_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation putSocialAccountsByIdWithHttpInfo
+     * Operation putChannelByIdWithHttpInfo
      *
-     * Replaces the account&#39;s network, handle and status with what the body carries, and answers with the stored row.
+     * Modifies a social channel&#39;s display metadata, status, group, or disabled flag.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SocialAccountWrite $social_account_write (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialAccountsById'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\SocialChannelUpdateIn $social_channel_update_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SocialAccount, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SocialChannelItem|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putSocialAccountsByIdWithHttpInfo($id, $social_account_write, string $contentType = self::contentTypes['putSocialAccountsById'][0])
+    public function putChannelByIdWithHttpInfo($id, $social_channel_update_in, string $contentType = self::contentTypes['putChannelById'][0])
     {
-        $request = $this->putSocialAccountsByIdRequest($id, $social_account_write, $contentType);
+        $request = $this->putChannelByIdRequest($id, $social_channel_update_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3093,7 +7439,13 @@ class SocialApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SocialAccount',
+                        '\Hanzo\Cloud\Model\SocialChannelItem',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3115,7 +7467,7 @@ class SocialApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SocialAccount',
+                '\Hanzo\Cloud\Model\SocialChannelItem',
                 $request,
                 $response,
             );
@@ -3124,7 +7476,930 @@ class SocialApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SocialAccount',
+                        '\Hanzo\Cloud\Model\SocialChannelItem',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putChannelByIdAsync
+     *
+     * Modifies a social channel&#39;s display metadata, status, group, or disabled flag.
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialChannelUpdateIn $social_channel_update_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putChannelByIdAsync($id, $social_channel_update_in, string $contentType = self::contentTypes['putChannelById'][0])
+    {
+        return $this->putChannelByIdAsyncWithHttpInfo($id, $social_channel_update_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putChannelByIdAsyncWithHttpInfo
+     *
+     * Modifies a social channel&#39;s display metadata, status, group, or disabled flag.
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialChannelUpdateIn $social_channel_update_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putChannelByIdAsyncWithHttpInfo($id, $social_channel_update_in, string $contentType = self::contentTypes['putChannelById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialChannelItem';
+        $request = $this->putChannelByIdRequest($id, $social_channel_update_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putChannelById'
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialChannelUpdateIn $social_channel_update_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putChannelByIdRequest($id, $social_channel_update_in, string $contentType = self::contentTypes['putChannelById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling putChannelById'
+            );
+        }
+
+        // verify the required parameter 'social_channel_update_in' is set
+        if ($social_channel_update_in === null || (is_array($social_channel_update_in) && count($social_channel_update_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $social_channel_update_in when calling putChannelById'
+            );
+        }
+
+
+        $resourcePath = '/v1/channel/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($social_channel_update_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_channel_update_in));
+            } else {
+                $httpBody = $social_channel_update_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putChannelByIdGroup
+     *
+     * Assigns a channel to an employee or brand group (or clears the group when empty), keeping /v1/channel and post.hanzo.ai sidebar groups synchronized.
+     *
+     * @param  string $id id (required)
+     * @param  \Hanzo\Cloud\Model\SocialChannelSetGroupIn $social_channel_set_group_in social_channel_set_group_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelByIdGroup'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialChannelItem|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putChannelByIdGroup($id, $social_channel_set_group_in, string $contentType = self::contentTypes['putChannelByIdGroup'][0])
+    {
+        list($response) = $this->putChannelByIdGroupWithHttpInfo($id, $social_channel_set_group_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putChannelByIdGroupWithHttpInfo
+     *
+     * Assigns a channel to an employee or brand group (or clears the group when empty), keeping /v1/channel and post.hanzo.ai sidebar groups synchronized.
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialChannelSetGroupIn $social_channel_set_group_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelByIdGroup'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialChannelItem|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putChannelByIdGroupWithHttpInfo($id, $social_channel_set_group_in, string $contentType = self::contentTypes['putChannelByIdGroup'][0])
+    {
+        $request = $this->putChannelByIdGroupRequest($id, $social_channel_set_group_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialChannelItem',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialChannelItem',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialChannelItem',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putChannelByIdGroupAsync
+     *
+     * Assigns a channel to an employee or brand group (or clears the group when empty), keeping /v1/channel and post.hanzo.ai sidebar groups synchronized.
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialChannelSetGroupIn $social_channel_set_group_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelByIdGroup'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putChannelByIdGroupAsync($id, $social_channel_set_group_in, string $contentType = self::contentTypes['putChannelByIdGroup'][0])
+    {
+        return $this->putChannelByIdGroupAsyncWithHttpInfo($id, $social_channel_set_group_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putChannelByIdGroupAsyncWithHttpInfo
+     *
+     * Assigns a channel to an employee or brand group (or clears the group when empty), keeping /v1/channel and post.hanzo.ai sidebar groups synchronized.
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialChannelSetGroupIn $social_channel_set_group_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelByIdGroup'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putChannelByIdGroupAsyncWithHttpInfo($id, $social_channel_set_group_in, string $contentType = self::contentTypes['putChannelByIdGroup'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialChannelItem';
+        $request = $this->putChannelByIdGroupRequest($id, $social_channel_set_group_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putChannelByIdGroup'
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialChannelSetGroupIn $social_channel_set_group_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelByIdGroup'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putChannelByIdGroupRequest($id, $social_channel_set_group_in, string $contentType = self::contentTypes['putChannelByIdGroup'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling putChannelByIdGroup'
+            );
+        }
+
+        // verify the required parameter 'social_channel_set_group_in' is set
+        if ($social_channel_set_group_in === null || (is_array($social_channel_set_group_in) && count($social_channel_set_group_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $social_channel_set_group_in when calling putChannelByIdGroup'
+            );
+        }
+
+
+        $resourcePath = '/v1/channel/{id}/group';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($social_channel_set_group_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_channel_set_group_in));
+            } else {
+                $httpBody = $social_channel_set_group_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putPostById
+     *
+     * Replaces one social post&#39;s content, target channel, schedule, status, and media.
+     *
+     * @param  string $id id (required)
+     * @param  \Hanzo\Cloud\Model\SocialPostUpdateIn $social_post_update_in social_post_update_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPostById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialPostItem|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putPostById($id, $social_post_update_in, string $contentType = self::contentTypes['putPostById'][0])
+    {
+        list($response) = $this->putPostByIdWithHttpInfo($id, $social_post_update_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putPostByIdWithHttpInfo
+     *
+     * Replaces one social post&#39;s content, target channel, schedule, status, and media.
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialPostUpdateIn $social_post_update_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPostById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialPostItem|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putPostByIdWithHttpInfo($id, $social_post_update_in, string $contentType = self::contentTypes['putPostById'][0])
+    {
+        $request = $this->putPostByIdRequest($id, $social_post_update_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialPostItem',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialPostItem',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialPostItem',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putPostByIdAsync
+     *
+     * Replaces one social post&#39;s content, target channel, schedule, status, and media.
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialPostUpdateIn $social_post_update_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPostById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putPostByIdAsync($id, $social_post_update_in, string $contentType = self::contentTypes['putPostById'][0])
+    {
+        return $this->putPostByIdAsyncWithHttpInfo($id, $social_post_update_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putPostByIdAsyncWithHttpInfo
+     *
+     * Replaces one social post&#39;s content, target channel, schedule, status, and media.
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialPostUpdateIn $social_post_update_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPostById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putPostByIdAsyncWithHttpInfo($id, $social_post_update_in, string $contentType = self::contentTypes['putPostById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialPostItem';
+        $request = $this->putPostByIdRequest($id, $social_post_update_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putPostById'
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialPostUpdateIn $social_post_update_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPostById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putPostByIdRequest($id, $social_post_update_in, string $contentType = self::contentTypes['putPostById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling putPostById'
+            );
+        }
+
+        // verify the required parameter 'social_post_update_in' is set
+        if ($social_post_update_in === null || (is_array($social_post_update_in) && count($social_post_update_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $social_post_update_in when calling putPostById'
+            );
+        }
+
+
+        $resourcePath = '/v1/post/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($social_post_update_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_post_update_in));
+            } else {
+                $httpBody = $social_post_update_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putSocialAccountsById
+     *
+     * Replaces the account&#39;s network, handle and status with what the body carries, and answers with the stored row.
+     *
+     * @param  string $id id (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialAccountWrite $social_social_account_write social_social_account_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialAccountsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialSocialAccount|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putSocialAccountsById($id, $social_social_account_write, string $contentType = self::contentTypes['putSocialAccountsById'][0])
+    {
+        list($response) = $this->putSocialAccountsByIdWithHttpInfo($id, $social_social_account_write, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putSocialAccountsByIdWithHttpInfo
+     *
+     * Replaces the account&#39;s network, handle and status with what the body carries, and answers with the stored row.
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialAccountWrite $social_social_account_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialAccountsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialSocialAccount|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putSocialAccountsByIdWithHttpInfo($id, $social_social_account_write, string $contentType = self::contentTypes['putSocialAccountsById'][0])
+    {
+        $request = $this->putSocialAccountsByIdRequest($id, $social_social_account_write, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialSocialAccount',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialSocialAccount',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialSocialAccount',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3142,15 +8417,15 @@ class SocialApi
      * Replaces the account&#39;s network, handle and status with what the body carries, and answers with the stored row.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SocialAccountWrite $social_account_write (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialAccountWrite $social_social_account_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialAccountsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putSocialAccountsByIdAsync($id, $social_account_write, string $contentType = self::contentTypes['putSocialAccountsById'][0])
+    public function putSocialAccountsByIdAsync($id, $social_social_account_write, string $contentType = self::contentTypes['putSocialAccountsById'][0])
     {
-        return $this->putSocialAccountsByIdAsyncWithHttpInfo($id, $social_account_write, $contentType)
+        return $this->putSocialAccountsByIdAsyncWithHttpInfo($id, $social_social_account_write, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3164,16 +8439,16 @@ class SocialApi
      * Replaces the account&#39;s network, handle and status with what the body carries, and answers with the stored row.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SocialAccountWrite $social_account_write (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialAccountWrite $social_social_account_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialAccountsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putSocialAccountsByIdAsyncWithHttpInfo($id, $social_account_write, string $contentType = self::contentTypes['putSocialAccountsById'][0])
+    public function putSocialAccountsByIdAsyncWithHttpInfo($id, $social_social_account_write, string $contentType = self::contentTypes['putSocialAccountsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SocialAccount';
-        $request = $this->putSocialAccountsByIdRequest($id, $social_account_write, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SocialSocialAccount';
+        $request = $this->putSocialAccountsByIdRequest($id, $social_social_account_write, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3215,13 +8490,13 @@ class SocialApi
      * Create request for operation 'putSocialAccountsById'
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SocialAccountWrite $social_account_write (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialAccountWrite $social_social_account_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialAccountsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putSocialAccountsByIdRequest($id, $social_account_write, string $contentType = self::contentTypes['putSocialAccountsById'][0])
+    public function putSocialAccountsByIdRequest($id, $social_social_account_write, string $contentType = self::contentTypes['putSocialAccountsById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -3231,10 +8506,10 @@ class SocialApi
             );
         }
 
-        // verify the required parameter 'social_account_write' is set
-        if ($social_account_write === null || (is_array($social_account_write) && count($social_account_write) === 0)) {
+        // verify the required parameter 'social_social_account_write' is set
+        if ($social_social_account_write === null || (is_array($social_social_account_write) && count($social_social_account_write) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $social_account_write when calling putSocialAccountsById'
+                'Missing the required parameter $social_social_account_write when calling putSocialAccountsById'
             );
         }
 
@@ -3259,18 +8534,303 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($social_account_write)) {
+        if (isset($social_social_account_write)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_account_write));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_social_account_write));
             } else {
-                $httpBody = $social_account_write;
+                $httpBody = $social_social_account_write;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putSocialCredentials
+     *
+     * Seals the apps in the body.
+     *
+     * @param  \Hanzo\Cloud\Model\SocialOrgAppsWrite $social_org_apps_write social_org_apps_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialCredentials'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SocialOrgApps|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putSocialCredentials($social_org_apps_write, string $contentType = self::contentTypes['putSocialCredentials'][0])
+    {
+        list($response) = $this->putSocialCredentialsWithHttpInfo($social_org_apps_write, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putSocialCredentialsWithHttpInfo
+     *
+     * Seals the apps in the body.
+     *
+     * @param  \Hanzo\Cloud\Model\SocialOrgAppsWrite $social_org_apps_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialCredentials'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SocialOrgApps|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putSocialCredentialsWithHttpInfo($social_org_apps_write, string $contentType = self::contentTypes['putSocialCredentials'][0])
+    {
+        $request = $this->putSocialCredentialsRequest($social_org_apps_write, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SocialOrgApps',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SocialOrgApps',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SocialOrgApps',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putSocialCredentialsAsync
+     *
+     * Seals the apps in the body.
+     *
+     * @param  \Hanzo\Cloud\Model\SocialOrgAppsWrite $social_org_apps_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialCredentials'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putSocialCredentialsAsync($social_org_apps_write, string $contentType = self::contentTypes['putSocialCredentials'][0])
+    {
+        return $this->putSocialCredentialsAsyncWithHttpInfo($social_org_apps_write, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putSocialCredentialsAsyncWithHttpInfo
+     *
+     * Seals the apps in the body.
+     *
+     * @param  \Hanzo\Cloud\Model\SocialOrgAppsWrite $social_org_apps_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialCredentials'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putSocialCredentialsAsyncWithHttpInfo($social_org_apps_write, string $contentType = self::contentTypes['putSocialCredentials'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SocialOrgApps';
+        $request = $this->putSocialCredentialsRequest($social_org_apps_write, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putSocialCredentials'
+     *
+     * @param  \Hanzo\Cloud\Model\SocialOrgAppsWrite $social_org_apps_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialCredentials'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putSocialCredentialsRequest($social_org_apps_write, string $contentType = self::contentTypes['putSocialCredentials'][0])
+    {
+
+        // verify the required parameter 'social_org_apps_write' is set
+        if ($social_org_apps_write === null || (is_array($social_org_apps_write) && count($social_org_apps_write) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $social_org_apps_write when calling putSocialCredentials'
+            );
+        }
+
+
+        $resourcePath = '/v1/social/credentials';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($social_org_apps_write)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_org_apps_write));
+            } else {
+                $httpBody = $social_org_apps_write;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3328,16 +8888,16 @@ class SocialApi
      * Replaces the post&#39;s content, channel, status, scheduled time and media with what the body carries, and answers with the stored row.
      *
      * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\SocialPostWrite $social_post_write social_post_write (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialPostWrite $social_social_post_write social_social_post_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialPostsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SocialPost
+     * @return \Hanzo\Cloud\Model\SocialSocialPost|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putSocialPostsById($id, $social_post_write, string $contentType = self::contentTypes['putSocialPostsById'][0])
+    public function putSocialPostsById($id, $social_social_post_write, string $contentType = self::contentTypes['putSocialPostsById'][0])
     {
-        list($response) = $this->putSocialPostsByIdWithHttpInfo($id, $social_post_write, $contentType);
+        list($response) = $this->putSocialPostsByIdWithHttpInfo($id, $social_social_post_write, $contentType);
         return $response;
     }
 
@@ -3347,16 +8907,16 @@ class SocialApi
      * Replaces the post&#39;s content, channel, status, scheduled time and media with what the body carries, and answers with the stored row.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SocialPostWrite $social_post_write (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialPostWrite $social_social_post_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialPostsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SocialPost, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SocialSocialPost|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putSocialPostsByIdWithHttpInfo($id, $social_post_write, string $contentType = self::contentTypes['putSocialPostsById'][0])
+    public function putSocialPostsByIdWithHttpInfo($id, $social_social_post_write, string $contentType = self::contentTypes['putSocialPostsById'][0])
     {
-        $request = $this->putSocialPostsByIdRequest($id, $social_post_write, $contentType);
+        $request = $this->putSocialPostsByIdRequest($id, $social_social_post_write, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3384,7 +8944,13 @@ class SocialApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SocialPost',
+                        '\Hanzo\Cloud\Model\SocialSocialPost',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3406,7 +8972,7 @@ class SocialApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SocialPost',
+                '\Hanzo\Cloud\Model\SocialSocialPost',
                 $request,
                 $response,
             );
@@ -3415,7 +8981,15 @@ class SocialApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SocialPost',
+                        '\Hanzo\Cloud\Model\SocialSocialPost',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3433,15 +9007,15 @@ class SocialApi
      * Replaces the post&#39;s content, channel, status, scheduled time and media with what the body carries, and answers with the stored row.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SocialPostWrite $social_post_write (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialPostWrite $social_social_post_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialPostsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putSocialPostsByIdAsync($id, $social_post_write, string $contentType = self::contentTypes['putSocialPostsById'][0])
+    public function putSocialPostsByIdAsync($id, $social_social_post_write, string $contentType = self::contentTypes['putSocialPostsById'][0])
     {
-        return $this->putSocialPostsByIdAsyncWithHttpInfo($id, $social_post_write, $contentType)
+        return $this->putSocialPostsByIdAsyncWithHttpInfo($id, $social_social_post_write, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3455,16 +9029,16 @@ class SocialApi
      * Replaces the post&#39;s content, channel, status, scheduled time and media with what the body carries, and answers with the stored row.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SocialPostWrite $social_post_write (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialPostWrite $social_social_post_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialPostsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putSocialPostsByIdAsyncWithHttpInfo($id, $social_post_write, string $contentType = self::contentTypes['putSocialPostsById'][0])
+    public function putSocialPostsByIdAsyncWithHttpInfo($id, $social_social_post_write, string $contentType = self::contentTypes['putSocialPostsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SocialPost';
-        $request = $this->putSocialPostsByIdRequest($id, $social_post_write, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SocialSocialPost';
+        $request = $this->putSocialPostsByIdRequest($id, $social_social_post_write, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3506,13 +9080,13 @@ class SocialApi
      * Create request for operation 'putSocialPostsById'
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SocialPostWrite $social_post_write (required)
+     * @param  \Hanzo\Cloud\Model\SocialSocialPostWrite $social_social_post_write (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSocialPostsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putSocialPostsByIdRequest($id, $social_post_write, string $contentType = self::contentTypes['putSocialPostsById'][0])
+    public function putSocialPostsByIdRequest($id, $social_social_post_write, string $contentType = self::contentTypes['putSocialPostsById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -3522,10 +9096,10 @@ class SocialApi
             );
         }
 
-        // verify the required parameter 'social_post_write' is set
-        if ($social_post_write === null || (is_array($social_post_write) && count($social_post_write) === 0)) {
+        // verify the required parameter 'social_social_post_write' is set
+        if ($social_social_post_write === null || (is_array($social_social_post_write) && count($social_social_post_write) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $social_post_write when calling putSocialPostsById'
+                'Missing the required parameter $social_social_post_write when calling putSocialPostsById'
             );
         }
 
@@ -3550,18 +9124,18 @@ class SocialApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($social_post_write)) {
+        if (isset($social_social_post_write)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_post_write));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($social_social_post_write));
             } else {
-                $httpBody = $social_post_write;
+                $httpBody = $social_social_post_write;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

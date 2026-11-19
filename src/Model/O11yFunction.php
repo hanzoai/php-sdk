@@ -57,9 +57,9 @@ class O11yFunction implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'args' => 'object[]',
+        'args' => 'mixed[]',
         'name' => 'string',
-        'named_args' => 'array<string,object>'
+        'named_args' => 'array<string,mixed>'
     ];
 
     /**
@@ -306,7 +306,7 @@ class O11yFunction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets args
      *
-     * @return object[]|null
+     * @return mixed[]|null
      */
     public function getArgs()
     {
@@ -316,7 +316,7 @@ class O11yFunction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets args
      *
-     * @param object[]|null $args args
+     * @param mixed[]|null $args args
      *
      * @return self
      */
@@ -360,7 +360,7 @@ class O11yFunction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets named_args
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getNamedArgs()
     {
@@ -370,7 +370,7 @@ class O11yFunction implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets named_args
      *
-     * @param array<string,object>|null $named_args named_args
+     * @param array<string,mixed>|null $named_args named_args
      *
      * @return self
      */

@@ -75,7 +75,7 @@ class IndexEnqueued implements ModelInterface, ArrayAccess, \JsonSerializable
         'enqueued_at' => null,
         'index_uid' => null,
         'status' => null,
-        'task_uid' => 'int64',
+        'task_uid' => null,
         'type' => null
     ];
 
@@ -330,7 +330,7 @@ class IndexEnqueued implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets enqueued_at
      *
-     * @param string|null $enqueued_at EnqueuedAt is when the task was recorded, RFC 3339 — which is also when it completed.
+     * @param string|null $enqueued_at enqueued_at
      *
      * @return self
      */
@@ -357,7 +357,7 @@ class IndexEnqueued implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets index_uid
      *
-     * @param string|null $index_uid IndexUID names the index the write landed in.
+     * @param string|null $index_uid index_uid
      *
      * @return self
      */
@@ -384,7 +384,7 @@ class IndexEnqueued implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param string|null $status Status is always `enqueued`, for dialect compatibility. The work is already done.
+     * @param string|null $status status
      *
      * @return self
      */
@@ -411,7 +411,7 @@ class IndexEnqueued implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets task_uid
      *
-     * @param int|null $task_uid TaskUID identifies the task for a client that polls it. Polling resolves immediately.
+     * @param int|null $task_uid task_uid
      *
      * @return self
      */
@@ -438,7 +438,7 @@ class IndexEnqueued implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets type
      *
-     * @param string|null $type Type is the dialect's name for the kind of write: indexCreation, indexDeletion, settingsUpdate, documentAdditionOrUpdate, documentDeletion.
+     * @param string|null $type type
      *
      * @return self
      */

@@ -372,7 +372,7 @@ class DestinationStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets account
      *
-     * @param string|null $account Account is the operator's own label for the connected account, as supplied on connect. Absent when unset.
+     * @param string|null $account account
      *
      * @return self
      */
@@ -399,7 +399,7 @@ class DestinationStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets category
      *
-     * @param string|null $category groups the card: Analytics | Advertising
+     * @param string|null $category category
      *
      * @return self
      */
@@ -426,7 +426,7 @@ class DestinationStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets config
      *
-     * @param array<string,string>|null $config Config is the org's stored NON-SECRET configuration — the measurement/pixel ids keyed by DestinationField.Key. A secret is never in here; secrets live in KMS and only their names are published, in Secrets.
+     * @param array<string,string>|null $config config
      *
      * @return self
      */
@@ -453,7 +453,7 @@ class DestinationStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets connected
      *
-     * @param bool|null $connected Connected is true when this org has a stored row for the platform — it has been configured here at least once. It says nothing about whether a credential still resolves; that is Live.
+     * @param bool|null $connected connected
      *
      * @return self
      */
@@ -480,7 +480,7 @@ class DestinationStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets enabled
      *
-     * @param bool|null $enabled Enabled is whether the fan-out forwards to this destination. False on a destination that is connected but paused, and on one never connected.
+     * @param bool|null $enabled enabled
      *
      * @return self
      */
@@ -507,7 +507,7 @@ class DestinationStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets fields
      *
-     * @param \Hanzo\Cloud\Model\DestinationField[]|null $fields Fields are the non-secret inputs this platform needs, which the console card renders and the connect body fills.
+     * @param \Hanzo\Cloud\Model\DestinationField[]|null $fields fields
      *
      * @return self
      */
@@ -534,7 +534,7 @@ class DestinationStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets live
      *
-     * @param bool|null $live Live is whether a credential resolves RIGHT NOW: a KMS-sealed secret for this org, else the integrations connection named by the platform's Fallback, else no credential needed at all (a public-ingest sink like Analytics). False on a connected destination whose secret has gone missing — Connected && !Live is exactly the \"reconnect me\" state.
+     * @param bool|null $live live
      *
      * @return self
      */
@@ -561,7 +561,7 @@ class DestinationStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets name
      *
-     * @param string|null $name the platform's display name (\"Google Analytics 4\")
+     * @param string|null $name name
      *
      * @return self
      */
@@ -588,7 +588,7 @@ class DestinationStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets pixel
      *
-     * @param bool|null $pixel Pixel is whether the hosted tag can inject a browser pixel for this platform, so a console offers a per-SITE pixel input for exactly these. False means the platform receives conversions server-side only, and an input would promise an injection that never happens. Derived from the tag's own map (event.BrowserTags), never restated — a second list is how a console offers a pixel nothing fires.
+     * @param bool|null $pixel pixel
      *
      * @return self
      */
@@ -615,7 +615,7 @@ class DestinationStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets platform
      *
-     * @param string|null $platform the platform slug, and the path segment every route addresses it by
+     * @param string|null $platform platform
      *
      * @return self
      */
@@ -642,7 +642,7 @@ class DestinationStatus implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets secrets
      *
-     * @param string[]|null $secrets Secrets are the KMS secret NAMES this platform custodies for the org — names only, never values. The connect body accepts each under its camelCase form.
+     * @param string[]|null $secrets secrets
      *
      * @return self
      */

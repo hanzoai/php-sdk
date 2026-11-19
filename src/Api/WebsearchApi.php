@@ -74,10 +74,16 @@ class WebsearchApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'deleteSearchEngineKey' => [
+            'application/json',
+        ],
         'deleteWebsearchSearch' => [
             'application/json',
         ],
         'getWebsearchSearch' => [
+            'application/json',
+        ],
+        'listSearchEngines' => [
             'application/json',
         ],
         'patchWebsearchSearch' => [
@@ -93,6 +99,12 @@ class WebsearchApi
             'application/json',
         ],
         'searchWeb' => [
+            'application/json',
+        ],
+        'setSearchEngineKey' => [
+            'application/json',
+        ],
+        'setSearchEngines' => [
             'application/json',
         ],
     ];
@@ -144,9 +156,295 @@ class WebsearchApi
     }
 
     /**
+     * Operation deleteSearchEngineKey
+     *
+     * Removes an engine&#39;s API key from KMS.
+     *
+     * @param  string $name Name is the engine, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSearchEngineKey'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\WebsearchSearchEngineKeyed|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function deleteSearchEngineKey($name, string $contentType = self::contentTypes['deleteSearchEngineKey'][0])
+    {
+        list($response) = $this->deleteSearchEngineKeyWithHttpInfo($name, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteSearchEngineKeyWithHttpInfo
+     *
+     * Removes an engine&#39;s API key from KMS.
+     *
+     * @param  string $name Name is the engine, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSearchEngineKey'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\WebsearchSearchEngineKeyed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteSearchEngineKeyWithHttpInfo($name, string $contentType = self::contentTypes['deleteSearchEngineKey'][0])
+    {
+        $request = $this->deleteSearchEngineKeyRequest($name, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\WebsearchSearchEngineKeyed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\WebsearchSearchEngineKeyed',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\WebsearchSearchEngineKeyed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteSearchEngineKeyAsync
+     *
+     * Removes an engine&#39;s API key from KMS.
+     *
+     * @param  string $name Name is the engine, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSearchEngineKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteSearchEngineKeyAsync($name, string $contentType = self::contentTypes['deleteSearchEngineKey'][0])
+    {
+        return $this->deleteSearchEngineKeyAsyncWithHttpInfo($name, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteSearchEngineKeyAsyncWithHttpInfo
+     *
+     * Removes an engine&#39;s API key from KMS.
+     *
+     * @param  string $name Name is the engine, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSearchEngineKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteSearchEngineKeyAsyncWithHttpInfo($name, string $contentType = self::contentTypes['deleteSearchEngineKey'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\WebsearchSearchEngineKeyed';
+        $request = $this->deleteSearchEngineKeyRequest($name, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteSearchEngineKey'
+     *
+     * @param  string $name Name is the engine, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSearchEngineKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteSearchEngineKeyRequest($name, string $contentType = self::contentTypes['deleteSearchEngineKey'][0])
+    {
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling deleteSearchEngineKey'
+            );
+        }
+
+
+        $resourcePath = '/v1/websearch/engines/{name}/key';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation deleteWebsearchSearch
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteWebsearchSearch'] to see the possible values for this operation
      *
@@ -162,7 +460,7 @@ class WebsearchApi
     /**
      * Operation deleteWebsearchSearchWithHttpInfo
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteWebsearchSearch'] to see the possible values for this operation
      *
@@ -210,7 +508,7 @@ class WebsearchApi
     /**
      * Operation deleteWebsearchSearchAsync
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteWebsearchSearch'] to see the possible values for this operation
      *
@@ -230,7 +528,7 @@ class WebsearchApi
     /**
      * Operation deleteWebsearchSearchAsyncWithHttpInfo
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteWebsearchSearch'] to see the possible values for this operation
      *
@@ -348,7 +646,7 @@ class WebsearchApi
     /**
      * Operation getWebsearchSearch
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getWebsearchSearch'] to see the possible values for this operation
      *
@@ -364,7 +662,7 @@ class WebsearchApi
     /**
      * Operation getWebsearchSearchWithHttpInfo
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getWebsearchSearch'] to see the possible values for this operation
      *
@@ -412,7 +710,7 @@ class WebsearchApi
     /**
      * Operation getWebsearchSearchAsync
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getWebsearchSearch'] to see the possible values for this operation
      *
@@ -432,7 +730,7 @@ class WebsearchApi
     /**
      * Operation getWebsearchSearchAsyncWithHttpInfo
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getWebsearchSearch'] to see the possible values for this operation
      *
@@ -548,9 +846,275 @@ class WebsearchApi
     }
 
     /**
+     * Operation listSearchEngines
+     *
+     * Lists every engine web search can run and how the platform runs it.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSearchEngines'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\WebsearchSearchEngines|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function listSearchEngines(string $contentType = self::contentTypes['listSearchEngines'][0])
+    {
+        list($response) = $this->listSearchEnginesWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation listSearchEnginesWithHttpInfo
+     *
+     * Lists every engine web search can run and how the platform runs it.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSearchEngines'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\WebsearchSearchEngines|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function listSearchEnginesWithHttpInfo(string $contentType = self::contentTypes['listSearchEngines'][0])
+    {
+        $request = $this->listSearchEnginesRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\WebsearchSearchEngines',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\WebsearchSearchEngines',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\WebsearchSearchEngines',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation listSearchEnginesAsync
+     *
+     * Lists every engine web search can run and how the platform runs it.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSearchEngines'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listSearchEnginesAsync(string $contentType = self::contentTypes['listSearchEngines'][0])
+    {
+        return $this->listSearchEnginesAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation listSearchEnginesAsyncWithHttpInfo
+     *
+     * Lists every engine web search can run and how the platform runs it.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSearchEngines'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listSearchEnginesAsyncWithHttpInfo(string $contentType = self::contentTypes['listSearchEngines'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\WebsearchSearchEngines';
+        $request = $this->listSearchEnginesRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'listSearchEngines'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSearchEngines'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function listSearchEnginesRequest(string $contentType = self::contentTypes['listSearchEngines'][0])
+    {
+
+
+        $resourcePath = '/v1/websearch/engines';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation patchWebsearchSearch
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchWebsearchSearch'] to see the possible values for this operation
      *
@@ -566,7 +1130,7 @@ class WebsearchApi
     /**
      * Operation patchWebsearchSearchWithHttpInfo
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchWebsearchSearch'] to see the possible values for this operation
      *
@@ -614,7 +1178,7 @@ class WebsearchApi
     /**
      * Operation patchWebsearchSearchAsync
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchWebsearchSearch'] to see the possible values for this operation
      *
@@ -634,7 +1198,7 @@ class WebsearchApi
     /**
      * Operation patchWebsearchSearchAsyncWithHttpInfo
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchWebsearchSearch'] to see the possible values for this operation
      *
@@ -954,7 +1518,7 @@ class WebsearchApi
     /**
      * Operation postWebsearchSearch
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWebsearchSearch'] to see the possible values for this operation
      *
@@ -970,7 +1534,7 @@ class WebsearchApi
     /**
      * Operation postWebsearchSearchWithHttpInfo
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWebsearchSearch'] to see the possible values for this operation
      *
@@ -1018,7 +1582,7 @@ class WebsearchApi
     /**
      * Operation postWebsearchSearchAsync
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWebsearchSearch'] to see the possible values for this operation
      *
@@ -1038,7 +1602,7 @@ class WebsearchApi
     /**
      * Operation postWebsearchSearchAsyncWithHttpInfo
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWebsearchSearch'] to see the possible values for this operation
      *
@@ -1156,7 +1720,7 @@ class WebsearchApi
     /**
      * Operation putWebsearchSearch
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWebsearchSearch'] to see the possible values for this operation
      *
@@ -1172,7 +1736,7 @@ class WebsearchApi
     /**
      * Operation putWebsearchSearchWithHttpInfo
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWebsearchSearch'] to see the possible values for this operation
      *
@@ -1220,7 +1784,7 @@ class WebsearchApi
     /**
      * Operation putWebsearchSearchAsync
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWebsearchSearch'] to see the possible values for this operation
      *
@@ -1240,7 +1804,7 @@ class WebsearchApi
     /**
      * Operation putWebsearchSearchAsyncWithHttpInfo
      *
-     * Keyless web meta-search, in the SearXNG JSON envelope.
+     * Web meta-search, in the SearXNG JSON envelope.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWebsearchSearch'] to see the possible values for this operation
      *
@@ -1360,16 +1924,16 @@ class WebsearchApi
      *
      * Search the live web
      *
-     * @param  \Hanzo\Cloud\Model\WebSearchQuery $web_search_query web_search_query (required)
+     * @param  \Hanzo\Cloud\Model\WebsearchWebSearchQuery $websearch_web_search_query websearch_web_search_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['searchWeb'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\WebSearchResults
+     * @return \Hanzo\Cloud\Model\WebsearchWebSearchResults|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function searchWeb($web_search_query, string $contentType = self::contentTypes['searchWeb'][0])
+    public function searchWeb($websearch_web_search_query, string $contentType = self::contentTypes['searchWeb'][0])
     {
-        list($response) = $this->searchWebWithHttpInfo($web_search_query, $contentType);
+        list($response) = $this->searchWebWithHttpInfo($websearch_web_search_query, $contentType);
         return $response;
     }
 
@@ -1378,16 +1942,16 @@ class WebsearchApi
      *
      * Search the live web
      *
-     * @param  \Hanzo\Cloud\Model\WebSearchQuery $web_search_query (required)
+     * @param  \Hanzo\Cloud\Model\WebsearchWebSearchQuery $websearch_web_search_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['searchWeb'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\WebSearchResults, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WebsearchWebSearchResults|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function searchWebWithHttpInfo($web_search_query, string $contentType = self::contentTypes['searchWeb'][0])
+    public function searchWebWithHttpInfo($websearch_web_search_query, string $contentType = self::contentTypes['searchWeb'][0])
     {
-        $request = $this->searchWebRequest($web_search_query, $contentType);
+        $request = $this->searchWebRequest($websearch_web_search_query, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1415,7 +1979,13 @@ class WebsearchApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\WebSearchResults',
+                        '\Hanzo\Cloud\Model\WebsearchWebSearchResults',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1437,7 +2007,7 @@ class WebsearchApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\WebSearchResults',
+                '\Hanzo\Cloud\Model\WebsearchWebSearchResults',
                 $request,
                 $response,
             );
@@ -1446,7 +2016,15 @@ class WebsearchApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\WebSearchResults',
+                        '\Hanzo\Cloud\Model\WebsearchWebSearchResults',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1463,15 +2041,15 @@ class WebsearchApi
      *
      * Search the live web
      *
-     * @param  \Hanzo\Cloud\Model\WebSearchQuery $web_search_query (required)
+     * @param  \Hanzo\Cloud\Model\WebsearchWebSearchQuery $websearch_web_search_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['searchWeb'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function searchWebAsync($web_search_query, string $contentType = self::contentTypes['searchWeb'][0])
+    public function searchWebAsync($websearch_web_search_query, string $contentType = self::contentTypes['searchWeb'][0])
     {
-        return $this->searchWebAsyncWithHttpInfo($web_search_query, $contentType)
+        return $this->searchWebAsyncWithHttpInfo($websearch_web_search_query, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1484,16 +2062,16 @@ class WebsearchApi
      *
      * Search the live web
      *
-     * @param  \Hanzo\Cloud\Model\WebSearchQuery $web_search_query (required)
+     * @param  \Hanzo\Cloud\Model\WebsearchWebSearchQuery $websearch_web_search_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['searchWeb'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function searchWebAsyncWithHttpInfo($web_search_query, string $contentType = self::contentTypes['searchWeb'][0])
+    public function searchWebAsyncWithHttpInfo($websearch_web_search_query, string $contentType = self::contentTypes['searchWeb'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\WebSearchResults';
-        $request = $this->searchWebRequest($web_search_query, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\WebsearchWebSearchResults';
+        $request = $this->searchWebRequest($websearch_web_search_query, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1534,19 +2112,19 @@ class WebsearchApi
     /**
      * Create request for operation 'searchWeb'
      *
-     * @param  \Hanzo\Cloud\Model\WebSearchQuery $web_search_query (required)
+     * @param  \Hanzo\Cloud\Model\WebsearchWebSearchQuery $websearch_web_search_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['searchWeb'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function searchWebRequest($web_search_query, string $contentType = self::contentTypes['searchWeb'][0])
+    public function searchWebRequest($websearch_web_search_query, string $contentType = self::contentTypes['searchWeb'][0])
     {
 
-        // verify the required parameter 'web_search_query' is set
-        if ($web_search_query === null || (is_array($web_search_query) && count($web_search_query) === 0)) {
+        // verify the required parameter 'websearch_web_search_query' is set
+        if ($websearch_web_search_query === null || (is_array($websearch_web_search_query) && count($websearch_web_search_query) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $web_search_query when calling searchWeb'
+                'Missing the required parameter $websearch_web_search_query when calling searchWeb'
             );
         }
 
@@ -1563,18 +2141,18 @@ class WebsearchApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($web_search_query)) {
+        if (isset($websearch_web_search_query)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($web_search_query));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($websearch_web_search_query));
             } else {
-                $httpBody = $web_search_query;
+                $httpBody = $websearch_web_search_query;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1620,6 +2198,596 @@ class WebsearchApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation setSearchEngineKey
+     *
+     * Seals an engine&#39;s API key in KMS, replacing any key held.
+     *
+     * @param  string $name Name is the engine, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\WebsearchSearchEngineKey $websearch_search_engine_key websearch_search_engine_key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setSearchEngineKey'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\WebsearchSearchEngineKeyed|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function setSearchEngineKey($name, $websearch_search_engine_key, string $contentType = self::contentTypes['setSearchEngineKey'][0])
+    {
+        list($response) = $this->setSearchEngineKeyWithHttpInfo($name, $websearch_search_engine_key, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation setSearchEngineKeyWithHttpInfo
+     *
+     * Seals an engine&#39;s API key in KMS, replacing any key held.
+     *
+     * @param  string $name Name is the engine, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\WebsearchSearchEngineKey $websearch_search_engine_key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setSearchEngineKey'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\WebsearchSearchEngineKeyed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function setSearchEngineKeyWithHttpInfo($name, $websearch_search_engine_key, string $contentType = self::contentTypes['setSearchEngineKey'][0])
+    {
+        $request = $this->setSearchEngineKeyRequest($name, $websearch_search_engine_key, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\WebsearchSearchEngineKeyed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\WebsearchSearchEngineKeyed',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\WebsearchSearchEngineKeyed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation setSearchEngineKeyAsync
+     *
+     * Seals an engine&#39;s API key in KMS, replacing any key held.
+     *
+     * @param  string $name Name is the engine, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\WebsearchSearchEngineKey $websearch_search_engine_key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setSearchEngineKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setSearchEngineKeyAsync($name, $websearch_search_engine_key, string $contentType = self::contentTypes['setSearchEngineKey'][0])
+    {
+        return $this->setSearchEngineKeyAsyncWithHttpInfo($name, $websearch_search_engine_key, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation setSearchEngineKeyAsyncWithHttpInfo
+     *
+     * Seals an engine&#39;s API key in KMS, replacing any key held.
+     *
+     * @param  string $name Name is the engine, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\WebsearchSearchEngineKey $websearch_search_engine_key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setSearchEngineKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setSearchEngineKeyAsyncWithHttpInfo($name, $websearch_search_engine_key, string $contentType = self::contentTypes['setSearchEngineKey'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\WebsearchSearchEngineKeyed';
+        $request = $this->setSearchEngineKeyRequest($name, $websearch_search_engine_key, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'setSearchEngineKey'
+     *
+     * @param  string $name Name is the engine, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\WebsearchSearchEngineKey $websearch_search_engine_key (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setSearchEngineKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function setSearchEngineKeyRequest($name, $websearch_search_engine_key, string $contentType = self::contentTypes['setSearchEngineKey'][0])
+    {
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling setSearchEngineKey'
+            );
+        }
+
+        // verify the required parameter 'websearch_search_engine_key' is set
+        if ($websearch_search_engine_key === null || (is_array($websearch_search_engine_key) && count($websearch_search_engine_key) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $websearch_search_engine_key when calling setSearchEngineKey'
+            );
+        }
+
+
+        $resourcePath = '/v1/websearch/engines/{name}/key';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($websearch_search_engine_key)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($websearch_search_engine_key));
+            } else {
+                $httpBody = $websearch_search_engine_key;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation setSearchEngines
+     *
+     * Replaces the platform&#39;s web search engine setting and answers the result.
+     *
+     * @param  \Hanzo\Cloud\Model\WebsearchSearchEnginesSet $websearch_search_engines_set websearch_search_engines_set (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setSearchEngines'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\WebsearchSearchEngines|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function setSearchEngines($websearch_search_engines_set, string $contentType = self::contentTypes['setSearchEngines'][0])
+    {
+        list($response) = $this->setSearchEnginesWithHttpInfo($websearch_search_engines_set, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation setSearchEnginesWithHttpInfo
+     *
+     * Replaces the platform&#39;s web search engine setting and answers the result.
+     *
+     * @param  \Hanzo\Cloud\Model\WebsearchSearchEnginesSet $websearch_search_engines_set (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setSearchEngines'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\WebsearchSearchEngines|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function setSearchEnginesWithHttpInfo($websearch_search_engines_set, string $contentType = self::contentTypes['setSearchEngines'][0])
+    {
+        $request = $this->setSearchEnginesRequest($websearch_search_engines_set, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\WebsearchSearchEngines',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\WebsearchSearchEngines',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\WebsearchSearchEngines',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation setSearchEnginesAsync
+     *
+     * Replaces the platform&#39;s web search engine setting and answers the result.
+     *
+     * @param  \Hanzo\Cloud\Model\WebsearchSearchEnginesSet $websearch_search_engines_set (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setSearchEngines'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setSearchEnginesAsync($websearch_search_engines_set, string $contentType = self::contentTypes['setSearchEngines'][0])
+    {
+        return $this->setSearchEnginesAsyncWithHttpInfo($websearch_search_engines_set, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation setSearchEnginesAsyncWithHttpInfo
+     *
+     * Replaces the platform&#39;s web search engine setting and answers the result.
+     *
+     * @param  \Hanzo\Cloud\Model\WebsearchSearchEnginesSet $websearch_search_engines_set (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setSearchEngines'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setSearchEnginesAsyncWithHttpInfo($websearch_search_engines_set, string $contentType = self::contentTypes['setSearchEngines'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\WebsearchSearchEngines';
+        $request = $this->setSearchEnginesRequest($websearch_search_engines_set, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'setSearchEngines'
+     *
+     * @param  \Hanzo\Cloud\Model\WebsearchSearchEnginesSet $websearch_search_engines_set (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setSearchEngines'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function setSearchEnginesRequest($websearch_search_engines_set, string $contentType = self::contentTypes['setSearchEngines'][0])
+    {
+
+        // verify the required parameter 'websearch_search_engines_set' is set
+        if ($websearch_search_engines_set === null || (is_array($websearch_search_engines_set) && count($websearch_search_engines_set) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $websearch_search_engines_set when calling setSearchEngines'
+            );
+        }
+
+
+        $resourcePath = '/v1/websearch/engines';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($websearch_search_engines_set)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($websearch_search_engines_set));
+            } else {
+                $httpBody = $websearch_search_engines_set;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

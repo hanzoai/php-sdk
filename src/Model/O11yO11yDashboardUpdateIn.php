@@ -364,7 +364,7 @@ class O11yO11yDashboardUpdateIn implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets image
      *
-     * @param string|null $image image
+     * @param string|null $image Image is an optional cover image reference.
      *
      * @return self
      */
@@ -391,7 +391,7 @@ class O11yO11yDashboardUpdateIn implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string|null $name Name must equal the dashboard's existing name — it is immutable.
      *
      * @return self
      */
@@ -418,7 +418,7 @@ class O11yO11yDashboardUpdateIn implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets schema_version
      *
-     * @param string|null $schema_version schema_version
+     * @param string|null $schema_version SchemaVersion is the dashboard schema version; must be the current v6.
      *
      * @return self
      */
@@ -479,7 +479,7 @@ class O11yO11yDashboardUpdateIn implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets tags
      *
-     * @param \Hanzo\Cloud\Model\O11yO11yDashboardPostableTag[]|null $tags tags
+     * @param \Hanzo\Cloud\Model\O11yO11yDashboardPostableTag[]|null $tags Tags replace the dashboard's tags; at most ten.
      *
      * @return self
      */

@@ -57,6 +57,8 @@ class TagConfig implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'audience' => 'string',
+        'consent' => '\Hanzo\Cloud\Model\Decision',
         'tags' => '\Hanzo\Cloud\Model\BrowserTagOut[]'
     ];
 
@@ -68,6 +70,8 @@ class TagConfig implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'audience' => null,
+        'consent' => null,
         'tags' => null
     ];
 
@@ -77,6 +81,8 @@ class TagConfig implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'audience' => false,
+        'consent' => false,
         'tags' => false
     ];
 
@@ -166,6 +172,8 @@ class TagConfig implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'audience' => 'audience',
+        'consent' => 'consent',
         'tags' => 'tags'
     ];
 
@@ -175,6 +183,8 @@ class TagConfig implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'audience' => 'setAudience',
+        'consent' => 'setConsent',
         'tags' => 'setTags'
     ];
 
@@ -184,6 +194,8 @@ class TagConfig implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'audience' => 'getAudience',
+        'consent' => 'getConsent',
         'tags' => 'getTags'
     ];
 
@@ -244,6 +256,8 @@ class TagConfig implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('audience', $data ?? [], null);
+        $this->setIfExists('consent', $data ?? [], null);
         $this->setIfExists('tags', $data ?? [], null);
     }
 
@@ -288,6 +302,60 @@ class TagConfig implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets audience
+     *
+     * @return string|null
+     */
+    public function getAudience()
+    {
+        return $this->container['audience'];
+    }
+
+    /**
+     * Sets audience
+     *
+     * @param string|null $audience audience
+     *
+     * @return self
+     */
+    public function setAudience($audience)
+    {
+        if (is_null($audience)) {
+            throw new \InvalidArgumentException('non-nullable audience cannot be null');
+        }
+        $this->container['audience'] = $audience;
+
+        return $this;
+    }
+
+    /**
+     * Gets consent
+     *
+     * @return \Hanzo\Cloud\Model\Decision|null
+     */
+    public function getConsent()
+    {
+        return $this->container['consent'];
+    }
+
+    /**
+     * Sets consent
+     *
+     * @param \Hanzo\Cloud\Model\Decision|null $consent consent
+     *
+     * @return self
+     */
+    public function setConsent($consent)
+    {
+        if (is_null($consent)) {
+            throw new \InvalidArgumentException('non-nullable consent cannot be null');
+        }
+        $this->container['consent'] = $consent;
+
+        return $this;
+    }
 
     /**
      * Gets tags

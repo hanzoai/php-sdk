@@ -59,6 +59,7 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'access_token' => 'string',
         'access_token_hash' => 'string',
+        'actor' => 'string',
         'application' => 'string',
         'code' => 'string',
         'code_challenge' => 'string',
@@ -68,19 +69,26 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => '\DateTime',
         'created_time' => 'string',
         'deleted' => 'bool',
+        'denied' => 'bool',
         'expires_in' => 'int',
         'id' => 'string',
+        'login_hint' => 'string',
         'name' => 'string',
         'nonce' => 'string',
         'organization' => 'string',
         'owner' => 'string',
+        'polled' => 'int',
         'public_grant' => 'bool',
+        'reason' => 'string',
         'redirect_uri' => 'string',
         'refresh_consumed' => 'bool',
         'refresh_expire_in' => 'int',
         'refresh_family' => 'string',
         'refresh_token' => 'string',
         'refresh_token_hash' => 'string',
+        'request_country' => 'string',
+        'request_ip' => 'string',
+        'requested' => 'int',
         'resource' => 'string',
         'scope' => 'string',
         'token_type' => 'string',
@@ -99,6 +107,7 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'access_token' => null,
         'access_token_hash' => null,
+        'actor' => null,
         'application' => null,
         'code' => null,
         'code_challenge' => null,
@@ -108,19 +117,26 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => 'date-time',
         'created_time' => null,
         'deleted' => null,
+        'denied' => null,
         'expires_in' => 'int64',
         'id' => null,
+        'login_hint' => null,
         'name' => null,
         'nonce' => null,
         'organization' => null,
         'owner' => null,
+        'polled' => 'int64',
         'public_grant' => null,
+        'reason' => null,
         'redirect_uri' => null,
         'refresh_consumed' => null,
         'refresh_expire_in' => 'int64',
         'refresh_family' => null,
         'refresh_token' => null,
         'refresh_token_hash' => null,
+        'request_country' => null,
+        'request_ip' => null,
+        'requested' => 'int64',
         'resource' => null,
         'scope' => null,
         'token_type' => null,
@@ -137,6 +153,7 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'access_token' => false,
         'access_token_hash' => false,
+        'actor' => false,
         'application' => false,
         'code' => false,
         'code_challenge' => false,
@@ -146,19 +163,26 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => false,
         'created_time' => false,
         'deleted' => false,
+        'denied' => false,
         'expires_in' => false,
         'id' => false,
+        'login_hint' => false,
         'name' => false,
         'nonce' => false,
         'organization' => false,
         'owner' => false,
+        'polled' => false,
         'public_grant' => false,
+        'reason' => false,
         'redirect_uri' => false,
         'refresh_consumed' => false,
         'refresh_expire_in' => false,
         'refresh_family' => false,
         'refresh_token' => false,
         'refresh_token_hash' => false,
+        'request_country' => false,
+        'request_ip' => false,
+        'requested' => false,
         'resource' => false,
         'scope' => false,
         'token_type' => false,
@@ -255,6 +279,7 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'access_token' => 'accessToken',
         'access_token_hash' => 'accessTokenHash',
+        'actor' => 'actor',
         'application' => 'application',
         'code' => 'code',
         'code_challenge' => 'codeChallenge',
@@ -264,19 +289,26 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => 'createdAt',
         'created_time' => 'createdTime',
         'deleted' => 'deleted',
+        'denied' => 'denied',
         'expires_in' => 'expiresIn',
         'id' => 'id',
+        'login_hint' => 'loginHint',
         'name' => 'name',
         'nonce' => 'nonce',
         'organization' => 'organization',
         'owner' => 'owner',
+        'polled' => 'polled',
         'public_grant' => 'publicGrant',
+        'reason' => 'reason',
         'redirect_uri' => 'redirectUri',
         'refresh_consumed' => 'refreshConsumed',
         'refresh_expire_in' => 'refreshExpireIn',
         'refresh_family' => 'refreshFamily',
         'refresh_token' => 'refreshToken',
         'refresh_token_hash' => 'refreshTokenHash',
+        'request_country' => 'requestCountry',
+        'request_ip' => 'requestIp',
+        'requested' => 'requested',
         'resource' => 'resource',
         'scope' => 'scope',
         'token_type' => 'tokenType',
@@ -293,6 +325,7 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'access_token' => 'setAccessToken',
         'access_token_hash' => 'setAccessTokenHash',
+        'actor' => 'setActor',
         'application' => 'setApplication',
         'code' => 'setCode',
         'code_challenge' => 'setCodeChallenge',
@@ -302,19 +335,26 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => 'setCreatedAt',
         'created_time' => 'setCreatedTime',
         'deleted' => 'setDeleted',
+        'denied' => 'setDenied',
         'expires_in' => 'setExpiresIn',
         'id' => 'setId',
+        'login_hint' => 'setLoginHint',
         'name' => 'setName',
         'nonce' => 'setNonce',
         'organization' => 'setOrganization',
         'owner' => 'setOwner',
+        'polled' => 'setPolled',
         'public_grant' => 'setPublicGrant',
+        'reason' => 'setReason',
         'redirect_uri' => 'setRedirectUri',
         'refresh_consumed' => 'setRefreshConsumed',
         'refresh_expire_in' => 'setRefreshExpireIn',
         'refresh_family' => 'setRefreshFamily',
         'refresh_token' => 'setRefreshToken',
         'refresh_token_hash' => 'setRefreshTokenHash',
+        'request_country' => 'setRequestCountry',
+        'request_ip' => 'setRequestIp',
+        'requested' => 'setRequested',
         'resource' => 'setResource',
         'scope' => 'setScope',
         'token_type' => 'setTokenType',
@@ -331,6 +371,7 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'access_token' => 'getAccessToken',
         'access_token_hash' => 'getAccessTokenHash',
+        'actor' => 'getActor',
         'application' => 'getApplication',
         'code' => 'getCode',
         'code_challenge' => 'getCodeChallenge',
@@ -340,19 +381,26 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => 'getCreatedAt',
         'created_time' => 'getCreatedTime',
         'deleted' => 'getDeleted',
+        'denied' => 'getDenied',
         'expires_in' => 'getExpiresIn',
         'id' => 'getId',
+        'login_hint' => 'getLoginHint',
         'name' => 'getName',
         'nonce' => 'getNonce',
         'organization' => 'getOrganization',
         'owner' => 'getOwner',
+        'polled' => 'getPolled',
         'public_grant' => 'getPublicGrant',
+        'reason' => 'getReason',
         'redirect_uri' => 'getRedirectUri',
         'refresh_consumed' => 'getRefreshConsumed',
         'refresh_expire_in' => 'getRefreshExpireIn',
         'refresh_family' => 'getRefreshFamily',
         'refresh_token' => 'getRefreshToken',
         'refresh_token_hash' => 'getRefreshTokenHash',
+        'request_country' => 'getRequestCountry',
+        'request_ip' => 'getRequestIp',
+        'requested' => 'getRequested',
         'resource' => 'getResource',
         'scope' => 'getScope',
         'token_type' => 'getTokenType',
@@ -420,6 +468,7 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('access_token', $data ?? [], null);
         $this->setIfExists('access_token_hash', $data ?? [], null);
+        $this->setIfExists('actor', $data ?? [], null);
         $this->setIfExists('application', $data ?? [], null);
         $this->setIfExists('code', $data ?? [], null);
         $this->setIfExists('code_challenge', $data ?? [], null);
@@ -429,19 +478,26 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('created_time', $data ?? [], null);
         $this->setIfExists('deleted', $data ?? [], null);
+        $this->setIfExists('denied', $data ?? [], null);
         $this->setIfExists('expires_in', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('login_hint', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('nonce', $data ?? [], null);
         $this->setIfExists('organization', $data ?? [], null);
         $this->setIfExists('owner', $data ?? [], null);
+        $this->setIfExists('polled', $data ?? [], null);
         $this->setIfExists('public_grant', $data ?? [], null);
+        $this->setIfExists('reason', $data ?? [], null);
         $this->setIfExists('redirect_uri', $data ?? [], null);
         $this->setIfExists('refresh_consumed', $data ?? [], null);
         $this->setIfExists('refresh_expire_in', $data ?? [], null);
         $this->setIfExists('refresh_family', $data ?? [], null);
         $this->setIfExists('refresh_token', $data ?? [], null);
         $this->setIfExists('refresh_token_hash', $data ?? [], null);
+        $this->setIfExists('request_country', $data ?? [], null);
+        $this->setIfExists('request_ip', $data ?? [], null);
+        $this->setIfExists('requested', $data ?? [], null);
         $this->setIfExists('resource', $data ?? [], null);
         $this->setIfExists('scope', $data ?? [], null);
         $this->setIfExists('token_type', $data ?? [], null);
@@ -542,6 +598,33 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable access_token_hash cannot be null');
         }
         $this->container['access_token_hash'] = $access_token_hash;
+
+        return $this;
+    }
+
+    /**
+     * Gets actor
+     *
+     * @return string|null
+     */
+    public function getActor()
+    {
+        return $this->container['actor'];
+    }
+
+    /**
+     * Sets actor
+     *
+     * @param string|null $actor Actor is the SuperAdmin (\"owner/name\") who opened this grant AS its User — impersonation, /v1/iam/impersonate — and Reason is why they said they did. Both empty on every grant a person established themselves. A grant with an Actor mints a short access token that names the actor in `act` and carries `imp`, and never a refresh token (issueTokens), and /v1/iam/signin refuses its code, so it cannot become a session at the issuer.
+     *
+     * @return self
+     */
+    public function setActor($actor)
+    {
+        if (is_null($actor)) {
+            throw new \InvalidArgumentException('non-nullable actor cannot be null');
+        }
+        $this->container['actor'] = $actor;
 
         return $this;
     }
@@ -790,6 +873,33 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets denied
+     *
+     * @return bool|null
+     */
+    public function getDenied()
+    {
+        return $this->container['denied'];
+    }
+
+    /**
+     * Sets denied
+     *
+     * @param bool|null $denied Denied records that the person a device authorization (UserCode set) was shown to refused it. The device's next poll is told access_denied once and the code is burned (device.go); until then it cannot be approved.
+     *
+     * @return self
+     */
+    public function setDenied($denied)
+    {
+        if (is_null($denied)) {
+            throw new \InvalidArgumentException('non-nullable denied cannot be null');
+        }
+        $this->container['denied'] = $denied;
+
+        return $this;
+    }
+
+    /**
      * Gets expires_in
      *
      * @return int|null
@@ -829,7 +939,7 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string|null $id Persisted fields
      *
      * @return self
      */
@@ -839,6 +949,33 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets login_hint
+     *
+     * @return string|null
+     */
+    public function getLoginHint()
+    {
+        return $this->container['login_hint'];
+    }
+
+    /**
+     * Sets login_hint
+     *
+     * @param string|null $login_hint LoginHint is the address an agent registration (internal/oidc agent.go) named as the person it acts for, normalized. Only the account whose VERIFIED email is this address may approve the registration; empty on every other row.
+     *
+     * @return self
+     */
+    public function setLoginHint($login_hint)
+    {
+        if (is_null($login_hint)) {
+            throw new \InvalidArgumentException('non-nullable login_hint cannot be null');
+        }
+        $this->container['login_hint'] = $login_hint;
 
         return $this;
     }
@@ -952,6 +1089,33 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets polled
+     *
+     * @return int|null
+     */
+    public function getPolled()
+    {
+        return $this->container['polled'];
+    }
+
+    /**
+     * Sets polled
+     *
+     * @param int|null $polled polled
+     *
+     * @return self
+     */
+    public function setPolled($polled)
+    {
+        if (is_null($polled)) {
+            throw new \InvalidArgumentException('non-nullable polled cannot be null');
+        }
+        $this->container['polled'] = $polled;
+
+        return $this;
+    }
+
+    /**
      * Gets public_grant
      *
      * @return bool|null
@@ -974,6 +1138,33 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable public_grant cannot be null');
         }
         $this->container['public_grant'] = $public_grant;
+
+        return $this;
+    }
+
+    /**
+     * Gets reason
+     *
+     * @return string|null
+     */
+    public function getReason()
+    {
+        return $this->container['reason'];
+    }
+
+    /**
+     * Sets reason
+     *
+     * @param string|null $reason reason
+     *
+     * @return self
+     */
+    public function setReason($reason)
+    {
+        if (is_null($reason)) {
+            throw new \InvalidArgumentException('non-nullable reason cannot be null');
+        }
+        $this->container['reason'] = $reason;
 
         return $this;
     }
@@ -1136,6 +1327,87 @@ class IamToken implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable refresh_token_hash cannot be null');
         }
         $this->container['refresh_token_hash'] = $refresh_token_hash;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_country
+     *
+     * @return string|null
+     */
+    public function getRequestCountry()
+    {
+        return $this->container['request_country'];
+    }
+
+    /**
+     * Sets request_country
+     *
+     * @param string|null $request_country request_country
+     *
+     * @return self
+     */
+    public function setRequestCountry($request_country)
+    {
+        if (is_null($request_country)) {
+            throw new \InvalidArgumentException('non-nullable request_country cannot be null');
+        }
+        $this->container['request_country'] = $request_country;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_ip
+     *
+     * @return string|null
+     */
+    public function getRequestIp()
+    {
+        return $this->container['request_ip'];
+    }
+
+    /**
+     * Sets request_ip
+     *
+     * @param string|null $request_ip Where and when a device authorization was STARTED, shown to the person asked to approve it: the device is the requester's, not theirs, and the one thing a stranger's request cannot hide is that it comes from somewhere else. RequestIp is the address the edge saw connect, RequestCountry the edge's two-letter answer for it, Requested the unix second. Polled is the last poll in unix milliseconds, which is what the interval of RFC 8628 §3.5 is held to.
+     *
+     * @return self
+     */
+    public function setRequestIp($request_ip)
+    {
+        if (is_null($request_ip)) {
+            throw new \InvalidArgumentException('non-nullable request_ip cannot be null');
+        }
+        $this->container['request_ip'] = $request_ip;
+
+        return $this;
+    }
+
+    /**
+     * Gets requested
+     *
+     * @return int|null
+     */
+    public function getRequested()
+    {
+        return $this->container['requested'];
+    }
+
+    /**
+     * Sets requested
+     *
+     * @param int|null $requested requested
+     *
+     * @return self
+     */
+    public function setRequested($requested)
+    {
+        if (is_null($requested)) {
+            throw new \InvalidArgumentException('non-nullable requested cannot be null');
+        }
+        $this->container['requested'] = $requested;
 
         return $this;
     }

@@ -57,7 +57,7 @@ class O11yFlamegraphSpan implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'attributes' => 'array<string,object>',
+        'attributes' => 'array<string,mixed>',
         'duration_nano' => 'int',
         'event' => '\Hanzo\Cloud\Model\O11yEvent[]',
         'has_error' => 'bool',
@@ -355,7 +355,7 @@ class O11yFlamegraphSpan implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets attributes
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getAttributes()
     {
@@ -365,7 +365,7 @@ class O11yFlamegraphSpan implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets attributes
      *
-     * @param array<string,object>|null $attributes attributes
+     * @param array<string,mixed>|null $attributes attributes
      *
      * @return self
      */

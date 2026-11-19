@@ -58,7 +58,7 @@ class O11yO11yDashboardVarsIn implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static $openAPITypes = [
         'query' => 'string',
-        'variables' => 'array<string,object>'
+        'variables' => 'array<string,mixed>'
     ];
 
     /**
@@ -329,7 +329,7 @@ class O11yO11yDashboardVarsIn implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Gets variables
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getVariables()
     {
@@ -339,7 +339,7 @@ class O11yO11yDashboardVarsIn implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets variables
      *
-     * @param array<string,object>|null $variables Variables are the current values of the other dashboard variables, for queries that reference them.
+     * @param array<string,mixed>|null $variables Variables are the current values of the other dashboard variables, for queries that reference them.
      *
      * @return self
      */

@@ -60,7 +60,7 @@ class O11yJiraConfig implements ModelInterface, ArrayAccess, \JsonSerializable
         'notifier_config' => '\Hanzo\Cloud\Model\O11yNotifierConfig',
         'api_type' => 'string',
         'api_url' => 'mixed',
-        'custom_fields' => 'array<string,object>',
+        'custom_fields' => 'array<string,mixed>',
         'description' => '\Hanzo\Cloud\Model\O11yJiraFieldConfig',
         'http_config' => '\Hanzo\Cloud\Model\O11yHTTPClientConfig',
         'issue_type' => 'string',
@@ -478,7 +478,7 @@ class O11yJiraConfig implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets custom_fields
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getCustomFields()
     {
@@ -488,7 +488,7 @@ class O11yJiraConfig implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets custom_fields
      *
-     * @param array<string,object>|null $custom_fields custom_fields
+     * @param array<string,mixed>|null $custom_fields custom_fields
      *
      * @return self
      */

@@ -57,7 +57,7 @@ class O11yO11yUpdatablePreference implements ModelInterface, ArrayAccess, \JsonS
       * @var string[]
       */
     protected static $openAPITypes = [
-        'value' => 'object'
+        'value' => 'mixed'
     ];
 
     /**
@@ -77,7 +77,7 @@ class O11yO11yUpdatablePreference implements ModelInterface, ArrayAccess, \JsonS
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'value' => false
+        'value' => true
     ];
 
     /**
@@ -292,7 +292,7 @@ class O11yO11yUpdatablePreference implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets value
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getValue()
     {
@@ -302,14 +302,21 @@ class O11yO11yUpdatablePreference implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets value
      *
-     * @param object|null $value Value is the value to set; its JSON type must match the preference's declared value type.
+     * @param mixed|null $value value
      *
      * @return self
      */
     public function setValue($value)
     {
         if (is_null($value)) {
-            throw new \InvalidArgumentException('non-nullable value cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'value');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('value', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['value'] = $value;
 

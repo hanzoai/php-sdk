@@ -77,7 +77,19 @@ class TeamApi
         'deleteTeamAccountCookie' => [
             'application/json',
         ],
+        'deleteTeamChannelsByIdMembersByAccount' => [
+            'application/json',
+        ],
+        'deleteTeamDocsById' => [
+            'application/json',
+        ],
         'deleteTeamFilesBySpaceByFilename' => [
+            'application/json',
+        ],
+        'deleteTeamMessagesById' => [
+            'application/json',
+        ],
+        'deleteTeamMessagesByIdReactionsByEmoji' => [
             'application/json',
         ],
         'getTeamAccountAuthByProvider' => [
@@ -95,19 +107,43 @@ class TeamApi
         'getTeamBillingUi' => [
             'application/json',
         ],
+        'getTeamChannels' => [
+            'application/json',
+        ],
+        'getTeamChannelsByIdMembers' => [
+            'application/json',
+        ],
+        'getTeamChannelsByIdMessages' => [
+            'application/json',
+        ],
         'getTeamCollaborator' => [
+            'application/json',
+        ],
+        'getTeamDocs' => [
+            'application/json',
+        ],
+        'getTeamDocsById' => [
+            'application/json',
+        ],
+        'getTeamDocsByIdComments' => [
+            'application/json',
+        ],
+        'getTeamEvents' => [
             'application/json',
         ],
         'getTeamFilesBySpaceByFilename' => [
             'application/json',
         ],
+        'getTeamInbox' => [
+            'application/json',
+        ],
+        'getTeamMembers' => [
+            'application/json',
+        ],
+        'getTeamMessagesByIdReplies' => [
+            'application/json',
+        ],
         'getTeamPublic' => [
-            'application/json',
-        ],
-        'getTeamRooms' => [
-            'application/json',
-        ],
-        'getTeamRoomsByIdMessages' => [
             'application/json',
         ],
         'getTeamTransactorByToken' => [
@@ -116,25 +152,61 @@ class TeamApi
         'getTeamTransactorStatistics' => [
             'application/json',
         ],
+        'patchTeamChannelsById' => [
+            'application/json',
+        ],
+        'patchTeamDocsById' => [
+            'application/json',
+        ],
+        'patchTeamMessagesById' => [
+            'application/json',
+        ],
         'postTeamAccount' => [
+            'application/json',
+        ],
+        'postTeamChannels' => [
+            'application/json',
+        ],
+        'postTeamChannelsByIdMembers' => [
+            'application/json',
+        ],
+        'postTeamChannelsByIdMessages' => [
             'application/json',
         ],
         'postTeamCollaboratorRpcByDocumentid' => [
             'application/json',
         ],
+        'postTeamDms' => [
+            'application/json',
+        ],
+        'postTeamDocs' => [
+            'application/json',
+        ],
+        'postTeamDocsByIdComments' => [
+            'application/json',
+        ],
         'postTeamFilesBySpace' => [
             'application/octet-stream',
         ],
-        'postTeamRooms' => [
+        'postTeamInboxByIdArchive' => [
             'application/json',
         ],
-        'postTeamRoomsByIdMessages' => [
+        'postTeamInboxByIdRead' => [
+            'application/json',
+        ],
+        'postTeamInboxRead' => [
+            'application/json',
+        ],
+        'postTeamMessagesByIdReplies' => [
             'application/json',
         ],
         'putTeamAccountCookie' => [
             'application/json',
         ],
-        'putTeamRoomsById' => [
+        'putTeamChannelsById' => [
+            'application/json',
+        ],
+        'putTeamMessagesByIdReactionsByEmoji' => [
             'application/json',
         ],
     ];
@@ -194,7 +266,7 @@ class TeamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CookieAck
+     * @return \Hanzo\Cloud\Model\TeamCookieAck|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteTeamAccountCookie(string $contentType = self::contentTypes['deleteTeamAccountCookie'][0])
     {
@@ -211,7 +283,7 @@ class TeamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CookieAck, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TeamCookieAck|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteTeamAccountCookieWithHttpInfo(string $contentType = self::contentTypes['deleteTeamAccountCookie'][0])
     {
@@ -243,7 +315,13 @@ class TeamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CookieAck',
+                        '\Hanzo\Cloud\Model\TeamCookieAck',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -265,7 +343,7 @@ class TeamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CookieAck',
+                '\Hanzo\Cloud\Model\TeamCookieAck',
                 $request,
                 $response,
             );
@@ -274,7 +352,15 @@ class TeamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CookieAck',
+                        '\Hanzo\Cloud\Model\TeamCookieAck',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -318,7 +404,7 @@ class TeamApi
      */
     public function deleteTeamAccountCookieAsyncWithHttpInfo(string $contentType = self::contentTypes['deleteTeamAccountCookie'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CookieAck';
+        $returnType = '\Hanzo\Cloud\Model\TeamCookieAck';
         $request = $this->deleteTeamAccountCookieRequest($contentType);
 
         return $this->client
@@ -381,7 +467,517 @@ class TeamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteTeamChannelsByIdMembersByAccount
+     *
+     * Takes one person out of a channel — the caller leaving, when the account is their own.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  string $account Account is the account uuid to remove, from the path. Your own is leaving. (required)
+     * @param  string|null $space Space is the space uuid holding the channel. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamChannelsByIdMembersByAccount'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteTeamChannelsByIdMembersByAccount($id, $account, $space = null, string $contentType = self::contentTypes['deleteTeamChannelsByIdMembersByAccount'][0])
+    {
+        $this->deleteTeamChannelsByIdMembersByAccountWithHttpInfo($id, $account, $space, $contentType);
+    }
+
+    /**
+     * Operation deleteTeamChannelsByIdMembersByAccountWithHttpInfo
+     *
+     * Takes one person out of a channel — the caller leaving, when the account is their own.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  string $account Account is the account uuid to remove, from the path. Your own is leaving. (required)
+     * @param  string|null $space Space is the space uuid holding the channel. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamChannelsByIdMembersByAccount'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteTeamChannelsByIdMembersByAccountWithHttpInfo($id, $account, $space = null, string $contentType = self::contentTypes['deleteTeamChannelsByIdMembersByAccount'][0])
+    {
+        $request = $this->deleteTeamChannelsByIdMembersByAccountRequest($id, $account, $space, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteTeamChannelsByIdMembersByAccountAsync
+     *
+     * Takes one person out of a channel — the caller leaving, when the account is their own.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  string $account Account is the account uuid to remove, from the path. Your own is leaving. (required)
+     * @param  string|null $space Space is the space uuid holding the channel. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamChannelsByIdMembersByAccount'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTeamChannelsByIdMembersByAccountAsync($id, $account, $space = null, string $contentType = self::contentTypes['deleteTeamChannelsByIdMembersByAccount'][0])
+    {
+        return $this->deleteTeamChannelsByIdMembersByAccountAsyncWithHttpInfo($id, $account, $space, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteTeamChannelsByIdMembersByAccountAsyncWithHttpInfo
+     *
+     * Takes one person out of a channel — the caller leaving, when the account is their own.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  string $account Account is the account uuid to remove, from the path. Your own is leaving. (required)
+     * @param  string|null $space Space is the space uuid holding the channel. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamChannelsByIdMembersByAccount'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTeamChannelsByIdMembersByAccountAsyncWithHttpInfo($id, $account, $space = null, string $contentType = self::contentTypes['deleteTeamChannelsByIdMembersByAccount'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteTeamChannelsByIdMembersByAccountRequest($id, $account, $space, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteTeamChannelsByIdMembersByAccount'
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  string $account Account is the account uuid to remove, from the path. Your own is leaving. (required)
+     * @param  string|null $space Space is the space uuid holding the channel. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamChannelsByIdMembersByAccount'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteTeamChannelsByIdMembersByAccountRequest($id, $account, $space = null, string $contentType = self::contentTypes['deleteTeamChannelsByIdMembersByAccount'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteTeamChannelsByIdMembersByAccount'
+            );
+        }
+
+        // verify the required parameter 'account' is set
+        if ($account === null || (is_array($account) && count($account) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $account when calling deleteTeamChannelsByIdMembersByAccount'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/team/channels/{id}/members/{account}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($account !== null) {
+            $resourcePath = str_replace(
+                '{' . 'account' . '}',
+                ObjectSerializer::toPathValue($account),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteTeamDocsById
+     *
+     * Removes a document with everything nested under it and every comment on any of them — the Team client&#39;s own delete, which takes the subtree with it.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteTeamDocsById($id, $space = null, string $contentType = self::contentTypes['deleteTeamDocsById'][0])
+    {
+        $this->deleteTeamDocsByIdWithHttpInfo($id, $space, $contentType);
+    }
+
+    /**
+     * Operation deleteTeamDocsByIdWithHttpInfo
+     *
+     * Removes a document with everything nested under it and every comment on any of them — the Team client&#39;s own delete, which takes the subtree with it.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteTeamDocsByIdWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['deleteTeamDocsById'][0])
+    {
+        $request = $this->deleteTeamDocsByIdRequest($id, $space, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteTeamDocsByIdAsync
+     *
+     * Removes a document with everything nested under it and every comment on any of them — the Team client&#39;s own delete, which takes the subtree with it.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTeamDocsByIdAsync($id, $space = null, string $contentType = self::contentTypes['deleteTeamDocsById'][0])
+    {
+        return $this->deleteTeamDocsByIdAsyncWithHttpInfo($id, $space, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteTeamDocsByIdAsyncWithHttpInfo
+     *
+     * Removes a document with everything nested under it and every comment on any of them — the Team client&#39;s own delete, which takes the subtree with it.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTeamDocsByIdAsyncWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['deleteTeamDocsById'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteTeamDocsByIdRequest($id, $space, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteTeamDocsById'
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteTeamDocsByIdRequest($id, $space = null, string $contentType = self::contentTypes['deleteTeamDocsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteTeamDocsById'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/team/docs/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -500,6 +1096,14 @@ class TeamApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -638,7 +1242,573 @@ class TeamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteTeamMessagesById
+     *
+     * Removes a message, with its replies, reactions, files and the inbox notifications that point at it.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string|null $space Space names the space holding it. A message id is unique within a space, not across the org. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamMessagesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteTeamMessagesById($id, $space = null, string $contentType = self::contentTypes['deleteTeamMessagesById'][0])
+    {
+        $this->deleteTeamMessagesByIdWithHttpInfo($id, $space, $contentType);
+    }
+
+    /**
+     * Operation deleteTeamMessagesByIdWithHttpInfo
+     *
+     * Removes a message, with its replies, reactions, files and the inbox notifications that point at it.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string|null $space Space names the space holding it. A message id is unique within a space, not across the org. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamMessagesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteTeamMessagesByIdWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['deleteTeamMessagesById'][0])
+    {
+        $request = $this->deleteTeamMessagesByIdRequest($id, $space, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteTeamMessagesByIdAsync
+     *
+     * Removes a message, with its replies, reactions, files and the inbox notifications that point at it.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string|null $space Space names the space holding it. A message id is unique within a space, not across the org. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamMessagesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTeamMessagesByIdAsync($id, $space = null, string $contentType = self::contentTypes['deleteTeamMessagesById'][0])
+    {
+        return $this->deleteTeamMessagesByIdAsyncWithHttpInfo($id, $space, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteTeamMessagesByIdAsyncWithHttpInfo
+     *
+     * Removes a message, with its replies, reactions, files and the inbox notifications that point at it.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string|null $space Space names the space holding it. A message id is unique within a space, not across the org. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamMessagesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTeamMessagesByIdAsyncWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['deleteTeamMessagesById'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteTeamMessagesByIdRequest($id, $space, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteTeamMessagesById'
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string|null $space Space names the space holding it. A message id is unique within a space, not across the org. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamMessagesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteTeamMessagesByIdRequest($id, $space = null, string $contentType = self::contentTypes['deleteTeamMessagesById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteTeamMessagesById'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/team/messages/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteTeamMessagesByIdReactionsByEmoji
+     *
+     * Takes back the caller&#39;s reaction to a message and answers the message with its reactions as they now stand.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string $emoji Emoji is the reaction, from the path (percent-encoded on the wire). (required)
+     * @param  string|null $space Space names the space holding the message. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamMessagesByIdReactionsByEmoji'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function deleteTeamMessagesByIdReactionsByEmoji($id, $emoji, $space = null, string $contentType = self::contentTypes['deleteTeamMessagesByIdReactionsByEmoji'][0])
+    {
+        list($response) = $this->deleteTeamMessagesByIdReactionsByEmojiWithHttpInfo($id, $emoji, $space, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteTeamMessagesByIdReactionsByEmojiWithHttpInfo
+     *
+     * Takes back the caller&#39;s reaction to a message and answers the message with its reactions as they now stand.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string $emoji Emoji is the reaction, from the path (percent-encoded on the wire). (required)
+     * @param  string|null $space Space names the space holding the message. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamMessagesByIdReactionsByEmoji'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteTeamMessagesByIdReactionsByEmojiWithHttpInfo($id, $emoji, $space = null, string $contentType = self::contentTypes['deleteTeamMessagesByIdReactionsByEmoji'][0])
+    {
+        $request = $this->deleteTeamMessagesByIdReactionsByEmojiRequest($id, $emoji, $space, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamMessage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteTeamMessagesByIdReactionsByEmojiAsync
+     *
+     * Takes back the caller&#39;s reaction to a message and answers the message with its reactions as they now stand.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string $emoji Emoji is the reaction, from the path (percent-encoded on the wire). (required)
+     * @param  string|null $space Space names the space holding the message. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamMessagesByIdReactionsByEmoji'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTeamMessagesByIdReactionsByEmojiAsync($id, $emoji, $space = null, string $contentType = self::contentTypes['deleteTeamMessagesByIdReactionsByEmoji'][0])
+    {
+        return $this->deleteTeamMessagesByIdReactionsByEmojiAsyncWithHttpInfo($id, $emoji, $space, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteTeamMessagesByIdReactionsByEmojiAsyncWithHttpInfo
+     *
+     * Takes back the caller&#39;s reaction to a message and answers the message with its reactions as they now stand.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string $emoji Emoji is the reaction, from the path (percent-encoded on the wire). (required)
+     * @param  string|null $space Space names the space holding the message. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamMessagesByIdReactionsByEmoji'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteTeamMessagesByIdReactionsByEmojiAsyncWithHttpInfo($id, $emoji, $space = null, string $contentType = self::contentTypes['deleteTeamMessagesByIdReactionsByEmoji'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamMessage';
+        $request = $this->deleteTeamMessagesByIdReactionsByEmojiRequest($id, $emoji, $space, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteTeamMessagesByIdReactionsByEmoji'
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string $emoji Emoji is the reaction, from the path (percent-encoded on the wire). (required)
+     * @param  string|null $space Space names the space holding the message. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamMessagesByIdReactionsByEmoji'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteTeamMessagesByIdReactionsByEmojiRequest($id, $emoji, $space = null, string $contentType = self::contentTypes['deleteTeamMessagesByIdReactionsByEmoji'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteTeamMessagesByIdReactionsByEmoji'
+            );
+        }
+
+        // verify the required parameter 'emoji' is set
+        if ($emoji === null || (is_array($emoji) && count($emoji) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $emoji when calling deleteTeamMessagesByIdReactionsByEmoji'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/team/messages/{id}/reactions/{emoji}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($emoji !== null) {
+            $resourcePath = str_replace(
+                '{' . 'emoji' . '}',
+                ObjectSerializer::toPathValue($emoji),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1147,7 +2317,7 @@ class TeamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProviderInfo[]
+     * @return \Hanzo\Cloud\Model\TeamProviderInfo[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTeamAccountProviders(string $contentType = self::contentTypes['getTeamAccountProviders'][0])
     {
@@ -1164,7 +2334,7 @@ class TeamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProviderInfo[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TeamProviderInfo[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTeamAccountProvidersWithHttpInfo(string $contentType = self::contentTypes['getTeamAccountProviders'][0])
     {
@@ -1196,7 +2366,13 @@ class TeamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProviderInfo[]',
+                        '\Hanzo\Cloud\Model\TeamProviderInfo[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1218,7 +2394,7 @@ class TeamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProviderInfo[]',
+                '\Hanzo\Cloud\Model\TeamProviderInfo[]',
                 $request,
                 $response,
             );
@@ -1227,7 +2403,15 @@ class TeamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProviderInfo[]',
+                        '\Hanzo\Cloud\Model\TeamProviderInfo[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1271,7 +2455,7 @@ class TeamApi
      */
     public function getTeamAccountProvidersAsyncWithHttpInfo(string $contentType = self::contentTypes['getTeamAccountProviders'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProviderInfo[]';
+        $returnType = '\Hanzo\Cloud\Model\TeamProviderInfo[]';
         $request = $this->getTeamAccountProvidersRequest($contentType);
 
         return $this->client
@@ -1334,7 +2518,7 @@ class TeamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1399,7 +2583,7 @@ class TeamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanInfo
+     * @return \Hanzo\Cloud\Model\TeamPlanInfo|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTeamBillingPlan(string $contentType = self::contentTypes['getTeamBillingPlan'][0])
     {
@@ -1416,7 +2600,7 @@ class TeamApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanInfo, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TeamPlanInfo|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTeamBillingPlanWithHttpInfo(string $contentType = self::contentTypes['getTeamBillingPlan'][0])
     {
@@ -1448,7 +2632,13 @@ class TeamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanInfo',
+                        '\Hanzo\Cloud\Model\TeamPlanInfo',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1470,7 +2660,7 @@ class TeamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanInfo',
+                '\Hanzo\Cloud\Model\TeamPlanInfo',
                 $request,
                 $response,
             );
@@ -1479,7 +2669,15 @@ class TeamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanInfo',
+                        '\Hanzo\Cloud\Model\TeamPlanInfo',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1523,7 +2721,7 @@ class TeamApi
      */
     public function getTeamBillingPlanAsyncWithHttpInfo(string $contentType = self::contentTypes['getTeamBillingPlan'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanInfo';
+        $returnType = '\Hanzo\Cloud\Model\TeamPlanInfo';
         $request = $this->getTeamBillingPlanRequest($contentType);
 
         return $this->client
@@ -1586,7 +2784,7 @@ class TeamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1898,6 +3096,874 @@ class TeamApi
     }
 
     /**
+     * Operation getTeamChannels
+     *
+     * Returns the channels the caller may see, with the kind and work facet each carries.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannels'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamChannels|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getTeamChannels(string $contentType = self::contentTypes['getTeamChannels'][0])
+    {
+        list($response) = $this->getTeamChannelsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamChannelsWithHttpInfo
+     *
+     * Returns the channels the caller may see, with the kind and work facet each carries.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannels'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamChannels|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamChannelsWithHttpInfo(string $contentType = self::contentTypes['getTeamChannels'][0])
+    {
+        $request = $this->getTeamChannelsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamChannels',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamChannels',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamChannels',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamChannelsAsync
+     *
+     * Returns the channels the caller may see, with the kind and work facet each carries.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannels'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamChannelsAsync(string $contentType = self::contentTypes['getTeamChannels'][0])
+    {
+        return $this->getTeamChannelsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamChannelsAsyncWithHttpInfo
+     *
+     * Returns the channels the caller may see, with the kind and work facet each carries.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannels'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamChannelsAsyncWithHttpInfo(string $contentType = self::contentTypes['getTeamChannels'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamChannels';
+        $request = $this->getTeamChannelsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamChannels'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannels'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamChannelsRequest(string $contentType = self::contentTypes['getTeamChannels'][0])
+    {
+
+
+        $resourcePath = '/v1/team/channels';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getTeamChannelsByIdMembers
+     *
+     * Returns the people and agents in one channel, as the roster describes them.
+     *
+     * @param  string $id ID is the channel, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannelsByIdMembers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamChannelMembers|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getTeamChannelsByIdMembers($id, $space = null, string $contentType = self::contentTypes['getTeamChannelsByIdMembers'][0])
+    {
+        list($response) = $this->getTeamChannelsByIdMembersWithHttpInfo($id, $space, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamChannelsByIdMembersWithHttpInfo
+     *
+     * Returns the people and agents in one channel, as the roster describes them.
+     *
+     * @param  string $id ID is the channel, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannelsByIdMembers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamChannelMembers|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamChannelsByIdMembersWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamChannelsByIdMembers'][0])
+    {
+        $request = $this->getTeamChannelsByIdMembersRequest($id, $space, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamChannelMembers',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamChannelMembers',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamChannelMembers',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamChannelsByIdMembersAsync
+     *
+     * Returns the people and agents in one channel, as the roster describes them.
+     *
+     * @param  string $id ID is the channel, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannelsByIdMembers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamChannelsByIdMembersAsync($id, $space = null, string $contentType = self::contentTypes['getTeamChannelsByIdMembers'][0])
+    {
+        return $this->getTeamChannelsByIdMembersAsyncWithHttpInfo($id, $space, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamChannelsByIdMembersAsyncWithHttpInfo
+     *
+     * Returns the people and agents in one channel, as the roster describes them.
+     *
+     * @param  string $id ID is the channel, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannelsByIdMembers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamChannelsByIdMembersAsyncWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamChannelsByIdMembers'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamChannelMembers';
+        $request = $this->getTeamChannelsByIdMembersRequest($id, $space, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamChannelsByIdMembers'
+     *
+     * @param  string $id ID is the channel, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannelsByIdMembers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamChannelsByIdMembersRequest($id, $space = null, string $contentType = self::contentTypes['getTeamChannelsByIdMembers'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getTeamChannelsByIdMembers'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/team/channels/{id}/members';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getTeamChannelsByIdMessages
+     *
+     * Returns the tail of one channel&#39;s conversation, oldest first, each message with its reactions, files and thread count.
+     *
+     * @param  string $id ID is the channel, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannelsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamMessages|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getTeamChannelsByIdMessages($id, $space = null, string $contentType = self::contentTypes['getTeamChannelsByIdMessages'][0])
+    {
+        list($response) = $this->getTeamChannelsByIdMessagesWithHttpInfo($id, $space, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamChannelsByIdMessagesWithHttpInfo
+     *
+     * Returns the tail of one channel&#39;s conversation, oldest first, each message with its reactions, files and thread count.
+     *
+     * @param  string $id ID is the channel, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannelsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamMessages|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamChannelsByIdMessagesWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamChannelsByIdMessages'][0])
+    {
+        $request = $this->getTeamChannelsByIdMessagesRequest($id, $space, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamMessages',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamMessages',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamMessages',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamChannelsByIdMessagesAsync
+     *
+     * Returns the tail of one channel&#39;s conversation, oldest first, each message with its reactions, files and thread count.
+     *
+     * @param  string $id ID is the channel, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannelsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamChannelsByIdMessagesAsync($id, $space = null, string $contentType = self::contentTypes['getTeamChannelsByIdMessages'][0])
+    {
+        return $this->getTeamChannelsByIdMessagesAsyncWithHttpInfo($id, $space, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamChannelsByIdMessagesAsyncWithHttpInfo
+     *
+     * Returns the tail of one channel&#39;s conversation, oldest first, each message with its reactions, files and thread count.
+     *
+     * @param  string $id ID is the channel, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannelsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamChannelsByIdMessagesAsyncWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamChannelsByIdMessages'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamMessages';
+        $request = $this->getTeamChannelsByIdMessagesRequest($id, $space, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamChannelsByIdMessages'
+     *
+     * @param  string $id ID is the channel, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the channel, and is required for the reason the bind op requires it: a channel id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamChannelsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamChannelsByIdMessagesRequest($id, $space = null, string $contentType = self::contentTypes['getTeamChannelsByIdMessages'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getTeamChannelsByIdMessages'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/team/channels/{id}/messages';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getTeamCollaborator
      *
      * Open the live collaborative-editing socket
@@ -2044,6 +4110,1174 @@ class TeamApi
 
         $headers = $this->headerSelector->selectHeaders(
             [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getTeamDocs
+     *
+     * Returns the documents of a space the caller may see, with the teamspaces they are grouped in.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  string|null $teamspace Teamspace narrows the answer to one teamspace. (optional)
+     * @param  string|null $parent Parent narrows the answer to one document&#39;s children. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamDocs|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getTeamDocs($space = null, $teamspace = null, $parent = null, string $contentType = self::contentTypes['getTeamDocs'][0])
+    {
+        list($response) = $this->getTeamDocsWithHttpInfo($space, $teamspace, $parent, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamDocsWithHttpInfo
+     *
+     * Returns the documents of a space the caller may see, with the teamspaces they are grouped in.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  string|null $teamspace Teamspace narrows the answer to one teamspace. (optional)
+     * @param  string|null $parent Parent narrows the answer to one document&#39;s children. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamDocs|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamDocsWithHttpInfo($space = null, $teamspace = null, $parent = null, string $contentType = self::contentTypes['getTeamDocs'][0])
+    {
+        $request = $this->getTeamDocsRequest($space, $teamspace, $parent, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamDocs',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamDocs',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamDocs',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamDocsAsync
+     *
+     * Returns the documents of a space the caller may see, with the teamspaces they are grouped in.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  string|null $teamspace Teamspace narrows the answer to one teamspace. (optional)
+     * @param  string|null $parent Parent narrows the answer to one document&#39;s children. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamDocsAsync($space = null, $teamspace = null, $parent = null, string $contentType = self::contentTypes['getTeamDocs'][0])
+    {
+        return $this->getTeamDocsAsyncWithHttpInfo($space, $teamspace, $parent, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamDocsAsyncWithHttpInfo
+     *
+     * Returns the documents of a space the caller may see, with the teamspaces they are grouped in.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  string|null $teamspace Teamspace narrows the answer to one teamspace. (optional)
+     * @param  string|null $parent Parent narrows the answer to one document&#39;s children. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamDocsAsyncWithHttpInfo($space = null, $teamspace = null, $parent = null, string $contentType = self::contentTypes['getTeamDocs'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamDocs';
+        $request = $this->getTeamDocsRequest($space, $teamspace, $parent, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamDocs'
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  string|null $teamspace Teamspace narrows the answer to one teamspace. (optional)
+     * @param  string|null $parent Parent narrows the answer to one document&#39;s children. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamDocsRequest($space = null, $teamspace = null, $parent = null, string $contentType = self::contentTypes['getTeamDocs'][0])
+    {
+
+
+
+
+
+        $resourcePath = '/v1/team/docs';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $teamspace,
+            'teamspace', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $parent,
+            'parent', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getTeamDocsById
+     *
+     * Returns one document the caller may see.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamDoc|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getTeamDocsById($id, $space = null, string $contentType = self::contentTypes['getTeamDocsById'][0])
+    {
+        list($response) = $this->getTeamDocsByIdWithHttpInfo($id, $space, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamDocsByIdWithHttpInfo
+     *
+     * Returns one document the caller may see.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamDoc|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamDocsByIdWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamDocsById'][0])
+    {
+        $request = $this->getTeamDocsByIdRequest($id, $space, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamDoc',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamDoc',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamDoc',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamDocsByIdAsync
+     *
+     * Returns one document the caller may see.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamDocsByIdAsync($id, $space = null, string $contentType = self::contentTypes['getTeamDocsById'][0])
+    {
+        return $this->getTeamDocsByIdAsyncWithHttpInfo($id, $space, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamDocsByIdAsyncWithHttpInfo
+     *
+     * Returns one document the caller may see.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamDocsByIdAsyncWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamDocsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamDoc';
+        $request = $this->getTeamDocsByIdRequest($id, $space, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamDocsById'
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamDocsByIdRequest($id, $space = null, string $contentType = self::contentTypes['getTeamDocsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getTeamDocsById'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/team/docs/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getTeamDocsByIdComments
+     *
+     * Returns the comments on a document, oldest first — the same message shape a channel&#39;s conversation answers.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocsByIdComments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamMessages|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getTeamDocsByIdComments($id, $space = null, string $contentType = self::contentTypes['getTeamDocsByIdComments'][0])
+    {
+        list($response) = $this->getTeamDocsByIdCommentsWithHttpInfo($id, $space, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamDocsByIdCommentsWithHttpInfo
+     *
+     * Returns the comments on a document, oldest first — the same message shape a channel&#39;s conversation answers.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocsByIdComments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamMessages|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamDocsByIdCommentsWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamDocsByIdComments'][0])
+    {
+        $request = $this->getTeamDocsByIdCommentsRequest($id, $space, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamMessages',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamMessages',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamMessages',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamDocsByIdCommentsAsync
+     *
+     * Returns the comments on a document, oldest first — the same message shape a channel&#39;s conversation answers.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocsByIdComments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamDocsByIdCommentsAsync($id, $space = null, string $contentType = self::contentTypes['getTeamDocsByIdComments'][0])
+    {
+        return $this->getTeamDocsByIdCommentsAsyncWithHttpInfo($id, $space, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamDocsByIdCommentsAsyncWithHttpInfo
+     *
+     * Returns the comments on a document, oldest first — the same message shape a channel&#39;s conversation answers.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocsByIdComments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamDocsByIdCommentsAsyncWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamDocsByIdComments'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamMessages';
+        $request = $this->getTeamDocsByIdCommentsRequest($id, $space, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamDocsByIdComments'
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  string|null $space Space is the space uuid holding it. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamDocsByIdComments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamDocsByIdCommentsRequest($id, $space = null, string $contentType = self::contentTypes['getTeamDocsByIdComments'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getTeamDocsByIdComments'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/team/docs/{id}/comments';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getTeamEvents
+     *
+     * Stream live changes to what the caller may see, as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamEvents'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \SplFileObject
+     */
+    public function getTeamEvents(string $contentType = self::contentTypes['getTeamEvents'][0])
+    {
+        list($response) = $this->getTeamEventsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamEventsWithHttpInfo
+     *
+     * Stream live changes to what the caller may see, as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamEvents'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamEventsWithHttpInfo(string $contentType = self::contentTypes['getTeamEvents'][0])
+    {
+        $request = $this->getTeamEventsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                
+            }
+
+            if ($this->responseWithinRangeCode('2XX', $statusCode)) {
+                return $this->handleResponseWithDataType(
+                    '\SplFileObject',
+                    $request,
+                    $response,
+                );
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\SplFileObject',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                
+            }
+        
+            if ($this->responseWithinRangeCode('2XX', $e->getCode())) {
+                $data = ObjectSerializer::deserialize(
+                    $e->getResponseBody(),
+                    '\SplFileObject',
+                    $e->getResponseHeaders()
+                );
+                $e->setResponseObject($data);
+                throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamEventsAsync
+     *
+     * Stream live changes to what the caller may see, as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamEvents'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamEventsAsync(string $contentType = self::contentTypes['getTeamEvents'][0])
+    {
+        return $this->getTeamEventsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamEventsAsyncWithHttpInfo
+     *
+     * Stream live changes to what the caller may see, as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamEvents'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamEventsAsyncWithHttpInfo(string $contentType = self::contentTypes['getTeamEvents'][0])
+    {
+        $returnType = '\SplFileObject';
+        $request = $this->getTeamEventsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamEvents'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamEvents'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamEventsRequest(string $contentType = self::contentTypes['getTeamEvents'][0])
+    {
+
+
+        $resourcePath = '/v1/team/events';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['text/event-stream', ],
             $contentType,
             $multipart
         );
@@ -2395,18 +5629,896 @@ class TeamApi
     }
 
     /**
+     * Operation getTeamInbox
+     *
+     * Returns the caller&#39;s notifications, newest first, each with the channel or document it is about and the message that caused it.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  bool|null $archived Archived lists the archived notifications instead of the live ones. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamInbox'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamInbox|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getTeamInbox($space = null, $archived = null, string $contentType = self::contentTypes['getTeamInbox'][0])
+    {
+        list($response) = $this->getTeamInboxWithHttpInfo($space, $archived, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamInboxWithHttpInfo
+     *
+     * Returns the caller&#39;s notifications, newest first, each with the channel or document it is about and the message that caused it.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  bool|null $archived Archived lists the archived notifications instead of the live ones. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamInbox'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamInbox|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamInboxWithHttpInfo($space = null, $archived = null, string $contentType = self::contentTypes['getTeamInbox'][0])
+    {
+        $request = $this->getTeamInboxRequest($space, $archived, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamInbox',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamInbox',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamInbox',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamInboxAsync
+     *
+     * Returns the caller&#39;s notifications, newest first, each with the channel or document it is about and the message that caused it.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  bool|null $archived Archived lists the archived notifications instead of the live ones. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamInbox'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamInboxAsync($space = null, $archived = null, string $contentType = self::contentTypes['getTeamInbox'][0])
+    {
+        return $this->getTeamInboxAsyncWithHttpInfo($space, $archived, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamInboxAsyncWithHttpInfo
+     *
+     * Returns the caller&#39;s notifications, newest first, each with the channel or document it is about and the message that caused it.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  bool|null $archived Archived lists the archived notifications instead of the live ones. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamInbox'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamInboxAsyncWithHttpInfo($space = null, $archived = null, string $contentType = self::contentTypes['getTeamInbox'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamInbox';
+        $request = $this->getTeamInboxRequest($space, $archived, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamInbox'
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  bool|null $archived Archived lists the archived notifications instead of the live ones. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamInbox'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamInboxRequest($space = null, $archived = null, string $contentType = self::contentTypes['getTeamInbox'][0])
+    {
+
+
+
+
+        $resourcePath = '/v1/team/inbox';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $archived,
+            'archived', // param base name
+            'boolean', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getTeamMembers
+     *
+     * Returns the people and agents in a space, with the name, avatar, role and presence a client draws them with.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamMembers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamMembers|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getTeamMembers($space = null, string $contentType = self::contentTypes['getTeamMembers'][0])
+    {
+        list($response) = $this->getTeamMembersWithHttpInfo($space, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamMembersWithHttpInfo
+     *
+     * Returns the people and agents in a space, with the name, avatar, role and presence a client draws them with.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamMembers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamMembers|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamMembersWithHttpInfo($space = null, string $contentType = self::contentTypes['getTeamMembers'][0])
+    {
+        $request = $this->getTeamMembersRequest($space, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamMembers',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamMembers',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamMembers',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamMembersAsync
+     *
+     * Returns the people and agents in a space, with the name, avatar, role and presence a client draws them with.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamMembers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamMembersAsync($space = null, string $contentType = self::contentTypes['getTeamMembers'][0])
+    {
+        return $this->getTeamMembersAsyncWithHttpInfo($space, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamMembersAsyncWithHttpInfo
+     *
+     * Returns the people and agents in a space, with the name, avatar, role and presence a client draws them with.
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamMembers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamMembersAsyncWithHttpInfo($space = null, string $contentType = self::contentTypes['getTeamMembers'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamMembers';
+        $request = $this->getTeamMembersRequest($space, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamMembers'
+     *
+     * @param  string|null $space Space is the space uuid. Optional for a caller in exactly one space. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamMembers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamMembersRequest($space = null, string $contentType = self::contentTypes['getTeamMembers'][0])
+    {
+
+
+
+        $resourcePath = '/v1/team/members';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getTeamMessagesByIdReplies
+     *
+     * Returns a message&#39;s thread, oldest first, each reply with its reactions and files.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string|null $space Space names the space holding it. A message id is unique within a space, not across the org. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamMessagesByIdReplies'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamMessages|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getTeamMessagesByIdReplies($id, $space = null, string $contentType = self::contentTypes['getTeamMessagesByIdReplies'][0])
+    {
+        list($response) = $this->getTeamMessagesByIdRepliesWithHttpInfo($id, $space, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamMessagesByIdRepliesWithHttpInfo
+     *
+     * Returns a message&#39;s thread, oldest first, each reply with its reactions and files.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string|null $space Space names the space holding it. A message id is unique within a space, not across the org. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamMessagesByIdReplies'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamMessages|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamMessagesByIdRepliesWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamMessagesByIdReplies'][0])
+    {
+        $request = $this->getTeamMessagesByIdRepliesRequest($id, $space, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamMessages',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamMessages',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamMessages',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamMessagesByIdRepliesAsync
+     *
+     * Returns a message&#39;s thread, oldest first, each reply with its reactions and files.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string|null $space Space names the space holding it. A message id is unique within a space, not across the org. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamMessagesByIdReplies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamMessagesByIdRepliesAsync($id, $space = null, string $contentType = self::contentTypes['getTeamMessagesByIdReplies'][0])
+    {
+        return $this->getTeamMessagesByIdRepliesAsyncWithHttpInfo($id, $space, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamMessagesByIdRepliesAsyncWithHttpInfo
+     *
+     * Returns a message&#39;s thread, oldest first, each reply with its reactions and files.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string|null $space Space names the space holding it. A message id is unique within a space, not across the org. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamMessagesByIdReplies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamMessagesByIdRepliesAsyncWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamMessagesByIdReplies'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamMessages';
+        $request = $this->getTeamMessagesByIdRepliesRequest($id, $space, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamMessagesByIdReplies'
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string|null $space Space names the space holding it. A message id is unique within a space, not across the org. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamMessagesByIdReplies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamMessagesByIdRepliesRequest($id, $space = null, string $contentType = self::contentTypes['getTeamMessagesByIdReplies'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getTeamMessagesByIdReplies'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/team/messages/{id}/replies';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getTeamPublic
      *
-     * Lists the rooms orgs have published, across every org.
+     * Lists the channels orgs have published, across every org.
      *
-     * @param  string|null $q Q matches a room&#39;s name or its topic. (optional)
-     * @param  string|null $org Org narrows to one org&#39;s published rooms. (optional)
+     * @param  string|null $q Q matches a channel&#39;s name or its topic. (optional)
+     * @param  string|null $org Org narrows to one org&#39;s published channels. (optional)
      * @param  int|null $limit Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamPublic'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PublicRooms
+     * @return \Hanzo\Cloud\Model\TeamPublicChannels|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTeamPublic($q = null, $org = null, $limit = null, string $contentType = self::contentTypes['getTeamPublic'][0])
     {
@@ -2417,16 +6529,16 @@ class TeamApi
     /**
      * Operation getTeamPublicWithHttpInfo
      *
-     * Lists the rooms orgs have published, across every org.
+     * Lists the channels orgs have published, across every org.
      *
-     * @param  string|null $q Q matches a room&#39;s name or its topic. (optional)
-     * @param  string|null $org Org narrows to one org&#39;s published rooms. (optional)
+     * @param  string|null $q Q matches a channel&#39;s name or its topic. (optional)
+     * @param  string|null $org Org narrows to one org&#39;s published channels. (optional)
      * @param  int|null $limit Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamPublic'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PublicRooms, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TeamPublicChannels|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTeamPublicWithHttpInfo($q = null, $org = null, $limit = null, string $contentType = self::contentTypes['getTeamPublic'][0])
     {
@@ -2458,7 +6570,13 @@ class TeamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PublicRooms',
+                        '\Hanzo\Cloud\Model\TeamPublicChannels',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2480,7 +6598,7 @@ class TeamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PublicRooms',
+                '\Hanzo\Cloud\Model\TeamPublicChannels',
                 $request,
                 $response,
             );
@@ -2489,7 +6607,15 @@ class TeamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PublicRooms',
+                        '\Hanzo\Cloud\Model\TeamPublicChannels',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2504,10 +6630,10 @@ class TeamApi
     /**
      * Operation getTeamPublicAsync
      *
-     * Lists the rooms orgs have published, across every org.
+     * Lists the channels orgs have published, across every org.
      *
-     * @param  string|null $q Q matches a room&#39;s name or its topic. (optional)
-     * @param  string|null $org Org narrows to one org&#39;s published rooms. (optional)
+     * @param  string|null $q Q matches a channel&#39;s name or its topic. (optional)
+     * @param  string|null $org Org narrows to one org&#39;s published channels. (optional)
      * @param  int|null $limit Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamPublic'] to see the possible values for this operation
      *
@@ -2527,10 +6653,10 @@ class TeamApi
     /**
      * Operation getTeamPublicAsyncWithHttpInfo
      *
-     * Lists the rooms orgs have published, across every org.
+     * Lists the channels orgs have published, across every org.
      *
-     * @param  string|null $q Q matches a room&#39;s name or its topic. (optional)
-     * @param  string|null $org Org narrows to one org&#39;s published rooms. (optional)
+     * @param  string|null $q Q matches a channel&#39;s name or its topic. (optional)
+     * @param  string|null $org Org narrows to one org&#39;s published channels. (optional)
      * @param  int|null $limit Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamPublic'] to see the possible values for this operation
      *
@@ -2539,7 +6665,7 @@ class TeamApi
      */
     public function getTeamPublicAsyncWithHttpInfo($q = null, $org = null, $limit = null, string $contentType = self::contentTypes['getTeamPublic'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PublicRooms';
+        $returnType = '\Hanzo\Cloud\Model\TeamPublicChannels';
         $request = $this->getTeamPublicRequest($q, $org, $limit, $contentType);
 
         return $this->client
@@ -2581,8 +6707,8 @@ class TeamApi
     /**
      * Create request for operation 'getTeamPublic'
      *
-     * @param  string|null $q Q matches a room&#39;s name or its topic. (optional)
-     * @param  string|null $org Org narrows to one org&#39;s published rooms. (optional)
+     * @param  string|null $q Q matches a channel&#39;s name or its topic. (optional)
+     * @param  string|null $org Org narrows to one org&#39;s published channels. (optional)
      * @param  int|null $limit Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamPublic'] to see the possible values for this operation
      *
@@ -2635,546 +6761,7 @@ class TeamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getTeamRooms
-     *
-     * Returns every room of the caller&#39;s org, across the spaces it owns, with the work facet each carries.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TeamRooms
-     */
-    public function getTeamRooms(string $contentType = self::contentTypes['getTeamRooms'][0])
-    {
-        list($response) = $this->getTeamRoomsWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getTeamRoomsWithHttpInfo
-     *
-     * Returns every room of the caller&#39;s org, across the spaces it owns, with the work facet each carries.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TeamRooms, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getTeamRoomsWithHttpInfo(string $contentType = self::contentTypes['getTeamRooms'][0])
-    {
-        $request = $this->getTeamRoomsRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TeamRooms',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TeamRooms',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TeamRooms',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getTeamRoomsAsync
-     *
-     * Returns every room of the caller&#39;s org, across the spaces it owns, with the work facet each carries.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getTeamRoomsAsync(string $contentType = self::contentTypes['getTeamRooms'][0])
-    {
-        return $this->getTeamRoomsAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getTeamRoomsAsyncWithHttpInfo
-     *
-     * Returns every room of the caller&#39;s org, across the spaces it owns, with the work facet each carries.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getTeamRoomsAsyncWithHttpInfo(string $contentType = self::contentTypes['getTeamRooms'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\TeamRooms';
-        $request = $this->getTeamRoomsRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getTeamRooms'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getTeamRoomsRequest(string $contentType = self::contentTypes['getTeamRooms'][0])
-    {
-
-
-        $resourcePath = '/v1/team/rooms';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getTeamRoomsByIdMessages
-     *
-     * Returns the tail of one room&#39;s conversation, oldest first.
-     *
-     * @param  string $id ID is the room, from the path. The URL is the authority. (required)
-     * @param  string|null $space Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRoomsByIdMessages'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TeamMessages
-     */
-    public function getTeamRoomsByIdMessages($id, $space = null, string $contentType = self::contentTypes['getTeamRoomsByIdMessages'][0])
-    {
-        list($response) = $this->getTeamRoomsByIdMessagesWithHttpInfo($id, $space, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getTeamRoomsByIdMessagesWithHttpInfo
-     *
-     * Returns the tail of one room&#39;s conversation, oldest first.
-     *
-     * @param  string $id ID is the room, from the path. The URL is the authority. (required)
-     * @param  string|null $space Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRoomsByIdMessages'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TeamMessages, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getTeamRoomsByIdMessagesWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamRoomsByIdMessages'][0])
-    {
-        $request = $this->getTeamRoomsByIdMessagesRequest($id, $space, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TeamMessages',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TeamMessages',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TeamMessages',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getTeamRoomsByIdMessagesAsync
-     *
-     * Returns the tail of one room&#39;s conversation, oldest first.
-     *
-     * @param  string $id ID is the room, from the path. The URL is the authority. (required)
-     * @param  string|null $space Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRoomsByIdMessages'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getTeamRoomsByIdMessagesAsync($id, $space = null, string $contentType = self::contentTypes['getTeamRoomsByIdMessages'][0])
-    {
-        return $this->getTeamRoomsByIdMessagesAsyncWithHttpInfo($id, $space, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getTeamRoomsByIdMessagesAsyncWithHttpInfo
-     *
-     * Returns the tail of one room&#39;s conversation, oldest first.
-     *
-     * @param  string $id ID is the room, from the path. The URL is the authority. (required)
-     * @param  string|null $space Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRoomsByIdMessages'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getTeamRoomsByIdMessagesAsyncWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamRoomsByIdMessages'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\TeamMessages';
-        $request = $this->getTeamRoomsByIdMessagesRequest($id, $space, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getTeamRoomsByIdMessages'
-     *
-     * @param  string $id ID is the room, from the path. The URL is the authority. (required)
-     * @param  string|null $space Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRoomsByIdMessages'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getTeamRoomsByIdMessagesRequest($id, $space = null, string $contentType = self::contentTypes['getTeamRoomsByIdMessages'][0])
-    {
-
-        // verify the required parameter 'id' is set
-        if ($id === null || (is_array($id) && count($id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling getTeamRoomsByIdMessages'
-            );
-        }
-
-
-
-        $resourcePath = '/v1/team/rooms/{id}/messages';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $space,
-            'space', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-
-
-        // path params
-        if ($id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($id),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3455,14 +7042,14 @@ class TeamApi
     /**
      * Operation getTeamTransactorStatistics
      *
-     * Statistics returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
+     * Returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
      *
      * @param  string|null $token Token is the space token minted by selectWorkspace. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorStatistics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\StatsOut
+     * @return \Hanzo\Cloud\Model\TeamStatsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTeamTransactorStatistics($token = null, string $contentType = self::contentTypes['getTeamTransactorStatistics'][0])
     {
@@ -3473,14 +7060,14 @@ class TeamApi
     /**
      * Operation getTeamTransactorStatisticsWithHttpInfo
      *
-     * Statistics returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
+     * Returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
      *
      * @param  string|null $token Token is the space token minted by selectWorkspace. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorStatistics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\StatsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TeamStatsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getTeamTransactorStatisticsWithHttpInfo($token = null, string $contentType = self::contentTypes['getTeamTransactorStatistics'][0])
     {
@@ -3512,7 +7099,13 @@ class TeamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\StatsOut',
+                        '\Hanzo\Cloud\Model\TeamStatsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3534,7 +7127,7 @@ class TeamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\StatsOut',
+                '\Hanzo\Cloud\Model\TeamStatsOut',
                 $request,
                 $response,
             );
@@ -3543,7 +7136,15 @@ class TeamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\StatsOut',
+                        '\Hanzo\Cloud\Model\TeamStatsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3558,7 +7159,7 @@ class TeamApi
     /**
      * Operation getTeamTransactorStatisticsAsync
      *
-     * Statistics returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
+     * Returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
      *
      * @param  string|null $token Token is the space token minted by selectWorkspace. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorStatistics'] to see the possible values for this operation
@@ -3579,7 +7180,7 @@ class TeamApi
     /**
      * Operation getTeamTransactorStatisticsAsyncWithHttpInfo
      *
-     * Statistics returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
+     * Returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
      *
      * @param  string|null $token Token is the space token minted by selectWorkspace. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorStatistics'] to see the possible values for this operation
@@ -3589,7 +7190,7 @@ class TeamApi
      */
     public function getTeamTransactorStatisticsAsyncWithHttpInfo($token = null, string $contentType = self::contentTypes['getTeamTransactorStatistics'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\StatsOut';
+        $returnType = '\Hanzo\Cloud\Model\TeamStatsOut';
         $request = $this->getTeamTransactorStatisticsRequest($token, $contentType);
 
         return $this->client
@@ -3663,7 +7264,7 @@ class TeamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3713,6 +7314,921 @@ class TeamApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation patchTeamChannelsById
+     *
+     * Renames a channel, sets its topic, or archives or reopens it, and answers the channel as it now stands.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelEdit $team_team_channel_edit team_team_channel_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamChannelsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamChannelOne|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function patchTeamChannelsById($id, $team_team_channel_edit, string $contentType = self::contentTypes['patchTeamChannelsById'][0])
+    {
+        list($response) = $this->patchTeamChannelsByIdWithHttpInfo($id, $team_team_channel_edit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation patchTeamChannelsByIdWithHttpInfo
+     *
+     * Renames a channel, sets its topic, or archives or reopens it, and answers the channel as it now stands.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelEdit $team_team_channel_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamChannelsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamChannelOne|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function patchTeamChannelsByIdWithHttpInfo($id, $team_team_channel_edit, string $contentType = self::contentTypes['patchTeamChannelsById'][0])
+    {
+        $request = $this->patchTeamChannelsByIdRequest($id, $team_team_channel_edit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamChannelOne',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamChannelOne',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamChannelOne',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation patchTeamChannelsByIdAsync
+     *
+     * Renames a channel, sets its topic, or archives or reopens it, and answers the channel as it now stands.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelEdit $team_team_channel_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamChannelsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchTeamChannelsByIdAsync($id, $team_team_channel_edit, string $contentType = self::contentTypes['patchTeamChannelsById'][0])
+    {
+        return $this->patchTeamChannelsByIdAsyncWithHttpInfo($id, $team_team_channel_edit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation patchTeamChannelsByIdAsyncWithHttpInfo
+     *
+     * Renames a channel, sets its topic, or archives or reopens it, and answers the channel as it now stands.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelEdit $team_team_channel_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamChannelsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchTeamChannelsByIdAsyncWithHttpInfo($id, $team_team_channel_edit, string $contentType = self::contentTypes['patchTeamChannelsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamChannelOne';
+        $request = $this->patchTeamChannelsByIdRequest($id, $team_team_channel_edit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'patchTeamChannelsById'
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelEdit $team_team_channel_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamChannelsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function patchTeamChannelsByIdRequest($id, $team_team_channel_edit, string $contentType = self::contentTypes['patchTeamChannelsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling patchTeamChannelsById'
+            );
+        }
+
+        // verify the required parameter 'team_team_channel_edit' is set
+        if ($team_team_channel_edit === null || (is_array($team_team_channel_edit) && count($team_team_channel_edit) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_channel_edit when calling patchTeamChannelsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/channels/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_channel_edit)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_channel_edit));
+            } else {
+                $httpBody = $team_team_channel_edit;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation patchTeamDocsById
+     *
+     * Renames a document or moves it — under another document, to the top of its teamspace, or to another teamspace with everything nested under it.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamDocEdit $team_team_doc_edit team_team_doc_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamDoc|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function patchTeamDocsById($id, $team_team_doc_edit, string $contentType = self::contentTypes['patchTeamDocsById'][0])
+    {
+        list($response) = $this->patchTeamDocsByIdWithHttpInfo($id, $team_team_doc_edit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation patchTeamDocsByIdWithHttpInfo
+     *
+     * Renames a document or moves it — under another document, to the top of its teamspace, or to another teamspace with everything nested under it.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamDocEdit $team_team_doc_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamDoc|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function patchTeamDocsByIdWithHttpInfo($id, $team_team_doc_edit, string $contentType = self::contentTypes['patchTeamDocsById'][0])
+    {
+        $request = $this->patchTeamDocsByIdRequest($id, $team_team_doc_edit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamDoc',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamDoc',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamDoc',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation patchTeamDocsByIdAsync
+     *
+     * Renames a document or moves it — under another document, to the top of its teamspace, or to another teamspace with everything nested under it.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamDocEdit $team_team_doc_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchTeamDocsByIdAsync($id, $team_team_doc_edit, string $contentType = self::contentTypes['patchTeamDocsById'][0])
+    {
+        return $this->patchTeamDocsByIdAsyncWithHttpInfo($id, $team_team_doc_edit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation patchTeamDocsByIdAsyncWithHttpInfo
+     *
+     * Renames a document or moves it — under another document, to the top of its teamspace, or to another teamspace with everything nested under it.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamDocEdit $team_team_doc_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchTeamDocsByIdAsyncWithHttpInfo($id, $team_team_doc_edit, string $contentType = self::contentTypes['patchTeamDocsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamDoc';
+        $request = $this->patchTeamDocsByIdRequest($id, $team_team_doc_edit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'patchTeamDocsById'
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamDocEdit $team_team_doc_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamDocsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function patchTeamDocsByIdRequest($id, $team_team_doc_edit, string $contentType = self::contentTypes['patchTeamDocsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling patchTeamDocsById'
+            );
+        }
+
+        // verify the required parameter 'team_team_doc_edit' is set
+        if ($team_team_doc_edit === null || (is_array($team_team_doc_edit) && count($team_team_doc_edit) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_doc_edit when calling patchTeamDocsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/docs/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_doc_edit)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_doc_edit));
+            } else {
+                $httpBody = $team_team_doc_edit;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation patchTeamMessagesById
+     *
+     * Rewrites what a message says.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamMessageEdit $team_team_message_edit team_team_message_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamMessagesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function patchTeamMessagesById($id, $team_team_message_edit, string $contentType = self::contentTypes['patchTeamMessagesById'][0])
+    {
+        list($response) = $this->patchTeamMessagesByIdWithHttpInfo($id, $team_team_message_edit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation patchTeamMessagesByIdWithHttpInfo
+     *
+     * Rewrites what a message says.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamMessageEdit $team_team_message_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamMessagesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function patchTeamMessagesByIdWithHttpInfo($id, $team_team_message_edit, string $contentType = self::contentTypes['patchTeamMessagesById'][0])
+    {
+        $request = $this->patchTeamMessagesByIdRequest($id, $team_team_message_edit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamMessage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation patchTeamMessagesByIdAsync
+     *
+     * Rewrites what a message says.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamMessageEdit $team_team_message_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamMessagesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchTeamMessagesByIdAsync($id, $team_team_message_edit, string $contentType = self::contentTypes['patchTeamMessagesById'][0])
+    {
+        return $this->patchTeamMessagesByIdAsyncWithHttpInfo($id, $team_team_message_edit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation patchTeamMessagesByIdAsyncWithHttpInfo
+     *
+     * Rewrites what a message says.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamMessageEdit $team_team_message_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamMessagesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchTeamMessagesByIdAsyncWithHttpInfo($id, $team_team_message_edit, string $contentType = self::contentTypes['patchTeamMessagesById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamMessage';
+        $request = $this->patchTeamMessagesByIdRequest($id, $team_team_message_edit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'patchTeamMessagesById'
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamMessageEdit $team_team_message_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchTeamMessagesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function patchTeamMessagesByIdRequest($id, $team_team_message_edit, string $contentType = self::contentTypes['patchTeamMessagesById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling patchTeamMessagesById'
+            );
+        }
+
+        // verify the required parameter 'team_team_message_edit' is set
+        if ($team_team_message_edit === null || (is_array($team_team_message_edit) && count($team_team_message_edit) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_message_edit when calling patchTeamMessagesById'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/messages/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_message_edit)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_message_edit));
+            } else {
+                $httpBody = $team_team_message_edit;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -3922,40 +8438,325 @@ class TeamApi
     }
 
     /**
-     * Operation postTeamCollaboratorRpcByDocumentid
+     * Operation postTeamChannels
      *
-     * CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
+     * Opens a named channel and answers it as the store now holds it.
      *
-     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CollabRequest $collab_request collab_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelNew $team_team_channel_new team_team_channel_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CollabResult
+     * @return \Hanzo\Cloud\Model\TeamTeamChannelOne|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postTeamCollaboratorRpcByDocumentid($document_id, $collab_request, string $contentType = self::contentTypes['postTeamCollaboratorRpcByDocumentid'][0])
+    public function postTeamChannels($team_team_channel_new, string $contentType = self::contentTypes['postTeamChannels'][0])
     {
-        list($response) = $this->postTeamCollaboratorRpcByDocumentidWithHttpInfo($document_id, $collab_request, $contentType);
+        list($response) = $this->postTeamChannelsWithHttpInfo($team_team_channel_new, $contentType);
         return $response;
     }
 
     /**
-     * Operation postTeamCollaboratorRpcByDocumentidWithHttpInfo
+     * Operation postTeamChannelsWithHttpInfo
      *
-     * CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
+     * Opens a named channel and answers it as the store now holds it.
      *
-     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CollabRequest $collab_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelNew $team_team_channel_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CollabResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TeamTeamChannelOne|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postTeamCollaboratorRpcByDocumentidWithHttpInfo($document_id, $collab_request, string $contentType = self::contentTypes['postTeamCollaboratorRpcByDocumentid'][0])
+    public function postTeamChannelsWithHttpInfo($team_team_channel_new, string $contentType = self::contentTypes['postTeamChannels'][0])
     {
-        $request = $this->postTeamCollaboratorRpcByDocumentidRequest($document_id, $collab_request, $contentType);
+        $request = $this->postTeamChannelsRequest($team_team_channel_new, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamChannelOne',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamChannelOne',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamChannelOne',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postTeamChannelsAsync
+     *
+     * Opens a named channel and answers it as the store now holds it.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelNew $team_team_channel_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannels'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamChannelsAsync($team_team_channel_new, string $contentType = self::contentTypes['postTeamChannels'][0])
+    {
+        return $this->postTeamChannelsAsyncWithHttpInfo($team_team_channel_new, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postTeamChannelsAsyncWithHttpInfo
+     *
+     * Opens a named channel and answers it as the store now holds it.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelNew $team_team_channel_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannels'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamChannelsAsyncWithHttpInfo($team_team_channel_new, string $contentType = self::contentTypes['postTeamChannels'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamChannelOne';
+        $request = $this->postTeamChannelsRequest($team_team_channel_new, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postTeamChannels'
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelNew $team_team_channel_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannels'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postTeamChannelsRequest($team_team_channel_new, string $contentType = self::contentTypes['postTeamChannels'][0])
+    {
+
+        // verify the required parameter 'team_team_channel_new' is set
+        if ($team_team_channel_new === null || (is_array($team_team_channel_new) && count($team_team_channel_new) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_channel_new when calling postTeamChannels'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/channels';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_channel_new)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_channel_new));
+            } else {
+                $httpBody = $team_team_channel_new;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postTeamChannelsByIdMembers
+     *
+     * Adds people to a channel and answers the channel as it now stands.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelJoin $team_team_channel_join team_team_channel_join (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannelsByIdMembers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamChannelOne|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postTeamChannelsByIdMembers($id, $team_team_channel_join, string $contentType = self::contentTypes['postTeamChannelsByIdMembers'][0])
+    {
+        list($response) = $this->postTeamChannelsByIdMembersWithHttpInfo($id, $team_team_channel_join, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postTeamChannelsByIdMembersWithHttpInfo
+     *
+     * Adds people to a channel and answers the channel as it now stands.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelJoin $team_team_channel_join (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannelsByIdMembers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamChannelOne|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postTeamChannelsByIdMembersWithHttpInfo($id, $team_team_channel_join, string $contentType = self::contentTypes['postTeamChannelsByIdMembers'][0])
+    {
+        $request = $this->postTeamChannelsByIdMembersRequest($id, $team_team_channel_join, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3983,7 +8784,13 @@ class TeamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CollabResult',
+                        '\Hanzo\Cloud\Model\TeamTeamChannelOne',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4005,7 +8812,7 @@ class TeamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CollabResult',
+                '\Hanzo\Cloud\Model\TeamTeamChannelOne',
                 $request,
                 $response,
             );
@@ -4014,7 +8821,625 @@ class TeamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CollabResult',
+                        '\Hanzo\Cloud\Model\TeamTeamChannelOne',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postTeamChannelsByIdMembersAsync
+     *
+     * Adds people to a channel and answers the channel as it now stands.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelJoin $team_team_channel_join (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannelsByIdMembers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamChannelsByIdMembersAsync($id, $team_team_channel_join, string $contentType = self::contentTypes['postTeamChannelsByIdMembers'][0])
+    {
+        return $this->postTeamChannelsByIdMembersAsyncWithHttpInfo($id, $team_team_channel_join, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postTeamChannelsByIdMembersAsyncWithHttpInfo
+     *
+     * Adds people to a channel and answers the channel as it now stands.
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelJoin $team_team_channel_join (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannelsByIdMembers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamChannelsByIdMembersAsyncWithHttpInfo($id, $team_team_channel_join, string $contentType = self::contentTypes['postTeamChannelsByIdMembers'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamChannelOne';
+        $request = $this->postTeamChannelsByIdMembersRequest($id, $team_team_channel_join, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postTeamChannelsByIdMembers'
+     *
+     * @param  string $id ID is the channel, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelJoin $team_team_channel_join (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannelsByIdMembers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postTeamChannelsByIdMembersRequest($id, $team_team_channel_join, string $contentType = self::contentTypes['postTeamChannelsByIdMembers'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postTeamChannelsByIdMembers'
+            );
+        }
+
+        // verify the required parameter 'team_team_channel_join' is set
+        if ($team_team_channel_join === null || (is_array($team_team_channel_join) && count($team_team_channel_join) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_channel_join when calling postTeamChannelsByIdMembers'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/channels/{id}/members';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_channel_join)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_channel_join));
+            } else {
+                $httpBody = $team_team_channel_join;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postTeamChannelsByIdMessages
+     *
+     * Says one thing in a channel, as the caller.
+     *
+     * @param  string $id ID is the channel to say it in, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamMessageWrite $team_team_message_write team_team_message_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannelsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postTeamChannelsByIdMessages($id, $team_team_message_write, string $contentType = self::contentTypes['postTeamChannelsByIdMessages'][0])
+    {
+        list($response) = $this->postTeamChannelsByIdMessagesWithHttpInfo($id, $team_team_message_write, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postTeamChannelsByIdMessagesWithHttpInfo
+     *
+     * Says one thing in a channel, as the caller.
+     *
+     * @param  string $id ID is the channel to say it in, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamMessageWrite $team_team_message_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannelsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postTeamChannelsByIdMessagesWithHttpInfo($id, $team_team_message_write, string $contentType = self::contentTypes['postTeamChannelsByIdMessages'][0])
+    {
+        $request = $this->postTeamChannelsByIdMessagesRequest($id, $team_team_message_write, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamMessage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postTeamChannelsByIdMessagesAsync
+     *
+     * Says one thing in a channel, as the caller.
+     *
+     * @param  string $id ID is the channel to say it in, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamMessageWrite $team_team_message_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannelsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamChannelsByIdMessagesAsync($id, $team_team_message_write, string $contentType = self::contentTypes['postTeamChannelsByIdMessages'][0])
+    {
+        return $this->postTeamChannelsByIdMessagesAsyncWithHttpInfo($id, $team_team_message_write, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postTeamChannelsByIdMessagesAsyncWithHttpInfo
+     *
+     * Says one thing in a channel, as the caller.
+     *
+     * @param  string $id ID is the channel to say it in, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamMessageWrite $team_team_message_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannelsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamChannelsByIdMessagesAsyncWithHttpInfo($id, $team_team_message_write, string $contentType = self::contentTypes['postTeamChannelsByIdMessages'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamMessage';
+        $request = $this->postTeamChannelsByIdMessagesRequest($id, $team_team_message_write, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postTeamChannelsByIdMessages'
+     *
+     * @param  string $id ID is the channel to say it in, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamMessageWrite $team_team_message_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamChannelsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postTeamChannelsByIdMessagesRequest($id, $team_team_message_write, string $contentType = self::contentTypes['postTeamChannelsByIdMessages'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postTeamChannelsByIdMessages'
+            );
+        }
+
+        // verify the required parameter 'team_team_message_write' is set
+        if ($team_team_message_write === null || (is_array($team_team_message_write) && count($team_team_message_write) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_message_write when calling postTeamChannelsByIdMessages'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/channels/{id}/messages';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_message_write)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_message_write));
+            } else {
+                $httpBody = $team_team_message_write;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postTeamCollaboratorRpcByDocumentid
+     *
+     * CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
+     *
+     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamCollabRequest $team_collab_request team_collab_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamCollabResult|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postTeamCollaboratorRpcByDocumentid($document_id, $team_collab_request, string $contentType = self::contentTypes['postTeamCollaboratorRpcByDocumentid'][0])
+    {
+        list($response) = $this->postTeamCollaboratorRpcByDocumentidWithHttpInfo($document_id, $team_collab_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postTeamCollaboratorRpcByDocumentidWithHttpInfo
+     *
+     * CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
+     *
+     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamCollabRequest $team_collab_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamCollabResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postTeamCollaboratorRpcByDocumentidWithHttpInfo($document_id, $team_collab_request, string $contentType = self::contentTypes['postTeamCollaboratorRpcByDocumentid'][0])
+    {
+        $request = $this->postTeamCollaboratorRpcByDocumentidRequest($document_id, $team_collab_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamCollabResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamCollabResult',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamCollabResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4032,15 +9457,15 @@ class TeamApi
      * CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
      *
      * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CollabRequest $collab_request (required)
+     * @param  \Hanzo\Cloud\Model\TeamCollabRequest $team_collab_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTeamCollaboratorRpcByDocumentidAsync($document_id, $collab_request, string $contentType = self::contentTypes['postTeamCollaboratorRpcByDocumentid'][0])
+    public function postTeamCollaboratorRpcByDocumentidAsync($document_id, $team_collab_request, string $contentType = self::contentTypes['postTeamCollaboratorRpcByDocumentid'][0])
     {
-        return $this->postTeamCollaboratorRpcByDocumentidAsyncWithHttpInfo($document_id, $collab_request, $contentType)
+        return $this->postTeamCollaboratorRpcByDocumentidAsyncWithHttpInfo($document_id, $team_collab_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4054,16 +9479,16 @@ class TeamApi
      * CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
      *
      * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CollabRequest $collab_request (required)
+     * @param  \Hanzo\Cloud\Model\TeamCollabRequest $team_collab_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTeamCollaboratorRpcByDocumentidAsyncWithHttpInfo($document_id, $collab_request, string $contentType = self::contentTypes['postTeamCollaboratorRpcByDocumentid'][0])
+    public function postTeamCollaboratorRpcByDocumentidAsyncWithHttpInfo($document_id, $team_collab_request, string $contentType = self::contentTypes['postTeamCollaboratorRpcByDocumentid'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CollabResult';
-        $request = $this->postTeamCollaboratorRpcByDocumentidRequest($document_id, $collab_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TeamCollabResult';
+        $request = $this->postTeamCollaboratorRpcByDocumentidRequest($document_id, $team_collab_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4105,13 +9530,13 @@ class TeamApi
      * Create request for operation 'postTeamCollaboratorRpcByDocumentid'
      *
      * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CollabRequest $collab_request (required)
+     * @param  \Hanzo\Cloud\Model\TeamCollabRequest $team_collab_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postTeamCollaboratorRpcByDocumentidRequest($document_id, $collab_request, string $contentType = self::contentTypes['postTeamCollaboratorRpcByDocumentid'][0])
+    public function postTeamCollaboratorRpcByDocumentidRequest($document_id, $team_collab_request, string $contentType = self::contentTypes['postTeamCollaboratorRpcByDocumentid'][0])
     {
 
         // verify the required parameter 'document_id' is set
@@ -4121,10 +9546,10 @@ class TeamApi
             );
         }
 
-        // verify the required parameter 'collab_request' is set
-        if ($collab_request === null || (is_array($collab_request) && count($collab_request) === 0)) {
+        // verify the required parameter 'team_collab_request' is set
+        if ($team_collab_request === null || (is_array($team_collab_request) && count($team_collab_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $collab_request when calling postTeamCollaboratorRpcByDocumentid'
+                'Missing the required parameter $team_collab_request when calling postTeamCollaboratorRpcByDocumentid'
             );
         }
 
@@ -4149,18 +9574,907 @@ class TeamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($collab_request)) {
+        if (isset($team_collab_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($collab_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_collab_request));
             } else {
-                $httpBody = $collab_request;
+                $httpBody = $team_collab_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postTeamDms
+     *
+     * Opens the direct message between the caller and the people named, or answers the one that already exists — there is one conversation per set of people, however many times it is asked for.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamDirectOpen $team_team_direct_open team_team_direct_open (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDms'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamDirect|\Hanzo\Cloud\Model\TeamTeamDirect|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postTeamDms($team_team_direct_open, string $contentType = self::contentTypes['postTeamDms'][0])
+    {
+        list($response) = $this->postTeamDmsWithHttpInfo($team_team_direct_open, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postTeamDmsWithHttpInfo
+     *
+     * Opens the direct message between the caller and the people named, or answers the one that already exists — there is one conversation per set of people, however many times it is asked for.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamDirectOpen $team_team_direct_open (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDms'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamDirect|\Hanzo\Cloud\Model\TeamTeamDirect|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postTeamDmsWithHttpInfo($team_team_direct_open, string $contentType = self::contentTypes['postTeamDms'][0])
+    {
+        $request = $this->postTeamDmsRequest($team_team_direct_open, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamDirect',
+                        $request,
+                        $response,
+                    );
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamDirect',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamDirect',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamDirect',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamDirect',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postTeamDmsAsync
+     *
+     * Opens the direct message between the caller and the people named, or answers the one that already exists — there is one conversation per set of people, however many times it is asked for.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamDirectOpen $team_team_direct_open (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamDmsAsync($team_team_direct_open, string $contentType = self::contentTypes['postTeamDms'][0])
+    {
+        return $this->postTeamDmsAsyncWithHttpInfo($team_team_direct_open, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postTeamDmsAsyncWithHttpInfo
+     *
+     * Opens the direct message between the caller and the people named, or answers the one that already exists — there is one conversation per set of people, however many times it is asked for.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamDirectOpen $team_team_direct_open (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamDmsAsyncWithHttpInfo($team_team_direct_open, string $contentType = self::contentTypes['postTeamDms'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamDirect';
+        $request = $this->postTeamDmsRequest($team_team_direct_open, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postTeamDms'
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamDirectOpen $team_team_direct_open (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postTeamDmsRequest($team_team_direct_open, string $contentType = self::contentTypes['postTeamDms'][0])
+    {
+
+        // verify the required parameter 'team_team_direct_open' is set
+        if ($team_team_direct_open === null || (is_array($team_team_direct_open) && count($team_team_direct_open) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_direct_open when calling postTeamDms'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/dms';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_direct_open)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_direct_open));
+            } else {
+                $httpBody = $team_team_direct_open;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postTeamDocs
+     *
+     * Creates a document, as the caller, after its siblings.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamDocNew $team_team_doc_new team_team_doc_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDocs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamDoc|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postTeamDocs($team_team_doc_new, string $contentType = self::contentTypes['postTeamDocs'][0])
+    {
+        list($response) = $this->postTeamDocsWithHttpInfo($team_team_doc_new, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postTeamDocsWithHttpInfo
+     *
+     * Creates a document, as the caller, after its siblings.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamDocNew $team_team_doc_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDocs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamDoc|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postTeamDocsWithHttpInfo($team_team_doc_new, string $contentType = self::contentTypes['postTeamDocs'][0])
+    {
+        $request = $this->postTeamDocsRequest($team_team_doc_new, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamDoc',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamDoc',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamDoc',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postTeamDocsAsync
+     *
+     * Creates a document, as the caller, after its siblings.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamDocNew $team_team_doc_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDocs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamDocsAsync($team_team_doc_new, string $contentType = self::contentTypes['postTeamDocs'][0])
+    {
+        return $this->postTeamDocsAsyncWithHttpInfo($team_team_doc_new, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postTeamDocsAsyncWithHttpInfo
+     *
+     * Creates a document, as the caller, after its siblings.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamDocNew $team_team_doc_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDocs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamDocsAsyncWithHttpInfo($team_team_doc_new, string $contentType = self::contentTypes['postTeamDocs'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamDoc';
+        $request = $this->postTeamDocsRequest($team_team_doc_new, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postTeamDocs'
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamDocNew $team_team_doc_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDocs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postTeamDocsRequest($team_team_doc_new, string $contentType = self::contentTypes['postTeamDocs'][0])
+    {
+
+        // verify the required parameter 'team_team_doc_new' is set
+        if ($team_team_doc_new === null || (is_array($team_team_doc_new) && count($team_team_doc_new) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_doc_new when calling postTeamDocs'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/docs';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_doc_new)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_doc_new));
+            } else {
+                $httpBody = $team_team_doc_new;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postTeamDocsByIdComments
+     *
+     * Comments on a document, as the caller.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamCommentWrite $team_team_comment_write team_team_comment_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDocsByIdComments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postTeamDocsByIdComments($id, $team_team_comment_write, string $contentType = self::contentTypes['postTeamDocsByIdComments'][0])
+    {
+        list($response) = $this->postTeamDocsByIdCommentsWithHttpInfo($id, $team_team_comment_write, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postTeamDocsByIdCommentsWithHttpInfo
+     *
+     * Comments on a document, as the caller.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamCommentWrite $team_team_comment_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDocsByIdComments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postTeamDocsByIdCommentsWithHttpInfo($id, $team_team_comment_write, string $contentType = self::contentTypes['postTeamDocsByIdComments'][0])
+    {
+        $request = $this->postTeamDocsByIdCommentsRequest($id, $team_team_comment_write, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamMessage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postTeamDocsByIdCommentsAsync
+     *
+     * Comments on a document, as the caller.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamCommentWrite $team_team_comment_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDocsByIdComments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamDocsByIdCommentsAsync($id, $team_team_comment_write, string $contentType = self::contentTypes['postTeamDocsByIdComments'][0])
+    {
+        return $this->postTeamDocsByIdCommentsAsyncWithHttpInfo($id, $team_team_comment_write, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postTeamDocsByIdCommentsAsyncWithHttpInfo
+     *
+     * Comments on a document, as the caller.
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamCommentWrite $team_team_comment_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDocsByIdComments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamDocsByIdCommentsAsyncWithHttpInfo($id, $team_team_comment_write, string $contentType = self::contentTypes['postTeamDocsByIdComments'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamMessage';
+        $request = $this->postTeamDocsByIdCommentsRequest($id, $team_team_comment_write, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postTeamDocsByIdComments'
+     *
+     * @param  string $id ID is the document, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamCommentWrite $team_team_comment_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamDocsByIdComments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postTeamDocsByIdCommentsRequest($id, $team_team_comment_write, string $contentType = self::contentTypes['postTeamDocsByIdComments'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postTeamDocsByIdComments'
+            );
+        }
+
+        // verify the required parameter 'team_team_comment_write' is set
+        if ($team_team_comment_write === null || (is_array($team_team_comment_write) && count($team_team_comment_write) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_comment_write when calling postTeamDocsByIdComments'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/docs/{id}/comments';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_comment_write)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_comment_write));
+            } else {
+                $httpBody = $team_team_comment_write;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4501,38 +10815,40 @@ class TeamApi
     }
 
     /**
-     * Operation postTeamRooms
+     * Operation postTeamInboxByIdArchive
      *
-     * Opens a named room and answers it as the store now holds it.
+     * Archives one of the caller&#39;s notifications — read, and out of the live inbox — and answers it.
      *
-     * @param  \Hanzo\Cloud\Model\TeamRoomNew $team_room_new team_room_new (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRooms'] to see the possible values for this operation
+     * @param  string $id ID is the notification, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAt $team_team_inbox_at team_team_inbox_at (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxByIdArchive'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TeamRoom
+     * @return \Hanzo\Cloud\Model\TeamTeamInboxItem|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postTeamRooms($team_room_new, string $contentType = self::contentTypes['postTeamRooms'][0])
+    public function postTeamInboxByIdArchive($id, $team_team_inbox_at, string $contentType = self::contentTypes['postTeamInboxByIdArchive'][0])
     {
-        list($response) = $this->postTeamRoomsWithHttpInfo($team_room_new, $contentType);
+        list($response) = $this->postTeamInboxByIdArchiveWithHttpInfo($id, $team_team_inbox_at, $contentType);
         return $response;
     }
 
     /**
-     * Operation postTeamRoomsWithHttpInfo
+     * Operation postTeamInboxByIdArchiveWithHttpInfo
      *
-     * Opens a named room and answers it as the store now holds it.
+     * Archives one of the caller&#39;s notifications — read, and out of the live inbox — and answers it.
      *
-     * @param  \Hanzo\Cloud\Model\TeamRoomNew $team_room_new (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRooms'] to see the possible values for this operation
+     * @param  string $id ID is the notification, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAt $team_team_inbox_at (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxByIdArchive'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TeamRoom, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TeamTeamInboxItem|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postTeamRoomsWithHttpInfo($team_room_new, string $contentType = self::contentTypes['postTeamRooms'][0])
+    public function postTeamInboxByIdArchiveWithHttpInfo($id, $team_team_inbox_at, string $contentType = self::contentTypes['postTeamInboxByIdArchive'][0])
     {
-        $request = $this->postTeamRoomsRequest($team_room_new, $contentType);
+        $request = $this->postTeamInboxByIdArchiveRequest($id, $team_team_inbox_at, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4558,9 +10874,15 @@ class TeamApi
 
 
             switch($statusCode) {
-                case 201:
+                case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TeamRoom',
+                        '\Hanzo\Cloud\Model\TeamTeamInboxItem',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4582,16 +10904,24 @@ class TeamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TeamRoom',
+                '\Hanzo\Cloud\Model\TeamTeamInboxItem',
                 $request,
                 $response,
             );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 201:
+                case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TeamRoom',
+                        '\Hanzo\Cloud\Model\TeamTeamInboxItem',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4604,19 +10934,20 @@ class TeamApi
     }
 
     /**
-     * Operation postTeamRoomsAsync
+     * Operation postTeamInboxByIdArchiveAsync
      *
-     * Opens a named room and answers it as the store now holds it.
+     * Archives one of the caller&#39;s notifications — read, and out of the live inbox — and answers it.
      *
-     * @param  \Hanzo\Cloud\Model\TeamRoomNew $team_room_new (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRooms'] to see the possible values for this operation
+     * @param  string $id ID is the notification, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAt $team_team_inbox_at (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxByIdArchive'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTeamRoomsAsync($team_room_new, string $contentType = self::contentTypes['postTeamRooms'][0])
+    public function postTeamInboxByIdArchiveAsync($id, $team_team_inbox_at, string $contentType = self::contentTypes['postTeamInboxByIdArchive'][0])
     {
-        return $this->postTeamRoomsAsyncWithHttpInfo($team_room_new, $contentType)
+        return $this->postTeamInboxByIdArchiveAsyncWithHttpInfo($id, $team_team_inbox_at, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4625,20 +10956,21 @@ class TeamApi
     }
 
     /**
-     * Operation postTeamRoomsAsyncWithHttpInfo
+     * Operation postTeamInboxByIdArchiveAsyncWithHttpInfo
      *
-     * Opens a named room and answers it as the store now holds it.
+     * Archives one of the caller&#39;s notifications — read, and out of the live inbox — and answers it.
      *
-     * @param  \Hanzo\Cloud\Model\TeamRoomNew $team_room_new (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRooms'] to see the possible values for this operation
+     * @param  string $id ID is the notification, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAt $team_team_inbox_at (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxByIdArchive'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTeamRoomsAsyncWithHttpInfo($team_room_new, string $contentType = self::contentTypes['postTeamRooms'][0])
+    public function postTeamInboxByIdArchiveAsyncWithHttpInfo($id, $team_team_inbox_at, string $contentType = self::contentTypes['postTeamInboxByIdArchive'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TeamRoom';
-        $request = $this->postTeamRoomsRequest($team_room_new, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamInboxItem';
+        $request = $this->postTeamInboxByIdArchiveRequest($id, $team_team_inbox_at, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4677,26 +11009,34 @@ class TeamApi
     }
 
     /**
-     * Create request for operation 'postTeamRooms'
+     * Create request for operation 'postTeamInboxByIdArchive'
      *
-     * @param  \Hanzo\Cloud\Model\TeamRoomNew $team_room_new (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRooms'] to see the possible values for this operation
+     * @param  string $id ID is the notification, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAt $team_team_inbox_at (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxByIdArchive'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postTeamRoomsRequest($team_room_new, string $contentType = self::contentTypes['postTeamRooms'][0])
+    public function postTeamInboxByIdArchiveRequest($id, $team_team_inbox_at, string $contentType = self::contentTypes['postTeamInboxByIdArchive'][0])
     {
 
-        // verify the required parameter 'team_room_new' is set
-        if ($team_room_new === null || (is_array($team_room_new) && count($team_room_new) === 0)) {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $team_room_new when calling postTeamRooms'
+                'Missing the required parameter $id when calling postTeamInboxByIdArchive'
+            );
+        }
+
+        // verify the required parameter 'team_team_inbox_at' is set
+        if ($team_team_inbox_at === null || (is_array($team_team_inbox_at) && count($team_team_inbox_at) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_inbox_at when calling postTeamInboxByIdArchive'
             );
         }
 
 
-        $resourcePath = '/v1/team/rooms';
+        $resourcePath = '/v1/team/inbox/{id}/archive';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4705,21 +11045,29 @@ class TeamApi
 
 
 
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($team_room_new)) {
+        if (isset($team_team_inbox_at)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_room_new));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_inbox_at));
             } else {
-                $httpBody = $team_room_new;
+                $httpBody = $team_team_inbox_at;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4772,40 +11120,40 @@ class TeamApi
     }
 
     /**
-     * Operation postTeamRoomsByIdMessages
+     * Operation postTeamInboxByIdRead
      *
-     * Says one thing in a room, as the caller.
+     * Marks one of the caller&#39;s notifications read and answers it.
      *
-     * @param  string $id ID is the room to say it in, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TeamMessageWrite $team_message_write team_message_write (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRoomsByIdMessages'] to see the possible values for this operation
+     * @param  string $id ID is the notification, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAt $team_team_inbox_at team_team_inbox_at (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxByIdRead'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TeamMessage
+     * @return \Hanzo\Cloud\Model\TeamTeamInboxItem|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postTeamRoomsByIdMessages($id, $team_message_write, string $contentType = self::contentTypes['postTeamRoomsByIdMessages'][0])
+    public function postTeamInboxByIdRead($id, $team_team_inbox_at, string $contentType = self::contentTypes['postTeamInboxByIdRead'][0])
     {
-        list($response) = $this->postTeamRoomsByIdMessagesWithHttpInfo($id, $team_message_write, $contentType);
+        list($response) = $this->postTeamInboxByIdReadWithHttpInfo($id, $team_team_inbox_at, $contentType);
         return $response;
     }
 
     /**
-     * Operation postTeamRoomsByIdMessagesWithHttpInfo
+     * Operation postTeamInboxByIdReadWithHttpInfo
      *
-     * Says one thing in a room, as the caller.
+     * Marks one of the caller&#39;s notifications read and answers it.
      *
-     * @param  string $id ID is the room to say it in, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TeamMessageWrite $team_message_write (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRoomsByIdMessages'] to see the possible values for this operation
+     * @param  string $id ID is the notification, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAt $team_team_inbox_at (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxByIdRead'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TeamMessage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TeamTeamInboxItem|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postTeamRoomsByIdMessagesWithHttpInfo($id, $team_message_write, string $contentType = self::contentTypes['postTeamRoomsByIdMessages'][0])
+    public function postTeamInboxByIdReadWithHttpInfo($id, $team_team_inbox_at, string $contentType = self::contentTypes['postTeamInboxByIdRead'][0])
     {
-        $request = $this->postTeamRoomsByIdMessagesRequest($id, $team_message_write, $contentType);
+        $request = $this->postTeamInboxByIdReadRequest($id, $team_team_inbox_at, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4831,9 +11179,15 @@ class TeamApi
 
 
             switch($statusCode) {
-                case 201:
+                case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TeamMessage',
+                        '\Hanzo\Cloud\Model\TeamTeamInboxItem',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4855,16 +11209,24 @@ class TeamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TeamMessage',
+                '\Hanzo\Cloud\Model\TeamTeamInboxItem',
                 $request,
                 $response,
             );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 201:
+                case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TeamMessage',
+                        '\Hanzo\Cloud\Model\TeamTeamInboxItem',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4877,20 +11239,20 @@ class TeamApi
     }
 
     /**
-     * Operation postTeamRoomsByIdMessagesAsync
+     * Operation postTeamInboxByIdReadAsync
      *
-     * Says one thing in a room, as the caller.
+     * Marks one of the caller&#39;s notifications read and answers it.
      *
-     * @param  string $id ID is the room to say it in, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TeamMessageWrite $team_message_write (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRoomsByIdMessages'] to see the possible values for this operation
+     * @param  string $id ID is the notification, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAt $team_team_inbox_at (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxByIdRead'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTeamRoomsByIdMessagesAsync($id, $team_message_write, string $contentType = self::contentTypes['postTeamRoomsByIdMessages'][0])
+    public function postTeamInboxByIdReadAsync($id, $team_team_inbox_at, string $contentType = self::contentTypes['postTeamInboxByIdRead'][0])
     {
-        return $this->postTeamRoomsByIdMessagesAsyncWithHttpInfo($id, $team_message_write, $contentType)
+        return $this->postTeamInboxByIdReadAsyncWithHttpInfo($id, $team_team_inbox_at, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4899,21 +11261,21 @@ class TeamApi
     }
 
     /**
-     * Operation postTeamRoomsByIdMessagesAsyncWithHttpInfo
+     * Operation postTeamInboxByIdReadAsyncWithHttpInfo
      *
-     * Says one thing in a room, as the caller.
+     * Marks one of the caller&#39;s notifications read and answers it.
      *
-     * @param  string $id ID is the room to say it in, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TeamMessageWrite $team_message_write (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRoomsByIdMessages'] to see the possible values for this operation
+     * @param  string $id ID is the notification, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAt $team_team_inbox_at (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxByIdRead'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTeamRoomsByIdMessagesAsyncWithHttpInfo($id, $team_message_write, string $contentType = self::contentTypes['postTeamRoomsByIdMessages'][0])
+    public function postTeamInboxByIdReadAsyncWithHttpInfo($id, $team_team_inbox_at, string $contentType = self::contentTypes['postTeamInboxByIdRead'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TeamMessage';
-        $request = $this->postTeamRoomsByIdMessagesRequest($id, $team_message_write, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamInboxItem';
+        $request = $this->postTeamInboxByIdReadRequest($id, $team_team_inbox_at, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4952,34 +11314,34 @@ class TeamApi
     }
 
     /**
-     * Create request for operation 'postTeamRoomsByIdMessages'
+     * Create request for operation 'postTeamInboxByIdRead'
      *
-     * @param  string $id ID is the room to say it in, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TeamMessageWrite $team_message_write (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRoomsByIdMessages'] to see the possible values for this operation
+     * @param  string $id ID is the notification, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAt $team_team_inbox_at (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxByIdRead'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postTeamRoomsByIdMessagesRequest($id, $team_message_write, string $contentType = self::contentTypes['postTeamRoomsByIdMessages'][0])
+    public function postTeamInboxByIdReadRequest($id, $team_team_inbox_at, string $contentType = self::contentTypes['postTeamInboxByIdRead'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postTeamRoomsByIdMessages'
+                'Missing the required parameter $id when calling postTeamInboxByIdRead'
             );
         }
 
-        // verify the required parameter 'team_message_write' is set
-        if ($team_message_write === null || (is_array($team_message_write) && count($team_message_write) === 0)) {
+        // verify the required parameter 'team_team_inbox_at' is set
+        if ($team_team_inbox_at === null || (is_array($team_team_inbox_at) && count($team_team_inbox_at) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $team_message_write when calling postTeamRoomsByIdMessages'
+                'Missing the required parameter $team_team_inbox_at when calling postTeamInboxByIdRead'
             );
         }
 
 
-        $resourcePath = '/v1/team/rooms/{id}/messages';
+        $resourcePath = '/v1/team/inbox/{id}/read';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4999,18 +11361,608 @@ class TeamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($team_message_write)) {
+        if (isset($team_team_inbox_at)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_message_write));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_inbox_at));
             } else {
-                $httpBody = $team_message_write;
+                $httpBody = $team_team_inbox_at;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postTeamInboxRead
+     *
+     * Marks every live notification of the caller&#39;s read, and says how many it changed.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAll $team_team_inbox_all team_team_inbox_all (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxRead'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamInboxCleared|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postTeamInboxRead($team_team_inbox_all, string $contentType = self::contentTypes['postTeamInboxRead'][0])
+    {
+        list($response) = $this->postTeamInboxReadWithHttpInfo($team_team_inbox_all, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postTeamInboxReadWithHttpInfo
+     *
+     * Marks every live notification of the caller&#39;s read, and says how many it changed.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAll $team_team_inbox_all (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxRead'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamInboxCleared|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postTeamInboxReadWithHttpInfo($team_team_inbox_all, string $contentType = self::contentTypes['postTeamInboxRead'][0])
+    {
+        $request = $this->postTeamInboxReadRequest($team_team_inbox_all, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamInboxCleared',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamInboxCleared',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamInboxCleared',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postTeamInboxReadAsync
+     *
+     * Marks every live notification of the caller&#39;s read, and says how many it changed.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAll $team_team_inbox_all (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxRead'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamInboxReadAsync($team_team_inbox_all, string $contentType = self::contentTypes['postTeamInboxRead'][0])
+    {
+        return $this->postTeamInboxReadAsyncWithHttpInfo($team_team_inbox_all, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postTeamInboxReadAsyncWithHttpInfo
+     *
+     * Marks every live notification of the caller&#39;s read, and says how many it changed.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAll $team_team_inbox_all (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxRead'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamInboxReadAsyncWithHttpInfo($team_team_inbox_all, string $contentType = self::contentTypes['postTeamInboxRead'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamInboxCleared';
+        $request = $this->postTeamInboxReadRequest($team_team_inbox_all, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postTeamInboxRead'
+     *
+     * @param  \Hanzo\Cloud\Model\TeamTeamInboxAll $team_team_inbox_all (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamInboxRead'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postTeamInboxReadRequest($team_team_inbox_all, string $contentType = self::contentTypes['postTeamInboxRead'][0])
+    {
+
+        // verify the required parameter 'team_team_inbox_all' is set
+        if ($team_team_inbox_all === null || (is_array($team_team_inbox_all) && count($team_team_inbox_all) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_inbox_all when calling postTeamInboxRead'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/inbox/read';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_inbox_all)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_inbox_all));
+            } else {
+                $httpBody = $team_team_inbox_all;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postTeamMessagesByIdReplies
+     *
+     * Answers a message in its thread, as the caller.
+     *
+     * @param  string $id ID is the message being answered, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamReplyWrite $team_team_reply_write team_team_reply_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamMessagesByIdReplies'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postTeamMessagesByIdReplies($id, $team_team_reply_write, string $contentType = self::contentTypes['postTeamMessagesByIdReplies'][0])
+    {
+        list($response) = $this->postTeamMessagesByIdRepliesWithHttpInfo($id, $team_team_reply_write, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postTeamMessagesByIdRepliesWithHttpInfo
+     *
+     * Answers a message in its thread, as the caller.
+     *
+     * @param  string $id ID is the message being answered, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamReplyWrite $team_team_reply_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamMessagesByIdReplies'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postTeamMessagesByIdRepliesWithHttpInfo($id, $team_team_reply_write, string $contentType = self::contentTypes['postTeamMessagesByIdReplies'][0])
+    {
+        $request = $this->postTeamMessagesByIdRepliesRequest($id, $team_team_reply_write, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamMessage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postTeamMessagesByIdRepliesAsync
+     *
+     * Answers a message in its thread, as the caller.
+     *
+     * @param  string $id ID is the message being answered, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamReplyWrite $team_team_reply_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamMessagesByIdReplies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamMessagesByIdRepliesAsync($id, $team_team_reply_write, string $contentType = self::contentTypes['postTeamMessagesByIdReplies'][0])
+    {
+        return $this->postTeamMessagesByIdRepliesAsyncWithHttpInfo($id, $team_team_reply_write, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postTeamMessagesByIdRepliesAsyncWithHttpInfo
+     *
+     * Answers a message in its thread, as the caller.
+     *
+     * @param  string $id ID is the message being answered, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamReplyWrite $team_team_reply_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamMessagesByIdReplies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamMessagesByIdRepliesAsyncWithHttpInfo($id, $team_team_reply_write, string $contentType = self::contentTypes['postTeamMessagesByIdReplies'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamMessage';
+        $request = $this->postTeamMessagesByIdRepliesRequest($id, $team_team_reply_write, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postTeamMessagesByIdReplies'
+     *
+     * @param  string $id ID is the message being answered, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamReplyWrite $team_team_reply_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamMessagesByIdReplies'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postTeamMessagesByIdRepliesRequest($id, $team_team_reply_write, string $contentType = self::contentTypes['postTeamMessagesByIdReplies'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postTeamMessagesByIdReplies'
+            );
+        }
+
+        // verify the required parameter 'team_team_reply_write' is set
+        if ($team_team_reply_write === null || (is_array($team_team_reply_write) && count($team_team_reply_write) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_reply_write when calling postTeamMessagesByIdReplies'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/messages/{id}/replies';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_reply_write)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_reply_write));
+            } else {
+                $httpBody = $team_team_reply_write;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5318,40 +12270,40 @@ class TeamApi
     }
 
     /**
-     * Operation putTeamRoomsById
+     * Operation putTeamChannelsById
      *
-     * States what a room is for: its lifecycle intent, and what it is about.
+     * States what a channel is for: its lifecycle intent, and what it is about.
      *
-     * @param  string $id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
-     * @param  \Hanzo\Cloud\Model\TeamRoomBind $team_room_bind team_room_bind (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamRoomsById'] to see the possible values for this operation
+     * @param  string $id ID is the channel to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelBind $team_team_channel_bind team_team_channel_bind (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamChannelsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TeamRoom
+     * @return \Hanzo\Cloud\Model\TeamTeamChannelOne|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putTeamRoomsById($id, $team_room_bind, string $contentType = self::contentTypes['putTeamRoomsById'][0])
+    public function putTeamChannelsById($id, $team_team_channel_bind, string $contentType = self::contentTypes['putTeamChannelsById'][0])
     {
-        list($response) = $this->putTeamRoomsByIdWithHttpInfo($id, $team_room_bind, $contentType);
+        list($response) = $this->putTeamChannelsByIdWithHttpInfo($id, $team_team_channel_bind, $contentType);
         return $response;
     }
 
     /**
-     * Operation putTeamRoomsByIdWithHttpInfo
+     * Operation putTeamChannelsByIdWithHttpInfo
      *
-     * States what a room is for: its lifecycle intent, and what it is about.
+     * States what a channel is for: its lifecycle intent, and what it is about.
      *
-     * @param  string $id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
-     * @param  \Hanzo\Cloud\Model\TeamRoomBind $team_room_bind (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamRoomsById'] to see the possible values for this operation
+     * @param  string $id ID is the channel to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelBind $team_team_channel_bind (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamChannelsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TeamRoom, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\TeamTeamChannelOne|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putTeamRoomsByIdWithHttpInfo($id, $team_room_bind, string $contentType = self::contentTypes['putTeamRoomsById'][0])
+    public function putTeamChannelsByIdWithHttpInfo($id, $team_team_channel_bind, string $contentType = self::contentTypes['putTeamChannelsById'][0])
     {
-        $request = $this->putTeamRoomsByIdRequest($id, $team_room_bind, $contentType);
+        $request = $this->putTeamChannelsByIdRequest($id, $team_team_channel_bind, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5379,7 +12331,13 @@ class TeamApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TeamRoom',
+                        '\Hanzo\Cloud\Model\TeamTeamChannelOne',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5401,7 +12359,7 @@ class TeamApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TeamRoom',
+                '\Hanzo\Cloud\Model\TeamTeamChannelOne',
                 $request,
                 $response,
             );
@@ -5410,7 +12368,15 @@ class TeamApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TeamRoom',
+                        '\Hanzo\Cloud\Model\TeamTeamChannelOne',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5423,20 +12389,20 @@ class TeamApi
     }
 
     /**
-     * Operation putTeamRoomsByIdAsync
+     * Operation putTeamChannelsByIdAsync
      *
-     * States what a room is for: its lifecycle intent, and what it is about.
+     * States what a channel is for: its lifecycle intent, and what it is about.
      *
-     * @param  string $id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
-     * @param  \Hanzo\Cloud\Model\TeamRoomBind $team_room_bind (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamRoomsById'] to see the possible values for this operation
+     * @param  string $id ID is the channel to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelBind $team_team_channel_bind (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamChannelsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTeamRoomsByIdAsync($id, $team_room_bind, string $contentType = self::contentTypes['putTeamRoomsById'][0])
+    public function putTeamChannelsByIdAsync($id, $team_team_channel_bind, string $contentType = self::contentTypes['putTeamChannelsById'][0])
     {
-        return $this->putTeamRoomsByIdAsyncWithHttpInfo($id, $team_room_bind, $contentType)
+        return $this->putTeamChannelsByIdAsyncWithHttpInfo($id, $team_team_channel_bind, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5445,21 +12411,21 @@ class TeamApi
     }
 
     /**
-     * Operation putTeamRoomsByIdAsyncWithHttpInfo
+     * Operation putTeamChannelsByIdAsyncWithHttpInfo
      *
-     * States what a room is for: its lifecycle intent, and what it is about.
+     * States what a channel is for: its lifecycle intent, and what it is about.
      *
-     * @param  string $id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
-     * @param  \Hanzo\Cloud\Model\TeamRoomBind $team_room_bind (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamRoomsById'] to see the possible values for this operation
+     * @param  string $id ID is the channel to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelBind $team_team_channel_bind (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamChannelsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putTeamRoomsByIdAsyncWithHttpInfo($id, $team_room_bind, string $contentType = self::contentTypes['putTeamRoomsById'][0])
+    public function putTeamChannelsByIdAsyncWithHttpInfo($id, $team_team_channel_bind, string $contentType = self::contentTypes['putTeamChannelsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TeamRoom';
-        $request = $this->putTeamRoomsByIdRequest($id, $team_room_bind, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamChannelOne';
+        $request = $this->putTeamChannelsByIdRequest($id, $team_team_channel_bind, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5498,34 +12464,34 @@ class TeamApi
     }
 
     /**
-     * Create request for operation 'putTeamRoomsById'
+     * Create request for operation 'putTeamChannelsById'
      *
-     * @param  string $id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
-     * @param  \Hanzo\Cloud\Model\TeamRoomBind $team_room_bind (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamRoomsById'] to see the possible values for this operation
+     * @param  string $id ID is the channel to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamChannelBind $team_team_channel_bind (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamChannelsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putTeamRoomsByIdRequest($id, $team_room_bind, string $contentType = self::contentTypes['putTeamRoomsById'][0])
+    public function putTeamChannelsByIdRequest($id, $team_team_channel_bind, string $contentType = self::contentTypes['putTeamChannelsById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling putTeamRoomsById'
+                'Missing the required parameter $id when calling putTeamChannelsById'
             );
         }
 
-        // verify the required parameter 'team_room_bind' is set
-        if ($team_room_bind === null || (is_array($team_room_bind) && count($team_room_bind) === 0)) {
+        // verify the required parameter 'team_team_channel_bind' is set
+        if ($team_team_channel_bind === null || (is_array($team_team_channel_bind) && count($team_team_channel_bind) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $team_room_bind when calling putTeamRoomsById'
+                'Missing the required parameter $team_team_channel_bind when calling putTeamChannelsById'
             );
         }
 
 
-        $resourcePath = '/v1/team/rooms/{id}';
+        $resourcePath = '/v1/team/channels/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5545,18 +12511,343 @@ class TeamApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($team_room_bind)) {
+        if (isset($team_team_channel_bind)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_room_bind));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_channel_bind));
             } else {
-                $httpBody = $team_room_bind;
+                $httpBody = $team_team_channel_bind;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putTeamMessagesByIdReactionsByEmoji
+     *
+     * Adds the caller&#39;s reaction to a message and answers the message with its reactions as they now stand.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string $emoji Emoji is the reaction, from the path (percent-encoded on the wire). (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamReactionWrite $team_team_reaction_write team_team_reaction_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamMessagesByIdReactionsByEmoji'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putTeamMessagesByIdReactionsByEmoji($id, $emoji, $team_team_reaction_write, string $contentType = self::contentTypes['putTeamMessagesByIdReactionsByEmoji'][0])
+    {
+        list($response) = $this->putTeamMessagesByIdReactionsByEmojiWithHttpInfo($id, $emoji, $team_team_reaction_write, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putTeamMessagesByIdReactionsByEmojiWithHttpInfo
+     *
+     * Adds the caller&#39;s reaction to a message and answers the message with its reactions as they now stand.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string $emoji Emoji is the reaction, from the path (percent-encoded on the wire). (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamReactionWrite $team_team_reaction_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamMessagesByIdReactionsByEmoji'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamTeamMessage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putTeamMessagesByIdReactionsByEmojiWithHttpInfo($id, $emoji, $team_team_reaction_write, string $contentType = self::contentTypes['putTeamMessagesByIdReactionsByEmoji'][0])
+    {
+        $request = $this->putTeamMessagesByIdReactionsByEmojiRequest($id, $emoji, $team_team_reaction_write, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamTeamMessage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamTeamMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putTeamMessagesByIdReactionsByEmojiAsync
+     *
+     * Adds the caller&#39;s reaction to a message and answers the message with its reactions as they now stand.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string $emoji Emoji is the reaction, from the path (percent-encoded on the wire). (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamReactionWrite $team_team_reaction_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamMessagesByIdReactionsByEmoji'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putTeamMessagesByIdReactionsByEmojiAsync($id, $emoji, $team_team_reaction_write, string $contentType = self::contentTypes['putTeamMessagesByIdReactionsByEmoji'][0])
+    {
+        return $this->putTeamMessagesByIdReactionsByEmojiAsyncWithHttpInfo($id, $emoji, $team_team_reaction_write, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putTeamMessagesByIdReactionsByEmojiAsyncWithHttpInfo
+     *
+     * Adds the caller&#39;s reaction to a message and answers the message with its reactions as they now stand.
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string $emoji Emoji is the reaction, from the path (percent-encoded on the wire). (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamReactionWrite $team_team_reaction_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamMessagesByIdReactionsByEmoji'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putTeamMessagesByIdReactionsByEmojiAsyncWithHttpInfo($id, $emoji, $team_team_reaction_write, string $contentType = self::contentTypes['putTeamMessagesByIdReactionsByEmoji'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamTeamMessage';
+        $request = $this->putTeamMessagesByIdReactionsByEmojiRequest($id, $emoji, $team_team_reaction_write, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putTeamMessagesByIdReactionsByEmoji'
+     *
+     * @param  string $id ID is the message, from the path. (required)
+     * @param  string $emoji Emoji is the reaction, from the path (percent-encoded on the wire). (required)
+     * @param  \Hanzo\Cloud\Model\TeamTeamReactionWrite $team_team_reaction_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamMessagesByIdReactionsByEmoji'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putTeamMessagesByIdReactionsByEmojiRequest($id, $emoji, $team_team_reaction_write, string $contentType = self::contentTypes['putTeamMessagesByIdReactionsByEmoji'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling putTeamMessagesByIdReactionsByEmoji'
+            );
+        }
+
+        // verify the required parameter 'emoji' is set
+        if ($emoji === null || (is_array($emoji) && count($emoji) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $emoji when calling putTeamMessagesByIdReactionsByEmoji'
+            );
+        }
+
+        // verify the required parameter 'team_team_reaction_write' is set
+        if ($team_team_reaction_write === null || (is_array($team_team_reaction_write) && count($team_team_reaction_write) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_team_reaction_write when calling putTeamMessagesByIdReactionsByEmoji'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/messages/{id}/reactions/{emoji}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($emoji !== null) {
+            $resourcePath = str_replace(
+                '{' . 'emoji' . '}',
+                ObjectSerializer::toPathValue($emoji),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_team_reaction_write)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_team_reaction_write));
+            } else {
+                $httpBody = $team_team_reaction_write;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

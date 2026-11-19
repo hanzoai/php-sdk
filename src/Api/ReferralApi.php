@@ -80,6 +80,9 @@ class ReferralApi
         'postReferralClaim' => [
             'application/json',
         ],
+        'putReferral' => [
+            'application/json',
+        ],
     ];
 
     /**
@@ -137,7 +140,7 @@ class ReferralApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MyReferrals
+     * @return \Hanzo\Cloud\Model\ReferralMyReferrals|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getReferral(string $contentType = self::contentTypes['getReferral'][0])
     {
@@ -154,7 +157,7 @@ class ReferralApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MyReferrals, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ReferralMyReferrals|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getReferralWithHttpInfo(string $contentType = self::contentTypes['getReferral'][0])
     {
@@ -186,7 +189,13 @@ class ReferralApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MyReferrals',
+                        '\Hanzo\Cloud\Model\ReferralMyReferrals',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -208,7 +217,7 @@ class ReferralApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MyReferrals',
+                '\Hanzo\Cloud\Model\ReferralMyReferrals',
                 $request,
                 $response,
             );
@@ -217,7 +226,15 @@ class ReferralApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MyReferrals',
+                        '\Hanzo\Cloud\Model\ReferralMyReferrals',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -261,7 +278,7 @@ class ReferralApi
      */
     public function getReferralAsyncWithHttpInfo(string $contentType = self::contentTypes['getReferral'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MyReferrals';
+        $returnType = '\Hanzo\Cloud\Model\ReferralMyReferrals';
         $request = $this->getReferralRequest($contentType);
 
         return $this->client
@@ -324,7 +341,7 @@ class ReferralApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -385,16 +402,16 @@ class ReferralApi
      *
      * Records that the caller&#39;s org signed up through a referral code.
      *
-     * @param  \Hanzo\Cloud\Model\ClaimRequest $claim_request claim_request (required)
+     * @param  \Hanzo\Cloud\Model\ReferralClaimRequest $referral_claim_request referral_claim_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postReferralClaim'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ClaimView
+     * @return \Hanzo\Cloud\Model\ReferralClaimView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postReferralClaim($claim_request, string $contentType = self::contentTypes['postReferralClaim'][0])
+    public function postReferralClaim($referral_claim_request, string $contentType = self::contentTypes['postReferralClaim'][0])
     {
-        list($response) = $this->postReferralClaimWithHttpInfo($claim_request, $contentType);
+        list($response) = $this->postReferralClaimWithHttpInfo($referral_claim_request, $contentType);
         return $response;
     }
 
@@ -403,16 +420,16 @@ class ReferralApi
      *
      * Records that the caller&#39;s org signed up through a referral code.
      *
-     * @param  \Hanzo\Cloud\Model\ClaimRequest $claim_request (required)
+     * @param  \Hanzo\Cloud\Model\ReferralClaimRequest $referral_claim_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postReferralClaim'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ClaimView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ReferralClaimView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postReferralClaimWithHttpInfo($claim_request, string $contentType = self::contentTypes['postReferralClaim'][0])
+    public function postReferralClaimWithHttpInfo($referral_claim_request, string $contentType = self::contentTypes['postReferralClaim'][0])
     {
-        $request = $this->postReferralClaimRequest($claim_request, $contentType);
+        $request = $this->postReferralClaimRequest($referral_claim_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -440,7 +457,13 @@ class ReferralApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ClaimView',
+                        '\Hanzo\Cloud\Model\ReferralClaimView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -462,7 +485,7 @@ class ReferralApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ClaimView',
+                '\Hanzo\Cloud\Model\ReferralClaimView',
                 $request,
                 $response,
             );
@@ -471,7 +494,15 @@ class ReferralApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ClaimView',
+                        '\Hanzo\Cloud\Model\ReferralClaimView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -488,15 +519,15 @@ class ReferralApi
      *
      * Records that the caller&#39;s org signed up through a referral code.
      *
-     * @param  \Hanzo\Cloud\Model\ClaimRequest $claim_request (required)
+     * @param  \Hanzo\Cloud\Model\ReferralClaimRequest $referral_claim_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postReferralClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postReferralClaimAsync($claim_request, string $contentType = self::contentTypes['postReferralClaim'][0])
+    public function postReferralClaimAsync($referral_claim_request, string $contentType = self::contentTypes['postReferralClaim'][0])
     {
-        return $this->postReferralClaimAsyncWithHttpInfo($claim_request, $contentType)
+        return $this->postReferralClaimAsyncWithHttpInfo($referral_claim_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -509,16 +540,16 @@ class ReferralApi
      *
      * Records that the caller&#39;s org signed up through a referral code.
      *
-     * @param  \Hanzo\Cloud\Model\ClaimRequest $claim_request (required)
+     * @param  \Hanzo\Cloud\Model\ReferralClaimRequest $referral_claim_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postReferralClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postReferralClaimAsyncWithHttpInfo($claim_request, string $contentType = self::contentTypes['postReferralClaim'][0])
+    public function postReferralClaimAsyncWithHttpInfo($referral_claim_request, string $contentType = self::contentTypes['postReferralClaim'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ClaimView';
-        $request = $this->postReferralClaimRequest($claim_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ReferralClaimView';
+        $request = $this->postReferralClaimRequest($referral_claim_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -559,19 +590,19 @@ class ReferralApi
     /**
      * Create request for operation 'postReferralClaim'
      *
-     * @param  \Hanzo\Cloud\Model\ClaimRequest $claim_request (required)
+     * @param  \Hanzo\Cloud\Model\ReferralClaimRequest $referral_claim_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postReferralClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postReferralClaimRequest($claim_request, string $contentType = self::contentTypes['postReferralClaim'][0])
+    public function postReferralClaimRequest($referral_claim_request, string $contentType = self::contentTypes['postReferralClaim'][0])
     {
 
-        // verify the required parameter 'claim_request' is set
-        if ($claim_request === null || (is_array($claim_request) && count($claim_request) === 0)) {
+        // verify the required parameter 'referral_claim_request' is set
+        if ($referral_claim_request === null || (is_array($referral_claim_request) && count($referral_claim_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $claim_request when calling postReferralClaim'
+                'Missing the required parameter $referral_claim_request when calling postReferralClaim'
             );
         }
 
@@ -588,18 +619,18 @@ class ReferralApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($claim_request)) {
+        if (isset($referral_claim_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($claim_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($referral_claim_request));
             } else {
-                $httpBody = $claim_request;
+                $httpBody = $referral_claim_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -645,6 +676,291 @@ class ReferralApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putReferral
+     *
+     * Updates the caller&#39;s referral code and returns the updated referral summary.
+     *
+     * @param  \Hanzo\Cloud\Model\ReferralSetCodeRequest $referral_set_code_request referral_set_code_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putReferral'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\ReferralMyReferrals|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putReferral($referral_set_code_request, string $contentType = self::contentTypes['putReferral'][0])
+    {
+        list($response) = $this->putReferralWithHttpInfo($referral_set_code_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putReferralWithHttpInfo
+     *
+     * Updates the caller&#39;s referral code and returns the updated referral summary.
+     *
+     * @param  \Hanzo\Cloud\Model\ReferralSetCodeRequest $referral_set_code_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putReferral'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\ReferralMyReferrals|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putReferralWithHttpInfo($referral_set_code_request, string $contentType = self::contentTypes['putReferral'][0])
+    {
+        $request = $this->putReferralRequest($referral_set_code_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ReferralMyReferrals',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ReferralMyReferrals',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ReferralMyReferrals',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putReferralAsync
+     *
+     * Updates the caller&#39;s referral code and returns the updated referral summary.
+     *
+     * @param  \Hanzo\Cloud\Model\ReferralSetCodeRequest $referral_set_code_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putReferral'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putReferralAsync($referral_set_code_request, string $contentType = self::contentTypes['putReferral'][0])
+    {
+        return $this->putReferralAsyncWithHttpInfo($referral_set_code_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putReferralAsyncWithHttpInfo
+     *
+     * Updates the caller&#39;s referral code and returns the updated referral summary.
+     *
+     * @param  \Hanzo\Cloud\Model\ReferralSetCodeRequest $referral_set_code_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putReferral'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putReferralAsyncWithHttpInfo($referral_set_code_request, string $contentType = self::contentTypes['putReferral'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\ReferralMyReferrals';
+        $request = $this->putReferralRequest($referral_set_code_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putReferral'
+     *
+     * @param  \Hanzo\Cloud\Model\ReferralSetCodeRequest $referral_set_code_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putReferral'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putReferralRequest($referral_set_code_request, string $contentType = self::contentTypes['putReferral'][0])
+    {
+
+        // verify the required parameter 'referral_set_code_request' is set
+        if ($referral_set_code_request === null || (is_array($referral_set_code_request) && count($referral_set_code_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $referral_set_code_request when calling putReferral'
+            );
+        }
+
+
+        $resourcePath = '/v1/referral';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($referral_set_code_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($referral_set_code_request));
+            } else {
+                $httpBody = $referral_set_code_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

@@ -57,8 +57,13 @@ class AiModelPricingInfo implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var string[]
       */
     protected static $openAPITypes = [
-        'input' => 'float',
-        'output' => 'float'
+        'completion' => 'string',
+        'input_per_million' => 'float',
+        'output_per_million' => 'float',
+        'overrides' => 'array<string,mixed>[]',
+        'prompt' => 'string',
+        'rates' => 'array<string,string>',
+        'variable' => 'bool'
     ];
 
     /**
@@ -69,8 +74,13 @@ class AiModelPricingInfo implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'input' => null,
-        'output' => null
+        'completion' => null,
+        'input_per_million' => null,
+        'output_per_million' => null,
+        'overrides' => null,
+        'prompt' => null,
+        'rates' => null,
+        'variable' => null
     ];
 
     /**
@@ -79,8 +89,13 @@ class AiModelPricingInfo implements ModelInterface, ArrayAccess, \JsonSerializab
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'input' => false,
-        'output' => false
+        'completion' => false,
+        'input_per_million' => false,
+        'output_per_million' => false,
+        'overrides' => false,
+        'prompt' => false,
+        'rates' => false,
+        'variable' => false
     ];
 
     /**
@@ -169,8 +184,13 @@ class AiModelPricingInfo implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $attributeMap = [
-        'input' => 'input',
-        'output' => 'output'
+        'completion' => 'completion',
+        'input_per_million' => 'input_per_million',
+        'output_per_million' => 'output_per_million',
+        'overrides' => 'overrides',
+        'prompt' => 'prompt',
+        'rates' => 'rates',
+        'variable' => 'variable'
     ];
 
     /**
@@ -179,8 +199,13 @@ class AiModelPricingInfo implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $setters = [
-        'input' => 'setInput',
-        'output' => 'setOutput'
+        'completion' => 'setCompletion',
+        'input_per_million' => 'setInputPerMillion',
+        'output_per_million' => 'setOutputPerMillion',
+        'overrides' => 'setOverrides',
+        'prompt' => 'setPrompt',
+        'rates' => 'setRates',
+        'variable' => 'setVariable'
     ];
 
     /**
@@ -189,8 +214,13 @@ class AiModelPricingInfo implements ModelInterface, ArrayAccess, \JsonSerializab
      * @var string[]
      */
     protected static $getters = [
-        'input' => 'getInput',
-        'output' => 'getOutput'
+        'completion' => 'getCompletion',
+        'input_per_million' => 'getInputPerMillion',
+        'output_per_million' => 'getOutputPerMillion',
+        'overrides' => 'getOverrides',
+        'prompt' => 'getPrompt',
+        'rates' => 'getRates',
+        'variable' => 'getVariable'
     ];
 
     /**
@@ -250,8 +280,13 @@ class AiModelPricingInfo implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('input', $data ?? [], null);
-        $this->setIfExists('output', $data ?? [], null);
+        $this->setIfExists('completion', $data ?? [], null);
+        $this->setIfExists('input_per_million', $data ?? [], null);
+        $this->setIfExists('output_per_million', $data ?? [], null);
+        $this->setIfExists('overrides', $data ?? [], null);
+        $this->setIfExists('prompt', $data ?? [], null);
+        $this->setIfExists('rates', $data ?? [], null);
+        $this->setIfExists('variable', $data ?? [], null);
     }
 
     /**
@@ -297,55 +332,190 @@ class AiModelPricingInfo implements ModelInterface, ArrayAccess, \JsonSerializab
 
 
     /**
-     * Gets input
+     * Gets completion
      *
-     * @return float|null
+     * @return string|null
      */
-    public function getInput()
+    public function getCompletion()
     {
-        return $this->container['input'];
+        return $this->container['completion'];
     }
 
     /**
-     * Sets input
+     * Sets completion
      *
-     * @param float|null $input input
+     * @param string|null $completion completion
      *
      * @return self
      */
-    public function setInput($input)
+    public function setCompletion($completion)
     {
-        if (is_null($input)) {
-            throw new \InvalidArgumentException('non-nullable input cannot be null');
+        if (is_null($completion)) {
+            throw new \InvalidArgumentException('non-nullable completion cannot be null');
         }
-        $this->container['input'] = $input;
+        $this->container['completion'] = $completion;
 
         return $this;
     }
 
     /**
-     * Gets output
+     * Gets input_per_million
      *
      * @return float|null
      */
-    public function getOutput()
+    public function getInputPerMillion()
     {
-        return $this->container['output'];
+        return $this->container['input_per_million'];
     }
 
     /**
-     * Sets output
+     * Sets input_per_million
      *
-     * @param float|null $output output
+     * @param float|null $input_per_million input_per_million
      *
      * @return self
      */
-    public function setOutput($output)
+    public function setInputPerMillion($input_per_million)
     {
-        if (is_null($output)) {
-            throw new \InvalidArgumentException('non-nullable output cannot be null');
+        if (is_null($input_per_million)) {
+            throw new \InvalidArgumentException('non-nullable input_per_million cannot be null');
         }
-        $this->container['output'] = $output;
+        $this->container['input_per_million'] = $input_per_million;
+
+        return $this;
+    }
+
+    /**
+     * Gets output_per_million
+     *
+     * @return float|null
+     */
+    public function getOutputPerMillion()
+    {
+        return $this->container['output_per_million'];
+    }
+
+    /**
+     * Sets output_per_million
+     *
+     * @param float|null $output_per_million output_per_million
+     *
+     * @return self
+     */
+    public function setOutputPerMillion($output_per_million)
+    {
+        if (is_null($output_per_million)) {
+            throw new \InvalidArgumentException('non-nullable output_per_million cannot be null');
+        }
+        $this->container['output_per_million'] = $output_per_million;
+
+        return $this;
+    }
+
+    /**
+     * Gets overrides
+     *
+     * @return array<string,mixed>[]|null
+     */
+    public function getOverrides()
+    {
+        return $this->container['overrides'];
+    }
+
+    /**
+     * Sets overrides
+     *
+     * @param array<string,mixed>[]|null $overrides overrides
+     *
+     * @return self
+     */
+    public function setOverrides($overrides)
+    {
+        if (is_null($overrides)) {
+            throw new \InvalidArgumentException('non-nullable overrides cannot be null');
+        }
+        $this->container['overrides'] = $overrides;
+
+        return $this;
+    }
+
+    /**
+     * Gets prompt
+     *
+     * @return string|null
+     */
+    public function getPrompt()
+    {
+        return $this->container['prompt'];
+    }
+
+    /**
+     * Sets prompt
+     *
+     * @param string|null $prompt prompt
+     *
+     * @return self
+     */
+    public function setPrompt($prompt)
+    {
+        if (is_null($prompt)) {
+            throw new \InvalidArgumentException('non-nullable prompt cannot be null');
+        }
+        $this->container['prompt'] = $prompt;
+
+        return $this;
+    }
+
+    /**
+     * Gets rates
+     *
+     * @return array<string,string>|null
+     */
+    public function getRates()
+    {
+        return $this->container['rates'];
+    }
+
+    /**
+     * Sets rates
+     *
+     * @param array<string,string>|null $rates rates
+     *
+     * @return self
+     */
+    public function setRates($rates)
+    {
+        if (is_null($rates)) {
+            throw new \InvalidArgumentException('non-nullable rates cannot be null');
+        }
+        $this->container['rates'] = $rates;
+
+        return $this;
+    }
+
+    /**
+     * Gets variable
+     *
+     * @return bool|null
+     */
+    public function getVariable()
+    {
+        return $this->container['variable'];
+    }
+
+    /**
+     * Sets variable
+     *
+     * @param bool|null $variable variable
+     *
+     * @return self
+     */
+    public function setVariable($variable)
+    {
+        if (is_null($variable)) {
+            throw new \InvalidArgumentException('non-nullable variable cannot be null');
+        }
+        $this->container['variable'] = $variable;
 
         return $this;
     }

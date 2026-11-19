@@ -74,7 +74,40 @@ class AiApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'aiChat' => [
+            'application/json',
+        ],
+        'aiDecide' => [
+            'application/json',
+        ],
+        'aiFrameEdit' => [
+            'application/json',
+        ],
+        'aiFrameGenerate' => [
+            'application/json',
+        ],
+        'aiLimits' => [
+            'application/json',
+        ],
         'aiMCPTools' => [
+            'application/json',
+        ],
+        'aiModels' => [
+            'application/json',
+        ],
+        'aiRateLimit' => [
+            'application/json',
+        ],
+        'aiSetRateLimit' => [
+            'application/json',
+        ],
+        'decisionsCorrect' => [
+            'application/json',
+        ],
+        'decisionsCorrections' => [
+            'application/json',
+        ],
+        'decisionsUncorrect' => [
             'application/json',
         ],
         'deleteAiArticlesByOwnerByName' => [
@@ -177,6 +210,9 @@ class AiApi
             'application/json',
         ],
         'deleteAiWorkflowsByOwnerByName' => [
+            'application/json',
+        ],
+        'deleteAudioTranscriptById' => [
             'application/json',
         ],
         'getAiAccount' => [
@@ -362,6 +398,9 @@ class AiApi
         'getAiRouterArtifactMeta' => [
             'application/json',
         ],
+        'getAiRouterCatalog' => [
+            'application/json',
+        ],
         'getAiRouterData' => [
             'application/json',
         ],
@@ -512,6 +551,12 @@ class AiApi
         'getModelsProviders' => [
             'application/json',
         ],
+        'getModelsVendorsByVendor' => [
+            'application/json',
+        ],
+        'getModelsVendorsByVendorEvents' => [
+            'application/json',
+        ],
         'getVideosById' => [
             'application/json',
         ],
@@ -612,6 +657,9 @@ class AiApi
             'application/json',
         ],
         'patchAiWorkflowsByOwnerByName' => [
+            'application/json',
+        ],
+        'post3dGenerations' => [
             'application/json',
         ],
         'postAiArticles' => [
@@ -743,6 +791,15 @@ class AiApi
         'postAiRouterArtifactMeta' => [
             'application/json',
         ],
+        'postAiRouterCatalogPropose' => [
+            'application/json',
+        ],
+        'postAiRouterCatalogRollback' => [
+            'application/json',
+        ],
+        'postAiRouterCatalogTest' => [
+            'application/json',
+        ],
         'postAiRouterDefaults' => [
             'application/json',
         ],
@@ -815,7 +872,16 @@ class AiApi
         'postAudioSpeech' => [
             'application/json',
         ],
+        'postAudioTranscript' => [
+            'application/json',
+        ],
+        'postAudioTranscriptById' => [
+            'application/json',
+        ],
         'postAudioTranscriptions' => [
+            'application/json',
+        ],
+        'postAudioTranscriptionsPublic' => [
             'application/json',
         ],
         'postAudioVoice' => [
@@ -833,7 +899,13 @@ class AiApi
         'postCompletions' => [
             'application/json',
         ],
+        'postDecisions' => [
+            'application/json',
+        ],
         'postEmbeddings' => [
+            'application/json',
+        ],
+        'postFoleyGenerations' => [
             'application/json',
         ],
         'postImagesGenerations' => [
@@ -846,6 +918,9 @@ class AiApi
             'application/json',
         ],
         'postModelsByModelAccess' => [
+            'application/json',
+        ],
+        'postMusicGenerations' => [
             'application/json',
         ],
         'postRerank' => [
@@ -903,6 +978,9 @@ class AiApi
             'application/json',
         ],
         'putAiRouterArtifactMeta' => [
+            'application/json',
+        ],
+        'putAiRouterCatalog' => [
             'application/json',
         ],
         'putAiRouterDefaults' => [
@@ -1002,16 +1080,1422 @@ class AiApi
     }
 
     /**
+     * Operation aiChat
+     *
+     * Asks one model one prompt and answers the reply, which model served it and who paid.
+     *
+     * @param  \Hanzo\Cloud\Model\AiChatIn $ai_chat_in ai_chat_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiChat'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AiChat|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function aiChat($ai_chat_in, string $contentType = self::contentTypes['aiChat'][0])
+    {
+        list($response) = $this->aiChatWithHttpInfo($ai_chat_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation aiChatWithHttpInfo
+     *
+     * Asks one model one prompt and answers the reply, which model served it and who paid.
+     *
+     * @param  \Hanzo\Cloud\Model\AiChatIn $ai_chat_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiChat'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AiChat|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function aiChatWithHttpInfo($ai_chat_in, string $contentType = self::contentTypes['aiChat'][0])
+    {
+        $request = $this->aiChatRequest($ai_chat_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiChat',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AiChat',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiChat',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation aiChatAsync
+     *
+     * Asks one model one prompt and answers the reply, which model served it and who paid.
+     *
+     * @param  \Hanzo\Cloud\Model\AiChatIn $ai_chat_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiChat'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiChatAsync($ai_chat_in, string $contentType = self::contentTypes['aiChat'][0])
+    {
+        return $this->aiChatAsyncWithHttpInfo($ai_chat_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation aiChatAsyncWithHttpInfo
+     *
+     * Asks one model one prompt and answers the reply, which model served it and who paid.
+     *
+     * @param  \Hanzo\Cloud\Model\AiChatIn $ai_chat_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiChat'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiChatAsyncWithHttpInfo($ai_chat_in, string $contentType = self::contentTypes['aiChat'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AiChat';
+        $request = $this->aiChatRequest($ai_chat_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'aiChat'
+     *
+     * @param  \Hanzo\Cloud\Model\AiChatIn $ai_chat_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiChat'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function aiChatRequest($ai_chat_in, string $contentType = self::contentTypes['aiChat'][0])
+    {
+
+        // verify the required parameter 'ai_chat_in' is set
+        if ($ai_chat_in === null || (is_array($ai_chat_in) && count($ai_chat_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_chat_in when calling aiChat'
+            );
+        }
+
+
+        $resourcePath = '/v1/ai/mcp/chat';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($ai_chat_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_chat_in));
+            } else {
+                $httpBody = $ai_chat_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation aiDecide
+     *
+     * Runs one decision — the caller&#39;s own POST /v1/decisions, gated and billed exactly as that route is — and answers the decision, which model served it and who paid.
+     *
+     * @param  \Hanzo\Cloud\Model\AiDecideIn $ai_decide_in ai_decide_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiDecide'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AiDecision|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function aiDecide($ai_decide_in, string $contentType = self::contentTypes['aiDecide'][0])
+    {
+        list($response) = $this->aiDecideWithHttpInfo($ai_decide_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation aiDecideWithHttpInfo
+     *
+     * Runs one decision — the caller&#39;s own POST /v1/decisions, gated and billed exactly as that route is — and answers the decision, which model served it and who paid.
+     *
+     * @param  \Hanzo\Cloud\Model\AiDecideIn $ai_decide_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiDecide'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AiDecision|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function aiDecideWithHttpInfo($ai_decide_in, string $contentType = self::contentTypes['aiDecide'][0])
+    {
+        $request = $this->aiDecideRequest($ai_decide_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiDecision',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AiDecision',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiDecision',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation aiDecideAsync
+     *
+     * Runs one decision — the caller&#39;s own POST /v1/decisions, gated and billed exactly as that route is — and answers the decision, which model served it and who paid.
+     *
+     * @param  \Hanzo\Cloud\Model\AiDecideIn $ai_decide_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiDecide'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiDecideAsync($ai_decide_in, string $contentType = self::contentTypes['aiDecide'][0])
+    {
+        return $this->aiDecideAsyncWithHttpInfo($ai_decide_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation aiDecideAsyncWithHttpInfo
+     *
+     * Runs one decision — the caller&#39;s own POST /v1/decisions, gated and billed exactly as that route is — and answers the decision, which model served it and who paid.
+     *
+     * @param  \Hanzo\Cloud\Model\AiDecideIn $ai_decide_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiDecide'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiDecideAsyncWithHttpInfo($ai_decide_in, string $contentType = self::contentTypes['aiDecide'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AiDecision';
+        $request = $this->aiDecideRequest($ai_decide_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'aiDecide'
+     *
+     * @param  \Hanzo\Cloud\Model\AiDecideIn $ai_decide_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiDecide'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function aiDecideRequest($ai_decide_in, string $contentType = self::contentTypes['aiDecide'][0])
+    {
+
+        // verify the required parameter 'ai_decide_in' is set
+        if ($ai_decide_in === null || (is_array($ai_decide_in) && count($ai_decide_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_decide_in when calling aiDecide'
+            );
+        }
+
+
+        $resourcePath = '/v1/ai/mcp/decisions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($ai_decide_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_decide_in));
+            } else {
+                $httpBody = $ai_decide_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation aiFrameEdit
+     *
+     * Edits an existing Hyperframe composite or its layer stack (POST /v1/frame/edits): pass background_b64 and layers (or headline, layout, theme, terminal, instruction, or layer_patches) to redesign text, reposition panels, swap themes (light, glass, dark), or add custom card/HTML layers in ~15ms with zero diffusion cost; or set edit_background&#x3D;true (with qwen-image-edit or iro) to redo the visual background while keeping all typography and UI layers intact.
+     *
+     * @param  \Hanzo\Cloud\Model\AiFrameIn $ai_frame_in ai_frame_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiFrameEdit'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AiFrameOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function aiFrameEdit($ai_frame_in, string $contentType = self::contentTypes['aiFrameEdit'][0])
+    {
+        list($response) = $this->aiFrameEditWithHttpInfo($ai_frame_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation aiFrameEditWithHttpInfo
+     *
+     * Edits an existing Hyperframe composite or its layer stack (POST /v1/frame/edits): pass background_b64 and layers (or headline, layout, theme, terminal, instruction, or layer_patches) to redesign text, reposition panels, swap themes (light, glass, dark), or add custom card/HTML layers in ~15ms with zero diffusion cost; or set edit_background&#x3D;true (with qwen-image-edit or iro) to redo the visual background while keeping all typography and UI layers intact.
+     *
+     * @param  \Hanzo\Cloud\Model\AiFrameIn $ai_frame_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiFrameEdit'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AiFrameOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function aiFrameEditWithHttpInfo($ai_frame_in, string $contentType = self::contentTypes['aiFrameEdit'][0])
+    {
+        $request = $this->aiFrameEditRequest($ai_frame_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiFrameOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AiFrameOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiFrameOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation aiFrameEditAsync
+     *
+     * Edits an existing Hyperframe composite or its layer stack (POST /v1/frame/edits): pass background_b64 and layers (or headline, layout, theme, terminal, instruction, or layer_patches) to redesign text, reposition panels, swap themes (light, glass, dark), or add custom card/HTML layers in ~15ms with zero diffusion cost; or set edit_background&#x3D;true (with qwen-image-edit or iro) to redo the visual background while keeping all typography and UI layers intact.
+     *
+     * @param  \Hanzo\Cloud\Model\AiFrameIn $ai_frame_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiFrameEdit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiFrameEditAsync($ai_frame_in, string $contentType = self::contentTypes['aiFrameEdit'][0])
+    {
+        return $this->aiFrameEditAsyncWithHttpInfo($ai_frame_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation aiFrameEditAsyncWithHttpInfo
+     *
+     * Edits an existing Hyperframe composite or its layer stack (POST /v1/frame/edits): pass background_b64 and layers (or headline, layout, theme, terminal, instruction, or layer_patches) to redesign text, reposition panels, swap themes (light, glass, dark), or add custom card/HTML layers in ~15ms with zero diffusion cost; or set edit_background&#x3D;true (with qwen-image-edit or iro) to redo the visual background while keeping all typography and UI layers intact.
+     *
+     * @param  \Hanzo\Cloud\Model\AiFrameIn $ai_frame_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiFrameEdit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiFrameEditAsyncWithHttpInfo($ai_frame_in, string $contentType = self::contentTypes['aiFrameEdit'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AiFrameOut';
+        $request = $this->aiFrameEditRequest($ai_frame_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'aiFrameEdit'
+     *
+     * @param  \Hanzo\Cloud\Model\AiFrameIn $ai_frame_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiFrameEdit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function aiFrameEditRequest($ai_frame_in, string $contentType = self::contentTypes['aiFrameEdit'][0])
+    {
+
+        // verify the required parameter 'ai_frame_in' is set
+        if ($ai_frame_in === null || (is_array($ai_frame_in) && count($ai_frame_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_frame_in when calling aiFrameEdit'
+            );
+        }
+
+
+        $resourcePath = '/v1/frame/edits';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($ai_frame_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_frame_in));
+            } else {
+                $httpBody = $ai_frame_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation aiFrameGenerate
+     *
+     * Generates a Hyperframe graphic composite (POST /v1/frame/generations): strips all copy and text triggers from the diffusion prompt so the image model (iro, qwen-image, z-image-turbo, flux-3) renders a strictly text-free background, auto-detects the dark hardware/terminal surface bounding box, and layers pixel-perfect @hanzo/font (Zen + Zen Mono) typography and interactive HTML/UI elements on top.
+     *
+     * @param  \Hanzo\Cloud\Model\AiFrameIn $ai_frame_in ai_frame_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiFrameGenerate'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AiFrameOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function aiFrameGenerate($ai_frame_in, string $contentType = self::contentTypes['aiFrameGenerate'][0])
+    {
+        list($response) = $this->aiFrameGenerateWithHttpInfo($ai_frame_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation aiFrameGenerateWithHttpInfo
+     *
+     * Generates a Hyperframe graphic composite (POST /v1/frame/generations): strips all copy and text triggers from the diffusion prompt so the image model (iro, qwen-image, z-image-turbo, flux-3) renders a strictly text-free background, auto-detects the dark hardware/terminal surface bounding box, and layers pixel-perfect @hanzo/font (Zen + Zen Mono) typography and interactive HTML/UI elements on top.
+     *
+     * @param  \Hanzo\Cloud\Model\AiFrameIn $ai_frame_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiFrameGenerate'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AiFrameOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function aiFrameGenerateWithHttpInfo($ai_frame_in, string $contentType = self::contentTypes['aiFrameGenerate'][0])
+    {
+        $request = $this->aiFrameGenerateRequest($ai_frame_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiFrameOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AiFrameOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiFrameOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation aiFrameGenerateAsync
+     *
+     * Generates a Hyperframe graphic composite (POST /v1/frame/generations): strips all copy and text triggers from the diffusion prompt so the image model (iro, qwen-image, z-image-turbo, flux-3) renders a strictly text-free background, auto-detects the dark hardware/terminal surface bounding box, and layers pixel-perfect @hanzo/font (Zen + Zen Mono) typography and interactive HTML/UI elements on top.
+     *
+     * @param  \Hanzo\Cloud\Model\AiFrameIn $ai_frame_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiFrameGenerate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiFrameGenerateAsync($ai_frame_in, string $contentType = self::contentTypes['aiFrameGenerate'][0])
+    {
+        return $this->aiFrameGenerateAsyncWithHttpInfo($ai_frame_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation aiFrameGenerateAsyncWithHttpInfo
+     *
+     * Generates a Hyperframe graphic composite (POST /v1/frame/generations): strips all copy and text triggers from the diffusion prompt so the image model (iro, qwen-image, z-image-turbo, flux-3) renders a strictly text-free background, auto-detects the dark hardware/terminal surface bounding box, and layers pixel-perfect @hanzo/font (Zen + Zen Mono) typography and interactive HTML/UI elements on top.
+     *
+     * @param  \Hanzo\Cloud\Model\AiFrameIn $ai_frame_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiFrameGenerate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiFrameGenerateAsyncWithHttpInfo($ai_frame_in, string $contentType = self::contentTypes['aiFrameGenerate'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AiFrameOut';
+        $request = $this->aiFrameGenerateRequest($ai_frame_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'aiFrameGenerate'
+     *
+     * @param  \Hanzo\Cloud\Model\AiFrameIn $ai_frame_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiFrameGenerate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function aiFrameGenerateRequest($ai_frame_in, string $contentType = self::contentTypes['aiFrameGenerate'][0])
+    {
+
+        // verify the required parameter 'ai_frame_in' is set
+        if ($ai_frame_in === null || (is_array($ai_frame_in) && count($ai_frame_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_frame_in when calling aiFrameGenerate'
+            );
+        }
+
+
+        $resourcePath = '/v1/frame/generations';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($ai_frame_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_frame_in));
+            } else {
+                $httpBody = $ai_frame_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation aiLimits
+     *
+     * Reads the caller&#39;s plan usage: for each class of model the plan includes, the share used of the billing period and of its short window, who pays for the next request, and whether the caller is in limited mode and why; the share used of the session and the day; and the ways on.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiLimits'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AiLimits|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function aiLimits(string $contentType = self::contentTypes['aiLimits'][0])
+    {
+        list($response) = $this->aiLimitsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation aiLimitsWithHttpInfo
+     *
+     * Reads the caller&#39;s plan usage: for each class of model the plan includes, the share used of the billing period and of its short window, who pays for the next request, and whether the caller is in limited mode and why; the share used of the session and the day; and the ways on.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiLimits'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AiLimits|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function aiLimitsWithHttpInfo(string $contentType = self::contentTypes['aiLimits'][0])
+    {
+        $request = $this->aiLimitsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiLimits',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AiLimits',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiLimits',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation aiLimitsAsync
+     *
+     * Reads the caller&#39;s plan usage: for each class of model the plan includes, the share used of the billing period and of its short window, who pays for the next request, and whether the caller is in limited mode and why; the share used of the session and the day; and the ways on.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiLimits'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiLimitsAsync(string $contentType = self::contentTypes['aiLimits'][0])
+    {
+        return $this->aiLimitsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation aiLimitsAsyncWithHttpInfo
+     *
+     * Reads the caller&#39;s plan usage: for each class of model the plan includes, the share used of the billing period and of its short window, who pays for the next request, and whether the caller is in limited mode and why; the share used of the session and the day; and the ways on.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiLimits'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiLimitsAsyncWithHttpInfo(string $contentType = self::contentTypes['aiLimits'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AiLimits';
+        $request = $this->aiLimitsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'aiLimits'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiLimits'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function aiLimitsRequest(string $contentType = self::contentTypes['aiLimits'][0])
+    {
+
+
+        $resourcePath = '/v1/ai/limits';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation aiMCPTools
      *
-     * Tools reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+     * Reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
      *
      * @param  bool|null $names Names asks for this process&#39;s tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\&quot;is the MCP server up and does it have anything behind it\&quot;) is answered by the count. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiMCPTools'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AiMCPSurface
+     * @return \Hanzo\Cloud\Model\AiMCPSurface|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function aiMCPTools($names = null, string $contentType = self::contentTypes['aiMCPTools'][0])
     {
@@ -1022,14 +2506,14 @@ class AiApi
     /**
      * Operation aiMCPToolsWithHttpInfo
      *
-     * Tools reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+     * Reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
      *
      * @param  bool|null $names Names asks for this process&#39;s tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\&quot;is the MCP server up and does it have anything behind it\&quot;) is answered by the count. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiMCPTools'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AiMCPSurface, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AiMCPSurface|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function aiMCPToolsWithHttpInfo($names = null, string $contentType = self::contentTypes['aiMCPTools'][0])
     {
@@ -1065,6 +2549,12 @@ class AiApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1097,6 +2587,14 @@ class AiApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1107,7 +2605,7 @@ class AiApi
     /**
      * Operation aiMCPToolsAsync
      *
-     * Tools reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+     * Reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
      *
      * @param  bool|null $names Names asks for this process&#39;s tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\&quot;is the MCP server up and does it have anything behind it\&quot;) is answered by the count. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiMCPTools'] to see the possible values for this operation
@@ -1128,7 +2626,7 @@ class AiApi
     /**
      * Operation aiMCPToolsAsyncWithHttpInfo
      *
-     * Tools reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+     * Reports what THIS PROCESS&#39;s MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
      *
      * @param  bool|null $names Names asks for this process&#39;s tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\&quot;is the MCP server up and does it have anything behind it\&quot;) is answered by the count. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiMCPTools'] to see the possible values for this operation
@@ -1212,7 +2710,7 @@ class AiApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1262,6 +2760,1769 @@ class AiApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation aiModels
+     *
+     * Searches the model catalog — the one GET /v1/models lists, every OpenRouter model among it as last synced — by text, class, family, capability or free, and answers each match with its class, family, whether it is free, its list price (per token and per million; variable for a router billed at the answering model&#39;s price; a resold model&#39;s every vendor rate and conditional rate as billed), context window, output bound, expiry and capabilities.
+     *
+     * @param  string|null $q Q matches the model&#39;s id, name, description or owner, ignoring case. (optional)
+     * @param  string|null $class Class keeps one class: premium (third-party frontier models), ours (Hanzo&#39;s priced models) or free. (optional)
+     * @param  string|null $family Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)
+     * @param  string|null $capability Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)
+     * @param  bool|null $free Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)
+     * @param  bool|null $zdr ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)
+     * @param  int|null $limit Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiModels'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AiModels|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function aiModels($q = null, $class = null, $family = null, $capability = null, $free = null, $zdr = null, $limit = null, string $contentType = self::contentTypes['aiModels'][0])
+    {
+        list($response) = $this->aiModelsWithHttpInfo($q, $class, $family, $capability, $free, $zdr, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation aiModelsWithHttpInfo
+     *
+     * Searches the model catalog — the one GET /v1/models lists, every OpenRouter model among it as last synced — by text, class, family, capability or free, and answers each match with its class, family, whether it is free, its list price (per token and per million; variable for a router billed at the answering model&#39;s price; a resold model&#39;s every vendor rate and conditional rate as billed), context window, output bound, expiry and capabilities.
+     *
+     * @param  string|null $q Q matches the model&#39;s id, name, description or owner, ignoring case. (optional)
+     * @param  string|null $class Class keeps one class: premium (third-party frontier models), ours (Hanzo&#39;s priced models) or free. (optional)
+     * @param  string|null $family Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)
+     * @param  string|null $capability Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)
+     * @param  bool|null $free Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)
+     * @param  bool|null $zdr ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)
+     * @param  int|null $limit Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiModels'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AiModels|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function aiModelsWithHttpInfo($q = null, $class = null, $family = null, $capability = null, $free = null, $zdr = null, $limit = null, string $contentType = self::contentTypes['aiModels'][0])
+    {
+        $request = $this->aiModelsRequest($q, $class, $family, $capability, $free, $zdr, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiModels',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AiModels',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiModels',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation aiModelsAsync
+     *
+     * Searches the model catalog — the one GET /v1/models lists, every OpenRouter model among it as last synced — by text, class, family, capability or free, and answers each match with its class, family, whether it is free, its list price (per token and per million; variable for a router billed at the answering model&#39;s price; a resold model&#39;s every vendor rate and conditional rate as billed), context window, output bound, expiry and capabilities.
+     *
+     * @param  string|null $q Q matches the model&#39;s id, name, description or owner, ignoring case. (optional)
+     * @param  string|null $class Class keeps one class: premium (third-party frontier models), ours (Hanzo&#39;s priced models) or free. (optional)
+     * @param  string|null $family Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)
+     * @param  string|null $capability Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)
+     * @param  bool|null $free Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)
+     * @param  bool|null $zdr ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)
+     * @param  int|null $limit Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiModels'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiModelsAsync($q = null, $class = null, $family = null, $capability = null, $free = null, $zdr = null, $limit = null, string $contentType = self::contentTypes['aiModels'][0])
+    {
+        return $this->aiModelsAsyncWithHttpInfo($q, $class, $family, $capability, $free, $zdr, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation aiModelsAsyncWithHttpInfo
+     *
+     * Searches the model catalog — the one GET /v1/models lists, every OpenRouter model among it as last synced — by text, class, family, capability or free, and answers each match with its class, family, whether it is free, its list price (per token and per million; variable for a router billed at the answering model&#39;s price; a resold model&#39;s every vendor rate and conditional rate as billed), context window, output bound, expiry and capabilities.
+     *
+     * @param  string|null $q Q matches the model&#39;s id, name, description or owner, ignoring case. (optional)
+     * @param  string|null $class Class keeps one class: premium (third-party frontier models), ours (Hanzo&#39;s priced models) or free. (optional)
+     * @param  string|null $family Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)
+     * @param  string|null $capability Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)
+     * @param  bool|null $free Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)
+     * @param  bool|null $zdr ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)
+     * @param  int|null $limit Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiModels'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiModelsAsyncWithHttpInfo($q = null, $class = null, $family = null, $capability = null, $free = null, $zdr = null, $limit = null, string $contentType = self::contentTypes['aiModels'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AiModels';
+        $request = $this->aiModelsRequest($q, $class, $family, $capability, $free, $zdr, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'aiModels'
+     *
+     * @param  string|null $q Q matches the model&#39;s id, name, description or owner, ignoring case. (optional)
+     * @param  string|null $class Class keeps one class: premium (third-party frontier models), ours (Hanzo&#39;s priced models) or free. (optional)
+     * @param  string|null $family Family keeps one Hanzo family: enso, zen, kai or zoo. (optional)
+     * @param  string|null $capability Capability keeps the models that have it: tools, vision or reasoning, or a modality they take or give (text, image, audio, file, video, decision). (optional)
+     * @param  bool|null $free Free keeps the models a call to which bills nothing (bounded by the free allowances instead of a balance). (optional)
+     * @param  bool|null $zdr ZDR keeps only models eligible for Zero Data Retention (excludes free and data-shared routes). (optional)
+     * @param  int|null $limit Limit is the most models to answer, 1 to 500; 0 answers 50. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiModels'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function aiModelsRequest($q = null, $class = null, $family = null, $capability = null, $free = null, $zdr = null, $limit = null, string $contentType = self::contentTypes['aiModels'][0])
+    {
+
+
+
+
+
+
+
+
+
+        $resourcePath = '/v1/ai/mcp/models';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $q,
+            'q', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $class,
+            'class', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $family,
+            'family', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $capability,
+            'capability', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $free,
+            'free', // param base name
+            'boolean', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $zdr,
+            'zdr', // param base name
+            'boolean', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation aiRateLimit
+     *
+     * Reads the per-minute limit as it governs the organization the caller acts in: the model requests one person may make in a minute on every surface — the API, chat, coding runs, bots and MCP — the platform&#39;s default, which is the most the organization may set, and the organization&#39;s own setting.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiRateLimit'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AiRate|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function aiRateLimit(string $contentType = self::contentTypes['aiRateLimit'][0])
+    {
+        list($response) = $this->aiRateLimitWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation aiRateLimitWithHttpInfo
+     *
+     * Reads the per-minute limit as it governs the organization the caller acts in: the model requests one person may make in a minute on every surface — the API, chat, coding runs, bots and MCP — the platform&#39;s default, which is the most the organization may set, and the organization&#39;s own setting.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiRateLimit'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AiRate|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function aiRateLimitWithHttpInfo(string $contentType = self::contentTypes['aiRateLimit'][0])
+    {
+        $request = $this->aiRateLimitRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiRate',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AiRate',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiRate',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation aiRateLimitAsync
+     *
+     * Reads the per-minute limit as it governs the organization the caller acts in: the model requests one person may make in a minute on every surface — the API, chat, coding runs, bots and MCP — the platform&#39;s default, which is the most the organization may set, and the organization&#39;s own setting.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiRateLimit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiRateLimitAsync(string $contentType = self::contentTypes['aiRateLimit'][0])
+    {
+        return $this->aiRateLimitAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation aiRateLimitAsyncWithHttpInfo
+     *
+     * Reads the per-minute limit as it governs the organization the caller acts in: the model requests one person may make in a minute on every surface — the API, chat, coding runs, bots and MCP — the platform&#39;s default, which is the most the organization may set, and the organization&#39;s own setting.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiRateLimit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiRateLimitAsyncWithHttpInfo(string $contentType = self::contentTypes['aiRateLimit'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AiRate';
+        $request = $this->aiRateLimitRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'aiRateLimit'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiRateLimit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function aiRateLimitRequest(string $contentType = self::contentTypes['aiRateLimit'][0])
+    {
+
+
+        $resourcePath = '/v1/ai/limits/rate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation aiSetRateLimit
+     *
+     * Sets the model requests one person may make in a minute acting in the organization the caller acts in, on every surface: 1 up to the platform&#39;s default, never more, or 0 to hold its people to the default.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRateIn $ai_rate_in ai_rate_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiSetRateLimit'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AiRate|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function aiSetRateLimit($ai_rate_in, string $contentType = self::contentTypes['aiSetRateLimit'][0])
+    {
+        list($response) = $this->aiSetRateLimitWithHttpInfo($ai_rate_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation aiSetRateLimitWithHttpInfo
+     *
+     * Sets the model requests one person may make in a minute acting in the organization the caller acts in, on every surface: 1 up to the platform&#39;s default, never more, or 0 to hold its people to the default.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRateIn $ai_rate_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiSetRateLimit'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AiRate|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function aiSetRateLimitWithHttpInfo($ai_rate_in, string $contentType = self::contentTypes['aiSetRateLimit'][0])
+    {
+        $request = $this->aiSetRateLimitRequest($ai_rate_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiRate',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AiRate',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiRate',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation aiSetRateLimitAsync
+     *
+     * Sets the model requests one person may make in a minute acting in the organization the caller acts in, on every surface: 1 up to the platform&#39;s default, never more, or 0 to hold its people to the default.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRateIn $ai_rate_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiSetRateLimit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiSetRateLimitAsync($ai_rate_in, string $contentType = self::contentTypes['aiSetRateLimit'][0])
+    {
+        return $this->aiSetRateLimitAsyncWithHttpInfo($ai_rate_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation aiSetRateLimitAsyncWithHttpInfo
+     *
+     * Sets the model requests one person may make in a minute acting in the organization the caller acts in, on every surface: 1 up to the platform&#39;s default, never more, or 0 to hold its people to the default.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRateIn $ai_rate_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiSetRateLimit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function aiSetRateLimitAsyncWithHttpInfo($ai_rate_in, string $contentType = self::contentTypes['aiSetRateLimit'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AiRate';
+        $request = $this->aiSetRateLimitRequest($ai_rate_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'aiSetRateLimit'
+     *
+     * @param  \Hanzo\Cloud\Model\AiRateIn $ai_rate_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['aiSetRateLimit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function aiSetRateLimitRequest($ai_rate_in, string $contentType = self::contentTypes['aiSetRateLimit'][0])
+    {
+
+        // verify the required parameter 'ai_rate_in' is set
+        if ($ai_rate_in === null || (is_array($ai_rate_in) && count($ai_rate_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_rate_in when calling aiSetRateLimit'
+            );
+        }
+
+
+        $resourcePath = '/v1/ai/limits/rate';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($ai_rate_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_rate_in));
+            } else {
+                $httpBody = $ai_rate_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation decisionsCorrect
+     *
+     * Files a correction of one question of one of the org&#39;s Kai decisions: the right answer, which must be one of that question&#39;s options and not what Kai answered, and why.
+     *
+     * @param  string $decision Decision is the decision&#39;s id. (required)
+     * @param  \Hanzo\Cloud\Model\CorrectIn $correct_in correct_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsCorrect'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\Correction|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function decisionsCorrect($decision, $correct_in, string $contentType = self::contentTypes['decisionsCorrect'][0])
+    {
+        list($response) = $this->decisionsCorrectWithHttpInfo($decision, $correct_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation decisionsCorrectWithHttpInfo
+     *
+     * Files a correction of one question of one of the org&#39;s Kai decisions: the right answer, which must be one of that question&#39;s options and not what Kai answered, and why.
+     *
+     * @param  string $decision Decision is the decision&#39;s id. (required)
+     * @param  \Hanzo\Cloud\Model\CorrectIn $correct_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsCorrect'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\Correction|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function decisionsCorrectWithHttpInfo($decision, $correct_in, string $contentType = self::contentTypes['decisionsCorrect'][0])
+    {
+        $request = $this->decisionsCorrectRequest($decision, $correct_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Correction',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Correction',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Correction',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation decisionsCorrectAsync
+     *
+     * Files a correction of one question of one of the org&#39;s Kai decisions: the right answer, which must be one of that question&#39;s options and not what Kai answered, and why.
+     *
+     * @param  string $decision Decision is the decision&#39;s id. (required)
+     * @param  \Hanzo\Cloud\Model\CorrectIn $correct_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsCorrect'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function decisionsCorrectAsync($decision, $correct_in, string $contentType = self::contentTypes['decisionsCorrect'][0])
+    {
+        return $this->decisionsCorrectAsyncWithHttpInfo($decision, $correct_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation decisionsCorrectAsyncWithHttpInfo
+     *
+     * Files a correction of one question of one of the org&#39;s Kai decisions: the right answer, which must be one of that question&#39;s options and not what Kai answered, and why.
+     *
+     * @param  string $decision Decision is the decision&#39;s id. (required)
+     * @param  \Hanzo\Cloud\Model\CorrectIn $correct_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsCorrect'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function decisionsCorrectAsyncWithHttpInfo($decision, $correct_in, string $contentType = self::contentTypes['decisionsCorrect'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\Correction';
+        $request = $this->decisionsCorrectRequest($decision, $correct_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'decisionsCorrect'
+     *
+     * @param  string $decision Decision is the decision&#39;s id. (required)
+     * @param  \Hanzo\Cloud\Model\CorrectIn $correct_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsCorrect'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function decisionsCorrectRequest($decision, $correct_in, string $contentType = self::contentTypes['decisionsCorrect'][0])
+    {
+
+        // verify the required parameter 'decision' is set
+        if ($decision === null || (is_array($decision) && count($decision) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $decision when calling decisionsCorrect'
+            );
+        }
+
+        // verify the required parameter 'correct_in' is set
+        if ($correct_in === null || (is_array($correct_in) && count($correct_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $correct_in when calling decisionsCorrect'
+            );
+        }
+
+
+        $resourcePath = '/v1/decisions/{decision}/corrections';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($decision !== null) {
+            $resourcePath = str_replace(
+                '{' . 'decision' . '}',
+                ObjectSerializer::toPathValue($decision),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($correct_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($correct_in));
+            } else {
+                $httpBody = $correct_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation decisionsCorrections
+     *
+     * Answers one of the org&#39;s decisions&#39; corrections, each captured (it can teach) or missing (the decision was made with capture off).
+     *
+     * @param  string $decision decision (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsCorrections'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\Corrections|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function decisionsCorrections($decision, string $contentType = self::contentTypes['decisionsCorrections'][0])
+    {
+        list($response) = $this->decisionsCorrectionsWithHttpInfo($decision, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation decisionsCorrectionsWithHttpInfo
+     *
+     * Answers one of the org&#39;s decisions&#39; corrections, each captured (it can teach) or missing (the decision was made with capture off).
+     *
+     * @param  string $decision (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsCorrections'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\Corrections|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function decisionsCorrectionsWithHttpInfo($decision, string $contentType = self::contentTypes['decisionsCorrections'][0])
+    {
+        $request = $this->decisionsCorrectionsRequest($decision, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Corrections',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Corrections',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Corrections',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation decisionsCorrectionsAsync
+     *
+     * Answers one of the org&#39;s decisions&#39; corrections, each captured (it can teach) or missing (the decision was made with capture off).
+     *
+     * @param  string $decision (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsCorrections'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function decisionsCorrectionsAsync($decision, string $contentType = self::contentTypes['decisionsCorrections'][0])
+    {
+        return $this->decisionsCorrectionsAsyncWithHttpInfo($decision, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation decisionsCorrectionsAsyncWithHttpInfo
+     *
+     * Answers one of the org&#39;s decisions&#39; corrections, each captured (it can teach) or missing (the decision was made with capture off).
+     *
+     * @param  string $decision (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsCorrections'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function decisionsCorrectionsAsyncWithHttpInfo($decision, string $contentType = self::contentTypes['decisionsCorrections'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\Corrections';
+        $request = $this->decisionsCorrectionsRequest($decision, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'decisionsCorrections'
+     *
+     * @param  string $decision (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsCorrections'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function decisionsCorrectionsRequest($decision, string $contentType = self::contentTypes['decisionsCorrections'][0])
+    {
+
+        // verify the required parameter 'decision' is set
+        if ($decision === null || (is_array($decision) && count($decision) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $decision when calling decisionsCorrections'
+            );
+        }
+
+
+        $resourcePath = '/v1/decisions/{decision}/corrections';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($decision !== null) {
+            $resourcePath = str_replace(
+                '{' . 'decision' . '}',
+                ObjectSerializer::toPathValue($decision),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation decisionsUncorrect
+     *
+     * Deletes one correction of one of the org&#39;s decisions.
+     *
+     * @param  string $decision decision (required)
+     * @param  string $id id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsUncorrect'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function decisionsUncorrect($decision, $id, string $contentType = self::contentTypes['decisionsUncorrect'][0])
+    {
+        $this->decisionsUncorrectWithHttpInfo($decision, $id, $contentType);
+    }
+
+    /**
+     * Operation decisionsUncorrectWithHttpInfo
+     *
+     * Deletes one correction of one of the org&#39;s decisions.
+     *
+     * @param  string $decision (required)
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsUncorrect'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function decisionsUncorrectWithHttpInfo($decision, $id, string $contentType = self::contentTypes['decisionsUncorrect'][0])
+    {
+        $request = $this->decisionsUncorrectRequest($decision, $id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation decisionsUncorrectAsync
+     *
+     * Deletes one correction of one of the org&#39;s decisions.
+     *
+     * @param  string $decision (required)
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsUncorrect'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function decisionsUncorrectAsync($decision, $id, string $contentType = self::contentTypes['decisionsUncorrect'][0])
+    {
+        return $this->decisionsUncorrectAsyncWithHttpInfo($decision, $id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation decisionsUncorrectAsyncWithHttpInfo
+     *
+     * Deletes one correction of one of the org&#39;s decisions.
+     *
+     * @param  string $decision (required)
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsUncorrect'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function decisionsUncorrectAsyncWithHttpInfo($decision, $id, string $contentType = self::contentTypes['decisionsUncorrect'][0])
+    {
+        $returnType = '';
+        $request = $this->decisionsUncorrectRequest($decision, $id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'decisionsUncorrect'
+     *
+     * @param  string $decision (required)
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['decisionsUncorrect'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function decisionsUncorrectRequest($decision, $id, string $contentType = self::contentTypes['decisionsUncorrect'][0])
+    {
+
+        // verify the required parameter 'decision' is set
+        if ($decision === null || (is_array($decision) && count($decision) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $decision when calling decisionsUncorrect'
+            );
+        }
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling decisionsUncorrect'
+            );
+        }
+
+
+        $resourcePath = '/v1/decisions/{decision}/corrections/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($decision !== null) {
+            $resourcePath = str_replace(
+                '{' . 'decision' . '}',
+                ObjectSerializer::toPathValue($decision),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -10721,6 +13982,228 @@ class AiApi
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteAudioTranscriptById
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $id id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAudioTranscriptById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteAudioTranscriptById($id, string $contentType = self::contentTypes['deleteAudioTranscriptById'][0])
+    {
+        $this->deleteAudioTranscriptByIdWithHttpInfo($id, $contentType);
+    }
+
+    /**
+     * Operation deleteAudioTranscriptByIdWithHttpInfo
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAudioTranscriptById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteAudioTranscriptByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteAudioTranscriptById'][0])
+    {
+        $request = $this->deleteAudioTranscriptByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteAudioTranscriptByIdAsync
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAudioTranscriptById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteAudioTranscriptByIdAsync($id, string $contentType = self::contentTypes['deleteAudioTranscriptById'][0])
+    {
+        return $this->deleteAudioTranscriptByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteAudioTranscriptByIdAsyncWithHttpInfo
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAudioTranscriptById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteAudioTranscriptByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteAudioTranscriptById'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteAudioTranscriptByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteAudioTranscriptById'
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAudioTranscriptById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteAudioTranscriptByIdRequest($id, string $contentType = self::contentTypes['deleteAudioTranscriptById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteAudioTranscriptById'
+            );
+        }
+
+
+        $resourcePath = '/v1/audio/transcript/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
             $contentType,
             $multipart
         );
@@ -26719,6 +30202,258 @@ class AiApi
     }
 
     /**
+     * Operation getAiRouterCatalog
+     *
+     * Lists the Zen and Enso routing catalogs: what each serves, its accounts and model health, and its version history.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAiRouterCatalog'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GetAiRouterCatalog200Response
+     */
+    public function getAiRouterCatalog(string $contentType = self::contentTypes['getAiRouterCatalog'][0])
+    {
+        list($response) = $this->getAiRouterCatalogWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getAiRouterCatalogWithHttpInfo
+     *
+     * Lists the Zen and Enso routing catalogs: what each serves, its accounts and model health, and its version history.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAiRouterCatalog'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GetAiRouterCatalog200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getAiRouterCatalogWithHttpInfo(string $contentType = self::contentTypes['getAiRouterCatalog'][0])
+    {
+        $request = $this->getAiRouterCatalogRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GetAiRouterCatalog200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GetAiRouterCatalog200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GetAiRouterCatalog200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getAiRouterCatalogAsync
+     *
+     * Lists the Zen and Enso routing catalogs: what each serves, its accounts and model health, and its version history.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAiRouterCatalog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAiRouterCatalogAsync(string $contentType = self::contentTypes['getAiRouterCatalog'][0])
+    {
+        return $this->getAiRouterCatalogAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getAiRouterCatalogAsyncWithHttpInfo
+     *
+     * Lists the Zen and Enso routing catalogs: what each serves, its accounts and model health, and its version history.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAiRouterCatalog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getAiRouterCatalogAsyncWithHttpInfo(string $contentType = self::contentTypes['getAiRouterCatalog'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GetAiRouterCatalog200Response';
+        $request = $this->getAiRouterCatalogRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getAiRouterCatalog'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAiRouterCatalog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getAiRouterCatalogRequest(string $contentType = self::contentTypes['getAiRouterCatalog'][0])
+    {
+
+
+        $resourcePath = '/v1/ai/router/catalog';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getAiRouterData
      *
      * Router Data
@@ -39739,6 +43474,450 @@ class AiApi
     }
 
     /**
+     * Operation getModelsVendorsByVendor
+     *
+     * Lists every model a vendor lists now, each entry exactly as the vendor listed it (prices, context, output bound, modalities, parameters, created, expiration), and when the list was last synced.
+     *
+     * @param  string $vendor vendor (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelsVendorsByVendor'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getModelsVendorsByVendor($vendor, string $contentType = self::contentTypes['getModelsVendorsByVendor'][0])
+    {
+        $this->getModelsVendorsByVendorWithHttpInfo($vendor, $contentType);
+    }
+
+    /**
+     * Operation getModelsVendorsByVendorWithHttpInfo
+     *
+     * Lists every model a vendor lists now, each entry exactly as the vendor listed it (prices, context, output bound, modalities, parameters, created, expiration), and when the list was last synced.
+     *
+     * @param  string $vendor (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelsVendorsByVendor'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getModelsVendorsByVendorWithHttpInfo($vendor, string $contentType = self::contentTypes['getModelsVendorsByVendor'][0])
+    {
+        $request = $this->getModelsVendorsByVendorRequest($vendor, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getModelsVendorsByVendorAsync
+     *
+     * Lists every model a vendor lists now, each entry exactly as the vendor listed it (prices, context, output bound, modalities, parameters, created, expiration), and when the list was last synced.
+     *
+     * @param  string $vendor (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelsVendorsByVendor'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelsVendorsByVendorAsync($vendor, string $contentType = self::contentTypes['getModelsVendorsByVendor'][0])
+    {
+        return $this->getModelsVendorsByVendorAsyncWithHttpInfo($vendor, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getModelsVendorsByVendorAsyncWithHttpInfo
+     *
+     * Lists every model a vendor lists now, each entry exactly as the vendor listed it (prices, context, output bound, modalities, parameters, created, expiration), and when the list was last synced.
+     *
+     * @param  string $vendor (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelsVendorsByVendor'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelsVendorsByVendorAsyncWithHttpInfo($vendor, string $contentType = self::contentTypes['getModelsVendorsByVendor'][0])
+    {
+        $returnType = '';
+        $request = $this->getModelsVendorsByVendorRequest($vendor, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getModelsVendorsByVendor'
+     *
+     * @param  string $vendor (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelsVendorsByVendor'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getModelsVendorsByVendorRequest($vendor, string $contentType = self::contentTypes['getModelsVendorsByVendor'][0])
+    {
+
+        // verify the required parameter 'vendor' is set
+        if ($vendor === null || (is_array($vendor) && count($vendor) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $vendor when calling getModelsVendorsByVendor'
+            );
+        }
+
+
+        $resourcePath = '/v1/models/vendors/{vendor}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($vendor !== null) {
+            $resourcePath = str_replace(
+                '{' . 'vendor' . '}',
+                ObjectSerializer::toPathValue($vendor),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getModelsVendorsByVendorEvents
+     *
+     * Lists the changes syncs read in a vendor&#39;s model list, newest first.
+     *
+     * @param  string $vendor vendor (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelsVendorsByVendorEvents'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getModelsVendorsByVendorEvents($vendor, string $contentType = self::contentTypes['getModelsVendorsByVendorEvents'][0])
+    {
+        $this->getModelsVendorsByVendorEventsWithHttpInfo($vendor, $contentType);
+    }
+
+    /**
+     * Operation getModelsVendorsByVendorEventsWithHttpInfo
+     *
+     * Lists the changes syncs read in a vendor&#39;s model list, newest first.
+     *
+     * @param  string $vendor (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelsVendorsByVendorEvents'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getModelsVendorsByVendorEventsWithHttpInfo($vendor, string $contentType = self::contentTypes['getModelsVendorsByVendorEvents'][0])
+    {
+        $request = $this->getModelsVendorsByVendorEventsRequest($vendor, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getModelsVendorsByVendorEventsAsync
+     *
+     * Lists the changes syncs read in a vendor&#39;s model list, newest first.
+     *
+     * @param  string $vendor (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelsVendorsByVendorEvents'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelsVendorsByVendorEventsAsync($vendor, string $contentType = self::contentTypes['getModelsVendorsByVendorEvents'][0])
+    {
+        return $this->getModelsVendorsByVendorEventsAsyncWithHttpInfo($vendor, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getModelsVendorsByVendorEventsAsyncWithHttpInfo
+     *
+     * Lists the changes syncs read in a vendor&#39;s model list, newest first.
+     *
+     * @param  string $vendor (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelsVendorsByVendorEvents'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getModelsVendorsByVendorEventsAsyncWithHttpInfo($vendor, string $contentType = self::contentTypes['getModelsVendorsByVendorEvents'][0])
+    {
+        $returnType = '';
+        $request = $this->getModelsVendorsByVendorEventsRequest($vendor, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getModelsVendorsByVendorEvents'
+     *
+     * @param  string $vendor (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getModelsVendorsByVendorEvents'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getModelsVendorsByVendorEventsRequest($vendor, string $contentType = self::contentTypes['getModelsVendorsByVendorEvents'][0])
+    {
+
+        // verify the required parameter 'vendor' is set
+        if ($vendor === null || (is_array($vendor) && count($vendor) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $vendor when calling getModelsVendorsByVendorEvents'
+            );
+        }
+
+
+        $resourcePath = '/v1/models/vendors/{vendor}/events';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($vendor !== null) {
+            $resourcePath = str_replace(
+                '{' . 'vendor' . '}',
+                ObjectSerializer::toPathValue($vendor),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getVideosById
      *
      * Implements GET /v1/videos/{id} — poll a job&#39;s status.
@@ -40239,15 +44418,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiArticlesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiArticles200Response
      */
-    public function patchAiArticlesByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiArticlesByOwnerByName'][0])
+    public function patchAiArticlesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiArticlesByOwnerByName'][0])
     {
-        list($response) = $this->patchAiArticlesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiArticlesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -40258,15 +44438,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiArticlesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiArticles200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiArticlesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiArticlesByOwnerByName'][0])
+    public function patchAiArticlesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiArticlesByOwnerByName'][0])
     {
-        $request = $this->patchAiArticlesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiArticlesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -40344,14 +44525,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiArticlesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiArticlesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiArticlesByOwnerByName'][0])
+    public function patchAiArticlesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiArticlesByOwnerByName'][0])
     {
-        return $this->patchAiArticlesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiArticlesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -40366,15 +44548,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiArticlesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiArticlesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiArticlesByOwnerByName'][0])
+    public function patchAiArticlesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiArticlesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiArticles200Response';
-        $request = $this->patchAiArticlesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiArticlesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -40417,12 +44600,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiArticlesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiArticlesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiArticlesByOwnerByName'][0])
+    public function patchAiArticlesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiArticlesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -40436,6 +44620,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiArticlesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiArticlesByOwnerByName'
             );
         }
 
@@ -40474,7 +44665,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -40531,15 +44729,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiAssetsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiAssets200Response
      */
-    public function patchAiAssetsByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiAssetsByOwnerByName'][0])
+    public function patchAiAssetsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiAssetsByOwnerByName'][0])
     {
-        list($response) = $this->patchAiAssetsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiAssetsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -40550,15 +44749,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiAssetsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiAssets200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiAssetsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiAssetsByOwnerByName'][0])
+    public function patchAiAssetsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiAssetsByOwnerByName'][0])
     {
-        $request = $this->patchAiAssetsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiAssetsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -40636,14 +44836,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiAssetsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiAssetsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiAssetsByOwnerByName'][0])
+    public function patchAiAssetsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiAssetsByOwnerByName'][0])
     {
-        return $this->patchAiAssetsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiAssetsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -40658,15 +44859,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiAssetsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiAssetsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiAssetsByOwnerByName'][0])
+    public function patchAiAssetsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiAssetsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiAssets200Response';
-        $request = $this->patchAiAssetsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiAssetsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -40709,12 +44911,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiAssetsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiAssetsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiAssetsByOwnerByName'][0])
+    public function patchAiAssetsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiAssetsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -40728,6 +44931,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiAssetsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiAssetsByOwnerByName'
             );
         }
 
@@ -40766,7 +44976,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -40823,15 +45040,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiChatsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiChats200Response
      */
-    public function patchAiChatsByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiChatsByOwnerByName'][0])
+    public function patchAiChatsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiChatsByOwnerByName'][0])
     {
-        list($response) = $this->patchAiChatsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiChatsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -40842,15 +45060,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiChatsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiChats200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiChatsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiChatsByOwnerByName'][0])
+    public function patchAiChatsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiChatsByOwnerByName'][0])
     {
-        $request = $this->patchAiChatsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiChatsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -40928,14 +45147,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiChatsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiChatsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiChatsByOwnerByName'][0])
+    public function patchAiChatsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiChatsByOwnerByName'][0])
     {
-        return $this->patchAiChatsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiChatsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -40950,15 +45170,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiChatsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiChatsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiChatsByOwnerByName'][0])
+    public function patchAiChatsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiChatsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiChats200Response';
-        $request = $this->patchAiChatsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiChatsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -41001,12 +45222,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiChatsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiChatsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiChatsByOwnerByName'][0])
+    public function patchAiChatsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiChatsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -41020,6 +45242,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiChatsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiChatsByOwnerByName'
             );
         }
 
@@ -41058,7 +45287,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -41115,15 +45351,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiDeploymentsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiDeployments200Response
      */
-    public function patchAiDeploymentsByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiDeploymentsByOwnerByName'][0])
+    public function patchAiDeploymentsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiDeploymentsByOwnerByName'][0])
     {
-        list($response) = $this->patchAiDeploymentsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiDeploymentsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -41134,15 +45371,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiDeploymentsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiDeployments200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiDeploymentsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiDeploymentsByOwnerByName'][0])
+    public function patchAiDeploymentsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiDeploymentsByOwnerByName'][0])
     {
-        $request = $this->patchAiDeploymentsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiDeploymentsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -41220,14 +45458,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiDeploymentsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiDeploymentsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiDeploymentsByOwnerByName'][0])
+    public function patchAiDeploymentsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiDeploymentsByOwnerByName'][0])
     {
-        return $this->patchAiDeploymentsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiDeploymentsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -41242,15 +45481,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiDeploymentsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiDeploymentsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiDeploymentsByOwnerByName'][0])
+    public function patchAiDeploymentsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiDeploymentsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiDeployments200Response';
-        $request = $this->patchAiDeploymentsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiDeploymentsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -41293,12 +45533,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiDeploymentsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiDeploymentsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiDeploymentsByOwnerByName'][0])
+    public function patchAiDeploymentsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiDeploymentsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -41312,6 +45553,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiDeploymentsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiDeploymentsByOwnerByName'
             );
         }
 
@@ -41350,7 +45598,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -41407,15 +45662,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiFiles200Response
      */
-    public function patchAiFilesByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiFilesByOwnerByName'][0])
+    public function patchAiFilesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiFilesByOwnerByName'][0])
     {
-        list($response) = $this->patchAiFilesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiFilesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -41426,15 +45682,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiFiles200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiFilesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiFilesByOwnerByName'][0])
+    public function patchAiFilesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiFilesByOwnerByName'][0])
     {
-        $request = $this->patchAiFilesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiFilesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -41512,14 +45769,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiFilesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiFilesByOwnerByName'][0])
+    public function patchAiFilesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiFilesByOwnerByName'][0])
     {
-        return $this->patchAiFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -41534,15 +45792,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiFilesByOwnerByName'][0])
+    public function patchAiFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiFilesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiFiles200Response';
-        $request = $this->patchAiFilesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiFilesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -41585,12 +45844,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiFilesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiFilesByOwnerByName'][0])
+    public function patchAiFilesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiFilesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -41604,6 +45864,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiFilesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiFilesByOwnerByName'
             );
         }
 
@@ -41642,7 +45909,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -41699,15 +45973,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiFormsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiForms200Response
      */
-    public function patchAiFormsByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiFormsByOwnerByName'][0])
+    public function patchAiFormsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiFormsByOwnerByName'][0])
     {
-        list($response) = $this->patchAiFormsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiFormsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -41718,15 +45993,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiFormsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiForms200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiFormsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiFormsByOwnerByName'][0])
+    public function patchAiFormsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiFormsByOwnerByName'][0])
     {
-        $request = $this->patchAiFormsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiFormsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -41804,14 +46080,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiFormsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiFormsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiFormsByOwnerByName'][0])
+    public function patchAiFormsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiFormsByOwnerByName'][0])
     {
-        return $this->patchAiFormsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiFormsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -41826,15 +46103,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiFormsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiFormsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiFormsByOwnerByName'][0])
+    public function patchAiFormsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiFormsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiForms200Response';
-        $request = $this->patchAiFormsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiFormsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -41877,12 +46155,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiFormsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiFormsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiFormsByOwnerByName'][0])
+    public function patchAiFormsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiFormsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -41896,6 +46175,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiFormsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiFormsByOwnerByName'
             );
         }
 
@@ -41934,7 +46220,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -41991,15 +46284,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiGraphsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiGraphs200Response
      */
-    public function patchAiGraphsByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiGraphsByOwnerByName'][0])
+    public function patchAiGraphsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiGraphsByOwnerByName'][0])
     {
-        list($response) = $this->patchAiGraphsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiGraphsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -42010,15 +46304,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiGraphsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiGraphs200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiGraphsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiGraphsByOwnerByName'][0])
+    public function patchAiGraphsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiGraphsByOwnerByName'][0])
     {
-        $request = $this->patchAiGraphsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiGraphsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -42096,14 +46391,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiGraphsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiGraphsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiGraphsByOwnerByName'][0])
+    public function patchAiGraphsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiGraphsByOwnerByName'][0])
     {
-        return $this->patchAiGraphsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiGraphsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -42118,15 +46414,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiGraphsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiGraphsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiGraphsByOwnerByName'][0])
+    public function patchAiGraphsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiGraphsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiGraphs200Response';
-        $request = $this->patchAiGraphsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiGraphsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -42169,12 +46466,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiGraphsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiGraphsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiGraphsByOwnerByName'][0])
+    public function patchAiGraphsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiGraphsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -42188,6 +46486,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiGraphsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiGraphsByOwnerByName'
             );
         }
 
@@ -42226,7 +46531,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -42283,15 +46595,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiMessagesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiMessages200Response
      */
-    public function patchAiMessagesByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiMessagesByOwnerByName'][0])
+    public function patchAiMessagesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiMessagesByOwnerByName'][0])
     {
-        list($response) = $this->patchAiMessagesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiMessagesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -42302,15 +46615,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiMessagesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiMessages200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiMessagesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiMessagesByOwnerByName'][0])
+    public function patchAiMessagesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiMessagesByOwnerByName'][0])
     {
-        $request = $this->patchAiMessagesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiMessagesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -42388,14 +46702,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiMessagesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiMessagesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiMessagesByOwnerByName'][0])
+    public function patchAiMessagesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiMessagesByOwnerByName'][0])
     {
-        return $this->patchAiMessagesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiMessagesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -42410,15 +46725,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiMessagesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiMessagesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiMessagesByOwnerByName'][0])
+    public function patchAiMessagesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiMessagesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiMessages200Response';
-        $request = $this->patchAiMessagesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiMessagesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -42461,12 +46777,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiMessagesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiMessagesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiMessagesByOwnerByName'][0])
+    public function patchAiMessagesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiMessagesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -42480,6 +46797,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiMessagesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiMessagesByOwnerByName'
             );
         }
 
@@ -42518,7 +46842,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -42575,15 +46906,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiNodesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiNodes200Response
      */
-    public function patchAiNodesByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiNodesByOwnerByName'][0])
+    public function patchAiNodesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiNodesByOwnerByName'][0])
     {
-        list($response) = $this->patchAiNodesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiNodesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -42594,15 +46926,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiNodesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiNodes200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiNodesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiNodesByOwnerByName'][0])
+    public function patchAiNodesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiNodesByOwnerByName'][0])
     {
-        $request = $this->patchAiNodesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiNodesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -42680,14 +47013,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiNodesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiNodesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiNodesByOwnerByName'][0])
+    public function patchAiNodesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiNodesByOwnerByName'][0])
     {
-        return $this->patchAiNodesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiNodesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -42702,15 +47036,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiNodesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiNodesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiNodesByOwnerByName'][0])
+    public function patchAiNodesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiNodesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiNodes200Response';
-        $request = $this->patchAiNodesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiNodesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -42753,12 +47088,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiNodesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiNodesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiNodesByOwnerByName'][0])
+    public function patchAiNodesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiNodesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -42772,6 +47108,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiNodesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiNodesByOwnerByName'
             );
         }
 
@@ -42810,7 +47153,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -43369,15 +47719,16 @@ class AiApi
      *
      * Preferences
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiPreferences'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function patchAiPreferences(string $contentType = self::contentTypes['patchAiPreferences'][0])
+    public function patchAiPreferences($body, string $contentType = self::contentTypes['patchAiPreferences'][0])
     {
-        list($response) = $this->patchAiPreferencesWithHttpInfo($contentType);
+        list($response) = $this->patchAiPreferencesWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -43386,15 +47737,16 @@ class AiApi
      *
      * Preferences
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiPreferences'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiPreferencesWithHttpInfo(string $contentType = self::contentTypes['patchAiPreferences'][0])
+    public function patchAiPreferencesWithHttpInfo($body, string $contentType = self::contentTypes['patchAiPreferences'][0])
     {
-        $request = $this->patchAiPreferencesRequest($contentType);
+        $request = $this->patchAiPreferencesRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -43470,14 +47822,15 @@ class AiApi
      *
      * Preferences
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiPreferences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiPreferencesAsync(string $contentType = self::contentTypes['patchAiPreferences'][0])
+    public function patchAiPreferencesAsync($body, string $contentType = self::contentTypes['patchAiPreferences'][0])
     {
-        return $this->patchAiPreferencesAsyncWithHttpInfo($contentType)
+        return $this->patchAiPreferencesAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -43490,15 +47843,16 @@ class AiApi
      *
      * Preferences
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiPreferences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiPreferencesAsyncWithHttpInfo(string $contentType = self::contentTypes['patchAiPreferences'][0])
+    public function patchAiPreferencesAsyncWithHttpInfo($body, string $contentType = self::contentTypes['patchAiPreferences'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->patchAiPreferencesRequest($contentType);
+        $request = $this->patchAiPreferencesRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -43539,13 +47893,21 @@ class AiApi
     /**
      * Create request for operation 'patchAiPreferences'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiPreferences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiPreferencesRequest(string $contentType = self::contentTypes['patchAiPreferences'][0])
+    public function patchAiPreferencesRequest($body, string $contentType = self::contentTypes['patchAiPreferences'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiPreferences'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/preferences';
@@ -43566,7 +47928,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -43623,15 +47992,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiProvidersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiProviders200Response
      */
-    public function patchAiProvidersByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiProvidersByOwnerByName'][0])
+    public function patchAiProvidersByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiProvidersByOwnerByName'][0])
     {
-        list($response) = $this->patchAiProvidersByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiProvidersByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -43642,15 +48012,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiProvidersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiProviders200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiProvidersByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiProvidersByOwnerByName'][0])
+    public function patchAiProvidersByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiProvidersByOwnerByName'][0])
     {
-        $request = $this->patchAiProvidersByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiProvidersByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -43728,14 +48099,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiProvidersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiProvidersByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiProvidersByOwnerByName'][0])
+    public function patchAiProvidersByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiProvidersByOwnerByName'][0])
     {
-        return $this->patchAiProvidersByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiProvidersByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -43750,15 +48122,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiProvidersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiProvidersByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiProvidersByOwnerByName'][0])
+    public function patchAiProvidersByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiProvidersByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiProviders200Response';
-        $request = $this->patchAiProvidersByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiProvidersByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -43801,12 +48174,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiProvidersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiProvidersByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiProvidersByOwnerByName'][0])
+    public function patchAiProvidersByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiProvidersByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -43820,6 +48194,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiProvidersByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiProvidersByOwnerByName'
             );
         }
 
@@ -43858,7 +48239,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -43915,15 +48303,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRecordsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiRecords200Response
      */
-    public function patchAiRecordsByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiRecordsByOwnerByName'][0])
+    public function patchAiRecordsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiRecordsByOwnerByName'][0])
     {
-        list($response) = $this->patchAiRecordsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiRecordsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -43934,15 +48323,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRecordsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiRecords200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiRecordsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiRecordsByOwnerByName'][0])
+    public function patchAiRecordsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiRecordsByOwnerByName'][0])
     {
-        $request = $this->patchAiRecordsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiRecordsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -44020,14 +48410,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRecordsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiRecordsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiRecordsByOwnerByName'][0])
+    public function patchAiRecordsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiRecordsByOwnerByName'][0])
     {
-        return $this->patchAiRecordsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiRecordsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -44042,15 +48433,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRecordsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiRecordsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiRecordsByOwnerByName'][0])
+    public function patchAiRecordsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiRecordsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiRecords200Response';
-        $request = $this->patchAiRecordsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiRecordsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -44093,12 +48485,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRecordsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiRecordsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiRecordsByOwnerByName'][0])
+    public function patchAiRecordsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiRecordsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -44112,6 +48505,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiRecordsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiRecordsByOwnerByName'
             );
         }
 
@@ -44150,7 +48550,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -44207,15 +48614,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRemoteConnectionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiRemoteConnections200Response
      */
-    public function patchAiRemoteConnectionsByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiRemoteConnectionsByOwnerByName'][0])
+    public function patchAiRemoteConnectionsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiRemoteConnectionsByOwnerByName'][0])
     {
-        list($response) = $this->patchAiRemoteConnectionsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiRemoteConnectionsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -44226,15 +48634,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRemoteConnectionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiRemoteConnections200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiRemoteConnectionsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiRemoteConnectionsByOwnerByName'][0])
+    public function patchAiRemoteConnectionsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiRemoteConnectionsByOwnerByName'][0])
     {
-        $request = $this->patchAiRemoteConnectionsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiRemoteConnectionsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -44312,14 +48721,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRemoteConnectionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiRemoteConnectionsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiRemoteConnectionsByOwnerByName'][0])
+    public function patchAiRemoteConnectionsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiRemoteConnectionsByOwnerByName'][0])
     {
-        return $this->patchAiRemoteConnectionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiRemoteConnectionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -44334,15 +48744,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRemoteConnectionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiRemoteConnectionsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiRemoteConnectionsByOwnerByName'][0])
+    public function patchAiRemoteConnectionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiRemoteConnectionsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiRemoteConnections200Response';
-        $request = $this->patchAiRemoteConnectionsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiRemoteConnectionsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -44385,12 +48796,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRemoteConnectionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiRemoteConnectionsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiRemoteConnectionsByOwnerByName'][0])
+    public function patchAiRemoteConnectionsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiRemoteConnectionsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -44404,6 +48816,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiRemoteConnectionsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiRemoteConnectionsByOwnerByName'
             );
         }
 
@@ -44442,7 +48861,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -45759,15 +50185,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRoutesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiRoutes200Response
      */
-    public function patchAiRoutesByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiRoutesByOwnerByName'][0])
+    public function patchAiRoutesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiRoutesByOwnerByName'][0])
     {
-        list($response) = $this->patchAiRoutesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiRoutesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -45778,15 +50205,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRoutesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiRoutes200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiRoutesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiRoutesByOwnerByName'][0])
+    public function patchAiRoutesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiRoutesByOwnerByName'][0])
     {
-        $request = $this->patchAiRoutesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiRoutesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -45864,14 +50292,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRoutesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiRoutesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiRoutesByOwnerByName'][0])
+    public function patchAiRoutesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiRoutesByOwnerByName'][0])
     {
-        return $this->patchAiRoutesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiRoutesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -45886,15 +50315,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRoutesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiRoutesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiRoutesByOwnerByName'][0])
+    public function patchAiRoutesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiRoutesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiRoutes200Response';
-        $request = $this->patchAiRoutesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiRoutesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -45937,12 +50367,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiRoutesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiRoutesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiRoutesByOwnerByName'][0])
+    public function patchAiRoutesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiRoutesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -45956,6 +50387,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiRoutesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiRoutesByOwnerByName'
             );
         }
 
@@ -45994,7 +50432,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -46051,15 +50496,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiScalesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiScales200Response
      */
-    public function patchAiScalesByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiScalesByOwnerByName'][0])
+    public function patchAiScalesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiScalesByOwnerByName'][0])
     {
-        list($response) = $this->patchAiScalesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiScalesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -46070,15 +50516,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiScalesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiScales200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiScalesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiScalesByOwnerByName'][0])
+    public function patchAiScalesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiScalesByOwnerByName'][0])
     {
-        $request = $this->patchAiScalesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiScalesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -46156,14 +50603,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiScalesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiScalesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiScalesByOwnerByName'][0])
+    public function patchAiScalesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiScalesByOwnerByName'][0])
     {
-        return $this->patchAiScalesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiScalesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -46178,15 +50626,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiScalesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiScalesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiScalesByOwnerByName'][0])
+    public function patchAiScalesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiScalesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiScales200Response';
-        $request = $this->patchAiScalesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiScalesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -46229,12 +50678,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiScalesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiScalesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiScalesByOwnerByName'][0])
+    public function patchAiScalesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiScalesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -46248,6 +50698,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiScalesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiScalesByOwnerByName'
             );
         }
 
@@ -46286,7 +50743,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -46343,15 +50807,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiScansByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiScans200Response
      */
-    public function patchAiScansByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiScansByOwnerByName'][0])
+    public function patchAiScansByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiScansByOwnerByName'][0])
     {
-        list($response) = $this->patchAiScansByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiScansByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -46362,15 +50827,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiScansByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiScans200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiScansByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiScansByOwnerByName'][0])
+    public function patchAiScansByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiScansByOwnerByName'][0])
     {
-        $request = $this->patchAiScansByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiScansByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -46448,14 +50914,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiScansByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiScansByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiScansByOwnerByName'][0])
+    public function patchAiScansByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiScansByOwnerByName'][0])
     {
-        return $this->patchAiScansByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiScansByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -46470,15 +50937,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiScansByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiScansByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiScansByOwnerByName'][0])
+    public function patchAiScansByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiScansByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiScans200Response';
-        $request = $this->patchAiScansByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiScansByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -46521,12 +50989,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiScansByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiScansByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiScansByOwnerByName'][0])
+    public function patchAiScansByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiScansByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -46540,6 +51009,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiScansByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiScansByOwnerByName'
             );
         }
 
@@ -46578,7 +51054,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -46635,15 +51118,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiSigninSessionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiSigninSessions200Response
      */
-    public function patchAiSigninSessionsByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiSigninSessionsByOwnerByName'][0])
+    public function patchAiSigninSessionsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiSigninSessionsByOwnerByName'][0])
     {
-        list($response) = $this->patchAiSigninSessionsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiSigninSessionsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -46654,15 +51138,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiSigninSessionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiSigninSessions200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiSigninSessionsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiSigninSessionsByOwnerByName'][0])
+    public function patchAiSigninSessionsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiSigninSessionsByOwnerByName'][0])
     {
-        $request = $this->patchAiSigninSessionsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiSigninSessionsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -46740,14 +51225,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiSigninSessionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiSigninSessionsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiSigninSessionsByOwnerByName'][0])
+    public function patchAiSigninSessionsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiSigninSessionsByOwnerByName'][0])
     {
-        return $this->patchAiSigninSessionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiSigninSessionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -46762,15 +51248,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiSigninSessionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiSigninSessionsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiSigninSessionsByOwnerByName'][0])
+    public function patchAiSigninSessionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiSigninSessionsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiSigninSessions200Response';
-        $request = $this->patchAiSigninSessionsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiSigninSessionsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -46813,12 +51300,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiSigninSessionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiSigninSessionsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiSigninSessionsByOwnerByName'][0])
+    public function patchAiSigninSessionsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiSigninSessionsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -46832,6 +51320,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiSigninSessionsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiSigninSessionsByOwnerByName'
             );
         }
 
@@ -46870,7 +51365,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -46927,15 +51429,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiStoresByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiStores200Response
      */
-    public function patchAiStoresByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiStoresByOwnerByName'][0])
+    public function patchAiStoresByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiStoresByOwnerByName'][0])
     {
-        list($response) = $this->patchAiStoresByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiStoresByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -46946,15 +51449,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiStoresByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiStores200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiStoresByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiStoresByOwnerByName'][0])
+    public function patchAiStoresByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiStoresByOwnerByName'][0])
     {
-        $request = $this->patchAiStoresByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiStoresByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -47032,14 +51536,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiStoresByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiStoresByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiStoresByOwnerByName'][0])
+    public function patchAiStoresByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiStoresByOwnerByName'][0])
     {
-        return $this->patchAiStoresByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiStoresByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -47054,15 +51559,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiStoresByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiStoresByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiStoresByOwnerByName'][0])
+    public function patchAiStoresByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiStoresByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiStores200Response';
-        $request = $this->patchAiStoresByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiStoresByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -47105,12 +51611,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiStoresByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiStoresByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiStoresByOwnerByName'][0])
+    public function patchAiStoresByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiStoresByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -47124,6 +51631,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiStoresByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiStoresByOwnerByName'
             );
         }
 
@@ -47162,7 +51676,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -47219,15 +51740,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTasksByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiTasks200Response
      */
-    public function patchAiTasksByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiTasksByOwnerByName'][0])
+    public function patchAiTasksByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiTasksByOwnerByName'][0])
     {
-        list($response) = $this->patchAiTasksByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiTasksByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -47238,15 +51760,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTasksByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiTasks200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiTasksByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiTasksByOwnerByName'][0])
+    public function patchAiTasksByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiTasksByOwnerByName'][0])
     {
-        $request = $this->patchAiTasksByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiTasksByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -47324,14 +51847,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTasksByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiTasksByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiTasksByOwnerByName'][0])
+    public function patchAiTasksByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiTasksByOwnerByName'][0])
     {
-        return $this->patchAiTasksByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiTasksByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -47346,15 +51870,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTasksByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiTasksByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiTasksByOwnerByName'][0])
+    public function patchAiTasksByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiTasksByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiTasks200Response';
-        $request = $this->patchAiTasksByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiTasksByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -47397,12 +51922,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTasksByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiTasksByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiTasksByOwnerByName'][0])
+    public function patchAiTasksByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiTasksByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -47416,6 +51942,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiTasksByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiTasksByOwnerByName'
             );
         }
 
@@ -47454,7 +51987,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -47511,15 +52051,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTemplatesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiTemplates200Response
      */
-    public function patchAiTemplatesByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiTemplatesByOwnerByName'][0])
+    public function patchAiTemplatesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiTemplatesByOwnerByName'][0])
     {
-        list($response) = $this->patchAiTemplatesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiTemplatesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -47530,15 +52071,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTemplatesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiTemplates200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiTemplatesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiTemplatesByOwnerByName'][0])
+    public function patchAiTemplatesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiTemplatesByOwnerByName'][0])
     {
-        $request = $this->patchAiTemplatesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiTemplatesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -47616,14 +52158,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTemplatesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiTemplatesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiTemplatesByOwnerByName'][0])
+    public function patchAiTemplatesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiTemplatesByOwnerByName'][0])
     {
-        return $this->patchAiTemplatesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiTemplatesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -47638,15 +52181,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTemplatesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiTemplatesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiTemplatesByOwnerByName'][0])
+    public function patchAiTemplatesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiTemplatesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiTemplates200Response';
-        $request = $this->patchAiTemplatesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiTemplatesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -47689,12 +52233,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTemplatesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiTemplatesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiTemplatesByOwnerByName'][0])
+    public function patchAiTemplatesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiTemplatesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -47708,6 +52253,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiTemplatesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiTemplatesByOwnerByName'
             );
         }
 
@@ -47746,7 +52298,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -47801,15 +52360,16 @@ class AiApi
      *
      * Training Contribution
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTrainingContribution'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function patchAiTrainingContribution(string $contentType = self::contentTypes['patchAiTrainingContribution'][0])
+    public function patchAiTrainingContribution($body, string $contentType = self::contentTypes['patchAiTrainingContribution'][0])
     {
-        list($response) = $this->patchAiTrainingContributionWithHttpInfo($contentType);
+        list($response) = $this->patchAiTrainingContributionWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -47818,15 +52378,16 @@ class AiApi
      *
      * Training Contribution
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTrainingContribution'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiTrainingContributionWithHttpInfo(string $contentType = self::contentTypes['patchAiTrainingContribution'][0])
+    public function patchAiTrainingContributionWithHttpInfo($body, string $contentType = self::contentTypes['patchAiTrainingContribution'][0])
     {
-        $request = $this->patchAiTrainingContributionRequest($contentType);
+        $request = $this->patchAiTrainingContributionRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -47902,14 +52463,15 @@ class AiApi
      *
      * Training Contribution
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTrainingContribution'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiTrainingContributionAsync(string $contentType = self::contentTypes['patchAiTrainingContribution'][0])
+    public function patchAiTrainingContributionAsync($body, string $contentType = self::contentTypes['patchAiTrainingContribution'][0])
     {
-        return $this->patchAiTrainingContributionAsyncWithHttpInfo($contentType)
+        return $this->patchAiTrainingContributionAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -47922,15 +52484,16 @@ class AiApi
      *
      * Training Contribution
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTrainingContribution'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiTrainingContributionAsyncWithHttpInfo(string $contentType = self::contentTypes['patchAiTrainingContribution'][0])
+    public function patchAiTrainingContributionAsyncWithHttpInfo($body, string $contentType = self::contentTypes['patchAiTrainingContribution'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->patchAiTrainingContributionRequest($contentType);
+        $request = $this->patchAiTrainingContributionRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -47971,13 +52534,21 @@ class AiApi
     /**
      * Create request for operation 'patchAiTrainingContribution'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTrainingContribution'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiTrainingContributionRequest(string $contentType = self::contentTypes['patchAiTrainingContribution'][0])
+    public function patchAiTrainingContributionRequest($body, string $contentType = self::contentTypes['patchAiTrainingContribution'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiTrainingContribution'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/training-contribution';
@@ -47998,7 +52569,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -48055,15 +52633,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTreeFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiTreeFiles200Response
      */
-    public function patchAiTreeFilesByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiTreeFilesByOwnerByName'][0])
+    public function patchAiTreeFilesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiTreeFilesByOwnerByName'][0])
     {
-        list($response) = $this->patchAiTreeFilesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiTreeFilesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -48074,15 +52653,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTreeFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiTreeFiles200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiTreeFilesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiTreeFilesByOwnerByName'][0])
+    public function patchAiTreeFilesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiTreeFilesByOwnerByName'][0])
     {
-        $request = $this->patchAiTreeFilesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiTreeFilesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -48160,14 +52740,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTreeFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiTreeFilesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiTreeFilesByOwnerByName'][0])
+    public function patchAiTreeFilesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiTreeFilesByOwnerByName'][0])
     {
-        return $this->patchAiTreeFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiTreeFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -48182,15 +52763,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTreeFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiTreeFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiTreeFilesByOwnerByName'][0])
+    public function patchAiTreeFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiTreeFilesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiTreeFiles200Response';
-        $request = $this->patchAiTreeFilesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiTreeFilesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -48233,12 +52815,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiTreeFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiTreeFilesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiTreeFilesByOwnerByName'][0])
+    public function patchAiTreeFilesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiTreeFilesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -48252,6 +52835,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiTreeFilesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiTreeFilesByOwnerByName'
             );
         }
 
@@ -48290,7 +52880,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -48347,15 +52944,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiVectorsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiVectors200Response
      */
-    public function patchAiVectorsByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiVectorsByOwnerByName'][0])
+    public function patchAiVectorsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiVectorsByOwnerByName'][0])
     {
-        list($response) = $this->patchAiVectorsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiVectorsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -48366,15 +52964,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiVectorsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiVectors200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiVectorsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiVectorsByOwnerByName'][0])
+    public function patchAiVectorsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiVectorsByOwnerByName'][0])
     {
-        $request = $this->patchAiVectorsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiVectorsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -48452,14 +53051,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiVectorsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiVectorsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiVectorsByOwnerByName'][0])
+    public function patchAiVectorsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiVectorsByOwnerByName'][0])
     {
-        return $this->patchAiVectorsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiVectorsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -48474,15 +53074,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiVectorsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiVectorsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiVectorsByOwnerByName'][0])
+    public function patchAiVectorsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiVectorsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiVectors200Response';
-        $request = $this->patchAiVectorsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiVectorsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -48525,12 +53126,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiVectorsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiVectorsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiVectorsByOwnerByName'][0])
+    public function patchAiVectorsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiVectorsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -48544,6 +53146,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiVectorsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiVectorsByOwnerByName'
             );
         }
 
@@ -48582,7 +53191,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -48639,15 +53255,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiVideosByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiVideos200Response
      */
-    public function patchAiVideosByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiVideosByOwnerByName'][0])
+    public function patchAiVideosByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiVideosByOwnerByName'][0])
     {
-        list($response) = $this->patchAiVideosByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiVideosByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -48658,15 +53275,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiVideosByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiVideos200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiVideosByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiVideosByOwnerByName'][0])
+    public function patchAiVideosByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiVideosByOwnerByName'][0])
     {
-        $request = $this->patchAiVideosByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiVideosByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -48744,14 +53362,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiVideosByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiVideosByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiVideosByOwnerByName'][0])
+    public function patchAiVideosByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiVideosByOwnerByName'][0])
     {
-        return $this->patchAiVideosByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiVideosByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -48766,15 +53385,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiVideosByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiVideosByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiVideosByOwnerByName'][0])
+    public function patchAiVideosByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiVideosByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiVideos200Response';
-        $request = $this->patchAiVideosByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiVideosByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -48817,12 +53437,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiVideosByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiVideosByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiVideosByOwnerByName'][0])
+    public function patchAiVideosByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiVideosByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -48836,6 +53457,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiVideosByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiVideosByOwnerByName'
             );
         }
 
@@ -48874,7 +53502,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -48931,15 +53566,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiWorkflowsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiWorkflows200Response
      */
-    public function patchAiWorkflowsByOwnerByName($owner, $name, string $contentType = self::contentTypes['patchAiWorkflowsByOwnerByName'][0])
+    public function patchAiWorkflowsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['patchAiWorkflowsByOwnerByName'][0])
     {
-        list($response) = $this->patchAiWorkflowsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->patchAiWorkflowsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -48950,15 +53586,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiWorkflowsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiWorkflows200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAiWorkflowsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiWorkflowsByOwnerByName'][0])
+    public function patchAiWorkflowsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiWorkflowsByOwnerByName'][0])
     {
-        $request = $this->patchAiWorkflowsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiWorkflowsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -49036,14 +53673,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiWorkflowsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiWorkflowsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['patchAiWorkflowsByOwnerByName'][0])
+    public function patchAiWorkflowsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['patchAiWorkflowsByOwnerByName'][0])
     {
-        return $this->patchAiWorkflowsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->patchAiWorkflowsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -49058,15 +53696,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiWorkflowsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAiWorkflowsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['patchAiWorkflowsByOwnerByName'][0])
+    public function patchAiWorkflowsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['patchAiWorkflowsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiWorkflows200Response';
-        $request = $this->patchAiWorkflowsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->patchAiWorkflowsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -49109,12 +53748,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAiWorkflowsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAiWorkflowsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['patchAiWorkflowsByOwnerByName'][0])
+    public function patchAiWorkflowsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['patchAiWorkflowsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -49128,6 +53768,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling patchAiWorkflowsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling patchAiWorkflowsByOwnerByName'
             );
         }
 
@@ -49166,7 +53813,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -49217,19 +53871,222 @@ class AiApi
     }
 
     /**
+     * Operation post3dGenerations
+     *
+     * Implements POST /v1/3d/generations for Zen family 3D SKUs (mori, zen-3d).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['post3dGenerations'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function post3dGenerations(string $contentType = self::contentTypes['post3dGenerations'][0])
+    {
+        $this->post3dGenerationsWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation post3dGenerationsWithHttpInfo
+     *
+     * Implements POST /v1/3d/generations for Zen family 3D SKUs (mori, zen-3d).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['post3dGenerations'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function post3dGenerationsWithHttpInfo(string $contentType = self::contentTypes['post3dGenerations'][0])
+    {
+        $request = $this->post3dGenerationsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation post3dGenerationsAsync
+     *
+     * Implements POST /v1/3d/generations for Zen family 3D SKUs (mori, zen-3d).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['post3dGenerations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function post3dGenerationsAsync(string $contentType = self::contentTypes['post3dGenerations'][0])
+    {
+        return $this->post3dGenerationsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation post3dGenerationsAsyncWithHttpInfo
+     *
+     * Implements POST /v1/3d/generations for Zen family 3D SKUs (mori, zen-3d).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['post3dGenerations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function post3dGenerationsAsyncWithHttpInfo(string $contentType = self::contentTypes['post3dGenerations'][0])
+    {
+        $returnType = '';
+        $request = $this->post3dGenerationsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'post3dGenerations'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['post3dGenerations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function post3dGenerationsRequest(string $contentType = self::contentTypes['post3dGenerations'][0])
+    {
+
+
+        $resourcePath = '/v1/3d/generations';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation postAiArticles
      *
      * Create a article
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiArticles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiArticles200Response
      */
-    public function postAiArticles(string $contentType = self::contentTypes['postAiArticles'][0])
+    public function postAiArticles($body, string $contentType = self::contentTypes['postAiArticles'][0])
     {
-        list($response) = $this->postAiArticlesWithHttpInfo($contentType);
+        list($response) = $this->postAiArticlesWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -49238,15 +54095,16 @@ class AiApi
      *
      * Create a article
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiArticles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiArticles200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiArticlesWithHttpInfo(string $contentType = self::contentTypes['postAiArticles'][0])
+    public function postAiArticlesWithHttpInfo($body, string $contentType = self::contentTypes['postAiArticles'][0])
     {
-        $request = $this->postAiArticlesRequest($contentType);
+        $request = $this->postAiArticlesRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -49322,14 +54180,15 @@ class AiApi
      *
      * Create a article
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiArticles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiArticlesAsync(string $contentType = self::contentTypes['postAiArticles'][0])
+    public function postAiArticlesAsync($body, string $contentType = self::contentTypes['postAiArticles'][0])
     {
-        return $this->postAiArticlesAsyncWithHttpInfo($contentType)
+        return $this->postAiArticlesAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -49342,15 +54201,16 @@ class AiApi
      *
      * Create a article
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiArticles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiArticlesAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiArticles'][0])
+    public function postAiArticlesAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiArticles'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiArticles200Response';
-        $request = $this->postAiArticlesRequest($contentType);
+        $request = $this->postAiArticlesRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -49391,13 +54251,21 @@ class AiApi
     /**
      * Create request for operation 'postAiArticles'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiArticles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiArticlesRequest(string $contentType = self::contentTypes['postAiArticles'][0])
+    public function postAiArticlesRequest($body, string $contentType = self::contentTypes['postAiArticles'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiArticles'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/articles';
@@ -49418,7 +54286,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -49473,15 +54348,16 @@ class AiApi
      *
      * Create a asset
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiAssets200Response
      */
-    public function postAiAssets(string $contentType = self::contentTypes['postAiAssets'][0])
+    public function postAiAssets($body, string $contentType = self::contentTypes['postAiAssets'][0])
     {
-        list($response) = $this->postAiAssetsWithHttpInfo($contentType);
+        list($response) = $this->postAiAssetsWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -49490,15 +54366,16 @@ class AiApi
      *
      * Create a asset
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiAssets200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiAssetsWithHttpInfo(string $contentType = self::contentTypes['postAiAssets'][0])
+    public function postAiAssetsWithHttpInfo($body, string $contentType = self::contentTypes['postAiAssets'][0])
     {
-        $request = $this->postAiAssetsRequest($contentType);
+        $request = $this->postAiAssetsRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -49574,14 +54451,15 @@ class AiApi
      *
      * Create a asset
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiAssetsAsync(string $contentType = self::contentTypes['postAiAssets'][0])
+    public function postAiAssetsAsync($body, string $contentType = self::contentTypes['postAiAssets'][0])
     {
-        return $this->postAiAssetsAsyncWithHttpInfo($contentType)
+        return $this->postAiAssetsAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -49594,15 +54472,16 @@ class AiApi
      *
      * Create a asset
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiAssetsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiAssets'][0])
+    public function postAiAssetsAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiAssets'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiAssets200Response';
-        $request = $this->postAiAssetsRequest($contentType);
+        $request = $this->postAiAssetsRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -49643,13 +54522,21 @@ class AiApi
     /**
      * Create request for operation 'postAiAssets'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiAssetsRequest(string $contentType = self::contentTypes['postAiAssets'][0])
+    public function postAiAssetsRequest($body, string $contentType = self::contentTypes['postAiAssets'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiAssets'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/assets';
@@ -49670,7 +54557,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -49727,15 +54621,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssetsByOwnerByNameScan'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiAssetsByOwnerByNameScan($owner, $name, string $contentType = self::contentTypes['postAiAssetsByOwnerByNameScan'][0])
+    public function postAiAssetsByOwnerByNameScan($owner, $name, $body, string $contentType = self::contentTypes['postAiAssetsByOwnerByNameScan'][0])
     {
-        list($response) = $this->postAiAssetsByOwnerByNameScanWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->postAiAssetsByOwnerByNameScanWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -49746,15 +54641,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssetsByOwnerByNameScan'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiAssetsByOwnerByNameScanWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiAssetsByOwnerByNameScan'][0])
+    public function postAiAssetsByOwnerByNameScanWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiAssetsByOwnerByNameScan'][0])
     {
-        $request = $this->postAiAssetsByOwnerByNameScanRequest($owner, $name, $contentType);
+        $request = $this->postAiAssetsByOwnerByNameScanRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -49832,14 +54728,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssetsByOwnerByNameScan'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiAssetsByOwnerByNameScanAsync($owner, $name, string $contentType = self::contentTypes['postAiAssetsByOwnerByNameScan'][0])
+    public function postAiAssetsByOwnerByNameScanAsync($owner, $name, $body, string $contentType = self::contentTypes['postAiAssetsByOwnerByNameScan'][0])
     {
-        return $this->postAiAssetsByOwnerByNameScanAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->postAiAssetsByOwnerByNameScanAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -49854,15 +54751,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssetsByOwnerByNameScan'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiAssetsByOwnerByNameScanAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiAssetsByOwnerByNameScan'][0])
+    public function postAiAssetsByOwnerByNameScanAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiAssetsByOwnerByNameScan'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiAssetsByOwnerByNameScanRequest($owner, $name, $contentType);
+        $request = $this->postAiAssetsByOwnerByNameScanRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -49905,12 +54803,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssetsByOwnerByNameScan'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiAssetsByOwnerByNameScanRequest($owner, $name, string $contentType = self::contentTypes['postAiAssetsByOwnerByNameScan'][0])
+    public function postAiAssetsByOwnerByNameScanRequest($owner, $name, $body, string $contentType = self::contentTypes['postAiAssetsByOwnerByNameScan'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -49924,6 +54823,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling postAiAssetsByOwnerByNameScan'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiAssetsByOwnerByNameScan'
             );
         }
 
@@ -49962,7 +54868,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -50017,15 +54930,16 @@ class AiApi
      *
      * Scan (asset)
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssetsScan'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiAssetsScan(string $contentType = self::contentTypes['postAiAssetsScan'][0])
+    public function postAiAssetsScan($body, string $contentType = self::contentTypes['postAiAssetsScan'][0])
     {
-        list($response) = $this->postAiAssetsScanWithHttpInfo($contentType);
+        list($response) = $this->postAiAssetsScanWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -50034,15 +54948,16 @@ class AiApi
      *
      * Scan (asset)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssetsScan'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiAssetsScanWithHttpInfo(string $contentType = self::contentTypes['postAiAssetsScan'][0])
+    public function postAiAssetsScanWithHttpInfo($body, string $contentType = self::contentTypes['postAiAssetsScan'][0])
     {
-        $request = $this->postAiAssetsScanRequest($contentType);
+        $request = $this->postAiAssetsScanRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -50118,14 +55033,15 @@ class AiApi
      *
      * Scan (asset)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssetsScan'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiAssetsScanAsync(string $contentType = self::contentTypes['postAiAssetsScan'][0])
+    public function postAiAssetsScanAsync($body, string $contentType = self::contentTypes['postAiAssetsScan'][0])
     {
-        return $this->postAiAssetsScanAsyncWithHttpInfo($contentType)
+        return $this->postAiAssetsScanAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -50138,15 +55054,16 @@ class AiApi
      *
      * Scan (asset)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssetsScan'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiAssetsScanAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiAssetsScan'][0])
+    public function postAiAssetsScanAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiAssetsScan'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiAssetsScanRequest($contentType);
+        $request = $this->postAiAssetsScanRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -50187,13 +55104,21 @@ class AiApi
     /**
      * Create request for operation 'postAiAssetsScan'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiAssetsScan'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiAssetsScanRequest(string $contentType = self::contentTypes['postAiAssetsScan'][0])
+    public function postAiAssetsScanRequest($body, string $contentType = self::contentTypes['postAiAssetsScan'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiAssetsScan'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/assets/scan';
@@ -50214,7 +55139,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -50269,15 +55201,16 @@ class AiApi
      *
      * Create a chat
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiChats'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiChats200Response
      */
-    public function postAiChats(string $contentType = self::contentTypes['postAiChats'][0])
+    public function postAiChats($body, string $contentType = self::contentTypes['postAiChats'][0])
     {
-        list($response) = $this->postAiChatsWithHttpInfo($contentType);
+        list($response) = $this->postAiChatsWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -50286,15 +55219,16 @@ class AiApi
      *
      * Create a chat
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiChats'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiChats200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiChatsWithHttpInfo(string $contentType = self::contentTypes['postAiChats'][0])
+    public function postAiChatsWithHttpInfo($body, string $contentType = self::contentTypes['postAiChats'][0])
     {
-        $request = $this->postAiChatsRequest($contentType);
+        $request = $this->postAiChatsRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -50370,14 +55304,15 @@ class AiApi
      *
      * Create a chat
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiChats'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiChatsAsync(string $contentType = self::contentTypes['postAiChats'][0])
+    public function postAiChatsAsync($body, string $contentType = self::contentTypes['postAiChats'][0])
     {
-        return $this->postAiChatsAsyncWithHttpInfo($contentType)
+        return $this->postAiChatsAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -50390,15 +55325,16 @@ class AiApi
      *
      * Create a chat
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiChats'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiChatsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiChats'][0])
+    public function postAiChatsAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiChats'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiChats200Response';
-        $request = $this->postAiChatsRequest($contentType);
+        $request = $this->postAiChatsRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -50439,13 +55375,21 @@ class AiApi
     /**
      * Create request for operation 'postAiChats'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiChats'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiChatsRequest(string $contentType = self::contentTypes['postAiChats'][0])
+    public function postAiChatsRequest($body, string $contentType = self::contentTypes['postAiChats'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiChats'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/chats';
@@ -50466,7 +55410,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -51045,15 +55996,16 @@ class AiApi
      *
      * Create a application
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeployments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiDeployments200Response
      */
-    public function postAiDeployments(string $contentType = self::contentTypes['postAiDeployments'][0])
+    public function postAiDeployments($body, string $contentType = self::contentTypes['postAiDeployments'][0])
     {
-        list($response) = $this->postAiDeploymentsWithHttpInfo($contentType);
+        list($response) = $this->postAiDeploymentsWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -51062,15 +56014,16 @@ class AiApi
      *
      * Create a application
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeployments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiDeployments200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiDeploymentsWithHttpInfo(string $contentType = self::contentTypes['postAiDeployments'][0])
+    public function postAiDeploymentsWithHttpInfo($body, string $contentType = self::contentTypes['postAiDeployments'][0])
     {
-        $request = $this->postAiDeploymentsRequest($contentType);
+        $request = $this->postAiDeploymentsRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -51146,14 +56099,15 @@ class AiApi
      *
      * Create a application
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeployments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiDeploymentsAsync(string $contentType = self::contentTypes['postAiDeployments'][0])
+    public function postAiDeploymentsAsync($body, string $contentType = self::contentTypes['postAiDeployments'][0])
     {
-        return $this->postAiDeploymentsAsyncWithHttpInfo($contentType)
+        return $this->postAiDeploymentsAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -51166,15 +56120,16 @@ class AiApi
      *
      * Create a application
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeployments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiDeploymentsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiDeployments'][0])
+    public function postAiDeploymentsAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiDeployments'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiDeployments200Response';
-        $request = $this->postAiDeploymentsRequest($contentType);
+        $request = $this->postAiDeploymentsRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -51215,13 +56170,21 @@ class AiApi
     /**
      * Create request for operation 'postAiDeployments'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeployments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiDeploymentsRequest(string $contentType = self::contentTypes['postAiDeployments'][0])
+    public function postAiDeploymentsRequest($body, string $contentType = self::contentTypes['postAiDeployments'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiDeployments'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/deployments';
@@ -51242,7 +56205,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -51299,15 +56269,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiDeploymentsByOwnerByNameDeploy($owner, $name, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'][0])
+    public function postAiDeploymentsByOwnerByNameDeploy($owner, $name, $body, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'][0])
     {
-        list($response) = $this->postAiDeploymentsByOwnerByNameDeployWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->postAiDeploymentsByOwnerByNameDeployWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -51318,15 +56289,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiDeploymentsByOwnerByNameDeployWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'][0])
+    public function postAiDeploymentsByOwnerByNameDeployWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'][0])
     {
-        $request = $this->postAiDeploymentsByOwnerByNameDeployRequest($owner, $name, $contentType);
+        $request = $this->postAiDeploymentsByOwnerByNameDeployRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -51404,14 +56376,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiDeploymentsByOwnerByNameDeployAsync($owner, $name, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'][0])
+    public function postAiDeploymentsByOwnerByNameDeployAsync($owner, $name, $body, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'][0])
     {
-        return $this->postAiDeploymentsByOwnerByNameDeployAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->postAiDeploymentsByOwnerByNameDeployAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -51426,15 +56399,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiDeploymentsByOwnerByNameDeployAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'][0])
+    public function postAiDeploymentsByOwnerByNameDeployAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiDeploymentsByOwnerByNameDeployRequest($owner, $name, $contentType);
+        $request = $this->postAiDeploymentsByOwnerByNameDeployRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -51477,12 +56451,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiDeploymentsByOwnerByNameDeployRequest($owner, $name, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'][0])
+    public function postAiDeploymentsByOwnerByNameDeployRequest($owner, $name, $body, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameDeploy'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -51496,6 +56471,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling postAiDeploymentsByOwnerByNameDeploy'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiDeploymentsByOwnerByNameDeploy'
             );
         }
 
@@ -51534,7 +56516,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -51591,15 +56580,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiDeploymentsByOwnerByNameUndeploy($owner, $name, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'][0])
+    public function postAiDeploymentsByOwnerByNameUndeploy($owner, $name, $body, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'][0])
     {
-        list($response) = $this->postAiDeploymentsByOwnerByNameUndeployWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->postAiDeploymentsByOwnerByNameUndeployWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -51610,15 +56600,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiDeploymentsByOwnerByNameUndeployWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'][0])
+    public function postAiDeploymentsByOwnerByNameUndeployWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'][0])
     {
-        $request = $this->postAiDeploymentsByOwnerByNameUndeployRequest($owner, $name, $contentType);
+        $request = $this->postAiDeploymentsByOwnerByNameUndeployRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -51696,14 +56687,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiDeploymentsByOwnerByNameUndeployAsync($owner, $name, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'][0])
+    public function postAiDeploymentsByOwnerByNameUndeployAsync($owner, $name, $body, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'][0])
     {
-        return $this->postAiDeploymentsByOwnerByNameUndeployAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->postAiDeploymentsByOwnerByNameUndeployAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -51718,15 +56710,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiDeploymentsByOwnerByNameUndeployAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'][0])
+    public function postAiDeploymentsByOwnerByNameUndeployAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiDeploymentsByOwnerByNameUndeployRequest($owner, $name, $contentType);
+        $request = $this->postAiDeploymentsByOwnerByNameUndeployRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -51769,12 +56762,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiDeploymentsByOwnerByNameUndeployRequest($owner, $name, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'][0])
+    public function postAiDeploymentsByOwnerByNameUndeployRequest($owner, $name, $body, string $contentType = self::contentTypes['postAiDeploymentsByOwnerByNameUndeploy'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -51788,6 +56782,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling postAiDeploymentsByOwnerByNameUndeploy'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiDeploymentsByOwnerByNameUndeploy'
             );
         }
 
@@ -51826,7 +56827,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -51881,15 +56889,16 @@ class AiApi
      *
      * Attaches a per-request outcome reward to the routing decision that served request_id — the enso training loop&#39;s quality signal.
      *
+     * @param  \Hanzo\Cloud\Model\AiRoutingRewardRequest $ai_routing_reward_request ai_routing_reward_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFeedback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiFeedback200Response
      */
-    public function postAiFeedback(string $contentType = self::contentTypes['postAiFeedback'][0])
+    public function postAiFeedback($ai_routing_reward_request, string $contentType = self::contentTypes['postAiFeedback'][0])
     {
-        list($response) = $this->postAiFeedbackWithHttpInfo($contentType);
+        list($response) = $this->postAiFeedbackWithHttpInfo($ai_routing_reward_request, $contentType);
         return $response;
     }
 
@@ -51898,15 +56907,16 @@ class AiApi
      *
      * Attaches a per-request outcome reward to the routing decision that served request_id — the enso training loop&#39;s quality signal.
      *
+     * @param  \Hanzo\Cloud\Model\AiRoutingRewardRequest $ai_routing_reward_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFeedback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiFeedback200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiFeedbackWithHttpInfo(string $contentType = self::contentTypes['postAiFeedback'][0])
+    public function postAiFeedbackWithHttpInfo($ai_routing_reward_request, string $contentType = self::contentTypes['postAiFeedback'][0])
     {
-        $request = $this->postAiFeedbackRequest($contentType);
+        $request = $this->postAiFeedbackRequest($ai_routing_reward_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -51982,14 +56992,15 @@ class AiApi
      *
      * Attaches a per-request outcome reward to the routing decision that served request_id — the enso training loop&#39;s quality signal.
      *
+     * @param  \Hanzo\Cloud\Model\AiRoutingRewardRequest $ai_routing_reward_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFeedback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFeedbackAsync(string $contentType = self::contentTypes['postAiFeedback'][0])
+    public function postAiFeedbackAsync($ai_routing_reward_request, string $contentType = self::contentTypes['postAiFeedback'][0])
     {
-        return $this->postAiFeedbackAsyncWithHttpInfo($contentType)
+        return $this->postAiFeedbackAsyncWithHttpInfo($ai_routing_reward_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -52002,15 +57013,16 @@ class AiApi
      *
      * Attaches a per-request outcome reward to the routing decision that served request_id — the enso training loop&#39;s quality signal.
      *
+     * @param  \Hanzo\Cloud\Model\AiRoutingRewardRequest $ai_routing_reward_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFeedback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFeedbackAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiFeedback'][0])
+    public function postAiFeedbackAsyncWithHttpInfo($ai_routing_reward_request, string $contentType = self::contentTypes['postAiFeedback'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiFeedback200Response';
-        $request = $this->postAiFeedbackRequest($contentType);
+        $request = $this->postAiFeedbackRequest($ai_routing_reward_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -52051,13 +57063,21 @@ class AiApi
     /**
      * Create request for operation 'postAiFeedback'
      *
+     * @param  \Hanzo\Cloud\Model\AiRoutingRewardRequest $ai_routing_reward_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFeedback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiFeedbackRequest(string $contentType = self::contentTypes['postAiFeedback'][0])
+    public function postAiFeedbackRequest($ai_routing_reward_request, string $contentType = self::contentTypes['postAiFeedback'][0])
     {
+
+        // verify the required parameter 'ai_routing_reward_request' is set
+        if ($ai_routing_reward_request === null || (is_array($ai_routing_reward_request) && count($ai_routing_reward_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_routing_reward_request when calling postAiFeedback'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/feedback';
@@ -52078,7 +57098,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($ai_routing_reward_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_routing_reward_request));
+            } else {
+                $httpBody = $ai_routing_reward_request;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -52133,15 +57160,16 @@ class AiApi
      *
      * Create a file
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFiles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiFiles200Response
      */
-    public function postAiFiles(string $contentType = self::contentTypes['postAiFiles'][0])
+    public function postAiFiles($body, string $contentType = self::contentTypes['postAiFiles'][0])
     {
-        list($response) = $this->postAiFilesWithHttpInfo($contentType);
+        list($response) = $this->postAiFilesWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -52150,15 +57178,16 @@ class AiApi
      *
      * Create a file
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFiles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiFiles200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiFilesWithHttpInfo(string $contentType = self::contentTypes['postAiFiles'][0])
+    public function postAiFilesWithHttpInfo($body, string $contentType = self::contentTypes['postAiFiles'][0])
     {
-        $request = $this->postAiFilesRequest($contentType);
+        $request = $this->postAiFilesRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -52234,14 +57263,15 @@ class AiApi
      *
      * Create a file
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFiles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFilesAsync(string $contentType = self::contentTypes['postAiFiles'][0])
+    public function postAiFilesAsync($body, string $contentType = self::contentTypes['postAiFiles'][0])
     {
-        return $this->postAiFilesAsyncWithHttpInfo($contentType)
+        return $this->postAiFilesAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -52254,15 +57284,16 @@ class AiApi
      *
      * Create a file
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFiles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFilesAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiFiles'][0])
+    public function postAiFilesAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiFiles'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiFiles200Response';
-        $request = $this->postAiFilesRequest($contentType);
+        $request = $this->postAiFilesRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -52303,13 +57334,21 @@ class AiApi
     /**
      * Create request for operation 'postAiFiles'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFiles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiFilesRequest(string $contentType = self::contentTypes['postAiFiles'][0])
+    public function postAiFilesRequest($body, string $contentType = self::contentTypes['postAiFiles'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiFiles'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/files';
@@ -52330,7 +57369,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -52385,15 +57431,16 @@ class AiApi
      *
      * Activate (file)
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesActivate'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiFilesActivate(string $contentType = self::contentTypes['postAiFilesActivate'][0])
+    public function postAiFilesActivate($body, string $contentType = self::contentTypes['postAiFilesActivate'][0])
     {
-        list($response) = $this->postAiFilesActivateWithHttpInfo($contentType);
+        list($response) = $this->postAiFilesActivateWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -52402,15 +57449,16 @@ class AiApi
      *
      * Activate (file)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesActivate'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiFilesActivateWithHttpInfo(string $contentType = self::contentTypes['postAiFilesActivate'][0])
+    public function postAiFilesActivateWithHttpInfo($body, string $contentType = self::contentTypes['postAiFilesActivate'][0])
     {
-        $request = $this->postAiFilesActivateRequest($contentType);
+        $request = $this->postAiFilesActivateRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -52486,14 +57534,15 @@ class AiApi
      *
      * Activate (file)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesActivate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFilesActivateAsync(string $contentType = self::contentTypes['postAiFilesActivate'][0])
+    public function postAiFilesActivateAsync($body, string $contentType = self::contentTypes['postAiFilesActivate'][0])
     {
-        return $this->postAiFilesActivateAsyncWithHttpInfo($contentType)
+        return $this->postAiFilesActivateAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -52506,15 +57555,16 @@ class AiApi
      *
      * Activate (file)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesActivate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFilesActivateAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiFilesActivate'][0])
+    public function postAiFilesActivateAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiFilesActivate'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiFilesActivateRequest($contentType);
+        $request = $this->postAiFilesActivateRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -52555,13 +57605,21 @@ class AiApi
     /**
      * Create request for operation 'postAiFilesActivate'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesActivate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiFilesActivateRequest(string $contentType = self::contentTypes['postAiFilesActivate'][0])
+    public function postAiFilesActivateRequest($body, string $contentType = self::contentTypes['postAiFilesActivate'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiFilesActivate'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/files/activate';
@@ -52582,7 +57640,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -52639,15 +57704,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesByOwnerByNameVectors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiFilesByOwnerByNameVectors($owner, $name, string $contentType = self::contentTypes['postAiFilesByOwnerByNameVectors'][0])
+    public function postAiFilesByOwnerByNameVectors($owner, $name, $body, string $contentType = self::contentTypes['postAiFilesByOwnerByNameVectors'][0])
     {
-        list($response) = $this->postAiFilesByOwnerByNameVectorsWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->postAiFilesByOwnerByNameVectorsWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -52658,15 +57724,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesByOwnerByNameVectors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiFilesByOwnerByNameVectorsWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiFilesByOwnerByNameVectors'][0])
+    public function postAiFilesByOwnerByNameVectorsWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiFilesByOwnerByNameVectors'][0])
     {
-        $request = $this->postAiFilesByOwnerByNameVectorsRequest($owner, $name, $contentType);
+        $request = $this->postAiFilesByOwnerByNameVectorsRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -52744,14 +57811,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesByOwnerByNameVectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFilesByOwnerByNameVectorsAsync($owner, $name, string $contentType = self::contentTypes['postAiFilesByOwnerByNameVectors'][0])
+    public function postAiFilesByOwnerByNameVectorsAsync($owner, $name, $body, string $contentType = self::contentTypes['postAiFilesByOwnerByNameVectors'][0])
     {
-        return $this->postAiFilesByOwnerByNameVectorsAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->postAiFilesByOwnerByNameVectorsAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -52766,15 +57834,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesByOwnerByNameVectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFilesByOwnerByNameVectorsAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiFilesByOwnerByNameVectors'][0])
+    public function postAiFilesByOwnerByNameVectorsAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiFilesByOwnerByNameVectors'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiFilesByOwnerByNameVectorsRequest($owner, $name, $contentType);
+        $request = $this->postAiFilesByOwnerByNameVectorsRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -52817,12 +57886,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesByOwnerByNameVectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiFilesByOwnerByNameVectorsRequest($owner, $name, string $contentType = self::contentTypes['postAiFilesByOwnerByNameVectors'][0])
+    public function postAiFilesByOwnerByNameVectorsRequest($owner, $name, $body, string $contentType = self::contentTypes['postAiFilesByOwnerByNameVectors'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -52836,6 +57906,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling postAiFilesByOwnerByNameVectors'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiFilesByOwnerByNameVectors'
             );
         }
 
@@ -52874,7 +57951,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -52929,15 +58013,16 @@ class AiApi
      *
      * Upload (file)
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesUpload'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiFilesUpload(string $contentType = self::contentTypes['postAiFilesUpload'][0])
+    public function postAiFilesUpload($body, string $contentType = self::contentTypes['postAiFilesUpload'][0])
     {
-        list($response) = $this->postAiFilesUploadWithHttpInfo($contentType);
+        list($response) = $this->postAiFilesUploadWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -52946,15 +58031,16 @@ class AiApi
      *
      * Upload (file)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesUpload'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiFilesUploadWithHttpInfo(string $contentType = self::contentTypes['postAiFilesUpload'][0])
+    public function postAiFilesUploadWithHttpInfo($body, string $contentType = self::contentTypes['postAiFilesUpload'][0])
     {
-        $request = $this->postAiFilesUploadRequest($contentType);
+        $request = $this->postAiFilesUploadRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -53030,14 +58116,15 @@ class AiApi
      *
      * Upload (file)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesUpload'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFilesUploadAsync(string $contentType = self::contentTypes['postAiFilesUpload'][0])
+    public function postAiFilesUploadAsync($body, string $contentType = self::contentTypes['postAiFilesUpload'][0])
     {
-        return $this->postAiFilesUploadAsyncWithHttpInfo($contentType)
+        return $this->postAiFilesUploadAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -53050,15 +58137,16 @@ class AiApi
      *
      * Upload (file)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesUpload'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFilesUploadAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiFilesUpload'][0])
+    public function postAiFilesUploadAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiFilesUpload'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiFilesUploadRequest($contentType);
+        $request = $this->postAiFilesUploadRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -53099,13 +58187,21 @@ class AiApi
     /**
      * Create request for operation 'postAiFilesUpload'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiFilesUpload'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiFilesUploadRequest(string $contentType = self::contentTypes['postAiFilesUpload'][0])
+    public function postAiFilesUploadRequest($body, string $contentType = self::contentTypes['postAiFilesUpload'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiFilesUpload'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/files/upload';
@@ -53126,7 +58222,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -53937,15 +59040,16 @@ class AiApi
      *
      * Create a form
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiForms'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiForms200Response
      */
-    public function postAiForms(string $contentType = self::contentTypes['postAiForms'][0])
+    public function postAiForms($body, string $contentType = self::contentTypes['postAiForms'][0])
     {
-        list($response) = $this->postAiFormsWithHttpInfo($contentType);
+        list($response) = $this->postAiFormsWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -53954,15 +59058,16 @@ class AiApi
      *
      * Create a form
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiForms'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiForms200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiFormsWithHttpInfo(string $contentType = self::contentTypes['postAiForms'][0])
+    public function postAiFormsWithHttpInfo($body, string $contentType = self::contentTypes['postAiForms'][0])
     {
-        $request = $this->postAiFormsRequest($contentType);
+        $request = $this->postAiFormsRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -54038,14 +59143,15 @@ class AiApi
      *
      * Create a form
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiForms'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFormsAsync(string $contentType = self::contentTypes['postAiForms'][0])
+    public function postAiFormsAsync($body, string $contentType = self::contentTypes['postAiForms'][0])
     {
-        return $this->postAiFormsAsyncWithHttpInfo($contentType)
+        return $this->postAiFormsAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -54058,15 +59164,16 @@ class AiApi
      *
      * Create a form
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiForms'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiFormsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiForms'][0])
+    public function postAiFormsAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiForms'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiForms200Response';
-        $request = $this->postAiFormsRequest($contentType);
+        $request = $this->postAiFormsRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -54107,13 +59214,21 @@ class AiApi
     /**
      * Create request for operation 'postAiForms'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiForms'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiFormsRequest(string $contentType = self::contentTypes['postAiForms'][0])
+    public function postAiFormsRequest($body, string $contentType = self::contentTypes['postAiForms'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiForms'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/forms';
@@ -54134,7 +59249,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -54189,15 +59311,16 @@ class AiApi
      *
      * Create a graph
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiGraphs'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiGraphs200Response
      */
-    public function postAiGraphs(string $contentType = self::contentTypes['postAiGraphs'][0])
+    public function postAiGraphs($body, string $contentType = self::contentTypes['postAiGraphs'][0])
     {
-        list($response) = $this->postAiGraphsWithHttpInfo($contentType);
+        list($response) = $this->postAiGraphsWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -54206,15 +59329,16 @@ class AiApi
      *
      * Create a graph
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiGraphs'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiGraphs200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiGraphsWithHttpInfo(string $contentType = self::contentTypes['postAiGraphs'][0])
+    public function postAiGraphsWithHttpInfo($body, string $contentType = self::contentTypes['postAiGraphs'][0])
     {
-        $request = $this->postAiGraphsRequest($contentType);
+        $request = $this->postAiGraphsRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -54290,14 +59414,15 @@ class AiApi
      *
      * Create a graph
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiGraphs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiGraphsAsync(string $contentType = self::contentTypes['postAiGraphs'][0])
+    public function postAiGraphsAsync($body, string $contentType = self::contentTypes['postAiGraphs'][0])
     {
-        return $this->postAiGraphsAsyncWithHttpInfo($contentType)
+        return $this->postAiGraphsAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -54310,15 +59435,16 @@ class AiApi
      *
      * Create a graph
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiGraphs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiGraphsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiGraphs'][0])
+    public function postAiGraphsAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiGraphs'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiGraphs200Response';
-        $request = $this->postAiGraphsRequest($contentType);
+        $request = $this->postAiGraphsRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -54359,13 +59485,21 @@ class AiApi
     /**
      * Create request for operation 'postAiGraphs'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiGraphs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiGraphsRequest(string $contentType = self::contentTypes['postAiGraphs'][0])
+    public function postAiGraphsRequest($body, string $contentType = self::contentTypes['postAiGraphs'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiGraphs'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/graphs';
@@ -54386,7 +59520,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -55197,15 +60338,16 @@ class AiApi
      *
      * Create a message
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiMessages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiMessages200Response
      */
-    public function postAiMessages(string $contentType = self::contentTypes['postAiMessages'][0])
+    public function postAiMessages($body, string $contentType = self::contentTypes['postAiMessages'][0])
     {
-        list($response) = $this->postAiMessagesWithHttpInfo($contentType);
+        list($response) = $this->postAiMessagesWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -55214,15 +60356,16 @@ class AiApi
      *
      * Create a message
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiMessages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiMessages200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiMessagesWithHttpInfo(string $contentType = self::contentTypes['postAiMessages'][0])
+    public function postAiMessagesWithHttpInfo($body, string $contentType = self::contentTypes['postAiMessages'][0])
     {
-        $request = $this->postAiMessagesRequest($contentType);
+        $request = $this->postAiMessagesRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -55298,14 +60441,15 @@ class AiApi
      *
      * Create a message
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiMessages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiMessagesAsync(string $contentType = self::contentTypes['postAiMessages'][0])
+    public function postAiMessagesAsync($body, string $contentType = self::contentTypes['postAiMessages'][0])
     {
-        return $this->postAiMessagesAsyncWithHttpInfo($contentType)
+        return $this->postAiMessagesAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -55318,15 +60462,16 @@ class AiApi
      *
      * Create a message
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiMessages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiMessagesAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiMessages'][0])
+    public function postAiMessagesAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiMessages'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiMessages200Response';
-        $request = $this->postAiMessagesRequest($contentType);
+        $request = $this->postAiMessagesRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -55367,13 +60512,21 @@ class AiApi
     /**
      * Create request for operation 'postAiMessages'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiMessages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiMessagesRequest(string $contentType = self::contentTypes['postAiMessages'][0])
+    public function postAiMessagesRequest($body, string $contentType = self::contentTypes['postAiMessages'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiMessages'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/messages';
@@ -55394,7 +60547,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -55449,15 +60609,16 @@ class AiApi
      *
      * Create a node
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiNodes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiNodes200Response
      */
-    public function postAiNodes(string $contentType = self::contentTypes['postAiNodes'][0])
+    public function postAiNodes($body, string $contentType = self::contentTypes['postAiNodes'][0])
     {
-        list($response) = $this->postAiNodesWithHttpInfo($contentType);
+        list($response) = $this->postAiNodesWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -55466,15 +60627,16 @@ class AiApi
      *
      * Create a node
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiNodes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiNodes200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiNodesWithHttpInfo(string $contentType = self::contentTypes['postAiNodes'][0])
+    public function postAiNodesWithHttpInfo($body, string $contentType = self::contentTypes['postAiNodes'][0])
     {
-        $request = $this->postAiNodesRequest($contentType);
+        $request = $this->postAiNodesRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -55550,14 +60712,15 @@ class AiApi
      *
      * Create a node
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiNodes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiNodesAsync(string $contentType = self::contentTypes['postAiNodes'][0])
+    public function postAiNodesAsync($body, string $contentType = self::contentTypes['postAiNodes'][0])
     {
-        return $this->postAiNodesAsyncWithHttpInfo($contentType)
+        return $this->postAiNodesAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -55570,15 +60733,16 @@ class AiApi
      *
      * Create a node
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiNodes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiNodesAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiNodes'][0])
+    public function postAiNodesAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiNodes'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiNodes200Response';
-        $request = $this->postAiNodesRequest($contentType);
+        $request = $this->postAiNodesRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -55619,13 +60783,21 @@ class AiApi
     /**
      * Create request for operation 'postAiNodes'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiNodes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiNodesRequest(string $contentType = self::contentTypes['postAiNodes'][0])
+    public function postAiNodesRequest($body, string $contentType = self::contentTypes['postAiNodes'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiNodes'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/nodes';
@@ -55646,7 +60818,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -55703,15 +60882,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiNodesByOwnerByNameTunnel'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiNodesByOwnerByNameTunnel($owner, $name, string $contentType = self::contentTypes['postAiNodesByOwnerByNameTunnel'][0])
+    public function postAiNodesByOwnerByNameTunnel($owner, $name, $body, string $contentType = self::contentTypes['postAiNodesByOwnerByNameTunnel'][0])
     {
-        list($response) = $this->postAiNodesByOwnerByNameTunnelWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->postAiNodesByOwnerByNameTunnelWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -55722,15 +60902,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiNodesByOwnerByNameTunnel'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiNodesByOwnerByNameTunnelWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiNodesByOwnerByNameTunnel'][0])
+    public function postAiNodesByOwnerByNameTunnelWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiNodesByOwnerByNameTunnel'][0])
     {
-        $request = $this->postAiNodesByOwnerByNameTunnelRequest($owner, $name, $contentType);
+        $request = $this->postAiNodesByOwnerByNameTunnelRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -55808,14 +60989,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiNodesByOwnerByNameTunnel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiNodesByOwnerByNameTunnelAsync($owner, $name, string $contentType = self::contentTypes['postAiNodesByOwnerByNameTunnel'][0])
+    public function postAiNodesByOwnerByNameTunnelAsync($owner, $name, $body, string $contentType = self::contentTypes['postAiNodesByOwnerByNameTunnel'][0])
     {
-        return $this->postAiNodesByOwnerByNameTunnelAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->postAiNodesByOwnerByNameTunnelAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -55830,15 +61012,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiNodesByOwnerByNameTunnel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiNodesByOwnerByNameTunnelAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiNodesByOwnerByNameTunnel'][0])
+    public function postAiNodesByOwnerByNameTunnelAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiNodesByOwnerByNameTunnel'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiNodesByOwnerByNameTunnelRequest($owner, $name, $contentType);
+        $request = $this->postAiNodesByOwnerByNameTunnelRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -55881,12 +61064,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiNodesByOwnerByNameTunnel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiNodesByOwnerByNameTunnelRequest($owner, $name, string $contentType = self::contentTypes['postAiNodesByOwnerByNameTunnel'][0])
+    public function postAiNodesByOwnerByNameTunnelRequest($owner, $name, $body, string $contentType = self::contentTypes['postAiNodesByOwnerByNameTunnel'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -55900,6 +61084,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling postAiNodesByOwnerByNameTunnel'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiNodesByOwnerByNameTunnel'
             );
         }
 
@@ -55938,7 +61129,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -56497,15 +61695,16 @@ class AiApi
      *
      * Create a provider
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiProviders'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiProviders200Response
      */
-    public function postAiProviders(string $contentType = self::contentTypes['postAiProviders'][0])
+    public function postAiProviders($body, string $contentType = self::contentTypes['postAiProviders'][0])
     {
-        list($response) = $this->postAiProvidersWithHttpInfo($contentType);
+        list($response) = $this->postAiProvidersWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -56514,15 +61713,16 @@ class AiApi
      *
      * Create a provider
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiProviders'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiProviders200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiProvidersWithHttpInfo(string $contentType = self::contentTypes['postAiProviders'][0])
+    public function postAiProvidersWithHttpInfo($body, string $contentType = self::contentTypes['postAiProviders'][0])
     {
-        $request = $this->postAiProvidersRequest($contentType);
+        $request = $this->postAiProvidersRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -56598,14 +61798,15 @@ class AiApi
      *
      * Create a provider
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiProviders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiProvidersAsync(string $contentType = self::contentTypes['postAiProviders'][0])
+    public function postAiProvidersAsync($body, string $contentType = self::contentTypes['postAiProviders'][0])
     {
-        return $this->postAiProvidersAsyncWithHttpInfo($contentType)
+        return $this->postAiProvidersAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -56618,15 +61819,16 @@ class AiApi
      *
      * Create a provider
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiProviders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiProvidersAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiProviders'][0])
+    public function postAiProvidersAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiProviders'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiProviders200Response';
-        $request = $this->postAiProvidersRequest($contentType);
+        $request = $this->postAiProvidersRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -56667,13 +61869,21 @@ class AiApi
     /**
      * Create request for operation 'postAiProviders'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiProviders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiProvidersRequest(string $contentType = self::contentTypes['postAiProviders'][0])
+    public function postAiProvidersRequest($body, string $contentType = self::contentTypes['postAiProviders'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiProviders'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/providers';
@@ -56694,7 +61904,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -56749,15 +61966,16 @@ class AiApi
      *
      * Mcp Tools (provider)
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiProvidersMcpTools'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiProvidersMcpTools(string $contentType = self::contentTypes['postAiProvidersMcpTools'][0])
+    public function postAiProvidersMcpTools($body, string $contentType = self::contentTypes['postAiProvidersMcpTools'][0])
     {
-        list($response) = $this->postAiProvidersMcpToolsWithHttpInfo($contentType);
+        list($response) = $this->postAiProvidersMcpToolsWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -56766,15 +61984,16 @@ class AiApi
      *
      * Mcp Tools (provider)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiProvidersMcpTools'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiProvidersMcpToolsWithHttpInfo(string $contentType = self::contentTypes['postAiProvidersMcpTools'][0])
+    public function postAiProvidersMcpToolsWithHttpInfo($body, string $contentType = self::contentTypes['postAiProvidersMcpTools'][0])
     {
-        $request = $this->postAiProvidersMcpToolsRequest($contentType);
+        $request = $this->postAiProvidersMcpToolsRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -56850,14 +62069,15 @@ class AiApi
      *
      * Mcp Tools (provider)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiProvidersMcpTools'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiProvidersMcpToolsAsync(string $contentType = self::contentTypes['postAiProvidersMcpTools'][0])
+    public function postAiProvidersMcpToolsAsync($body, string $contentType = self::contentTypes['postAiProvidersMcpTools'][0])
     {
-        return $this->postAiProvidersMcpToolsAsyncWithHttpInfo($contentType)
+        return $this->postAiProvidersMcpToolsAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -56870,15 +62090,16 @@ class AiApi
      *
      * Mcp Tools (provider)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiProvidersMcpTools'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiProvidersMcpToolsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiProvidersMcpTools'][0])
+    public function postAiProvidersMcpToolsAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiProvidersMcpTools'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiProvidersMcpToolsRequest($contentType);
+        $request = $this->postAiProvidersMcpToolsRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -56919,13 +62140,21 @@ class AiApi
     /**
      * Create request for operation 'postAiProvidersMcpTools'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiProvidersMcpTools'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiProvidersMcpToolsRequest(string $contentType = self::contentTypes['postAiProvidersMcpTools'][0])
+    public function postAiProvidersMcpToolsRequest($body, string $contentType = self::contentTypes['postAiProvidersMcpTools'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiProvidersMcpTools'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/providers/mcp-tools';
@@ -56946,7 +62175,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -58261,15 +63497,16 @@ class AiApi
      *
      * Create a record
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecords'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiRecords200Response
      */
-    public function postAiRecords(string $contentType = self::contentTypes['postAiRecords'][0])
+    public function postAiRecords($body, string $contentType = self::contentTypes['postAiRecords'][0])
     {
-        list($response) = $this->postAiRecordsWithHttpInfo($contentType);
+        list($response) = $this->postAiRecordsWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -58278,15 +63515,16 @@ class AiApi
      *
      * Create a record
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecords'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiRecords200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiRecordsWithHttpInfo(string $contentType = self::contentTypes['postAiRecords'][0])
+    public function postAiRecordsWithHttpInfo($body, string $contentType = self::contentTypes['postAiRecords'][0])
     {
-        $request = $this->postAiRecordsRequest($contentType);
+        $request = $this->postAiRecordsRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -58362,14 +63600,15 @@ class AiApi
      *
      * Create a record
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecords'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRecordsAsync(string $contentType = self::contentTypes['postAiRecords'][0])
+    public function postAiRecordsAsync($body, string $contentType = self::contentTypes['postAiRecords'][0])
     {
-        return $this->postAiRecordsAsyncWithHttpInfo($contentType)
+        return $this->postAiRecordsAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -58382,15 +63621,16 @@ class AiApi
      *
      * Create a record
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecords'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRecordsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiRecords'][0])
+    public function postAiRecordsAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiRecords'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiRecords200Response';
-        $request = $this->postAiRecordsRequest($contentType);
+        $request = $this->postAiRecordsRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -58431,13 +63671,21 @@ class AiApi
     /**
      * Create request for operation 'postAiRecords'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecords'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiRecordsRequest(string $contentType = self::contentTypes['postAiRecords'][0])
+    public function postAiRecordsRequest($body, string $contentType = self::contentTypes['postAiRecords'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiRecords'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/records';
@@ -58458,7 +63706,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -58513,15 +63768,16 @@ class AiApi
      *
      * Batch (record)
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsBatch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiRecordsBatch(string $contentType = self::contentTypes['postAiRecordsBatch'][0])
+    public function postAiRecordsBatch($body, string $contentType = self::contentTypes['postAiRecordsBatch'][0])
     {
-        list($response) = $this->postAiRecordsBatchWithHttpInfo($contentType);
+        list($response) = $this->postAiRecordsBatchWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -58530,15 +63786,16 @@ class AiApi
      *
      * Batch (record)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsBatch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiRecordsBatchWithHttpInfo(string $contentType = self::contentTypes['postAiRecordsBatch'][0])
+    public function postAiRecordsBatchWithHttpInfo($body, string $contentType = self::contentTypes['postAiRecordsBatch'][0])
     {
-        $request = $this->postAiRecordsBatchRequest($contentType);
+        $request = $this->postAiRecordsBatchRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -58614,14 +63871,15 @@ class AiApi
      *
      * Batch (record)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsBatch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRecordsBatchAsync(string $contentType = self::contentTypes['postAiRecordsBatch'][0])
+    public function postAiRecordsBatchAsync($body, string $contentType = self::contentTypes['postAiRecordsBatch'][0])
     {
-        return $this->postAiRecordsBatchAsyncWithHttpInfo($contentType)
+        return $this->postAiRecordsBatchAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -58634,15 +63892,16 @@ class AiApi
      *
      * Batch (record)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsBatch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRecordsBatchAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiRecordsBatch'][0])
+    public function postAiRecordsBatchAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiRecordsBatch'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiRecordsBatchRequest($contentType);
+        $request = $this->postAiRecordsBatchRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -58683,13 +63942,21 @@ class AiApi
     /**
      * Create request for operation 'postAiRecordsBatch'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsBatch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiRecordsBatchRequest(string $contentType = self::contentTypes['postAiRecordsBatch'][0])
+    public function postAiRecordsBatchRequest($body, string $contentType = self::contentTypes['postAiRecordsBatch'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiRecordsBatch'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/records/batch';
@@ -58710,7 +63977,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -58765,15 +64039,16 @@ class AiApi
      *
      * Commit (record)
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsCommit'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiRecordsCommit(string $contentType = self::contentTypes['postAiRecordsCommit'][0])
+    public function postAiRecordsCommit($body, string $contentType = self::contentTypes['postAiRecordsCommit'][0])
     {
-        list($response) = $this->postAiRecordsCommitWithHttpInfo($contentType);
+        list($response) = $this->postAiRecordsCommitWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -58782,15 +64057,16 @@ class AiApi
      *
      * Commit (record)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsCommit'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiRecordsCommitWithHttpInfo(string $contentType = self::contentTypes['postAiRecordsCommit'][0])
+    public function postAiRecordsCommitWithHttpInfo($body, string $contentType = self::contentTypes['postAiRecordsCommit'][0])
     {
-        $request = $this->postAiRecordsCommitRequest($contentType);
+        $request = $this->postAiRecordsCommitRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -58866,14 +64142,15 @@ class AiApi
      *
      * Commit (record)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsCommit'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRecordsCommitAsync(string $contentType = self::contentTypes['postAiRecordsCommit'][0])
+    public function postAiRecordsCommitAsync($body, string $contentType = self::contentTypes['postAiRecordsCommit'][0])
     {
-        return $this->postAiRecordsCommitAsyncWithHttpInfo($contentType)
+        return $this->postAiRecordsCommitAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -58886,15 +64163,16 @@ class AiApi
      *
      * Commit (record)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsCommit'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRecordsCommitAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiRecordsCommit'][0])
+    public function postAiRecordsCommitAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiRecordsCommit'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiRecordsCommitRequest($contentType);
+        $request = $this->postAiRecordsCommitRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -58935,13 +64213,21 @@ class AiApi
     /**
      * Create request for operation 'postAiRecordsCommit'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsCommit'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiRecordsCommitRequest(string $contentType = self::contentTypes['postAiRecordsCommit'][0])
+    public function postAiRecordsCommitRequest($body, string $contentType = self::contentTypes['postAiRecordsCommit'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiRecordsCommit'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/records/commit';
@@ -58962,7 +64248,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -59017,15 +64310,16 @@ class AiApi
      *
      * Commit Second (record)
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsCommitSecond'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiRecordsCommitSecond(string $contentType = self::contentTypes['postAiRecordsCommitSecond'][0])
+    public function postAiRecordsCommitSecond($body, string $contentType = self::contentTypes['postAiRecordsCommitSecond'][0])
     {
-        list($response) = $this->postAiRecordsCommitSecondWithHttpInfo($contentType);
+        list($response) = $this->postAiRecordsCommitSecondWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -59034,15 +64328,16 @@ class AiApi
      *
      * Commit Second (record)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsCommitSecond'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiRecordsCommitSecondWithHttpInfo(string $contentType = self::contentTypes['postAiRecordsCommitSecond'][0])
+    public function postAiRecordsCommitSecondWithHttpInfo($body, string $contentType = self::contentTypes['postAiRecordsCommitSecond'][0])
     {
-        $request = $this->postAiRecordsCommitSecondRequest($contentType);
+        $request = $this->postAiRecordsCommitSecondRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -59118,14 +64413,15 @@ class AiApi
      *
      * Commit Second (record)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsCommitSecond'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRecordsCommitSecondAsync(string $contentType = self::contentTypes['postAiRecordsCommitSecond'][0])
+    public function postAiRecordsCommitSecondAsync($body, string $contentType = self::contentTypes['postAiRecordsCommitSecond'][0])
     {
-        return $this->postAiRecordsCommitSecondAsyncWithHttpInfo($contentType)
+        return $this->postAiRecordsCommitSecondAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -59138,15 +64434,16 @@ class AiApi
      *
      * Commit Second (record)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsCommitSecond'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRecordsCommitSecondAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiRecordsCommitSecond'][0])
+    public function postAiRecordsCommitSecondAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiRecordsCommitSecond'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiRecordsCommitSecondRequest($contentType);
+        $request = $this->postAiRecordsCommitSecondRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -59187,13 +64484,21 @@ class AiApi
     /**
      * Create request for operation 'postAiRecordsCommitSecond'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRecordsCommitSecond'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiRecordsCommitSecondRequest(string $contentType = self::contentTypes['postAiRecordsCommitSecond'][0])
+    public function postAiRecordsCommitSecondRequest($body, string $contentType = self::contentTypes['postAiRecordsCommitSecond'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiRecordsCommitSecond'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/records/commit-second';
@@ -59214,7 +64519,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -59269,15 +64581,16 @@ class AiApi
      *
      * Create a connection
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnections'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiRemoteConnections200Response
      */
-    public function postAiRemoteConnections(string $contentType = self::contentTypes['postAiRemoteConnections'][0])
+    public function postAiRemoteConnections($body, string $contentType = self::contentTypes['postAiRemoteConnections'][0])
     {
-        list($response) = $this->postAiRemoteConnectionsWithHttpInfo($contentType);
+        list($response) = $this->postAiRemoteConnectionsWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -59286,15 +64599,16 @@ class AiApi
      *
      * Create a connection
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnections'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiRemoteConnections200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiRemoteConnectionsWithHttpInfo(string $contentType = self::contentTypes['postAiRemoteConnections'][0])
+    public function postAiRemoteConnectionsWithHttpInfo($body, string $contentType = self::contentTypes['postAiRemoteConnections'][0])
     {
-        $request = $this->postAiRemoteConnectionsRequest($contentType);
+        $request = $this->postAiRemoteConnectionsRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -59370,14 +64684,15 @@ class AiApi
      *
      * Create a connection
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnections'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRemoteConnectionsAsync(string $contentType = self::contentTypes['postAiRemoteConnections'][0])
+    public function postAiRemoteConnectionsAsync($body, string $contentType = self::contentTypes['postAiRemoteConnections'][0])
     {
-        return $this->postAiRemoteConnectionsAsyncWithHttpInfo($contentType)
+        return $this->postAiRemoteConnectionsAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -59390,15 +64705,16 @@ class AiApi
      *
      * Create a connection
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnections'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRemoteConnectionsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiRemoteConnections'][0])
+    public function postAiRemoteConnectionsAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiRemoteConnections'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiRemoteConnections200Response';
-        $request = $this->postAiRemoteConnectionsRequest($contentType);
+        $request = $this->postAiRemoteConnectionsRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -59439,13 +64755,21 @@ class AiApi
     /**
      * Create request for operation 'postAiRemoteConnections'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnections'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiRemoteConnectionsRequest(string $contentType = self::contentTypes['postAiRemoteConnections'][0])
+    public function postAiRemoteConnectionsRequest($body, string $contentType = self::contentTypes['postAiRemoteConnections'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiRemoteConnections'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/remote-connections';
@@ -59466,7 +64790,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -59523,15 +64854,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiRemoteConnectionsByOwnerByNameStart($owner, $name, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'][0])
+    public function postAiRemoteConnectionsByOwnerByNameStart($owner, $name, $body, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'][0])
     {
-        list($response) = $this->postAiRemoteConnectionsByOwnerByNameStartWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->postAiRemoteConnectionsByOwnerByNameStartWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -59542,15 +64874,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiRemoteConnectionsByOwnerByNameStartWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'][0])
+    public function postAiRemoteConnectionsByOwnerByNameStartWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'][0])
     {
-        $request = $this->postAiRemoteConnectionsByOwnerByNameStartRequest($owner, $name, $contentType);
+        $request = $this->postAiRemoteConnectionsByOwnerByNameStartRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -59628,14 +64961,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRemoteConnectionsByOwnerByNameStartAsync($owner, $name, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'][0])
+    public function postAiRemoteConnectionsByOwnerByNameStartAsync($owner, $name, $body, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'][0])
     {
-        return $this->postAiRemoteConnectionsByOwnerByNameStartAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->postAiRemoteConnectionsByOwnerByNameStartAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -59650,15 +64984,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRemoteConnectionsByOwnerByNameStartAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'][0])
+    public function postAiRemoteConnectionsByOwnerByNameStartAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiRemoteConnectionsByOwnerByNameStartRequest($owner, $name, $contentType);
+        $request = $this->postAiRemoteConnectionsByOwnerByNameStartRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -59701,12 +65036,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiRemoteConnectionsByOwnerByNameStartRequest($owner, $name, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'][0])
+    public function postAiRemoteConnectionsByOwnerByNameStartRequest($owner, $name, $body, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStart'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -59720,6 +65056,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling postAiRemoteConnectionsByOwnerByNameStart'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiRemoteConnectionsByOwnerByNameStart'
             );
         }
 
@@ -59758,7 +65101,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -59815,15 +65165,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiRemoteConnectionsByOwnerByNameStop($owner, $name, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'][0])
+    public function postAiRemoteConnectionsByOwnerByNameStop($owner, $name, $body, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'][0])
     {
-        list($response) = $this->postAiRemoteConnectionsByOwnerByNameStopWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->postAiRemoteConnectionsByOwnerByNameStopWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -59834,15 +65185,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiRemoteConnectionsByOwnerByNameStopWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'][0])
+    public function postAiRemoteConnectionsByOwnerByNameStopWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'][0])
     {
-        $request = $this->postAiRemoteConnectionsByOwnerByNameStopRequest($owner, $name, $contentType);
+        $request = $this->postAiRemoteConnectionsByOwnerByNameStopRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -59920,14 +65272,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRemoteConnectionsByOwnerByNameStopAsync($owner, $name, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'][0])
+    public function postAiRemoteConnectionsByOwnerByNameStopAsync($owner, $name, $body, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'][0])
     {
-        return $this->postAiRemoteConnectionsByOwnerByNameStopAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->postAiRemoteConnectionsByOwnerByNameStopAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -59942,15 +65295,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRemoteConnectionsByOwnerByNameStopAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'][0])
+    public function postAiRemoteConnectionsByOwnerByNameStopAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiRemoteConnectionsByOwnerByNameStopRequest($owner, $name, $contentType);
+        $request = $this->postAiRemoteConnectionsByOwnerByNameStopRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -59993,12 +65347,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiRemoteConnectionsByOwnerByNameStopRequest($owner, $name, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'][0])
+    public function postAiRemoteConnectionsByOwnerByNameStopRequest($owner, $name, $body, string $contentType = self::contentTypes['postAiRemoteConnectionsByOwnerByNameStop'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -60012,6 +65367,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling postAiRemoteConnectionsByOwnerByNameStop'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiRemoteConnectionsByOwnerByNameStop'
             );
         }
 
@@ -60050,7 +65412,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -60303,6 +65672,819 @@ class AiApi
 
         // for model (json/xml)
         if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postAiRouterCatalogPropose
+     *
+     * Answers the diff an edited catalog would apply to a family, and the version it would be made from.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogPropose'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PostAiRouterCatalogPropose200Response
+     */
+    public function postAiRouterCatalogPropose($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogPropose'][0])
+    {
+        list($response) = $this->postAiRouterCatalogProposeWithHttpInfo($ai_routing_edit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postAiRouterCatalogProposeWithHttpInfo
+     *
+     * Answers the diff an edited catalog would apply to a family, and the version it would be made from.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogPropose'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PostAiRouterCatalogPropose200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAiRouterCatalogProposeWithHttpInfo($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogPropose'][0])
+    {
+        $request = $this->postAiRouterCatalogProposeRequest($ai_routing_edit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PostAiRouterCatalogPropose200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PostAiRouterCatalogPropose200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PostAiRouterCatalogPropose200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postAiRouterCatalogProposeAsync
+     *
+     * Answers the diff an edited catalog would apply to a family, and the version it would be made from.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogPropose'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAiRouterCatalogProposeAsync($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogPropose'][0])
+    {
+        return $this->postAiRouterCatalogProposeAsyncWithHttpInfo($ai_routing_edit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postAiRouterCatalogProposeAsyncWithHttpInfo
+     *
+     * Answers the diff an edited catalog would apply to a family, and the version it would be made from.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogPropose'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAiRouterCatalogProposeAsyncWithHttpInfo($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogPropose'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PostAiRouterCatalogPropose200Response';
+        $request = $this->postAiRouterCatalogProposeRequest($ai_routing_edit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postAiRouterCatalogPropose'
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogPropose'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postAiRouterCatalogProposeRequest($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogPropose'][0])
+    {
+
+        // verify the required parameter 'ai_routing_edit' is set
+        if ($ai_routing_edit === null || (is_array($ai_routing_edit) && count($ai_routing_edit) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_routing_edit when calling postAiRouterCatalogPropose'
+            );
+        }
+
+
+        $resourcePath = '/v1/ai/router/catalog/propose';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($ai_routing_edit)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_routing_edit));
+            } else {
+                $httpBody = $ai_routing_edit;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postAiRouterCatalogRollback
+     *
+     * Applies an earlier version of a family&#39;s catalog again, as a new version.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogRollback'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PutAiRouterCatalog200Response
+     */
+    public function postAiRouterCatalogRollback($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogRollback'][0])
+    {
+        list($response) = $this->postAiRouterCatalogRollbackWithHttpInfo($ai_routing_edit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postAiRouterCatalogRollbackWithHttpInfo
+     *
+     * Applies an earlier version of a family&#39;s catalog again, as a new version.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogRollback'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PutAiRouterCatalog200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAiRouterCatalogRollbackWithHttpInfo($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogRollback'][0])
+    {
+        $request = $this->postAiRouterCatalogRollbackRequest($ai_routing_edit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PutAiRouterCatalog200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PutAiRouterCatalog200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PutAiRouterCatalog200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postAiRouterCatalogRollbackAsync
+     *
+     * Applies an earlier version of a family&#39;s catalog again, as a new version.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogRollback'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAiRouterCatalogRollbackAsync($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogRollback'][0])
+    {
+        return $this->postAiRouterCatalogRollbackAsyncWithHttpInfo($ai_routing_edit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postAiRouterCatalogRollbackAsyncWithHttpInfo
+     *
+     * Applies an earlier version of a family&#39;s catalog again, as a new version.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogRollback'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAiRouterCatalogRollbackAsyncWithHttpInfo($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogRollback'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PutAiRouterCatalog200Response';
+        $request = $this->postAiRouterCatalogRollbackRequest($ai_routing_edit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postAiRouterCatalogRollback'
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogRollback'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postAiRouterCatalogRollbackRequest($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogRollback'][0])
+    {
+
+        // verify the required parameter 'ai_routing_edit' is set
+        if ($ai_routing_edit === null || (is_array($ai_routing_edit) && count($ai_routing_edit) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_routing_edit when calling postAiRouterCatalogRollback'
+            );
+        }
+
+
+        $resourcePath = '/v1/ai/router/catalog/rollback';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($ai_routing_edit)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_routing_edit));
+            } else {
+                $httpBody = $ai_routing_edit;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postAiRouterCatalogTest
+     *
+     * Sends one short turn to a SKU through its family and answers which upstream wrote it and how long it took.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogTest'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PostAiRouterCatalogTest200Response
+     */
+    public function postAiRouterCatalogTest($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogTest'][0])
+    {
+        list($response) = $this->postAiRouterCatalogTestWithHttpInfo($ai_routing_edit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postAiRouterCatalogTestWithHttpInfo
+     *
+     * Sends one short turn to a SKU through its family and answers which upstream wrote it and how long it took.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogTest'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PostAiRouterCatalogTest200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAiRouterCatalogTestWithHttpInfo($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogTest'][0])
+    {
+        $request = $this->postAiRouterCatalogTestRequest($ai_routing_edit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PostAiRouterCatalogTest200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PostAiRouterCatalogTest200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PostAiRouterCatalogTest200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postAiRouterCatalogTestAsync
+     *
+     * Sends one short turn to a SKU through its family and answers which upstream wrote it and how long it took.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogTest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAiRouterCatalogTestAsync($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogTest'][0])
+    {
+        return $this->postAiRouterCatalogTestAsyncWithHttpInfo($ai_routing_edit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postAiRouterCatalogTestAsyncWithHttpInfo
+     *
+     * Sends one short turn to a SKU through its family and answers which upstream wrote it and how long it took.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogTest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAiRouterCatalogTestAsyncWithHttpInfo($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogTest'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PostAiRouterCatalogTest200Response';
+        $request = $this->postAiRouterCatalogTestRequest($ai_routing_edit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postAiRouterCatalogTest'
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRouterCatalogTest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postAiRouterCatalogTestRequest($ai_routing_edit, string $contentType = self::contentTypes['postAiRouterCatalogTest'][0])
+    {
+
+        // verify the required parameter 'ai_routing_edit' is set
+        if ($ai_routing_edit === null || (is_array($ai_routing_edit) && count($ai_routing_edit) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_routing_edit when calling postAiRouterCatalogTest'
+            );
+        }
+
+
+        $resourcePath = '/v1/ai/router/catalog/test';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($ai_routing_edit)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_routing_edit));
+            } else {
+                $httpBody = $ai_routing_edit;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -61365,15 +67547,16 @@ class AiApi
      *
      * Create a model-route
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRoutes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiRoutes200Response
      */
-    public function postAiRoutes(string $contentType = self::contentTypes['postAiRoutes'][0])
+    public function postAiRoutes($body, string $contentType = self::contentTypes['postAiRoutes'][0])
     {
-        list($response) = $this->postAiRoutesWithHttpInfo($contentType);
+        list($response) = $this->postAiRoutesWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -61382,15 +67565,16 @@ class AiApi
      *
      * Create a model-route
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRoutes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiRoutes200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiRoutesWithHttpInfo(string $contentType = self::contentTypes['postAiRoutes'][0])
+    public function postAiRoutesWithHttpInfo($body, string $contentType = self::contentTypes['postAiRoutes'][0])
     {
-        $request = $this->postAiRoutesRequest($contentType);
+        $request = $this->postAiRoutesRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -61466,14 +67650,15 @@ class AiApi
      *
      * Create a model-route
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRoutes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRoutesAsync(string $contentType = self::contentTypes['postAiRoutes'][0])
+    public function postAiRoutesAsync($body, string $contentType = self::contentTypes['postAiRoutes'][0])
     {
-        return $this->postAiRoutesAsyncWithHttpInfo($contentType)
+        return $this->postAiRoutesAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -61486,15 +67671,16 @@ class AiApi
      *
      * Create a model-route
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRoutes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiRoutesAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiRoutes'][0])
+    public function postAiRoutesAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiRoutes'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiRoutes200Response';
-        $request = $this->postAiRoutesRequest($contentType);
+        $request = $this->postAiRoutesRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -61535,13 +67721,21 @@ class AiApi
     /**
      * Create request for operation 'postAiRoutes'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiRoutes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiRoutesRequest(string $contentType = self::contentTypes['postAiRoutes'][0])
+    public function postAiRoutesRequest($body, string $contentType = self::contentTypes['postAiRoutes'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiRoutes'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/routes';
@@ -61562,7 +67756,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -61617,15 +67818,16 @@ class AiApi
      *
      * Create a scale
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiScales'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiScales200Response
      */
-    public function postAiScales(string $contentType = self::contentTypes['postAiScales'][0])
+    public function postAiScales($body, string $contentType = self::contentTypes['postAiScales'][0])
     {
-        list($response) = $this->postAiScalesWithHttpInfo($contentType);
+        list($response) = $this->postAiScalesWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -61634,15 +67836,16 @@ class AiApi
      *
      * Create a scale
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiScales'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiScales200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiScalesWithHttpInfo(string $contentType = self::contentTypes['postAiScales'][0])
+    public function postAiScalesWithHttpInfo($body, string $contentType = self::contentTypes['postAiScales'][0])
     {
-        $request = $this->postAiScalesRequest($contentType);
+        $request = $this->postAiScalesRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -61718,14 +67921,15 @@ class AiApi
      *
      * Create a scale
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiScales'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiScalesAsync(string $contentType = self::contentTypes['postAiScales'][0])
+    public function postAiScalesAsync($body, string $contentType = self::contentTypes['postAiScales'][0])
     {
-        return $this->postAiScalesAsyncWithHttpInfo($contentType)
+        return $this->postAiScalesAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -61738,15 +67942,16 @@ class AiApi
      *
      * Create a scale
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiScales'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiScalesAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiScales'][0])
+    public function postAiScalesAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiScales'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiScales200Response';
-        $request = $this->postAiScalesRequest($contentType);
+        $request = $this->postAiScalesRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -61787,13 +67992,21 @@ class AiApi
     /**
      * Create request for operation 'postAiScales'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiScales'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiScalesRequest(string $contentType = self::contentTypes['postAiScales'][0])
+    public function postAiScalesRequest($body, string $contentType = self::contentTypes['postAiScales'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiScales'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/scales';
@@ -61814,7 +68027,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -61869,15 +68089,16 @@ class AiApi
      *
      * Create a scan
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiScans'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiScans200Response
      */
-    public function postAiScans(string $contentType = self::contentTypes['postAiScans'][0])
+    public function postAiScans($body, string $contentType = self::contentTypes['postAiScans'][0])
     {
-        list($response) = $this->postAiScansWithHttpInfo($contentType);
+        list($response) = $this->postAiScansWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -61886,15 +68107,16 @@ class AiApi
      *
      * Create a scan
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiScans'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiScans200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiScansWithHttpInfo(string $contentType = self::contentTypes['postAiScans'][0])
+    public function postAiScansWithHttpInfo($body, string $contentType = self::contentTypes['postAiScans'][0])
     {
-        $request = $this->postAiScansRequest($contentType);
+        $request = $this->postAiScansRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -61970,14 +68192,15 @@ class AiApi
      *
      * Create a scan
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiScans'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiScansAsync(string $contentType = self::contentTypes['postAiScans'][0])
+    public function postAiScansAsync($body, string $contentType = self::contentTypes['postAiScans'][0])
     {
-        return $this->postAiScansAsyncWithHttpInfo($contentType)
+        return $this->postAiScansAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -61990,15 +68213,16 @@ class AiApi
      *
      * Create a scan
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiScans'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiScansAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiScans'][0])
+    public function postAiScansAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiScans'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiScans200Response';
-        $request = $this->postAiScansRequest($contentType);
+        $request = $this->postAiScansRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -62039,13 +68263,21 @@ class AiApi
     /**
      * Create request for operation 'postAiScans'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiScans'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiScansRequest(string $contentType = self::contentTypes['postAiScans'][0])
+    public function postAiScansRequest($body, string $contentType = self::contentTypes['postAiScans'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiScans'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/scans';
@@ -62066,7 +68298,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -62121,15 +68360,16 @@ class AiApi
      *
      * Signin
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSignin'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiSignin(string $contentType = self::contentTypes['postAiSignin'][0])
+    public function postAiSignin($body, string $contentType = self::contentTypes['postAiSignin'][0])
     {
-        list($response) = $this->postAiSigninWithHttpInfo($contentType);
+        list($response) = $this->postAiSigninWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -62138,15 +68378,16 @@ class AiApi
      *
      * Signin
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSignin'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiSigninWithHttpInfo(string $contentType = self::contentTypes['postAiSignin'][0])
+    public function postAiSigninWithHttpInfo($body, string $contentType = self::contentTypes['postAiSignin'][0])
     {
-        $request = $this->postAiSigninRequest($contentType);
+        $request = $this->postAiSigninRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -62222,14 +68463,15 @@ class AiApi
      *
      * Signin
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSignin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiSigninAsync(string $contentType = self::contentTypes['postAiSignin'][0])
+    public function postAiSigninAsync($body, string $contentType = self::contentTypes['postAiSignin'][0])
     {
-        return $this->postAiSigninAsyncWithHttpInfo($contentType)
+        return $this->postAiSigninAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -62242,15 +68484,16 @@ class AiApi
      *
      * Signin
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSignin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiSigninAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiSignin'][0])
+    public function postAiSigninAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiSignin'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiSigninRequest($contentType);
+        $request = $this->postAiSigninRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -62291,13 +68534,21 @@ class AiApi
     /**
      * Create request for operation 'postAiSignin'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSignin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiSigninRequest(string $contentType = self::contentTypes['postAiSignin'][0])
+    public function postAiSigninRequest($body, string $contentType = self::contentTypes['postAiSignin'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiSignin'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/signin';
@@ -62318,7 +68569,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -62373,15 +68631,16 @@ class AiApi
      *
      * Create a session
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSigninSessions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiSigninSessions200Response
      */
-    public function postAiSigninSessions(string $contentType = self::contentTypes['postAiSigninSessions'][0])
+    public function postAiSigninSessions($body, string $contentType = self::contentTypes['postAiSigninSessions'][0])
     {
-        list($response) = $this->postAiSigninSessionsWithHttpInfo($contentType);
+        list($response) = $this->postAiSigninSessionsWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -62390,15 +68649,16 @@ class AiApi
      *
      * Create a session
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSigninSessions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiSigninSessions200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiSigninSessionsWithHttpInfo(string $contentType = self::contentTypes['postAiSigninSessions'][0])
+    public function postAiSigninSessionsWithHttpInfo($body, string $contentType = self::contentTypes['postAiSigninSessions'][0])
     {
-        $request = $this->postAiSigninSessionsRequest($contentType);
+        $request = $this->postAiSigninSessionsRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -62474,14 +68734,15 @@ class AiApi
      *
      * Create a session
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSigninSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiSigninSessionsAsync(string $contentType = self::contentTypes['postAiSigninSessions'][0])
+    public function postAiSigninSessionsAsync($body, string $contentType = self::contentTypes['postAiSigninSessions'][0])
     {
-        return $this->postAiSigninSessionsAsyncWithHttpInfo($contentType)
+        return $this->postAiSigninSessionsAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -62494,15 +68755,16 @@ class AiApi
      *
      * Create a session
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSigninSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiSigninSessionsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiSigninSessions'][0])
+    public function postAiSigninSessionsAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiSigninSessions'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiSigninSessions200Response';
-        $request = $this->postAiSigninSessionsRequest($contentType);
+        $request = $this->postAiSigninSessionsRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -62543,13 +68805,21 @@ class AiApi
     /**
      * Create request for operation 'postAiSigninSessions'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSigninSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiSigninSessionsRequest(string $contentType = self::contentTypes['postAiSigninSessions'][0])
+    public function postAiSigninSessionsRequest($body, string $contentType = self::contentTypes['postAiSigninSessions'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiSigninSessions'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/signin-sessions';
@@ -62570,7 +68840,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -62625,15 +68902,16 @@ class AiApi
      *
      * Signout
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSignout'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiSignout(string $contentType = self::contentTypes['postAiSignout'][0])
+    public function postAiSignout($body, string $contentType = self::contentTypes['postAiSignout'][0])
     {
-        list($response) = $this->postAiSignoutWithHttpInfo($contentType);
+        list($response) = $this->postAiSignoutWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -62642,15 +68920,16 @@ class AiApi
      *
      * Signout
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSignout'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiSignoutWithHttpInfo(string $contentType = self::contentTypes['postAiSignout'][0])
+    public function postAiSignoutWithHttpInfo($body, string $contentType = self::contentTypes['postAiSignout'][0])
     {
-        $request = $this->postAiSignoutRequest($contentType);
+        $request = $this->postAiSignoutRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -62726,14 +69005,15 @@ class AiApi
      *
      * Signout
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSignout'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiSignoutAsync(string $contentType = self::contentTypes['postAiSignout'][0])
+    public function postAiSignoutAsync($body, string $contentType = self::contentTypes['postAiSignout'][0])
     {
-        return $this->postAiSignoutAsyncWithHttpInfo($contentType)
+        return $this->postAiSignoutAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -62746,15 +69026,16 @@ class AiApi
      *
      * Signout
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSignout'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiSignoutAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiSignout'][0])
+    public function postAiSignoutAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiSignout'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiSignoutRequest($contentType);
+        $request = $this->postAiSignoutRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -62795,13 +69076,21 @@ class AiApi
     /**
      * Create request for operation 'postAiSignout'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiSignout'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiSignoutRequest(string $contentType = self::contentTypes['postAiSignout'][0])
+    public function postAiSignoutRequest($body, string $contentType = self::contentTypes['postAiSignout'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiSignout'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/signout';
@@ -62822,7 +69111,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -62877,15 +69173,16 @@ class AiApi
      *
      * Create a store
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiStores'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiStores200Response
      */
-    public function postAiStores(string $contentType = self::contentTypes['postAiStores'][0])
+    public function postAiStores($body, string $contentType = self::contentTypes['postAiStores'][0])
     {
-        list($response) = $this->postAiStoresWithHttpInfo($contentType);
+        list($response) = $this->postAiStoresWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -62894,15 +69191,16 @@ class AiApi
      *
      * Create a store
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiStores'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiStores200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiStoresWithHttpInfo(string $contentType = self::contentTypes['postAiStores'][0])
+    public function postAiStoresWithHttpInfo($body, string $contentType = self::contentTypes['postAiStores'][0])
     {
-        $request = $this->postAiStoresRequest($contentType);
+        $request = $this->postAiStoresRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -62978,14 +69276,15 @@ class AiApi
      *
      * Create a store
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiStores'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiStoresAsync(string $contentType = self::contentTypes['postAiStores'][0])
+    public function postAiStoresAsync($body, string $contentType = self::contentTypes['postAiStores'][0])
     {
-        return $this->postAiStoresAsyncWithHttpInfo($contentType)
+        return $this->postAiStoresAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -62998,15 +69297,16 @@ class AiApi
      *
      * Create a store
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiStores'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiStoresAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiStores'][0])
+    public function postAiStoresAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiStores'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiStores200Response';
-        $request = $this->postAiStoresRequest($contentType);
+        $request = $this->postAiStoresRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -63047,13 +69347,21 @@ class AiApi
     /**
      * Create request for operation 'postAiStores'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiStores'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiStoresRequest(string $contentType = self::contentTypes['postAiStores'][0])
+    public function postAiStoresRequest($body, string $contentType = self::contentTypes['postAiStores'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiStores'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/stores';
@@ -63074,7 +69382,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -63131,15 +69446,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiStoresByOwnerByNameVectors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiStoresByOwnerByNameVectors($owner, $name, string $contentType = self::contentTypes['postAiStoresByOwnerByNameVectors'][0])
+    public function postAiStoresByOwnerByNameVectors($owner, $name, $body, string $contentType = self::contentTypes['postAiStoresByOwnerByNameVectors'][0])
     {
-        list($response) = $this->postAiStoresByOwnerByNameVectorsWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->postAiStoresByOwnerByNameVectorsWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -63150,15 +69466,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiStoresByOwnerByNameVectors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiStoresByOwnerByNameVectorsWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiStoresByOwnerByNameVectors'][0])
+    public function postAiStoresByOwnerByNameVectorsWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiStoresByOwnerByNameVectors'][0])
     {
-        $request = $this->postAiStoresByOwnerByNameVectorsRequest($owner, $name, $contentType);
+        $request = $this->postAiStoresByOwnerByNameVectorsRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -63236,14 +69553,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiStoresByOwnerByNameVectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiStoresByOwnerByNameVectorsAsync($owner, $name, string $contentType = self::contentTypes['postAiStoresByOwnerByNameVectors'][0])
+    public function postAiStoresByOwnerByNameVectorsAsync($owner, $name, $body, string $contentType = self::contentTypes['postAiStoresByOwnerByNameVectors'][0])
     {
-        return $this->postAiStoresByOwnerByNameVectorsAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->postAiStoresByOwnerByNameVectorsAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -63258,15 +69576,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiStoresByOwnerByNameVectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiStoresByOwnerByNameVectorsAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiStoresByOwnerByNameVectors'][0])
+    public function postAiStoresByOwnerByNameVectorsAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiStoresByOwnerByNameVectors'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiStoresByOwnerByNameVectorsRequest($owner, $name, $contentType);
+        $request = $this->postAiStoresByOwnerByNameVectorsRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -63309,12 +69628,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiStoresByOwnerByNameVectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiStoresByOwnerByNameVectorsRequest($owner, $name, string $contentType = self::contentTypes['postAiStoresByOwnerByNameVectors'][0])
+    public function postAiStoresByOwnerByNameVectorsRequest($owner, $name, $body, string $contentType = self::contentTypes['postAiStoresByOwnerByNameVectors'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -63328,6 +69648,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling postAiStoresByOwnerByNameVectors'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiStoresByOwnerByNameVectors'
             );
         }
 
@@ -63366,7 +69693,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -63421,15 +69755,16 @@ class AiApi
      *
      * Create a task
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasks'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiTasks200Response
      */
-    public function postAiTasks(string $contentType = self::contentTypes['postAiTasks'][0])
+    public function postAiTasks($body, string $contentType = self::contentTypes['postAiTasks'][0])
     {
-        list($response) = $this->postAiTasksWithHttpInfo($contentType);
+        list($response) = $this->postAiTasksWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -63438,15 +69773,16 @@ class AiApi
      *
      * Create a task
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasks'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiTasks200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiTasksWithHttpInfo(string $contentType = self::contentTypes['postAiTasks'][0])
+    public function postAiTasksWithHttpInfo($body, string $contentType = self::contentTypes['postAiTasks'][0])
     {
-        $request = $this->postAiTasksRequest($contentType);
+        $request = $this->postAiTasksRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -63522,14 +69858,15 @@ class AiApi
      *
      * Create a task
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiTasksAsync(string $contentType = self::contentTypes['postAiTasks'][0])
+    public function postAiTasksAsync($body, string $contentType = self::contentTypes['postAiTasks'][0])
     {
-        return $this->postAiTasksAsyncWithHttpInfo($contentType)
+        return $this->postAiTasksAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -63542,15 +69879,16 @@ class AiApi
      *
      * Create a task
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiTasksAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiTasks'][0])
+    public function postAiTasksAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiTasks'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiTasks200Response';
-        $request = $this->postAiTasksRequest($contentType);
+        $request = $this->postAiTasksRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -63591,13 +69929,21 @@ class AiApi
     /**
      * Create request for operation 'postAiTasks'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiTasksRequest(string $contentType = self::contentTypes['postAiTasks'][0])
+    public function postAiTasksRequest($body, string $contentType = self::contentTypes['postAiTasks'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiTasks'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/tasks';
@@ -63618,7 +69964,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -63675,15 +70028,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasksByOwnerByNameAnalyze'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiTasksByOwnerByNameAnalyze($owner, $name, string $contentType = self::contentTypes['postAiTasksByOwnerByNameAnalyze'][0])
+    public function postAiTasksByOwnerByNameAnalyze($owner, $name, $body, string $contentType = self::contentTypes['postAiTasksByOwnerByNameAnalyze'][0])
     {
-        list($response) = $this->postAiTasksByOwnerByNameAnalyzeWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->postAiTasksByOwnerByNameAnalyzeWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -63694,15 +70048,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasksByOwnerByNameAnalyze'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiTasksByOwnerByNameAnalyzeWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiTasksByOwnerByNameAnalyze'][0])
+    public function postAiTasksByOwnerByNameAnalyzeWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiTasksByOwnerByNameAnalyze'][0])
     {
-        $request = $this->postAiTasksByOwnerByNameAnalyzeRequest($owner, $name, $contentType);
+        $request = $this->postAiTasksByOwnerByNameAnalyzeRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -63780,14 +70135,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasksByOwnerByNameAnalyze'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiTasksByOwnerByNameAnalyzeAsync($owner, $name, string $contentType = self::contentTypes['postAiTasksByOwnerByNameAnalyze'][0])
+    public function postAiTasksByOwnerByNameAnalyzeAsync($owner, $name, $body, string $contentType = self::contentTypes['postAiTasksByOwnerByNameAnalyze'][0])
     {
-        return $this->postAiTasksByOwnerByNameAnalyzeAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->postAiTasksByOwnerByNameAnalyzeAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -63802,15 +70158,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasksByOwnerByNameAnalyze'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiTasksByOwnerByNameAnalyzeAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiTasksByOwnerByNameAnalyze'][0])
+    public function postAiTasksByOwnerByNameAnalyzeAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiTasksByOwnerByNameAnalyze'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiTasksByOwnerByNameAnalyzeRequest($owner, $name, $contentType);
+        $request = $this->postAiTasksByOwnerByNameAnalyzeRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -63853,12 +70210,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasksByOwnerByNameAnalyze'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiTasksByOwnerByNameAnalyzeRequest($owner, $name, string $contentType = self::contentTypes['postAiTasksByOwnerByNameAnalyze'][0])
+    public function postAiTasksByOwnerByNameAnalyzeRequest($owner, $name, $body, string $contentType = self::contentTypes['postAiTasksByOwnerByNameAnalyze'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -63872,6 +70230,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling postAiTasksByOwnerByNameAnalyze'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiTasksByOwnerByNameAnalyze'
             );
         }
 
@@ -63910,7 +70275,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -63967,15 +70339,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasksByOwnerByNameDocument'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiTasksByOwnerByNameDocument($owner, $name, string $contentType = self::contentTypes['postAiTasksByOwnerByNameDocument'][0])
+    public function postAiTasksByOwnerByNameDocument($owner, $name, $body, string $contentType = self::contentTypes['postAiTasksByOwnerByNameDocument'][0])
     {
-        list($response) = $this->postAiTasksByOwnerByNameDocumentWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->postAiTasksByOwnerByNameDocumentWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -63986,15 +70359,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasksByOwnerByNameDocument'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiTasksByOwnerByNameDocumentWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiTasksByOwnerByNameDocument'][0])
+    public function postAiTasksByOwnerByNameDocumentWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiTasksByOwnerByNameDocument'][0])
     {
-        $request = $this->postAiTasksByOwnerByNameDocumentRequest($owner, $name, $contentType);
+        $request = $this->postAiTasksByOwnerByNameDocumentRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -64072,14 +70446,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasksByOwnerByNameDocument'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiTasksByOwnerByNameDocumentAsync($owner, $name, string $contentType = self::contentTypes['postAiTasksByOwnerByNameDocument'][0])
+    public function postAiTasksByOwnerByNameDocumentAsync($owner, $name, $body, string $contentType = self::contentTypes['postAiTasksByOwnerByNameDocument'][0])
     {
-        return $this->postAiTasksByOwnerByNameDocumentAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->postAiTasksByOwnerByNameDocumentAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -64094,15 +70469,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasksByOwnerByNameDocument'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiTasksByOwnerByNameDocumentAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['postAiTasksByOwnerByNameDocument'][0])
+    public function postAiTasksByOwnerByNameDocumentAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['postAiTasksByOwnerByNameDocument'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiTasksByOwnerByNameDocumentRequest($owner, $name, $contentType);
+        $request = $this->postAiTasksByOwnerByNameDocumentRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -64145,12 +70521,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTasksByOwnerByNameDocument'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiTasksByOwnerByNameDocumentRequest($owner, $name, string $contentType = self::contentTypes['postAiTasksByOwnerByNameDocument'][0])
+    public function postAiTasksByOwnerByNameDocumentRequest($owner, $name, $body, string $contentType = self::contentTypes['postAiTasksByOwnerByNameDocument'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -64164,6 +70541,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling postAiTasksByOwnerByNameDocument'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiTasksByOwnerByNameDocument'
             );
         }
 
@@ -64202,7 +70586,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -64257,15 +70648,16 @@ class AiApi
      *
      * Create a template
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTemplates'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiTemplates200Response
      */
-    public function postAiTemplates(string $contentType = self::contentTypes['postAiTemplates'][0])
+    public function postAiTemplates($body, string $contentType = self::contentTypes['postAiTemplates'][0])
     {
-        list($response) = $this->postAiTemplatesWithHttpInfo($contentType);
+        list($response) = $this->postAiTemplatesWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -64274,15 +70666,16 @@ class AiApi
      *
      * Create a template
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTemplates'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiTemplates200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiTemplatesWithHttpInfo(string $contentType = self::contentTypes['postAiTemplates'][0])
+    public function postAiTemplatesWithHttpInfo($body, string $contentType = self::contentTypes['postAiTemplates'][0])
     {
-        $request = $this->postAiTemplatesRequest($contentType);
+        $request = $this->postAiTemplatesRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -64358,14 +70751,15 @@ class AiApi
      *
      * Create a template
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTemplates'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiTemplatesAsync(string $contentType = self::contentTypes['postAiTemplates'][0])
+    public function postAiTemplatesAsync($body, string $contentType = self::contentTypes['postAiTemplates'][0])
     {
-        return $this->postAiTemplatesAsyncWithHttpInfo($contentType)
+        return $this->postAiTemplatesAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -64378,15 +70772,16 @@ class AiApi
      *
      * Create a template
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTemplates'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiTemplatesAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiTemplates'][0])
+    public function postAiTemplatesAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiTemplates'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiTemplates200Response';
-        $request = $this->postAiTemplatesRequest($contentType);
+        $request = $this->postAiTemplatesRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -64427,13 +70822,21 @@ class AiApi
     /**
      * Create request for operation 'postAiTemplates'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTemplates'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiTemplatesRequest(string $contentType = self::contentTypes['postAiTemplates'][0])
+    public function postAiTemplatesRequest($body, string $contentType = self::contentTypes['postAiTemplates'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiTemplates'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/templates';
@@ -64454,7 +70857,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -64509,15 +70919,16 @@ class AiApi
      *
      * Create a tree-file
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTreeFiles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiTreeFiles200Response
      */
-    public function postAiTreeFiles(string $contentType = self::contentTypes['postAiTreeFiles'][0])
+    public function postAiTreeFiles($body, string $contentType = self::contentTypes['postAiTreeFiles'][0])
     {
-        list($response) = $this->postAiTreeFilesWithHttpInfo($contentType);
+        list($response) = $this->postAiTreeFilesWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -64526,15 +70937,16 @@ class AiApi
      *
      * Create a tree-file
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTreeFiles'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiTreeFiles200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiTreeFilesWithHttpInfo(string $contentType = self::contentTypes['postAiTreeFiles'][0])
+    public function postAiTreeFilesWithHttpInfo($body, string $contentType = self::contentTypes['postAiTreeFiles'][0])
     {
-        $request = $this->postAiTreeFilesRequest($contentType);
+        $request = $this->postAiTreeFilesRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -64610,14 +71022,15 @@ class AiApi
      *
      * Create a tree-file
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTreeFiles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiTreeFilesAsync(string $contentType = self::contentTypes['postAiTreeFiles'][0])
+    public function postAiTreeFilesAsync($body, string $contentType = self::contentTypes['postAiTreeFiles'][0])
     {
-        return $this->postAiTreeFilesAsyncWithHttpInfo($contentType)
+        return $this->postAiTreeFilesAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -64630,15 +71043,16 @@ class AiApi
      *
      * Create a tree-file
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTreeFiles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiTreeFilesAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiTreeFiles'][0])
+    public function postAiTreeFilesAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiTreeFiles'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiTreeFiles200Response';
-        $request = $this->postAiTreeFilesRequest($contentType);
+        $request = $this->postAiTreeFilesRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -64679,13 +71093,21 @@ class AiApi
     /**
      * Create request for operation 'postAiTreeFiles'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiTreeFiles'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiTreeFilesRequest(string $contentType = self::contentTypes['postAiTreeFiles'][0])
+    public function postAiTreeFilesRequest($body, string $contentType = self::contentTypes['postAiTreeFiles'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiTreeFiles'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/tree-files';
@@ -64706,7 +71128,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -64761,15 +71190,16 @@ class AiApi
      *
      * Create a vector
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVectors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiVectors200Response
      */
-    public function postAiVectors(string $contentType = self::contentTypes['postAiVectors'][0])
+    public function postAiVectors($body, string $contentType = self::contentTypes['postAiVectors'][0])
     {
-        list($response) = $this->postAiVectorsWithHttpInfo($contentType);
+        list($response) = $this->postAiVectorsWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -64778,15 +71208,16 @@ class AiApi
      *
      * Create a vector
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVectors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiVectors200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiVectorsWithHttpInfo(string $contentType = self::contentTypes['postAiVectors'][0])
+    public function postAiVectorsWithHttpInfo($body, string $contentType = self::contentTypes['postAiVectors'][0])
     {
-        $request = $this->postAiVectorsRequest($contentType);
+        $request = $this->postAiVectorsRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -64862,14 +71293,15 @@ class AiApi
      *
      * Create a vector
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiVectorsAsync(string $contentType = self::contentTypes['postAiVectors'][0])
+    public function postAiVectorsAsync($body, string $contentType = self::contentTypes['postAiVectors'][0])
     {
-        return $this->postAiVectorsAsyncWithHttpInfo($contentType)
+        return $this->postAiVectorsAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -64882,15 +71314,16 @@ class AiApi
      *
      * Create a vector
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiVectorsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiVectors'][0])
+    public function postAiVectorsAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiVectors'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiVectors200Response';
-        $request = $this->postAiVectorsRequest($contentType);
+        $request = $this->postAiVectorsRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -64931,13 +71364,21 @@ class AiApi
     /**
      * Create request for operation 'postAiVectors'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiVectorsRequest(string $contentType = self::contentTypes['postAiVectors'][0])
+    public function postAiVectorsRequest($body, string $contentType = self::contentTypes['postAiVectors'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiVectors'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/vectors';
@@ -64958,7 +71399,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -65013,15 +71461,16 @@ class AiApi
      *
      * Create a video
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVideos'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiVideos200Response
      */
-    public function postAiVideos(string $contentType = self::contentTypes['postAiVideos'][0])
+    public function postAiVideos($body, string $contentType = self::contentTypes['postAiVideos'][0])
     {
-        list($response) = $this->postAiVideosWithHttpInfo($contentType);
+        list($response) = $this->postAiVideosWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -65030,15 +71479,16 @@ class AiApi
      *
      * Create a video
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVideos'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiVideos200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiVideosWithHttpInfo(string $contentType = self::contentTypes['postAiVideos'][0])
+    public function postAiVideosWithHttpInfo($body, string $contentType = self::contentTypes['postAiVideos'][0])
     {
-        $request = $this->postAiVideosRequest($contentType);
+        $request = $this->postAiVideosRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -65114,14 +71564,15 @@ class AiApi
      *
      * Create a video
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVideos'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiVideosAsync(string $contentType = self::contentTypes['postAiVideos'][0])
+    public function postAiVideosAsync($body, string $contentType = self::contentTypes['postAiVideos'][0])
     {
-        return $this->postAiVideosAsyncWithHttpInfo($contentType)
+        return $this->postAiVideosAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -65134,15 +71585,16 @@ class AiApi
      *
      * Create a video
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVideos'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiVideosAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiVideos'][0])
+    public function postAiVideosAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiVideos'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiVideos200Response';
-        $request = $this->postAiVideosRequest($contentType);
+        $request = $this->postAiVideosRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -65183,13 +71635,21 @@ class AiApi
     /**
      * Create request for operation 'postAiVideos'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVideos'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiVideosRequest(string $contentType = self::contentTypes['postAiVideos'][0])
+    public function postAiVideosRequest($body, string $contentType = self::contentTypes['postAiVideos'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiVideos'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/videos';
@@ -65210,7 +71670,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -65265,15 +71732,16 @@ class AiApi
      *
      * Upload (video)
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVideosUpload'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function postAiVideosUpload(string $contentType = self::contentTypes['postAiVideosUpload'][0])
+    public function postAiVideosUpload($body, string $contentType = self::contentTypes['postAiVideosUpload'][0])
     {
-        list($response) = $this->postAiVideosUploadWithHttpInfo($contentType);
+        list($response) = $this->postAiVideosUploadWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -65282,15 +71750,16 @@ class AiApi
      *
      * Upload (video)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVideosUpload'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiVideosUploadWithHttpInfo(string $contentType = self::contentTypes['postAiVideosUpload'][0])
+    public function postAiVideosUploadWithHttpInfo($body, string $contentType = self::contentTypes['postAiVideosUpload'][0])
     {
-        $request = $this->postAiVideosUploadRequest($contentType);
+        $request = $this->postAiVideosUploadRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -65366,14 +71835,15 @@ class AiApi
      *
      * Upload (video)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVideosUpload'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiVideosUploadAsync(string $contentType = self::contentTypes['postAiVideosUpload'][0])
+    public function postAiVideosUploadAsync($body, string $contentType = self::contentTypes['postAiVideosUpload'][0])
     {
-        return $this->postAiVideosUploadAsyncWithHttpInfo($contentType)
+        return $this->postAiVideosUploadAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -65386,15 +71856,16 @@ class AiApi
      *
      * Upload (video)
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVideosUpload'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiVideosUploadAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiVideosUpload'][0])
+    public function postAiVideosUploadAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiVideosUpload'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->postAiVideosUploadRequest($contentType);
+        $request = $this->postAiVideosUploadRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -65435,13 +71906,21 @@ class AiApi
     /**
      * Create request for operation 'postAiVideosUpload'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiVideosUpload'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiVideosUploadRequest(string $contentType = self::contentTypes['postAiVideosUpload'][0])
+    public function postAiVideosUploadRequest($body, string $contentType = self::contentTypes['postAiVideosUpload'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiVideosUpload'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/videos/upload';
@@ -65462,7 +71941,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -65517,15 +72003,16 @@ class AiApi
      *
      * Create a workflow
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiWorkflows'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiWorkflows200Response
      */
-    public function postAiWorkflows(string $contentType = self::contentTypes['postAiWorkflows'][0])
+    public function postAiWorkflows($body, string $contentType = self::contentTypes['postAiWorkflows'][0])
     {
-        list($response) = $this->postAiWorkflowsWithHttpInfo($contentType);
+        list($response) = $this->postAiWorkflowsWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -65534,15 +72021,16 @@ class AiApi
      *
      * Create a workflow
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiWorkflows'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiWorkflows200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAiWorkflowsWithHttpInfo(string $contentType = self::contentTypes['postAiWorkflows'][0])
+    public function postAiWorkflowsWithHttpInfo($body, string $contentType = self::contentTypes['postAiWorkflows'][0])
     {
-        $request = $this->postAiWorkflowsRequest($contentType);
+        $request = $this->postAiWorkflowsRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -65618,14 +72106,15 @@ class AiApi
      *
      * Create a workflow
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiWorkflows'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiWorkflowsAsync(string $contentType = self::contentTypes['postAiWorkflows'][0])
+    public function postAiWorkflowsAsync($body, string $contentType = self::contentTypes['postAiWorkflows'][0])
     {
-        return $this->postAiWorkflowsAsyncWithHttpInfo($contentType)
+        return $this->postAiWorkflowsAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -65638,15 +72127,16 @@ class AiApi
      *
      * Create a workflow
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiWorkflows'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAiWorkflowsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAiWorkflows'][0])
+    public function postAiWorkflowsAsyncWithHttpInfo($body, string $contentType = self::contentTypes['postAiWorkflows'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiWorkflows200Response';
-        $request = $this->postAiWorkflowsRequest($contentType);
+        $request = $this->postAiWorkflowsRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -65687,13 +72177,21 @@ class AiApi
     /**
      * Create request for operation 'postAiWorkflows'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAiWorkflows'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAiWorkflowsRequest(string $contentType = self::contentTypes['postAiWorkflows'][0])
+    public function postAiWorkflowsRequest($body, string $contentType = self::contentTypes['postAiWorkflows'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling postAiWorkflows'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/workflows';
@@ -65714,7 +72212,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -66371,6 +72876,430 @@ class AiApi
     }
 
     /**
+     * Operation postAudioTranscript
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscript'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function postAudioTranscript(string $contentType = self::contentTypes['postAudioTranscript'][0])
+    {
+        $this->postAudioTranscriptWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation postAudioTranscriptWithHttpInfo
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscript'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAudioTranscriptWithHttpInfo(string $contentType = self::contentTypes['postAudioTranscript'][0])
+    {
+        $request = $this->postAudioTranscriptRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postAudioTranscriptAsync
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscript'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAudioTranscriptAsync(string $contentType = self::contentTypes['postAudioTranscript'][0])
+    {
+        return $this->postAudioTranscriptAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postAudioTranscriptAsyncWithHttpInfo
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscript'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAudioTranscriptAsyncWithHttpInfo(string $contentType = self::contentTypes['postAudioTranscript'][0])
+    {
+        $returnType = '';
+        $request = $this->postAudioTranscriptRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postAudioTranscript'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscript'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postAudioTranscriptRequest(string $contentType = self::contentTypes['postAudioTranscript'][0])
+    {
+
+
+        $resourcePath = '/v1/audio/transcript';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postAudioTranscriptById
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $id id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscriptById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function postAudioTranscriptById($id, string $contentType = self::contentTypes['postAudioTranscriptById'][0])
+    {
+        $this->postAudioTranscriptByIdWithHttpInfo($id, $contentType);
+    }
+
+    /**
+     * Operation postAudioTranscriptByIdWithHttpInfo
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscriptById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAudioTranscriptByIdWithHttpInfo($id, string $contentType = self::contentTypes['postAudioTranscriptById'][0])
+    {
+        $request = $this->postAudioTranscriptByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postAudioTranscriptByIdAsync
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscriptById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAudioTranscriptByIdAsync($id, string $contentType = self::contentTypes['postAudioTranscriptById'][0])
+    {
+        return $this->postAudioTranscriptByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postAudioTranscriptByIdAsyncWithHttpInfo
+     *
+     * Serves the growing transcript over HTTP: POST opens one, POST to its id pushes raw pcm16 at 16 kHz, and DELETE closes it with the settled text.
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscriptById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAudioTranscriptByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAudioTranscriptById'][0])
+    {
+        $returnType = '';
+        $request = $this->postAudioTranscriptByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postAudioTranscriptById'
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscriptById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postAudioTranscriptByIdRequest($id, string $contentType = self::contentTypes['postAudioTranscriptById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postAudioTranscriptById'
+            );
+        }
+
+
+        $resourcePath = '/v1/audio/transcript/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation postAudioTranscriptions
      *
      * The OpenAI-compatible STT endpoint (POST /v1/audio/transcriptions, multipart: file + model [+ language + response_format]).
@@ -66555,6 +73484,258 @@ class AiApi
 
 
         $resourcePath = '/v1/audio/transcriptions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postAudioTranscriptionsPublic
+     *
+     * Transcribes up to a minute of audio for a caller with no account, on Hanzo&#39;s own transcriber, within a daily allowance per visitor.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscriptionsPublic'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\OpenaiAudioResponse
+     */
+    public function postAudioTranscriptionsPublic(string $contentType = self::contentTypes['postAudioTranscriptionsPublic'][0])
+    {
+        list($response) = $this->postAudioTranscriptionsPublicWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postAudioTranscriptionsPublicWithHttpInfo
+     *
+     * Transcribes up to a minute of audio for a caller with no account, on Hanzo&#39;s own transcriber, within a daily allowance per visitor.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscriptionsPublic'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\OpenaiAudioResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postAudioTranscriptionsPublicWithHttpInfo(string $contentType = self::contentTypes['postAudioTranscriptionsPublic'][0])
+    {
+        $request = $this->postAudioTranscriptionsPublicRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\OpenaiAudioResponse',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\OpenaiAudioResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\OpenaiAudioResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postAudioTranscriptionsPublicAsync
+     *
+     * Transcribes up to a minute of audio for a caller with no account, on Hanzo&#39;s own transcriber, within a daily allowance per visitor.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscriptionsPublic'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAudioTranscriptionsPublicAsync(string $contentType = self::contentTypes['postAudioTranscriptionsPublic'][0])
+    {
+        return $this->postAudioTranscriptionsPublicAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postAudioTranscriptionsPublicAsyncWithHttpInfo
+     *
+     * Transcribes up to a minute of audio for a caller with no account, on Hanzo&#39;s own transcriber, within a daily allowance per visitor.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscriptionsPublic'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postAudioTranscriptionsPublicAsyncWithHttpInfo(string $contentType = self::contentTypes['postAudioTranscriptionsPublic'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\OpenaiAudioResponse';
+        $request = $this->postAudioTranscriptionsPublicRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postAudioTranscriptionsPublic'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAudioTranscriptionsPublic'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postAudioTranscriptionsPublicRequest(string $contentType = self::contentTypes['postAudioTranscriptionsPublic'][0])
+    {
+
+
+        $resourcePath = '/v1/audio/transcriptions/public';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -66829,15 +74010,19 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChat'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OpenaiChatCompletionResponse
+     * @return \Hanzo\Cloud\Model\PostChat200Response|\Hanzo\Cloud\Model\AiResponse
      */
-    public function postChat(string $contentType = self::contentTypes['postChat'][0])
+    public function postChat($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postChat'][0])
     {
-        list($response) = $this->postChatWithHttpInfo($contentType);
+        list($response) = $this->postChatWithHttpInfo($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
         return $response;
     }
 
@@ -66846,15 +74031,19 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChat'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OpenaiChatCompletionResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PostChat200Response|\Hanzo\Cloud\Model\AiResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postChatWithHttpInfo(string $contentType = self::contentTypes['postChat'][0])
+    public function postChatWithHttpInfo($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postChat'][0])
     {
-        $request = $this->postChatRequest($contentType);
+        $request = $this->postChatRequest($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -66882,7 +74071,13 @@ class AiApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse',
+                        '\Hanzo\Cloud\Model\PostChat200Response',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiResponse',
                         $request,
                         $response,
                     );
@@ -66904,7 +74099,7 @@ class AiApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse',
+                '\Hanzo\Cloud\Model\PostChat200Response',
                 $request,
                 $response,
             );
@@ -66913,7 +74108,15 @@ class AiApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse',
+                        '\Hanzo\Cloud\Model\PostChat200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -66930,14 +74133,18 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChat'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postChatAsync(string $contentType = self::contentTypes['postChat'][0])
+    public function postChatAsync($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postChat'][0])
     {
-        return $this->postChatAsyncWithHttpInfo($contentType)
+        return $this->postChatAsyncWithHttpInfo($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -66950,15 +74157,19 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChat'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postChatAsyncWithHttpInfo(string $contentType = self::contentTypes['postChat'][0])
+    public function postChatAsyncWithHttpInfo($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postChat'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse';
-        $request = $this->postChatRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\PostChat200Response';
+        $request = $this->postChatRequest($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -66999,14 +74210,34 @@ class AiApi
     /**
      * Create request for operation 'postChat'
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChat'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postChatRequest(string $contentType = self::contentTypes['postChat'][0])
+    public function postChatRequest($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postChat'][0])
     {
 
+        // verify the required parameter 'openai_chat_completion_request' is set
+        if ($openai_chat_completion_request === null || (is_array($openai_chat_completion_request) && count($openai_chat_completion_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $openai_chat_completion_request when calling postChat'
+            );
+        }
+
+
+        if ($x_max_cost !== null && $x_max_cost < 0) {
+            throw new \InvalidArgumentException('invalid value for "$x_max_cost" when calling AiApi.postChat, must be bigger than or equal to 0.');
+        }
+        
+        if ($x_max_latency_ms !== null && $x_max_latency_ms < 0) {
+            throw new \InvalidArgumentException('invalid value for "$x_max_latency_ms" when calling AiApi.postChat, must be bigger than or equal to 0.');
+        }
+        
 
         $resourcePath = '/v1/chat';
         $formParams = [];
@@ -67016,6 +74247,18 @@ class AiApi
         $multipart = false;
 
 
+        // header params
+        if ($x_fast !== null) {
+            $headerParams['X-Fast'] = ObjectSerializer::toHeaderValue($x_fast);
+        }
+        // header params
+        if ($x_max_cost !== null) {
+            $headerParams['X-Max-Cost'] = ObjectSerializer::toHeaderValue($x_max_cost);
+        }
+        // header params
+        if ($x_max_latency_ms !== null) {
+            $headerParams['X-Max-Latency-Ms'] = ObjectSerializer::toHeaderValue($x_max_latency_ms);
+        }
 
 
 
@@ -67026,7 +74269,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($openai_chat_completion_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($openai_chat_completion_request));
+            } else {
+                $httpBody = $openai_chat_completion_request;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -67081,15 +74331,19 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChatCompletions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OpenaiChatCompletionResponse
+     * @return \Hanzo\Cloud\Model\PostChat200Response|\Hanzo\Cloud\Model\AiResponse
      */
-    public function postChatCompletions(string $contentType = self::contentTypes['postChatCompletions'][0])
+    public function postChatCompletions($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postChatCompletions'][0])
     {
-        list($response) = $this->postChatCompletionsWithHttpInfo($contentType);
+        list($response) = $this->postChatCompletionsWithHttpInfo($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
         return $response;
     }
 
@@ -67098,15 +74352,19 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChatCompletions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OpenaiChatCompletionResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PostChat200Response|\Hanzo\Cloud\Model\AiResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postChatCompletionsWithHttpInfo(string $contentType = self::contentTypes['postChatCompletions'][0])
+    public function postChatCompletionsWithHttpInfo($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postChatCompletions'][0])
     {
-        $request = $this->postChatCompletionsRequest($contentType);
+        $request = $this->postChatCompletionsRequest($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -67134,7 +74392,13 @@ class AiApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse',
+                        '\Hanzo\Cloud\Model\PostChat200Response',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiResponse',
                         $request,
                         $response,
                     );
@@ -67156,7 +74420,7 @@ class AiApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse',
+                '\Hanzo\Cloud\Model\PostChat200Response',
                 $request,
                 $response,
             );
@@ -67165,7 +74429,15 @@ class AiApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse',
+                        '\Hanzo\Cloud\Model\PostChat200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -67182,14 +74454,18 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChatCompletions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postChatCompletionsAsync(string $contentType = self::contentTypes['postChatCompletions'][0])
+    public function postChatCompletionsAsync($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postChatCompletions'][0])
     {
-        return $this->postChatCompletionsAsyncWithHttpInfo($contentType)
+        return $this->postChatCompletionsAsyncWithHttpInfo($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -67202,15 +74478,19 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChatCompletions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postChatCompletionsAsyncWithHttpInfo(string $contentType = self::contentTypes['postChatCompletions'][0])
+    public function postChatCompletionsAsyncWithHttpInfo($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postChatCompletions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse';
-        $request = $this->postChatCompletionsRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\PostChat200Response';
+        $request = $this->postChatCompletionsRequest($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -67251,14 +74531,34 @@ class AiApi
     /**
      * Create request for operation 'postChatCompletions'
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChatCompletions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postChatCompletionsRequest(string $contentType = self::contentTypes['postChatCompletions'][0])
+    public function postChatCompletionsRequest($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postChatCompletions'][0])
     {
 
+        // verify the required parameter 'openai_chat_completion_request' is set
+        if ($openai_chat_completion_request === null || (is_array($openai_chat_completion_request) && count($openai_chat_completion_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $openai_chat_completion_request when calling postChatCompletions'
+            );
+        }
+
+
+        if ($x_max_cost !== null && $x_max_cost < 0) {
+            throw new \InvalidArgumentException('invalid value for "$x_max_cost" when calling AiApi.postChatCompletions, must be bigger than or equal to 0.');
+        }
+        
+        if ($x_max_latency_ms !== null && $x_max_latency_ms < 0) {
+            throw new \InvalidArgumentException('invalid value for "$x_max_latency_ms" when calling AiApi.postChatCompletions, must be bigger than or equal to 0.');
+        }
+        
 
         $resourcePath = '/v1/chat/completions';
         $formParams = [];
@@ -67268,6 +74568,18 @@ class AiApi
         $multipart = false;
 
 
+        // header params
+        if ($x_fast !== null) {
+            $headerParams['X-Fast'] = ObjectSerializer::toHeaderValue($x_fast);
+        }
+        // header params
+        if ($x_max_cost !== null) {
+            $headerParams['X-Max-Cost'] = ObjectSerializer::toHeaderValue($x_max_cost);
+        }
+        // header params
+        if ($x_max_latency_ms !== null) {
+            $headerParams['X-Max-Latency-Ms'] = ObjectSerializer::toHeaderValue($x_max_latency_ms);
+        }
 
 
 
@@ -67278,7 +74590,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($openai_chat_completion_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($openai_chat_completion_request));
+            } else {
+                $httpBody = $openai_chat_completion_request;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -67333,15 +74652,16 @@ class AiApi
      *
      * Serves one completion to a caller with no account.
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request openai_chat_completion_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChatPublic'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\OpenaiChatCompletionResponse
      */
-    public function postChatPublic(string $contentType = self::contentTypes['postChatPublic'][0])
+    public function postChatPublic($openai_chat_completion_request, string $contentType = self::contentTypes['postChatPublic'][0])
     {
-        list($response) = $this->postChatPublicWithHttpInfo($contentType);
+        list($response) = $this->postChatPublicWithHttpInfo($openai_chat_completion_request, $contentType);
         return $response;
     }
 
@@ -67350,15 +74670,16 @@ class AiApi
      *
      * Serves one completion to a caller with no account.
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChatPublic'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\OpenaiChatCompletionResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postChatPublicWithHttpInfo(string $contentType = self::contentTypes['postChatPublic'][0])
+    public function postChatPublicWithHttpInfo($openai_chat_completion_request, string $contentType = self::contentTypes['postChatPublic'][0])
     {
-        $request = $this->postChatPublicRequest($contentType);
+        $request = $this->postChatPublicRequest($openai_chat_completion_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -67434,14 +74755,15 @@ class AiApi
      *
      * Serves one completion to a caller with no account.
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChatPublic'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postChatPublicAsync(string $contentType = self::contentTypes['postChatPublic'][0])
+    public function postChatPublicAsync($openai_chat_completion_request, string $contentType = self::contentTypes['postChatPublic'][0])
     {
-        return $this->postChatPublicAsyncWithHttpInfo($contentType)
+        return $this->postChatPublicAsyncWithHttpInfo($openai_chat_completion_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -67454,15 +74776,16 @@ class AiApi
      *
      * Serves one completion to a caller with no account.
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChatPublic'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postChatPublicAsyncWithHttpInfo(string $contentType = self::contentTypes['postChatPublic'][0])
+    public function postChatPublicAsyncWithHttpInfo($openai_chat_completion_request, string $contentType = self::contentTypes['postChatPublic'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse';
-        $request = $this->postChatPublicRequest($contentType);
+        $request = $this->postChatPublicRequest($openai_chat_completion_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -67503,13 +74826,21 @@ class AiApi
     /**
      * Create request for operation 'postChatPublic'
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChatPublic'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postChatPublicRequest(string $contentType = self::contentTypes['postChatPublic'][0])
+    public function postChatPublicRequest($openai_chat_completion_request, string $contentType = self::contentTypes['postChatPublic'][0])
     {
+
+        // verify the required parameter 'openai_chat_completion_request' is set
+        if ($openai_chat_completion_request === null || (is_array($openai_chat_completion_request) && count($openai_chat_completion_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $openai_chat_completion_request when calling postChatPublic'
+            );
+        }
 
 
         $resourcePath = '/v1/chat/public';
@@ -67530,7 +74861,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($openai_chat_completion_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($openai_chat_completion_request));
+            } else {
+                $httpBody = $openai_chat_completion_request;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -67585,15 +74923,19 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompletions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OpenaiChatCompletionResponse
+     * @return \Hanzo\Cloud\Model\PostChat200Response|\Hanzo\Cloud\Model\AiResponse
      */
-    public function postCompletions(string $contentType = self::contentTypes['postCompletions'][0])
+    public function postCompletions($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postCompletions'][0])
     {
-        list($response) = $this->postCompletionsWithHttpInfo($contentType);
+        list($response) = $this->postCompletionsWithHttpInfo($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
         return $response;
     }
 
@@ -67602,15 +74944,19 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompletions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OpenaiChatCompletionResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PostChat200Response|\Hanzo\Cloud\Model\AiResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postCompletionsWithHttpInfo(string $contentType = self::contentTypes['postCompletions'][0])
+    public function postCompletionsWithHttpInfo($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postCompletions'][0])
     {
-        $request = $this->postCompletionsRequest($contentType);
+        $request = $this->postCompletionsRequest($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -67638,7 +74984,13 @@ class AiApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse',
+                        '\Hanzo\Cloud\Model\PostChat200Response',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiResponse',
                         $request,
                         $response,
                     );
@@ -67660,7 +75012,7 @@ class AiApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse',
+                '\Hanzo\Cloud\Model\PostChat200Response',
                 $request,
                 $response,
             );
@@ -67669,7 +75021,15 @@ class AiApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse',
+                        '\Hanzo\Cloud\Model\PostChat200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -67686,14 +75046,18 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompletions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompletionsAsync(string $contentType = self::contentTypes['postCompletions'][0])
+    public function postCompletionsAsync($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postCompletions'][0])
     {
-        return $this->postCompletionsAsyncWithHttpInfo($contentType)
+        return $this->postCompletionsAsyncWithHttpInfo($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -67706,15 +75070,19 @@ class AiApi
      *
      * Implements the OpenAI-compatible chat completions API
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompletions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postCompletionsAsyncWithHttpInfo(string $contentType = self::contentTypes['postCompletions'][0])
+    public function postCompletionsAsyncWithHttpInfo($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postCompletions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OpenaiChatCompletionResponse';
-        $request = $this->postCompletionsRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\PostChat200Response';
+        $request = $this->postCompletionsRequest($openai_chat_completion_request, $x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -67755,16 +75123,445 @@ class AiApi
     /**
      * Create request for operation 'postCompletions'
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiChatCompletionRequest $openai_chat_completion_request (required)
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompletions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postCompletionsRequest(string $contentType = self::contentTypes['postCompletions'][0])
+    public function postCompletionsRequest($openai_chat_completion_request, $x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postCompletions'][0])
     {
 
+        // verify the required parameter 'openai_chat_completion_request' is set
+        if ($openai_chat_completion_request === null || (is_array($openai_chat_completion_request) && count($openai_chat_completion_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $openai_chat_completion_request when calling postCompletions'
+            );
+        }
+
+
+        if ($x_max_cost !== null && $x_max_cost < 0) {
+            throw new \InvalidArgumentException('invalid value for "$x_max_cost" when calling AiApi.postCompletions, must be bigger than or equal to 0.');
+        }
+        
+        if ($x_max_latency_ms !== null && $x_max_latency_ms < 0) {
+            throw new \InvalidArgumentException('invalid value for "$x_max_latency_ms" when calling AiApi.postCompletions, must be bigger than or equal to 0.');
+        }
+        
 
         $resourcePath = '/v1/completions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // header params
+        if ($x_fast !== null) {
+            $headerParams['X-Fast'] = ObjectSerializer::toHeaderValue($x_fast);
+        }
+        // header params
+        if ($x_max_cost !== null) {
+            $headerParams['X-Max-Cost'] = ObjectSerializer::toHeaderValue($x_max_cost);
+        }
+        // header params
+        if ($x_max_latency_ms !== null) {
+            $headerParams['X-Max-Latency-Ms'] = ObjectSerializer::toHeaderValue($x_max_latency_ms);
+        }
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($openai_chat_completion_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($openai_chat_completion_request));
+            } else {
+                $httpBody = $openai_chat_completion_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postDecisions
+     *
+     * Implements POST /v1/decisions (the Decisions API).
+     *
+     * @param  \Hanzo\Cloud\Model\AiDecisionsRequest $ai_decisions_request ai_decisions_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDecisions'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\AiDecisionsResponse|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused
+     */
+    public function postDecisions($ai_decisions_request, string $contentType = self::contentTypes['postDecisions'][0])
+    {
+        list($response) = $this->postDecisionsWithHttpInfo($ai_decisions_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postDecisionsWithHttpInfo
+     *
+     * Implements POST /v1/decisions (the Decisions API).
+     *
+     * @param  \Hanzo\Cloud\Model\AiDecisionsRequest $ai_decisions_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDecisions'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\AiDecisionsResponse|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused|\Hanzo\Cloud\Model\AiDecisionsRefused, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postDecisionsWithHttpInfo($ai_decisions_request, string $contentType = self::contentTypes['postDecisions'][0])
+    {
+        $request = $this->postDecisionsRequest($ai_decisions_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiDecisionsResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $request,
+                        $response,
+                    );
+                case 402:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $request,
+                        $response,
+                    );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $request,
+                        $response,
+                    );
+                case 502:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $request,
+                        $response,
+                    );
+                case 529:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\AiDecisionsResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiDecisionsResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 402:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 502:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 529:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\AiDecisionsRefused',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postDecisionsAsync
+     *
+     * Implements POST /v1/decisions (the Decisions API).
+     *
+     * @param  \Hanzo\Cloud\Model\AiDecisionsRequest $ai_decisions_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDecisions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postDecisionsAsync($ai_decisions_request, string $contentType = self::contentTypes['postDecisions'][0])
+    {
+        return $this->postDecisionsAsyncWithHttpInfo($ai_decisions_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postDecisionsAsyncWithHttpInfo
+     *
+     * Implements POST /v1/decisions (the Decisions API).
+     *
+     * @param  \Hanzo\Cloud\Model\AiDecisionsRequest $ai_decisions_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDecisions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postDecisionsAsyncWithHttpInfo($ai_decisions_request, string $contentType = self::contentTypes['postDecisions'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\AiDecisionsResponse';
+        $request = $this->postDecisionsRequest($ai_decisions_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postDecisions'
+     *
+     * @param  \Hanzo\Cloud\Model\AiDecisionsRequest $ai_decisions_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDecisions'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postDecisionsRequest($ai_decisions_request, string $contentType = self::contentTypes['postDecisions'][0])
+    {
+
+        // verify the required parameter 'ai_decisions_request' is set
+        if ($ai_decisions_request === null || (is_array($ai_decisions_request) && count($ai_decisions_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_decisions_request when calling postDecisions'
+            );
+        }
+
+
+        $resourcePath = '/v1/decisions';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -67782,7 +75579,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($ai_decisions_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_decisions_request));
+            } else {
+                $httpBody = $ai_decisions_request;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -67837,15 +75641,16 @@ class AiApi
      *
      * Implements POST /v1/embeddings (OpenAI-compatible).
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiEmbeddingRequest $openai_embedding_request openai_embedding_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEmbeddings'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\OpenaiEmbeddingResponse
      */
-    public function postEmbeddings(string $contentType = self::contentTypes['postEmbeddings'][0])
+    public function postEmbeddings($openai_embedding_request, string $contentType = self::contentTypes['postEmbeddings'][0])
     {
-        list($response) = $this->postEmbeddingsWithHttpInfo($contentType);
+        list($response) = $this->postEmbeddingsWithHttpInfo($openai_embedding_request, $contentType);
         return $response;
     }
 
@@ -67854,15 +75659,16 @@ class AiApi
      *
      * Implements POST /v1/embeddings (OpenAI-compatible).
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiEmbeddingRequest $openai_embedding_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEmbeddings'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\OpenaiEmbeddingResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEmbeddingsWithHttpInfo(string $contentType = self::contentTypes['postEmbeddings'][0])
+    public function postEmbeddingsWithHttpInfo($openai_embedding_request, string $contentType = self::contentTypes['postEmbeddings'][0])
     {
-        $request = $this->postEmbeddingsRequest($contentType);
+        $request = $this->postEmbeddingsRequest($openai_embedding_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -67938,14 +75744,15 @@ class AiApi
      *
      * Implements POST /v1/embeddings (OpenAI-compatible).
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiEmbeddingRequest $openai_embedding_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEmbeddings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEmbeddingsAsync(string $contentType = self::contentTypes['postEmbeddings'][0])
+    public function postEmbeddingsAsync($openai_embedding_request, string $contentType = self::contentTypes['postEmbeddings'][0])
     {
-        return $this->postEmbeddingsAsyncWithHttpInfo($contentType)
+        return $this->postEmbeddingsAsyncWithHttpInfo($openai_embedding_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -67958,15 +75765,16 @@ class AiApi
      *
      * Implements POST /v1/embeddings (OpenAI-compatible).
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiEmbeddingRequest $openai_embedding_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEmbeddings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEmbeddingsAsyncWithHttpInfo(string $contentType = self::contentTypes['postEmbeddings'][0])
+    public function postEmbeddingsAsyncWithHttpInfo($openai_embedding_request, string $contentType = self::contentTypes['postEmbeddings'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\OpenaiEmbeddingResponse';
-        $request = $this->postEmbeddingsRequest($contentType);
+        $request = $this->postEmbeddingsRequest($openai_embedding_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -68007,13 +75815,21 @@ class AiApi
     /**
      * Create request for operation 'postEmbeddings'
      *
+     * @param  \Hanzo\Cloud\Model\OpenaiEmbeddingRequest $openai_embedding_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEmbeddings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEmbeddingsRequest(string $contentType = self::contentTypes['postEmbeddings'][0])
+    public function postEmbeddingsRequest($openai_embedding_request, string $contentType = self::contentTypes['postEmbeddings'][0])
     {
+
+        // verify the required parameter 'openai_embedding_request' is set
+        if ($openai_embedding_request === null || (is_array($openai_embedding_request) && count($openai_embedding_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $openai_embedding_request when calling postEmbeddings'
+            );
+        }
 
 
         $resourcePath = '/v1/embeddings';
@@ -68029,6 +75845,215 @@ class AiApi
 
         $headers = $this->headerSelector->selectHeaders(
             ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($openai_embedding_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($openai_embedding_request));
+            } else {
+                $httpBody = $openai_embedding_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postFoleyGenerations
+     *
+     * Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFoleyGenerations'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function postFoleyGenerations(string $contentType = self::contentTypes['postFoleyGenerations'][0])
+    {
+        $this->postFoleyGenerationsWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation postFoleyGenerationsWithHttpInfo
+     *
+     * Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFoleyGenerations'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postFoleyGenerationsWithHttpInfo(string $contentType = self::contentTypes['postFoleyGenerations'][0])
+    {
+        $request = $this->postFoleyGenerationsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postFoleyGenerationsAsync
+     *
+     * Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFoleyGenerations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postFoleyGenerationsAsync(string $contentType = self::contentTypes['postFoleyGenerations'][0])
+    {
+        return $this->postFoleyGenerationsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postFoleyGenerationsAsyncWithHttpInfo
+     *
+     * Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFoleyGenerations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postFoleyGenerationsAsyncWithHttpInfo(string $contentType = self::contentTypes['postFoleyGenerations'][0])
+    {
+        $returnType = '';
+        $request = $this->postFoleyGenerationsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postFoleyGenerations'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFoleyGenerations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postFoleyGenerationsRequest(string $contentType = self::contentTypes['postFoleyGenerations'][0])
+    {
+
+
+        $resourcePath = '/v1/foley/generations';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
             $contentType,
             $multipart
         );
@@ -68341,15 +76366,16 @@ class AiApi
      *
      * Implements the Anthropic Messages API.
      *
+     * @param  \Hanzo\Cloud\Model\AiAnthropicRequest $ai_anthropic_request ai_anthropic_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMessages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\AiAnthropicResponse
      */
-    public function postMessages(string $contentType = self::contentTypes['postMessages'][0])
+    public function postMessages($ai_anthropic_request, string $contentType = self::contentTypes['postMessages'][0])
     {
-        list($response) = $this->postMessagesWithHttpInfo($contentType);
+        list($response) = $this->postMessagesWithHttpInfo($ai_anthropic_request, $contentType);
         return $response;
     }
 
@@ -68358,15 +76384,16 @@ class AiApi
      *
      * Implements the Anthropic Messages API.
      *
+     * @param  \Hanzo\Cloud\Model\AiAnthropicRequest $ai_anthropic_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMessages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\AiAnthropicResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMessagesWithHttpInfo(string $contentType = self::contentTypes['postMessages'][0])
+    public function postMessagesWithHttpInfo($ai_anthropic_request, string $contentType = self::contentTypes['postMessages'][0])
     {
-        $request = $this->postMessagesRequest($contentType);
+        $request = $this->postMessagesRequest($ai_anthropic_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -68442,14 +76469,15 @@ class AiApi
      *
      * Implements the Anthropic Messages API.
      *
+     * @param  \Hanzo\Cloud\Model\AiAnthropicRequest $ai_anthropic_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMessages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMessagesAsync(string $contentType = self::contentTypes['postMessages'][0])
+    public function postMessagesAsync($ai_anthropic_request, string $contentType = self::contentTypes['postMessages'][0])
     {
-        return $this->postMessagesAsyncWithHttpInfo($contentType)
+        return $this->postMessagesAsyncWithHttpInfo($ai_anthropic_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -68462,15 +76490,16 @@ class AiApi
      *
      * Implements the Anthropic Messages API.
      *
+     * @param  \Hanzo\Cloud\Model\AiAnthropicRequest $ai_anthropic_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMessages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMessagesAsyncWithHttpInfo(string $contentType = self::contentTypes['postMessages'][0])
+    public function postMessagesAsyncWithHttpInfo($ai_anthropic_request, string $contentType = self::contentTypes['postMessages'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\AiAnthropicResponse';
-        $request = $this->postMessagesRequest($contentType);
+        $request = $this->postMessagesRequest($ai_anthropic_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -68511,13 +76540,21 @@ class AiApi
     /**
      * Create request for operation 'postMessages'
      *
+     * @param  \Hanzo\Cloud\Model\AiAnthropicRequest $ai_anthropic_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMessages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMessagesRequest(string $contentType = self::contentTypes['postMessages'][0])
+    public function postMessagesRequest($ai_anthropic_request, string $contentType = self::contentTypes['postMessages'][0])
     {
+
+        // verify the required parameter 'ai_anthropic_request' is set
+        if ($ai_anthropic_request === null || (is_array($ai_anthropic_request) && count($ai_anthropic_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_anthropic_request when calling postMessages'
+            );
+        }
 
 
         $resourcePath = '/v1/messages';
@@ -68538,7 +76575,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($ai_anthropic_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_anthropic_request));
+            } else {
+                $httpBody = $ai_anthropic_request;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -69113,6 +77157,208 @@ class AiApi
     }
 
     /**
+     * Operation postMusicGenerations
+     *
+     * Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMusicGenerations'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function postMusicGenerations(string $contentType = self::contentTypes['postMusicGenerations'][0])
+    {
+        $this->postMusicGenerationsWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation postMusicGenerationsWithHttpInfo
+     *
+     * Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMusicGenerations'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postMusicGenerationsWithHttpInfo(string $contentType = self::contentTypes['postMusicGenerations'][0])
+    {
+        $request = $this->postMusicGenerationsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postMusicGenerationsAsync
+     *
+     * Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMusicGenerations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMusicGenerationsAsync(string $contentType = self::contentTypes['postMusicGenerations'][0])
+    {
+        return $this->postMusicGenerationsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postMusicGenerationsAsyncWithHttpInfo
+     *
+     * Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMusicGenerations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postMusicGenerationsAsyncWithHttpInfo(string $contentType = self::contentTypes['postMusicGenerations'][0])
+    {
+        $returnType = '';
+        $request = $this->postMusicGenerationsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postMusicGenerations'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMusicGenerations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postMusicGenerationsRequest(string $contentType = self::contentTypes['postMusicGenerations'][0])
+    {
+
+
+        $resourcePath = '/v1/music/generations';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation postRerank
      *
      * Implements POST /v1/rerank (Cohere/Jina-compatible).
@@ -69369,15 +77615,18 @@ class AiApi
      *
      * Implements POST /v1/responses.
      *
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postResponses'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AiResponsesResource
+     * @return \Hanzo\Cloud\Model\PostResponses200Response
      */
-    public function postResponses(string $contentType = self::contentTypes['postResponses'][0])
+    public function postResponses($x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postResponses'][0])
     {
-        list($response) = $this->postResponsesWithHttpInfo($contentType);
+        list($response) = $this->postResponsesWithHttpInfo($x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
         return $response;
     }
 
@@ -69386,15 +77635,18 @@ class AiApi
      *
      * Implements POST /v1/responses.
      *
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postResponses'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AiResponsesResource, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PostResponses200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postResponsesWithHttpInfo(string $contentType = self::contentTypes['postResponses'][0])
+    public function postResponsesWithHttpInfo($x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postResponses'][0])
     {
-        $request = $this->postResponsesRequest($contentType);
+        $request = $this->postResponsesRequest($x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -69422,7 +77674,7 @@ class AiApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AiResponsesResource',
+                        '\Hanzo\Cloud\Model\PostResponses200Response',
                         $request,
                         $response,
                     );
@@ -69444,7 +77696,7 @@ class AiApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AiResponsesResource',
+                '\Hanzo\Cloud\Model\PostResponses200Response',
                 $request,
                 $response,
             );
@@ -69453,7 +77705,7 @@ class AiApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AiResponsesResource',
+                        '\Hanzo\Cloud\Model\PostResponses200Response',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -69470,14 +77722,17 @@ class AiApi
      *
      * Implements POST /v1/responses.
      *
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postResponses'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postResponsesAsync(string $contentType = self::contentTypes['postResponses'][0])
+    public function postResponsesAsync($x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postResponses'][0])
     {
-        return $this->postResponsesAsyncWithHttpInfo($contentType)
+        return $this->postResponsesAsyncWithHttpInfo($x_fast, $x_max_cost, $x_max_latency_ms, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -69490,15 +77745,18 @@ class AiApi
      *
      * Implements POST /v1/responses.
      *
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postResponses'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postResponsesAsyncWithHttpInfo(string $contentType = self::contentTypes['postResponses'][0])
+    public function postResponsesAsyncWithHttpInfo($x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postResponses'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AiResponsesResource';
-        $request = $this->postResponsesRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\PostResponses200Response';
+        $request = $this->postResponsesRequest($x_fast, $x_max_cost, $x_max_latency_ms, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -69539,14 +77797,26 @@ class AiApi
     /**
      * Create request for operation 'postResponses'
      *
+     * @param  string|null $x_fast Fast mode, as the body&#39;s &#x60;fast&#x60;: \&quot;1\&quot; or \&quot;true\&quot;. (optional)
+     * @param  float|null $x_max_cost The most this request may cost, in USD per 1,000 tokens. Routing picks only models under it; an org&#39;s own ceiling fills it when it is absent, and the lower of the two holds. (optional)
+     * @param  int|null $x_max_latency_ms The slowest model this request accepts, in milliseconds. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postResponses'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postResponsesRequest(string $contentType = self::contentTypes['postResponses'][0])
+    public function postResponsesRequest($x_fast = null, $x_max_cost = null, $x_max_latency_ms = null, string $contentType = self::contentTypes['postResponses'][0])
     {
 
+
+        if ($x_max_cost !== null && $x_max_cost < 0) {
+            throw new \InvalidArgumentException('invalid value for "$x_max_cost" when calling AiApi.postResponses, must be bigger than or equal to 0.');
+        }
+        
+        if ($x_max_latency_ms !== null && $x_max_latency_ms < 0) {
+            throw new \InvalidArgumentException('invalid value for "$x_max_latency_ms" when calling AiApi.postResponses, must be bigger than or equal to 0.');
+        }
+        
 
         $resourcePath = '/v1/responses';
         $formParams = [];
@@ -69556,6 +77826,18 @@ class AiApi
         $multipart = false;
 
 
+        // header params
+        if ($x_fast !== null) {
+            $headerParams['X-Fast'] = ObjectSerializer::toHeaderValue($x_fast);
+        }
+        // header params
+        if ($x_max_cost !== null) {
+            $headerParams['X-Max-Cost'] = ObjectSerializer::toHeaderValue($x_max_cost);
+        }
+        // header params
+        if ($x_max_latency_ms !== null) {
+            $headerParams['X-Max-Latency-Ms'] = ObjectSerializer::toHeaderValue($x_max_latency_ms);
+        }
 
 
 
@@ -69875,15 +78157,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiArticlesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiArticles200Response
      */
-    public function putAiArticlesByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiArticlesByOwnerByName'][0])
+    public function putAiArticlesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiArticlesByOwnerByName'][0])
     {
-        list($response) = $this->putAiArticlesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiArticlesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -69894,15 +78177,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiArticlesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiArticles200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiArticlesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiArticlesByOwnerByName'][0])
+    public function putAiArticlesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiArticlesByOwnerByName'][0])
     {
-        $request = $this->putAiArticlesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiArticlesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -69980,14 +78264,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiArticlesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiArticlesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiArticlesByOwnerByName'][0])
+    public function putAiArticlesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiArticlesByOwnerByName'][0])
     {
-        return $this->putAiArticlesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiArticlesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -70002,15 +78287,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiArticlesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiArticlesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiArticlesByOwnerByName'][0])
+    public function putAiArticlesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiArticlesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiArticles200Response';
-        $request = $this->putAiArticlesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiArticlesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -70053,12 +78339,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiArticlesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiArticlesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiArticlesByOwnerByName'][0])
+    public function putAiArticlesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiArticlesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -70072,6 +78359,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiArticlesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiArticlesByOwnerByName'
             );
         }
 
@@ -70110,7 +78404,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -70167,15 +78468,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiAssetsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiAssets200Response
      */
-    public function putAiAssetsByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiAssetsByOwnerByName'][0])
+    public function putAiAssetsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiAssetsByOwnerByName'][0])
     {
-        list($response) = $this->putAiAssetsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiAssetsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -70186,15 +78488,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiAssetsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiAssets200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiAssetsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiAssetsByOwnerByName'][0])
+    public function putAiAssetsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiAssetsByOwnerByName'][0])
     {
-        $request = $this->putAiAssetsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiAssetsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -70272,14 +78575,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiAssetsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiAssetsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiAssetsByOwnerByName'][0])
+    public function putAiAssetsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiAssetsByOwnerByName'][0])
     {
-        return $this->putAiAssetsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiAssetsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -70294,15 +78598,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiAssetsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiAssetsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiAssetsByOwnerByName'][0])
+    public function putAiAssetsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiAssetsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiAssets200Response';
-        $request = $this->putAiAssetsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiAssetsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -70345,12 +78650,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiAssetsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiAssetsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiAssetsByOwnerByName'][0])
+    public function putAiAssetsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiAssetsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -70364,6 +78670,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiAssetsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiAssetsByOwnerByName'
             );
         }
 
@@ -70402,7 +78715,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -70459,15 +78779,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiChatsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiChats200Response
      */
-    public function putAiChatsByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiChatsByOwnerByName'][0])
+    public function putAiChatsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiChatsByOwnerByName'][0])
     {
-        list($response) = $this->putAiChatsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiChatsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -70478,15 +78799,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiChatsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiChats200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiChatsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiChatsByOwnerByName'][0])
+    public function putAiChatsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiChatsByOwnerByName'][0])
     {
-        $request = $this->putAiChatsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiChatsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -70564,14 +78886,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiChatsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiChatsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiChatsByOwnerByName'][0])
+    public function putAiChatsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiChatsByOwnerByName'][0])
     {
-        return $this->putAiChatsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiChatsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -70586,15 +78909,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiChatsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiChatsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiChatsByOwnerByName'][0])
+    public function putAiChatsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiChatsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiChats200Response';
-        $request = $this->putAiChatsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiChatsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -70637,12 +78961,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiChatsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiChatsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiChatsByOwnerByName'][0])
+    public function putAiChatsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiChatsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -70656,6 +78981,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiChatsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiChatsByOwnerByName'
             );
         }
 
@@ -70694,7 +79026,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -70751,15 +79090,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiDeploymentsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiDeployments200Response
      */
-    public function putAiDeploymentsByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiDeploymentsByOwnerByName'][0])
+    public function putAiDeploymentsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiDeploymentsByOwnerByName'][0])
     {
-        list($response) = $this->putAiDeploymentsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiDeploymentsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -70770,15 +79110,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiDeploymentsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiDeployments200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiDeploymentsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiDeploymentsByOwnerByName'][0])
+    public function putAiDeploymentsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiDeploymentsByOwnerByName'][0])
     {
-        $request = $this->putAiDeploymentsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiDeploymentsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -70856,14 +79197,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiDeploymentsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiDeploymentsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiDeploymentsByOwnerByName'][0])
+    public function putAiDeploymentsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiDeploymentsByOwnerByName'][0])
     {
-        return $this->putAiDeploymentsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiDeploymentsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -70878,15 +79220,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiDeploymentsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiDeploymentsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiDeploymentsByOwnerByName'][0])
+    public function putAiDeploymentsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiDeploymentsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiDeployments200Response';
-        $request = $this->putAiDeploymentsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiDeploymentsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -70929,12 +79272,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiDeploymentsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiDeploymentsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiDeploymentsByOwnerByName'][0])
+    public function putAiDeploymentsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiDeploymentsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -70948,6 +79292,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiDeploymentsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiDeploymentsByOwnerByName'
             );
         }
 
@@ -70986,7 +79337,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -71043,15 +79401,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiFiles200Response
      */
-    public function putAiFilesByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiFilesByOwnerByName'][0])
+    public function putAiFilesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiFilesByOwnerByName'][0])
     {
-        list($response) = $this->putAiFilesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiFilesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -71062,15 +79421,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiFiles200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiFilesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiFilesByOwnerByName'][0])
+    public function putAiFilesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiFilesByOwnerByName'][0])
     {
-        $request = $this->putAiFilesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiFilesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -71148,14 +79508,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiFilesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiFilesByOwnerByName'][0])
+    public function putAiFilesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiFilesByOwnerByName'][0])
     {
-        return $this->putAiFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -71170,15 +79531,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiFilesByOwnerByName'][0])
+    public function putAiFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiFilesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiFiles200Response';
-        $request = $this->putAiFilesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiFilesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -71221,12 +79583,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiFilesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiFilesByOwnerByName'][0])
+    public function putAiFilesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiFilesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -71240,6 +79603,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiFilesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiFilesByOwnerByName'
             );
         }
 
@@ -71278,7 +79648,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -71335,15 +79712,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiFormsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiForms200Response
      */
-    public function putAiFormsByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiFormsByOwnerByName'][0])
+    public function putAiFormsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiFormsByOwnerByName'][0])
     {
-        list($response) = $this->putAiFormsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiFormsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -71354,15 +79732,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiFormsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiForms200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiFormsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiFormsByOwnerByName'][0])
+    public function putAiFormsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiFormsByOwnerByName'][0])
     {
-        $request = $this->putAiFormsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiFormsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -71440,14 +79819,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiFormsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiFormsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiFormsByOwnerByName'][0])
+    public function putAiFormsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiFormsByOwnerByName'][0])
     {
-        return $this->putAiFormsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiFormsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -71462,15 +79842,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiFormsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiFormsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiFormsByOwnerByName'][0])
+    public function putAiFormsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiFormsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiForms200Response';
-        $request = $this->putAiFormsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiFormsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -71513,12 +79894,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiFormsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiFormsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiFormsByOwnerByName'][0])
+    public function putAiFormsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiFormsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -71532,6 +79914,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiFormsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiFormsByOwnerByName'
             );
         }
 
@@ -71570,7 +79959,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -71627,15 +80023,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiGraphsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiGraphs200Response
      */
-    public function putAiGraphsByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiGraphsByOwnerByName'][0])
+    public function putAiGraphsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiGraphsByOwnerByName'][0])
     {
-        list($response) = $this->putAiGraphsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiGraphsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -71646,15 +80043,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiGraphsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiGraphs200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiGraphsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiGraphsByOwnerByName'][0])
+    public function putAiGraphsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiGraphsByOwnerByName'][0])
     {
-        $request = $this->putAiGraphsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiGraphsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -71732,14 +80130,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiGraphsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiGraphsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiGraphsByOwnerByName'][0])
+    public function putAiGraphsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiGraphsByOwnerByName'][0])
     {
-        return $this->putAiGraphsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiGraphsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -71754,15 +80153,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiGraphsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiGraphsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiGraphsByOwnerByName'][0])
+    public function putAiGraphsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiGraphsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiGraphs200Response';
-        $request = $this->putAiGraphsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiGraphsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -71805,12 +80205,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiGraphsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiGraphsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiGraphsByOwnerByName'][0])
+    public function putAiGraphsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiGraphsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -71824,6 +80225,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiGraphsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiGraphsByOwnerByName'
             );
         }
 
@@ -71862,7 +80270,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -71919,15 +80334,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiMessagesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiMessages200Response
      */
-    public function putAiMessagesByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiMessagesByOwnerByName'][0])
+    public function putAiMessagesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiMessagesByOwnerByName'][0])
     {
-        list($response) = $this->putAiMessagesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiMessagesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -71938,15 +80354,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiMessagesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiMessages200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiMessagesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiMessagesByOwnerByName'][0])
+    public function putAiMessagesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiMessagesByOwnerByName'][0])
     {
-        $request = $this->putAiMessagesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiMessagesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -72024,14 +80441,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiMessagesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiMessagesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiMessagesByOwnerByName'][0])
+    public function putAiMessagesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiMessagesByOwnerByName'][0])
     {
-        return $this->putAiMessagesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiMessagesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -72046,15 +80464,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiMessagesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiMessagesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiMessagesByOwnerByName'][0])
+    public function putAiMessagesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiMessagesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiMessages200Response';
-        $request = $this->putAiMessagesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiMessagesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -72097,12 +80516,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiMessagesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiMessagesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiMessagesByOwnerByName'][0])
+    public function putAiMessagesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiMessagesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -72116,6 +80536,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiMessagesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiMessagesByOwnerByName'
             );
         }
 
@@ -72154,7 +80581,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -72211,15 +80645,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiNodesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiNodes200Response
      */
-    public function putAiNodesByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiNodesByOwnerByName'][0])
+    public function putAiNodesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiNodesByOwnerByName'][0])
     {
-        list($response) = $this->putAiNodesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiNodesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -72230,15 +80665,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiNodesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiNodes200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiNodesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiNodesByOwnerByName'][0])
+    public function putAiNodesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiNodesByOwnerByName'][0])
     {
-        $request = $this->putAiNodesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiNodesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -72316,14 +80752,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiNodesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiNodesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiNodesByOwnerByName'][0])
+    public function putAiNodesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiNodesByOwnerByName'][0])
     {
-        return $this->putAiNodesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiNodesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -72338,15 +80775,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiNodesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiNodesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiNodesByOwnerByName'][0])
+    public function putAiNodesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiNodesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiNodes200Response';
-        $request = $this->putAiNodesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiNodesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -72389,12 +80827,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiNodesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiNodesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiNodesByOwnerByName'][0])
+    public function putAiNodesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiNodesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -72408,6 +80847,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiNodesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiNodesByOwnerByName'
             );
         }
 
@@ -72446,7 +80892,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -73005,15 +81458,16 @@ class AiApi
      *
      * Preferences
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiPreferences'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function putAiPreferences(string $contentType = self::contentTypes['putAiPreferences'][0])
+    public function putAiPreferences($body, string $contentType = self::contentTypes['putAiPreferences'][0])
     {
-        list($response) = $this->putAiPreferencesWithHttpInfo($contentType);
+        list($response) = $this->putAiPreferencesWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -73022,15 +81476,16 @@ class AiApi
      *
      * Preferences
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiPreferences'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiPreferencesWithHttpInfo(string $contentType = self::contentTypes['putAiPreferences'][0])
+    public function putAiPreferencesWithHttpInfo($body, string $contentType = self::contentTypes['putAiPreferences'][0])
     {
-        $request = $this->putAiPreferencesRequest($contentType);
+        $request = $this->putAiPreferencesRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -73106,14 +81561,15 @@ class AiApi
      *
      * Preferences
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiPreferences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiPreferencesAsync(string $contentType = self::contentTypes['putAiPreferences'][0])
+    public function putAiPreferencesAsync($body, string $contentType = self::contentTypes['putAiPreferences'][0])
     {
-        return $this->putAiPreferencesAsyncWithHttpInfo($contentType)
+        return $this->putAiPreferencesAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -73126,15 +81582,16 @@ class AiApi
      *
      * Preferences
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiPreferences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiPreferencesAsyncWithHttpInfo(string $contentType = self::contentTypes['putAiPreferences'][0])
+    public function putAiPreferencesAsyncWithHttpInfo($body, string $contentType = self::contentTypes['putAiPreferences'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->putAiPreferencesRequest($contentType);
+        $request = $this->putAiPreferencesRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -73175,13 +81632,21 @@ class AiApi
     /**
      * Create request for operation 'putAiPreferences'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiPreferences'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiPreferencesRequest(string $contentType = self::contentTypes['putAiPreferences'][0])
+    public function putAiPreferencesRequest($body, string $contentType = self::contentTypes['putAiPreferences'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiPreferences'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/preferences';
@@ -73202,7 +81667,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -73259,15 +81731,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiProvidersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiProviders200Response
      */
-    public function putAiProvidersByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiProvidersByOwnerByName'][0])
+    public function putAiProvidersByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiProvidersByOwnerByName'][0])
     {
-        list($response) = $this->putAiProvidersByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiProvidersByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -73278,15 +81751,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiProvidersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiProviders200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiProvidersByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiProvidersByOwnerByName'][0])
+    public function putAiProvidersByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiProvidersByOwnerByName'][0])
     {
-        $request = $this->putAiProvidersByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiProvidersByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -73364,14 +81838,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiProvidersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiProvidersByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiProvidersByOwnerByName'][0])
+    public function putAiProvidersByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiProvidersByOwnerByName'][0])
     {
-        return $this->putAiProvidersByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiProvidersByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -73386,15 +81861,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiProvidersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiProvidersByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiProvidersByOwnerByName'][0])
+    public function putAiProvidersByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiProvidersByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiProviders200Response';
-        $request = $this->putAiProvidersByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiProvidersByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -73437,12 +81913,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiProvidersByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiProvidersByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiProvidersByOwnerByName'][0])
+    public function putAiProvidersByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiProvidersByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -73456,6 +81933,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiProvidersByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiProvidersByOwnerByName'
             );
         }
 
@@ -73494,7 +81978,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -73551,15 +82042,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRecordsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiRecords200Response
      */
-    public function putAiRecordsByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiRecordsByOwnerByName'][0])
+    public function putAiRecordsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiRecordsByOwnerByName'][0])
     {
-        list($response) = $this->putAiRecordsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiRecordsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -73570,15 +82062,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRecordsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiRecords200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiRecordsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiRecordsByOwnerByName'][0])
+    public function putAiRecordsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiRecordsByOwnerByName'][0])
     {
-        $request = $this->putAiRecordsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiRecordsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -73656,14 +82149,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRecordsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiRecordsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiRecordsByOwnerByName'][0])
+    public function putAiRecordsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiRecordsByOwnerByName'][0])
     {
-        return $this->putAiRecordsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiRecordsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -73678,15 +82172,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRecordsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiRecordsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiRecordsByOwnerByName'][0])
+    public function putAiRecordsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiRecordsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiRecords200Response';
-        $request = $this->putAiRecordsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiRecordsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -73729,12 +82224,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRecordsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiRecordsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiRecordsByOwnerByName'][0])
+    public function putAiRecordsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiRecordsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -73748,6 +82244,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiRecordsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiRecordsByOwnerByName'
             );
         }
 
@@ -73786,7 +82289,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -73843,15 +82353,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRemoteConnectionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiRemoteConnections200Response
      */
-    public function putAiRemoteConnectionsByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiRemoteConnectionsByOwnerByName'][0])
+    public function putAiRemoteConnectionsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiRemoteConnectionsByOwnerByName'][0])
     {
-        list($response) = $this->putAiRemoteConnectionsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiRemoteConnectionsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -73862,15 +82373,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRemoteConnectionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiRemoteConnections200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiRemoteConnectionsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiRemoteConnectionsByOwnerByName'][0])
+    public function putAiRemoteConnectionsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiRemoteConnectionsByOwnerByName'][0])
     {
-        $request = $this->putAiRemoteConnectionsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiRemoteConnectionsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -73948,14 +82460,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRemoteConnectionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiRemoteConnectionsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiRemoteConnectionsByOwnerByName'][0])
+    public function putAiRemoteConnectionsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiRemoteConnectionsByOwnerByName'][0])
     {
-        return $this->putAiRemoteConnectionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiRemoteConnectionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -73970,15 +82483,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRemoteConnectionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiRemoteConnectionsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiRemoteConnectionsByOwnerByName'][0])
+    public function putAiRemoteConnectionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiRemoteConnectionsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiRemoteConnections200Response';
-        $request = $this->putAiRemoteConnectionsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiRemoteConnectionsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -74021,12 +82535,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRemoteConnectionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiRemoteConnectionsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiRemoteConnectionsByOwnerByName'][0])
+    public function putAiRemoteConnectionsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiRemoteConnectionsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -74040,6 +82555,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiRemoteConnectionsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiRemoteConnectionsByOwnerByName'
             );
         }
 
@@ -74078,7 +82600,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -74331,6 +82860,277 @@ class AiApi
 
         // for model (json/xml)
         if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putAiRouterCatalog
+     *
+     * Applies an edited catalog to one family, made from its newest version, and records the new version.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRouterCatalog'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PutAiRouterCatalog200Response
+     */
+    public function putAiRouterCatalog($ai_routing_edit, string $contentType = self::contentTypes['putAiRouterCatalog'][0])
+    {
+        list($response) = $this->putAiRouterCatalogWithHttpInfo($ai_routing_edit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putAiRouterCatalogWithHttpInfo
+     *
+     * Applies an edited catalog to one family, made from its newest version, and records the new version.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRouterCatalog'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PutAiRouterCatalog200Response, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putAiRouterCatalogWithHttpInfo($ai_routing_edit, string $contentType = self::contentTypes['putAiRouterCatalog'][0])
+    {
+        $request = $this->putAiRouterCatalogRequest($ai_routing_edit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PutAiRouterCatalog200Response',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PutAiRouterCatalog200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PutAiRouterCatalog200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putAiRouterCatalogAsync
+     *
+     * Applies an edited catalog to one family, made from its newest version, and records the new version.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRouterCatalog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putAiRouterCatalogAsync($ai_routing_edit, string $contentType = self::contentTypes['putAiRouterCatalog'][0])
+    {
+        return $this->putAiRouterCatalogAsyncWithHttpInfo($ai_routing_edit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putAiRouterCatalogAsyncWithHttpInfo
+     *
+     * Applies an edited catalog to one family, made from its newest version, and records the new version.
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRouterCatalog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putAiRouterCatalogAsyncWithHttpInfo($ai_routing_edit, string $contentType = self::contentTypes['putAiRouterCatalog'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PutAiRouterCatalog200Response';
+        $request = $this->putAiRouterCatalogRequest($ai_routing_edit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putAiRouterCatalog'
+     *
+     * @param  \Hanzo\Cloud\Model\AiRoutingEdit $ai_routing_edit (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRouterCatalog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putAiRouterCatalogRequest($ai_routing_edit, string $contentType = self::contentTypes['putAiRouterCatalog'][0])
+    {
+
+        // verify the required parameter 'ai_routing_edit' is set
+        if ($ai_routing_edit === null || (is_array($ai_routing_edit) && count($ai_routing_edit) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $ai_routing_edit when calling putAiRouterCatalog'
+            );
+        }
+
+
+        $resourcePath = '/v1/ai/router/catalog';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($ai_routing_edit)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ai_routing_edit));
+            } else {
+                $httpBody = $ai_routing_edit;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -75395,15 +84195,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRoutesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiRoutes200Response
      */
-    public function putAiRoutesByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiRoutesByOwnerByName'][0])
+    public function putAiRoutesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiRoutesByOwnerByName'][0])
     {
-        list($response) = $this->putAiRoutesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiRoutesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -75414,15 +84215,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRoutesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiRoutes200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiRoutesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiRoutesByOwnerByName'][0])
+    public function putAiRoutesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiRoutesByOwnerByName'][0])
     {
-        $request = $this->putAiRoutesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiRoutesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -75500,14 +84302,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRoutesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiRoutesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiRoutesByOwnerByName'][0])
+    public function putAiRoutesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiRoutesByOwnerByName'][0])
     {
-        return $this->putAiRoutesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiRoutesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -75522,15 +84325,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRoutesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiRoutesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiRoutesByOwnerByName'][0])
+    public function putAiRoutesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiRoutesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiRoutes200Response';
-        $request = $this->putAiRoutesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiRoutesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -75573,12 +84377,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiRoutesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiRoutesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiRoutesByOwnerByName'][0])
+    public function putAiRoutesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiRoutesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -75592,6 +84397,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiRoutesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiRoutesByOwnerByName'
             );
         }
 
@@ -75630,7 +84442,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -75687,15 +84506,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiScalesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiScales200Response
      */
-    public function putAiScalesByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiScalesByOwnerByName'][0])
+    public function putAiScalesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiScalesByOwnerByName'][0])
     {
-        list($response) = $this->putAiScalesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiScalesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -75706,15 +84526,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiScalesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiScales200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiScalesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiScalesByOwnerByName'][0])
+    public function putAiScalesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiScalesByOwnerByName'][0])
     {
-        $request = $this->putAiScalesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiScalesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -75792,14 +84613,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiScalesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiScalesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiScalesByOwnerByName'][0])
+    public function putAiScalesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiScalesByOwnerByName'][0])
     {
-        return $this->putAiScalesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiScalesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -75814,15 +84636,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiScalesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiScalesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiScalesByOwnerByName'][0])
+    public function putAiScalesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiScalesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiScales200Response';
-        $request = $this->putAiScalesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiScalesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -75865,12 +84688,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiScalesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiScalesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiScalesByOwnerByName'][0])
+    public function putAiScalesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiScalesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -75884,6 +84708,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiScalesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiScalesByOwnerByName'
             );
         }
 
@@ -75922,7 +84753,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -75979,15 +84817,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiScansByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiScans200Response
      */
-    public function putAiScansByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiScansByOwnerByName'][0])
+    public function putAiScansByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiScansByOwnerByName'][0])
     {
-        list($response) = $this->putAiScansByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiScansByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -75998,15 +84837,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiScansByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiScans200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiScansByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiScansByOwnerByName'][0])
+    public function putAiScansByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiScansByOwnerByName'][0])
     {
-        $request = $this->putAiScansByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiScansByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -76084,14 +84924,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiScansByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiScansByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiScansByOwnerByName'][0])
+    public function putAiScansByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiScansByOwnerByName'][0])
     {
-        return $this->putAiScansByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiScansByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -76106,15 +84947,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiScansByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiScansByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiScansByOwnerByName'][0])
+    public function putAiScansByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiScansByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiScans200Response';
-        $request = $this->putAiScansByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiScansByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -76157,12 +84999,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiScansByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiScansByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiScansByOwnerByName'][0])
+    public function putAiScansByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiScansByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -76176,6 +85019,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiScansByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiScansByOwnerByName'
             );
         }
 
@@ -76214,7 +85064,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -76271,15 +85128,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiSigninSessionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiSigninSessions200Response
      */
-    public function putAiSigninSessionsByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiSigninSessionsByOwnerByName'][0])
+    public function putAiSigninSessionsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiSigninSessionsByOwnerByName'][0])
     {
-        list($response) = $this->putAiSigninSessionsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiSigninSessionsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -76290,15 +85148,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiSigninSessionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiSigninSessions200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiSigninSessionsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiSigninSessionsByOwnerByName'][0])
+    public function putAiSigninSessionsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiSigninSessionsByOwnerByName'][0])
     {
-        $request = $this->putAiSigninSessionsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiSigninSessionsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -76376,14 +85235,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiSigninSessionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiSigninSessionsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiSigninSessionsByOwnerByName'][0])
+    public function putAiSigninSessionsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiSigninSessionsByOwnerByName'][0])
     {
-        return $this->putAiSigninSessionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiSigninSessionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -76398,15 +85258,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiSigninSessionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiSigninSessionsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiSigninSessionsByOwnerByName'][0])
+    public function putAiSigninSessionsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiSigninSessionsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiSigninSessions200Response';
-        $request = $this->putAiSigninSessionsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiSigninSessionsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -76449,12 +85310,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiSigninSessionsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiSigninSessionsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiSigninSessionsByOwnerByName'][0])
+    public function putAiSigninSessionsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiSigninSessionsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -76468,6 +85330,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiSigninSessionsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiSigninSessionsByOwnerByName'
             );
         }
 
@@ -76506,7 +85375,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -76563,15 +85439,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiStoresByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiStores200Response
      */
-    public function putAiStoresByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiStoresByOwnerByName'][0])
+    public function putAiStoresByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiStoresByOwnerByName'][0])
     {
-        list($response) = $this->putAiStoresByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiStoresByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -76582,15 +85459,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiStoresByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiStores200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiStoresByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiStoresByOwnerByName'][0])
+    public function putAiStoresByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiStoresByOwnerByName'][0])
     {
-        $request = $this->putAiStoresByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiStoresByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -76668,14 +85546,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiStoresByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiStoresByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiStoresByOwnerByName'][0])
+    public function putAiStoresByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiStoresByOwnerByName'][0])
     {
-        return $this->putAiStoresByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiStoresByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -76690,15 +85569,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiStoresByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiStoresByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiStoresByOwnerByName'][0])
+    public function putAiStoresByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiStoresByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiStores200Response';
-        $request = $this->putAiStoresByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiStoresByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -76741,12 +85621,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiStoresByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiStoresByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiStoresByOwnerByName'][0])
+    public function putAiStoresByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiStoresByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -76760,6 +85641,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiStoresByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiStoresByOwnerByName'
             );
         }
 
@@ -76798,7 +85686,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -76855,15 +85750,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTasksByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiTasks200Response
      */
-    public function putAiTasksByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiTasksByOwnerByName'][0])
+    public function putAiTasksByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiTasksByOwnerByName'][0])
     {
-        list($response) = $this->putAiTasksByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiTasksByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -76874,15 +85770,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTasksByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiTasks200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiTasksByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiTasksByOwnerByName'][0])
+    public function putAiTasksByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiTasksByOwnerByName'][0])
     {
-        $request = $this->putAiTasksByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiTasksByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -76960,14 +85857,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTasksByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiTasksByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiTasksByOwnerByName'][0])
+    public function putAiTasksByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiTasksByOwnerByName'][0])
     {
-        return $this->putAiTasksByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiTasksByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -76982,15 +85880,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTasksByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiTasksByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiTasksByOwnerByName'][0])
+    public function putAiTasksByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiTasksByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiTasks200Response';
-        $request = $this->putAiTasksByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiTasksByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -77033,12 +85932,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTasksByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiTasksByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiTasksByOwnerByName'][0])
+    public function putAiTasksByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiTasksByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -77052,6 +85952,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiTasksByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiTasksByOwnerByName'
             );
         }
 
@@ -77090,7 +85997,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -77147,15 +86061,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTemplatesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiTemplates200Response
      */
-    public function putAiTemplatesByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiTemplatesByOwnerByName'][0])
+    public function putAiTemplatesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiTemplatesByOwnerByName'][0])
     {
-        list($response) = $this->putAiTemplatesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiTemplatesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -77166,15 +86081,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTemplatesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiTemplates200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiTemplatesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiTemplatesByOwnerByName'][0])
+    public function putAiTemplatesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiTemplatesByOwnerByName'][0])
     {
-        $request = $this->putAiTemplatesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiTemplatesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -77252,14 +86168,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTemplatesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiTemplatesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiTemplatesByOwnerByName'][0])
+    public function putAiTemplatesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiTemplatesByOwnerByName'][0])
     {
-        return $this->putAiTemplatesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiTemplatesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -77274,15 +86191,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTemplatesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiTemplatesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiTemplatesByOwnerByName'][0])
+    public function putAiTemplatesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiTemplatesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiTemplates200Response';
-        $request = $this->putAiTemplatesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiTemplatesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -77325,12 +86243,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTemplatesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiTemplatesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiTemplatesByOwnerByName'][0])
+    public function putAiTemplatesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiTemplatesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -77344,6 +86263,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiTemplatesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiTemplatesByOwnerByName'
             );
         }
 
@@ -77382,7 +86308,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -77437,15 +86370,16 @@ class AiApi
      *
      * Training Contribution
      *
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTrainingContribution'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Envelope
      */
-    public function putAiTrainingContribution(string $contentType = self::contentTypes['putAiTrainingContribution'][0])
+    public function putAiTrainingContribution($body, string $contentType = self::contentTypes['putAiTrainingContribution'][0])
     {
-        list($response) = $this->putAiTrainingContributionWithHttpInfo($contentType);
+        list($response) = $this->putAiTrainingContributionWithHttpInfo($body, $contentType);
         return $response;
     }
 
@@ -77454,15 +86388,16 @@ class AiApi
      *
      * Training Contribution
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTrainingContribution'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Envelope, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiTrainingContributionWithHttpInfo(string $contentType = self::contentTypes['putAiTrainingContribution'][0])
+    public function putAiTrainingContributionWithHttpInfo($body, string $contentType = self::contentTypes['putAiTrainingContribution'][0])
     {
-        $request = $this->putAiTrainingContributionRequest($contentType);
+        $request = $this->putAiTrainingContributionRequest($body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -77538,14 +86473,15 @@ class AiApi
      *
      * Training Contribution
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTrainingContribution'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiTrainingContributionAsync(string $contentType = self::contentTypes['putAiTrainingContribution'][0])
+    public function putAiTrainingContributionAsync($body, string $contentType = self::contentTypes['putAiTrainingContribution'][0])
     {
-        return $this->putAiTrainingContributionAsyncWithHttpInfo($contentType)
+        return $this->putAiTrainingContributionAsyncWithHttpInfo($body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -77558,15 +86494,16 @@ class AiApi
      *
      * Training Contribution
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTrainingContribution'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiTrainingContributionAsyncWithHttpInfo(string $contentType = self::contentTypes['putAiTrainingContribution'][0])
+    public function putAiTrainingContributionAsyncWithHttpInfo($body, string $contentType = self::contentTypes['putAiTrainingContribution'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Envelope';
-        $request = $this->putAiTrainingContributionRequest($contentType);
+        $request = $this->putAiTrainingContributionRequest($body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -77607,13 +86544,21 @@ class AiApi
     /**
      * Create request for operation 'putAiTrainingContribution'
      *
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTrainingContribution'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiTrainingContributionRequest(string $contentType = self::contentTypes['putAiTrainingContribution'][0])
+    public function putAiTrainingContributionRequest($body, string $contentType = self::contentTypes['putAiTrainingContribution'][0])
     {
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiTrainingContribution'
+            );
+        }
 
 
         $resourcePath = '/v1/ai/training-contribution';
@@ -77634,7 +86579,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -77691,15 +86643,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTreeFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiTreeFiles200Response
      */
-    public function putAiTreeFilesByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiTreeFilesByOwnerByName'][0])
+    public function putAiTreeFilesByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiTreeFilesByOwnerByName'][0])
     {
-        list($response) = $this->putAiTreeFilesByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiTreeFilesByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -77710,15 +86663,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTreeFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiTreeFiles200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiTreeFilesByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiTreeFilesByOwnerByName'][0])
+    public function putAiTreeFilesByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiTreeFilesByOwnerByName'][0])
     {
-        $request = $this->putAiTreeFilesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiTreeFilesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -77796,14 +86750,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTreeFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiTreeFilesByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiTreeFilesByOwnerByName'][0])
+    public function putAiTreeFilesByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiTreeFilesByOwnerByName'][0])
     {
-        return $this->putAiTreeFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiTreeFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -77818,15 +86773,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTreeFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiTreeFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiTreeFilesByOwnerByName'][0])
+    public function putAiTreeFilesByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiTreeFilesByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiTreeFiles200Response';
-        $request = $this->putAiTreeFilesByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiTreeFilesByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -77869,12 +86825,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiTreeFilesByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiTreeFilesByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiTreeFilesByOwnerByName'][0])
+    public function putAiTreeFilesByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiTreeFilesByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -77888,6 +86845,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiTreeFilesByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiTreeFilesByOwnerByName'
             );
         }
 
@@ -77926,7 +86890,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -77983,15 +86954,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiVectorsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiVectors200Response
      */
-    public function putAiVectorsByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiVectorsByOwnerByName'][0])
+    public function putAiVectorsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiVectorsByOwnerByName'][0])
     {
-        list($response) = $this->putAiVectorsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiVectorsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -78002,15 +86974,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiVectorsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiVectors200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiVectorsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiVectorsByOwnerByName'][0])
+    public function putAiVectorsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiVectorsByOwnerByName'][0])
     {
-        $request = $this->putAiVectorsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiVectorsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -78088,14 +87061,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiVectorsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiVectorsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiVectorsByOwnerByName'][0])
+    public function putAiVectorsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiVectorsByOwnerByName'][0])
     {
-        return $this->putAiVectorsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiVectorsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -78110,15 +87084,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiVectorsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiVectorsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiVectorsByOwnerByName'][0])
+    public function putAiVectorsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiVectorsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiVectors200Response';
-        $request = $this->putAiVectorsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiVectorsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -78161,12 +87136,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiVectorsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiVectorsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiVectorsByOwnerByName'][0])
+    public function putAiVectorsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiVectorsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -78180,6 +87156,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiVectorsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiVectorsByOwnerByName'
             );
         }
 
@@ -78218,7 +87201,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -78275,15 +87265,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiVideosByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiVideos200Response
      */
-    public function putAiVideosByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiVideosByOwnerByName'][0])
+    public function putAiVideosByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiVideosByOwnerByName'][0])
     {
-        list($response) = $this->putAiVideosByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiVideosByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -78294,15 +87285,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiVideosByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiVideos200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiVideosByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiVideosByOwnerByName'][0])
+    public function putAiVideosByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiVideosByOwnerByName'][0])
     {
-        $request = $this->putAiVideosByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiVideosByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -78380,14 +87372,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiVideosByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiVideosByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiVideosByOwnerByName'][0])
+    public function putAiVideosByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiVideosByOwnerByName'][0])
     {
-        return $this->putAiVideosByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiVideosByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -78402,15 +87395,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiVideosByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiVideosByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiVideosByOwnerByName'][0])
+    public function putAiVideosByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiVideosByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiVideos200Response';
-        $request = $this->putAiVideosByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiVideosByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -78453,12 +87447,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiVideosByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiVideosByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiVideosByOwnerByName'][0])
+    public function putAiVideosByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiVideosByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -78472,6 +87467,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiVideosByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiVideosByOwnerByName'
             );
         }
 
@@ -78510,7 +87512,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -78567,15 +87576,16 @@ class AiApi
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
+     * @param  object $body body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiWorkflowsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PostAiWorkflows200Response
      */
-    public function putAiWorkflowsByOwnerByName($owner, $name, string $contentType = self::contentTypes['putAiWorkflowsByOwnerByName'][0])
+    public function putAiWorkflowsByOwnerByName($owner, $name, $body, string $contentType = self::contentTypes['putAiWorkflowsByOwnerByName'][0])
     {
-        list($response) = $this->putAiWorkflowsByOwnerByNameWithHttpInfo($owner, $name, $contentType);
+        list($response) = $this->putAiWorkflowsByOwnerByNameWithHttpInfo($owner, $name, $body, $contentType);
         return $response;
     }
 
@@ -78586,15 +87596,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiWorkflowsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PostAiWorkflows200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putAiWorkflowsByOwnerByNameWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiWorkflowsByOwnerByName'][0])
+    public function putAiWorkflowsByOwnerByNameWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiWorkflowsByOwnerByName'][0])
     {
-        $request = $this->putAiWorkflowsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiWorkflowsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -78672,14 +87683,15 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiWorkflowsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiWorkflowsByOwnerByNameAsync($owner, $name, string $contentType = self::contentTypes['putAiWorkflowsByOwnerByName'][0])
+    public function putAiWorkflowsByOwnerByNameAsync($owner, $name, $body, string $contentType = self::contentTypes['putAiWorkflowsByOwnerByName'][0])
     {
-        return $this->putAiWorkflowsByOwnerByNameAsyncWithHttpInfo($owner, $name, $contentType)
+        return $this->putAiWorkflowsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -78694,15 +87706,16 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiWorkflowsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAiWorkflowsByOwnerByNameAsyncWithHttpInfo($owner, $name, string $contentType = self::contentTypes['putAiWorkflowsByOwnerByName'][0])
+    public function putAiWorkflowsByOwnerByNameAsyncWithHttpInfo($owner, $name, $body, string $contentType = self::contentTypes['putAiWorkflowsByOwnerByName'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PostAiWorkflows200Response';
-        $request = $this->putAiWorkflowsByOwnerByNameRequest($owner, $name, $contentType);
+        $request = $this->putAiWorkflowsByOwnerByNameRequest($owner, $name, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -78745,12 +87758,13 @@ class AiApi
      *
      * @param  string $owner (required)
      * @param  string $name (required)
+     * @param  object $body (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putAiWorkflowsByOwnerByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putAiWorkflowsByOwnerByNameRequest($owner, $name, string $contentType = self::contentTypes['putAiWorkflowsByOwnerByName'][0])
+    public function putAiWorkflowsByOwnerByNameRequest($owner, $name, $body, string $contentType = self::contentTypes['putAiWorkflowsByOwnerByName'][0])
     {
 
         // verify the required parameter 'owner' is set
@@ -78764,6 +87778,13 @@ class AiApi
         if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $name when calling putAiWorkflowsByOwnerByName'
+            );
+        }
+
+        // verify the required parameter 'body' is set
+        if ($body === null || (is_array($body) && count($body) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $body when calling putAiWorkflowsByOwnerByName'
             );
         }
 
@@ -78802,7 +87823,14 @@ class AiApi
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($body)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+            } else {
+                $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {

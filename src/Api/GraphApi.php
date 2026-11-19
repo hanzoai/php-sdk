@@ -74,10 +74,49 @@ class GraphApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'getGraphGraphql' => [
+            'application/json',
+        ],
+        'graphAnswer' => [
+            'application/json',
+        ],
+        'graphApple' => [
+            'application/json',
+        ],
         'graphAssert' => [
             'application/json',
         ],
+        'graphCommunities' => [
+            'application/json',
+        ],
+        'graphConvo' => [
+            'application/json',
+        ],
+        'graphDerive' => [
+            'application/json',
+        ],
+        'graphDiff' => [
+            'application/json',
+        ],
+        'graphEntity' => [
+            'application/json',
+        ],
+        'graphErase' => [
+            'application/json',
+        ],
+        'graphExtract' => [
+            'application/json',
+        ],
+        'graphIngest' => [
+            'application/json',
+        ],
         'graphNeighbors' => [
+            'application/json',
+        ],
+        'graphOntology' => [
+            'application/json',
+        ],
+        'graphPath' => [
             'application/json',
         ],
         'graphRead' => [
@@ -144,38 +183,293 @@ class GraphApi
     }
 
     /**
-     * Operation graphAssert
+     * Operation getGraphGraphql
      *
-     * Assert what is true of an entity
+     * Read the graph&#39;s GraphQL schema.
      *
-     * @param  \Hanzo\Cloud\Model\GraphAssertIn $graph_assert_in graph_assert_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAssert'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGraphGraphql'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GraphAssertOut
+     * @return \SplFileObject
      */
-    public function graphAssert($graph_assert_in, string $contentType = self::contentTypes['graphAssert'][0])
+    public function getGraphGraphql(string $contentType = self::contentTypes['getGraphGraphql'][0])
     {
-        list($response) = $this->graphAssertWithHttpInfo($graph_assert_in, $contentType);
+        list($response) = $this->getGraphGraphqlWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation graphAssertWithHttpInfo
+     * Operation getGraphGraphqlWithHttpInfo
      *
-     * Assert what is true of an entity
+     * Read the graph&#39;s GraphQL schema.
      *
-     * @param  \Hanzo\Cloud\Model\GraphAssertIn $graph_assert_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAssert'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGraphGraphql'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GraphAssertOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
      */
-    public function graphAssertWithHttpInfo($graph_assert_in, string $contentType = self::contentTypes['graphAssert'][0])
+    public function getGraphGraphqlWithHttpInfo(string $contentType = self::contentTypes['getGraphGraphql'][0])
     {
-        $request = $this->graphAssertRequest($graph_assert_in, $contentType);
+        $request = $this->getGraphGraphqlRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                
+            }
+
+            if ($this->responseWithinRangeCode('2XX', $statusCode)) {
+                return $this->handleResponseWithDataType(
+                    '\SplFileObject',
+                    $request,
+                    $response,
+                );
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\SplFileObject',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                
+            }
+        
+            if ($this->responseWithinRangeCode('2XX', $e->getCode())) {
+                $data = ObjectSerializer::deserialize(
+                    $e->getResponseBody(),
+                    '\SplFileObject',
+                    $e->getResponseHeaders()
+                );
+                $e->setResponseObject($data);
+                throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getGraphGraphqlAsync
+     *
+     * Read the graph&#39;s GraphQL schema.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGraphGraphql'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getGraphGraphqlAsync(string $contentType = self::contentTypes['getGraphGraphql'][0])
+    {
+        return $this->getGraphGraphqlAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getGraphGraphqlAsyncWithHttpInfo
+     *
+     * Read the graph&#39;s GraphQL schema.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGraphGraphql'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getGraphGraphqlAsyncWithHttpInfo(string $contentType = self::contentTypes['getGraphGraphql'][0])
+    {
+        $returnType = '\SplFileObject';
+        $request = $this->getGraphGraphqlRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getGraphGraphql'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGraphGraphql'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getGraphGraphqlRequest(string $contentType = self::contentTypes['getGraphGraphql'][0])
+    {
+
+
+        $resourcePath = '/v1/graph/graphql';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['text/plain; charset=utf-8', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphAnswer
+     *
+     * Answers a question from the whole graph and cites the assertions it rests on.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAnswerIn $graph_graph_answer_in graph_graph_answer_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAnswer'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphAnswerOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphAnswer($graph_graph_answer_in, string $contentType = self::contentTypes['graphAnswer'][0])
+    {
+        list($response) = $this->graphAnswerWithHttpInfo($graph_graph_answer_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphAnswerWithHttpInfo
+     *
+     * Answers a question from the whole graph and cites the assertions it rests on.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAnswerIn $graph_graph_answer_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAnswer'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphAnswerOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphAnswerWithHttpInfo($graph_graph_answer_in, string $contentType = self::contentTypes['graphAnswer'][0])
+    {
+        $request = $this->graphAnswerRequest($graph_graph_answer_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -203,7 +497,13 @@ class GraphApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GraphAssertOut',
+                        '\Hanzo\Cloud\Model\GraphGraphAnswerOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -225,7 +525,7 @@ class GraphApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GraphAssertOut',
+                '\Hanzo\Cloud\Model\GraphGraphAnswerOut',
                 $request,
                 $response,
             );
@@ -234,7 +534,585 @@ class GraphApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GraphAssertOut',
+                        '\Hanzo\Cloud\Model\GraphGraphAnswerOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphAnswerAsync
+     *
+     * Answers a question from the whole graph and cites the assertions it rests on.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAnswerIn $graph_graph_answer_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAnswer'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphAnswerAsync($graph_graph_answer_in, string $contentType = self::contentTypes['graphAnswer'][0])
+    {
+        return $this->graphAnswerAsyncWithHttpInfo($graph_graph_answer_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphAnswerAsyncWithHttpInfo
+     *
+     * Answers a question from the whole graph and cites the assertions it rests on.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAnswerIn $graph_graph_answer_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAnswer'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphAnswerAsyncWithHttpInfo($graph_graph_answer_in, string $contentType = self::contentTypes['graphAnswer'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphAnswerOut';
+        $request = $this->graphAnswerRequest($graph_graph_answer_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphAnswer'
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAnswerIn $graph_graph_answer_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAnswer'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphAnswerRequest($graph_graph_answer_in, string $contentType = self::contentTypes['graphAnswer'][0])
+    {
+
+        // verify the required parameter 'graph_graph_answer_in' is set
+        if ($graph_graph_answer_in === null || (is_array($graph_graph_answer_in) && count($graph_graph_answer_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $graph_graph_answer_in when calling graphAnswer'
+            );
+        }
+
+
+        $resourcePath = '/v1/graph/answer';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($graph_graph_answer_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_answer_in));
+            } else {
+                $httpBody = $graph_graph_answer_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphApple
+     *
+     * Ingests an Apple Personal Knowledge Graph snapshot — live stable_graph triples, withdrawn expired_stable_graph rows and entityTagging kinship scorecards — into the organization&#39;s assertion plane.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAppleIn $graph_graph_apple_in graph_graph_apple_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphApple'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphAssertOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphApple($graph_graph_apple_in, string $contentType = self::contentTypes['graphApple'][0])
+    {
+        list($response) = $this->graphAppleWithHttpInfo($graph_graph_apple_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphAppleWithHttpInfo
+     *
+     * Ingests an Apple Personal Knowledge Graph snapshot — live stable_graph triples, withdrawn expired_stable_graph rows and entityTagging kinship scorecards — into the organization&#39;s assertion plane.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAppleIn $graph_graph_apple_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphApple'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphAssertOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphAppleWithHttpInfo($graph_graph_apple_in, string $contentType = self::contentTypes['graphApple'][0])
+    {
+        $request = $this->graphAppleRequest($graph_graph_apple_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphAssertOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphAssertOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphAssertOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphAppleAsync
+     *
+     * Ingests an Apple Personal Knowledge Graph snapshot — live stable_graph triples, withdrawn expired_stable_graph rows and entityTagging kinship scorecards — into the organization&#39;s assertion plane.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAppleIn $graph_graph_apple_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphApple'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphAppleAsync($graph_graph_apple_in, string $contentType = self::contentTypes['graphApple'][0])
+    {
+        return $this->graphAppleAsyncWithHttpInfo($graph_graph_apple_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphAppleAsyncWithHttpInfo
+     *
+     * Ingests an Apple Personal Knowledge Graph snapshot — live stable_graph triples, withdrawn expired_stable_graph rows and entityTagging kinship scorecards — into the organization&#39;s assertion plane.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAppleIn $graph_graph_apple_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphApple'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphAppleAsyncWithHttpInfo($graph_graph_apple_in, string $contentType = self::contentTypes['graphApple'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphAssertOut';
+        $request = $this->graphAppleRequest($graph_graph_apple_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphApple'
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAppleIn $graph_graph_apple_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphApple'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphAppleRequest($graph_graph_apple_in, string $contentType = self::contentTypes['graphApple'][0])
+    {
+
+        // verify the required parameter 'graph_graph_apple_in' is set
+        if ($graph_graph_apple_in === null || (is_array($graph_graph_apple_in) && count($graph_graph_apple_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $graph_graph_apple_in when calling graphApple'
+            );
+        }
+
+
+        $resourcePath = '/v1/graph/apple';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($graph_graph_apple_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_apple_in));
+            } else {
+                $httpBody = $graph_graph_apple_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphAssert
+     *
+     * Records a batch of assertions and counts what became of each.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAssertIn $graph_graph_assert_in graph_graph_assert_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAssert'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphAssertOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphAssert($graph_graph_assert_in, string $contentType = self::contentTypes['graphAssert'][0])
+    {
+        list($response) = $this->graphAssertWithHttpInfo($graph_graph_assert_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphAssertWithHttpInfo
+     *
+     * Records a batch of assertions and counts what became of each.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphAssertIn $graph_graph_assert_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAssert'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphAssertOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphAssertWithHttpInfo($graph_graph_assert_in, string $contentType = self::contentTypes['graphAssert'][0])
+    {
+        $request = $this->graphAssertRequest($graph_graph_assert_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphAssertOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphAssertOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphAssertOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -249,17 +1127,17 @@ class GraphApi
     /**
      * Operation graphAssertAsync
      *
-     * Assert what is true of an entity
+     * Records a batch of assertions and counts what became of each.
      *
-     * @param  \Hanzo\Cloud\Model\GraphAssertIn $graph_assert_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphAssertIn $graph_graph_assert_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAssert'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function graphAssertAsync($graph_assert_in, string $contentType = self::contentTypes['graphAssert'][0])
+    public function graphAssertAsync($graph_graph_assert_in, string $contentType = self::contentTypes['graphAssert'][0])
     {
-        return $this->graphAssertAsyncWithHttpInfo($graph_assert_in, $contentType)
+        return $this->graphAssertAsyncWithHttpInfo($graph_graph_assert_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -270,18 +1148,18 @@ class GraphApi
     /**
      * Operation graphAssertAsyncWithHttpInfo
      *
-     * Assert what is true of an entity
+     * Records a batch of assertions and counts what became of each.
      *
-     * @param  \Hanzo\Cloud\Model\GraphAssertIn $graph_assert_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphAssertIn $graph_graph_assert_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAssert'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function graphAssertAsyncWithHttpInfo($graph_assert_in, string $contentType = self::contentTypes['graphAssert'][0])
+    public function graphAssertAsyncWithHttpInfo($graph_graph_assert_in, string $contentType = self::contentTypes['graphAssert'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\GraphAssertOut';
-        $request = $this->graphAssertRequest($graph_assert_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphAssertOut';
+        $request = $this->graphAssertRequest($graph_graph_assert_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -322,19 +1200,19 @@ class GraphApi
     /**
      * Create request for operation 'graphAssert'
      *
-     * @param  \Hanzo\Cloud\Model\GraphAssertIn $graph_assert_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphAssertIn $graph_graph_assert_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphAssert'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function graphAssertRequest($graph_assert_in, string $contentType = self::contentTypes['graphAssert'][0])
+    public function graphAssertRequest($graph_graph_assert_in, string $contentType = self::contentTypes['graphAssert'][0])
     {
 
-        // verify the required parameter 'graph_assert_in' is set
-        if ($graph_assert_in === null || (is_array($graph_assert_in) && count($graph_assert_in) === 0)) {
+        // verify the required parameter 'graph_graph_assert_in' is set
+        if ($graph_graph_assert_in === null || (is_array($graph_graph_assert_in) && count($graph_graph_assert_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $graph_assert_in when calling graphAssert'
+                'Missing the required parameter $graph_graph_assert_in when calling graphAssert'
             );
         }
 
@@ -351,18 +1229,2298 @@ class GraphApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($graph_assert_in)) {
+        if (isset($graph_graph_assert_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_assert_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_assert_in));
             } else {
-                $httpBody = $graph_assert_in;
+                $httpBody = $graph_graph_assert_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphCommunities
+     *
+     * Partitions the edge graph into sets of entities more densely connected to each other than to the rest.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphCommunitiesIn $graph_graph_communities_in graph_graph_communities_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphCommunities'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphCommunitiesOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphCommunities($graph_graph_communities_in, string $contentType = self::contentTypes['graphCommunities'][0])
+    {
+        list($response) = $this->graphCommunitiesWithHttpInfo($graph_graph_communities_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphCommunitiesWithHttpInfo
+     *
+     * Partitions the edge graph into sets of entities more densely connected to each other than to the rest.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphCommunitiesIn $graph_graph_communities_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphCommunities'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphCommunitiesOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphCommunitiesWithHttpInfo($graph_graph_communities_in, string $contentType = self::contentTypes['graphCommunities'][0])
+    {
+        $request = $this->graphCommunitiesRequest($graph_graph_communities_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphCommunitiesOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphCommunitiesOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphCommunitiesOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphCommunitiesAsync
+     *
+     * Partitions the edge graph into sets of entities more densely connected to each other than to the rest.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphCommunitiesIn $graph_graph_communities_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphCommunities'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphCommunitiesAsync($graph_graph_communities_in, string $contentType = self::contentTypes['graphCommunities'][0])
+    {
+        return $this->graphCommunitiesAsyncWithHttpInfo($graph_graph_communities_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphCommunitiesAsyncWithHttpInfo
+     *
+     * Partitions the edge graph into sets of entities more densely connected to each other than to the rest.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphCommunitiesIn $graph_graph_communities_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphCommunities'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphCommunitiesAsyncWithHttpInfo($graph_graph_communities_in, string $contentType = self::contentTypes['graphCommunities'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphCommunitiesOut';
+        $request = $this->graphCommunitiesRequest($graph_graph_communities_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphCommunities'
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphCommunitiesIn $graph_graph_communities_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphCommunities'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphCommunitiesRequest($graph_graph_communities_in, string $contentType = self::contentTypes['graphCommunities'][0])
+    {
+
+        // verify the required parameter 'graph_graph_communities_in' is set
+        if ($graph_graph_communities_in === null || (is_array($graph_graph_communities_in) && count($graph_graph_communities_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $graph_graph_communities_in when calling graphCommunities'
+            );
+        }
+
+
+        $resourcePath = '/v1/graph/communities';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($graph_graph_communities_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_communities_in));
+            } else {
+                $httpBody = $graph_graph_communities_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphConvo
+     *
+     * Extracts entity state and relationship assertions from conversation turns and updates the graph.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphConvoIn $graph_graph_convo_in graph_graph_convo_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphConvo'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphConvoOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphConvo($graph_graph_convo_in, string $contentType = self::contentTypes['graphConvo'][0])
+    {
+        list($response) = $this->graphConvoWithHttpInfo($graph_graph_convo_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphConvoWithHttpInfo
+     *
+     * Extracts entity state and relationship assertions from conversation turns and updates the graph.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphConvoIn $graph_graph_convo_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphConvo'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphConvoOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphConvoWithHttpInfo($graph_graph_convo_in, string $contentType = self::contentTypes['graphConvo'][0])
+    {
+        $request = $this->graphConvoRequest($graph_graph_convo_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphConvoOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphConvoOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphConvoOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphConvoAsync
+     *
+     * Extracts entity state and relationship assertions from conversation turns and updates the graph.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphConvoIn $graph_graph_convo_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphConvo'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphConvoAsync($graph_graph_convo_in, string $contentType = self::contentTypes['graphConvo'][0])
+    {
+        return $this->graphConvoAsyncWithHttpInfo($graph_graph_convo_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphConvoAsyncWithHttpInfo
+     *
+     * Extracts entity state and relationship assertions from conversation turns and updates the graph.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphConvoIn $graph_graph_convo_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphConvo'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphConvoAsyncWithHttpInfo($graph_graph_convo_in, string $contentType = self::contentTypes['graphConvo'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphConvoOut';
+        $request = $this->graphConvoRequest($graph_graph_convo_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphConvo'
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphConvoIn $graph_graph_convo_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphConvo'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphConvoRequest($graph_graph_convo_in, string $contentType = self::contentTypes['graphConvo'][0])
+    {
+
+        // verify the required parameter 'graph_graph_convo_in' is set
+        if ($graph_graph_convo_in === null || (is_array($graph_graph_convo_in) && count($graph_graph_convo_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $graph_graph_convo_in when calling graphConvo'
+            );
+        }
+
+
+        $resourcePath = '/v1/graph/convo';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($graph_graph_convo_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_convo_in));
+            } else {
+                $httpBody = $graph_graph_convo_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphDerive
+     *
+     * Concludes what the organization&#39;s rules derive from the graph, with a proof for every conclusion: the rule, and each support as the assertion in force it rests on or as the derived atom it is.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphDeriveIn $graph_graph_derive_in graph_graph_derive_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphDerive'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphDeriveOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphDerive($graph_graph_derive_in, string $contentType = self::contentTypes['graphDerive'][0])
+    {
+        list($response) = $this->graphDeriveWithHttpInfo($graph_graph_derive_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphDeriveWithHttpInfo
+     *
+     * Concludes what the organization&#39;s rules derive from the graph, with a proof for every conclusion: the rule, and each support as the assertion in force it rests on or as the derived atom it is.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphDeriveIn $graph_graph_derive_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphDerive'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphDeriveOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphDeriveWithHttpInfo($graph_graph_derive_in, string $contentType = self::contentTypes['graphDerive'][0])
+    {
+        $request = $this->graphDeriveRequest($graph_graph_derive_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphDeriveOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphDeriveOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphDeriveOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphDeriveAsync
+     *
+     * Concludes what the organization&#39;s rules derive from the graph, with a proof for every conclusion: the rule, and each support as the assertion in force it rests on or as the derived atom it is.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphDeriveIn $graph_graph_derive_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphDerive'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphDeriveAsync($graph_graph_derive_in, string $contentType = self::contentTypes['graphDerive'][0])
+    {
+        return $this->graphDeriveAsyncWithHttpInfo($graph_graph_derive_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphDeriveAsyncWithHttpInfo
+     *
+     * Concludes what the organization&#39;s rules derive from the graph, with a proof for every conclusion: the rule, and each support as the assertion in force it rests on or as the derived atom it is.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphDeriveIn $graph_graph_derive_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphDerive'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphDeriveAsyncWithHttpInfo($graph_graph_derive_in, string $contentType = self::contentTypes['graphDerive'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphDeriveOut';
+        $request = $this->graphDeriveRequest($graph_graph_derive_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphDerive'
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphDeriveIn $graph_graph_derive_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphDerive'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphDeriveRequest($graph_graph_derive_in, string $contentType = self::contentTypes['graphDerive'][0])
+    {
+
+        // verify the required parameter 'graph_graph_derive_in' is set
+        if ($graph_graph_derive_in === null || (is_array($graph_graph_derive_in) && count($graph_graph_derive_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $graph_graph_derive_in when calling graphDerive'
+            );
+        }
+
+
+        $resourcePath = '/v1/graph/derive';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($graph_graph_derive_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_derive_in));
+            } else {
+                $httpBody = $graph_graph_derive_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphDiff
+     *
+     * Reports what came into force, was superseded and was retracted between two points.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphDiffIn $graph_graph_diff_in graph_graph_diff_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphDiff'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphDiffOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphDiff($graph_graph_diff_in, string $contentType = self::contentTypes['graphDiff'][0])
+    {
+        list($response) = $this->graphDiffWithHttpInfo($graph_graph_diff_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphDiffWithHttpInfo
+     *
+     * Reports what came into force, was superseded and was retracted between two points.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphDiffIn $graph_graph_diff_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphDiff'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphDiffOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphDiffWithHttpInfo($graph_graph_diff_in, string $contentType = self::contentTypes['graphDiff'][0])
+    {
+        $request = $this->graphDiffRequest($graph_graph_diff_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphDiffOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphDiffOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphDiffOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphDiffAsync
+     *
+     * Reports what came into force, was superseded and was retracted between two points.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphDiffIn $graph_graph_diff_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphDiff'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphDiffAsync($graph_graph_diff_in, string $contentType = self::contentTypes['graphDiff'][0])
+    {
+        return $this->graphDiffAsyncWithHttpInfo($graph_graph_diff_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphDiffAsyncWithHttpInfo
+     *
+     * Reports what came into force, was superseded and was retracted between two points.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphDiffIn $graph_graph_diff_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphDiff'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphDiffAsyncWithHttpInfo($graph_graph_diff_in, string $contentType = self::contentTypes['graphDiff'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphDiffOut';
+        $request = $this->graphDiffRequest($graph_graph_diff_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphDiff'
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphDiffIn $graph_graph_diff_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphDiff'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphDiffRequest($graph_graph_diff_in, string $contentType = self::contentTypes['graphDiff'][0])
+    {
+
+        // verify the required parameter 'graph_graph_diff_in' is set
+        if ($graph_graph_diff_in === null || (is_array($graph_graph_diff_in) && count($graph_graph_diff_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $graph_graph_diff_in when calling graphDiff'
+            );
+        }
+
+
+        $resourcePath = '/v1/graph/diff';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($graph_graph_diff_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_diff_in));
+            } else {
+                $httpBody = $graph_graph_diff_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphEntity
+     *
+     * Resolves the complete state of one entity at a point: its type, its holding properties and edges in both directions, its kinship scorecard and the expired statements it no longer holds.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphEntityIn $graph_graph_entity_in graph_graph_entity_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphEntity'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphEntityOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphEntity($graph_graph_entity_in, string $contentType = self::contentTypes['graphEntity'][0])
+    {
+        list($response) = $this->graphEntityWithHttpInfo($graph_graph_entity_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphEntityWithHttpInfo
+     *
+     * Resolves the complete state of one entity at a point: its type, its holding properties and edges in both directions, its kinship scorecard and the expired statements it no longer holds.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphEntityIn $graph_graph_entity_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphEntity'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphEntityOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphEntityWithHttpInfo($graph_graph_entity_in, string $contentType = self::contentTypes['graphEntity'][0])
+    {
+        $request = $this->graphEntityRequest($graph_graph_entity_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphEntityOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphEntityOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphEntityOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphEntityAsync
+     *
+     * Resolves the complete state of one entity at a point: its type, its holding properties and edges in both directions, its kinship scorecard and the expired statements it no longer holds.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphEntityIn $graph_graph_entity_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphEntity'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphEntityAsync($graph_graph_entity_in, string $contentType = self::contentTypes['graphEntity'][0])
+    {
+        return $this->graphEntityAsyncWithHttpInfo($graph_graph_entity_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphEntityAsyncWithHttpInfo
+     *
+     * Resolves the complete state of one entity at a point: its type, its holding properties and edges in both directions, its kinship scorecard and the expired statements it no longer holds.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphEntityIn $graph_graph_entity_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphEntity'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphEntityAsyncWithHttpInfo($graph_graph_entity_in, string $contentType = self::contentTypes['graphEntity'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphEntityOut';
+        $request = $this->graphEntityRequest($graph_graph_entity_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphEntity'
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphEntityIn $graph_graph_entity_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphEntity'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphEntityRequest($graph_graph_entity_in, string $contentType = self::contentTypes['graphEntity'][0])
+    {
+
+        // verify the required parameter 'graph_graph_entity_in' is set
+        if ($graph_graph_entity_in === null || (is_array($graph_graph_entity_in) && count($graph_graph_entity_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $graph_graph_entity_in when calling graphEntity'
+            );
+        }
+
+
+        $resourcePath = '/v1/graph/entity';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($graph_graph_entity_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_entity_in));
+            } else {
+                $httpBody = $graph_graph_entity_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphErase
+     *
+     * Removes every assertion that names an entity and returns a receipt.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphEraseIn $graph_graph_erase_in graph_graph_erase_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphErase'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphEraseOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphErase($graph_graph_erase_in, string $contentType = self::contentTypes['graphErase'][0])
+    {
+        list($response) = $this->graphEraseWithHttpInfo($graph_graph_erase_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphEraseWithHttpInfo
+     *
+     * Removes every assertion that names an entity and returns a receipt.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphEraseIn $graph_graph_erase_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphErase'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphEraseOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphEraseWithHttpInfo($graph_graph_erase_in, string $contentType = self::contentTypes['graphErase'][0])
+    {
+        $request = $this->graphEraseRequest($graph_graph_erase_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphEraseOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphEraseOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphEraseOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphEraseAsync
+     *
+     * Removes every assertion that names an entity and returns a receipt.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphEraseIn $graph_graph_erase_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphErase'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphEraseAsync($graph_graph_erase_in, string $contentType = self::contentTypes['graphErase'][0])
+    {
+        return $this->graphEraseAsyncWithHttpInfo($graph_graph_erase_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphEraseAsyncWithHttpInfo
+     *
+     * Removes every assertion that names an entity and returns a receipt.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphEraseIn $graph_graph_erase_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphErase'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphEraseAsyncWithHttpInfo($graph_graph_erase_in, string $contentType = self::contentTypes['graphErase'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphEraseOut';
+        $request = $this->graphEraseRequest($graph_graph_erase_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphErase'
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphEraseIn $graph_graph_erase_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphErase'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphEraseRequest($graph_graph_erase_in, string $contentType = self::contentTypes['graphErase'][0])
+    {
+
+        // verify the required parameter 'graph_graph_erase_in' is set
+        if ($graph_graph_erase_in === null || (is_array($graph_graph_erase_in) && count($graph_graph_erase_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $graph_graph_erase_in when calling graphErase'
+            );
+        }
+
+
+        $resourcePath = '/v1/graph/erase';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($graph_graph_erase_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_erase_in));
+            } else {
+                $httpBody = $graph_graph_erase_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphExtract
+     *
+     * Reads the relations a source states and returns them, recording nothing.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphSourceIn $graph_graph_source_in graph_graph_source_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphExtract'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphExtractOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphExtract($graph_graph_source_in, string $contentType = self::contentTypes['graphExtract'][0])
+    {
+        list($response) = $this->graphExtractWithHttpInfo($graph_graph_source_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphExtractWithHttpInfo
+     *
+     * Reads the relations a source states and returns them, recording nothing.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphSourceIn $graph_graph_source_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphExtract'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphExtractOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphExtractWithHttpInfo($graph_graph_source_in, string $contentType = self::contentTypes['graphExtract'][0])
+    {
+        $request = $this->graphExtractRequest($graph_graph_source_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphExtractOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphExtractOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphExtractOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphExtractAsync
+     *
+     * Reads the relations a source states and returns them, recording nothing.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphSourceIn $graph_graph_source_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphExtract'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphExtractAsync($graph_graph_source_in, string $contentType = self::contentTypes['graphExtract'][0])
+    {
+        return $this->graphExtractAsyncWithHttpInfo($graph_graph_source_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphExtractAsyncWithHttpInfo
+     *
+     * Reads the relations a source states and returns them, recording nothing.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphSourceIn $graph_graph_source_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphExtract'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphExtractAsyncWithHttpInfo($graph_graph_source_in, string $contentType = self::contentTypes['graphExtract'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphExtractOut';
+        $request = $this->graphExtractRequest($graph_graph_source_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphExtract'
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphSourceIn $graph_graph_source_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphExtract'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphExtractRequest($graph_graph_source_in, string $contentType = self::contentTypes['graphExtract'][0])
+    {
+
+        // verify the required parameter 'graph_graph_source_in' is set
+        if ($graph_graph_source_in === null || (is_array($graph_graph_source_in) && count($graph_graph_source_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $graph_graph_source_in when calling graphExtract'
+            );
+        }
+
+
+        $resourcePath = '/v1/graph/extract';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($graph_graph_source_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_source_in));
+            } else {
+                $httpBody = $graph_graph_source_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphIngest
+     *
+     * Reads a source and records what it states, through the same admission as assert.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphSourceIn $graph_graph_source_in graph_graph_source_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphIngest'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphAssertOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphIngest($graph_graph_source_in, string $contentType = self::contentTypes['graphIngest'][0])
+    {
+        list($response) = $this->graphIngestWithHttpInfo($graph_graph_source_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphIngestWithHttpInfo
+     *
+     * Reads a source and records what it states, through the same admission as assert.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphSourceIn $graph_graph_source_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphIngest'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphAssertOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphIngestWithHttpInfo($graph_graph_source_in, string $contentType = self::contentTypes['graphIngest'][0])
+    {
+        $request = $this->graphIngestRequest($graph_graph_source_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphAssertOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphAssertOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphAssertOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphIngestAsync
+     *
+     * Reads a source and records what it states, through the same admission as assert.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphSourceIn $graph_graph_source_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphIngest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphIngestAsync($graph_graph_source_in, string $contentType = self::contentTypes['graphIngest'][0])
+    {
+        return $this->graphIngestAsyncWithHttpInfo($graph_graph_source_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphIngestAsyncWithHttpInfo
+     *
+     * Reads a source and records what it states, through the same admission as assert.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphSourceIn $graph_graph_source_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphIngest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphIngestAsyncWithHttpInfo($graph_graph_source_in, string $contentType = self::contentTypes['graphIngest'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphAssertOut';
+        $request = $this->graphIngestRequest($graph_graph_source_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphIngest'
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphSourceIn $graph_graph_source_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphIngest'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphIngestRequest($graph_graph_source_in, string $contentType = self::contentTypes['graphIngest'][0])
+    {
+
+        // verify the required parameter 'graph_graph_source_in' is set
+        if ($graph_graph_source_in === null || (is_array($graph_graph_source_in) && count($graph_graph_source_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $graph_graph_source_in when calling graphIngest'
+            );
+        }
+
+
+        $resourcePath = '/v1/graph/ingest';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($graph_graph_source_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_source_in));
+            } else {
+                $httpBody = $graph_graph_source_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -417,36 +3575,36 @@ class GraphApi
     /**
      * Operation graphNeighbors
      *
-     * Walk the edges from a seed set, bounded
+     * Walks the in-force edges from a set of seeds and lists every entity reached, bounded.
      *
-     * @param  \Hanzo\Cloud\Model\GraphNeighborsIn $graph_neighbors_in graph_neighbors_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphNeighborsIn $graph_graph_neighbors_in graph_graph_neighbors_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphNeighbors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GraphNeighborsOut
+     * @return \Hanzo\Cloud\Model\GraphGraphNeighborsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function graphNeighbors($graph_neighbors_in, string $contentType = self::contentTypes['graphNeighbors'][0])
+    public function graphNeighbors($graph_graph_neighbors_in, string $contentType = self::contentTypes['graphNeighbors'][0])
     {
-        list($response) = $this->graphNeighborsWithHttpInfo($graph_neighbors_in, $contentType);
+        list($response) = $this->graphNeighborsWithHttpInfo($graph_graph_neighbors_in, $contentType);
         return $response;
     }
 
     /**
      * Operation graphNeighborsWithHttpInfo
      *
-     * Walk the edges from a seed set, bounded
+     * Walks the in-force edges from a set of seeds and lists every entity reached, bounded.
      *
-     * @param  \Hanzo\Cloud\Model\GraphNeighborsIn $graph_neighbors_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphNeighborsIn $graph_graph_neighbors_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphNeighbors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GraphNeighborsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GraphGraphNeighborsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function graphNeighborsWithHttpInfo($graph_neighbors_in, string $contentType = self::contentTypes['graphNeighbors'][0])
+    public function graphNeighborsWithHttpInfo($graph_graph_neighbors_in, string $contentType = self::contentTypes['graphNeighbors'][0])
     {
-        $request = $this->graphNeighborsRequest($graph_neighbors_in, $contentType);
+        $request = $this->graphNeighborsRequest($graph_graph_neighbors_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -474,7 +3632,13 @@ class GraphApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GraphNeighborsOut',
+                        '\Hanzo\Cloud\Model\GraphGraphNeighborsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -496,7 +3660,7 @@ class GraphApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GraphNeighborsOut',
+                '\Hanzo\Cloud\Model\GraphGraphNeighborsOut',
                 $request,
                 $response,
             );
@@ -505,7 +3669,15 @@ class GraphApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GraphNeighborsOut',
+                        '\Hanzo\Cloud\Model\GraphGraphNeighborsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -520,17 +3692,17 @@ class GraphApi
     /**
      * Operation graphNeighborsAsync
      *
-     * Walk the edges from a seed set, bounded
+     * Walks the in-force edges from a set of seeds and lists every entity reached, bounded.
      *
-     * @param  \Hanzo\Cloud\Model\GraphNeighborsIn $graph_neighbors_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphNeighborsIn $graph_graph_neighbors_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphNeighbors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function graphNeighborsAsync($graph_neighbors_in, string $contentType = self::contentTypes['graphNeighbors'][0])
+    public function graphNeighborsAsync($graph_graph_neighbors_in, string $contentType = self::contentTypes['graphNeighbors'][0])
     {
-        return $this->graphNeighborsAsyncWithHttpInfo($graph_neighbors_in, $contentType)
+        return $this->graphNeighborsAsyncWithHttpInfo($graph_graph_neighbors_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -541,18 +3713,18 @@ class GraphApi
     /**
      * Operation graphNeighborsAsyncWithHttpInfo
      *
-     * Walk the edges from a seed set, bounded
+     * Walks the in-force edges from a set of seeds and lists every entity reached, bounded.
      *
-     * @param  \Hanzo\Cloud\Model\GraphNeighborsIn $graph_neighbors_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphNeighborsIn $graph_graph_neighbors_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphNeighbors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function graphNeighborsAsyncWithHttpInfo($graph_neighbors_in, string $contentType = self::contentTypes['graphNeighbors'][0])
+    public function graphNeighborsAsyncWithHttpInfo($graph_graph_neighbors_in, string $contentType = self::contentTypes['graphNeighbors'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\GraphNeighborsOut';
-        $request = $this->graphNeighborsRequest($graph_neighbors_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphNeighborsOut';
+        $request = $this->graphNeighborsRequest($graph_graph_neighbors_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -593,19 +3765,19 @@ class GraphApi
     /**
      * Create request for operation 'graphNeighbors'
      *
-     * @param  \Hanzo\Cloud\Model\GraphNeighborsIn $graph_neighbors_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphNeighborsIn $graph_graph_neighbors_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphNeighbors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function graphNeighborsRequest($graph_neighbors_in, string $contentType = self::contentTypes['graphNeighbors'][0])
+    public function graphNeighborsRequest($graph_graph_neighbors_in, string $contentType = self::contentTypes['graphNeighbors'][0])
     {
 
-        // verify the required parameter 'graph_neighbors_in' is set
-        if ($graph_neighbors_in === null || (is_array($graph_neighbors_in) && count($graph_neighbors_in) === 0)) {
+        // verify the required parameter 'graph_graph_neighbors_in' is set
+        if ($graph_graph_neighbors_in === null || (is_array($graph_graph_neighbors_in) && count($graph_graph_neighbors_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $graph_neighbors_in when calling graphNeighbors'
+                'Missing the required parameter $graph_graph_neighbors_in when calling graphNeighbors'
             );
         }
 
@@ -622,18 +3794,599 @@ class GraphApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($graph_neighbors_in)) {
+        if (isset($graph_graph_neighbors_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_neighbors_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_neighbors_in));
             } else {
-                $httpBody = $graph_neighbors_in;
+                $httpBody = $graph_graph_neighbors_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphOntology
+     *
+     * Lists the entity classes, predicates, classifier features and kinship scorecard columns of the personal knowledge graph ontology.
+     *
+     * @param  string|null $group Group narrows classes or features to one group, such as core, person, activity, edge, identity, communication or photos. Absent returns every group. (optional)
+     * @param  string|null $q Q narrows classes, predicates and features to entries whose code, label, canonical relation or source contains this substring, case-insensitively. Absent returns the whole catalog. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphOntology'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphOntologyOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphOntology($group = null, $q = null, string $contentType = self::contentTypes['graphOntology'][0])
+    {
+        list($response) = $this->graphOntologyWithHttpInfo($group, $q, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphOntologyWithHttpInfo
+     *
+     * Lists the entity classes, predicates, classifier features and kinship scorecard columns of the personal knowledge graph ontology.
+     *
+     * @param  string|null $group Group narrows classes or features to one group, such as core, person, activity, edge, identity, communication or photos. Absent returns every group. (optional)
+     * @param  string|null $q Q narrows classes, predicates and features to entries whose code, label, canonical relation or source contains this substring, case-insensitively. Absent returns the whole catalog. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphOntology'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphOntologyOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphOntologyWithHttpInfo($group = null, $q = null, string $contentType = self::contentTypes['graphOntology'][0])
+    {
+        $request = $this->graphOntologyRequest($group, $q, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphOntologyOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphOntologyOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphOntologyOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphOntologyAsync
+     *
+     * Lists the entity classes, predicates, classifier features and kinship scorecard columns of the personal knowledge graph ontology.
+     *
+     * @param  string|null $group Group narrows classes or features to one group, such as core, person, activity, edge, identity, communication or photos. Absent returns every group. (optional)
+     * @param  string|null $q Q narrows classes, predicates and features to entries whose code, label, canonical relation or source contains this substring, case-insensitively. Absent returns the whole catalog. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphOntology'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphOntologyAsync($group = null, $q = null, string $contentType = self::contentTypes['graphOntology'][0])
+    {
+        return $this->graphOntologyAsyncWithHttpInfo($group, $q, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphOntologyAsyncWithHttpInfo
+     *
+     * Lists the entity classes, predicates, classifier features and kinship scorecard columns of the personal knowledge graph ontology.
+     *
+     * @param  string|null $group Group narrows classes or features to one group, such as core, person, activity, edge, identity, communication or photos. Absent returns every group. (optional)
+     * @param  string|null $q Q narrows classes, predicates and features to entries whose code, label, canonical relation or source contains this substring, case-insensitively. Absent returns the whole catalog. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphOntology'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphOntologyAsyncWithHttpInfo($group = null, $q = null, string $contentType = self::contentTypes['graphOntology'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphOntologyOut';
+        $request = $this->graphOntologyRequest($group, $q, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphOntology'
+     *
+     * @param  string|null $group Group narrows classes or features to one group, such as core, person, activity, edge, identity, communication or photos. Absent returns every group. (optional)
+     * @param  string|null $q Q narrows classes, predicates and features to entries whose code, label, canonical relation or source contains this substring, case-insensitively. Absent returns the whole catalog. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphOntology'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphOntologyRequest($group = null, $q = null, string $contentType = self::contentTypes['graphOntology'][0])
+    {
+
+
+
+
+        $resourcePath = '/v1/graph/ontology';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $group,
+            'group', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $q,
+            'q', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation graphPath
+     *
+     * Finds the shortest chain of in-force edges from one entity to another.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphPathIn $graph_graph_path_in graph_graph_path_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphPath'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GraphGraphPathOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function graphPath($graph_graph_path_in, string $contentType = self::contentTypes['graphPath'][0])
+    {
+        list($response) = $this->graphPathWithHttpInfo($graph_graph_path_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation graphPathWithHttpInfo
+     *
+     * Finds the shortest chain of in-force edges from one entity to another.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphPathIn $graph_graph_path_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphPath'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GraphGraphPathOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function graphPathWithHttpInfo($graph_graph_path_in, string $contentType = self::contentTypes['graphPath'][0])
+    {
+        $request = $this->graphPathRequest($graph_graph_path_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GraphGraphPathOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GraphGraphPathOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GraphGraphPathOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation graphPathAsync
+     *
+     * Finds the shortest chain of in-force edges from one entity to another.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphPathIn $graph_graph_path_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphPath'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphPathAsync($graph_graph_path_in, string $contentType = self::contentTypes['graphPath'][0])
+    {
+        return $this->graphPathAsyncWithHttpInfo($graph_graph_path_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation graphPathAsyncWithHttpInfo
+     *
+     * Finds the shortest chain of in-force edges from one entity to another.
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphPathIn $graph_graph_path_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphPath'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function graphPathAsyncWithHttpInfo($graph_graph_path_in, string $contentType = self::contentTypes['graphPath'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphPathOut';
+        $request = $this->graphPathRequest($graph_graph_path_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'graphPath'
+     *
+     * @param  \Hanzo\Cloud\Model\GraphGraphPathIn $graph_graph_path_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphPath'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function graphPathRequest($graph_graph_path_in, string $contentType = self::contentTypes['graphPath'][0])
+    {
+
+        // verify the required parameter 'graph_graph_path_in' is set
+        if ($graph_graph_path_in === null || (is_array($graph_graph_path_in) && count($graph_graph_path_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $graph_graph_path_in when calling graphPath'
+            );
+        }
+
+
+        $resourcePath = '/v1/graph/path';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($graph_graph_path_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_path_in));
+            } else {
+                $httpBody = $graph_graph_path_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -688,44 +4441,46 @@ class GraphApi
     /**
      * Operation graphRead
      *
-     * Read the assertions this organization has recorded
+     * Lists the assertions recorded, every version, oldest first.
      *
      * @param  string|null $entity Entity narrows to what was asserted ABOUT one entity. Absent matches every entity. (optional)
      * @param  string|null $relation Relation narrows to one relation. Absent matches every relation. (optional)
-     * @param  string|null $value Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. (optional)
-     * @param  string|null $as_of AsOf bounds the read to what was knowable at an instant, RFC 3339. Absent reads everything this plane holds. (optional)
+     * @param  string|null $value Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. A property&#39;s scalar is matched byte for byte and an edge&#39;s value by its key, folded as every key is. (optional)
+     * @param  string|null $as_of AsOf bounds the read to statements begun by an instant of the world, RFC 3339. Absent reads every instant. (optional)
+     * @param  string|null $as_known AsKnown bounds the read to what this plane had heard by an instant, RFC 3339. Absent reads everything it holds. (optional)
      * @param  int|null $limit Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphRead'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GraphReadOut
+     * @return \Hanzo\Cloud\Model\GraphGraphReadOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function graphRead($entity = null, $relation = null, $value = null, $as_of = null, $limit = null, string $contentType = self::contentTypes['graphRead'][0])
+    public function graphRead($entity = null, $relation = null, $value = null, $as_of = null, $as_known = null, $limit = null, string $contentType = self::contentTypes['graphRead'][0])
     {
-        list($response) = $this->graphReadWithHttpInfo($entity, $relation, $value, $as_of, $limit, $contentType);
+        list($response) = $this->graphReadWithHttpInfo($entity, $relation, $value, $as_of, $as_known, $limit, $contentType);
         return $response;
     }
 
     /**
      * Operation graphReadWithHttpInfo
      *
-     * Read the assertions this organization has recorded
+     * Lists the assertions recorded, every version, oldest first.
      *
      * @param  string|null $entity Entity narrows to what was asserted ABOUT one entity. Absent matches every entity. (optional)
      * @param  string|null $relation Relation narrows to one relation. Absent matches every relation. (optional)
-     * @param  string|null $value Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. (optional)
-     * @param  string|null $as_of AsOf bounds the read to what was knowable at an instant, RFC 3339. Absent reads everything this plane holds. (optional)
+     * @param  string|null $value Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. A property&#39;s scalar is matched byte for byte and an edge&#39;s value by its key, folded as every key is. (optional)
+     * @param  string|null $as_of AsOf bounds the read to statements begun by an instant of the world, RFC 3339. Absent reads every instant. (optional)
+     * @param  string|null $as_known AsKnown bounds the read to what this plane had heard by an instant, RFC 3339. Absent reads everything it holds. (optional)
      * @param  int|null $limit Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphRead'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GraphReadOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GraphGraphReadOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function graphReadWithHttpInfo($entity = null, $relation = null, $value = null, $as_of = null, $limit = null, string $contentType = self::contentTypes['graphRead'][0])
+    public function graphReadWithHttpInfo($entity = null, $relation = null, $value = null, $as_of = null, $as_known = null, $limit = null, string $contentType = self::contentTypes['graphRead'][0])
     {
-        $request = $this->graphReadRequest($entity, $relation, $value, $as_of, $limit, $contentType);
+        $request = $this->graphReadRequest($entity, $relation, $value, $as_of, $as_known, $limit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -753,7 +4508,13 @@ class GraphApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GraphReadOut',
+                        '\Hanzo\Cloud\Model\GraphGraphReadOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -775,7 +4536,7 @@ class GraphApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GraphReadOut',
+                '\Hanzo\Cloud\Model\GraphGraphReadOut',
                 $request,
                 $response,
             );
@@ -784,7 +4545,15 @@ class GraphApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GraphReadOut',
+                        '\Hanzo\Cloud\Model\GraphGraphReadOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -799,21 +4568,22 @@ class GraphApi
     /**
      * Operation graphReadAsync
      *
-     * Read the assertions this organization has recorded
+     * Lists the assertions recorded, every version, oldest first.
      *
      * @param  string|null $entity Entity narrows to what was asserted ABOUT one entity. Absent matches every entity. (optional)
      * @param  string|null $relation Relation narrows to one relation. Absent matches every relation. (optional)
-     * @param  string|null $value Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. (optional)
-     * @param  string|null $as_of AsOf bounds the read to what was knowable at an instant, RFC 3339. Absent reads everything this plane holds. (optional)
+     * @param  string|null $value Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. A property&#39;s scalar is matched byte for byte and an edge&#39;s value by its key, folded as every key is. (optional)
+     * @param  string|null $as_of AsOf bounds the read to statements begun by an instant of the world, RFC 3339. Absent reads every instant. (optional)
+     * @param  string|null $as_known AsKnown bounds the read to what this plane had heard by an instant, RFC 3339. Absent reads everything it holds. (optional)
      * @param  int|null $limit Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphRead'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function graphReadAsync($entity = null, $relation = null, $value = null, $as_of = null, $limit = null, string $contentType = self::contentTypes['graphRead'][0])
+    public function graphReadAsync($entity = null, $relation = null, $value = null, $as_of = null, $as_known = null, $limit = null, string $contentType = self::contentTypes['graphRead'][0])
     {
-        return $this->graphReadAsyncWithHttpInfo($entity, $relation, $value, $as_of, $limit, $contentType)
+        return $this->graphReadAsyncWithHttpInfo($entity, $relation, $value, $as_of, $as_known, $limit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -824,22 +4594,23 @@ class GraphApi
     /**
      * Operation graphReadAsyncWithHttpInfo
      *
-     * Read the assertions this organization has recorded
+     * Lists the assertions recorded, every version, oldest first.
      *
      * @param  string|null $entity Entity narrows to what was asserted ABOUT one entity. Absent matches every entity. (optional)
      * @param  string|null $relation Relation narrows to one relation. Absent matches every relation. (optional)
-     * @param  string|null $value Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. (optional)
-     * @param  string|null $as_of AsOf bounds the read to what was knowable at an instant, RFC 3339. Absent reads everything this plane holds. (optional)
+     * @param  string|null $value Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. A property&#39;s scalar is matched byte for byte and an edge&#39;s value by its key, folded as every key is. (optional)
+     * @param  string|null $as_of AsOf bounds the read to statements begun by an instant of the world, RFC 3339. Absent reads every instant. (optional)
+     * @param  string|null $as_known AsKnown bounds the read to what this plane had heard by an instant, RFC 3339. Absent reads everything it holds. (optional)
      * @param  int|null $limit Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphRead'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function graphReadAsyncWithHttpInfo($entity = null, $relation = null, $value = null, $as_of = null, $limit = null, string $contentType = self::contentTypes['graphRead'][0])
+    public function graphReadAsyncWithHttpInfo($entity = null, $relation = null, $value = null, $as_of = null, $as_known = null, $limit = null, string $contentType = self::contentTypes['graphRead'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\GraphReadOut';
-        $request = $this->graphReadRequest($entity, $relation, $value, $as_of, $limit, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphReadOut';
+        $request = $this->graphReadRequest($entity, $relation, $value, $as_of, $as_known, $limit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -882,16 +4653,18 @@ class GraphApi
      *
      * @param  string|null $entity Entity narrows to what was asserted ABOUT one entity. Absent matches every entity. (optional)
      * @param  string|null $relation Relation narrows to one relation. Absent matches every relation. (optional)
-     * @param  string|null $value Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. (optional)
-     * @param  string|null $as_of AsOf bounds the read to what was knowable at an instant, RFC 3339. Absent reads everything this plane holds. (optional)
+     * @param  string|null $value Value narrows to assertions pointing AT one value, which is how the edges into an entity are read. A property&#39;s scalar is matched byte for byte and an edge&#39;s value by its key, folded as every key is. (optional)
+     * @param  string|null $as_of AsOf bounds the read to statements begun by an instant of the world, RFC 3339. Absent reads every instant. (optional)
+     * @param  string|null $as_known AsKnown bounds the read to what this plane had heard by an instant, RFC 3339. Absent reads everything it holds. (optional)
      * @param  int|null $limit Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphRead'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function graphReadRequest($entity = null, $relation = null, $value = null, $as_of = null, $limit = null, string $contentType = self::contentTypes['graphRead'][0])
+    public function graphReadRequest($entity = null, $relation = null, $value = null, $as_of = null, $as_known = null, $limit = null, string $contentType = self::contentTypes['graphRead'][0])
     {
+
 
 
 
@@ -944,6 +4717,15 @@ class GraphApi
         ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $as_known,
+            'as_known', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $limit,
             'limit', // param base name
             'integer', // openApiType
@@ -956,7 +4738,7 @@ class GraphApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1015,36 +4797,36 @@ class GraphApi
     /**
      * Operation graphResolve
      *
-     * What is in force about an entity as of an instant, and what disagreed
+     * Answers what holds for one entity and relation at a point, winner first, with every weaker account that disagreed.
      *
-     * @param  \Hanzo\Cloud\Model\GraphResolveIn $graph_resolve_in graph_resolve_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphResolveIn $graph_graph_resolve_in graph_graph_resolve_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphResolve'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GraphResolveOut
+     * @return \Hanzo\Cloud\Model\GraphGraphResolveOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function graphResolve($graph_resolve_in, string $contentType = self::contentTypes['graphResolve'][0])
+    public function graphResolve($graph_graph_resolve_in, string $contentType = self::contentTypes['graphResolve'][0])
     {
-        list($response) = $this->graphResolveWithHttpInfo($graph_resolve_in, $contentType);
+        list($response) = $this->graphResolveWithHttpInfo($graph_graph_resolve_in, $contentType);
         return $response;
     }
 
     /**
      * Operation graphResolveWithHttpInfo
      *
-     * What is in force about an entity as of an instant, and what disagreed
+     * Answers what holds for one entity and relation at a point, winner first, with every weaker account that disagreed.
      *
-     * @param  \Hanzo\Cloud\Model\GraphResolveIn $graph_resolve_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphResolveIn $graph_graph_resolve_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphResolve'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GraphResolveOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GraphGraphResolveOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function graphResolveWithHttpInfo($graph_resolve_in, string $contentType = self::contentTypes['graphResolve'][0])
+    public function graphResolveWithHttpInfo($graph_graph_resolve_in, string $contentType = self::contentTypes['graphResolve'][0])
     {
-        $request = $this->graphResolveRequest($graph_resolve_in, $contentType);
+        $request = $this->graphResolveRequest($graph_graph_resolve_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1072,7 +4854,13 @@ class GraphApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GraphResolveOut',
+                        '\Hanzo\Cloud\Model\GraphGraphResolveOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1094,7 +4882,7 @@ class GraphApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GraphResolveOut',
+                '\Hanzo\Cloud\Model\GraphGraphResolveOut',
                 $request,
                 $response,
             );
@@ -1103,7 +4891,15 @@ class GraphApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GraphResolveOut',
+                        '\Hanzo\Cloud\Model\GraphGraphResolveOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1118,17 +4914,17 @@ class GraphApi
     /**
      * Operation graphResolveAsync
      *
-     * What is in force about an entity as of an instant, and what disagreed
+     * Answers what holds for one entity and relation at a point, winner first, with every weaker account that disagreed.
      *
-     * @param  \Hanzo\Cloud\Model\GraphResolveIn $graph_resolve_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphResolveIn $graph_graph_resolve_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphResolve'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function graphResolveAsync($graph_resolve_in, string $contentType = self::contentTypes['graphResolve'][0])
+    public function graphResolveAsync($graph_graph_resolve_in, string $contentType = self::contentTypes['graphResolve'][0])
     {
-        return $this->graphResolveAsyncWithHttpInfo($graph_resolve_in, $contentType)
+        return $this->graphResolveAsyncWithHttpInfo($graph_graph_resolve_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1139,18 +4935,18 @@ class GraphApi
     /**
      * Operation graphResolveAsyncWithHttpInfo
      *
-     * What is in force about an entity as of an instant, and what disagreed
+     * Answers what holds for one entity and relation at a point, winner first, with every weaker account that disagreed.
      *
-     * @param  \Hanzo\Cloud\Model\GraphResolveIn $graph_resolve_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphResolveIn $graph_graph_resolve_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphResolve'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function graphResolveAsyncWithHttpInfo($graph_resolve_in, string $contentType = self::contentTypes['graphResolve'][0])
+    public function graphResolveAsyncWithHttpInfo($graph_graph_resolve_in, string $contentType = self::contentTypes['graphResolve'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\GraphResolveOut';
-        $request = $this->graphResolveRequest($graph_resolve_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphResolveOut';
+        $request = $this->graphResolveRequest($graph_graph_resolve_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1191,19 +4987,19 @@ class GraphApi
     /**
      * Create request for operation 'graphResolve'
      *
-     * @param  \Hanzo\Cloud\Model\GraphResolveIn $graph_resolve_in (required)
+     * @param  \Hanzo\Cloud\Model\GraphGraphResolveIn $graph_graph_resolve_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphResolve'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function graphResolveRequest($graph_resolve_in, string $contentType = self::contentTypes['graphResolve'][0])
+    public function graphResolveRequest($graph_graph_resolve_in, string $contentType = self::contentTypes['graphResolve'][0])
     {
 
-        // verify the required parameter 'graph_resolve_in' is set
-        if ($graph_resolve_in === null || (is_array($graph_resolve_in) && count($graph_resolve_in) === 0)) {
+        // verify the required parameter 'graph_graph_resolve_in' is set
+        if ($graph_graph_resolve_in === null || (is_array($graph_graph_resolve_in) && count($graph_graph_resolve_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $graph_resolve_in when calling graphResolve'
+                'Missing the required parameter $graph_graph_resolve_in when calling graphResolve'
             );
         }
 
@@ -1220,18 +5016,18 @@ class GraphApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($graph_resolve_in)) {
+        if (isset($graph_graph_resolve_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_resolve_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($graph_graph_resolve_in));
             } else {
-                $httpBody = $graph_resolve_in;
+                $httpBody = $graph_graph_resolve_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1286,42 +5082,44 @@ class GraphApi
     /**
      * Operation graphSearch
      *
-     * Find assertions by their text rather than by an entity key
+     * Finds assertions by their words, where read finds them by their keys, best match first.
      *
-     * @param  string|null $q Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (optional)
+     * @param  string $q Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (required)
      * @param  string|null $relation Relation narrows to one relation. Absent matches every relation. (optional)
-     * @param  string|null $as_of AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds. (optional)
+     * @param  string|null $as_of AsOf bounds the search to statements begun by an instant of the world, RFC 3339. Absent searches every instant. (optional)
+     * @param  string|null $as_known AsKnown bounds the search to what this plane had heard by an instant, RFC 3339. Absent searches everything it holds. (optional)
      * @param  int|null $limit Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GraphReadOut
+     * @return \Hanzo\Cloud\Model\GraphGraphReadOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function graphSearch($q = null, $relation = null, $as_of = null, $limit = null, string $contentType = self::contentTypes['graphSearch'][0])
+    public function graphSearch($q, $relation = null, $as_of = null, $as_known = null, $limit = null, string $contentType = self::contentTypes['graphSearch'][0])
     {
-        list($response) = $this->graphSearchWithHttpInfo($q, $relation, $as_of, $limit, $contentType);
+        list($response) = $this->graphSearchWithHttpInfo($q, $relation, $as_of, $as_known, $limit, $contentType);
         return $response;
     }
 
     /**
      * Operation graphSearchWithHttpInfo
      *
-     * Find assertions by their text rather than by an entity key
+     * Finds assertions by their words, where read finds them by their keys, best match first.
      *
-     * @param  string|null $q Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (optional)
+     * @param  string $q Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (required)
      * @param  string|null $relation Relation narrows to one relation. Absent matches every relation. (optional)
-     * @param  string|null $as_of AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds. (optional)
+     * @param  string|null $as_of AsOf bounds the search to statements begun by an instant of the world, RFC 3339. Absent searches every instant. (optional)
+     * @param  string|null $as_known AsKnown bounds the search to what this plane had heard by an instant, RFC 3339. Absent searches everything it holds. (optional)
      * @param  int|null $limit Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GraphReadOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GraphGraphReadOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function graphSearchWithHttpInfo($q = null, $relation = null, $as_of = null, $limit = null, string $contentType = self::contentTypes['graphSearch'][0])
+    public function graphSearchWithHttpInfo($q, $relation = null, $as_of = null, $as_known = null, $limit = null, string $contentType = self::contentTypes['graphSearch'][0])
     {
-        $request = $this->graphSearchRequest($q, $relation, $as_of, $limit, $contentType);
+        $request = $this->graphSearchRequest($q, $relation, $as_of, $as_known, $limit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1349,7 +5147,13 @@ class GraphApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GraphReadOut',
+                        '\Hanzo\Cloud\Model\GraphGraphReadOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1371,7 +5175,7 @@ class GraphApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GraphReadOut',
+                '\Hanzo\Cloud\Model\GraphGraphReadOut',
                 $request,
                 $response,
             );
@@ -1380,7 +5184,15 @@ class GraphApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GraphReadOut',
+                        '\Hanzo\Cloud\Model\GraphGraphReadOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1395,20 +5207,21 @@ class GraphApi
     /**
      * Operation graphSearchAsync
      *
-     * Find assertions by their text rather than by an entity key
+     * Finds assertions by their words, where read finds them by their keys, best match first.
      *
-     * @param  string|null $q Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (optional)
+     * @param  string $q Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (required)
      * @param  string|null $relation Relation narrows to one relation. Absent matches every relation. (optional)
-     * @param  string|null $as_of AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds. (optional)
+     * @param  string|null $as_of AsOf bounds the search to statements begun by an instant of the world, RFC 3339. Absent searches every instant. (optional)
+     * @param  string|null $as_known AsKnown bounds the search to what this plane had heard by an instant, RFC 3339. Absent searches everything it holds. (optional)
      * @param  int|null $limit Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function graphSearchAsync($q = null, $relation = null, $as_of = null, $limit = null, string $contentType = self::contentTypes['graphSearch'][0])
+    public function graphSearchAsync($q, $relation = null, $as_of = null, $as_known = null, $limit = null, string $contentType = self::contentTypes['graphSearch'][0])
     {
-        return $this->graphSearchAsyncWithHttpInfo($q, $relation, $as_of, $limit, $contentType)
+        return $this->graphSearchAsyncWithHttpInfo($q, $relation, $as_of, $as_known, $limit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1419,21 +5232,22 @@ class GraphApi
     /**
      * Operation graphSearchAsyncWithHttpInfo
      *
-     * Find assertions by their text rather than by an entity key
+     * Finds assertions by their words, where read finds them by their keys, best match first.
      *
-     * @param  string|null $q Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (optional)
+     * @param  string $q Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (required)
      * @param  string|null $relation Relation narrows to one relation. Absent matches every relation. (optional)
-     * @param  string|null $as_of AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds. (optional)
+     * @param  string|null $as_of AsOf bounds the search to statements begun by an instant of the world, RFC 3339. Absent searches every instant. (optional)
+     * @param  string|null $as_known AsKnown bounds the search to what this plane had heard by an instant, RFC 3339. Absent searches everything it holds. (optional)
      * @param  int|null $limit Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function graphSearchAsyncWithHttpInfo($q = null, $relation = null, $as_of = null, $limit = null, string $contentType = self::contentTypes['graphSearch'][0])
+    public function graphSearchAsyncWithHttpInfo($q, $relation = null, $as_of = null, $as_known = null, $limit = null, string $contentType = self::contentTypes['graphSearch'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\GraphReadOut';
-        $request = $this->graphSearchRequest($q, $relation, $as_of, $limit, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphReadOut';
+        $request = $this->graphSearchRequest($q, $relation, $as_of, $as_known, $limit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1474,17 +5288,25 @@ class GraphApi
     /**
      * Create request for operation 'graphSearch'
      *
-     * @param  string|null $q Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (optional)
+     * @param  string $q Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself. (required)
      * @param  string|null $relation Relation narrows to one relation. Absent matches every relation. (optional)
-     * @param  string|null $as_of AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds. (optional)
+     * @param  string|null $as_of AsOf bounds the search to statements begun by an instant of the world, RFC 3339. Absent searches every instant. (optional)
+     * @param  string|null $as_known AsKnown bounds the search to what this plane had heard by an instant, RFC 3339. Absent searches everything it holds. (optional)
      * @param  int|null $limit Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function graphSearchRequest($q = null, $relation = null, $as_of = null, $limit = null, string $contentType = self::contentTypes['graphSearch'][0])
+    public function graphSearchRequest($q, $relation = null, $as_of = null, $as_known = null, $limit = null, string $contentType = self::contentTypes['graphSearch'][0])
     {
+
+        // verify the required parameter 'q' is set
+        if ($q === null || (is_array($q) && count($q) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $q when calling graphSearch'
+            );
+        }
 
 
 
@@ -1505,7 +5327,7 @@ class GraphApi
             'string', // openApiType
             'form', // style
             true, // explode
-            false // required
+            true // required
         ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
@@ -1527,6 +5349,15 @@ class GraphApi
         ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $as_known,
+            'as_known', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $limit,
             'limit', // param base name
             'integer', // openApiType
@@ -1539,7 +5370,7 @@ class GraphApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1598,13 +5429,13 @@ class GraphApi
     /**
      * Operation graphVocabulary
      *
-     * The relations in use, and the rule that resolves a conflict
+     * Lists the relations in use, the schema declared for them and the rule that settles a conflict.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphVocabulary'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GraphVocabularyOut
+     * @return \Hanzo\Cloud\Model\GraphGraphVocabularyOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function graphVocabulary(string $contentType = self::contentTypes['graphVocabulary'][0])
     {
@@ -1615,13 +5446,13 @@ class GraphApi
     /**
      * Operation graphVocabularyWithHttpInfo
      *
-     * The relations in use, and the rule that resolves a conflict
+     * Lists the relations in use, the schema declared for them and the rule that settles a conflict.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphVocabulary'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GraphVocabularyOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GraphGraphVocabularyOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function graphVocabularyWithHttpInfo(string $contentType = self::contentTypes['graphVocabulary'][0])
     {
@@ -1653,7 +5484,13 @@ class GraphApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GraphVocabularyOut',
+                        '\Hanzo\Cloud\Model\GraphGraphVocabularyOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1675,7 +5512,7 @@ class GraphApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GraphVocabularyOut',
+                '\Hanzo\Cloud\Model\GraphGraphVocabularyOut',
                 $request,
                 $response,
             );
@@ -1684,7 +5521,15 @@ class GraphApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GraphVocabularyOut',
+                        '\Hanzo\Cloud\Model\GraphGraphVocabularyOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1699,7 +5544,7 @@ class GraphApi
     /**
      * Operation graphVocabularyAsync
      *
-     * The relations in use, and the rule that resolves a conflict
+     * Lists the relations in use, the schema declared for them and the rule that settles a conflict.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphVocabulary'] to see the possible values for this operation
      *
@@ -1719,7 +5564,7 @@ class GraphApi
     /**
      * Operation graphVocabularyAsyncWithHttpInfo
      *
-     * The relations in use, and the rule that resolves a conflict
+     * Lists the relations in use, the schema declared for them and the rule that settles a conflict.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['graphVocabulary'] to see the possible values for this operation
      *
@@ -1728,7 +5573,7 @@ class GraphApi
      */
     public function graphVocabularyAsyncWithHttpInfo(string $contentType = self::contentTypes['graphVocabulary'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\GraphVocabularyOut';
+        $returnType = '\Hanzo\Cloud\Model\GraphGraphVocabularyOut';
         $request = $this->graphVocabularyRequest($contentType);
 
         return $this->client
@@ -1791,7 +5636,7 @@ class GraphApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

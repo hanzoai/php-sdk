@@ -170,7 +170,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignDocuments
+     * @return \Hanzo\Cloud\Model\EsignEsignDocuments|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEsignDocuments(string $contentType = self::contentTypes['getEsignDocuments'][0])
     {
@@ -187,7 +187,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignDocuments, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignDocuments|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEsignDocumentsWithHttpInfo(string $contentType = self::contentTypes['getEsignDocuments'][0])
     {
@@ -219,7 +219,13 @@ class EsignApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignDocuments',
+                        '\Hanzo\Cloud\Model\EsignEsignDocuments',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -241,7 +247,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignDocuments',
+                '\Hanzo\Cloud\Model\EsignEsignDocuments',
                 $request,
                 $response,
             );
@@ -250,7 +256,15 @@ class EsignApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignDocuments',
+                        '\Hanzo\Cloud\Model\EsignEsignDocuments',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -294,7 +308,7 @@ class EsignApi
      */
     public function getEsignDocumentsAsyncWithHttpInfo(string $contentType = self::contentTypes['getEsignDocuments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignDocuments';
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignDocuments';
         $request = $this->getEsignDocumentsRequest($contentType);
 
         return $this->client
@@ -357,7 +371,7 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -423,7 +437,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignDocument
+     * @return \Hanzo\Cloud\Model\EsignEsignDocument|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEsignDocumentsById($id, string $contentType = self::contentTypes['getEsignDocumentsById'][0])
     {
@@ -441,7 +455,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignDocument, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignDocument|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEsignDocumentsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getEsignDocumentsById'][0])
     {
@@ -473,7 +487,13 @@ class EsignApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignDocument',
+                        '\Hanzo\Cloud\Model\EsignEsignDocument',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -495,7 +515,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignDocument',
+                '\Hanzo\Cloud\Model\EsignEsignDocument',
                 $request,
                 $response,
             );
@@ -504,7 +524,15 @@ class EsignApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignDocument',
+                        '\Hanzo\Cloud\Model\EsignEsignDocument',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -550,7 +578,7 @@ class EsignApi
      */
     public function getEsignDocumentsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getEsignDocumentsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignDocument';
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignDocument';
         $request = $this->getEsignDocumentsByIdRequest($id, $contentType);
 
         return $this->client
@@ -629,7 +657,7 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -695,7 +723,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignTrail
+     * @return \Hanzo\Cloud\Model\EsignEsignTrail|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEsignDocumentsByIdAudit($id, string $contentType = self::contentTypes['getEsignDocumentsByIdAudit'][0])
     {
@@ -713,7 +741,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignTrail, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignTrail|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEsignDocumentsByIdAuditWithHttpInfo($id, string $contentType = self::contentTypes['getEsignDocumentsByIdAudit'][0])
     {
@@ -745,7 +773,13 @@ class EsignApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignTrail',
+                        '\Hanzo\Cloud\Model\EsignEsignTrail',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -767,7 +801,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignTrail',
+                '\Hanzo\Cloud\Model\EsignEsignTrail',
                 $request,
                 $response,
             );
@@ -776,7 +810,15 @@ class EsignApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignTrail',
+                        '\Hanzo\Cloud\Model\EsignEsignTrail',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -822,7 +864,7 @@ class EsignApi
      */
     public function getEsignDocumentsByIdAuditAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getEsignDocumentsByIdAudit'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignTrail';
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignTrail';
         $request = $this->getEsignDocumentsByIdAuditRequest($id, $contentType);
 
         return $this->client
@@ -901,7 +943,7 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -967,7 +1009,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignPDF
+     * @return \Hanzo\Cloud\Model\EsignEsignPDF|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEsignDocumentsByIdDownload($id, string $contentType = self::contentTypes['getEsignDocumentsByIdDownload'][0])
     {
@@ -985,7 +1027,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignPDF, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignPDF|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEsignDocumentsByIdDownloadWithHttpInfo($id, string $contentType = self::contentTypes['getEsignDocumentsByIdDownload'][0])
     {
@@ -1017,7 +1059,13 @@ class EsignApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignPDF',
+                        '\Hanzo\Cloud\Model\EsignEsignPDF',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1039,7 +1087,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignPDF',
+                '\Hanzo\Cloud\Model\EsignEsignPDF',
                 $request,
                 $response,
             );
@@ -1048,7 +1096,15 @@ class EsignApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignPDF',
+                        '\Hanzo\Cloud\Model\EsignEsignPDF',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1094,7 +1150,7 @@ class EsignApi
      */
     public function getEsignDocumentsByIdDownloadAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getEsignDocumentsByIdDownload'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignPDF';
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignPDF';
         $request = $this->getEsignDocumentsByIdDownloadRequest($id, $contentType);
 
         return $this->client
@@ -1173,7 +1229,7 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1238,7 +1294,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignHealth
+     * @return \Hanzo\Cloud\Model\EsignEsignHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEsignHealth(string $contentType = self::contentTypes['getEsignHealth'][0])
     {
@@ -1255,7 +1311,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEsignHealthWithHttpInfo(string $contentType = self::contentTypes['getEsignHealth'][0])
     {
@@ -1287,7 +1343,13 @@ class EsignApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignHealth',
+                        '\Hanzo\Cloud\Model\EsignEsignHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1309,7 +1371,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignHealth',
+                '\Hanzo\Cloud\Model\EsignEsignHealth',
                 $request,
                 $response,
             );
@@ -1318,7 +1380,15 @@ class EsignApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignHealth',
+                        '\Hanzo\Cloud\Model\EsignEsignHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1362,7 +1432,7 @@ class EsignApi
      */
     public function getEsignHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getEsignHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignHealth';
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignHealth';
         $request = $this->getEsignHealthRequest($contentType);
 
         return $this->client
@@ -1425,7 +1495,7 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1492,7 +1562,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignSession
+     * @return \Hanzo\Cloud\Model\EsignEsignSession|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEsignOByOrgSignByToken($org, $token, string $contentType = self::contentTypes['getEsignOByOrgSignByToken'][0])
     {
@@ -1511,7 +1581,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignSession, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignSession|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEsignOByOrgSignByTokenWithHttpInfo($org, $token, string $contentType = self::contentTypes['getEsignOByOrgSignByToken'][0])
     {
@@ -1543,7 +1613,13 @@ class EsignApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignSession',
+                        '\Hanzo\Cloud\Model\EsignEsignSession',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1565,7 +1641,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignSession',
+                '\Hanzo\Cloud\Model\EsignEsignSession',
                 $request,
                 $response,
             );
@@ -1574,7 +1650,15 @@ class EsignApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignSession',
+                        '\Hanzo\Cloud\Model\EsignEsignSession',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1622,7 +1706,7 @@ class EsignApi
      */
     public function getEsignOByOrgSignByTokenAsyncWithHttpInfo($org, $token, string $contentType = self::contentTypes['getEsignOByOrgSignByToken'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignSession';
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignSession';
         $request = $this->getEsignOByOrgSignByTokenRequest($org, $token, $contentType);
 
         return $this->client
@@ -1717,7 +1801,7 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1778,16 +1862,16 @@ class EsignApi
      *
      * Uploads a PDF and opens a draft ready for recipients and fields.
      *
-     * @param  \Hanzo\Cloud\Model\EsignUploadIn $esign_upload_in esign_upload_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignUploadIn $esign_esign_upload_in esign_esign_upload_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocuments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignDocument
+     * @return \Hanzo\Cloud\Model\EsignEsignDocument|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEsignDocuments($esign_upload_in, string $contentType = self::contentTypes['postEsignDocuments'][0])
+    public function postEsignDocuments($esign_esign_upload_in, string $contentType = self::contentTypes['postEsignDocuments'][0])
     {
-        list($response) = $this->postEsignDocumentsWithHttpInfo($esign_upload_in, $contentType);
+        list($response) = $this->postEsignDocumentsWithHttpInfo($esign_esign_upload_in, $contentType);
         return $response;
     }
 
@@ -1796,16 +1880,16 @@ class EsignApi
      *
      * Uploads a PDF and opens a draft ready for recipients and fields.
      *
-     * @param  \Hanzo\Cloud\Model\EsignUploadIn $esign_upload_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignUploadIn $esign_esign_upload_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocuments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignDocument, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignDocument|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEsignDocumentsWithHttpInfo($esign_upload_in, string $contentType = self::contentTypes['postEsignDocuments'][0])
+    public function postEsignDocumentsWithHttpInfo($esign_esign_upload_in, string $contentType = self::contentTypes['postEsignDocuments'][0])
     {
-        $request = $this->postEsignDocumentsRequest($esign_upload_in, $contentType);
+        $request = $this->postEsignDocumentsRequest($esign_esign_upload_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1833,7 +1917,13 @@ class EsignApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignDocument',
+                        '\Hanzo\Cloud\Model\EsignEsignDocument',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1855,7 +1945,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignDocument',
+                '\Hanzo\Cloud\Model\EsignEsignDocument',
                 $request,
                 $response,
             );
@@ -1864,7 +1954,15 @@ class EsignApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignDocument',
+                        '\Hanzo\Cloud\Model\EsignEsignDocument',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1881,15 +1979,15 @@ class EsignApi
      *
      * Uploads a PDF and opens a draft ready for recipients and fields.
      *
-     * @param  \Hanzo\Cloud\Model\EsignUploadIn $esign_upload_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignUploadIn $esign_esign_upload_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEsignDocumentsAsync($esign_upload_in, string $contentType = self::contentTypes['postEsignDocuments'][0])
+    public function postEsignDocumentsAsync($esign_esign_upload_in, string $contentType = self::contentTypes['postEsignDocuments'][0])
     {
-        return $this->postEsignDocumentsAsyncWithHttpInfo($esign_upload_in, $contentType)
+        return $this->postEsignDocumentsAsyncWithHttpInfo($esign_esign_upload_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1902,16 +2000,16 @@ class EsignApi
      *
      * Uploads a PDF and opens a draft ready for recipients and fields.
      *
-     * @param  \Hanzo\Cloud\Model\EsignUploadIn $esign_upload_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignUploadIn $esign_esign_upload_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEsignDocumentsAsyncWithHttpInfo($esign_upload_in, string $contentType = self::contentTypes['postEsignDocuments'][0])
+    public function postEsignDocumentsAsyncWithHttpInfo($esign_esign_upload_in, string $contentType = self::contentTypes['postEsignDocuments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignDocument';
-        $request = $this->postEsignDocumentsRequest($esign_upload_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignDocument';
+        $request = $this->postEsignDocumentsRequest($esign_esign_upload_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1952,19 +2050,19 @@ class EsignApi
     /**
      * Create request for operation 'postEsignDocuments'
      *
-     * @param  \Hanzo\Cloud\Model\EsignUploadIn $esign_upload_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignUploadIn $esign_esign_upload_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEsignDocumentsRequest($esign_upload_in, string $contentType = self::contentTypes['postEsignDocuments'][0])
+    public function postEsignDocumentsRequest($esign_esign_upload_in, string $contentType = self::contentTypes['postEsignDocuments'][0])
     {
 
-        // verify the required parameter 'esign_upload_in' is set
-        if ($esign_upload_in === null || (is_array($esign_upload_in) && count($esign_upload_in) === 0)) {
+        // verify the required parameter 'esign_esign_upload_in' is set
+        if ($esign_esign_upload_in === null || (is_array($esign_esign_upload_in) && count($esign_esign_upload_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $esign_upload_in when calling postEsignDocuments'
+                'Missing the required parameter $esign_esign_upload_in when calling postEsignDocuments'
             );
         }
 
@@ -1981,18 +2079,18 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($esign_upload_in)) {
+        if (isset($esign_esign_upload_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($esign_upload_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($esign_esign_upload_in));
             } else {
-                $httpBody = $esign_upload_in;
+                $httpBody = $esign_esign_upload_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2050,16 +2148,16 @@ class EsignApi
      * Places a field on the page for one recipient to fill.
      *
      * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\EsignFieldIn $esign_field_in esign_field_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignFieldIn $esign_esign_field_in esign_esign_field_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocumentsByIdFields'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignPlacement
+     * @return \Hanzo\Cloud\Model\EsignEsignPlacement|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEsignDocumentsByIdFields($id, $esign_field_in, string $contentType = self::contentTypes['postEsignDocumentsByIdFields'][0])
+    public function postEsignDocumentsByIdFields($id, $esign_esign_field_in, string $contentType = self::contentTypes['postEsignDocumentsByIdFields'][0])
     {
-        list($response) = $this->postEsignDocumentsByIdFieldsWithHttpInfo($id, $esign_field_in, $contentType);
+        list($response) = $this->postEsignDocumentsByIdFieldsWithHttpInfo($id, $esign_esign_field_in, $contentType);
         return $response;
     }
 
@@ -2069,16 +2167,16 @@ class EsignApi
      * Places a field on the page for one recipient to fill.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\EsignFieldIn $esign_field_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignFieldIn $esign_esign_field_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocumentsByIdFields'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignPlacement, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignPlacement|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEsignDocumentsByIdFieldsWithHttpInfo($id, $esign_field_in, string $contentType = self::contentTypes['postEsignDocumentsByIdFields'][0])
+    public function postEsignDocumentsByIdFieldsWithHttpInfo($id, $esign_esign_field_in, string $contentType = self::contentTypes['postEsignDocumentsByIdFields'][0])
     {
-        $request = $this->postEsignDocumentsByIdFieldsRequest($id, $esign_field_in, $contentType);
+        $request = $this->postEsignDocumentsByIdFieldsRequest($id, $esign_esign_field_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2106,7 +2204,13 @@ class EsignApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignPlacement',
+                        '\Hanzo\Cloud\Model\EsignEsignPlacement',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2128,7 +2232,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignPlacement',
+                '\Hanzo\Cloud\Model\EsignEsignPlacement',
                 $request,
                 $response,
             );
@@ -2137,7 +2241,15 @@ class EsignApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignPlacement',
+                        '\Hanzo\Cloud\Model\EsignEsignPlacement',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2155,15 +2267,15 @@ class EsignApi
      * Places a field on the page for one recipient to fill.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\EsignFieldIn $esign_field_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignFieldIn $esign_esign_field_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocumentsByIdFields'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEsignDocumentsByIdFieldsAsync($id, $esign_field_in, string $contentType = self::contentTypes['postEsignDocumentsByIdFields'][0])
+    public function postEsignDocumentsByIdFieldsAsync($id, $esign_esign_field_in, string $contentType = self::contentTypes['postEsignDocumentsByIdFields'][0])
     {
-        return $this->postEsignDocumentsByIdFieldsAsyncWithHttpInfo($id, $esign_field_in, $contentType)
+        return $this->postEsignDocumentsByIdFieldsAsyncWithHttpInfo($id, $esign_esign_field_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2177,16 +2289,16 @@ class EsignApi
      * Places a field on the page for one recipient to fill.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\EsignFieldIn $esign_field_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignFieldIn $esign_esign_field_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocumentsByIdFields'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEsignDocumentsByIdFieldsAsyncWithHttpInfo($id, $esign_field_in, string $contentType = self::contentTypes['postEsignDocumentsByIdFields'][0])
+    public function postEsignDocumentsByIdFieldsAsyncWithHttpInfo($id, $esign_esign_field_in, string $contentType = self::contentTypes['postEsignDocumentsByIdFields'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignPlacement';
-        $request = $this->postEsignDocumentsByIdFieldsRequest($id, $esign_field_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignPlacement';
+        $request = $this->postEsignDocumentsByIdFieldsRequest($id, $esign_esign_field_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2228,13 +2340,13 @@ class EsignApi
      * Create request for operation 'postEsignDocumentsByIdFields'
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\EsignFieldIn $esign_field_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignFieldIn $esign_esign_field_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocumentsByIdFields'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEsignDocumentsByIdFieldsRequest($id, $esign_field_in, string $contentType = self::contentTypes['postEsignDocumentsByIdFields'][0])
+    public function postEsignDocumentsByIdFieldsRequest($id, $esign_esign_field_in, string $contentType = self::contentTypes['postEsignDocumentsByIdFields'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -2244,10 +2356,10 @@ class EsignApi
             );
         }
 
-        // verify the required parameter 'esign_field_in' is set
-        if ($esign_field_in === null || (is_array($esign_field_in) && count($esign_field_in) === 0)) {
+        // verify the required parameter 'esign_esign_field_in' is set
+        if ($esign_esign_field_in === null || (is_array($esign_esign_field_in) && count($esign_esign_field_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $esign_field_in when calling postEsignDocumentsByIdFields'
+                'Missing the required parameter $esign_esign_field_in when calling postEsignDocumentsByIdFields'
             );
         }
 
@@ -2272,18 +2384,18 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($esign_field_in)) {
+        if (isset($esign_esign_field_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($esign_field_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($esign_esign_field_in));
             } else {
-                $httpBody = $esign_field_in;
+                $httpBody = $esign_esign_field_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2341,16 +2453,16 @@ class EsignApi
      * Adds someone to a draft and mints their signing token.
      *
      * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\EsignRecipientIn $esign_recipient_in esign_recipient_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignRecipientIn $esign_esign_recipient_in esign_esign_recipient_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocumentsByIdRecipients'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignInvite
+     * @return \Hanzo\Cloud\Model\EsignEsignInvite|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEsignDocumentsByIdRecipients($id, $esign_recipient_in, string $contentType = self::contentTypes['postEsignDocumentsByIdRecipients'][0])
+    public function postEsignDocumentsByIdRecipients($id, $esign_esign_recipient_in, string $contentType = self::contentTypes['postEsignDocumentsByIdRecipients'][0])
     {
-        list($response) = $this->postEsignDocumentsByIdRecipientsWithHttpInfo($id, $esign_recipient_in, $contentType);
+        list($response) = $this->postEsignDocumentsByIdRecipientsWithHttpInfo($id, $esign_esign_recipient_in, $contentType);
         return $response;
     }
 
@@ -2360,16 +2472,16 @@ class EsignApi
      * Adds someone to a draft and mints their signing token.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\EsignRecipientIn $esign_recipient_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignRecipientIn $esign_esign_recipient_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocumentsByIdRecipients'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignInvite, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignInvite|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEsignDocumentsByIdRecipientsWithHttpInfo($id, $esign_recipient_in, string $contentType = self::contentTypes['postEsignDocumentsByIdRecipients'][0])
+    public function postEsignDocumentsByIdRecipientsWithHttpInfo($id, $esign_esign_recipient_in, string $contentType = self::contentTypes['postEsignDocumentsByIdRecipients'][0])
     {
-        $request = $this->postEsignDocumentsByIdRecipientsRequest($id, $esign_recipient_in, $contentType);
+        $request = $this->postEsignDocumentsByIdRecipientsRequest($id, $esign_esign_recipient_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2397,7 +2509,13 @@ class EsignApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignInvite',
+                        '\Hanzo\Cloud\Model\EsignEsignInvite',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2419,7 +2537,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignInvite',
+                '\Hanzo\Cloud\Model\EsignEsignInvite',
                 $request,
                 $response,
             );
@@ -2428,7 +2546,15 @@ class EsignApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignInvite',
+                        '\Hanzo\Cloud\Model\EsignEsignInvite',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2446,15 +2572,15 @@ class EsignApi
      * Adds someone to a draft and mints their signing token.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\EsignRecipientIn $esign_recipient_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignRecipientIn $esign_esign_recipient_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocumentsByIdRecipients'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEsignDocumentsByIdRecipientsAsync($id, $esign_recipient_in, string $contentType = self::contentTypes['postEsignDocumentsByIdRecipients'][0])
+    public function postEsignDocumentsByIdRecipientsAsync($id, $esign_esign_recipient_in, string $contentType = self::contentTypes['postEsignDocumentsByIdRecipients'][0])
     {
-        return $this->postEsignDocumentsByIdRecipientsAsyncWithHttpInfo($id, $esign_recipient_in, $contentType)
+        return $this->postEsignDocumentsByIdRecipientsAsyncWithHttpInfo($id, $esign_esign_recipient_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2468,16 +2594,16 @@ class EsignApi
      * Adds someone to a draft and mints their signing token.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\EsignRecipientIn $esign_recipient_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignRecipientIn $esign_esign_recipient_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocumentsByIdRecipients'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEsignDocumentsByIdRecipientsAsyncWithHttpInfo($id, $esign_recipient_in, string $contentType = self::contentTypes['postEsignDocumentsByIdRecipients'][0])
+    public function postEsignDocumentsByIdRecipientsAsyncWithHttpInfo($id, $esign_esign_recipient_in, string $contentType = self::contentTypes['postEsignDocumentsByIdRecipients'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignInvite';
-        $request = $this->postEsignDocumentsByIdRecipientsRequest($id, $esign_recipient_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignInvite';
+        $request = $this->postEsignDocumentsByIdRecipientsRequest($id, $esign_esign_recipient_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2519,13 +2645,13 @@ class EsignApi
      * Create request for operation 'postEsignDocumentsByIdRecipients'
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\EsignRecipientIn $esign_recipient_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignRecipientIn $esign_esign_recipient_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignDocumentsByIdRecipients'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEsignDocumentsByIdRecipientsRequest($id, $esign_recipient_in, string $contentType = self::contentTypes['postEsignDocumentsByIdRecipients'][0])
+    public function postEsignDocumentsByIdRecipientsRequest($id, $esign_esign_recipient_in, string $contentType = self::contentTypes['postEsignDocumentsByIdRecipients'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -2535,10 +2661,10 @@ class EsignApi
             );
         }
 
-        // verify the required parameter 'esign_recipient_in' is set
-        if ($esign_recipient_in === null || (is_array($esign_recipient_in) && count($esign_recipient_in) === 0)) {
+        // verify the required parameter 'esign_esign_recipient_in' is set
+        if ($esign_esign_recipient_in === null || (is_array($esign_esign_recipient_in) && count($esign_esign_recipient_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $esign_recipient_in when calling postEsignDocumentsByIdRecipients'
+                'Missing the required parameter $esign_esign_recipient_in when calling postEsignDocumentsByIdRecipients'
             );
         }
 
@@ -2563,18 +2689,18 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($esign_recipient_in)) {
+        if (isset($esign_esign_recipient_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($esign_recipient_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($esign_esign_recipient_in));
             } else {
-                $httpBody = $esign_recipient_in;
+                $httpBody = $esign_esign_recipient_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2636,7 +2762,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignLinks
+     * @return \Hanzo\Cloud\Model\EsignEsignLinks|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postEsignDocumentsByIdSend($id, string $contentType = self::contentTypes['postEsignDocumentsByIdSend'][0])
     {
@@ -2654,7 +2780,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignLinks, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignLinks|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postEsignDocumentsByIdSendWithHttpInfo($id, string $contentType = self::contentTypes['postEsignDocumentsByIdSend'][0])
     {
@@ -2686,7 +2812,13 @@ class EsignApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignLinks',
+                        '\Hanzo\Cloud\Model\EsignEsignLinks',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2708,7 +2840,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignLinks',
+                '\Hanzo\Cloud\Model\EsignEsignLinks',
                 $request,
                 $response,
             );
@@ -2717,7 +2849,15 @@ class EsignApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignLinks',
+                        '\Hanzo\Cloud\Model\EsignEsignLinks',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2763,7 +2903,7 @@ class EsignApi
      */
     public function postEsignDocumentsByIdSendAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postEsignDocumentsByIdSend'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignLinks';
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignLinks';
         $request = $this->postEsignDocumentsByIdSendRequest($id, $contentType);
 
         return $this->client
@@ -2842,7 +2982,7 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2909,7 +3049,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignCompletion
+     * @return \Hanzo\Cloud\Model\EsignEsignCompletion|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postEsignOByOrgSignByTokenComplete($org, $token, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenComplete'][0])
     {
@@ -2928,7 +3068,7 @@ class EsignApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignCompletion, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignCompletion|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postEsignOByOrgSignByTokenCompleteWithHttpInfo($org, $token, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenComplete'][0])
     {
@@ -2960,7 +3100,13 @@ class EsignApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignCompletion',
+                        '\Hanzo\Cloud\Model\EsignEsignCompletion',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2982,7 +3128,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignCompletion',
+                '\Hanzo\Cloud\Model\EsignEsignCompletion',
                 $request,
                 $response,
             );
@@ -2991,7 +3137,15 @@ class EsignApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignCompletion',
+                        '\Hanzo\Cloud\Model\EsignEsignCompletion',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3039,7 +3193,7 @@ class EsignApi
      */
     public function postEsignOByOrgSignByTokenCompleteAsyncWithHttpInfo($org, $token, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenComplete'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignCompletion';
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignCompletion';
         $request = $this->postEsignOByOrgSignByTokenCompleteRequest($org, $token, $contentType);
 
         return $this->client
@@ -3134,7 +3288,7 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3198,16 +3352,16 @@ class EsignApi
      * @param  string $org org (required)
      * @param  string $token token (required)
      * @param  string $field_id field_id (required)
-     * @param  \Hanzo\Cloud\Model\EsignValueIn $esign_value_in esign_value_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignValueIn $esign_esign_value_in esign_esign_value_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignInsertion
+     * @return \Hanzo\Cloud\Model\EsignEsignInsertion|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEsignOByOrgSignByTokenFieldsByFieldid($org, $token, $field_id, $esign_value_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'][0])
+    public function postEsignOByOrgSignByTokenFieldsByFieldid($org, $token, $field_id, $esign_esign_value_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'][0])
     {
-        list($response) = $this->postEsignOByOrgSignByTokenFieldsByFieldidWithHttpInfo($org, $token, $field_id, $esign_value_in, $contentType);
+        list($response) = $this->postEsignOByOrgSignByTokenFieldsByFieldidWithHttpInfo($org, $token, $field_id, $esign_esign_value_in, $contentType);
         return $response;
     }
 
@@ -3219,16 +3373,16 @@ class EsignApi
      * @param  string $org (required)
      * @param  string $token (required)
      * @param  string $field_id (required)
-     * @param  \Hanzo\Cloud\Model\EsignValueIn $esign_value_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignValueIn $esign_esign_value_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignInsertion, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignInsertion|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEsignOByOrgSignByTokenFieldsByFieldidWithHttpInfo($org, $token, $field_id, $esign_value_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'][0])
+    public function postEsignOByOrgSignByTokenFieldsByFieldidWithHttpInfo($org, $token, $field_id, $esign_esign_value_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'][0])
     {
-        $request = $this->postEsignOByOrgSignByTokenFieldsByFieldidRequest($org, $token, $field_id, $esign_value_in, $contentType);
+        $request = $this->postEsignOByOrgSignByTokenFieldsByFieldidRequest($org, $token, $field_id, $esign_esign_value_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3256,7 +3410,13 @@ class EsignApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignInsertion',
+                        '\Hanzo\Cloud\Model\EsignEsignInsertion',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3278,7 +3438,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignInsertion',
+                '\Hanzo\Cloud\Model\EsignEsignInsertion',
                 $request,
                 $response,
             );
@@ -3287,7 +3447,15 @@ class EsignApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignInsertion',
+                        '\Hanzo\Cloud\Model\EsignEsignInsertion',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3307,15 +3475,15 @@ class EsignApi
      * @param  string $org (required)
      * @param  string $token (required)
      * @param  string $field_id (required)
-     * @param  \Hanzo\Cloud\Model\EsignValueIn $esign_value_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignValueIn $esign_esign_value_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEsignOByOrgSignByTokenFieldsByFieldidAsync($org, $token, $field_id, $esign_value_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'][0])
+    public function postEsignOByOrgSignByTokenFieldsByFieldidAsync($org, $token, $field_id, $esign_esign_value_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'][0])
     {
-        return $this->postEsignOByOrgSignByTokenFieldsByFieldidAsyncWithHttpInfo($org, $token, $field_id, $esign_value_in, $contentType)
+        return $this->postEsignOByOrgSignByTokenFieldsByFieldidAsyncWithHttpInfo($org, $token, $field_id, $esign_esign_value_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3331,16 +3499,16 @@ class EsignApi
      * @param  string $org (required)
      * @param  string $token (required)
      * @param  string $field_id (required)
-     * @param  \Hanzo\Cloud\Model\EsignValueIn $esign_value_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignValueIn $esign_esign_value_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEsignOByOrgSignByTokenFieldsByFieldidAsyncWithHttpInfo($org, $token, $field_id, $esign_value_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'][0])
+    public function postEsignOByOrgSignByTokenFieldsByFieldidAsyncWithHttpInfo($org, $token, $field_id, $esign_esign_value_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignInsertion';
-        $request = $this->postEsignOByOrgSignByTokenFieldsByFieldidRequest($org, $token, $field_id, $esign_value_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignInsertion';
+        $request = $this->postEsignOByOrgSignByTokenFieldsByFieldidRequest($org, $token, $field_id, $esign_esign_value_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3384,13 +3552,13 @@ class EsignApi
      * @param  string $org (required)
      * @param  string $token (required)
      * @param  string $field_id (required)
-     * @param  \Hanzo\Cloud\Model\EsignValueIn $esign_value_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignValueIn $esign_esign_value_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEsignOByOrgSignByTokenFieldsByFieldidRequest($org, $token, $field_id, $esign_value_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'][0])
+    public function postEsignOByOrgSignByTokenFieldsByFieldidRequest($org, $token, $field_id, $esign_esign_value_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenFieldsByFieldid'][0])
     {
 
         // verify the required parameter 'org' is set
@@ -3414,10 +3582,10 @@ class EsignApi
             );
         }
 
-        // verify the required parameter 'esign_value_in' is set
-        if ($esign_value_in === null || (is_array($esign_value_in) && count($esign_value_in) === 0)) {
+        // verify the required parameter 'esign_esign_value_in' is set
+        if ($esign_esign_value_in === null || (is_array($esign_esign_value_in) && count($esign_esign_value_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $esign_value_in when calling postEsignOByOrgSignByTokenFieldsByFieldid'
+                'Missing the required parameter $esign_esign_value_in when calling postEsignOByOrgSignByTokenFieldsByFieldid'
             );
         }
 
@@ -3458,18 +3626,18 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($esign_value_in)) {
+        if (isset($esign_esign_value_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($esign_value_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($esign_esign_value_in));
             } else {
-                $httpBody = $esign_value_in;
+                $httpBody = $esign_esign_value_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3528,16 +3696,16 @@ class EsignApi
      *
      * @param  string $org org (required)
      * @param  string $token token (required)
-     * @param  \Hanzo\Cloud\Model\EsignRejectIn $esign_reject_in esign_reject_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignRejectIn $esign_esign_reject_in esign_esign_reject_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignOByOrgSignByTokenReject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EsignRejection
+     * @return \Hanzo\Cloud\Model\EsignEsignRejection|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEsignOByOrgSignByTokenReject($org, $token, $esign_reject_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenReject'][0])
+    public function postEsignOByOrgSignByTokenReject($org, $token, $esign_esign_reject_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenReject'][0])
     {
-        list($response) = $this->postEsignOByOrgSignByTokenRejectWithHttpInfo($org, $token, $esign_reject_in, $contentType);
+        list($response) = $this->postEsignOByOrgSignByTokenRejectWithHttpInfo($org, $token, $esign_esign_reject_in, $contentType);
         return $response;
     }
 
@@ -3548,16 +3716,16 @@ class EsignApi
      *
      * @param  string $org (required)
      * @param  string $token (required)
-     * @param  \Hanzo\Cloud\Model\EsignRejectIn $esign_reject_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignRejectIn $esign_esign_reject_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignOByOrgSignByTokenReject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EsignRejection, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EsignEsignRejection|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEsignOByOrgSignByTokenRejectWithHttpInfo($org, $token, $esign_reject_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenReject'][0])
+    public function postEsignOByOrgSignByTokenRejectWithHttpInfo($org, $token, $esign_esign_reject_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenReject'][0])
     {
-        $request = $this->postEsignOByOrgSignByTokenRejectRequest($org, $token, $esign_reject_in, $contentType);
+        $request = $this->postEsignOByOrgSignByTokenRejectRequest($org, $token, $esign_esign_reject_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3585,7 +3753,13 @@ class EsignApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EsignRejection',
+                        '\Hanzo\Cloud\Model\EsignEsignRejection',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3607,7 +3781,7 @@ class EsignApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EsignRejection',
+                '\Hanzo\Cloud\Model\EsignEsignRejection',
                 $request,
                 $response,
             );
@@ -3616,7 +3790,15 @@ class EsignApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EsignRejection',
+                        '\Hanzo\Cloud\Model\EsignEsignRejection',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3635,15 +3817,15 @@ class EsignApi
      *
      * @param  string $org (required)
      * @param  string $token (required)
-     * @param  \Hanzo\Cloud\Model\EsignRejectIn $esign_reject_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignRejectIn $esign_esign_reject_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignOByOrgSignByTokenReject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEsignOByOrgSignByTokenRejectAsync($org, $token, $esign_reject_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenReject'][0])
+    public function postEsignOByOrgSignByTokenRejectAsync($org, $token, $esign_esign_reject_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenReject'][0])
     {
-        return $this->postEsignOByOrgSignByTokenRejectAsyncWithHttpInfo($org, $token, $esign_reject_in, $contentType)
+        return $this->postEsignOByOrgSignByTokenRejectAsyncWithHttpInfo($org, $token, $esign_esign_reject_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3658,16 +3840,16 @@ class EsignApi
      *
      * @param  string $org (required)
      * @param  string $token (required)
-     * @param  \Hanzo\Cloud\Model\EsignRejectIn $esign_reject_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignRejectIn $esign_esign_reject_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignOByOrgSignByTokenReject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEsignOByOrgSignByTokenRejectAsyncWithHttpInfo($org, $token, $esign_reject_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenReject'][0])
+    public function postEsignOByOrgSignByTokenRejectAsyncWithHttpInfo($org, $token, $esign_esign_reject_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenReject'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EsignRejection';
-        $request = $this->postEsignOByOrgSignByTokenRejectRequest($org, $token, $esign_reject_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EsignEsignRejection';
+        $request = $this->postEsignOByOrgSignByTokenRejectRequest($org, $token, $esign_esign_reject_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3710,13 +3892,13 @@ class EsignApi
      *
      * @param  string $org (required)
      * @param  string $token (required)
-     * @param  \Hanzo\Cloud\Model\EsignRejectIn $esign_reject_in (required)
+     * @param  \Hanzo\Cloud\Model\EsignEsignRejectIn $esign_esign_reject_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEsignOByOrgSignByTokenReject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEsignOByOrgSignByTokenRejectRequest($org, $token, $esign_reject_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenReject'][0])
+    public function postEsignOByOrgSignByTokenRejectRequest($org, $token, $esign_esign_reject_in, string $contentType = self::contentTypes['postEsignOByOrgSignByTokenReject'][0])
     {
 
         // verify the required parameter 'org' is set
@@ -3733,10 +3915,10 @@ class EsignApi
             );
         }
 
-        // verify the required parameter 'esign_reject_in' is set
-        if ($esign_reject_in === null || (is_array($esign_reject_in) && count($esign_reject_in) === 0)) {
+        // verify the required parameter 'esign_esign_reject_in' is set
+        if ($esign_esign_reject_in === null || (is_array($esign_esign_reject_in) && count($esign_esign_reject_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $esign_reject_in when calling postEsignOByOrgSignByTokenReject'
+                'Missing the required parameter $esign_esign_reject_in when calling postEsignOByOrgSignByTokenReject'
             );
         }
 
@@ -3769,18 +3951,18 @@ class EsignApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($esign_reject_in)) {
+        if (isset($esign_esign_reject_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($esign_reject_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($esign_esign_reject_in));
             } else {
-                $httpBody = $esign_reject_in;
+                $httpBody = $esign_esign_reject_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

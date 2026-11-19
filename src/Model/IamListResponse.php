@@ -57,7 +57,7 @@ class IamListResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'resources' => 'object[]',
+        'resources' => 'mixed[]',
         'items_per_page' => 'int',
         'schemas' => 'string[]',
         'start_index' => 'int',
@@ -320,7 +320,7 @@ class IamListResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets resources
      *
-     * @return object[]|null
+     * @return mixed[]|null
      */
     public function getResources()
     {
@@ -330,7 +330,7 @@ class IamListResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets resources
      *
-     * @param object[]|null $resources resources
+     * @param mixed[]|null $resources resources
      *
      * @return self
      */

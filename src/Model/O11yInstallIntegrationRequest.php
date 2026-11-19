@@ -57,7 +57,7 @@ class O11yInstallIntegrationRequest implements ModelInterface, ArrayAccess, \Jso
       * @var string[]
       */
     protected static $openAPITypes = [
-        'config' => 'array<string,object>',
+        'config' => 'array<string,mixed>',
         'integration_id' => 'string'
     ];
 
@@ -299,7 +299,7 @@ class O11yInstallIntegrationRequest implements ModelInterface, ArrayAccess, \Jso
     /**
      * Gets config
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getConfig()
     {
@@ -309,7 +309,7 @@ class O11yInstallIntegrationRequest implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets config
      *
-     * @param array<string,object>|null $config config
+     * @param array<string,mixed>|null $config config
      *
      * @return self
      */

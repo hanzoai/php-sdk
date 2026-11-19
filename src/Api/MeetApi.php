@@ -146,13 +146,13 @@ class MeetApi
     /**
      * Operation getMeetHealth
      *
-     * Health reports whether the office can mint join tokens.
+     * Reports whether the office can mint join tokens.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMeetHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MeetHealth|\Hanzo\Cloud\Model\MeetHealth
+     * @return \Hanzo\Cloud\Model\MeetMeetHealth|\Hanzo\Cloud\Model\MeetMeetHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMeetHealth(string $contentType = self::contentTypes['getMeetHealth'][0])
     {
@@ -163,13 +163,13 @@ class MeetApi
     /**
      * Operation getMeetHealthWithHttpInfo
      *
-     * Health reports whether the office can mint join tokens.
+     * Reports whether the office can mint join tokens.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMeetHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MeetHealth|\Hanzo\Cloud\Model\MeetHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MeetMeetHealth|\Hanzo\Cloud\Model\MeetMeetHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMeetHealthWithHttpInfo(string $contentType = self::contentTypes['getMeetHealth'][0])
     {
@@ -201,13 +201,19 @@ class MeetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MeetHealth',
+                        '\Hanzo\Cloud\Model\MeetMeetHealth',
                         $request,
                         $response,
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MeetHealth',
+                        '\Hanzo\Cloud\Model\MeetMeetHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -229,7 +235,7 @@ class MeetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MeetHealth',
+                '\Hanzo\Cloud\Model\MeetMeetHealth',
                 $request,
                 $response,
             );
@@ -238,7 +244,7 @@ class MeetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MeetHealth',
+                        '\Hanzo\Cloud\Model\MeetMeetHealth',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -246,7 +252,15 @@ class MeetApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MeetHealth',
+                        '\Hanzo\Cloud\Model\MeetMeetHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -261,7 +275,7 @@ class MeetApi
     /**
      * Operation getMeetHealthAsync
      *
-     * Health reports whether the office can mint join tokens.
+     * Reports whether the office can mint join tokens.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMeetHealth'] to see the possible values for this operation
      *
@@ -281,7 +295,7 @@ class MeetApi
     /**
      * Operation getMeetHealthAsyncWithHttpInfo
      *
-     * Health reports whether the office can mint join tokens.
+     * Reports whether the office can mint join tokens.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getMeetHealth'] to see the possible values for this operation
      *
@@ -290,7 +304,7 @@ class MeetApi
      */
     public function getMeetHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getMeetHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MeetHealth';
+        $returnType = '\Hanzo\Cloud\Model\MeetMeetHealth';
         $request = $this->getMeetHealthRequest($contentType);
 
         return $this->client
@@ -353,7 +367,7 @@ class MeetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -616,17 +630,17 @@ class MeetApi
      *
      * Where a room&#39;s call happens
      *
-     * @param  string $space Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
-     * @param  string $room Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
+     * @param  string $space Space is the space uuid holding the channel, as GET /v1/team/channels reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $channel Channel is the channel&#39;s own id within that space, as GET /v1/team/channels reports it. It is opaque here: meet keeps no channels and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Venue
+     * @return \Hanzo\Cloud\Model\MeetVenue|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function meetCall($space, $room, string $contentType = self::contentTypes['meetCall'][0])
+    public function meetCall($space, $channel, string $contentType = self::contentTypes['meetCall'][0])
     {
-        list($response) = $this->meetCallWithHttpInfo($space, $room, $contentType);
+        list($response) = $this->meetCallWithHttpInfo($space, $channel, $contentType);
         return $response;
     }
 
@@ -635,17 +649,17 @@ class MeetApi
      *
      * Where a room&#39;s call happens
      *
-     * @param  string $space Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
-     * @param  string $room Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
+     * @param  string $space Space is the space uuid holding the channel, as GET /v1/team/channels reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $channel Channel is the channel&#39;s own id within that space, as GET /v1/team/channels reports it. It is opaque here: meet keeps no channels and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Venue, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MeetVenue|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function meetCallWithHttpInfo($space, $room, string $contentType = self::contentTypes['meetCall'][0])
+    public function meetCallWithHttpInfo($space, $channel, string $contentType = self::contentTypes['meetCall'][0])
     {
-        $request = $this->meetCallRequest($space, $room, $contentType);
+        $request = $this->meetCallRequest($space, $channel, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -673,7 +687,13 @@ class MeetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Venue',
+                        '\Hanzo\Cloud\Model\MeetVenue',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -695,7 +715,7 @@ class MeetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Venue',
+                '\Hanzo\Cloud\Model\MeetVenue',
                 $request,
                 $response,
             );
@@ -704,7 +724,15 @@ class MeetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Venue',
+                        '\Hanzo\Cloud\Model\MeetVenue',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -721,16 +749,16 @@ class MeetApi
      *
      * Where a room&#39;s call happens
      *
-     * @param  string $space Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
-     * @param  string $room Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
+     * @param  string $space Space is the space uuid holding the channel, as GET /v1/team/channels reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $channel Channel is the channel&#39;s own id within that space, as GET /v1/team/channels reports it. It is opaque here: meet keeps no channels and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function meetCallAsync($space, $room, string $contentType = self::contentTypes['meetCall'][0])
+    public function meetCallAsync($space, $channel, string $contentType = self::contentTypes['meetCall'][0])
     {
-        return $this->meetCallAsyncWithHttpInfo($space, $room, $contentType)
+        return $this->meetCallAsyncWithHttpInfo($space, $channel, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -743,17 +771,17 @@ class MeetApi
      *
      * Where a room&#39;s call happens
      *
-     * @param  string $space Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
-     * @param  string $room Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
+     * @param  string $space Space is the space uuid holding the channel, as GET /v1/team/channels reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $channel Channel is the channel&#39;s own id within that space, as GET /v1/team/channels reports it. It is opaque here: meet keeps no channels and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function meetCallAsyncWithHttpInfo($space, $room, string $contentType = self::contentTypes['meetCall'][0])
+    public function meetCallAsyncWithHttpInfo($space, $channel, string $contentType = self::contentTypes['meetCall'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Venue';
-        $request = $this->meetCallRequest($space, $room, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MeetVenue';
+        $request = $this->meetCallRequest($space, $channel, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -794,14 +822,14 @@ class MeetApi
     /**
      * Create request for operation 'meetCall'
      *
-     * @param  string $space Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
-     * @param  string $room Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
+     * @param  string $space Space is the space uuid holding the channel, as GET /v1/team/channels reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $channel Channel is the channel&#39;s own id within that space, as GET /v1/team/channels reports it. It is opaque here: meet keeps no channels and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function meetCallRequest($space, $room, string $contentType = self::contentTypes['meetCall'][0])
+    public function meetCallRequest($space, $channel, string $contentType = self::contentTypes['meetCall'][0])
     {
 
         // verify the required parameter 'space' is set
@@ -811,10 +839,10 @@ class MeetApi
             );
         }
 
-        // verify the required parameter 'room' is set
-        if ($room === null || (is_array($room) && count($room) === 0)) {
+        // verify the required parameter 'channel' is set
+        if ($channel === null || (is_array($channel) && count($channel) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $room when calling meetCall'
+                'Missing the required parameter $channel when calling meetCall'
             );
         }
 
@@ -837,8 +865,8 @@ class MeetApi
         ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $room,
-            'room', // param base name
+            $channel,
+            'channel', // param base name
             'string', // openApiType
             'form', // style
             true, // explode
@@ -849,7 +877,7 @@ class MeetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -915,7 +943,7 @@ class MeetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Recording
+     * @return \Hanzo\Cloud\Model\MeetRecording|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function meetRecordRead($room, string $contentType = self::contentTypes['meetRecordRead'][0])
     {
@@ -933,7 +961,7 @@ class MeetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Recording, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MeetRecording|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function meetRecordReadWithHttpInfo($room, string $contentType = self::contentTypes['meetRecordRead'][0])
     {
@@ -965,7 +993,13 @@ class MeetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Recording',
+                        '\Hanzo\Cloud\Model\MeetRecording',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -987,7 +1021,7 @@ class MeetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Recording',
+                '\Hanzo\Cloud\Model\MeetRecording',
                 $request,
                 $response,
             );
@@ -996,7 +1030,15 @@ class MeetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Recording',
+                        '\Hanzo\Cloud\Model\MeetRecording',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1042,7 +1084,7 @@ class MeetApi
      */
     public function meetRecordReadAsyncWithHttpInfo($room, string $contentType = self::contentTypes['meetRecordRead'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Recording';
+        $returnType = '\Hanzo\Cloud\Model\MeetRecording';
         $request = $this->meetRecordReadRequest($room, $contentType);
 
         return $this->client
@@ -1122,7 +1164,7 @@ class MeetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1183,16 +1225,16 @@ class MeetApi
      *
      * Start recording a room, or return the recording already running
      *
-     * @param  \Hanzo\Cloud\Model\RecordIn $record_in record_in (required)
+     * @param  \Hanzo\Cloud\Model\MeetRecordIn $meet_record_in meet_record_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordStart'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Recording
+     * @return \Hanzo\Cloud\Model\MeetRecording|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function meetRecordStart($record_in, string $contentType = self::contentTypes['meetRecordStart'][0])
+    public function meetRecordStart($meet_record_in, string $contentType = self::contentTypes['meetRecordStart'][0])
     {
-        list($response) = $this->meetRecordStartWithHttpInfo($record_in, $contentType);
+        list($response) = $this->meetRecordStartWithHttpInfo($meet_record_in, $contentType);
         return $response;
     }
 
@@ -1201,16 +1243,16 @@ class MeetApi
      *
      * Start recording a room, or return the recording already running
      *
-     * @param  \Hanzo\Cloud\Model\RecordIn $record_in (required)
+     * @param  \Hanzo\Cloud\Model\MeetRecordIn $meet_record_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordStart'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Recording, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MeetRecording|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function meetRecordStartWithHttpInfo($record_in, string $contentType = self::contentTypes['meetRecordStart'][0])
+    public function meetRecordStartWithHttpInfo($meet_record_in, string $contentType = self::contentTypes['meetRecordStart'][0])
     {
-        $request = $this->meetRecordStartRequest($record_in, $contentType);
+        $request = $this->meetRecordStartRequest($meet_record_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1238,7 +1280,13 @@ class MeetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Recording',
+                        '\Hanzo\Cloud\Model\MeetRecording',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1260,7 +1308,7 @@ class MeetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Recording',
+                '\Hanzo\Cloud\Model\MeetRecording',
                 $request,
                 $response,
             );
@@ -1269,7 +1317,15 @@ class MeetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Recording',
+                        '\Hanzo\Cloud\Model\MeetRecording',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1286,15 +1342,15 @@ class MeetApi
      *
      * Start recording a room, or return the recording already running
      *
-     * @param  \Hanzo\Cloud\Model\RecordIn $record_in (required)
+     * @param  \Hanzo\Cloud\Model\MeetRecordIn $meet_record_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordStart'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function meetRecordStartAsync($record_in, string $contentType = self::contentTypes['meetRecordStart'][0])
+    public function meetRecordStartAsync($meet_record_in, string $contentType = self::contentTypes['meetRecordStart'][0])
     {
-        return $this->meetRecordStartAsyncWithHttpInfo($record_in, $contentType)
+        return $this->meetRecordStartAsyncWithHttpInfo($meet_record_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1307,16 +1363,16 @@ class MeetApi
      *
      * Start recording a room, or return the recording already running
      *
-     * @param  \Hanzo\Cloud\Model\RecordIn $record_in (required)
+     * @param  \Hanzo\Cloud\Model\MeetRecordIn $meet_record_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordStart'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function meetRecordStartAsyncWithHttpInfo($record_in, string $contentType = self::contentTypes['meetRecordStart'][0])
+    public function meetRecordStartAsyncWithHttpInfo($meet_record_in, string $contentType = self::contentTypes['meetRecordStart'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Recording';
-        $request = $this->meetRecordStartRequest($record_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MeetRecording';
+        $request = $this->meetRecordStartRequest($meet_record_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1357,19 +1413,19 @@ class MeetApi
     /**
      * Create request for operation 'meetRecordStart'
      *
-     * @param  \Hanzo\Cloud\Model\RecordIn $record_in (required)
+     * @param  \Hanzo\Cloud\Model\MeetRecordIn $meet_record_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordStart'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function meetRecordStartRequest($record_in, string $contentType = self::contentTypes['meetRecordStart'][0])
+    public function meetRecordStartRequest($meet_record_in, string $contentType = self::contentTypes['meetRecordStart'][0])
     {
 
-        // verify the required parameter 'record_in' is set
-        if ($record_in === null || (is_array($record_in) && count($record_in) === 0)) {
+        // verify the required parameter 'meet_record_in' is set
+        if ($meet_record_in === null || (is_array($meet_record_in) && count($meet_record_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $record_in when calling meetRecordStart'
+                'Missing the required parameter $meet_record_in when calling meetRecordStart'
             );
         }
 
@@ -1386,18 +1442,18 @@ class MeetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($record_in)) {
+        if (isset($meet_record_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($record_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($meet_record_in));
             } else {
-                $httpBody = $record_in;
+                $httpBody = $meet_record_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1459,7 +1515,7 @@ class MeetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Recording
+     * @return \Hanzo\Cloud\Model\MeetRecording|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function meetRecordStop($room, string $contentType = self::contentTypes['meetRecordStop'][0])
     {
@@ -1477,7 +1533,7 @@ class MeetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Recording, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MeetRecording|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function meetRecordStopWithHttpInfo($room, string $contentType = self::contentTypes['meetRecordStop'][0])
     {
@@ -1509,7 +1565,13 @@ class MeetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Recording',
+                        '\Hanzo\Cloud\Model\MeetRecording',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1531,7 +1593,7 @@ class MeetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Recording',
+                '\Hanzo\Cloud\Model\MeetRecording',
                 $request,
                 $response,
             );
@@ -1540,7 +1602,15 @@ class MeetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Recording',
+                        '\Hanzo\Cloud\Model\MeetRecording',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1586,7 +1656,7 @@ class MeetApi
      */
     public function meetRecordStopAsyncWithHttpInfo($room, string $contentType = self::contentTypes['meetRecordStop'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Recording';
+        $returnType = '\Hanzo\Cloud\Model\MeetRecording';
         $request = $this->meetRecordStopRequest($room, $contentType);
 
         return $this->client
@@ -1666,7 +1736,7 @@ class MeetApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

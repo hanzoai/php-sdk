@@ -74,6 +74,9 @@ class BillingApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'assignSeats' => [
+            'application/json',
+        ],
         'cancelSubscription' => [
             'application/json',
         ],
@@ -104,6 +107,12 @@ class BillingApi
         'getBillingBalance' => [
             'application/json',
         ],
+        'getBillingCatalog' => [
+            'application/json',
+        ],
+        'getBillingCheckoutsById' => [
+            'application/json',
+        ],
         'getBillingCreditBalance' => [
             'application/json',
         ],
@@ -116,7 +125,16 @@ class BillingApi
         'getBillingCryptoDepositById' => [
             'application/json',
         ],
+        'getBillingCryptoGateway' => [
+            'application/json',
+        ],
+        'getBillingCryptoGatewayById' => [
+            'application/json',
+        ],
         'getBillingCryptoOptions' => [
+            'application/json',
+        ],
+        'getBillingDiscovery' => [
             'application/json',
         ],
         'getBillingInvoices' => [
@@ -125,10 +143,19 @@ class BillingApi
         'getBillingInvoicesByIdPdf' => [
             'application/json',
         ],
+        'getBillingInvoicesHostedByLink' => [
+            'application/json',
+        ],
+        'getBillingInvoicesHostedByLinkPdf' => [
+            'application/json',
+        ],
         'getBillingLedger' => [
             'application/json',
         ],
         'getBillingMethods' => [
+            'application/json',
+        ],
+        'getBillingOrdersById' => [
             'application/json',
         ],
         'getBillingPayouts' => [
@@ -138,6 +165,9 @@ class BillingApi
             'application/json',
         ],
         'getBillingPortalMethods' => [
+            'application/json',
+        ],
+        'getBillingQuote' => [
             'application/json',
         ],
         'getBillingRecharge' => [
@@ -150,6 +180,9 @@ class BillingApi
             'application/json',
         ],
         'getBillingTier' => [
+            'application/json',
+        ],
+        'getBillingTopupIntentById' => [
             'application/json',
         ],
         'getBillingTransactions' => [
@@ -179,10 +212,28 @@ class BillingApi
         'patchBillingAlertsById' => [
             'application/json',
         ],
+        'patchBillingCheckoutsById' => [
+            'application/json',
+        ],
+        'payInvoice' => [
+            'application/json',
+        ],
         'postBillingAlerts' => [
             'application/json',
         ],
+        'postBillingCheckouts' => [
+            'application/json',
+        ],
+        'postBillingCheckoutsByIdComplete' => [
+            'application/json',
+        ],
         'postBillingCryptoDeposit' => [
+            'application/json',
+        ],
+        'postBillingCryptoGateway' => [
+            'application/json',
+        ],
+        'postBillingInvoicesByIdAgentToken' => [
             'application/json',
         ],
         'postBillingMethods' => [
@@ -191,19 +242,46 @@ class BillingApi
         'postBillingMode' => [
             'application/json',
         ],
+        'postBillingPaypalOrder' => [
+            'application/json',
+        ],
         'postBillingPortalMethods' => [
             'application/json',
         ],
         'postBillingRechargeRunAll' => [
             'application/json',
         ],
+        'postBillingRoute' => [
+            'application/json',
+        ],
         'postBillingSubscribeCard' => [
+            'application/json',
+        ],
+        'postBillingSubscribeInvoice' => [
+            'application/json',
+        ],
+        'postBillingSubscriptionsByIdAgentToken' => [
             'application/json',
         ],
         'postBillingTopup' => [
             'application/json',
         ],
+        'postBillingTopupCrypto' => [
+            'application/json',
+        ],
+        'postBillingTopupIntent' => [
+            'application/json',
+        ],
+        'postBillingTopupIntentByIdCancel' => [
+            'application/json',
+        ],
         'postBillingTopupToken' => [
+            'application/json',
+        ],
+        'postBillingUsage' => [
+            'application/json',
+        ],
+        'postBillingWireReconcile' => [
             'application/json',
         ],
         'putBillingRecharge' => [
@@ -213,6 +291,9 @@ class BillingApi
             'application/json',
         ],
         'reactivateSubscription' => [
+            'application/json',
+        ],
+        'resizeSubscription' => [
             'application/json',
         ],
         'voidInvoice' => [
@@ -267,40 +348,40 @@ class BillingApi
     }
 
     /**
-     * Operation cancelSubscription
+     * Operation assignSeats
      *
-     * End a subscription
+     * Assign a team&#39;s seats
      *
      * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\SubscriptionRef $subscription_ref subscription_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelSubscription'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\BillingAssignment $billing_assignment billing_assignment (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['assignSeats'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Subscription
+     * @return \Hanzo\Cloud\Model\BillingSubscription|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function cancelSubscription($id, $subscription_ref, string $contentType = self::contentTypes['cancelSubscription'][0])
+    public function assignSeats($id, $billing_assignment, string $contentType = self::contentTypes['assignSeats'][0])
     {
-        list($response) = $this->cancelSubscriptionWithHttpInfo($id, $subscription_ref, $contentType);
+        list($response) = $this->assignSeatsWithHttpInfo($id, $billing_assignment, $contentType);
         return $response;
     }
 
     /**
-     * Operation cancelSubscriptionWithHttpInfo
+     * Operation assignSeatsWithHttpInfo
      *
-     * End a subscription
+     * Assign a team&#39;s seats
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SubscriptionRef $subscription_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelSubscription'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\BillingAssignment $billing_assignment (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['assignSeats'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Subscription, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingSubscription|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function cancelSubscriptionWithHttpInfo($id, $subscription_ref, string $contentType = self::contentTypes['cancelSubscription'][0])
+    public function assignSeatsWithHttpInfo($id, $billing_assignment, string $contentType = self::contentTypes['assignSeats'][0])
     {
-        $request = $this->cancelSubscriptionRequest($id, $subscription_ref, $contentType);
+        $request = $this->assignSeatsRequest($id, $billing_assignment, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -328,7 +409,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Subscription',
+                        '\Hanzo\Cloud\Model\BillingSubscription',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -350,7 +437,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Subscription',
+                '\Hanzo\Cloud\Model\BillingSubscription',
                 $request,
                 $response,
             );
@@ -359,7 +446,320 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Subscription',
+                        '\Hanzo\Cloud\Model\BillingSubscription',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation assignSeatsAsync
+     *
+     * Assign a team&#39;s seats
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\BillingAssignment $billing_assignment (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['assignSeats'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function assignSeatsAsync($id, $billing_assignment, string $contentType = self::contentTypes['assignSeats'][0])
+    {
+        return $this->assignSeatsAsyncWithHttpInfo($id, $billing_assignment, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation assignSeatsAsyncWithHttpInfo
+     *
+     * Assign a team&#39;s seats
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\BillingAssignment $billing_assignment (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['assignSeats'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function assignSeatsAsyncWithHttpInfo($id, $billing_assignment, string $contentType = self::contentTypes['assignSeats'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingSubscription';
+        $request = $this->assignSeatsRequest($id, $billing_assignment, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'assignSeats'
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\BillingAssignment $billing_assignment (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['assignSeats'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function assignSeatsRequest($id, $billing_assignment, string $contentType = self::contentTypes['assignSeats'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling assignSeats'
+            );
+        }
+
+        // verify the required parameter 'billing_assignment' is set
+        if ($billing_assignment === null || (is_array($billing_assignment) && count($billing_assignment) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_assignment when calling assignSeats'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/subscriptions/{id}/seats';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_assignment)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_assignment));
+            } else {
+                $httpBody = $billing_assignment;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation cancelSubscription
+     *
+     * End a subscription
+     *
+     * @param  string $id ID is the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingSubscriptionAct $billing_subscription_act billing_subscription_act (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelSubscription'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingSubscription|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function cancelSubscription($id, $billing_subscription_act, string $contentType = self::contentTypes['cancelSubscription'][0])
+    {
+        list($response) = $this->cancelSubscriptionWithHttpInfo($id, $billing_subscription_act, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation cancelSubscriptionWithHttpInfo
+     *
+     * End a subscription
+     *
+     * @param  string $id ID is the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingSubscriptionAct $billing_subscription_act (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelSubscription'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingSubscription|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function cancelSubscriptionWithHttpInfo($id, $billing_subscription_act, string $contentType = self::contentTypes['cancelSubscription'][0])
+    {
+        $request = $this->cancelSubscriptionRequest($id, $billing_subscription_act, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingSubscription',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingSubscription',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingSubscription',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -376,16 +776,16 @@ class BillingApi
      *
      * End a subscription
      *
-     * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SubscriptionRef $subscription_ref (required)
+     * @param  string $id ID is the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingSubscriptionAct $billing_subscription_act (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelSubscription'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelSubscriptionAsync($id, $subscription_ref, string $contentType = self::contentTypes['cancelSubscription'][0])
+    public function cancelSubscriptionAsync($id, $billing_subscription_act, string $contentType = self::contentTypes['cancelSubscription'][0])
     {
-        return $this->cancelSubscriptionAsyncWithHttpInfo($id, $subscription_ref, $contentType)
+        return $this->cancelSubscriptionAsyncWithHttpInfo($id, $billing_subscription_act, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -398,17 +798,17 @@ class BillingApi
      *
      * End a subscription
      *
-     * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SubscriptionRef $subscription_ref (required)
+     * @param  string $id ID is the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingSubscriptionAct $billing_subscription_act (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelSubscription'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function cancelSubscriptionAsyncWithHttpInfo($id, $subscription_ref, string $contentType = self::contentTypes['cancelSubscription'][0])
+    public function cancelSubscriptionAsyncWithHttpInfo($id, $billing_subscription_act, string $contentType = self::contentTypes['cancelSubscription'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Subscription';
-        $request = $this->cancelSubscriptionRequest($id, $subscription_ref, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingSubscription';
+        $request = $this->cancelSubscriptionRequest($id, $billing_subscription_act, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -449,14 +849,14 @@ class BillingApi
     /**
      * Create request for operation 'cancelSubscription'
      *
-     * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SubscriptionRef $subscription_ref (required)
+     * @param  string $id ID is the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingSubscriptionAct $billing_subscription_act (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['cancelSubscription'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function cancelSubscriptionRequest($id, $subscription_ref, string $contentType = self::contentTypes['cancelSubscription'][0])
+    public function cancelSubscriptionRequest($id, $billing_subscription_act, string $contentType = self::contentTypes['cancelSubscription'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -466,10 +866,10 @@ class BillingApi
             );
         }
 
-        // verify the required parameter 'subscription_ref' is set
-        if ($subscription_ref === null || (is_array($subscription_ref) && count($subscription_ref) === 0)) {
+        // verify the required parameter 'billing_subscription_act' is set
+        if ($billing_subscription_act === null || (is_array($billing_subscription_act) && count($billing_subscription_act) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $subscription_ref when calling cancelSubscription'
+                'Missing the required parameter $billing_subscription_act when calling cancelSubscription'
             );
         }
 
@@ -494,18 +894,18 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($subscription_ref)) {
+        if (isset($billing_subscription_act)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($subscription_ref));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_subscription_act));
             } else {
-                $httpBody = $subscription_ref;
+                $httpBody = $billing_subscription_act;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -563,15 +963,16 @@ class BillingApi
      * Collect an issued invoice from credits, balance, then card
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['collectInvoice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Collected
+     * @return \Hanzo\Cloud\Model\BillingCollected|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function collectInvoice($id, string $contentType = self::contentTypes['collectInvoice'][0])
+    public function collectInvoice($id, $billing_invoice_ref, string $contentType = self::contentTypes['collectInvoice'][0])
     {
-        list($response) = $this->collectInvoiceWithHttpInfo($id, $contentType);
+        list($response) = $this->collectInvoiceWithHttpInfo($id, $billing_invoice_ref, $contentType);
         return $response;
     }
 
@@ -581,15 +982,16 @@ class BillingApi
      * Collect an issued invoice from credits, balance, then card
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['collectInvoice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Collected, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingCollected|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function collectInvoiceWithHttpInfo($id, string $contentType = self::contentTypes['collectInvoice'][0])
+    public function collectInvoiceWithHttpInfo($id, $billing_invoice_ref, string $contentType = self::contentTypes['collectInvoice'][0])
     {
-        $request = $this->collectInvoiceRequest($id, $contentType);
+        $request = $this->collectInvoiceRequest($id, $billing_invoice_ref, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -617,7 +1019,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Collected',
+                        '\Hanzo\Cloud\Model\BillingCollected',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -639,7 +1047,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Collected',
+                '\Hanzo\Cloud\Model\BillingCollected',
                 $request,
                 $response,
             );
@@ -648,7 +1056,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Collected',
+                        '\Hanzo\Cloud\Model\BillingCollected',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -666,14 +1082,15 @@ class BillingApi
      * Collect an issued invoice from credits, balance, then card
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['collectInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function collectInvoiceAsync($id, string $contentType = self::contentTypes['collectInvoice'][0])
+    public function collectInvoiceAsync($id, $billing_invoice_ref, string $contentType = self::contentTypes['collectInvoice'][0])
     {
-        return $this->collectInvoiceAsyncWithHttpInfo($id, $contentType)
+        return $this->collectInvoiceAsyncWithHttpInfo($id, $billing_invoice_ref, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -687,15 +1104,16 @@ class BillingApi
      * Collect an issued invoice from credits, balance, then card
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['collectInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function collectInvoiceAsyncWithHttpInfo($id, string $contentType = self::contentTypes['collectInvoice'][0])
+    public function collectInvoiceAsyncWithHttpInfo($id, $billing_invoice_ref, string $contentType = self::contentTypes['collectInvoice'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Collected';
-        $request = $this->collectInvoiceRequest($id, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingCollected';
+        $request = $this->collectInvoiceRequest($id, $billing_invoice_ref, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -737,18 +1155,26 @@ class BillingApi
      * Create request for operation 'collectInvoice'
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['collectInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function collectInvoiceRequest($id, string $contentType = self::contentTypes['collectInvoice'][0])
+    public function collectInvoiceRequest($id, $billing_invoice_ref, string $contentType = self::contentTypes['collectInvoice'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $id when calling collectInvoice'
+            );
+        }
+
+        // verify the required parameter 'billing_invoice_ref' is set
+        if ($billing_invoice_ref === null || (is_array($billing_invoice_ref) && count($billing_invoice_ref) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_invoice_ref when calling collectInvoice'
             );
         }
 
@@ -773,13 +1199,20 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($billing_invoice_ref)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_invoice_ref));
+            } else {
+                $httpBody = $billing_invoice_ref;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -888,6 +1321,14 @@ class BillingApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -995,7 +1436,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1061,7 +1502,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Detachment
+     * @return \Hanzo\Cloud\Model\BillingDetachment|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteBillingMethodsById($id, string $contentType = self::contentTypes['deleteBillingMethodsById'][0])
     {
@@ -1079,7 +1520,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Detachment, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingDetachment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteBillingMethodsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteBillingMethodsById'][0])
     {
@@ -1111,7 +1552,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Detachment',
+                        '\Hanzo\Cloud\Model\BillingDetachment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1133,7 +1580,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Detachment',
+                '\Hanzo\Cloud\Model\BillingDetachment',
                 $request,
                 $response,
             );
@@ -1142,7 +1589,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Detachment',
+                        '\Hanzo\Cloud\Model\BillingDetachment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1188,7 +1643,7 @@ class BillingApi
      */
     public function deleteBillingMethodsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteBillingMethodsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Detachment';
+        $returnType = '\Hanzo\Cloud\Model\BillingDetachment';
         $request = $this->deleteBillingMethodsByIdRequest($id, $contentType);
 
         return $this->client
@@ -1267,7 +1722,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1326,14 +1781,14 @@ class BillingApi
     /**
      * Operation deleteBillingPortalMethodsById
      *
-     * DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
+     * Removes one card or account the caller has saved, at the address a hosted checkout reaches it by.
      *
      * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingPortalMethodsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Detachment
+     * @return \Hanzo\Cloud\Model\BillingDetachment|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteBillingPortalMethodsById($id, string $contentType = self::contentTypes['deleteBillingPortalMethodsById'][0])
     {
@@ -1344,14 +1799,14 @@ class BillingApi
     /**
      * Operation deleteBillingPortalMethodsByIdWithHttpInfo
      *
-     * DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
+     * Removes one card or account the caller has saved, at the address a hosted checkout reaches it by.
      *
      * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingPortalMethodsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Detachment, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingDetachment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteBillingPortalMethodsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteBillingPortalMethodsById'][0])
     {
@@ -1383,7 +1838,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Detachment',
+                        '\Hanzo\Cloud\Model\BillingDetachment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1405,7 +1866,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Detachment',
+                '\Hanzo\Cloud\Model\BillingDetachment',
                 $request,
                 $response,
             );
@@ -1414,7 +1875,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Detachment',
+                        '\Hanzo\Cloud\Model\BillingDetachment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1429,7 +1898,7 @@ class BillingApi
     /**
      * Operation deleteBillingPortalMethodsByIdAsync
      *
-     * DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
+     * Removes one card or account the caller has saved, at the address a hosted checkout reaches it by.
      *
      * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingPortalMethodsById'] to see the possible values for this operation
@@ -1450,7 +1919,7 @@ class BillingApi
     /**
      * Operation deleteBillingPortalMethodsByIdAsyncWithHttpInfo
      *
-     * DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
+     * Removes one card or account the caller has saved, at the address a hosted checkout reaches it by.
      *
      * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingPortalMethodsById'] to see the possible values for this operation
@@ -1460,7 +1929,7 @@ class BillingApi
      */
     public function deleteBillingPortalMethodsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteBillingPortalMethodsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Detachment';
+        $returnType = '\Hanzo\Cloud\Model\BillingDetachment';
         $request = $this->deleteBillingPortalMethodsByIdRequest($id, $contentType);
 
         return $this->client
@@ -1539,7 +2008,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1604,7 +2073,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BillingAccount[]
+     * @return \Hanzo\Cloud\Model\BillingBillingAccount[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingAccounts(string $contentType = self::contentTypes['getBillingAccounts'][0])
     {
@@ -1621,7 +2090,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BillingAccount[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingBillingAccount[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingAccountsWithHttpInfo(string $contentType = self::contentTypes['getBillingAccounts'][0])
     {
@@ -1653,7 +2122,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BillingAccount[]',
+                        '\Hanzo\Cloud\Model\BillingBillingAccount[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1675,7 +2150,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BillingAccount[]',
+                '\Hanzo\Cloud\Model\BillingBillingAccount[]',
                 $request,
                 $response,
             );
@@ -1684,7 +2159,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BillingAccount[]',
+                        '\Hanzo\Cloud\Model\BillingBillingAccount[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1728,7 +2211,7 @@ class BillingApi
      */
     public function getBillingAccountsAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingAccounts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BillingAccount[]';
+        $returnType = '\Hanzo\Cloud\Model\BillingBillingAccount[]';
         $request = $this->getBillingAccountsRequest($contentType);
 
         return $this->client
@@ -1791,7 +2274,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1857,7 +2340,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Holder[]
+     * @return \Hanzo\Cloud\Model\BillingHolder[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingAccountsByIdMembers($id, string $contentType = self::contentTypes['getBillingAccountsByIdMembers'][0])
     {
@@ -1875,7 +2358,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Holder[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingHolder[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingAccountsByIdMembersWithHttpInfo($id, string $contentType = self::contentTypes['getBillingAccountsByIdMembers'][0])
     {
@@ -1907,7 +2390,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Holder[]',
+                        '\Hanzo\Cloud\Model\BillingHolder[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1929,7 +2418,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Holder[]',
+                '\Hanzo\Cloud\Model\BillingHolder[]',
                 $request,
                 $response,
             );
@@ -1938,7 +2427,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Holder[]',
+                        '\Hanzo\Cloud\Model\BillingHolder[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1984,7 +2481,7 @@ class BillingApi
      */
     public function getBillingAccountsByIdMembersAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getBillingAccountsByIdMembers'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Holder[]';
+        $returnType = '\Hanzo\Cloud\Model\BillingHolder[]';
         $request = $this->getBillingAccountsByIdMembersRequest($id, $contentType);
 
         return $this->client
@@ -2063,7 +2560,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2128,7 +2625,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Alert[]
+     * @return \Hanzo\Cloud\Model\BillingAlert[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingAlerts(string $contentType = self::contentTypes['getBillingAlerts'][0])
     {
@@ -2145,7 +2642,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Alert[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingAlert[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingAlertsWithHttpInfo(string $contentType = self::contentTypes['getBillingAlerts'][0])
     {
@@ -2177,7 +2674,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Alert[]',
+                        '\Hanzo\Cloud\Model\BillingAlert[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2199,7 +2702,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Alert[]',
+                '\Hanzo\Cloud\Model\BillingAlert[]',
                 $request,
                 $response,
             );
@@ -2208,7 +2711,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Alert[]',
+                        '\Hanzo\Cloud\Model\BillingAlert[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2252,7 +2763,7 @@ class BillingApi
      */
     public function getBillingAlertsAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingAlerts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Alert[]';
+        $returnType = '\Hanzo\Cloud\Model\BillingAlert[]';
         $request = $this->getBillingAlertsRequest($contentType);
 
         return $this->client
@@ -2315,7 +2826,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2384,7 +2895,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CapVerdict
+     * @return \Hanzo\Cloud\Model\BillingCapVerdict|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingAlertsAuthorize($project = null, $service = null, $amount = null, $pv = null, string $contentType = self::contentTypes['getBillingAlertsAuthorize'][0])
     {
@@ -2405,7 +2916,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CapVerdict, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingCapVerdict|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingAlertsAuthorizeWithHttpInfo($project = null, $service = null, $amount = null, $pv = null, string $contentType = self::contentTypes['getBillingAlertsAuthorize'][0])
     {
@@ -2437,7 +2948,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CapVerdict',
+                        '\Hanzo\Cloud\Model\BillingCapVerdict',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2459,7 +2976,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CapVerdict',
+                '\Hanzo\Cloud\Model\BillingCapVerdict',
                 $request,
                 $response,
             );
@@ -2468,7 +2985,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CapVerdict',
+                        '\Hanzo\Cloud\Model\BillingCapVerdict',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2520,7 +3045,7 @@ class BillingApi
      */
     public function getBillingAlertsAuthorizeAsyncWithHttpInfo($project = null, $service = null, $amount = null, $pv = null, string $contentType = self::contentTypes['getBillingAlertsAuthorize'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CapVerdict';
+        $returnType = '\Hanzo\Cloud\Model\BillingCapVerdict';
         $request = $this->getBillingAlertsAuthorizeRequest($project, $service, $amount, $pv, $contentType);
 
         return $this->client
@@ -2627,7 +3152,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2886,6 +3411,494 @@ class BillingApi
     }
 
     /**
+     * Operation getBillingCatalog
+     *
+     * What is for sale in dollars and how it is paid for
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCatalog'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getBillingCatalog(string $contentType = self::contentTypes['getBillingCatalog'][0])
+    {
+        $this->getBillingCatalogWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation getBillingCatalogWithHttpInfo
+     *
+     * What is for sale in dollars and how it is paid for
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCatalog'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBillingCatalogWithHttpInfo(string $contentType = self::contentTypes['getBillingCatalog'][0])
+    {
+        $request = $this->getBillingCatalogRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBillingCatalogAsync
+     *
+     * What is for sale in dollars and how it is paid for
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCatalog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingCatalogAsync(string $contentType = self::contentTypes['getBillingCatalog'][0])
+    {
+        return $this->getBillingCatalogAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBillingCatalogAsyncWithHttpInfo
+     *
+     * What is for sale in dollars and how it is paid for
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCatalog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingCatalogAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingCatalog'][0])
+    {
+        $returnType = '';
+        $request = $this->getBillingCatalogRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBillingCatalog'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCatalog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBillingCatalogRequest(string $contentType = self::contentTypes['getBillingCatalog'][0])
+    {
+
+
+        $resourcePath = '/v1/billing/catalog';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getBillingCheckoutsById
+     *
+     * Answers where one of the caller&#39;s own checkouts stands: open, pending, complete or failed, with the next step while it waits on the buyer and the order once it is complete.
+     *
+     * @param  string $id ID is the checkout, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCheckoutsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingCheckoutView|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getBillingCheckoutsById($id, string $contentType = self::contentTypes['getBillingCheckoutsById'][0])
+    {
+        list($response) = $this->getBillingCheckoutsByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getBillingCheckoutsByIdWithHttpInfo
+     *
+     * Answers where one of the caller&#39;s own checkouts stands: open, pending, complete or failed, with the next step while it waits on the buyer and the order once it is complete.
+     *
+     * @param  string $id ID is the checkout, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCheckoutsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingCheckoutView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBillingCheckoutsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getBillingCheckoutsById'][0])
+    {
+        $request = $this->getBillingCheckoutsByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingCheckoutView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingCheckoutView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingCheckoutView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBillingCheckoutsByIdAsync
+     *
+     * Answers where one of the caller&#39;s own checkouts stands: open, pending, complete or failed, with the next step while it waits on the buyer and the order once it is complete.
+     *
+     * @param  string $id ID is the checkout, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCheckoutsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingCheckoutsByIdAsync($id, string $contentType = self::contentTypes['getBillingCheckoutsById'][0])
+    {
+        return $this->getBillingCheckoutsByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBillingCheckoutsByIdAsyncWithHttpInfo
+     *
+     * Answers where one of the caller&#39;s own checkouts stands: open, pending, complete or failed, with the next step while it waits on the buyer and the order once it is complete.
+     *
+     * @param  string $id ID is the checkout, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCheckoutsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingCheckoutsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getBillingCheckoutsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingCheckoutView';
+        $request = $this->getBillingCheckoutsByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBillingCheckoutsById'
+     *
+     * @param  string $id ID is the checkout, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCheckoutsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBillingCheckoutsByIdRequest($id, string $contentType = self::contentTypes['getBillingCheckoutsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getBillingCheckoutsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/checkouts/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getBillingCreditBalance
      *
      * Answers what the caller can spend right now, one entry per currency.
@@ -2894,7 +3907,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CreditBalance
+     * @return \Hanzo\Cloud\Model\BillingCreditBalance|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingCreditBalance(string $contentType = self::contentTypes['getBillingCreditBalance'][0])
     {
@@ -2911,7 +3924,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CreditBalance, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingCreditBalance|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingCreditBalanceWithHttpInfo(string $contentType = self::contentTypes['getBillingCreditBalance'][0])
     {
@@ -2943,7 +3956,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CreditBalance',
+                        '\Hanzo\Cloud\Model\BillingCreditBalance',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2965,7 +3984,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CreditBalance',
+                '\Hanzo\Cloud\Model\BillingCreditBalance',
                 $request,
                 $response,
             );
@@ -2974,7 +3993,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CreditBalance',
+                        '\Hanzo\Cloud\Model\BillingCreditBalance',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3018,7 +4045,7 @@ class BillingApi
      */
     public function getBillingCreditBalanceAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingCreditBalance'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CreditBalance';
+        $returnType = '\Hanzo\Cloud\Model\BillingCreditBalance';
         $request = $this->getBillingCreditBalanceRequest($contentType);
 
         return $this->client
@@ -3081,7 +4108,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3146,7 +4173,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingCreditBalanceBreakdown(string $contentType = self::contentTypes['getBillingCreditBalanceBreakdown'][0])
     {
@@ -3163,7 +4190,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingCreditBalanceBreakdownWithHttpInfo(string $contentType = self::contentTypes['getBillingCreditBalanceBreakdown'][0])
     {
@@ -3199,6 +4226,12 @@ class BillingApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -3227,6 +4260,14 @@ class BillingApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3333,7 +4374,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3398,7 +4439,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CreditGrants
+     * @return \Hanzo\Cloud\Model\BillingCreditGrants|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingCredits(string $contentType = self::contentTypes['getBillingCredits'][0])
     {
@@ -3415,7 +4456,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CreditGrants, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingCreditGrants|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingCreditsWithHttpInfo(string $contentType = self::contentTypes['getBillingCredits'][0])
     {
@@ -3447,7 +4488,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CreditGrants',
+                        '\Hanzo\Cloud\Model\BillingCreditGrants',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3469,7 +4516,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CreditGrants',
+                '\Hanzo\Cloud\Model\BillingCreditGrants',
                 $request,
                 $response,
             );
@@ -3478,7 +4525,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CreditGrants',
+                        '\Hanzo\Cloud\Model\BillingCreditGrants',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3522,7 +4577,7 @@ class BillingApi
      */
     public function getBillingCreditsAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingCredits'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CreditGrants';
+        $returnType = '\Hanzo\Cloud\Model\BillingCreditGrants';
         $request = $this->getBillingCreditsRequest($contentType);
 
         return $this->client
@@ -3585,7 +4640,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3651,7 +4706,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CryptoDeposit
+     * @return \Hanzo\Cloud\Model\BillingCryptoDeposit|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingCryptoDepositById($id, string $contentType = self::contentTypes['getBillingCryptoDepositById'][0])
     {
@@ -3669,7 +4724,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CryptoDeposit, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingCryptoDeposit|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingCryptoDepositByIdWithHttpInfo($id, string $contentType = self::contentTypes['getBillingCryptoDepositById'][0])
     {
@@ -3701,7 +4756,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CryptoDeposit',
+                        '\Hanzo\Cloud\Model\BillingCryptoDeposit',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3723,7 +4784,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CryptoDeposit',
+                '\Hanzo\Cloud\Model\BillingCryptoDeposit',
                 $request,
                 $response,
             );
@@ -3732,7 +4793,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CryptoDeposit',
+                        '\Hanzo\Cloud\Model\BillingCryptoDeposit',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3778,7 +4847,7 @@ class BillingApi
      */
     public function getBillingCryptoDepositByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getBillingCryptoDepositById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CryptoDeposit';
+        $returnType = '\Hanzo\Cloud\Model\BillingCryptoDeposit';
         $request = $this->getBillingCryptoDepositByIdRequest($id, $contentType);
 
         return $this->client
@@ -3857,7 +4926,559 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getBillingCryptoGateway
+     *
+     * Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoGateway'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingGatewayTerms|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getBillingCryptoGateway(string $contentType = self::contentTypes['getBillingCryptoGateway'][0])
+    {
+        list($response) = $this->getBillingCryptoGatewayWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getBillingCryptoGatewayWithHttpInfo
+     *
+     * Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoGateway'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingGatewayTerms|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBillingCryptoGatewayWithHttpInfo(string $contentType = self::contentTypes['getBillingCryptoGateway'][0])
+    {
+        $request = $this->getBillingCryptoGatewayRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingGatewayTerms',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingGatewayTerms',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingGatewayTerms',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBillingCryptoGatewayAsync
+     *
+     * Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoGateway'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingCryptoGatewayAsync(string $contentType = self::contentTypes['getBillingCryptoGateway'][0])
+    {
+        return $this->getBillingCryptoGatewayAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBillingCryptoGatewayAsyncWithHttpInfo
+     *
+     * Answers the terms to sign a USDC top-up against, for an agent or a person paying from a wallet: the treasury to pay, the networks and USDC contracts, the EIP-712 domain and types, the limits, and a nonce issued to the caller.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoGateway'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingCryptoGatewayAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingCryptoGateway'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingGatewayTerms';
+        $request = $this->getBillingCryptoGatewayRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBillingCryptoGateway'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoGateway'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBillingCryptoGatewayRequest(string $contentType = self::contentTypes['getBillingCryptoGateway'][0])
+    {
+
+
+        $resourcePath = '/v1/billing/crypto/gateway';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getBillingCryptoGatewayById
+     *
+     * Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.
+     *
+     * @param  string $id ID is the top-up&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoGatewayById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingGatewayPayment|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getBillingCryptoGatewayById($id, string $contentType = self::contentTypes['getBillingCryptoGatewayById'][0])
+    {
+        list($response) = $this->getBillingCryptoGatewayByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getBillingCryptoGatewayByIdWithHttpInfo
+     *
+     * Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.
+     *
+     * @param  string $id ID is the top-up&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoGatewayById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingGatewayPayment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBillingCryptoGatewayByIdWithHttpInfo($id, string $contentType = self::contentTypes['getBillingCryptoGatewayById'][0])
+    {
+        $request = $this->getBillingCryptoGatewayByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingGatewayPayment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingGatewayPayment',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingGatewayPayment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBillingCryptoGatewayByIdAsync
+     *
+     * Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.
+     *
+     * @param  string $id ID is the top-up&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoGatewayById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingCryptoGatewayByIdAsync($id, string $contentType = self::contentTypes['getBillingCryptoGatewayById'][0])
+    {
+        return $this->getBillingCryptoGatewayByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBillingCryptoGatewayByIdAsyncWithHttpInfo
+     *
+     * Reads one of the caller&#39;s own USDC top-ups back: pending, accepted (credited or deferred), settled, failed or refused.
+     *
+     * @param  string $id ID is the top-up&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoGatewayById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingCryptoGatewayByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getBillingCryptoGatewayById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingGatewayPayment';
+        $request = $this->getBillingCryptoGatewayByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBillingCryptoGatewayById'
+     *
+     * @param  string $id ID is the top-up&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoGatewayById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBillingCryptoGatewayByIdRequest($id, string $contentType = self::contentTypes['getBillingCryptoGatewayById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getBillingCryptoGatewayById'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/crypto/gateway/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3916,13 +5537,13 @@ class BillingApi
     /**
      * Operation getBillingCryptoOptions
      *
-     * Answers which chains and tokens the crypto rail accepts — what an asset picker renders.
+     * Answers which chains and tokens the crypto rail accepts — what an asset picker renders — and the pairs themselves in assets: a chain and a token each on offer are not a pair on offer.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoOptions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CryptoOptions
+     * @return \Hanzo\Cloud\Model\BillingCryptoOptions|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingCryptoOptions(string $contentType = self::contentTypes['getBillingCryptoOptions'][0])
     {
@@ -3933,13 +5554,13 @@ class BillingApi
     /**
      * Operation getBillingCryptoOptionsWithHttpInfo
      *
-     * Answers which chains and tokens the crypto rail accepts — what an asset picker renders.
+     * Answers which chains and tokens the crypto rail accepts — what an asset picker renders — and the pairs themselves in assets: a chain and a token each on offer are not a pair on offer.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoOptions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CryptoOptions, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingCryptoOptions|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingCryptoOptionsWithHttpInfo(string $contentType = self::contentTypes['getBillingCryptoOptions'][0])
     {
@@ -3971,7 +5592,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CryptoOptions',
+                        '\Hanzo\Cloud\Model\BillingCryptoOptions',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3993,7 +5620,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CryptoOptions',
+                '\Hanzo\Cloud\Model\BillingCryptoOptions',
                 $request,
                 $response,
             );
@@ -4002,7 +5629,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CryptoOptions',
+                        '\Hanzo\Cloud\Model\BillingCryptoOptions',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4017,7 +5652,7 @@ class BillingApi
     /**
      * Operation getBillingCryptoOptionsAsync
      *
-     * Answers which chains and tokens the crypto rail accepts — what an asset picker renders.
+     * Answers which chains and tokens the crypto rail accepts — what an asset picker renders — and the pairs themselves in assets: a chain and a token each on offer are not a pair on offer.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoOptions'] to see the possible values for this operation
      *
@@ -4037,7 +5672,7 @@ class BillingApi
     /**
      * Operation getBillingCryptoOptionsAsyncWithHttpInfo
      *
-     * Answers which chains and tokens the crypto rail accepts — what an asset picker renders.
+     * Answers which chains and tokens the crypto rail accepts — what an asset picker renders — and the pairs themselves in assets: a chain and a token each on offer are not a pair on offer.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingCryptoOptions'] to see the possible values for this operation
      *
@@ -4046,7 +5681,7 @@ class BillingApi
      */
     public function getBillingCryptoOptionsAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingCryptoOptions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CryptoOptions';
+        $returnType = '\Hanzo\Cloud\Model\BillingCryptoOptions';
         $request = $this->getBillingCryptoOptionsRequest($contentType);
 
         return $this->client
@@ -4109,7 +5744,209 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getBillingDiscovery
+     *
+     * Answers where the purchase surface is and what it speaks: its version, the paths of its parts, the checkout&#39;s verbs in order, the payment types a checkout completes with, and how a subscription is renewed by an agent.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingDiscovery'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getBillingDiscovery(string $contentType = self::contentTypes['getBillingDiscovery'][0])
+    {
+        $this->getBillingDiscoveryWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation getBillingDiscoveryWithHttpInfo
+     *
+     * Answers where the purchase surface is and what it speaks: its version, the paths of its parts, the checkout&#39;s verbs in order, the payment types a checkout completes with, and how a subscription is renewed by an agent.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingDiscovery'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBillingDiscoveryWithHttpInfo(string $contentType = self::contentTypes['getBillingDiscovery'][0])
+    {
+        $request = $this->getBillingDiscoveryRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBillingDiscoveryAsync
+     *
+     * Answers where the purchase surface is and what it speaks: its version, the paths of its parts, the checkout&#39;s verbs in order, the payment types a checkout completes with, and how a subscription is renewed by an agent.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingDiscovery'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingDiscoveryAsync(string $contentType = self::contentTypes['getBillingDiscovery'][0])
+    {
+        return $this->getBillingDiscoveryAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBillingDiscoveryAsyncWithHttpInfo
+     *
+     * Answers where the purchase surface is and what it speaks: its version, the paths of its parts, the checkout&#39;s verbs in order, the payment types a checkout completes with, and how a subscription is renewed by an agent.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingDiscovery'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingDiscoveryAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingDiscovery'][0])
+    {
+        $returnType = '';
+        $request = $this->getBillingDiscoveryRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBillingDiscovery'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingDiscovery'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBillingDiscoveryRequest(string $contentType = self::contentTypes['getBillingDiscovery'][0])
+    {
+
+
+        $resourcePath = '/v1/billing/discovery';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
             $contentType,
             $multipart
         );
@@ -4170,15 +6007,20 @@ class BillingApi
      *
      * Lists the caller&#39;s invoices, newest first, with the count beside them.
      *
+     * @param  string|null $subject subject (optional)
+     * @param  string|null $status status (optional)
+     * @param  string|null $subscription_id subscription_id (optional)
+     * @param  int|null $limit limit (optional)
+     * @param  string|null $cursor cursor (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoices'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Invoices
+     * @return \Hanzo\Cloud\Model\BillingInvoices|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getBillingInvoices(string $contentType = self::contentTypes['getBillingInvoices'][0])
+    public function getBillingInvoices($subject = null, $status = null, $subscription_id = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getBillingInvoices'][0])
     {
-        list($response) = $this->getBillingInvoicesWithHttpInfo($contentType);
+        list($response) = $this->getBillingInvoicesWithHttpInfo($subject, $status, $subscription_id, $limit, $cursor, $contentType);
         return $response;
     }
 
@@ -4187,15 +6029,20 @@ class BillingApi
      *
      * Lists the caller&#39;s invoices, newest first, with the count beside them.
      *
+     * @param  string|null $subject (optional)
+     * @param  string|null $status (optional)
+     * @param  string|null $subscription_id (optional)
+     * @param  int|null $limit (optional)
+     * @param  string|null $cursor (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoices'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Invoices, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingInvoices|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBillingInvoicesWithHttpInfo(string $contentType = self::contentTypes['getBillingInvoices'][0])
+    public function getBillingInvoicesWithHttpInfo($subject = null, $status = null, $subscription_id = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getBillingInvoices'][0])
     {
-        $request = $this->getBillingInvoicesRequest($contentType);
+        $request = $this->getBillingInvoicesRequest($subject, $status, $subscription_id, $limit, $cursor, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4223,7 +6070,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Invoices',
+                        '\Hanzo\Cloud\Model\BillingInvoices',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4245,7 +6098,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Invoices',
+                '\Hanzo\Cloud\Model\BillingInvoices',
                 $request,
                 $response,
             );
@@ -4254,7 +6107,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Invoices',
+                        '\Hanzo\Cloud\Model\BillingInvoices',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4271,14 +6132,19 @@ class BillingApi
      *
      * Lists the caller&#39;s invoices, newest first, with the count beside them.
      *
+     * @param  string|null $subject (optional)
+     * @param  string|null $status (optional)
+     * @param  string|null $subscription_id (optional)
+     * @param  int|null $limit (optional)
+     * @param  string|null $cursor (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoices'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBillingInvoicesAsync(string $contentType = self::contentTypes['getBillingInvoices'][0])
+    public function getBillingInvoicesAsync($subject = null, $status = null, $subscription_id = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getBillingInvoices'][0])
     {
-        return $this->getBillingInvoicesAsyncWithHttpInfo($contentType)
+        return $this->getBillingInvoicesAsyncWithHttpInfo($subject, $status, $subscription_id, $limit, $cursor, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4291,15 +6157,20 @@ class BillingApi
      *
      * Lists the caller&#39;s invoices, newest first, with the count beside them.
      *
+     * @param  string|null $subject (optional)
+     * @param  string|null $status (optional)
+     * @param  string|null $subscription_id (optional)
+     * @param  int|null $limit (optional)
+     * @param  string|null $cursor (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoices'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBillingInvoicesAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingInvoices'][0])
+    public function getBillingInvoicesAsyncWithHttpInfo($subject = null, $status = null, $subscription_id = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getBillingInvoices'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Invoices';
-        $request = $this->getBillingInvoicesRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingInvoices';
+        $request = $this->getBillingInvoicesRequest($subject, $status, $subscription_id, $limit, $cursor, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4340,13 +6211,23 @@ class BillingApi
     /**
      * Create request for operation 'getBillingInvoices'
      *
+     * @param  string|null $subject (optional)
+     * @param  string|null $status (optional)
+     * @param  string|null $subscription_id (optional)
+     * @param  int|null $limit (optional)
+     * @param  string|null $cursor (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoices'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getBillingInvoicesRequest(string $contentType = self::contentTypes['getBillingInvoices'][0])
+    public function getBillingInvoicesRequest($subject = null, $status = null, $subscription_id = null, $limit = null, $cursor = null, string $contentType = self::contentTypes['getBillingInvoices'][0])
     {
+
+
+
+
+
 
 
         $resourcePath = '/v1/billing/invoices';
@@ -4356,12 +6237,57 @@ class BillingApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $subject,
+            'subject', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $status,
+            'status', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $subscription_id,
+            'subscriptionId', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4640,16 +6566,452 @@ class BillingApi
     }
 
     /**
+     * Operation getBillingInvoicesHostedByLink
+     *
+     * Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+     *
+     * @param  string $link link (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoicesHostedByLink'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getBillingInvoicesHostedByLink($link, string $contentType = self::contentTypes['getBillingInvoicesHostedByLink'][0])
+    {
+        $this->getBillingInvoicesHostedByLinkWithHttpInfo($link, $contentType);
+    }
+
+    /**
+     * Operation getBillingInvoicesHostedByLinkWithHttpInfo
+     *
+     * Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+     *
+     * @param  string $link (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoicesHostedByLink'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBillingInvoicesHostedByLinkWithHttpInfo($link, string $contentType = self::contentTypes['getBillingInvoicesHostedByLink'][0])
+    {
+        $request = $this->getBillingInvoicesHostedByLinkRequest($link, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBillingInvoicesHostedByLinkAsync
+     *
+     * Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+     *
+     * @param  string $link (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoicesHostedByLink'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingInvoicesHostedByLinkAsync($link, string $contentType = self::contentTypes['getBillingInvoicesHostedByLink'][0])
+    {
+        return $this->getBillingInvoicesHostedByLinkAsyncWithHttpInfo($link, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBillingInvoicesHostedByLinkAsyncWithHttpInfo
+     *
+     * Is the order invoice a link shows, read on the brand of the host it is asked on: a link read on another brand&#39;s host is a miss.
+     *
+     * @param  string $link (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoicesHostedByLink'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingInvoicesHostedByLinkAsyncWithHttpInfo($link, string $contentType = self::contentTypes['getBillingInvoicesHostedByLink'][0])
+    {
+        $returnType = '';
+        $request = $this->getBillingInvoicesHostedByLinkRequest($link, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBillingInvoicesHostedByLink'
+     *
+     * @param  string $link (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoicesHostedByLink'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBillingInvoicesHostedByLinkRequest($link, string $contentType = self::contentTypes['getBillingInvoicesHostedByLink'][0])
+    {
+
+        // verify the required parameter 'link' is set
+        if ($link === null || (is_array($link) && count($link) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $link when calling getBillingInvoicesHostedByLink'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/invoices/hosted/{link}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($link !== null) {
+            $resourcePath = str_replace(
+                '{' . 'link' . '}',
+                ObjectSerializer::toPathValue($link),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getBillingInvoicesHostedByLinkPdf
+     *
+     * Is the order invoice a link shows, as a PDF to print or save.
+     *
+     * @param  string $link link (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoicesHostedByLinkPdf'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getBillingInvoicesHostedByLinkPdf($link, string $contentType = self::contentTypes['getBillingInvoicesHostedByLinkPdf'][0])
+    {
+        $this->getBillingInvoicesHostedByLinkPdfWithHttpInfo($link, $contentType);
+    }
+
+    /**
+     * Operation getBillingInvoicesHostedByLinkPdfWithHttpInfo
+     *
+     * Is the order invoice a link shows, as a PDF to print or save.
+     *
+     * @param  string $link (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoicesHostedByLinkPdf'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBillingInvoicesHostedByLinkPdfWithHttpInfo($link, string $contentType = self::contentTypes['getBillingInvoicesHostedByLinkPdf'][0])
+    {
+        $request = $this->getBillingInvoicesHostedByLinkPdfRequest($link, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBillingInvoicesHostedByLinkPdfAsync
+     *
+     * Is the order invoice a link shows, as a PDF to print or save.
+     *
+     * @param  string $link (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoicesHostedByLinkPdf'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingInvoicesHostedByLinkPdfAsync($link, string $contentType = self::contentTypes['getBillingInvoicesHostedByLinkPdf'][0])
+    {
+        return $this->getBillingInvoicesHostedByLinkPdfAsyncWithHttpInfo($link, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBillingInvoicesHostedByLinkPdfAsyncWithHttpInfo
+     *
+     * Is the order invoice a link shows, as a PDF to print or save.
+     *
+     * @param  string $link (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoicesHostedByLinkPdf'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingInvoicesHostedByLinkPdfAsyncWithHttpInfo($link, string $contentType = self::contentTypes['getBillingInvoicesHostedByLinkPdf'][0])
+    {
+        $returnType = '';
+        $request = $this->getBillingInvoicesHostedByLinkPdfRequest($link, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBillingInvoicesHostedByLinkPdf'
+     *
+     * @param  string $link (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingInvoicesHostedByLinkPdf'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBillingInvoicesHostedByLinkPdfRequest($link, string $contentType = self::contentTypes['getBillingInvoicesHostedByLinkPdf'][0])
+    {
+
+        // verify the required parameter 'link' is set
+        if ($link === null || (is_array($link) && count($link) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $link when calling getBillingInvoicesHostedByLinkPdf'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/invoices/hosted/{link}/pdf';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($link !== null) {
+            $resourcePath = str_replace(
+                '{' . 'link' . '}',
+                ObjectSerializer::toPathValue($link),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getBillingLedger
      *
-     * Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;) and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
+     * Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;), a HOLD sets money aside for a payment agreed and not yet made (negative, account &#x60;held:&lt;org&gt;&#x60;) and its return gives it back (positive), and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
      *
      * @param  string|null $range Range is the window: 24h, 7d, 30d or 90d. Anything else — including absent — is 30d, so a typo silently widens the window to a month rather than failing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingLedger'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FinanceLedgerEntry[]
+     * @return \Hanzo\Cloud\Model\BillingFinanceLedgerEntry[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingLedger($range = null, string $contentType = self::contentTypes['getBillingLedger'][0])
     {
@@ -4660,14 +7022,14 @@ class BillingApi
     /**
      * Operation getBillingLedgerWithHttpInfo
      *
-     * Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;) and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
+     * Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;), a HOLD sets money aside for a payment agreed and not yet made (negative, account &#x60;held:&lt;org&gt;&#x60;) and its return gives it back (positive), and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
      *
      * @param  string|null $range Range is the window: 24h, 7d, 30d or 90d. Anything else — including absent — is 30d, so a typo silently widens the window to a month rather than failing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingLedger'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FinanceLedgerEntry[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingFinanceLedgerEntry[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingLedgerWithHttpInfo($range = null, string $contentType = self::contentTypes['getBillingLedger'][0])
     {
@@ -4699,7 +7061,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FinanceLedgerEntry[]',
+                        '\Hanzo\Cloud\Model\BillingFinanceLedgerEntry[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4721,7 +7089,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FinanceLedgerEntry[]',
+                '\Hanzo\Cloud\Model\BillingFinanceLedgerEntry[]',
                 $request,
                 $response,
             );
@@ -4730,7 +7098,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FinanceLedgerEntry[]',
+                        '\Hanzo\Cloud\Model\BillingFinanceLedgerEntry[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4745,7 +7121,7 @@ class BillingApi
     /**
      * Operation getBillingLedgerAsync
      *
-     * Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;) and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
+     * Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;), a HOLD sets money aside for a payment agreed and not yet made (negative, account &#x60;held:&lt;org&gt;&#x60;) and its return gives it back (positive), and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
      *
      * @param  string|null $range Range is the window: 24h, 7d, 30d or 90d. Anything else — including absent — is 30d, so a typo silently widens the window to a month rather than failing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingLedger'] to see the possible values for this operation
@@ -4766,7 +7142,7 @@ class BillingApi
     /**
      * Operation getBillingLedgerAsyncWithHttpInfo
      *
-     * Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;) and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
+     * Answers the org&#39;s own postings inside &#x60;range&#x3D;&#x60;, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account &#x60;credits:&lt;org&gt;&#x60;), a HOLD sets money aside for a payment agreed and not yet made (negative, account &#x60;held:&lt;org&gt;&#x60;) and its return gives it back (positive), and every other posting DEBITS it (negative, account &#x60;usage:&lt;org&gt;&#x60;), described by its notes or its tags.
      *
      * @param  string|null $range Range is the window: 24h, 7d, 30d or 90d. Anything else — including absent — is 30d, so a typo silently widens the window to a month rather than failing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingLedger'] to see the possible values for this operation
@@ -4776,7 +7152,7 @@ class BillingApi
      */
     public function getBillingLedgerAsyncWithHttpInfo($range = null, string $contentType = self::contentTypes['getBillingLedger'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FinanceLedgerEntry[]';
+        $returnType = '\Hanzo\Cloud\Model\BillingFinanceLedgerEntry[]';
         $request = $this->getBillingLedgerRequest($range, $contentType);
 
         return $this->client
@@ -4850,7 +7226,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5109,6 +7485,292 @@ class BillingApi
     }
 
     /**
+     * Operation getBillingOrdersById
+     *
+     * Confirms a completed checkout: the order, what it cost, what the wallet was credited or the subscription it opened, and for a subscription what is left on the token it renews on.
+     *
+     * @param  string $id ID is the checkout, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingOrdersById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingAgentOrder|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getBillingOrdersById($id, string $contentType = self::contentTypes['getBillingOrdersById'][0])
+    {
+        list($response) = $this->getBillingOrdersByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getBillingOrdersByIdWithHttpInfo
+     *
+     * Confirms a completed checkout: the order, what it cost, what the wallet was credited or the subscription it opened, and for a subscription what is left on the token it renews on.
+     *
+     * @param  string $id ID is the checkout, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingOrdersById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingAgentOrder|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBillingOrdersByIdWithHttpInfo($id, string $contentType = self::contentTypes['getBillingOrdersById'][0])
+    {
+        $request = $this->getBillingOrdersByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingAgentOrder',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingAgentOrder',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingAgentOrder',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBillingOrdersByIdAsync
+     *
+     * Confirms a completed checkout: the order, what it cost, what the wallet was credited or the subscription it opened, and for a subscription what is left on the token it renews on.
+     *
+     * @param  string $id ID is the checkout, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingOrdersById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingOrdersByIdAsync($id, string $contentType = self::contentTypes['getBillingOrdersById'][0])
+    {
+        return $this->getBillingOrdersByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBillingOrdersByIdAsyncWithHttpInfo
+     *
+     * Confirms a completed checkout: the order, what it cost, what the wallet was credited or the subscription it opened, and for a subscription what is left on the token it renews on.
+     *
+     * @param  string $id ID is the checkout, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingOrdersById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingOrdersByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getBillingOrdersById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingAgentOrder';
+        $request = $this->getBillingOrdersByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBillingOrdersById'
+     *
+     * @param  string $id ID is the checkout, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingOrdersById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBillingOrdersByIdRequest($id, string $contentType = self::contentTypes['getBillingOrdersById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getBillingOrdersById'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/orders/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getBillingPayouts
      *
      * Answers the org&#39;s outbound payouts, newest first — amount, destination, status, and the failure reason where one applies.
@@ -5117,7 +7779,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Payout[]
+     * @return \Hanzo\Cloud\Model\BillingPayout[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingPayouts(string $contentType = self::contentTypes['getBillingPayouts'][0])
     {
@@ -5134,7 +7796,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Payout[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingPayout[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingPayoutsWithHttpInfo(string $contentType = self::contentTypes['getBillingPayouts'][0])
     {
@@ -5166,7 +7828,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Payout[]',
+                        '\Hanzo\Cloud\Model\BillingPayout[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5188,7 +7856,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Payout[]',
+                '\Hanzo\Cloud\Model\BillingPayout[]',
                 $request,
                 $response,
             );
@@ -5197,7 +7865,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Payout[]',
+                        '\Hanzo\Cloud\Model\BillingPayout[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5241,7 +7917,7 @@ class BillingApi
      */
     public function getBillingPayoutsAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingPayouts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Payout[]';
+        $returnType = '\Hanzo\Cloud\Model\BillingPayout[]';
         $request = $this->getBillingPayoutsRequest($contentType);
 
         return $this->client
@@ -5304,7 +7980,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5536,10 +8212,6 @@ class BillingApi
             }
         }
 
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -5765,15 +8437,386 @@ class BillingApi
     }
 
     /**
+     * Operation getBillingQuote
+     *
+     * Answers the price of what the caller is about to buy.
+     *
+     * @param  string|null $plan Plan is the plan to price; absent when usdCents asks for credit. (optional)
+     * @param  int|null $level Level selects the plan&#39;s published price level. (optional)
+     * @param  string|null $interval Interval selects the billing term, month or year. (optional)
+     * @param  int|null $usd_cents UsdCents asks for an amount of credit when no plan is named. (optional)
+     * @param  string|null $country Country is the buyer&#39;s ISO 3166-1 alpha-2 country; the edge&#39;s geo country when absent. (optional)
+     * @param  string|null $currency Currency is the currency the buyer chose; the country&#39;s default when absent. (optional)
+     * @param  string|null $method Method is the payment method the buyer chose, when they have. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingQuote'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingPriceQuote|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getBillingQuote($plan = null, $level = null, $interval = null, $usd_cents = null, $country = null, $currency = null, $method = null, string $contentType = self::contentTypes['getBillingQuote'][0])
+    {
+        list($response) = $this->getBillingQuoteWithHttpInfo($plan, $level, $interval, $usd_cents, $country, $currency, $method, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getBillingQuoteWithHttpInfo
+     *
+     * Answers the price of what the caller is about to buy.
+     *
+     * @param  string|null $plan Plan is the plan to price; absent when usdCents asks for credit. (optional)
+     * @param  int|null $level Level selects the plan&#39;s published price level. (optional)
+     * @param  string|null $interval Interval selects the billing term, month or year. (optional)
+     * @param  int|null $usd_cents UsdCents asks for an amount of credit when no plan is named. (optional)
+     * @param  string|null $country Country is the buyer&#39;s ISO 3166-1 alpha-2 country; the edge&#39;s geo country when absent. (optional)
+     * @param  string|null $currency Currency is the currency the buyer chose; the country&#39;s default when absent. (optional)
+     * @param  string|null $method Method is the payment method the buyer chose, when they have. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingQuote'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingPriceQuote|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBillingQuoteWithHttpInfo($plan = null, $level = null, $interval = null, $usd_cents = null, $country = null, $currency = null, $method = null, string $contentType = self::contentTypes['getBillingQuote'][0])
+    {
+        $request = $this->getBillingQuoteRequest($plan, $level, $interval, $usd_cents, $country, $currency, $method, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingPriceQuote',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingPriceQuote',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingPriceQuote',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBillingQuoteAsync
+     *
+     * Answers the price of what the caller is about to buy.
+     *
+     * @param  string|null $plan Plan is the plan to price; absent when usdCents asks for credit. (optional)
+     * @param  int|null $level Level selects the plan&#39;s published price level. (optional)
+     * @param  string|null $interval Interval selects the billing term, month or year. (optional)
+     * @param  int|null $usd_cents UsdCents asks for an amount of credit when no plan is named. (optional)
+     * @param  string|null $country Country is the buyer&#39;s ISO 3166-1 alpha-2 country; the edge&#39;s geo country when absent. (optional)
+     * @param  string|null $currency Currency is the currency the buyer chose; the country&#39;s default when absent. (optional)
+     * @param  string|null $method Method is the payment method the buyer chose, when they have. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingQuote'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingQuoteAsync($plan = null, $level = null, $interval = null, $usd_cents = null, $country = null, $currency = null, $method = null, string $contentType = self::contentTypes['getBillingQuote'][0])
+    {
+        return $this->getBillingQuoteAsyncWithHttpInfo($plan, $level, $interval, $usd_cents, $country, $currency, $method, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBillingQuoteAsyncWithHttpInfo
+     *
+     * Answers the price of what the caller is about to buy.
+     *
+     * @param  string|null $plan Plan is the plan to price; absent when usdCents asks for credit. (optional)
+     * @param  int|null $level Level selects the plan&#39;s published price level. (optional)
+     * @param  string|null $interval Interval selects the billing term, month or year. (optional)
+     * @param  int|null $usd_cents UsdCents asks for an amount of credit when no plan is named. (optional)
+     * @param  string|null $country Country is the buyer&#39;s ISO 3166-1 alpha-2 country; the edge&#39;s geo country when absent. (optional)
+     * @param  string|null $currency Currency is the currency the buyer chose; the country&#39;s default when absent. (optional)
+     * @param  string|null $method Method is the payment method the buyer chose, when they have. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingQuote'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingQuoteAsyncWithHttpInfo($plan = null, $level = null, $interval = null, $usd_cents = null, $country = null, $currency = null, $method = null, string $contentType = self::contentTypes['getBillingQuote'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingPriceQuote';
+        $request = $this->getBillingQuoteRequest($plan, $level, $interval, $usd_cents, $country, $currency, $method, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBillingQuote'
+     *
+     * @param  string|null $plan Plan is the plan to price; absent when usdCents asks for credit. (optional)
+     * @param  int|null $level Level selects the plan&#39;s published price level. (optional)
+     * @param  string|null $interval Interval selects the billing term, month or year. (optional)
+     * @param  int|null $usd_cents UsdCents asks for an amount of credit when no plan is named. (optional)
+     * @param  string|null $country Country is the buyer&#39;s ISO 3166-1 alpha-2 country; the edge&#39;s geo country when absent. (optional)
+     * @param  string|null $currency Currency is the currency the buyer chose; the country&#39;s default when absent. (optional)
+     * @param  string|null $method Method is the payment method the buyer chose, when they have. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingQuote'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBillingQuoteRequest($plan = null, $level = null, $interval = null, $usd_cents = null, $country = null, $currency = null, $method = null, string $contentType = self::contentTypes['getBillingQuote'][0])
+    {
+
+
+
+
+
+
+
+
+
+        $resourcePath = '/v1/billing/quote';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $plan,
+            'plan', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $level,
+            'level', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $interval,
+            'interval', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $usd_cents,
+            'usdCents', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $country,
+            'country', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $currency,
+            'currency', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $method,
+            'method', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getBillingRecharge
      *
-     * Reads the caller&#39;s auto-reload rule: top the balance up by &#x60;amountCents&#x60; whenever it falls below &#x60;thresholdCents&#x60;, charging the card on file off-session.
+     * Reads the auto-reload rule of the wallet the caller pays from — the org&#39;s own account, or a person&#39;s wallet in the signup org: top that balance up by &#x60;amountCents&#x60; whenever it falls below &#x60;thresholdCents&#x60;, charging that payer&#39;s card on file off-session, at most &#x60;perDay&#x60; times in a UTC day (0 is no daily limit, which the payer&#39;s plan sets).
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingRecharge'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AutoRecharge
+     * @return \Hanzo\Cloud\Model\BillingAutoRecharge|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingRecharge(string $contentType = self::contentTypes['getBillingRecharge'][0])
     {
@@ -5784,13 +8827,13 @@ class BillingApi
     /**
      * Operation getBillingRechargeWithHttpInfo
      *
-     * Reads the caller&#39;s auto-reload rule: top the balance up by &#x60;amountCents&#x60; whenever it falls below &#x60;thresholdCents&#x60;, charging the card on file off-session.
+     * Reads the auto-reload rule of the wallet the caller pays from — the org&#39;s own account, or a person&#39;s wallet in the signup org: top that balance up by &#x60;amountCents&#x60; whenever it falls below &#x60;thresholdCents&#x60;, charging that payer&#39;s card on file off-session, at most &#x60;perDay&#x60; times in a UTC day (0 is no daily limit, which the payer&#39;s plan sets).
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingRecharge'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AutoRecharge, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingAutoRecharge|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingRechargeWithHttpInfo(string $contentType = self::contentTypes['getBillingRecharge'][0])
     {
@@ -5822,7 +8865,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AutoRecharge',
+                        '\Hanzo\Cloud\Model\BillingAutoRecharge',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5844,7 +8893,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AutoRecharge',
+                '\Hanzo\Cloud\Model\BillingAutoRecharge',
                 $request,
                 $response,
             );
@@ -5853,7 +8902,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AutoRecharge',
+                        '\Hanzo\Cloud\Model\BillingAutoRecharge',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5868,7 +8925,7 @@ class BillingApi
     /**
      * Operation getBillingRechargeAsync
      *
-     * Reads the caller&#39;s auto-reload rule: top the balance up by &#x60;amountCents&#x60; whenever it falls below &#x60;thresholdCents&#x60;, charging the card on file off-session.
+     * Reads the auto-reload rule of the wallet the caller pays from — the org&#39;s own account, or a person&#39;s wallet in the signup org: top that balance up by &#x60;amountCents&#x60; whenever it falls below &#x60;thresholdCents&#x60;, charging that payer&#39;s card on file off-session, at most &#x60;perDay&#x60; times in a UTC day (0 is no daily limit, which the payer&#39;s plan sets).
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingRecharge'] to see the possible values for this operation
      *
@@ -5888,7 +8945,7 @@ class BillingApi
     /**
      * Operation getBillingRechargeAsyncWithHttpInfo
      *
-     * Reads the caller&#39;s auto-reload rule: top the balance up by &#x60;amountCents&#x60; whenever it falls below &#x60;thresholdCents&#x60;, charging the card on file off-session.
+     * Reads the auto-reload rule of the wallet the caller pays from — the org&#39;s own account, or a person&#39;s wallet in the signup org: top that balance up by &#x60;amountCents&#x60; whenever it falls below &#x60;thresholdCents&#x60;, charging that payer&#39;s card on file off-session, at most &#x60;perDay&#x60; times in a UTC day (0 is no daily limit, which the payer&#39;s plan sets).
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingRecharge'] to see the possible values for this operation
      *
@@ -5897,7 +8954,7 @@ class BillingApi
      */
     public function getBillingRechargeAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingRecharge'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AutoRecharge';
+        $returnType = '\Hanzo\Cloud\Model\BillingAutoRecharge';
         $request = $this->getBillingRechargeRequest($contentType);
 
         return $this->client
@@ -5960,7 +9017,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6025,7 +9082,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PaymentConfig
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingSettings(string $contentType = self::contentTypes['getBillingSettings'][0])
     {
@@ -6042,7 +9099,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PaymentConfig, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingSettingsWithHttpInfo(string $contentType = self::contentTypes['getBillingSettings'][0])
     {
@@ -6074,7 +9131,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PaymentConfig',
+                        'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6096,7 +9159,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PaymentConfig',
+                'mixed',
                 $request,
                 $response,
             );
@@ -6105,7 +9168,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PaymentConfig',
+                        'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6149,7 +9220,7 @@ class BillingApi
      */
     public function getBillingSettingsAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingSettings'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PaymentConfig';
+        $returnType = 'mixed';
         $request = $this->getBillingSettingsRequest($contentType);
 
         return $this->client
@@ -6212,7 +9283,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6271,13 +9342,13 @@ class BillingApi
     /**
      * Operation getBillingSubscriptions
      *
-     * Lists the plans the caller holds, with the count beside them.
+     * Lists the plans the caller may see, with the count beside them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingSubscriptions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Subscriptions
+     * @return \Hanzo\Cloud\Model\BillingSubscriptions|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingSubscriptions(string $contentType = self::contentTypes['getBillingSubscriptions'][0])
     {
@@ -6288,13 +9359,13 @@ class BillingApi
     /**
      * Operation getBillingSubscriptionsWithHttpInfo
      *
-     * Lists the plans the caller holds, with the count beside them.
+     * Lists the plans the caller may see, with the count beside them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingSubscriptions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Subscriptions, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingSubscriptions|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingSubscriptionsWithHttpInfo(string $contentType = self::contentTypes['getBillingSubscriptions'][0])
     {
@@ -6326,7 +9397,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Subscriptions',
+                        '\Hanzo\Cloud\Model\BillingSubscriptions',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6348,7 +9425,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Subscriptions',
+                '\Hanzo\Cloud\Model\BillingSubscriptions',
                 $request,
                 $response,
             );
@@ -6357,7 +9434,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Subscriptions',
+                        '\Hanzo\Cloud\Model\BillingSubscriptions',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6372,7 +9457,7 @@ class BillingApi
     /**
      * Operation getBillingSubscriptionsAsync
      *
-     * Lists the plans the caller holds, with the count beside them.
+     * Lists the plans the caller may see, with the count beside them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingSubscriptions'] to see the possible values for this operation
      *
@@ -6392,7 +9477,7 @@ class BillingApi
     /**
      * Operation getBillingSubscriptionsAsyncWithHttpInfo
      *
-     * Lists the plans the caller holds, with the count beside them.
+     * Lists the plans the caller may see, with the count beside them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingSubscriptions'] to see the possible values for this operation
      *
@@ -6401,7 +9486,7 @@ class BillingApi
      */
     public function getBillingSubscriptionsAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingSubscriptions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Subscriptions';
+        $returnType = '\Hanzo\Cloud\Model\BillingSubscriptions';
         $request = $this->getBillingSubscriptionsRequest($contentType);
 
         return $this->client
@@ -6464,7 +9549,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6529,7 +9614,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Tier
+     * @return \Hanzo\Cloud\Model\BillingTier|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingTier(string $contentType = self::contentTypes['getBillingTier'][0])
     {
@@ -6546,7 +9631,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Tier, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingTier|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingTierWithHttpInfo(string $contentType = self::contentTypes['getBillingTier'][0])
     {
@@ -6578,7 +9663,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Tier',
+                        '\Hanzo\Cloud\Model\BillingTier',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6600,7 +9691,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Tier',
+                '\Hanzo\Cloud\Model\BillingTier',
                 $request,
                 $response,
             );
@@ -6609,7 +9700,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Tier',
+                        '\Hanzo\Cloud\Model\BillingTier',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6653,7 +9752,7 @@ class BillingApi
      */
     public function getBillingTierAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingTier'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Tier';
+        $returnType = '\Hanzo\Cloud\Model\BillingTier';
         $request = $this->getBillingTierRequest($contentType);
 
         return $this->client
@@ -6716,7 +9815,293 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getBillingTopupIntentById
+     *
+     * Says where one of the caller&#39;s own payments stands.
+     *
+     * @param  string $id ID is the payment, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingTopupIntentById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingTopupIntentState|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getBillingTopupIntentById($id, string $contentType = self::contentTypes['getBillingTopupIntentById'][0])
+    {
+        list($response) = $this->getBillingTopupIntentByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getBillingTopupIntentByIdWithHttpInfo
+     *
+     * Says where one of the caller&#39;s own payments stands.
+     *
+     * @param  string $id ID is the payment, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingTopupIntentById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingTopupIntentState|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBillingTopupIntentByIdWithHttpInfo($id, string $contentType = self::contentTypes['getBillingTopupIntentById'][0])
+    {
+        $request = $this->getBillingTopupIntentByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingTopupIntentState',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingTopupIntentState',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingTopupIntentState',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBillingTopupIntentByIdAsync
+     *
+     * Says where one of the caller&#39;s own payments stands.
+     *
+     * @param  string $id ID is the payment, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingTopupIntentById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingTopupIntentByIdAsync($id, string $contentType = self::contentTypes['getBillingTopupIntentById'][0])
+    {
+        return $this->getBillingTopupIntentByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBillingTopupIntentByIdAsyncWithHttpInfo
+     *
+     * Says where one of the caller&#39;s own payments stands.
+     *
+     * @param  string $id ID is the payment, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingTopupIntentById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBillingTopupIntentByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getBillingTopupIntentById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingTopupIntentState';
+        $request = $this->getBillingTopupIntentByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBillingTopupIntentById'
+     *
+     * @param  string $id ID is the payment, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBillingTopupIntentById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBillingTopupIntentByIdRequest($id, string $contentType = self::contentTypes['getBillingTopupIntentById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getBillingTopupIntentById'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/topup/intent/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6784,7 +10169,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Transactions
+     * @return \Hanzo\Cloud\Model\BillingTransactions|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingTransactions($currency = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getBillingTransactions'][0])
     {
@@ -6804,7 +10189,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Transactions, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingTransactions|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingTransactionsWithHttpInfo($currency = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getBillingTransactions'][0])
     {
@@ -6836,7 +10221,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Transactions',
+                        '\Hanzo\Cloud\Model\BillingTransactions',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6858,7 +10249,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Transactions',
+                '\Hanzo\Cloud\Model\BillingTransactions',
                 $request,
                 $response,
             );
@@ -6867,7 +10258,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Transactions',
+                        '\Hanzo\Cloud\Model\BillingTransactions',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6917,7 +10316,7 @@ class BillingApi
      */
     public function getBillingTransactionsAsyncWithHttpInfo($currency = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getBillingTransactions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Transactions';
+        $returnType = '\Hanzo\Cloud\Model\BillingTransactions';
         $request = $this->getBillingTransactionsRequest($currency, $limit, $offset, $contentType);
 
         return $this->client
@@ -7013,7 +10412,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -7079,7 +10478,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Transaction
+     * @return \Hanzo\Cloud\Model\BillingTransaction|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingTransactionsById($id, string $contentType = self::contentTypes['getBillingTransactionsById'][0])
     {
@@ -7097,7 +10496,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Transaction, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingTransaction|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingTransactionsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getBillingTransactionsById'][0])
     {
@@ -7129,7 +10528,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Transaction',
+                        '\Hanzo\Cloud\Model\BillingTransaction',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7151,7 +10556,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Transaction',
+                '\Hanzo\Cloud\Model\BillingTransaction',
                 $request,
                 $response,
             );
@@ -7160,7 +10565,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Transaction',
+                        '\Hanzo\Cloud\Model\BillingTransaction',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7206,7 +10619,7 @@ class BillingApi
      */
     public function getBillingTransactionsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getBillingTransactionsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Transaction';
+        $returnType = '\Hanzo\Cloud\Model\BillingTransaction';
         $request = $this->getBillingTransactionsByIdRequest($id, $contentType);
 
         return $this->client
@@ -7285,7 +10698,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -7552,7 +10965,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Accounts
+     * @return \Hanzo\Cloud\Model\BillingAccounts|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingUsageAccounts(string $contentType = self::contentTypes['getBillingUsageAccounts'][0])
     {
@@ -7569,7 +10982,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Accounts, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingAccounts|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingUsageAccountsWithHttpInfo(string $contentType = self::contentTypes['getBillingUsageAccounts'][0])
     {
@@ -7601,7 +11014,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Accounts',
+                        '\Hanzo\Cloud\Model\BillingAccounts',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7623,7 +11042,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Accounts',
+                '\Hanzo\Cloud\Model\BillingAccounts',
                 $request,
                 $response,
             );
@@ -7632,7 +11051,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Accounts',
+                        '\Hanzo\Cloud\Model\BillingAccounts',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7676,7 +11103,7 @@ class BillingApi
      */
     public function getBillingUsageAccountsAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingUsageAccounts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Accounts';
+        $returnType = '\Hanzo\Cloud\Model\BillingAccounts';
         $request = $this->getBillingUsageAccountsRequest($contentType);
 
         return $this->client
@@ -7739,7 +11166,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -7804,7 +11231,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Rollup
+     * @return \Hanzo\Cloud\Model\BillingRollup|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingUsageRollup(string $contentType = self::contentTypes['getBillingUsageRollup'][0])
     {
@@ -7821,7 +11248,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Rollup, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingRollup|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingUsageRollupWithHttpInfo(string $contentType = self::contentTypes['getBillingUsageRollup'][0])
     {
@@ -7853,7 +11280,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Rollup',
+                        '\Hanzo\Cloud\Model\BillingRollup',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7875,7 +11308,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Rollup',
+                '\Hanzo\Cloud\Model\BillingRollup',
                 $request,
                 $response,
             );
@@ -7884,7 +11317,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Rollup',
+                        '\Hanzo\Cloud\Model\BillingRollup',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7928,7 +11369,7 @@ class BillingApi
      */
     public function getBillingUsageRollupAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingUsageRollup'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Rollup';
+        $returnType = '\Hanzo\Cloud\Model\BillingRollup';
         $request = $this->getBillingUsageRollupRequest($contentType);
 
         return $this->client
@@ -7991,7 +11432,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -8056,7 +11497,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\WireInstructions
+     * @return \Hanzo\Cloud\Model\BillingWireInstructions|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBillingWire(string $contentType = self::contentTypes['getBillingWire'][0])
     {
@@ -8073,7 +11514,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\WireInstructions, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingWireInstructions|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBillingWireWithHttpInfo(string $contentType = self::contentTypes['getBillingWire'][0])
     {
@@ -8105,7 +11546,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\WireInstructions',
+                        '\Hanzo\Cloud\Model\BillingWireInstructions',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8127,7 +11574,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\WireInstructions',
+                '\Hanzo\Cloud\Model\BillingWireInstructions',
                 $request,
                 $response,
             );
@@ -8136,7 +11583,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\WireInstructions',
+                        '\Hanzo\Cloud\Model\BillingWireInstructions',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8180,7 +11635,7 @@ class BillingApi
      */
     public function getBillingWireAsyncWithHttpInfo(string $contentType = self::contentTypes['getBillingWire'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\WireInstructions';
+        $returnType = '\Hanzo\Cloud\Model\BillingWireInstructions';
         $request = $this->getBillingWireRequest($contentType);
 
         return $this->client
@@ -8243,7 +11698,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -8305,15 +11760,16 @@ class BillingApi
      * Read one invoice
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  string|null $brand Brand is the brand that bills (hanzo, lux, zoo, pars), whose mark and address a rendered invoice carries. The edge sets it from the caller&#39;s issuer; empty is Hanzo. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInvoice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Invoice
+     * @return \Hanzo\Cloud\Model\BillingInvoice|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getInvoice($id, string $contentType = self::contentTypes['getInvoice'][0])
+    public function getInvoice($id, $brand = null, string $contentType = self::contentTypes['getInvoice'][0])
     {
-        list($response) = $this->getInvoiceWithHttpInfo($id, $contentType);
+        list($response) = $this->getInvoiceWithHttpInfo($id, $brand, $contentType);
         return $response;
     }
 
@@ -8323,15 +11779,16 @@ class BillingApi
      * Read one invoice
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  string|null $brand Brand is the brand that bills (hanzo, lux, zoo, pars), whose mark and address a rendered invoice carries. The edge sets it from the caller&#39;s issuer; empty is Hanzo. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInvoice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Invoice, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingInvoice|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getInvoiceWithHttpInfo($id, string $contentType = self::contentTypes['getInvoice'][0])
+    public function getInvoiceWithHttpInfo($id, $brand = null, string $contentType = self::contentTypes['getInvoice'][0])
     {
-        $request = $this->getInvoiceRequest($id, $contentType);
+        $request = $this->getInvoiceRequest($id, $brand, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8359,7 +11816,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Invoice',
+                        '\Hanzo\Cloud\Model\BillingInvoice',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8381,7 +11844,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Invoice',
+                '\Hanzo\Cloud\Model\BillingInvoice',
                 $request,
                 $response,
             );
@@ -8390,7 +11853,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Invoice',
+                        '\Hanzo\Cloud\Model\BillingInvoice',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8408,14 +11879,15 @@ class BillingApi
      * Read one invoice
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  string|null $brand Brand is the brand that bills (hanzo, lux, zoo, pars), whose mark and address a rendered invoice carries. The edge sets it from the caller&#39;s issuer; empty is Hanzo. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getInvoiceAsync($id, string $contentType = self::contentTypes['getInvoice'][0])
+    public function getInvoiceAsync($id, $brand = null, string $contentType = self::contentTypes['getInvoice'][0])
     {
-        return $this->getInvoiceAsyncWithHttpInfo($id, $contentType)
+        return $this->getInvoiceAsyncWithHttpInfo($id, $brand, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8429,15 +11901,16 @@ class BillingApi
      * Read one invoice
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  string|null $brand Brand is the brand that bills (hanzo, lux, zoo, pars), whose mark and address a rendered invoice carries. The edge sets it from the caller&#39;s issuer; empty is Hanzo. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getInvoiceAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getInvoice'][0])
+    public function getInvoiceAsyncWithHttpInfo($id, $brand = null, string $contentType = self::contentTypes['getInvoice'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Invoice';
-        $request = $this->getInvoiceRequest($id, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingInvoice';
+        $request = $this->getInvoiceRequest($id, $brand, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8479,12 +11952,13 @@ class BillingApi
      * Create request for operation 'getInvoice'
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  string|null $brand Brand is the brand that bills (hanzo, lux, zoo, pars), whose mark and address a rendered invoice carries. The edge sets it from the caller&#39;s issuer; empty is Hanzo. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getInvoiceRequest($id, string $contentType = self::contentTypes['getInvoice'][0])
+    public function getInvoiceRequest($id, $brand = null, string $contentType = self::contentTypes['getInvoice'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -8495,6 +11969,7 @@ class BillingApi
         }
 
 
+
         $resourcePath = '/v1/billing/invoices/{id}';
         $formParams = [];
         $queryParams = [];
@@ -8502,6 +11977,15 @@ class BillingApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $brand,
+            'brand', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
         // path params
@@ -8515,7 +11999,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -8577,15 +12061,16 @@ class BillingApi
      * Issue a draft invoice, making it collectible
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['issueInvoice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Invoice
+     * @return \Hanzo\Cloud\Model\BillingInvoice|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function issueInvoice($id, string $contentType = self::contentTypes['issueInvoice'][0])
+    public function issueInvoice($id, $billing_invoice_ref, string $contentType = self::contentTypes['issueInvoice'][0])
     {
-        list($response) = $this->issueInvoiceWithHttpInfo($id, $contentType);
+        list($response) = $this->issueInvoiceWithHttpInfo($id, $billing_invoice_ref, $contentType);
         return $response;
     }
 
@@ -8595,15 +12080,16 @@ class BillingApi
      * Issue a draft invoice, making it collectible
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['issueInvoice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Invoice, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingInvoice|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function issueInvoiceWithHttpInfo($id, string $contentType = self::contentTypes['issueInvoice'][0])
+    public function issueInvoiceWithHttpInfo($id, $billing_invoice_ref, string $contentType = self::contentTypes['issueInvoice'][0])
     {
-        $request = $this->issueInvoiceRequest($id, $contentType);
+        $request = $this->issueInvoiceRequest($id, $billing_invoice_ref, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8631,7 +12117,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Invoice',
+                        '\Hanzo\Cloud\Model\BillingInvoice',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8653,7 +12145,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Invoice',
+                '\Hanzo\Cloud\Model\BillingInvoice',
                 $request,
                 $response,
             );
@@ -8662,7 +12154,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Invoice',
+                        '\Hanzo\Cloud\Model\BillingInvoice',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8680,14 +12180,15 @@ class BillingApi
      * Issue a draft invoice, making it collectible
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['issueInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function issueInvoiceAsync($id, string $contentType = self::contentTypes['issueInvoice'][0])
+    public function issueInvoiceAsync($id, $billing_invoice_ref, string $contentType = self::contentTypes['issueInvoice'][0])
     {
-        return $this->issueInvoiceAsyncWithHttpInfo($id, $contentType)
+        return $this->issueInvoiceAsyncWithHttpInfo($id, $billing_invoice_ref, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8701,15 +12202,16 @@ class BillingApi
      * Issue a draft invoice, making it collectible
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['issueInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function issueInvoiceAsyncWithHttpInfo($id, string $contentType = self::contentTypes['issueInvoice'][0])
+    public function issueInvoiceAsyncWithHttpInfo($id, $billing_invoice_ref, string $contentType = self::contentTypes['issueInvoice'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Invoice';
-        $request = $this->issueInvoiceRequest($id, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingInvoice';
+        $request = $this->issueInvoiceRequest($id, $billing_invoice_ref, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8751,18 +12253,26 @@ class BillingApi
      * Create request for operation 'issueInvoice'
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['issueInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function issueInvoiceRequest($id, string $contentType = self::contentTypes['issueInvoice'][0])
+    public function issueInvoiceRequest($id, $billing_invoice_ref, string $contentType = self::contentTypes['issueInvoice'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $id when calling issueInvoice'
+            );
+        }
+
+        // verify the required parameter 'billing_invoice_ref' is set
+        if ($billing_invoice_ref === null || (is_array($billing_invoice_ref) && count($billing_invoice_ref) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_invoice_ref when calling issueInvoice'
             );
         }
 
@@ -8787,13 +12297,20 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($billing_invoice_ref)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_invoice_ref));
+            } else {
+                $httpBody = $billing_invoice_ref;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -8849,16 +12366,16 @@ class BillingApi
      * Changes one spend cap: raise or lower the ceiling, flip enforcement, retune the rate limit.
      *
      * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\AlertPatch $alert_patch alert_patch (required)
+     * @param  \Hanzo\Cloud\Model\BillingAlertPatch $billing_alert_patch billing_alert_patch (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchBillingAlertsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Alert
+     * @return \Hanzo\Cloud\Model\BillingAlert|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function patchBillingAlertsById($id, $alert_patch, string $contentType = self::contentTypes['patchBillingAlertsById'][0])
+    public function patchBillingAlertsById($id, $billing_alert_patch, string $contentType = self::contentTypes['patchBillingAlertsById'][0])
     {
-        list($response) = $this->patchBillingAlertsByIdWithHttpInfo($id, $alert_patch, $contentType);
+        list($response) = $this->patchBillingAlertsByIdWithHttpInfo($id, $billing_alert_patch, $contentType);
         return $response;
     }
 
@@ -8868,16 +12385,16 @@ class BillingApi
      * Changes one spend cap: raise or lower the ceiling, flip enforcement, retune the rate limit.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\AlertPatch $alert_patch (required)
+     * @param  \Hanzo\Cloud\Model\BillingAlertPatch $billing_alert_patch (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchBillingAlertsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Alert, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingAlert|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchBillingAlertsByIdWithHttpInfo($id, $alert_patch, string $contentType = self::contentTypes['patchBillingAlertsById'][0])
+    public function patchBillingAlertsByIdWithHttpInfo($id, $billing_alert_patch, string $contentType = self::contentTypes['patchBillingAlertsById'][0])
     {
-        $request = $this->patchBillingAlertsByIdRequest($id, $alert_patch, $contentType);
+        $request = $this->patchBillingAlertsByIdRequest($id, $billing_alert_patch, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8905,7 +12422,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Alert',
+                        '\Hanzo\Cloud\Model\BillingAlert',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8927,7 +12450,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Alert',
+                '\Hanzo\Cloud\Model\BillingAlert',
                 $request,
                 $response,
             );
@@ -8936,7 +12459,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Alert',
+                        '\Hanzo\Cloud\Model\BillingAlert',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8954,15 +12485,15 @@ class BillingApi
      * Changes one spend cap: raise or lower the ceiling, flip enforcement, retune the rate limit.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\AlertPatch $alert_patch (required)
+     * @param  \Hanzo\Cloud\Model\BillingAlertPatch $billing_alert_patch (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchBillingAlertsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchBillingAlertsByIdAsync($id, $alert_patch, string $contentType = self::contentTypes['patchBillingAlertsById'][0])
+    public function patchBillingAlertsByIdAsync($id, $billing_alert_patch, string $contentType = self::contentTypes['patchBillingAlertsById'][0])
     {
-        return $this->patchBillingAlertsByIdAsyncWithHttpInfo($id, $alert_patch, $contentType)
+        return $this->patchBillingAlertsByIdAsyncWithHttpInfo($id, $billing_alert_patch, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8976,16 +12507,16 @@ class BillingApi
      * Changes one spend cap: raise or lower the ceiling, flip enforcement, retune the rate limit.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\AlertPatch $alert_patch (required)
+     * @param  \Hanzo\Cloud\Model\BillingAlertPatch $billing_alert_patch (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchBillingAlertsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchBillingAlertsByIdAsyncWithHttpInfo($id, $alert_patch, string $contentType = self::contentTypes['patchBillingAlertsById'][0])
+    public function patchBillingAlertsByIdAsyncWithHttpInfo($id, $billing_alert_patch, string $contentType = self::contentTypes['patchBillingAlertsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Alert';
-        $request = $this->patchBillingAlertsByIdRequest($id, $alert_patch, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingAlert';
+        $request = $this->patchBillingAlertsByIdRequest($id, $billing_alert_patch, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9027,13 +12558,13 @@ class BillingApi
      * Create request for operation 'patchBillingAlertsById'
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\AlertPatch $alert_patch (required)
+     * @param  \Hanzo\Cloud\Model\BillingAlertPatch $billing_alert_patch (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchBillingAlertsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchBillingAlertsByIdRequest($id, $alert_patch, string $contentType = self::contentTypes['patchBillingAlertsById'][0])
+    public function patchBillingAlertsByIdRequest($id, $billing_alert_patch, string $contentType = self::contentTypes['patchBillingAlertsById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -9043,10 +12574,10 @@ class BillingApi
             );
         }
 
-        // verify the required parameter 'alert_patch' is set
-        if ($alert_patch === null || (is_array($alert_patch) && count($alert_patch) === 0)) {
+        // verify the required parameter 'billing_alert_patch' is set
+        if ($billing_alert_patch === null || (is_array($billing_alert_patch) && count($billing_alert_patch) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $alert_patch when calling patchBillingAlertsById'
+                'Missing the required parameter $billing_alert_patch when calling patchBillingAlertsById'
             );
         }
 
@@ -9071,18 +12602,18 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($alert_patch)) {
+        if (isset($billing_alert_patch)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($alert_patch));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_alert_patch));
             } else {
-                $httpBody = $alert_patch;
+                $httpBody = $billing_alert_patch;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -9135,20 +12666,630 @@ class BillingApi
     }
 
     /**
+     * Operation patchBillingCheckoutsById
+     *
+     * Replaces the item of one of the caller&#39;s checkouts that is still open, or failed, and prices it again.
+     *
+     * @param  string $id ID is the checkout, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingCheckoutChange $billing_checkout_change billing_checkout_change (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchBillingCheckoutsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingCheckoutView|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function patchBillingCheckoutsById($id, $billing_checkout_change, string $contentType = self::contentTypes['patchBillingCheckoutsById'][0])
+    {
+        list($response) = $this->patchBillingCheckoutsByIdWithHttpInfo($id, $billing_checkout_change, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation patchBillingCheckoutsByIdWithHttpInfo
+     *
+     * Replaces the item of one of the caller&#39;s checkouts that is still open, or failed, and prices it again.
+     *
+     * @param  string $id ID is the checkout, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingCheckoutChange $billing_checkout_change (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchBillingCheckoutsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingCheckoutView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function patchBillingCheckoutsByIdWithHttpInfo($id, $billing_checkout_change, string $contentType = self::contentTypes['patchBillingCheckoutsById'][0])
+    {
+        $request = $this->patchBillingCheckoutsByIdRequest($id, $billing_checkout_change, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingCheckoutView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingCheckoutView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingCheckoutView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation patchBillingCheckoutsByIdAsync
+     *
+     * Replaces the item of one of the caller&#39;s checkouts that is still open, or failed, and prices it again.
+     *
+     * @param  string $id ID is the checkout, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingCheckoutChange $billing_checkout_change (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchBillingCheckoutsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchBillingCheckoutsByIdAsync($id, $billing_checkout_change, string $contentType = self::contentTypes['patchBillingCheckoutsById'][0])
+    {
+        return $this->patchBillingCheckoutsByIdAsyncWithHttpInfo($id, $billing_checkout_change, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation patchBillingCheckoutsByIdAsyncWithHttpInfo
+     *
+     * Replaces the item of one of the caller&#39;s checkouts that is still open, or failed, and prices it again.
+     *
+     * @param  string $id ID is the checkout, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingCheckoutChange $billing_checkout_change (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchBillingCheckoutsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchBillingCheckoutsByIdAsyncWithHttpInfo($id, $billing_checkout_change, string $contentType = self::contentTypes['patchBillingCheckoutsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingCheckoutView';
+        $request = $this->patchBillingCheckoutsByIdRequest($id, $billing_checkout_change, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'patchBillingCheckoutsById'
+     *
+     * @param  string $id ID is the checkout, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingCheckoutChange $billing_checkout_change (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchBillingCheckoutsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function patchBillingCheckoutsByIdRequest($id, $billing_checkout_change, string $contentType = self::contentTypes['patchBillingCheckoutsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling patchBillingCheckoutsById'
+            );
+        }
+
+        // verify the required parameter 'billing_checkout_change' is set
+        if ($billing_checkout_change === null || (is_array($billing_checkout_change) && count($billing_checkout_change) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_checkout_change when calling patchBillingCheckoutsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/checkouts/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_checkout_change)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_checkout_change));
+            } else {
+                $httpBody = $billing_checkout_change;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation payInvoice
+     *
+     * Pay an invoice with the buyer present
+     *
+     * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref billing_invoice_ref (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['payInvoice'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingInvoicePayment|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function payInvoice($id, $billing_invoice_ref, string $contentType = self::contentTypes['payInvoice'][0])
+    {
+        list($response) = $this->payInvoiceWithHttpInfo($id, $billing_invoice_ref, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation payInvoiceWithHttpInfo
+     *
+     * Pay an invoice with the buyer present
+     *
+     * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['payInvoice'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingInvoicePayment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function payInvoiceWithHttpInfo($id, $billing_invoice_ref, string $contentType = self::contentTypes['payInvoice'][0])
+    {
+        $request = $this->payInvoiceRequest($id, $billing_invoice_ref, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingInvoicePayment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingInvoicePayment',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingInvoicePayment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation payInvoiceAsync
+     *
+     * Pay an invoice with the buyer present
+     *
+     * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['payInvoice'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function payInvoiceAsync($id, $billing_invoice_ref, string $contentType = self::contentTypes['payInvoice'][0])
+    {
+        return $this->payInvoiceAsyncWithHttpInfo($id, $billing_invoice_ref, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation payInvoiceAsyncWithHttpInfo
+     *
+     * Pay an invoice with the buyer present
+     *
+     * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['payInvoice'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function payInvoiceAsyncWithHttpInfo($id, $billing_invoice_ref, string $contentType = self::contentTypes['payInvoice'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingInvoicePayment';
+        $request = $this->payInvoiceRequest($id, $billing_invoice_ref, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'payInvoice'
+     *
+     * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['payInvoice'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function payInvoiceRequest($id, $billing_invoice_ref, string $contentType = self::contentTypes['payInvoice'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling payInvoice'
+            );
+        }
+
+        // verify the required parameter 'billing_invoice_ref' is set
+        if ($billing_invoice_ref === null || (is_array($billing_invoice_ref) && count($billing_invoice_ref) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_invoice_ref when calling payInvoice'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/invoices/{id}/pay';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_invoice_ref)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_invoice_ref));
+            } else {
+                $httpBody = $billing_invoice_ref;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation postBillingAlerts
      *
      * Opens a spend cap on the caller&#39;s own org.
      *
-     * @param  \Hanzo\Cloud\Model\AlertSpec $alert_spec alert_spec (required)
+     * @param  \Hanzo\Cloud\Model\BillingAlertSpec $billing_alert_spec billing_alert_spec (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingAlerts'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Alert
+     * @return \Hanzo\Cloud\Model\BillingAlert|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postBillingAlerts($alert_spec, string $contentType = self::contentTypes['postBillingAlerts'][0])
+    public function postBillingAlerts($billing_alert_spec, string $contentType = self::contentTypes['postBillingAlerts'][0])
     {
-        list($response) = $this->postBillingAlertsWithHttpInfo($alert_spec, $contentType);
+        list($response) = $this->postBillingAlertsWithHttpInfo($billing_alert_spec, $contentType);
         return $response;
     }
 
@@ -9157,16 +13298,16 @@ class BillingApi
      *
      * Opens a spend cap on the caller&#39;s own org.
      *
-     * @param  \Hanzo\Cloud\Model\AlertSpec $alert_spec (required)
+     * @param  \Hanzo\Cloud\Model\BillingAlertSpec $billing_alert_spec (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingAlerts'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Alert, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingAlert|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBillingAlertsWithHttpInfo($alert_spec, string $contentType = self::contentTypes['postBillingAlerts'][0])
+    public function postBillingAlertsWithHttpInfo($billing_alert_spec, string $contentType = self::contentTypes['postBillingAlerts'][0])
     {
-        $request = $this->postBillingAlertsRequest($alert_spec, $contentType);
+        $request = $this->postBillingAlertsRequest($billing_alert_spec, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9194,7 +13335,13 @@ class BillingApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Alert',
+                        '\Hanzo\Cloud\Model\BillingAlert',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -9216,7 +13363,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Alert',
+                '\Hanzo\Cloud\Model\BillingAlert',
                 $request,
                 $response,
             );
@@ -9225,7 +13372,15 @@ class BillingApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Alert',
+                        '\Hanzo\Cloud\Model\BillingAlert',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9242,15 +13397,15 @@ class BillingApi
      *
      * Opens a spend cap on the caller&#39;s own org.
      *
-     * @param  \Hanzo\Cloud\Model\AlertSpec $alert_spec (required)
+     * @param  \Hanzo\Cloud\Model\BillingAlertSpec $billing_alert_spec (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingAlerts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingAlertsAsync($alert_spec, string $contentType = self::contentTypes['postBillingAlerts'][0])
+    public function postBillingAlertsAsync($billing_alert_spec, string $contentType = self::contentTypes['postBillingAlerts'][0])
     {
-        return $this->postBillingAlertsAsyncWithHttpInfo($alert_spec, $contentType)
+        return $this->postBillingAlertsAsyncWithHttpInfo($billing_alert_spec, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9263,16 +13418,16 @@ class BillingApi
      *
      * Opens a spend cap on the caller&#39;s own org.
      *
-     * @param  \Hanzo\Cloud\Model\AlertSpec $alert_spec (required)
+     * @param  \Hanzo\Cloud\Model\BillingAlertSpec $billing_alert_spec (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingAlerts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingAlertsAsyncWithHttpInfo($alert_spec, string $contentType = self::contentTypes['postBillingAlerts'][0])
+    public function postBillingAlertsAsyncWithHttpInfo($billing_alert_spec, string $contentType = self::contentTypes['postBillingAlerts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Alert';
-        $request = $this->postBillingAlertsRequest($alert_spec, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingAlert';
+        $request = $this->postBillingAlertsRequest($billing_alert_spec, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9313,19 +13468,19 @@ class BillingApi
     /**
      * Create request for operation 'postBillingAlerts'
      *
-     * @param  \Hanzo\Cloud\Model\AlertSpec $alert_spec (required)
+     * @param  \Hanzo\Cloud\Model\BillingAlertSpec $billing_alert_spec (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingAlerts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBillingAlertsRequest($alert_spec, string $contentType = self::contentTypes['postBillingAlerts'][0])
+    public function postBillingAlertsRequest($billing_alert_spec, string $contentType = self::contentTypes['postBillingAlerts'][0])
     {
 
-        // verify the required parameter 'alert_spec' is set
-        if ($alert_spec === null || (is_array($alert_spec) && count($alert_spec) === 0)) {
+        // verify the required parameter 'billing_alert_spec' is set
+        if ($billing_alert_spec === null || (is_array($billing_alert_spec) && count($billing_alert_spec) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $alert_spec when calling postBillingAlerts'
+                'Missing the required parameter $billing_alert_spec when calling postBillingAlerts'
             );
         }
 
@@ -9342,18 +13497,744 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($alert_spec)) {
+        if (isset($billing_alert_spec)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($alert_spec));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_alert_spec));
             } else {
-                $httpBody = $alert_spec;
+                $httpBody = $billing_alert_spec;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingCheckouts
+     *
+     * Opens a checkout for exactly one item, USD credit (&#x60;kind: \&quot;credit\&quot;&#x60;, &#x60;usdCents&#x60;) or a plan&#39;s first period (&#x60;kind: \&quot;plan\&quot;&#x60;, &#x60;plan&#x60;, &#x60;interval&#x60;), and answers it priced as the sale prices it.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingCheckoutIn $billing_checkout_in billing_checkout_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCheckouts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingCheckoutView|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingCheckouts($billing_checkout_in, string $contentType = self::contentTypes['postBillingCheckouts'][0])
+    {
+        list($response) = $this->postBillingCheckoutsWithHttpInfo($billing_checkout_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingCheckoutsWithHttpInfo
+     *
+     * Opens a checkout for exactly one item, USD credit (&#x60;kind: \&quot;credit\&quot;&#x60;, &#x60;usdCents&#x60;) or a plan&#39;s first period (&#x60;kind: \&quot;plan\&quot;&#x60;, &#x60;plan&#x60;, &#x60;interval&#x60;), and answers it priced as the sale prices it.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingCheckoutIn $billing_checkout_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCheckouts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingCheckoutView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingCheckoutsWithHttpInfo($billing_checkout_in, string $contentType = self::contentTypes['postBillingCheckouts'][0])
+    {
+        $request = $this->postBillingCheckoutsRequest($billing_checkout_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingCheckoutView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingCheckoutView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingCheckoutView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingCheckoutsAsync
+     *
+     * Opens a checkout for exactly one item, USD credit (&#x60;kind: \&quot;credit\&quot;&#x60;, &#x60;usdCents&#x60;) or a plan&#39;s first period (&#x60;kind: \&quot;plan\&quot;&#x60;, &#x60;plan&#x60;, &#x60;interval&#x60;), and answers it priced as the sale prices it.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingCheckoutIn $billing_checkout_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCheckouts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingCheckoutsAsync($billing_checkout_in, string $contentType = self::contentTypes['postBillingCheckouts'][0])
+    {
+        return $this->postBillingCheckoutsAsyncWithHttpInfo($billing_checkout_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingCheckoutsAsyncWithHttpInfo
+     *
+     * Opens a checkout for exactly one item, USD credit (&#x60;kind: \&quot;credit\&quot;&#x60;, &#x60;usdCents&#x60;) or a plan&#39;s first period (&#x60;kind: \&quot;plan\&quot;&#x60;, &#x60;plan&#x60;, &#x60;interval&#x60;), and answers it priced as the sale prices it.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingCheckoutIn $billing_checkout_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCheckouts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingCheckoutsAsyncWithHttpInfo($billing_checkout_in, string $contentType = self::contentTypes['postBillingCheckouts'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingCheckoutView';
+        $request = $this->postBillingCheckoutsRequest($billing_checkout_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingCheckouts'
+     *
+     * @param  \Hanzo\Cloud\Model\BillingCheckoutIn $billing_checkout_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCheckouts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingCheckoutsRequest($billing_checkout_in, string $contentType = self::contentTypes['postBillingCheckouts'][0])
+    {
+
+        // verify the required parameter 'billing_checkout_in' is set
+        if ($billing_checkout_in === null || (is_array($billing_checkout_in) && count($billing_checkout_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_checkout_in when calling postBillingCheckouts'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/checkouts';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_checkout_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_checkout_in));
+            } else {
+                $httpBody = $billing_checkout_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingCheckoutsByIdComplete
+     *
+     * Pays one of the caller&#39;s checkouts with a shared payment token the buyer granted the agent (&#x60;{\&quot;payment\&quot;:{\&quot;type\&quot;:\&quot;shared_payment_token\&quot;,\&quot;token\&quot;:\&quot;spt_...\&quot;}}&#x60;) or with a stablecoin deposit (&#x60;{\&quot;payment\&quot;:{\&quot;type\&quot;:\&quot;stablecoin\&quot;,\&quot;network\&quot;:\&quot;base\&quot;}}&#x60;), and answers the checkout under the status the attempt earned.
+     *
+     * @param  string $id ID is the checkout, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingCompleteIn $billing_complete_in billing_complete_in (required)
+     * @param  string|null $idempotency_key idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCheckoutsByIdComplete'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return object|object|object|object|object|object|object|object|object|object|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingCheckoutsByIdComplete($id, $billing_complete_in, $idempotency_key = null, string $contentType = self::contentTypes['postBillingCheckoutsByIdComplete'][0])
+    {
+        list($response) = $this->postBillingCheckoutsByIdCompleteWithHttpInfo($id, $billing_complete_in, $idempotency_key, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingCheckoutsByIdCompleteWithHttpInfo
+     *
+     * Pays one of the caller&#39;s checkouts with a shared payment token the buyer granted the agent (&#x60;{\&quot;payment\&quot;:{\&quot;type\&quot;:\&quot;shared_payment_token\&quot;,\&quot;token\&quot;:\&quot;spt_...\&quot;}}&#x60;) or with a stablecoin deposit (&#x60;{\&quot;payment\&quot;:{\&quot;type\&quot;:\&quot;stablecoin\&quot;,\&quot;network\&quot;:\&quot;base\&quot;}}&#x60;), and answers the checkout under the status the attempt earned.
+     *
+     * @param  string $id ID is the checkout, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingCompleteIn $billing_complete_in (required)
+     * @param  string|null $idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCheckoutsByIdComplete'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of object|object|object|object|object|object|object|object|object|object|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingCheckoutsByIdCompleteWithHttpInfo($id, $billing_complete_in, $idempotency_key = null, string $contentType = self::contentTypes['postBillingCheckoutsByIdComplete'][0])
+    {
+        $request = $this->postBillingCheckoutsByIdCompleteRequest($id, $billing_complete_in, $idempotency_key, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                case 402:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                case 409:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                case 422:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                case 429:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                case 502:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        'object',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'object',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 402:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 409:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 422:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 429:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 502:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'object',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingCheckoutsByIdCompleteAsync
+     *
+     * Pays one of the caller&#39;s checkouts with a shared payment token the buyer granted the agent (&#x60;{\&quot;payment\&quot;:{\&quot;type\&quot;:\&quot;shared_payment_token\&quot;,\&quot;token\&quot;:\&quot;spt_...\&quot;}}&#x60;) or with a stablecoin deposit (&#x60;{\&quot;payment\&quot;:{\&quot;type\&quot;:\&quot;stablecoin\&quot;,\&quot;network\&quot;:\&quot;base\&quot;}}&#x60;), and answers the checkout under the status the attempt earned.
+     *
+     * @param  string $id ID is the checkout, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingCompleteIn $billing_complete_in (required)
+     * @param  string|null $idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCheckoutsByIdComplete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingCheckoutsByIdCompleteAsync($id, $billing_complete_in, $idempotency_key = null, string $contentType = self::contentTypes['postBillingCheckoutsByIdComplete'][0])
+    {
+        return $this->postBillingCheckoutsByIdCompleteAsyncWithHttpInfo($id, $billing_complete_in, $idempotency_key, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingCheckoutsByIdCompleteAsyncWithHttpInfo
+     *
+     * Pays one of the caller&#39;s checkouts with a shared payment token the buyer granted the agent (&#x60;{\&quot;payment\&quot;:{\&quot;type\&quot;:\&quot;shared_payment_token\&quot;,\&quot;token\&quot;:\&quot;spt_...\&quot;}}&#x60;) or with a stablecoin deposit (&#x60;{\&quot;payment\&quot;:{\&quot;type\&quot;:\&quot;stablecoin\&quot;,\&quot;network\&quot;:\&quot;base\&quot;}}&#x60;), and answers the checkout under the status the attempt earned.
+     *
+     * @param  string $id ID is the checkout, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingCompleteIn $billing_complete_in (required)
+     * @param  string|null $idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCheckoutsByIdComplete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingCheckoutsByIdCompleteAsyncWithHttpInfo($id, $billing_complete_in, $idempotency_key = null, string $contentType = self::contentTypes['postBillingCheckoutsByIdComplete'][0])
+    {
+        $returnType = 'object';
+        $request = $this->postBillingCheckoutsByIdCompleteRequest($id, $billing_complete_in, $idempotency_key, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingCheckoutsByIdComplete'
+     *
+     * @param  string $id ID is the checkout, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingCompleteIn $billing_complete_in (required)
+     * @param  string|null $idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCheckoutsByIdComplete'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingCheckoutsByIdCompleteRequest($id, $billing_complete_in, $idempotency_key = null, string $contentType = self::contentTypes['postBillingCheckoutsByIdComplete'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postBillingCheckoutsByIdComplete'
+            );
+        }
+
+        // verify the required parameter 'billing_complete_in' is set
+        if ($billing_complete_in === null || (is_array($billing_complete_in) && count($billing_complete_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_complete_in when calling postBillingCheckoutsByIdComplete'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/billing/checkouts/{id}/complete';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // header params
+        if ($idempotency_key !== null) {
+            $headerParams['Idempotency-Key'] = ObjectSerializer::toHeaderValue($idempotency_key);
+        }
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_complete_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_complete_in));
+            } else {
+                $httpBody = $billing_complete_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -9410,16 +14291,16 @@ class BillingApi
      *
      * Issues a deposit address the caller can send crypto to, on the asset they ask for.
      *
-     * @param  \Hanzo\Cloud\Model\CryptoAsset $crypto_asset crypto_asset (required)
+     * @param  \Hanzo\Cloud\Model\BillingCryptoAsset $billing_crypto_asset billing_crypto_asset (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCryptoDeposit'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CryptoDeposit
+     * @return \Hanzo\Cloud\Model\BillingCryptoDeposit|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postBillingCryptoDeposit($crypto_asset, string $contentType = self::contentTypes['postBillingCryptoDeposit'][0])
+    public function postBillingCryptoDeposit($billing_crypto_asset, string $contentType = self::contentTypes['postBillingCryptoDeposit'][0])
     {
-        list($response) = $this->postBillingCryptoDepositWithHttpInfo($crypto_asset, $contentType);
+        list($response) = $this->postBillingCryptoDepositWithHttpInfo($billing_crypto_asset, $contentType);
         return $response;
     }
 
@@ -9428,16 +14309,16 @@ class BillingApi
      *
      * Issues a deposit address the caller can send crypto to, on the asset they ask for.
      *
-     * @param  \Hanzo\Cloud\Model\CryptoAsset $crypto_asset (required)
+     * @param  \Hanzo\Cloud\Model\BillingCryptoAsset $billing_crypto_asset (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCryptoDeposit'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CryptoDeposit, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingCryptoDeposit|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBillingCryptoDepositWithHttpInfo($crypto_asset, string $contentType = self::contentTypes['postBillingCryptoDeposit'][0])
+    public function postBillingCryptoDepositWithHttpInfo($billing_crypto_asset, string $contentType = self::contentTypes['postBillingCryptoDeposit'][0])
     {
-        $request = $this->postBillingCryptoDepositRequest($crypto_asset, $contentType);
+        $request = $this->postBillingCryptoDepositRequest($billing_crypto_asset, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9465,7 +14346,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CryptoDeposit',
+                        '\Hanzo\Cloud\Model\BillingCryptoDeposit',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -9487,7 +14374,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CryptoDeposit',
+                '\Hanzo\Cloud\Model\BillingCryptoDeposit',
                 $request,
                 $response,
             );
@@ -9496,7 +14383,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CryptoDeposit',
+                        '\Hanzo\Cloud\Model\BillingCryptoDeposit',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9513,15 +14408,15 @@ class BillingApi
      *
      * Issues a deposit address the caller can send crypto to, on the asset they ask for.
      *
-     * @param  \Hanzo\Cloud\Model\CryptoAsset $crypto_asset (required)
+     * @param  \Hanzo\Cloud\Model\BillingCryptoAsset $billing_crypto_asset (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCryptoDeposit'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingCryptoDepositAsync($crypto_asset, string $contentType = self::contentTypes['postBillingCryptoDeposit'][0])
+    public function postBillingCryptoDepositAsync($billing_crypto_asset, string $contentType = self::contentTypes['postBillingCryptoDeposit'][0])
     {
-        return $this->postBillingCryptoDepositAsyncWithHttpInfo($crypto_asset, $contentType)
+        return $this->postBillingCryptoDepositAsyncWithHttpInfo($billing_crypto_asset, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9534,16 +14429,16 @@ class BillingApi
      *
      * Issues a deposit address the caller can send crypto to, on the asset they ask for.
      *
-     * @param  \Hanzo\Cloud\Model\CryptoAsset $crypto_asset (required)
+     * @param  \Hanzo\Cloud\Model\BillingCryptoAsset $billing_crypto_asset (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCryptoDeposit'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingCryptoDepositAsyncWithHttpInfo($crypto_asset, string $contentType = self::contentTypes['postBillingCryptoDeposit'][0])
+    public function postBillingCryptoDepositAsyncWithHttpInfo($billing_crypto_asset, string $contentType = self::contentTypes['postBillingCryptoDeposit'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CryptoDeposit';
-        $request = $this->postBillingCryptoDepositRequest($crypto_asset, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingCryptoDeposit';
+        $request = $this->postBillingCryptoDepositRequest($billing_crypto_asset, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9584,19 +14479,19 @@ class BillingApi
     /**
      * Create request for operation 'postBillingCryptoDeposit'
      *
-     * @param  \Hanzo\Cloud\Model\CryptoAsset $crypto_asset (required)
+     * @param  \Hanzo\Cloud\Model\BillingCryptoAsset $billing_crypto_asset (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCryptoDeposit'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBillingCryptoDepositRequest($crypto_asset, string $contentType = self::contentTypes['postBillingCryptoDeposit'][0])
+    public function postBillingCryptoDepositRequest($billing_crypto_asset, string $contentType = self::contentTypes['postBillingCryptoDeposit'][0])
     {
 
-        // verify the required parameter 'crypto_asset' is set
-        if ($crypto_asset === null || (is_array($crypto_asset) && count($crypto_asset) === 0)) {
+        // verify the required parameter 'billing_crypto_asset' is set
+        if ($billing_crypto_asset === null || (is_array($billing_crypto_asset) && count($billing_crypto_asset) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $crypto_asset when calling postBillingCryptoDeposit'
+                'Missing the required parameter $billing_crypto_asset when calling postBillingCryptoDeposit'
             );
         }
 
@@ -9613,18 +14508,622 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($crypto_asset)) {
+        if (isset($billing_crypto_asset)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($crypto_asset));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_crypto_asset));
             } else {
-                $httpBody = $crypto_asset;
+                $httpBody = $billing_crypto_asset;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingCryptoGateway
+     *
+     * Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingSignedPayment $billing_signed_payment billing_signed_payment (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCryptoGateway'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingGatewayPayment|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingCryptoGateway($billing_signed_payment, string $contentType = self::contentTypes['postBillingCryptoGateway'][0])
+    {
+        list($response) = $this->postBillingCryptoGatewayWithHttpInfo($billing_signed_payment, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingCryptoGatewayWithHttpInfo
+     *
+     * Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingSignedPayment $billing_signed_payment (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCryptoGateway'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingGatewayPayment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingCryptoGatewayWithHttpInfo($billing_signed_payment, string $contentType = self::contentTypes['postBillingCryptoGateway'][0])
+    {
+        $request = $this->postBillingCryptoGatewayRequest($billing_signed_payment, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingGatewayPayment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingGatewayPayment',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingGatewayPayment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingCryptoGatewayAsync
+     *
+     * Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingSignedPayment $billing_signed_payment (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCryptoGateway'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingCryptoGatewayAsync($billing_signed_payment, string $contentType = self::contentTypes['postBillingCryptoGateway'][0])
+    {
+        return $this->postBillingCryptoGatewayAsyncWithHttpInfo($billing_signed_payment, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingCryptoGatewayAsyncWithHttpInfo
+     *
+     * Takes a signed USDC payment from the caller&#39;s Circle Gateway balance to the treasury, and answers what became of it.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingSignedPayment $billing_signed_payment (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCryptoGateway'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingCryptoGatewayAsyncWithHttpInfo($billing_signed_payment, string $contentType = self::contentTypes['postBillingCryptoGateway'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingGatewayPayment';
+        $request = $this->postBillingCryptoGatewayRequest($billing_signed_payment, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingCryptoGateway'
+     *
+     * @param  \Hanzo\Cloud\Model\BillingSignedPayment $billing_signed_payment (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingCryptoGateway'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingCryptoGatewayRequest($billing_signed_payment, string $contentType = self::contentTypes['postBillingCryptoGateway'][0])
+    {
+
+        // verify the required parameter 'billing_signed_payment' is set
+        if ($billing_signed_payment === null || (is_array($billing_signed_payment) && count($billing_signed_payment) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_signed_payment when calling postBillingCryptoGateway'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/crypto/gateway';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_signed_payment)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_signed_payment));
+            } else {
+                $httpBody = $billing_signed_payment;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingInvoicesByIdAgentToken
+     *
+     * Pays one of the caller&#39;s past-due renewals with a fresh shared payment token.
+     *
+     * @param  string $id ID is the invoice or the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingTokenIn $billing_token_in billing_token_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingInvoicesByIdAgentToken'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingAgentPayment|\Hanzo\Cloud\Model\BillingAgentPayment|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingInvoicesByIdAgentToken($id, $billing_token_in, string $contentType = self::contentTypes['postBillingInvoicesByIdAgentToken'][0])
+    {
+        list($response) = $this->postBillingInvoicesByIdAgentTokenWithHttpInfo($id, $billing_token_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingInvoicesByIdAgentTokenWithHttpInfo
+     *
+     * Pays one of the caller&#39;s past-due renewals with a fresh shared payment token.
+     *
+     * @param  string $id ID is the invoice or the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingTokenIn $billing_token_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingInvoicesByIdAgentToken'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingAgentPayment|\Hanzo\Cloud\Model\BillingAgentPayment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingInvoicesByIdAgentTokenWithHttpInfo($id, $billing_token_in, string $contentType = self::contentTypes['postBillingInvoicesByIdAgentToken'][0])
+    {
+        $request = $this->postBillingInvoicesByIdAgentTokenRequest($id, $billing_token_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingAgentPayment',
+                        $request,
+                        $response,
+                    );
+                case 402:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingAgentPayment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingAgentPayment',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingAgentPayment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 402:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingAgentPayment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingInvoicesByIdAgentTokenAsync
+     *
+     * Pays one of the caller&#39;s past-due renewals with a fresh shared payment token.
+     *
+     * @param  string $id ID is the invoice or the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingTokenIn $billing_token_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingInvoicesByIdAgentToken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingInvoicesByIdAgentTokenAsync($id, $billing_token_in, string $contentType = self::contentTypes['postBillingInvoicesByIdAgentToken'][0])
+    {
+        return $this->postBillingInvoicesByIdAgentTokenAsyncWithHttpInfo($id, $billing_token_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingInvoicesByIdAgentTokenAsyncWithHttpInfo
+     *
+     * Pays one of the caller&#39;s past-due renewals with a fresh shared payment token.
+     *
+     * @param  string $id ID is the invoice or the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingTokenIn $billing_token_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingInvoicesByIdAgentToken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingInvoicesByIdAgentTokenAsyncWithHttpInfo($id, $billing_token_in, string $contentType = self::contentTypes['postBillingInvoicesByIdAgentToken'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingAgentPayment';
+        $request = $this->postBillingInvoicesByIdAgentTokenRequest($id, $billing_token_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingInvoicesByIdAgentToken'
+     *
+     * @param  string $id ID is the invoice or the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingTokenIn $billing_token_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingInvoicesByIdAgentToken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingInvoicesByIdAgentTokenRequest($id, $billing_token_in, string $contentType = self::contentTypes['postBillingInvoicesByIdAgentToken'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postBillingInvoicesByIdAgentToken'
+            );
+        }
+
+        // verify the required parameter 'billing_token_in' is set
+        if ($billing_token_in === null || (is_array($billing_token_in) && count($billing_token_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_token_in when calling postBillingInvoicesByIdAgentToken'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/invoices/{id}/agent-token';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_token_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_token_in));
+            } else {
+                $httpBody = $billing_token_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -9883,16 +15382,16 @@ class BillingApi
      *
      * Moves this org between sandbox money and real money.
      *
-     * @param  \Hanzo\Cloud\Model\ModeIn $mode_in mode_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingModeIn $billing_mode_in billing_mode_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingMode'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Mode
+     * @return \Hanzo\Cloud\Model\BillingMode|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postBillingMode($mode_in, string $contentType = self::contentTypes['postBillingMode'][0])
+    public function postBillingMode($billing_mode_in, string $contentType = self::contentTypes['postBillingMode'][0])
     {
-        list($response) = $this->postBillingModeWithHttpInfo($mode_in, $contentType);
+        list($response) = $this->postBillingModeWithHttpInfo($billing_mode_in, $contentType);
         return $response;
     }
 
@@ -9901,16 +15400,16 @@ class BillingApi
      *
      * Moves this org between sandbox money and real money.
      *
-     * @param  \Hanzo\Cloud\Model\ModeIn $mode_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingModeIn $billing_mode_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingMode'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Mode, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingMode|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBillingModeWithHttpInfo($mode_in, string $contentType = self::contentTypes['postBillingMode'][0])
+    public function postBillingModeWithHttpInfo($billing_mode_in, string $contentType = self::contentTypes['postBillingMode'][0])
     {
-        $request = $this->postBillingModeRequest($mode_in, $contentType);
+        $request = $this->postBillingModeRequest($billing_mode_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9938,7 +15437,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Mode',
+                        '\Hanzo\Cloud\Model\BillingMode',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -9960,7 +15465,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Mode',
+                '\Hanzo\Cloud\Model\BillingMode',
                 $request,
                 $response,
             );
@@ -9969,7 +15474,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Mode',
+                        '\Hanzo\Cloud\Model\BillingMode',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9986,15 +15499,15 @@ class BillingApi
      *
      * Moves this org between sandbox money and real money.
      *
-     * @param  \Hanzo\Cloud\Model\ModeIn $mode_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingModeIn $billing_mode_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingMode'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingModeAsync($mode_in, string $contentType = self::contentTypes['postBillingMode'][0])
+    public function postBillingModeAsync($billing_mode_in, string $contentType = self::contentTypes['postBillingMode'][0])
     {
-        return $this->postBillingModeAsyncWithHttpInfo($mode_in, $contentType)
+        return $this->postBillingModeAsyncWithHttpInfo($billing_mode_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -10007,16 +15520,16 @@ class BillingApi
      *
      * Moves this org between sandbox money and real money.
      *
-     * @param  \Hanzo\Cloud\Model\ModeIn $mode_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingModeIn $billing_mode_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingMode'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingModeAsyncWithHttpInfo($mode_in, string $contentType = self::contentTypes['postBillingMode'][0])
+    public function postBillingModeAsyncWithHttpInfo($billing_mode_in, string $contentType = self::contentTypes['postBillingMode'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Mode';
-        $request = $this->postBillingModeRequest($mode_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingMode';
+        $request = $this->postBillingModeRequest($billing_mode_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -10057,19 +15570,19 @@ class BillingApi
     /**
      * Create request for operation 'postBillingMode'
      *
-     * @param  \Hanzo\Cloud\Model\ModeIn $mode_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingModeIn $billing_mode_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingMode'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBillingModeRequest($mode_in, string $contentType = self::contentTypes['postBillingMode'][0])
+    public function postBillingModeRequest($billing_mode_in, string $contentType = self::contentTypes['postBillingMode'][0])
     {
 
-        // verify the required parameter 'mode_in' is set
-        if ($mode_in === null || (is_array($mode_in) && count($mode_in) === 0)) {
+        // verify the required parameter 'billing_mode_in' is set
+        if ($billing_mode_in === null || (is_array($billing_mode_in) && count($billing_mode_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $mode_in when calling postBillingMode'
+                'Missing the required parameter $billing_mode_in when calling postBillingMode'
             );
         }
 
@@ -10086,18 +15599,313 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($mode_in)) {
+        if (isset($billing_mode_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($mode_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_mode_in));
             } else {
-                $httpBody = $mode_in;
+                $httpBody = $billing_mode_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingPaypalOrder
+     *
+     * Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).
+     *
+     * @param  \Hanzo\Cloud\Model\BillingPaypalOrderIn $billing_paypal_order_in billing_paypal_order_in (required)
+     * @param  string|null $x_idempotency_key x_idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingPaypalOrder'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingPayPalOrderOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingPaypalOrder($billing_paypal_order_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingPaypalOrder'][0])
+    {
+        list($response) = $this->postBillingPaypalOrderWithHttpInfo($billing_paypal_order_in, $x_idempotency_key, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingPaypalOrderWithHttpInfo
+     *
+     * Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).
+     *
+     * @param  \Hanzo\Cloud\Model\BillingPaypalOrderIn $billing_paypal_order_in (required)
+     * @param  string|null $x_idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingPaypalOrder'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingPayPalOrderOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingPaypalOrderWithHttpInfo($billing_paypal_order_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingPaypalOrder'][0])
+    {
+        $request = $this->postBillingPaypalOrderRequest($billing_paypal_order_in, $x_idempotency_key, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingPayPalOrderOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingPayPalOrderOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingPayPalOrderOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingPaypalOrderAsync
+     *
+     * Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).
+     *
+     * @param  \Hanzo\Cloud\Model\BillingPaypalOrderIn $billing_paypal_order_in (required)
+     * @param  string|null $x_idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingPaypalOrder'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingPaypalOrderAsync($billing_paypal_order_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingPaypalOrder'][0])
+    {
+        return $this->postBillingPaypalOrderAsyncWithHttpInfo($billing_paypal_order_in, $x_idempotency_key, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingPaypalOrderAsyncWithHttpInfo
+     *
+     * Opens a server-priced PayPal REST v2 order for either a bounded credit top-up (intent CAPTURE) or a plan purchase&#39;s first period (intent AUTHORIZE).
+     *
+     * @param  \Hanzo\Cloud\Model\BillingPaypalOrderIn $billing_paypal_order_in (required)
+     * @param  string|null $x_idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingPaypalOrder'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingPaypalOrderAsyncWithHttpInfo($billing_paypal_order_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingPaypalOrder'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingPayPalOrderOut';
+        $request = $this->postBillingPaypalOrderRequest($billing_paypal_order_in, $x_idempotency_key, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingPaypalOrder'
+     *
+     * @param  \Hanzo\Cloud\Model\BillingPaypalOrderIn $billing_paypal_order_in (required)
+     * @param  string|null $x_idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingPaypalOrder'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingPaypalOrderRequest($billing_paypal_order_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingPaypalOrder'][0])
+    {
+
+        // verify the required parameter 'billing_paypal_order_in' is set
+        if ($billing_paypal_order_in === null || (is_array($billing_paypal_order_in) && count($billing_paypal_order_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_paypal_order_in when calling postBillingPaypalOrder'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/billing/paypal/order';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // header params
+        if ($x_idempotency_key !== null) {
+            $headerParams['X-Idempotency-Key'] = ObjectSerializer::toHeaderValue($x_idempotency_key);
+        }
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_paypal_order_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_paypal_order_in));
+            } else {
+                $httpBody = $billing_paypal_order_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -10360,7 +16168,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Recharge
+     * @return \Hanzo\Cloud\Model\BillingRecharge|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postBillingRechargeRunAll(string $contentType = self::contentTypes['postBillingRechargeRunAll'][0])
     {
@@ -10377,7 +16185,7 @@ class BillingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Recharge, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingRecharge|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postBillingRechargeRunAllWithHttpInfo(string $contentType = self::contentTypes['postBillingRechargeRunAll'][0])
     {
@@ -10409,7 +16217,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Recharge',
+                        '\Hanzo\Cloud\Model\BillingRecharge',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -10431,7 +16245,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Recharge',
+                '\Hanzo\Cloud\Model\BillingRecharge',
                 $request,
                 $response,
             );
@@ -10440,7 +16254,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Recharge',
+                        '\Hanzo\Cloud\Model\BillingRecharge',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -10484,7 +16306,7 @@ class BillingApi
      */
     public function postBillingRechargeRunAllAsyncWithHttpInfo(string $contentType = self::contentTypes['postBillingRechargeRunAll'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Recharge';
+        $returnType = '\Hanzo\Cloud\Model\BillingRecharge';
         $request = $this->postBillingRechargeRunAllRequest($contentType);
 
         return $this->client
@@ -10547,13 +16369,298 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
         if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingRoute
+     *
+     * Answers which processor takes the caller&#39;s new checkout.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingRouteIn $billing_route_in billing_route_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingRoute'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingRoute|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingRoute($billing_route_in, string $contentType = self::contentTypes['postBillingRoute'][0])
+    {
+        list($response) = $this->postBillingRouteWithHttpInfo($billing_route_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingRouteWithHttpInfo
+     *
+     * Answers which processor takes the caller&#39;s new checkout.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingRouteIn $billing_route_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingRoute'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingRoute|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingRouteWithHttpInfo($billing_route_in, string $contentType = self::contentTypes['postBillingRoute'][0])
+    {
+        $request = $this->postBillingRouteRequest($billing_route_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingRoute',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingRoute',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingRoute',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingRouteAsync
+     *
+     * Answers which processor takes the caller&#39;s new checkout.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingRouteIn $billing_route_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingRoute'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingRouteAsync($billing_route_in, string $contentType = self::contentTypes['postBillingRoute'][0])
+    {
+        return $this->postBillingRouteAsyncWithHttpInfo($billing_route_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingRouteAsyncWithHttpInfo
+     *
+     * Answers which processor takes the caller&#39;s new checkout.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingRouteIn $billing_route_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingRoute'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingRouteAsyncWithHttpInfo($billing_route_in, string $contentType = self::contentTypes['postBillingRoute'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingRoute';
+        $request = $this->postBillingRouteRequest($billing_route_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingRoute'
+     *
+     * @param  \Hanzo\Cloud\Model\BillingRouteIn $billing_route_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingRoute'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingRouteRequest($billing_route_in, string $contentType = self::contentTypes['postBillingRoute'][0])
+    {
+
+        // verify the required parameter 'billing_route_in' is set
+        if ($billing_route_in === null || (is_array($billing_route_in) && count($billing_route_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_route_in when calling postBillingRoute'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/route';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_route_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_route_in));
+            } else {
+                $httpBody = $billing_route_in;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -10806,40 +16913,242 @@ class BillingApi
     }
 
     /**
-     * Operation postBillingTopup
+     * Operation postBillingSubscribeInvoice
      *
-     * Charges a card the caller already saved and credits the balance.
+     * Order a plan by invoice, paid by wire
      *
-     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in topup_in (required)
-     * @param  string|null $x_idempotency_key x_idempotency_key (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingSubscribeInvoice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Charged
+     * @return void
      */
-    public function postBillingTopup($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
+    public function postBillingSubscribeInvoice(string $contentType = self::contentTypes['postBillingSubscribeInvoice'][0])
     {
-        list($response) = $this->postBillingTopupWithHttpInfo($topup_in, $x_idempotency_key, $contentType);
+        $this->postBillingSubscribeInvoiceWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation postBillingSubscribeInvoiceWithHttpInfo
+     *
+     * Order a plan by invoice, paid by wire
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingSubscribeInvoice'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingSubscribeInvoiceWithHttpInfo(string $contentType = self::contentTypes['postBillingSubscribeInvoice'][0])
+    {
+        $request = $this->postBillingSubscribeInvoiceRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingSubscribeInvoiceAsync
+     *
+     * Order a plan by invoice, paid by wire
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingSubscribeInvoice'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingSubscribeInvoiceAsync(string $contentType = self::contentTypes['postBillingSubscribeInvoice'][0])
+    {
+        return $this->postBillingSubscribeInvoiceAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingSubscribeInvoiceAsyncWithHttpInfo
+     *
+     * Order a plan by invoice, paid by wire
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingSubscribeInvoice'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingSubscribeInvoiceAsyncWithHttpInfo(string $contentType = self::contentTypes['postBillingSubscribeInvoice'][0])
+    {
+        $returnType = '';
+        $request = $this->postBillingSubscribeInvoiceRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingSubscribeInvoice'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingSubscribeInvoice'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingSubscribeInvoiceRequest(string $contentType = self::contentTypes['postBillingSubscribeInvoice'][0])
+    {
+
+
+        $resourcePath = '/v1/billing/subscribe/invoice';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingSubscriptionsByIdAgentToken
+     *
+     * Replaces the token one of the caller&#39;s subscriptions renews on with a fresh one that covers the next renewal, before the renewal is attempted, and answers what is left on it.
+     *
+     * @param  string $id ID is the invoice or the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingTokenIn $billing_token_in billing_token_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingSubscriptionsByIdAgentToken'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingTokenSupplied|\Hanzo\Cloud\Model\BillingTokenSupplied|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingSubscriptionsByIdAgentToken($id, $billing_token_in, string $contentType = self::contentTypes['postBillingSubscriptionsByIdAgentToken'][0])
+    {
+        list($response) = $this->postBillingSubscriptionsByIdAgentTokenWithHttpInfo($id, $billing_token_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postBillingTopupWithHttpInfo
+     * Operation postBillingSubscriptionsByIdAgentTokenWithHttpInfo
      *
-     * Charges a card the caller already saved and credits the balance.
+     * Replaces the token one of the caller&#39;s subscriptions renews on with a fresh one that covers the next renewal, before the renewal is attempted, and answers what is left on it.
      *
-     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
-     * @param  string|null $x_idempotency_key (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
+     * @param  string $id ID is the invoice or the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingTokenIn $billing_token_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingSubscriptionsByIdAgentToken'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Charged, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingTokenSupplied|\Hanzo\Cloud\Model\BillingTokenSupplied|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBillingTopupWithHttpInfo($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
+    public function postBillingSubscriptionsByIdAgentTokenWithHttpInfo($id, $billing_token_in, string $contentType = self::contentTypes['postBillingSubscriptionsByIdAgentToken'][0])
     {
-        $request = $this->postBillingTopupRequest($topup_in, $x_idempotency_key, $contentType);
+        $request = $this->postBillingSubscriptionsByIdAgentTokenRequest($id, $billing_token_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10867,7 +17176,19 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Charged',
+                        '\Hanzo\Cloud\Model\BillingTokenSupplied',
+                        $request,
+                        $response,
+                    );
+                case 402:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingTokenSupplied',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -10889,7 +17210,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Charged',
+                '\Hanzo\Cloud\Model\BillingTokenSupplied',
                 $request,
                 $response,
             );
@@ -10898,7 +17219,328 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Charged',
+                        '\Hanzo\Cloud\Model\BillingTokenSupplied',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 402:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingTokenSupplied',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingSubscriptionsByIdAgentTokenAsync
+     *
+     * Replaces the token one of the caller&#39;s subscriptions renews on with a fresh one that covers the next renewal, before the renewal is attempted, and answers what is left on it.
+     *
+     * @param  string $id ID is the invoice or the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingTokenIn $billing_token_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingSubscriptionsByIdAgentToken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingSubscriptionsByIdAgentTokenAsync($id, $billing_token_in, string $contentType = self::contentTypes['postBillingSubscriptionsByIdAgentToken'][0])
+    {
+        return $this->postBillingSubscriptionsByIdAgentTokenAsyncWithHttpInfo($id, $billing_token_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingSubscriptionsByIdAgentTokenAsyncWithHttpInfo
+     *
+     * Replaces the token one of the caller&#39;s subscriptions renews on with a fresh one that covers the next renewal, before the renewal is attempted, and answers what is left on it.
+     *
+     * @param  string $id ID is the invoice or the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingTokenIn $billing_token_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingSubscriptionsByIdAgentToken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingSubscriptionsByIdAgentTokenAsyncWithHttpInfo($id, $billing_token_in, string $contentType = self::contentTypes['postBillingSubscriptionsByIdAgentToken'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingTokenSupplied';
+        $request = $this->postBillingSubscriptionsByIdAgentTokenRequest($id, $billing_token_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingSubscriptionsByIdAgentToken'
+     *
+     * @param  string $id ID is the invoice or the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingTokenIn $billing_token_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingSubscriptionsByIdAgentToken'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingSubscriptionsByIdAgentTokenRequest($id, $billing_token_in, string $contentType = self::contentTypes['postBillingSubscriptionsByIdAgentToken'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postBillingSubscriptionsByIdAgentToken'
+            );
+        }
+
+        // verify the required parameter 'billing_token_in' is set
+        if ($billing_token_in === null || (is_array($billing_token_in) && count($billing_token_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_token_in when calling postBillingSubscriptionsByIdAgentToken'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/subscriptions/{id}/agent-token';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_token_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_token_in));
+            } else {
+                $httpBody = $billing_token_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingTopup
+     *
+     * Charges a card the caller already saved and credits the balance.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingTopupIn $billing_topup_in billing_topup_in (required)
+     * @param  string|null $x_idempotency_key x_idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingCharged|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingTopup($billing_topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
+    {
+        list($response) = $this->postBillingTopupWithHttpInfo($billing_topup_in, $x_idempotency_key, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingTopupWithHttpInfo
+     *
+     * Charges a card the caller already saved and credits the balance.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingTopupIn $billing_topup_in (required)
+     * @param  string|null $x_idempotency_key (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingCharged|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingTopupWithHttpInfo($billing_topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
+    {
+        $request = $this->postBillingTopupRequest($billing_topup_in, $x_idempotency_key, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingCharged',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingCharged',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingCharged',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -10915,16 +17557,16 @@ class BillingApi
      *
      * Charges a card the caller already saved and credits the balance.
      *
-     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingTopupIn $billing_topup_in (required)
      * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingTopupAsync($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
+    public function postBillingTopupAsync($billing_topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
     {
-        return $this->postBillingTopupAsyncWithHttpInfo($topup_in, $x_idempotency_key, $contentType)
+        return $this->postBillingTopupAsyncWithHttpInfo($billing_topup_in, $x_idempotency_key, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -10937,17 +17579,17 @@ class BillingApi
      *
      * Charges a card the caller already saved and credits the balance.
      *
-     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingTopupIn $billing_topup_in (required)
      * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingTopupAsyncWithHttpInfo($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
+    public function postBillingTopupAsyncWithHttpInfo($billing_topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Charged';
-        $request = $this->postBillingTopupRequest($topup_in, $x_idempotency_key, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingCharged';
+        $request = $this->postBillingTopupRequest($billing_topup_in, $x_idempotency_key, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -10988,20 +17630,20 @@ class BillingApi
     /**
      * Create request for operation 'postBillingTopup'
      *
-     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingTopupIn $billing_topup_in (required)
      * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBillingTopupRequest($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
+    public function postBillingTopupRequest($billing_topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
     {
 
-        // verify the required parameter 'topup_in' is set
-        if ($topup_in === null || (is_array($topup_in) && count($topup_in) === 0)) {
+        // verify the required parameter 'billing_topup_in' is set
+        if ($billing_topup_in === null || (is_array($billing_topup_in) && count($billing_topup_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $topup_in when calling postBillingTopup'
+                'Missing the required parameter $billing_topup_in when calling postBillingTopup'
             );
         }
 
@@ -11023,20 +17665,876 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($topup_in)) {
+        if (isset($billing_topup_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($topup_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_topup_in));
             } else {
-                $httpBody = $topup_in;
+                $httpBody = $billing_topup_in;
             }
         } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingTopupCrypto
+     *
+     * Opens a stablecoin deposit for a top-up of the caller&#39;s own wallet and answers where to send it, per network.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingCryptoTopupIn $billing_crypto_topup_in billing_crypto_topup_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupCrypto'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingCryptoTopup|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingTopupCrypto($billing_crypto_topup_in, string $contentType = self::contentTypes['postBillingTopupCrypto'][0])
+    {
+        list($response) = $this->postBillingTopupCryptoWithHttpInfo($billing_crypto_topup_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingTopupCryptoWithHttpInfo
+     *
+     * Opens a stablecoin deposit for a top-up of the caller&#39;s own wallet and answers where to send it, per network.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingCryptoTopupIn $billing_crypto_topup_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupCrypto'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingCryptoTopup|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingTopupCryptoWithHttpInfo($billing_crypto_topup_in, string $contentType = self::contentTypes['postBillingTopupCrypto'][0])
+    {
+        $request = $this->postBillingTopupCryptoRequest($billing_crypto_topup_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingCryptoTopup',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingCryptoTopup',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingCryptoTopup',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingTopupCryptoAsync
+     *
+     * Opens a stablecoin deposit for a top-up of the caller&#39;s own wallet and answers where to send it, per network.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingCryptoTopupIn $billing_crypto_topup_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupCrypto'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingTopupCryptoAsync($billing_crypto_topup_in, string $contentType = self::contentTypes['postBillingTopupCrypto'][0])
+    {
+        return $this->postBillingTopupCryptoAsyncWithHttpInfo($billing_crypto_topup_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingTopupCryptoAsyncWithHttpInfo
+     *
+     * Opens a stablecoin deposit for a top-up of the caller&#39;s own wallet and answers where to send it, per network.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingCryptoTopupIn $billing_crypto_topup_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupCrypto'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingTopupCryptoAsyncWithHttpInfo($billing_crypto_topup_in, string $contentType = self::contentTypes['postBillingTopupCrypto'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingCryptoTopup';
+        $request = $this->postBillingTopupCryptoRequest($billing_crypto_topup_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingTopupCrypto'
+     *
+     * @param  \Hanzo\Cloud\Model\BillingCryptoTopupIn $billing_crypto_topup_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupCrypto'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingTopupCryptoRequest($billing_crypto_topup_in, string $contentType = self::contentTypes['postBillingTopupCrypto'][0])
+    {
+
+        // verify the required parameter 'billing_crypto_topup_in' is set
+        if ($billing_crypto_topup_in === null || (is_array($billing_crypto_topup_in) && count($billing_crypto_topup_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_crypto_topup_in when calling postBillingTopupCrypto'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/topup/crypto';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_crypto_topup_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_crypto_topup_in));
+            } else {
+                $httpBody = $billing_crypto_topup_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingTopupIntent
+     *
+     * Opens the caller&#39;s Stripe checkout for a top-up.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingTopupIntentIn $billing_topup_intent_in billing_topup_intent_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupIntent'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingTopupIntentOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingTopupIntent($billing_topup_intent_in, string $contentType = self::contentTypes['postBillingTopupIntent'][0])
+    {
+        list($response) = $this->postBillingTopupIntentWithHttpInfo($billing_topup_intent_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingTopupIntentWithHttpInfo
+     *
+     * Opens the caller&#39;s Stripe checkout for a top-up.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingTopupIntentIn $billing_topup_intent_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupIntent'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingTopupIntentOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingTopupIntentWithHttpInfo($billing_topup_intent_in, string $contentType = self::contentTypes['postBillingTopupIntent'][0])
+    {
+        $request = $this->postBillingTopupIntentRequest($billing_topup_intent_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingTopupIntentOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingTopupIntentOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingTopupIntentOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingTopupIntentAsync
+     *
+     * Opens the caller&#39;s Stripe checkout for a top-up.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingTopupIntentIn $billing_topup_intent_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupIntent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingTopupIntentAsync($billing_topup_intent_in, string $contentType = self::contentTypes['postBillingTopupIntent'][0])
+    {
+        return $this->postBillingTopupIntentAsyncWithHttpInfo($billing_topup_intent_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingTopupIntentAsyncWithHttpInfo
+     *
+     * Opens the caller&#39;s Stripe checkout for a top-up.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingTopupIntentIn $billing_topup_intent_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupIntent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingTopupIntentAsyncWithHttpInfo($billing_topup_intent_in, string $contentType = self::contentTypes['postBillingTopupIntent'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingTopupIntentOut';
+        $request = $this->postBillingTopupIntentRequest($billing_topup_intent_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingTopupIntent'
+     *
+     * @param  \Hanzo\Cloud\Model\BillingTopupIntentIn $billing_topup_intent_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupIntent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingTopupIntentRequest($billing_topup_intent_in, string $contentType = self::contentTypes['postBillingTopupIntent'][0])
+    {
+
+        // verify the required parameter 'billing_topup_intent_in' is set
+        if ($billing_topup_intent_in === null || (is_array($billing_topup_intent_in) && count($billing_topup_intent_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_topup_intent_in when calling postBillingTopupIntent'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/topup/intent';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_topup_intent_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_topup_intent_in));
+            } else {
+                $httpBody = $billing_topup_intent_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingTopupIntentByIdCancel
+     *
+     * Ends one of the caller&#39;s own payments that is not yet confirmed.
+     *
+     * @param  string $id ID is the payment, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupIntentByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingTopupIntentCancelled|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingTopupIntentByIdCancel($id, string $contentType = self::contentTypes['postBillingTopupIntentByIdCancel'][0])
+    {
+        list($response) = $this->postBillingTopupIntentByIdCancelWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingTopupIntentByIdCancelWithHttpInfo
+     *
+     * Ends one of the caller&#39;s own payments that is not yet confirmed.
+     *
+     * @param  string $id ID is the payment, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupIntentByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingTopupIntentCancelled|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingTopupIntentByIdCancelWithHttpInfo($id, string $contentType = self::contentTypes['postBillingTopupIntentByIdCancel'][0])
+    {
+        $request = $this->postBillingTopupIntentByIdCancelRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingTopupIntentCancelled',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingTopupIntentCancelled',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingTopupIntentCancelled',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingTopupIntentByIdCancelAsync
+     *
+     * Ends one of the caller&#39;s own payments that is not yet confirmed.
+     *
+     * @param  string $id ID is the payment, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupIntentByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingTopupIntentByIdCancelAsync($id, string $contentType = self::contentTypes['postBillingTopupIntentByIdCancel'][0])
+    {
+        return $this->postBillingTopupIntentByIdCancelAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingTopupIntentByIdCancelAsyncWithHttpInfo
+     *
+     * Ends one of the caller&#39;s own payments that is not yet confirmed.
+     *
+     * @param  string $id ID is the payment, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupIntentByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingTopupIntentByIdCancelAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postBillingTopupIntentByIdCancel'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingTopupIntentCancelled';
+        $request = $this->postBillingTopupIntentByIdCancelRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingTopupIntentByIdCancel'
+     *
+     * @param  string $id ID is the payment, as the open call answered it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupIntentByIdCancel'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingTopupIntentByIdCancelRequest($id, string $contentType = self::contentTypes['postBillingTopupIntentByIdCancel'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postBillingTopupIntentByIdCancel'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/topup/intent/{id}/cancel';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -11091,17 +18589,17 @@ class BillingApi
      *
      * Charges a single-use card token and credits the caller&#39;s balance.
      *
-     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in topup_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingTopupIn $billing_topup_in billing_topup_in (required)
      * @param  string|null $x_idempotency_key x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupToken'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Charged
+     * @return \Hanzo\Cloud\Model\BillingCharged|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postBillingTopupToken($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
+    public function postBillingTopupToken($billing_topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
     {
-        list($response) = $this->postBillingTopupTokenWithHttpInfo($topup_in, $x_idempotency_key, $contentType);
+        list($response) = $this->postBillingTopupTokenWithHttpInfo($billing_topup_in, $x_idempotency_key, $contentType);
         return $response;
     }
 
@@ -11110,17 +18608,17 @@ class BillingApi
      *
      * Charges a single-use card token and credits the caller&#39;s balance.
      *
-     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingTopupIn $billing_topup_in (required)
      * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupToken'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Charged, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingCharged|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBillingTopupTokenWithHttpInfo($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
+    public function postBillingTopupTokenWithHttpInfo($billing_topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
     {
-        $request = $this->postBillingTopupTokenRequest($topup_in, $x_idempotency_key, $contentType);
+        $request = $this->postBillingTopupTokenRequest($billing_topup_in, $x_idempotency_key, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11148,7 +18646,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Charged',
+                        '\Hanzo\Cloud\Model\BillingCharged',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -11170,7 +18674,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Charged',
+                '\Hanzo\Cloud\Model\BillingCharged',
                 $request,
                 $response,
             );
@@ -11179,7 +18683,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Charged',
+                        '\Hanzo\Cloud\Model\BillingCharged',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -11196,16 +18708,16 @@ class BillingApi
      *
      * Charges a single-use card token and credits the caller&#39;s balance.
      *
-     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingTopupIn $billing_topup_in (required)
      * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingTopupTokenAsync($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
+    public function postBillingTopupTokenAsync($billing_topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
     {
-        return $this->postBillingTopupTokenAsyncWithHttpInfo($topup_in, $x_idempotency_key, $contentType)
+        return $this->postBillingTopupTokenAsyncWithHttpInfo($billing_topup_in, $x_idempotency_key, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -11218,17 +18730,17 @@ class BillingApi
      *
      * Charges a single-use card token and credits the caller&#39;s balance.
      *
-     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingTopupIn $billing_topup_in (required)
      * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingTopupTokenAsyncWithHttpInfo($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
+    public function postBillingTopupTokenAsyncWithHttpInfo($billing_topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Charged';
-        $request = $this->postBillingTopupTokenRequest($topup_in, $x_idempotency_key, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingCharged';
+        $request = $this->postBillingTopupTokenRequest($billing_topup_in, $x_idempotency_key, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -11269,20 +18781,20 @@ class BillingApi
     /**
      * Create request for operation 'postBillingTopupToken'
      *
-     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingTopupIn $billing_topup_in (required)
      * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBillingTopupTokenRequest($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
+    public function postBillingTopupTokenRequest($billing_topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
     {
 
-        // verify the required parameter 'topup_in' is set
-        if ($topup_in === null || (is_array($topup_in) && count($topup_in) === 0)) {
+        // verify the required parameter 'billing_topup_in' is set
+        if ($billing_topup_in === null || (is_array($billing_topup_in) && count($billing_topup_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $topup_in when calling postBillingTopupToken'
+                'Missing the required parameter $billing_topup_in when calling postBillingTopupToken'
             );
         }
 
@@ -11304,18 +18816,588 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($topup_in)) {
+        if (isset($billing_topup_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($topup_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_topup_in));
             } else {
-                $httpBody = $topup_in;
+                $httpBody = $billing_topup_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingUsage
+     *
+     * Debits one act an application metered to the org it acts for, and answers the receipt.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingUsageReport $billing_usage_report billing_usage_report (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingUsage'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingUsageReceipt|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingUsage($billing_usage_report, string $contentType = self::contentTypes['postBillingUsage'][0])
+    {
+        list($response) = $this->postBillingUsageWithHttpInfo($billing_usage_report, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingUsageWithHttpInfo
+     *
+     * Debits one act an application metered to the org it acts for, and answers the receipt.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingUsageReport $billing_usage_report (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingUsage'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingUsageReceipt|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingUsageWithHttpInfo($billing_usage_report, string $contentType = self::contentTypes['postBillingUsage'][0])
+    {
+        $request = $this->postBillingUsageRequest($billing_usage_report, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingUsageReceipt',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingUsageReceipt',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingUsageReceipt',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingUsageAsync
+     *
+     * Debits one act an application metered to the org it acts for, and answers the receipt.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingUsageReport $billing_usage_report (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingUsage'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingUsageAsync($billing_usage_report, string $contentType = self::contentTypes['postBillingUsage'][0])
+    {
+        return $this->postBillingUsageAsyncWithHttpInfo($billing_usage_report, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingUsageAsyncWithHttpInfo
+     *
+     * Debits one act an application metered to the org it acts for, and answers the receipt.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingUsageReport $billing_usage_report (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingUsage'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingUsageAsyncWithHttpInfo($billing_usage_report, string $contentType = self::contentTypes['postBillingUsage'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingUsageReceipt';
+        $request = $this->postBillingUsageRequest($billing_usage_report, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingUsage'
+     *
+     * @param  \Hanzo\Cloud\Model\BillingUsageReport $billing_usage_report (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingUsage'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingUsageRequest($billing_usage_report, string $contentType = self::contentTypes['postBillingUsage'][0])
+    {
+
+        // verify the required parameter 'billing_usage_report' is set
+        if ($billing_usage_report === null || (is_array($billing_usage_report) && count($billing_usage_report) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_usage_report when calling postBillingUsage'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/usage';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_usage_report)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_usage_report));
+            } else {
+                $httpBody = $billing_usage_report;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postBillingWireReconcile
+     *
+     * Credits the wallet that holds a wire&#39;s reference with the cents the bank received, once.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingWireReconcileIn $billing_wire_reconcile_in billing_wire_reconcile_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingWireReconcile'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingWireCredit|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postBillingWireReconcile($billing_wire_reconcile_in, string $contentType = self::contentTypes['postBillingWireReconcile'][0])
+    {
+        list($response) = $this->postBillingWireReconcileWithHttpInfo($billing_wire_reconcile_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postBillingWireReconcileWithHttpInfo
+     *
+     * Credits the wallet that holds a wire&#39;s reference with the cents the bank received, once.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingWireReconcileIn $billing_wire_reconcile_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingWireReconcile'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingWireCredit|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postBillingWireReconcileWithHttpInfo($billing_wire_reconcile_in, string $contentType = self::contentTypes['postBillingWireReconcile'][0])
+    {
+        $request = $this->postBillingWireReconcileRequest($billing_wire_reconcile_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingWireCredit',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingWireCredit',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingWireCredit',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postBillingWireReconcileAsync
+     *
+     * Credits the wallet that holds a wire&#39;s reference with the cents the bank received, once.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingWireReconcileIn $billing_wire_reconcile_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingWireReconcile'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingWireReconcileAsync($billing_wire_reconcile_in, string $contentType = self::contentTypes['postBillingWireReconcile'][0])
+    {
+        return $this->postBillingWireReconcileAsyncWithHttpInfo($billing_wire_reconcile_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postBillingWireReconcileAsyncWithHttpInfo
+     *
+     * Credits the wallet that holds a wire&#39;s reference with the cents the bank received, once.
+     *
+     * @param  \Hanzo\Cloud\Model\BillingWireReconcileIn $billing_wire_reconcile_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingWireReconcile'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postBillingWireReconcileAsyncWithHttpInfo($billing_wire_reconcile_in, string $contentType = self::contentTypes['postBillingWireReconcile'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingWireCredit';
+        $request = $this->postBillingWireReconcileRequest($billing_wire_reconcile_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postBillingWireReconcile'
+     *
+     * @param  \Hanzo\Cloud\Model\BillingWireReconcileIn $billing_wire_reconcile_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingWireReconcile'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postBillingWireReconcileRequest($billing_wire_reconcile_in, string $contentType = self::contentTypes['postBillingWireReconcile'][0])
+    {
+
+        // verify the required parameter 'billing_wire_reconcile_in' is set
+        if ($billing_wire_reconcile_in === null || (is_array($billing_wire_reconcile_in) && count($billing_wire_reconcile_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_wire_reconcile_in when calling postBillingWireReconcile'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/wire/reconcile';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_wire_reconcile_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_wire_reconcile_in));
+            } else {
+                $httpBody = $billing_wire_reconcile_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -11370,36 +19452,36 @@ class BillingApi
     /**
      * Operation putBillingRecharge
      *
-     * Sets the caller&#39;s auto-reload rule, and answers with the rule as stored.
+     * Sets the auto-reload rule of the wallet the caller pays from, and answers with the rule as stored.
      *
-     * @param  \Hanzo\Cloud\Model\AutoRechargeEdit $auto_recharge_edit auto_recharge_edit (required)
+     * @param  \Hanzo\Cloud\Model\BillingAutoRechargeEdit $billing_auto_recharge_edit billing_auto_recharge_edit (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putBillingRecharge'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AutoRecharge
+     * @return \Hanzo\Cloud\Model\BillingAutoRecharge|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putBillingRecharge($auto_recharge_edit, string $contentType = self::contentTypes['putBillingRecharge'][0])
+    public function putBillingRecharge($billing_auto_recharge_edit, string $contentType = self::contentTypes['putBillingRecharge'][0])
     {
-        list($response) = $this->putBillingRechargeWithHttpInfo($auto_recharge_edit, $contentType);
+        list($response) = $this->putBillingRechargeWithHttpInfo($billing_auto_recharge_edit, $contentType);
         return $response;
     }
 
     /**
      * Operation putBillingRechargeWithHttpInfo
      *
-     * Sets the caller&#39;s auto-reload rule, and answers with the rule as stored.
+     * Sets the auto-reload rule of the wallet the caller pays from, and answers with the rule as stored.
      *
-     * @param  \Hanzo\Cloud\Model\AutoRechargeEdit $auto_recharge_edit (required)
+     * @param  \Hanzo\Cloud\Model\BillingAutoRechargeEdit $billing_auto_recharge_edit (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putBillingRecharge'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AutoRecharge, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingAutoRecharge|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putBillingRechargeWithHttpInfo($auto_recharge_edit, string $contentType = self::contentTypes['putBillingRecharge'][0])
+    public function putBillingRechargeWithHttpInfo($billing_auto_recharge_edit, string $contentType = self::contentTypes['putBillingRecharge'][0])
     {
-        $request = $this->putBillingRechargeRequest($auto_recharge_edit, $contentType);
+        $request = $this->putBillingRechargeRequest($billing_auto_recharge_edit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11427,7 +19509,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AutoRecharge',
+                        '\Hanzo\Cloud\Model\BillingAutoRecharge',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -11449,7 +19537,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AutoRecharge',
+                '\Hanzo\Cloud\Model\BillingAutoRecharge',
                 $request,
                 $response,
             );
@@ -11458,7 +19546,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AutoRecharge',
+                        '\Hanzo\Cloud\Model\BillingAutoRecharge',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -11473,17 +19569,17 @@ class BillingApi
     /**
      * Operation putBillingRechargeAsync
      *
-     * Sets the caller&#39;s auto-reload rule, and answers with the rule as stored.
+     * Sets the auto-reload rule of the wallet the caller pays from, and answers with the rule as stored.
      *
-     * @param  \Hanzo\Cloud\Model\AutoRechargeEdit $auto_recharge_edit (required)
+     * @param  \Hanzo\Cloud\Model\BillingAutoRechargeEdit $billing_auto_recharge_edit (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putBillingRecharge'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putBillingRechargeAsync($auto_recharge_edit, string $contentType = self::contentTypes['putBillingRecharge'][0])
+    public function putBillingRechargeAsync($billing_auto_recharge_edit, string $contentType = self::contentTypes['putBillingRecharge'][0])
     {
-        return $this->putBillingRechargeAsyncWithHttpInfo($auto_recharge_edit, $contentType)
+        return $this->putBillingRechargeAsyncWithHttpInfo($billing_auto_recharge_edit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -11494,18 +19590,18 @@ class BillingApi
     /**
      * Operation putBillingRechargeAsyncWithHttpInfo
      *
-     * Sets the caller&#39;s auto-reload rule, and answers with the rule as stored.
+     * Sets the auto-reload rule of the wallet the caller pays from, and answers with the rule as stored.
      *
-     * @param  \Hanzo\Cloud\Model\AutoRechargeEdit $auto_recharge_edit (required)
+     * @param  \Hanzo\Cloud\Model\BillingAutoRechargeEdit $billing_auto_recharge_edit (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putBillingRecharge'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putBillingRechargeAsyncWithHttpInfo($auto_recharge_edit, string $contentType = self::contentTypes['putBillingRecharge'][0])
+    public function putBillingRechargeAsyncWithHttpInfo($billing_auto_recharge_edit, string $contentType = self::contentTypes['putBillingRecharge'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AutoRecharge';
-        $request = $this->putBillingRechargeRequest($auto_recharge_edit, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingAutoRecharge';
+        $request = $this->putBillingRechargeRequest($billing_auto_recharge_edit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -11546,19 +19642,19 @@ class BillingApi
     /**
      * Create request for operation 'putBillingRecharge'
      *
-     * @param  \Hanzo\Cloud\Model\AutoRechargeEdit $auto_recharge_edit (required)
+     * @param  \Hanzo\Cloud\Model\BillingAutoRechargeEdit $billing_auto_recharge_edit (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putBillingRecharge'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putBillingRechargeRequest($auto_recharge_edit, string $contentType = self::contentTypes['putBillingRecharge'][0])
+    public function putBillingRechargeRequest($billing_auto_recharge_edit, string $contentType = self::contentTypes['putBillingRecharge'][0])
     {
 
-        // verify the required parameter 'auto_recharge_edit' is set
-        if ($auto_recharge_edit === null || (is_array($auto_recharge_edit) && count($auto_recharge_edit) === 0)) {
+        // verify the required parameter 'billing_auto_recharge_edit' is set
+        if ($billing_auto_recharge_edit === null || (is_array($billing_auto_recharge_edit) && count($billing_auto_recharge_edit) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $auto_recharge_edit when calling putBillingRecharge'
+                'Missing the required parameter $billing_auto_recharge_edit when calling putBillingRecharge'
             );
         }
 
@@ -11575,18 +19671,18 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($auto_recharge_edit)) {
+        if (isset($billing_auto_recharge_edit)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($auto_recharge_edit));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_auto_recharge_edit));
             } else {
-                $httpBody = $auto_recharge_edit;
+                $httpBody = $billing_auto_recharge_edit;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -11643,16 +19739,16 @@ class BillingApi
      *
      * Raise a draft invoice against a customer
      *
-     * @param  \Hanzo\Cloud\Model\RaiseIn $raise_in raise_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingRaiseIn $billing_raise_in billing_raise_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['raiseInvoice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Invoice
+     * @return \Hanzo\Cloud\Model\BillingInvoice|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function raiseInvoice($raise_in, string $contentType = self::contentTypes['raiseInvoice'][0])
+    public function raiseInvoice($billing_raise_in, string $contentType = self::contentTypes['raiseInvoice'][0])
     {
-        list($response) = $this->raiseInvoiceWithHttpInfo($raise_in, $contentType);
+        list($response) = $this->raiseInvoiceWithHttpInfo($billing_raise_in, $contentType);
         return $response;
     }
 
@@ -11661,16 +19757,16 @@ class BillingApi
      *
      * Raise a draft invoice against a customer
      *
-     * @param  \Hanzo\Cloud\Model\RaiseIn $raise_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingRaiseIn $billing_raise_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['raiseInvoice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Invoice, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingInvoice|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function raiseInvoiceWithHttpInfo($raise_in, string $contentType = self::contentTypes['raiseInvoice'][0])
+    public function raiseInvoiceWithHttpInfo($billing_raise_in, string $contentType = self::contentTypes['raiseInvoice'][0])
     {
-        $request = $this->raiseInvoiceRequest($raise_in, $contentType);
+        $request = $this->raiseInvoiceRequest($billing_raise_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11698,7 +19794,13 @@ class BillingApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Invoice',
+                        '\Hanzo\Cloud\Model\BillingInvoice',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -11720,7 +19822,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Invoice',
+                '\Hanzo\Cloud\Model\BillingInvoice',
                 $request,
                 $response,
             );
@@ -11729,7 +19831,15 @@ class BillingApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Invoice',
+                        '\Hanzo\Cloud\Model\BillingInvoice',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -11746,15 +19856,15 @@ class BillingApi
      *
      * Raise a draft invoice against a customer
      *
-     * @param  \Hanzo\Cloud\Model\RaiseIn $raise_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingRaiseIn $billing_raise_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['raiseInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function raiseInvoiceAsync($raise_in, string $contentType = self::contentTypes['raiseInvoice'][0])
+    public function raiseInvoiceAsync($billing_raise_in, string $contentType = self::contentTypes['raiseInvoice'][0])
     {
-        return $this->raiseInvoiceAsyncWithHttpInfo($raise_in, $contentType)
+        return $this->raiseInvoiceAsyncWithHttpInfo($billing_raise_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -11767,16 +19877,16 @@ class BillingApi
      *
      * Raise a draft invoice against a customer
      *
-     * @param  \Hanzo\Cloud\Model\RaiseIn $raise_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingRaiseIn $billing_raise_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['raiseInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function raiseInvoiceAsyncWithHttpInfo($raise_in, string $contentType = self::contentTypes['raiseInvoice'][0])
+    public function raiseInvoiceAsyncWithHttpInfo($billing_raise_in, string $contentType = self::contentTypes['raiseInvoice'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Invoice';
-        $request = $this->raiseInvoiceRequest($raise_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingInvoice';
+        $request = $this->raiseInvoiceRequest($billing_raise_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -11817,19 +19927,19 @@ class BillingApi
     /**
      * Create request for operation 'raiseInvoice'
      *
-     * @param  \Hanzo\Cloud\Model\RaiseIn $raise_in (required)
+     * @param  \Hanzo\Cloud\Model\BillingRaiseIn $billing_raise_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['raiseInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function raiseInvoiceRequest($raise_in, string $contentType = self::contentTypes['raiseInvoice'][0])
+    public function raiseInvoiceRequest($billing_raise_in, string $contentType = self::contentTypes['raiseInvoice'][0])
     {
 
-        // verify the required parameter 'raise_in' is set
-        if ($raise_in === null || (is_array($raise_in) && count($raise_in) === 0)) {
+        // verify the required parameter 'billing_raise_in' is set
+        if ($billing_raise_in === null || (is_array($billing_raise_in) && count($billing_raise_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $raise_in when calling raiseInvoice'
+                'Missing the required parameter $billing_raise_in when calling raiseInvoice'
             );
         }
 
@@ -11846,18 +19956,18 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($raise_in)) {
+        if (isset($billing_raise_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($raise_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_raise_in));
             } else {
-                $httpBody = $raise_in;
+                $httpBody = $billing_raise_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -11914,17 +20024,17 @@ class BillingApi
      *
      * Put a canceled subscription back on its plan
      *
-     * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\SubscriptionRef $subscription_ref subscription_ref (required)
+     * @param  string $id ID is the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingSubscriptionAct $billing_subscription_act billing_subscription_act (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['reactivateSubscription'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Subscription
+     * @return \Hanzo\Cloud\Model\BillingSubscription|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function reactivateSubscription($id, $subscription_ref, string $contentType = self::contentTypes['reactivateSubscription'][0])
+    public function reactivateSubscription($id, $billing_subscription_act, string $contentType = self::contentTypes['reactivateSubscription'][0])
     {
-        list($response) = $this->reactivateSubscriptionWithHttpInfo($id, $subscription_ref, $contentType);
+        list($response) = $this->reactivateSubscriptionWithHttpInfo($id, $billing_subscription_act, $contentType);
         return $response;
     }
 
@@ -11933,17 +20043,17 @@ class BillingApi
      *
      * Put a canceled subscription back on its plan
      *
-     * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SubscriptionRef $subscription_ref (required)
+     * @param  string $id ID is the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingSubscriptionAct $billing_subscription_act (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['reactivateSubscription'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Subscription, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingSubscription|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function reactivateSubscriptionWithHttpInfo($id, $subscription_ref, string $contentType = self::contentTypes['reactivateSubscription'][0])
+    public function reactivateSubscriptionWithHttpInfo($id, $billing_subscription_act, string $contentType = self::contentTypes['reactivateSubscription'][0])
     {
-        $request = $this->reactivateSubscriptionRequest($id, $subscription_ref, $contentType);
+        $request = $this->reactivateSubscriptionRequest($id, $billing_subscription_act, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11971,7 +20081,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Subscription',
+                        '\Hanzo\Cloud\Model\BillingSubscription',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -11993,7 +20109,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Subscription',
+                '\Hanzo\Cloud\Model\BillingSubscription',
                 $request,
                 $response,
             );
@@ -12002,7 +20118,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Subscription',
+                        '\Hanzo\Cloud\Model\BillingSubscription',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -12019,16 +20143,16 @@ class BillingApi
      *
      * Put a canceled subscription back on its plan
      *
-     * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SubscriptionRef $subscription_ref (required)
+     * @param  string $id ID is the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingSubscriptionAct $billing_subscription_act (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['reactivateSubscription'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function reactivateSubscriptionAsync($id, $subscription_ref, string $contentType = self::contentTypes['reactivateSubscription'][0])
+    public function reactivateSubscriptionAsync($id, $billing_subscription_act, string $contentType = self::contentTypes['reactivateSubscription'][0])
     {
-        return $this->reactivateSubscriptionAsyncWithHttpInfo($id, $subscription_ref, $contentType)
+        return $this->reactivateSubscriptionAsyncWithHttpInfo($id, $billing_subscription_act, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -12041,17 +20165,17 @@ class BillingApi
      *
      * Put a canceled subscription back on its plan
      *
-     * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SubscriptionRef $subscription_ref (required)
+     * @param  string $id ID is the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingSubscriptionAct $billing_subscription_act (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['reactivateSubscription'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function reactivateSubscriptionAsyncWithHttpInfo($id, $subscription_ref, string $contentType = self::contentTypes['reactivateSubscription'][0])
+    public function reactivateSubscriptionAsyncWithHttpInfo($id, $billing_subscription_act, string $contentType = self::contentTypes['reactivateSubscription'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Subscription';
-        $request = $this->reactivateSubscriptionRequest($id, $subscription_ref, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingSubscription';
+        $request = $this->reactivateSubscriptionRequest($id, $billing_subscription_act, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -12092,14 +20216,14 @@ class BillingApi
     /**
      * Create request for operation 'reactivateSubscription'
      *
-     * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SubscriptionRef $subscription_ref (required)
+     * @param  string $id ID is the subscription, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\BillingSubscriptionAct $billing_subscription_act (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['reactivateSubscription'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function reactivateSubscriptionRequest($id, $subscription_ref, string $contentType = self::contentTypes['reactivateSubscription'][0])
+    public function reactivateSubscriptionRequest($id, $billing_subscription_act, string $contentType = self::contentTypes['reactivateSubscription'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -12109,10 +20233,10 @@ class BillingApi
             );
         }
 
-        // verify the required parameter 'subscription_ref' is set
-        if ($subscription_ref === null || (is_array($subscription_ref) && count($subscription_ref) === 0)) {
+        // verify the required parameter 'billing_subscription_act' is set
+        if ($billing_subscription_act === null || (is_array($billing_subscription_act) && count($billing_subscription_act) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $subscription_ref when calling reactivateSubscription'
+                'Missing the required parameter $billing_subscription_act when calling reactivateSubscription'
             );
         }
 
@@ -12137,18 +20261,323 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($subscription_ref)) {
+        if (isset($billing_subscription_act)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($subscription_ref));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_subscription_act));
             } else {
-                $httpBody = $subscription_ref;
+                $httpBody = $billing_subscription_act;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation resizeSubscription
+     *
+     * Change a team&#39;s seats
+     *
+     * @param  string $id id (required)
+     * @param  \Hanzo\Cloud\Model\BillingResize $billing_resize billing_resize (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['resizeSubscription'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\BillingSubscription|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function resizeSubscription($id, $billing_resize, string $contentType = self::contentTypes['resizeSubscription'][0])
+    {
+        list($response) = $this->resizeSubscriptionWithHttpInfo($id, $billing_resize, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation resizeSubscriptionWithHttpInfo
+     *
+     * Change a team&#39;s seats
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\BillingResize $billing_resize (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['resizeSubscription'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\BillingSubscription|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function resizeSubscriptionWithHttpInfo($id, $billing_resize, string $contentType = self::contentTypes['resizeSubscription'][0])
+    {
+        $request = $this->resizeSubscriptionRequest($id, $billing_resize, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\BillingSubscription',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\BillingSubscription',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\BillingSubscription',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation resizeSubscriptionAsync
+     *
+     * Change a team&#39;s seats
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\BillingResize $billing_resize (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['resizeSubscription'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function resizeSubscriptionAsync($id, $billing_resize, string $contentType = self::contentTypes['resizeSubscription'][0])
+    {
+        return $this->resizeSubscriptionAsyncWithHttpInfo($id, $billing_resize, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation resizeSubscriptionAsyncWithHttpInfo
+     *
+     * Change a team&#39;s seats
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\BillingResize $billing_resize (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['resizeSubscription'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function resizeSubscriptionAsyncWithHttpInfo($id, $billing_resize, string $contentType = self::contentTypes['resizeSubscription'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\BillingSubscription';
+        $request = $this->resizeSubscriptionRequest($id, $billing_resize, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'resizeSubscription'
+     *
+     * @param  string $id (required)
+     * @param  \Hanzo\Cloud\Model\BillingResize $billing_resize (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['resizeSubscription'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function resizeSubscriptionRequest($id, $billing_resize, string $contentType = self::contentTypes['resizeSubscription'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling resizeSubscription'
+            );
+        }
+
+        // verify the required parameter 'billing_resize' is set
+        if ($billing_resize === null || (is_array($billing_resize) && count($billing_resize) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_resize when calling resizeSubscription'
+            );
+        }
+
+
+        $resourcePath = '/v1/billing/subscriptions/{id}/resize';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($billing_resize)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_resize));
+            } else {
+                $httpBody = $billing_resize;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -12206,15 +20635,16 @@ class BillingApi
      * Void a draft or issued invoice
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['voidInvoice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Invoice
+     * @return \Hanzo\Cloud\Model\BillingInvoice|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function voidInvoice($id, string $contentType = self::contentTypes['voidInvoice'][0])
+    public function voidInvoice($id, $billing_invoice_ref, string $contentType = self::contentTypes['voidInvoice'][0])
     {
-        list($response) = $this->voidInvoiceWithHttpInfo($id, $contentType);
+        list($response) = $this->voidInvoiceWithHttpInfo($id, $billing_invoice_ref, $contentType);
         return $response;
     }
 
@@ -12224,15 +20654,16 @@ class BillingApi
      * Void a draft or issued invoice
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['voidInvoice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Invoice, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BillingInvoice|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function voidInvoiceWithHttpInfo($id, string $contentType = self::contentTypes['voidInvoice'][0])
+    public function voidInvoiceWithHttpInfo($id, $billing_invoice_ref, string $contentType = self::contentTypes['voidInvoice'][0])
     {
-        $request = $this->voidInvoiceRequest($id, $contentType);
+        $request = $this->voidInvoiceRequest($id, $billing_invoice_ref, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12260,7 +20691,13 @@ class BillingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Invoice',
+                        '\Hanzo\Cloud\Model\BillingInvoice',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -12282,7 +20719,7 @@ class BillingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Invoice',
+                '\Hanzo\Cloud\Model\BillingInvoice',
                 $request,
                 $response,
             );
@@ -12291,7 +20728,15 @@ class BillingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Invoice',
+                        '\Hanzo\Cloud\Model\BillingInvoice',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -12309,14 +20754,15 @@ class BillingApi
      * Void a draft or issued invoice
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['voidInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function voidInvoiceAsync($id, string $contentType = self::contentTypes['voidInvoice'][0])
+    public function voidInvoiceAsync($id, $billing_invoice_ref, string $contentType = self::contentTypes['voidInvoice'][0])
     {
-        return $this->voidInvoiceAsyncWithHttpInfo($id, $contentType)
+        return $this->voidInvoiceAsyncWithHttpInfo($id, $billing_invoice_ref, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -12330,15 +20776,16 @@ class BillingApi
      * Void a draft or issued invoice
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['voidInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function voidInvoiceAsyncWithHttpInfo($id, string $contentType = self::contentTypes['voidInvoice'][0])
+    public function voidInvoiceAsyncWithHttpInfo($id, $billing_invoice_ref, string $contentType = self::contentTypes['voidInvoice'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Invoice';
-        $request = $this->voidInvoiceRequest($id, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BillingInvoice';
+        $request = $this->voidInvoiceRequest($id, $billing_invoice_ref, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -12380,18 +20827,26 @@ class BillingApi
      * Create request for operation 'voidInvoice'
      *
      * @param  string $id ID is the invoice id. (required)
+     * @param  \Hanzo\Cloud\Model\BillingInvoiceRef $billing_invoice_ref (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['voidInvoice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function voidInvoiceRequest($id, string $contentType = self::contentTypes['voidInvoice'][0])
+    public function voidInvoiceRequest($id, $billing_invoice_ref, string $contentType = self::contentTypes['voidInvoice'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $id when calling voidInvoice'
+            );
+        }
+
+        // verify the required parameter 'billing_invoice_ref' is set
+        if ($billing_invoice_ref === null || (is_array($billing_invoice_ref) && count($billing_invoice_ref) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $billing_invoice_ref when calling voidInvoice'
             );
         }
 
@@ -12416,13 +20871,20 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($billing_invoice_ref)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($billing_invoice_ref));
+            } else {
+                $httpBody = $billing_invoice_ref;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {

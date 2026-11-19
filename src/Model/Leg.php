@@ -71,8 +71,8 @@ class Leg implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'account' => null,
-        'credit' => 'int64',
-        'debit' => 'int64'
+        'credit' => null,
+        'debit' => null
     ];
 
     /**
@@ -316,7 +316,7 @@ class Leg implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets account
      *
-     * @param string|null $account Account is the chart-of-accounts number this side posts to, e.g. \"5300\".
+     * @param string|null $account account
      *
      * @return self
      */
@@ -343,7 +343,7 @@ class Leg implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets credit
      *
-     * @param int|null $credit Credit is the leg's credit in exact cents. Set this or Debit, not both.
+     * @param int|null $credit credit
      *
      * @return self
      */
@@ -370,7 +370,7 @@ class Leg implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets debit
      *
-     * @param int|null $debit Debit is the leg's debit in exact cents. Set this or Credit, not both.
+     * @param int|null $debit debit
      *
      * @return self
      */

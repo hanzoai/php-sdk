@@ -74,10 +74,19 @@ class PlatformApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'deletePlatformProjectsByProject' => [
+            'application/json',
+        ],
         'deletePlatformProjectsByProjectAppsByApp' => [
             'application/json',
         ],
         'deletePlatformProjectsByProjectAppsByAppDomainsByHost' => [
+            'application/json',
+        ],
+        'getBuildById' => [
+            'application/json',
+        ],
+        'getBuildByIdLogs' => [
             'application/json',
         ],
         'getPlatformApps' => [
@@ -93,9 +102,6 @@ class PlatformApi
             'application/json',
         ],
         'getPlatformCd' => [
-            'application/json',
-        ],
-        'getPlatformCi' => [
             'application/json',
         ],
         'getPlatformEnvironments' => [
@@ -140,10 +146,13 @@ class PlatformApi
         'getPlatformReleases' => [
             'application/json',
         ],
+        'postBuild' => [
+            'application/json',
+        ],
         'postPlatformApps' => [
             'application/json',
         ],
-        'postPlatformFleetByAppDeploy' => [
+        'postPlatformProjects' => [
             'application/json',
         ],
         'postPlatformProjectsByProjectApps' => [
@@ -176,7 +185,10 @@ class PlatformApi
         'postPlatformRun' => [
             'application/json',
         ],
-        'postPlatformRunner' => [
+        'putPlatformAppsByAppProject' => [
+            'application/json',
+        ],
+        'putPlatformProjectsByProject' => [
             'application/json',
         ],
         'putPlatformProjectsByProjectAppsByAppEnv' => [
@@ -228,6 +240,337 @@ class PlatformApi
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Operation deletePlatformProjectsByProject
+     *
+     * Folds a project into another.
+     *
+     * @param  string $project Project is the project to delete, from the path. (required)
+     * @param  string|null $into Into is the existing project its apps move into. Required: an app always belongs to exactly one project. (optional)
+     * @param  string|null $org Org names the projects&#39; owner, defaulting to the caller&#39;s own scope. (optional)
+     * @param  string|null $mode Mode is &#x60;branch&#x60; (the default) or &#x60;commit&#x60;. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deletePlatformProjectsByProject'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PlatformProjectWrite|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function deletePlatformProjectsByProject($project, $into = null, $org = null, $mode = null, string $contentType = self::contentTypes['deletePlatformProjectsByProject'][0])
+    {
+        list($response) = $this->deletePlatformProjectsByProjectWithHttpInfo($project, $into, $org, $mode, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deletePlatformProjectsByProjectWithHttpInfo
+     *
+     * Folds a project into another.
+     *
+     * @param  string $project Project is the project to delete, from the path. (required)
+     * @param  string|null $into Into is the existing project its apps move into. Required: an app always belongs to exactly one project. (optional)
+     * @param  string|null $org Org names the projects&#39; owner, defaulting to the caller&#39;s own scope. (optional)
+     * @param  string|null $mode Mode is &#x60;branch&#x60; (the default) or &#x60;commit&#x60;. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deletePlatformProjectsByProject'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PlatformProjectWrite|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deletePlatformProjectsByProjectWithHttpInfo($project, $into = null, $org = null, $mode = null, string $contentType = self::contentTypes['deletePlatformProjectsByProject'][0])
+    {
+        $request = $this->deletePlatformProjectsByProjectRequest($project, $into, $org, $mode, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PlatformProjectWrite',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PlatformProjectWrite',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PlatformProjectWrite',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deletePlatformProjectsByProjectAsync
+     *
+     * Folds a project into another.
+     *
+     * @param  string $project Project is the project to delete, from the path. (required)
+     * @param  string|null $into Into is the existing project its apps move into. Required: an app always belongs to exactly one project. (optional)
+     * @param  string|null $org Org names the projects&#39; owner, defaulting to the caller&#39;s own scope. (optional)
+     * @param  string|null $mode Mode is &#x60;branch&#x60; (the default) or &#x60;commit&#x60;. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deletePlatformProjectsByProject'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deletePlatformProjectsByProjectAsync($project, $into = null, $org = null, $mode = null, string $contentType = self::contentTypes['deletePlatformProjectsByProject'][0])
+    {
+        return $this->deletePlatformProjectsByProjectAsyncWithHttpInfo($project, $into, $org, $mode, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deletePlatformProjectsByProjectAsyncWithHttpInfo
+     *
+     * Folds a project into another.
+     *
+     * @param  string $project Project is the project to delete, from the path. (required)
+     * @param  string|null $into Into is the existing project its apps move into. Required: an app always belongs to exactly one project. (optional)
+     * @param  string|null $org Org names the projects&#39; owner, defaulting to the caller&#39;s own scope. (optional)
+     * @param  string|null $mode Mode is &#x60;branch&#x60; (the default) or &#x60;commit&#x60;. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deletePlatformProjectsByProject'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deletePlatformProjectsByProjectAsyncWithHttpInfo($project, $into = null, $org = null, $mode = null, string $contentType = self::contentTypes['deletePlatformProjectsByProject'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PlatformProjectWrite';
+        $request = $this->deletePlatformProjectsByProjectRequest($project, $into, $org, $mode, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deletePlatformProjectsByProject'
+     *
+     * @param  string $project Project is the project to delete, from the path. (required)
+     * @param  string|null $into Into is the existing project its apps move into. Required: an app always belongs to exactly one project. (optional)
+     * @param  string|null $org Org names the projects&#39; owner, defaulting to the caller&#39;s own scope. (optional)
+     * @param  string|null $mode Mode is &#x60;branch&#x60; (the default) or &#x60;commit&#x60;. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deletePlatformProjectsByProject'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deletePlatformProjectsByProjectRequest($project, $into = null, $org = null, $mode = null, string $contentType = self::contentTypes['deletePlatformProjectsByProject'][0])
+    {
+
+        // verify the required parameter 'project' is set
+        if ($project === null || (is_array($project) && count($project) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $project when calling deletePlatformProjectsByProject'
+            );
+        }
+
+
+
+
+
+        $resourcePath = '/v1/platform/projects/{project}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $into,
+            'into', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $org,
+            'org', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $mode,
+            'mode', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($project !== null) {
+            $resourcePath = str_replace(
+                '{' . 'project' . '}',
+                ObjectSerializer::toPathValue($project),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
     }
 
     /**
@@ -291,6 +634,14 @@ class PlatformApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -416,7 +767,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -535,6 +886,14 @@ class PlatformApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -678,7 +1037,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -735,6 +1094,578 @@ class PlatformApi
     }
 
     /**
+     * Operation getBuildById
+     *
+     * Answers one build: its status, and for a failed build the reason.
+     *
+     * @param  string $id ID is the build&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBuildById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PlatformRunnerBuildResp|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getBuildById($id, string $contentType = self::contentTypes['getBuildById'][0])
+    {
+        list($response) = $this->getBuildByIdWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getBuildByIdWithHttpInfo
+     *
+     * Answers one build: its status, and for a failed build the reason.
+     *
+     * @param  string $id ID is the build&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBuildById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PlatformRunnerBuildResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBuildByIdWithHttpInfo($id, string $contentType = self::contentTypes['getBuildById'][0])
+    {
+        $request = $this->getBuildByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PlatformRunnerBuildResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PlatformRunnerBuildResp',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PlatformRunnerBuildResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBuildByIdAsync
+     *
+     * Answers one build: its status, and for a failed build the reason.
+     *
+     * @param  string $id ID is the build&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBuildById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBuildByIdAsync($id, string $contentType = self::contentTypes['getBuildById'][0])
+    {
+        return $this->getBuildByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBuildByIdAsyncWithHttpInfo
+     *
+     * Answers one build: its status, and for a failed build the reason.
+     *
+     * @param  string $id ID is the build&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBuildById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBuildByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getBuildById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PlatformRunnerBuildResp';
+        $request = $this->getBuildByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBuildById'
+     *
+     * @param  string $id ID is the build&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBuildById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBuildByIdRequest($id, string $contentType = self::contentTypes['getBuildById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getBuildById'
+            );
+        }
+
+
+        $resourcePath = '/v1/build/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getBuildByIdLogs
+     *
+     * Answers one build&#39;s BuildKit output: the log of each Job that ran it, every container in the order it ran them, so a failed step&#39;s real error is readable rather than cut off at the RUN line that failed.
+     *
+     * @param  string $id ID is the build&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBuildByIdLogs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PlatformRunnerBuildLog|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getBuildByIdLogs($id, string $contentType = self::contentTypes['getBuildByIdLogs'][0])
+    {
+        list($response) = $this->getBuildByIdLogsWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getBuildByIdLogsWithHttpInfo
+     *
+     * Answers one build&#39;s BuildKit output: the log of each Job that ran it, every container in the order it ran them, so a failed step&#39;s real error is readable rather than cut off at the RUN line that failed.
+     *
+     * @param  string $id ID is the build&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBuildByIdLogs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PlatformRunnerBuildLog|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getBuildByIdLogsWithHttpInfo($id, string $contentType = self::contentTypes['getBuildByIdLogs'][0])
+    {
+        $request = $this->getBuildByIdLogsRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PlatformRunnerBuildLog',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PlatformRunnerBuildLog',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PlatformRunnerBuildLog',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getBuildByIdLogsAsync
+     *
+     * Answers one build&#39;s BuildKit output: the log of each Job that ran it, every container in the order it ran them, so a failed step&#39;s real error is readable rather than cut off at the RUN line that failed.
+     *
+     * @param  string $id ID is the build&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBuildByIdLogs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBuildByIdLogsAsync($id, string $contentType = self::contentTypes['getBuildByIdLogs'][0])
+    {
+        return $this->getBuildByIdLogsAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getBuildByIdLogsAsyncWithHttpInfo
+     *
+     * Answers one build&#39;s BuildKit output: the log of each Job that ran it, every container in the order it ran them, so a failed step&#39;s real error is readable rather than cut off at the RUN line that failed.
+     *
+     * @param  string $id ID is the build&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBuildByIdLogs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getBuildByIdLogsAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getBuildByIdLogs'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PlatformRunnerBuildLog';
+        $request = $this->getBuildByIdLogsRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getBuildByIdLogs'
+     *
+     * @param  string $id ID is the build&#39;s id, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBuildByIdLogs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getBuildByIdLogsRequest($id, string $contentType = self::contentTypes['getBuildByIdLogs'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getBuildByIdLogs'
+            );
+        }
+
+
+        $resourcePath = '/v1/build/{id}/logs';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getPlatformApps
      *
      * Answers what this organisation has declared, joined with what the delivery plane has done about it.
@@ -744,7 +1675,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeclaredResp
+     * @return \Hanzo\Cloud\Model\PlatformDeclaredResp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformApps($org = null, string $contentType = self::contentTypes['getPlatformApps'][0])
     {
@@ -762,7 +1693,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeclaredResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDeclaredResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformAppsWithHttpInfo($org = null, string $contentType = self::contentTypes['getPlatformApps'][0])
     {
@@ -794,7 +1725,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeclaredResp',
+                        '\Hanzo\Cloud\Model\PlatformDeclaredResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -816,7 +1753,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeclaredResp',
+                '\Hanzo\Cloud\Model\PlatformDeclaredResp',
                 $request,
                 $response,
             );
@@ -825,7 +1762,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeclaredResp',
+                        '\Hanzo\Cloud\Model\PlatformDeclaredResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -871,7 +1816,7 @@ class PlatformApi
      */
     public function getPlatformAppsAsyncWithHttpInfo($org = null, string $contentType = self::contentTypes['getPlatformApps'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeclaredResp';
+        $returnType = '\Hanzo\Cloud\Model\PlatformDeclaredResp';
         $request = $this->getPlatformAppsRequest($org, $contentType);
 
         return $this->client
@@ -945,7 +1890,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1012,7 +1957,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Declaration
+     * @return \Hanzo\Cloud\Model\PlatformDeclaration|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformAppsByApp($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
     {
@@ -1031,7 +1976,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Declaration, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDeclaration|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformAppsByAppWithHttpInfo($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
     {
@@ -1063,7 +2008,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Declaration',
+                        '\Hanzo\Cloud\Model\PlatformDeclaration',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1085,7 +2036,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Declaration',
+                '\Hanzo\Cloud\Model\PlatformDeclaration',
                 $request,
                 $response,
             );
@@ -1094,7 +2045,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Declaration',
+                        '\Hanzo\Cloud\Model\PlatformDeclaration',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1142,7 +2101,7 @@ class PlatformApi
      */
     public function getPlatformAppsByAppAsyncWithHttpInfo($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Declaration';
+        $returnType = '\Hanzo\Cloud\Model\PlatformDeclaration';
         $request = $this->getPlatformAppsByAppRequest($app, $org, $contentType);
 
         return $this->client
@@ -1232,7 +2191,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1299,7 +2258,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CDApp
+     * @return \Hanzo\Cloud\Model\PlatformCDApp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformAppsByAppCd($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
     {
@@ -1318,7 +2277,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CDApp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformCDApp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformAppsByAppCdWithHttpInfo($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
     {
@@ -1350,7 +2309,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CDApp',
+                        '\Hanzo\Cloud\Model\PlatformCDApp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1372,7 +2337,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CDApp',
+                '\Hanzo\Cloud\Model\PlatformCDApp',
                 $request,
                 $response,
             );
@@ -1381,7 +2346,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CDApp',
+                        '\Hanzo\Cloud\Model\PlatformCDApp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1429,7 +2402,7 @@ class PlatformApi
      */
     public function getPlatformAppsByAppCdAsyncWithHttpInfo($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CDApp';
+        $returnType = '\Hanzo\Cloud\Model\PlatformCDApp';
         $request = $this->getPlatformAppsByAppCdRequest($app, $org, $contentType);
 
         return $this->client
@@ -1519,7 +2492,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1584,7 +2557,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BuildBoard
+     * @return \Hanzo\Cloud\Model\PlatformBuildBoard|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformBuilds(string $contentType = self::contentTypes['getPlatformBuilds'][0])
     {
@@ -1601,7 +2574,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BuildBoard, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformBuildBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformBuildsWithHttpInfo(string $contentType = self::contentTypes['getPlatformBuilds'][0])
     {
@@ -1633,7 +2606,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BuildBoard',
+                        '\Hanzo\Cloud\Model\PlatformBuildBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1655,7 +2634,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BuildBoard',
+                '\Hanzo\Cloud\Model\PlatformBuildBoard',
                 $request,
                 $response,
             );
@@ -1664,7 +2643,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BuildBoard',
+                        '\Hanzo\Cloud\Model\PlatformBuildBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1708,7 +2695,7 @@ class PlatformApi
      */
     public function getPlatformBuildsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlatformBuilds'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BuildBoard';
+        $returnType = '\Hanzo\Cloud\Model\PlatformBuildBoard';
         $request = $this->getPlatformBuildsRequest($contentType);
 
         return $this->client
@@ -1771,7 +2758,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1836,7 +2823,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CdResp
+     * @return \Hanzo\Cloud\Model\PlatformCdResp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformCd(string $contentType = self::contentTypes['getPlatformCd'][0])
     {
@@ -1853,7 +2840,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CdResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformCdResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformCdWithHttpInfo(string $contentType = self::contentTypes['getPlatformCd'][0])
     {
@@ -1885,7 +2872,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CdResp',
+                        '\Hanzo\Cloud\Model\PlatformCdResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1907,7 +2900,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CdResp',
+                '\Hanzo\Cloud\Model\PlatformCdResp',
                 $request,
                 $response,
             );
@@ -1916,7 +2909,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CdResp',
+                        '\Hanzo\Cloud\Model\PlatformCdResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1960,7 +2961,7 @@ class PlatformApi
      */
     public function getPlatformCdAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlatformCd'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CdResp';
+        $returnType = '\Hanzo\Cloud\Model\PlatformCdResp';
         $request = $this->getPlatformCdRequest($contentType);
 
         return $this->client
@@ -2023,209 +3024,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getPlatformCi
-     *
-     * Continuous integration (not wired)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformCi'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function getPlatformCi(string $contentType = self::contentTypes['getPlatformCi'][0])
-    {
-        $this->getPlatformCiWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation getPlatformCiWithHttpInfo
-     *
-     * Continuous integration (not wired)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformCi'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getPlatformCiWithHttpInfo(string $contentType = self::contentTypes['getPlatformCi'][0])
-    {
-        $request = $this->getPlatformCiRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getPlatformCiAsync
-     *
-     * Continuous integration (not wired)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformCi'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getPlatformCiAsync(string $contentType = self::contentTypes['getPlatformCi'][0])
-    {
-        return $this->getPlatformCiAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getPlatformCiAsyncWithHttpInfo
-     *
-     * Continuous integration (not wired)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformCi'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getPlatformCiAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlatformCi'][0])
-    {
-        $returnType = '';
-        $request = $this->getPlatformCiRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getPlatformCi'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformCi'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getPlatformCiRequest(string $contentType = self::contentTypes['getPlatformCi'][0])
-    {
-
-
-        $resourcePath = '/v1/platform/ci';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2290,7 +3089,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EnvironmentBoard
+     * @return \Hanzo\Cloud\Model\PlatformEnvironmentBoard|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformEnvironments(string $contentType = self::contentTypes['getPlatformEnvironments'][0])
     {
@@ -2307,7 +3106,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EnvironmentBoard, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformEnvironmentBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformEnvironmentsWithHttpInfo(string $contentType = self::contentTypes['getPlatformEnvironments'][0])
     {
@@ -2339,7 +3138,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EnvironmentBoard',
+                        '\Hanzo\Cloud\Model\PlatformEnvironmentBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2361,7 +3166,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EnvironmentBoard',
+                '\Hanzo\Cloud\Model\PlatformEnvironmentBoard',
                 $request,
                 $response,
             );
@@ -2370,7 +3175,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EnvironmentBoard',
+                        '\Hanzo\Cloud\Model\PlatformEnvironmentBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2414,7 +3227,7 @@ class PlatformApi
      */
     public function getPlatformEnvironmentsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlatformEnvironments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EnvironmentBoard';
+        $returnType = '\Hanzo\Cloud\Model\PlatformEnvironmentBoard';
         $request = $this->getPlatformEnvironmentsRequest($contentType);
 
         return $this->client
@@ -2477,7 +3290,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2546,7 +3359,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DriftBoard
+     * @return \Hanzo\Cloud\Model\PlatformDriftBoard|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformFleet($env = null, $health = null, $org = null, $drift = null, string $contentType = self::contentTypes['getPlatformFleet'][0])
     {
@@ -2567,7 +3380,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DriftBoard, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDriftBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformFleetWithHttpInfo($env = null, $health = null, $org = null, $drift = null, string $contentType = self::contentTypes['getPlatformFleet'][0])
     {
@@ -2599,7 +3412,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DriftBoard',
+                        '\Hanzo\Cloud\Model\PlatformDriftBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2621,7 +3440,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DriftBoard',
+                '\Hanzo\Cloud\Model\PlatformDriftBoard',
                 $request,
                 $response,
             );
@@ -2630,7 +3449,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DriftBoard',
+                        '\Hanzo\Cloud\Model\PlatformDriftBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2682,7 +3509,7 @@ class PlatformApi
      */
     public function getPlatformFleetAsyncWithHttpInfo($env = null, $health = null, $org = null, $drift = null, string $contentType = self::contentTypes['getPlatformFleet'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DriftBoard';
+        $returnType = '\Hanzo\Cloud\Model\PlatformDriftBoard';
         $request = $this->getPlatformFleetRequest($env, $health, $org, $drift, $contentType);
 
         return $this->client
@@ -2789,7 +3616,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2856,7 +3683,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AppView
+     * @return \Hanzo\Cloud\Model\PlatformAppView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformFleetByApp($app, $env = null, string $contentType = self::contentTypes['getPlatformFleetByApp'][0])
     {
@@ -2875,7 +3702,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AppView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformAppView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformFleetByAppWithHttpInfo($app, $env = null, string $contentType = self::contentTypes['getPlatformFleetByApp'][0])
     {
@@ -2907,7 +3734,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformAppView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2929,7 +3762,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AppView',
+                '\Hanzo\Cloud\Model\PlatformAppView',
                 $request,
                 $response,
             );
@@ -2938,7 +3771,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformAppView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2986,7 +3827,7 @@ class PlatformApi
      */
     public function getPlatformFleetByAppAsyncWithHttpInfo($app, $env = null, string $contentType = self::contentTypes['getPlatformFleetByApp'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AppView';
+        $returnType = '\Hanzo\Cloud\Model\PlatformAppView';
         $request = $this->getPlatformFleetByAppRequest($app, $env, $contentType);
 
         return $this->client
@@ -3076,7 +3917,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3141,7 +3982,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Readiness|\Hanzo\Cloud\Model\Readiness
+     * @return \Hanzo\Cloud\Model\PlatformReadiness|\Hanzo\Cloud\Model\PlatformReadiness|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformHealth(string $contentType = self::contentTypes['getPlatformHealth'][0])
     {
@@ -3158,7 +3999,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Readiness|\Hanzo\Cloud\Model\Readiness, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformReadiness|\Hanzo\Cloud\Model\PlatformReadiness|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformHealthWithHttpInfo(string $contentType = self::contentTypes['getPlatformHealth'][0])
     {
@@ -3190,13 +4031,19 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Readiness',
+                        '\Hanzo\Cloud\Model\PlatformReadiness',
                         $request,
                         $response,
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Readiness',
+                        '\Hanzo\Cloud\Model\PlatformReadiness',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3218,7 +4065,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Readiness',
+                '\Hanzo\Cloud\Model\PlatformReadiness',
                 $request,
                 $response,
             );
@@ -3227,7 +4074,7 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Readiness',
+                        '\Hanzo\Cloud\Model\PlatformReadiness',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3235,7 +4082,15 @@ class PlatformApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Readiness',
+                        '\Hanzo\Cloud\Model\PlatformReadiness',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3279,7 +4134,7 @@ class PlatformApi
      */
     public function getPlatformHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlatformHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Readiness';
+        $returnType = '\Hanzo\Cloud\Model\PlatformReadiness';
         $request = $this->getPlatformHealthRequest($contentType);
 
         return $this->client
@@ -3342,7 +4197,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3407,7 +4262,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PipelineBoard
+     * @return \Hanzo\Cloud\Model\PlatformPipelineBoard|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformPipelines(string $contentType = self::contentTypes['getPlatformPipelines'][0])
     {
@@ -3424,7 +4279,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PipelineBoard, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformPipelineBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformPipelinesWithHttpInfo(string $contentType = self::contentTypes['getPlatformPipelines'][0])
     {
@@ -3456,7 +4311,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PipelineBoard',
+                        '\Hanzo\Cloud\Model\PlatformPipelineBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3478,7 +4339,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PipelineBoard',
+                '\Hanzo\Cloud\Model\PlatformPipelineBoard',
                 $request,
                 $response,
             );
@@ -3487,7 +4348,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PipelineBoard',
+                        '\Hanzo\Cloud\Model\PlatformPipelineBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3531,7 +4400,7 @@ class PlatformApi
      */
     public function getPlatformPipelinesAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlatformPipelines'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PipelineBoard';
+        $returnType = '\Hanzo\Cloud\Model\PlatformPipelineBoard';
         $request = $this->getPlatformPipelinesRequest($contentType);
 
         return $this->client
@@ -3594,7 +4463,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3653,34 +4522,36 @@ class PlatformApi
     /**
      * Operation getPlatformProjects
      *
-     * Returns your org&#39;s projects, each with how many apps live under it.
+     * Answers every project the caller may see, with how its apps stand.
      *
+     * @param  string|null $org Org names whose projects to read. Omitted, a SuperAdmin reads every owner&#39;s and anyone else reads their own; naming another org is an act-as only a SuperAdmin has, and naming a platform directory reads the platform&#39;s own. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformProjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectView[]
+     * @return \Hanzo\Cloud\Model\PlatformProjectBoard|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getPlatformProjects(string $contentType = self::contentTypes['getPlatformProjects'][0])
+    public function getPlatformProjects($org = null, string $contentType = self::contentTypes['getPlatformProjects'][0])
     {
-        list($response) = $this->getPlatformProjectsWithHttpInfo($contentType);
+        list($response) = $this->getPlatformProjectsWithHttpInfo($org, $contentType);
         return $response;
     }
 
     /**
      * Operation getPlatformProjectsWithHttpInfo
      *
-     * Returns your org&#39;s projects, each with how many apps live under it.
+     * Answers every project the caller may see, with how its apps stand.
      *
+     * @param  string|null $org Org names whose projects to read. Omitted, a SuperAdmin reads every owner&#39;s and anyone else reads their own; naming another org is an act-as only a SuperAdmin has, and naming a platform directory reads the platform&#39;s own. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformProjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectView[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformProjectBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPlatformProjectsWithHttpInfo(string $contentType = self::contentTypes['getPlatformProjects'][0])
+    public function getPlatformProjectsWithHttpInfo($org = null, string $contentType = self::contentTypes['getPlatformProjects'][0])
     {
-        $request = $this->getPlatformProjectsRequest($contentType);
+        $request = $this->getPlatformProjectsRequest($org, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3708,7 +4579,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectView[]',
+                        '\Hanzo\Cloud\Model\PlatformProjectBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3730,7 +4607,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectView[]',
+                '\Hanzo\Cloud\Model\PlatformProjectBoard',
                 $request,
                 $response,
             );
@@ -3739,7 +4616,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectView[]',
+                        '\Hanzo\Cloud\Model\PlatformProjectBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3754,16 +4639,17 @@ class PlatformApi
     /**
      * Operation getPlatformProjectsAsync
      *
-     * Returns your org&#39;s projects, each with how many apps live under it.
+     * Answers every project the caller may see, with how its apps stand.
      *
+     * @param  string|null $org Org names whose projects to read. Omitted, a SuperAdmin reads every owner&#39;s and anyone else reads their own; naming another org is an act-as only a SuperAdmin has, and naming a platform directory reads the platform&#39;s own. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformProjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPlatformProjectsAsync(string $contentType = self::contentTypes['getPlatformProjects'][0])
+    public function getPlatformProjectsAsync($org = null, string $contentType = self::contentTypes['getPlatformProjects'][0])
     {
-        return $this->getPlatformProjectsAsyncWithHttpInfo($contentType)
+        return $this->getPlatformProjectsAsyncWithHttpInfo($org, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3774,17 +4660,18 @@ class PlatformApi
     /**
      * Operation getPlatformProjectsAsyncWithHttpInfo
      *
-     * Returns your org&#39;s projects, each with how many apps live under it.
+     * Answers every project the caller may see, with how its apps stand.
      *
+     * @param  string|null $org Org names whose projects to read. Omitted, a SuperAdmin reads every owner&#39;s and anyone else reads their own; naming another org is an act-as only a SuperAdmin has, and naming a platform directory reads the platform&#39;s own. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformProjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPlatformProjectsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlatformProjects'][0])
+    public function getPlatformProjectsAsyncWithHttpInfo($org = null, string $contentType = self::contentTypes['getPlatformProjects'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectView[]';
-        $request = $this->getPlatformProjectsRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformProjectBoard';
+        $request = $this->getPlatformProjectsRequest($org, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3825,13 +4712,15 @@ class PlatformApi
     /**
      * Create request for operation 'getPlatformProjects'
      *
+     * @param  string|null $org Org names whose projects to read. Omitted, a SuperAdmin reads every owner&#39;s and anyone else reads their own; naming another org is an act-as only a SuperAdmin has, and naming a platform directory reads the platform&#39;s own. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformProjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getPlatformProjectsRequest(string $contentType = self::contentTypes['getPlatformProjects'][0])
+    public function getPlatformProjectsRequest($org = null, string $contentType = self::contentTypes['getPlatformProjects'][0])
     {
+
 
 
         $resourcePath = '/v1/platform/projects';
@@ -3841,12 +4730,21 @@ class PlatformApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $org,
+            'org', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3905,36 +4803,38 @@ class PlatformApi
     /**
      * Operation getPlatformProjectsByProject
      *
-     * Returns one project and its app count.
+     * Answers one project and every app in it.
      *
      * @param  string $project Project is the project&#39;s name, from the path. (required)
+     * @param  string|null $org Org names the project&#39;s owner, defaulting to the caller&#39;s own scope — which for a SuperAdmin whose home is a brand org is the platform&#39;s. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformProjectsByProject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectView
+     * @return \Hanzo\Cloud\Model\PlatformProjectView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getPlatformProjectsByProject($project, string $contentType = self::contentTypes['getPlatformProjectsByProject'][0])
+    public function getPlatformProjectsByProject($project, $org = null, string $contentType = self::contentTypes['getPlatformProjectsByProject'][0])
     {
-        list($response) = $this->getPlatformProjectsByProjectWithHttpInfo($project, $contentType);
+        list($response) = $this->getPlatformProjectsByProjectWithHttpInfo($project, $org, $contentType);
         return $response;
     }
 
     /**
      * Operation getPlatformProjectsByProjectWithHttpInfo
      *
-     * Returns one project and its app count.
+     * Answers one project and every app in it.
      *
      * @param  string $project Project is the project&#39;s name, from the path. (required)
+     * @param  string|null $org Org names the project&#39;s owner, defaulting to the caller&#39;s own scope — which for a SuperAdmin whose home is a brand org is the platform&#39;s. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformProjectsByProject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformProjectView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPlatformProjectsByProjectWithHttpInfo($project, string $contentType = self::contentTypes['getPlatformProjectsByProject'][0])
+    public function getPlatformProjectsByProjectWithHttpInfo($project, $org = null, string $contentType = self::contentTypes['getPlatformProjectsByProject'][0])
     {
-        $request = $this->getPlatformProjectsByProjectRequest($project, $contentType);
+        $request = $this->getPlatformProjectsByProjectRequest($project, $org, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3962,7 +4862,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectView',
+                        '\Hanzo\Cloud\Model\PlatformProjectView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3984,7 +4890,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectView',
+                '\Hanzo\Cloud\Model\PlatformProjectView',
                 $request,
                 $response,
             );
@@ -3993,7 +4899,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectView',
+                        '\Hanzo\Cloud\Model\PlatformProjectView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4008,17 +4922,18 @@ class PlatformApi
     /**
      * Operation getPlatformProjectsByProjectAsync
      *
-     * Returns one project and its app count.
+     * Answers one project and every app in it.
      *
      * @param  string $project Project is the project&#39;s name, from the path. (required)
+     * @param  string|null $org Org names the project&#39;s owner, defaulting to the caller&#39;s own scope — which for a SuperAdmin whose home is a brand org is the platform&#39;s. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformProjectsByProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPlatformProjectsByProjectAsync($project, string $contentType = self::contentTypes['getPlatformProjectsByProject'][0])
+    public function getPlatformProjectsByProjectAsync($project, $org = null, string $contentType = self::contentTypes['getPlatformProjectsByProject'][0])
     {
-        return $this->getPlatformProjectsByProjectAsyncWithHttpInfo($project, $contentType)
+        return $this->getPlatformProjectsByProjectAsyncWithHttpInfo($project, $org, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4029,18 +4944,19 @@ class PlatformApi
     /**
      * Operation getPlatformProjectsByProjectAsyncWithHttpInfo
      *
-     * Returns one project and its app count.
+     * Answers one project and every app in it.
      *
      * @param  string $project Project is the project&#39;s name, from the path. (required)
+     * @param  string|null $org Org names the project&#39;s owner, defaulting to the caller&#39;s own scope — which for a SuperAdmin whose home is a brand org is the platform&#39;s. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformProjectsByProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPlatformProjectsByProjectAsyncWithHttpInfo($project, string $contentType = self::contentTypes['getPlatformProjectsByProject'][0])
+    public function getPlatformProjectsByProjectAsyncWithHttpInfo($project, $org = null, string $contentType = self::contentTypes['getPlatformProjectsByProject'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectView';
-        $request = $this->getPlatformProjectsByProjectRequest($project, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformProjectView';
+        $request = $this->getPlatformProjectsByProjectRequest($project, $org, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4082,12 +4998,13 @@ class PlatformApi
      * Create request for operation 'getPlatformProjectsByProject'
      *
      * @param  string $project Project is the project&#39;s name, from the path. (required)
+     * @param  string|null $org Org names the project&#39;s owner, defaulting to the caller&#39;s own scope — which for a SuperAdmin whose home is a brand org is the platform&#39;s. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformProjectsByProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getPlatformProjectsByProjectRequest($project, string $contentType = self::contentTypes['getPlatformProjectsByProject'][0])
+    public function getPlatformProjectsByProjectRequest($project, $org = null, string $contentType = self::contentTypes['getPlatformProjectsByProject'][0])
     {
 
         // verify the required parameter 'project' is set
@@ -4098,6 +5015,7 @@ class PlatformApi
         }
 
 
+
         $resourcePath = '/v1/platform/projects/{project}';
         $formParams = [];
         $queryParams = [];
@@ -4105,6 +5023,15 @@ class PlatformApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $org,
+            'org', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
         // path params
@@ -4118,7 +5045,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4184,7 +5111,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AppView[]
+     * @return \Hanzo\Cloud\Model\PlatformAppOut[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformProjectsByProjectApps($project, string $contentType = self::contentTypes['getPlatformProjectsByProjectApps'][0])
     {
@@ -4202,7 +5129,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AppView[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformAppOut[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformProjectsByProjectAppsWithHttpInfo($project, string $contentType = self::contentTypes['getPlatformProjectsByProjectApps'][0])
     {
@@ -4234,7 +5161,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AppView[]',
+                        '\Hanzo\Cloud\Model\PlatformAppOut[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4256,7 +5189,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AppView[]',
+                '\Hanzo\Cloud\Model\PlatformAppOut[]',
                 $request,
                 $response,
             );
@@ -4265,7 +5198,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AppView[]',
+                        '\Hanzo\Cloud\Model\PlatformAppOut[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4311,7 +5252,7 @@ class PlatformApi
      */
     public function getPlatformProjectsByProjectAppsAsyncWithHttpInfo($project, string $contentType = self::contentTypes['getPlatformProjectsByProjectApps'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AppView[]';
+        $returnType = '\Hanzo\Cloud\Model\PlatformAppOut[]';
         $request = $this->getPlatformProjectsByProjectAppsRequest($project, $contentType);
 
         return $this->client
@@ -4390,7 +5331,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4457,7 +5398,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AppView
+     * @return \Hanzo\Cloud\Model\PlatformAppOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformProjectsByProjectAppsByApp($project, $app, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByApp'][0])
     {
@@ -4476,7 +5417,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AppView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformAppOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformProjectsByProjectAppsByAppWithHttpInfo($project, $app, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByApp'][0])
     {
@@ -4508,7 +5449,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformAppOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4530,7 +5477,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AppView',
+                '\Hanzo\Cloud\Model\PlatformAppOut',
                 $request,
                 $response,
             );
@@ -4539,7 +5486,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformAppOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4587,7 +5542,7 @@ class PlatformApi
      */
     public function getPlatformProjectsByProjectAppsByAppAsyncWithHttpInfo($project, $app, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByApp'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AppView';
+        $returnType = '\Hanzo\Cloud\Model\PlatformAppOut';
         $request = $this->getPlatformProjectsByProjectAppsByAppRequest($project, $app, $contentType);
 
         return $this->client
@@ -4682,7 +5637,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4749,7 +5704,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeploymentView[]
+     * @return \Hanzo\Cloud\Model\PlatformDeploymentView[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformProjectsByProjectAppsByAppDeployments($project, $app, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDeployments'][0])
     {
@@ -4768,7 +5723,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeploymentView[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDeploymentView[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformProjectsByProjectAppsByAppDeploymentsWithHttpInfo($project, $app, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDeployments'][0])
     {
@@ -4800,7 +5755,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeploymentView[]',
+                        '\Hanzo\Cloud\Model\PlatformDeploymentView[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4822,7 +5783,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeploymentView[]',
+                '\Hanzo\Cloud\Model\PlatformDeploymentView[]',
                 $request,
                 $response,
             );
@@ -4831,7 +5792,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeploymentView[]',
+                        '\Hanzo\Cloud\Model\PlatformDeploymentView[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4879,7 +5848,7 @@ class PlatformApi
      */
     public function getPlatformProjectsByProjectAppsByAppDeploymentsAsyncWithHttpInfo($project, $app, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDeployments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeploymentView[]';
+        $returnType = '\Hanzo\Cloud\Model\PlatformDeploymentView[]';
         $request = $this->getPlatformProjectsByProjectAppsByAppDeploymentsRequest($project, $app, $contentType);
 
         return $this->client
@@ -4974,7 +5943,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5042,7 +6011,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeploymentView
+     * @return \Hanzo\Cloud\Model\PlatformDeploymentView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformProjectsByProjectAppsByAppDeploymentsById($project, $app, $id, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDeploymentsById'][0])
     {
@@ -5062,7 +6031,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeploymentView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDeploymentView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformProjectsByProjectAppsByAppDeploymentsByIdWithHttpInfo($project, $app, $id, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDeploymentsById'][0])
     {
@@ -5094,7 +6063,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeploymentView',
+                        '\Hanzo\Cloud\Model\PlatformDeploymentView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5116,7 +6091,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeploymentView',
+                '\Hanzo\Cloud\Model\PlatformDeploymentView',
                 $request,
                 $response,
             );
@@ -5125,7 +6100,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeploymentView',
+                        '\Hanzo\Cloud\Model\PlatformDeploymentView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5175,7 +6158,7 @@ class PlatformApi
      */
     public function getPlatformProjectsByProjectAppsByAppDeploymentsByIdAsyncWithHttpInfo($project, $app, $id, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDeploymentsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeploymentView';
+        $returnType = '\Hanzo\Cloud\Model\PlatformDeploymentView';
         $request = $this->getPlatformProjectsByProjectAppsByAppDeploymentsByIdRequest($project, $app, $id, $contentType);
 
         return $this->client
@@ -5286,7 +6269,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5354,7 +6337,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeployLogs
+     * @return \Hanzo\Cloud\Model\PlatformDeployLogs|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs($project, $app, $id, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs'][0])
     {
@@ -5374,7 +6357,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeployLogs, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDeployLogs|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformProjectsByProjectAppsByAppDeploymentsByIdLogsWithHttpInfo($project, $app, $id, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs'][0])
     {
@@ -5406,7 +6389,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeployLogs',
+                        '\Hanzo\Cloud\Model\PlatformDeployLogs',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5428,7 +6417,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeployLogs',
+                '\Hanzo\Cloud\Model\PlatformDeployLogs',
                 $request,
                 $response,
             );
@@ -5437,7 +6426,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeployLogs',
+                        '\Hanzo\Cloud\Model\PlatformDeployLogs',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5487,7 +6484,7 @@ class PlatformApi
      */
     public function getPlatformProjectsByProjectAppsByAppDeploymentsByIdLogsAsyncWithHttpInfo($project, $app, $id, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDeploymentsByIdLogs'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeployLogs';
+        $returnType = '\Hanzo\Cloud\Model\PlatformDeployLogs';
         $request = $this->getPlatformProjectsByProjectAppsByAppDeploymentsByIdLogsRequest($project, $app, $id, $contentType);
 
         return $this->client
@@ -5598,7 +6595,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5665,7 +6662,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DomainView[]
+     * @return \Hanzo\Cloud\Model\PlatformDomainView[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformProjectsByProjectAppsByAppDomains($project, $app, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDomains'][0])
     {
@@ -5684,7 +6681,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DomainView[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDomainView[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformProjectsByProjectAppsByAppDomainsWithHttpInfo($project, $app, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDomains'][0])
     {
@@ -5716,7 +6713,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DomainView[]',
+                        '\Hanzo\Cloud\Model\PlatformDomainView[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5738,7 +6741,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DomainView[]',
+                '\Hanzo\Cloud\Model\PlatformDomainView[]',
                 $request,
                 $response,
             );
@@ -5747,7 +6750,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DomainView[]',
+                        '\Hanzo\Cloud\Model\PlatformDomainView[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5795,7 +6806,7 @@ class PlatformApi
      */
     public function getPlatformProjectsByProjectAppsByAppDomainsAsyncWithHttpInfo($project, $app, string $contentType = self::contentTypes['getPlatformProjectsByProjectAppsByAppDomains'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DomainView[]';
+        $returnType = '\Hanzo\Cloud\Model\PlatformDomainView[]';
         $request = $this->getPlatformProjectsByProjectAppsByAppDomainsRequest($project, $app, $contentType);
 
         return $this->client
@@ -5890,7 +6901,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5955,7 +6966,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ReleaseBoard
+     * @return \Hanzo\Cloud\Model\PlatformReleaseBoard|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlatformReleases(string $contentType = self::contentTypes['getPlatformReleases'][0])
     {
@@ -5972,7 +6983,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ReleaseBoard, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformReleaseBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformReleasesWithHttpInfo(string $contentType = self::contentTypes['getPlatformReleases'][0])
     {
@@ -6004,7 +7015,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ReleaseBoard',
+                        '\Hanzo\Cloud\Model\PlatformReleaseBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6026,7 +7043,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ReleaseBoard',
+                '\Hanzo\Cloud\Model\PlatformReleaseBoard',
                 $request,
                 $response,
             );
@@ -6035,7 +7052,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ReleaseBoard',
+                        '\Hanzo\Cloud\Model\PlatformReleaseBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6079,7 +7104,7 @@ class PlatformApi
      */
     public function getPlatformReleasesAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlatformReleases'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ReleaseBoard';
+        $returnType = '\Hanzo\Cloud\Model\PlatformReleaseBoard';
         $request = $this->getPlatformReleasesRequest($contentType);
 
         return $this->client
@@ -6142,7 +7167,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6199,35 +7224,38 @@ class PlatformApi
     }
 
     /**
-     * Operation postPlatformApps
+     * Operation postBuild
      *
-     * Deploy an app through cd.hanzo.ai
+     * Triggers a native build — an image, or the binaries a repo declares.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformApps'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\PlatformRunnerBuildReq $platform_runner_build_req platform_runner_build_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBuild'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\PlatformRunnerBuildResp|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPlatformApps(string $contentType = self::contentTypes['postPlatformApps'][0])
+    public function postBuild($platform_runner_build_req, string $contentType = self::contentTypes['postBuild'][0])
     {
-        $this->postPlatformAppsWithHttpInfo($contentType);
+        list($response) = $this->postBuildWithHttpInfo($platform_runner_build_req, $contentType);
+        return $response;
     }
 
     /**
-     * Operation postPlatformAppsWithHttpInfo
+     * Operation postBuildWithHttpInfo
      *
-     * Deploy an app through cd.hanzo.ai
+     * Triggers a native build — an image, or the binaries a repo declares.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformApps'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\PlatformRunnerBuildReq $platform_runner_build_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBuild'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformRunnerBuildResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPlatformAppsWithHttpInfo(string $contentType = self::contentTypes['postPlatformApps'][0])
+    public function postBuildWithHttpInfo($platform_runner_build_req, string $contentType = self::contentTypes['postBuild'][0])
     {
-        $request = $this->postPlatformAppsRequest($contentType);
+        $request = $this->postBuildRequest($platform_runner_build_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6252,9 +7280,59 @@ class PlatformApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 202:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PlatformRunnerBuildResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PlatformRunnerBuildResp',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 202:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PlatformRunnerBuildResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -6263,18 +7341,19 @@ class PlatformApi
     }
 
     /**
-     * Operation postPlatformAppsAsync
+     * Operation postBuildAsync
      *
-     * Deploy an app through cd.hanzo.ai
+     * Triggers a native build — an image, or the binaries a repo declares.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformApps'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\PlatformRunnerBuildReq $platform_runner_build_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBuild'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformAppsAsync(string $contentType = self::contentTypes['postPlatformApps'][0])
+    public function postBuildAsync($platform_runner_build_req, string $contentType = self::contentTypes['postBuild'][0])
     {
-        return $this->postPlatformAppsAsyncWithHttpInfo($contentType)
+        return $this->postBuildAsyncWithHttpInfo($platform_runner_build_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6283,25 +7362,39 @@ class PlatformApi
     }
 
     /**
-     * Operation postPlatformAppsAsyncWithHttpInfo
+     * Operation postBuildAsyncWithHttpInfo
      *
-     * Deploy an app through cd.hanzo.ai
+     * Triggers a native build — an image, or the binaries a repo declares.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformApps'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\PlatformRunnerBuildReq $platform_runner_build_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBuild'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformAppsAsyncWithHttpInfo(string $contentType = self::contentTypes['postPlatformApps'][0])
+    public function postBuildAsyncWithHttpInfo($platform_runner_build_req, string $contentType = self::contentTypes['postBuild'][0])
     {
-        $returnType = '';
-        $request = $this->postPlatformAppsRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformRunnerBuildResp';
+        $request = $this->postBuildRequest($platform_runner_build_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -6321,18 +7414,26 @@ class PlatformApi
     }
 
     /**
-     * Create request for operation 'postPlatformApps'
+     * Create request for operation 'postBuild'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformApps'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\PlatformRunnerBuildReq $platform_runner_build_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBuild'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPlatformAppsRequest(string $contentType = self::contentTypes['postPlatformApps'][0])
+    public function postBuildRequest($platform_runner_build_req, string $contentType = self::contentTypes['postBuild'][0])
     {
 
+        // verify the required parameter 'platform_runner_build_req' is set
+        if ($platform_runner_build_req === null || (is_array($platform_runner_build_req) && count($platform_runner_build_req) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $platform_runner_build_req when calling postBuild'
+            );
+        }
 
-        $resourcePath = '/v1/platform/apps';
+
+        $resourcePath = '/v1/build';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6344,13 +7445,20 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($platform_runner_build_req)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_runner_build_req));
+            } else {
+                $httpBody = $platform_runner_build_req;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -6401,40 +7509,38 @@ class PlatformApi
     }
 
     /**
-     * Operation postPlatformFleetByAppDeploy
+     * Operation postPlatformApps
      *
-     * Rolls a platform service&#39;s pods, in a named environment.
+     * Deploy an app through cd.hanzo.ai
      *
-     * @param  string $app App is the service&#39;s CR name, from the path. It must be a DNS-1123 label. (required)
-     * @param  \Hanzo\Cloud\Model\RestartRef $restart_ref restart_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformFleetByAppDeploy'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\DeclareReq|null $declare_req declare_req (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformApps'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Restarted
+     * @return \Hanzo\Cloud\Model\DeclareResp
      */
-    public function postPlatformFleetByAppDeploy($app, $restart_ref, string $contentType = self::contentTypes['postPlatformFleetByAppDeploy'][0])
+    public function postPlatformApps($declare_req = null, string $contentType = self::contentTypes['postPlatformApps'][0])
     {
-        list($response) = $this->postPlatformFleetByAppDeployWithHttpInfo($app, $restart_ref, $contentType);
+        list($response) = $this->postPlatformAppsWithHttpInfo($declare_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation postPlatformFleetByAppDeployWithHttpInfo
+     * Operation postPlatformAppsWithHttpInfo
      *
-     * Rolls a platform service&#39;s pods, in a named environment.
+     * Deploy an app through cd.hanzo.ai
      *
-     * @param  string $app App is the service&#39;s CR name, from the path. It must be a DNS-1123 label. (required)
-     * @param  \Hanzo\Cloud\Model\RestartRef $restart_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformFleetByAppDeploy'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\DeclareReq|null $declare_req (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformApps'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Restarted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeclareResp, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPlatformFleetByAppDeployWithHttpInfo($app, $restart_ref, string $contentType = self::contentTypes['postPlatformFleetByAppDeploy'][0])
+    public function postPlatformAppsWithHttpInfo($declare_req = null, string $contentType = self::contentTypes['postPlatformApps'][0])
     {
-        $request = $this->postPlatformFleetByAppDeployRequest($app, $restart_ref, $contentType);
+        $request = $this->postPlatformAppsRequest($declare_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6460,15 +7566,16 @@ class PlatformApi
 
 
             switch($statusCode) {
-                case 202:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Restarted',
-                        $request,
-                        $response,
-                    );
+                
             }
 
-            
+            if ($this->responseWithinRangeCode('2XX', $statusCode)) {
+                return $this->handleResponseWithDataType(
+                    '\Hanzo\Cloud\Model\DeclareResp',
+                    $request,
+                    $response,
+                );
+            }
 
             if ($statusCode < 200 || $statusCode > 299) {
                 throw new ApiException(
@@ -6484,42 +7591,43 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Restarted',
+                '\Hanzo\Cloud\Model\DeclareResp',
                 $request,
                 $response,
             );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 202:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Restarted',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
+                
             }
         
+            if ($this->responseWithinRangeCode('2XX', $e->getCode())) {
+                $data = ObjectSerializer::deserialize(
+                    $e->getResponseBody(),
+                    '\Hanzo\Cloud\Model\DeclareResp',
+                    $e->getResponseHeaders()
+                );
+                $e->setResponseObject($data);
+                throw $e;
+            }
 
             throw $e;
         }
     }
 
     /**
-     * Operation postPlatformFleetByAppDeployAsync
+     * Operation postPlatformAppsAsync
      *
-     * Rolls a platform service&#39;s pods, in a named environment.
+     * Deploy an app through cd.hanzo.ai
      *
-     * @param  string $app App is the service&#39;s CR name, from the path. It must be a DNS-1123 label. (required)
-     * @param  \Hanzo\Cloud\Model\RestartRef $restart_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformFleetByAppDeploy'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\DeclareReq|null $declare_req (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformApps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformFleetByAppDeployAsync($app, $restart_ref, string $contentType = self::contentTypes['postPlatformFleetByAppDeploy'][0])
+    public function postPlatformAppsAsync($declare_req = null, string $contentType = self::contentTypes['postPlatformApps'][0])
     {
-        return $this->postPlatformFleetByAppDeployAsyncWithHttpInfo($app, $restart_ref, $contentType)
+        return $this->postPlatformAppsAsyncWithHttpInfo($declare_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6528,21 +7636,20 @@ class PlatformApi
     }
 
     /**
-     * Operation postPlatformFleetByAppDeployAsyncWithHttpInfo
+     * Operation postPlatformAppsAsyncWithHttpInfo
      *
-     * Rolls a platform service&#39;s pods, in a named environment.
+     * Deploy an app through cd.hanzo.ai
      *
-     * @param  string $app App is the service&#39;s CR name, from the path. It must be a DNS-1123 label. (required)
-     * @param  \Hanzo\Cloud\Model\RestartRef $restart_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformFleetByAppDeploy'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\DeclareReq|null $declare_req (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformApps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformFleetByAppDeployAsyncWithHttpInfo($app, $restart_ref, string $contentType = self::contentTypes['postPlatformFleetByAppDeploy'][0])
+    public function postPlatformAppsAsyncWithHttpInfo($declare_req = null, string $contentType = self::contentTypes['postPlatformApps'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Restarted';
-        $request = $this->postPlatformFleetByAppDeployRequest($app, $restart_ref, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\DeclareResp';
+        $request = $this->postPlatformAppsRequest($declare_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6581,34 +7688,20 @@ class PlatformApi
     }
 
     /**
-     * Create request for operation 'postPlatformFleetByAppDeploy'
+     * Create request for operation 'postPlatformApps'
      *
-     * @param  string $app App is the service&#39;s CR name, from the path. It must be a DNS-1123 label. (required)
-     * @param  \Hanzo\Cloud\Model\RestartRef $restart_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformFleetByAppDeploy'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\DeclareReq|null $declare_req (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformApps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPlatformFleetByAppDeployRequest($app, $restart_ref, string $contentType = self::contentTypes['postPlatformFleetByAppDeploy'][0])
+    public function postPlatformAppsRequest($declare_req = null, string $contentType = self::contentTypes['postPlatformApps'][0])
     {
 
-        // verify the required parameter 'app' is set
-        if ($app === null || (is_array($app) && count($app) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $app when calling postPlatformFleetByAppDeploy'
-            );
-        }
-
-        // verify the required parameter 'restart_ref' is set
-        if ($restart_ref === null || (is_array($restart_ref) && count($restart_ref) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $restart_ref when calling postPlatformFleetByAppDeploy'
-            );
-        }
 
 
-        $resourcePath = '/v1/platform/fleet/{app}/deploy';
+        $resourcePath = '/v1/platform/apps';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6617,14 +7710,6 @@ class PlatformApi
 
 
 
-        // path params
-        if ($app !== null) {
-            $resourcePath = str_replace(
-                '{' . 'app' . '}',
-                ObjectSerializer::toPathValue($app),
-                $resourcePath
-            );
-        }
 
 
         $headers = $this->headerSelector->selectHeaders(
@@ -6634,12 +7719,297 @@ class PlatformApi
         );
 
         // for model (json/xml)
-        if (isset($restart_ref)) {
+        if (isset($declare_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($restart_ref));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($declare_req));
             } else {
-                $httpBody = $restart_ref;
+                $httpBody = $declare_req;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postPlatformProjects
+     *
+     * Creates a project from the apps it starts with.
+     *
+     * @param  \Hanzo\Cloud\Model\PlatformProjectCreate $platform_project_create platform_project_create (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjects'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PlatformProjectWrite|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postPlatformProjects($platform_project_create, string $contentType = self::contentTypes['postPlatformProjects'][0])
+    {
+        list($response) = $this->postPlatformProjectsWithHttpInfo($platform_project_create, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postPlatformProjectsWithHttpInfo
+     *
+     * Creates a project from the apps it starts with.
+     *
+     * @param  \Hanzo\Cloud\Model\PlatformProjectCreate $platform_project_create (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjects'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PlatformProjectWrite|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postPlatformProjectsWithHttpInfo($platform_project_create, string $contentType = self::contentTypes['postPlatformProjects'][0])
+    {
+        $request = $this->postPlatformProjectsRequest($platform_project_create, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PlatformProjectWrite',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PlatformProjectWrite',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PlatformProjectWrite',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postPlatformProjectsAsync
+     *
+     * Creates a project from the apps it starts with.
+     *
+     * @param  \Hanzo\Cloud\Model\PlatformProjectCreate $platform_project_create (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjects'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postPlatformProjectsAsync($platform_project_create, string $contentType = self::contentTypes['postPlatformProjects'][0])
+    {
+        return $this->postPlatformProjectsAsyncWithHttpInfo($platform_project_create, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postPlatformProjectsAsyncWithHttpInfo
+     *
+     * Creates a project from the apps it starts with.
+     *
+     * @param  \Hanzo\Cloud\Model\PlatformProjectCreate $platform_project_create (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjects'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postPlatformProjectsAsyncWithHttpInfo($platform_project_create, string $contentType = self::contentTypes['postPlatformProjects'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PlatformProjectWrite';
+        $request = $this->postPlatformProjectsRequest($platform_project_create, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postPlatformProjects'
+     *
+     * @param  \Hanzo\Cloud\Model\PlatformProjectCreate $platform_project_create (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjects'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postPlatformProjectsRequest($platform_project_create, string $contentType = self::contentTypes['postPlatformProjects'][0])
+    {
+
+        // verify the required parameter 'platform_project_create' is set
+        if ($platform_project_create === null || (is_array($platform_project_create) && count($platform_project_create) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $platform_project_create when calling postPlatformProjects'
+            );
+        }
+
+
+        $resourcePath = '/v1/platform/projects';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($platform_project_create)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_project_create));
+            } else {
+                $httpBody = $platform_project_create;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6697,16 +8067,16 @@ class PlatformApi
      * Creates an application from a git repo or a container image.
      *
      * @param  string $project Project is the project to create the application under, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CreateAppReq $create_app_req create_app_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformCreateAppReq $platform_create_app_req platform_create_app_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectApps'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AppView
+     * @return \Hanzo\Cloud\Model\PlatformAppOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPlatformProjectsByProjectApps($project, $create_app_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectApps'][0])
+    public function postPlatformProjectsByProjectApps($project, $platform_create_app_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectApps'][0])
     {
-        list($response) = $this->postPlatformProjectsByProjectAppsWithHttpInfo($project, $create_app_req, $contentType);
+        list($response) = $this->postPlatformProjectsByProjectAppsWithHttpInfo($project, $platform_create_app_req, $contentType);
         return $response;
     }
 
@@ -6716,16 +8086,16 @@ class PlatformApi
      * Creates an application from a git repo or a container image.
      *
      * @param  string $project Project is the project to create the application under, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CreateAppReq $create_app_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformCreateAppReq $platform_create_app_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectApps'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AppView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformAppOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPlatformProjectsByProjectAppsWithHttpInfo($project, $create_app_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectApps'][0])
+    public function postPlatformProjectsByProjectAppsWithHttpInfo($project, $platform_create_app_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectApps'][0])
     {
-        $request = $this->postPlatformProjectsByProjectAppsRequest($project, $create_app_req, $contentType);
+        $request = $this->postPlatformProjectsByProjectAppsRequest($project, $platform_create_app_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6753,7 +8123,13 @@ class PlatformApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformAppOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6775,7 +8151,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AppView',
+                '\Hanzo\Cloud\Model\PlatformAppOut',
                 $request,
                 $response,
             );
@@ -6784,7 +8160,15 @@ class PlatformApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformAppOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6802,15 +8186,15 @@ class PlatformApi
      * Creates an application from a git repo or a container image.
      *
      * @param  string $project Project is the project to create the application under, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CreateAppReq $create_app_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformCreateAppReq $platform_create_app_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectApps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsAsync($project, $create_app_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectApps'][0])
+    public function postPlatformProjectsByProjectAppsAsync($project, $platform_create_app_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectApps'][0])
     {
-        return $this->postPlatformProjectsByProjectAppsAsyncWithHttpInfo($project, $create_app_req, $contentType)
+        return $this->postPlatformProjectsByProjectAppsAsyncWithHttpInfo($project, $platform_create_app_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6824,16 +8208,16 @@ class PlatformApi
      * Creates an application from a git repo or a container image.
      *
      * @param  string $project Project is the project to create the application under, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CreateAppReq $create_app_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformCreateAppReq $platform_create_app_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectApps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsAsyncWithHttpInfo($project, $create_app_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectApps'][0])
+    public function postPlatformProjectsByProjectAppsAsyncWithHttpInfo($project, $platform_create_app_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectApps'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AppView';
-        $request = $this->postPlatformProjectsByProjectAppsRequest($project, $create_app_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformAppOut';
+        $request = $this->postPlatformProjectsByProjectAppsRequest($project, $platform_create_app_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6875,13 +8259,13 @@ class PlatformApi
      * Create request for operation 'postPlatformProjectsByProjectApps'
      *
      * @param  string $project Project is the project to create the application under, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CreateAppReq $create_app_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformCreateAppReq $platform_create_app_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectApps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPlatformProjectsByProjectAppsRequest($project, $create_app_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectApps'][0])
+    public function postPlatformProjectsByProjectAppsRequest($project, $platform_create_app_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectApps'][0])
     {
 
         // verify the required parameter 'project' is set
@@ -6891,10 +8275,10 @@ class PlatformApi
             );
         }
 
-        // verify the required parameter 'create_app_req' is set
-        if ($create_app_req === null || (is_array($create_app_req) && count($create_app_req) === 0)) {
+        // verify the required parameter 'platform_create_app_req' is set
+        if ($platform_create_app_req === null || (is_array($platform_create_app_req) && count($platform_create_app_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_app_req when calling postPlatformProjectsByProjectApps'
+                'Missing the required parameter $platform_create_app_req when calling postPlatformProjectsByProjectApps'
             );
         }
 
@@ -6919,18 +8303,18 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($create_app_req)) {
+        if (isset($platform_create_app_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_app_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_create_app_req));
             } else {
-                $httpBody = $create_app_req;
+                $httpBody = $platform_create_app_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6989,16 +8373,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\DeployReq $deploy_req deploy_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformDeployReq $platform_deploy_req platform_deploy_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeploymentView
+     * @return \Hanzo\Cloud\Model\PlatformDeploymentView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPlatformProjectsByProjectAppsByAppDeploy($project, $app, $deploy_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'][0])
+    public function postPlatformProjectsByProjectAppsByAppDeploy($project, $app, $platform_deploy_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'][0])
     {
-        list($response) = $this->postPlatformProjectsByProjectAppsByAppDeployWithHttpInfo($project, $app, $deploy_req, $contentType);
+        list($response) = $this->postPlatformProjectsByProjectAppsByAppDeployWithHttpInfo($project, $app, $platform_deploy_req, $contentType);
         return $response;
     }
 
@@ -7009,16 +8393,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\DeployReq $deploy_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformDeployReq $platform_deploy_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeploymentView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDeploymentView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPlatformProjectsByProjectAppsByAppDeployWithHttpInfo($project, $app, $deploy_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'][0])
+    public function postPlatformProjectsByProjectAppsByAppDeployWithHttpInfo($project, $app, $platform_deploy_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'][0])
     {
-        $request = $this->postPlatformProjectsByProjectAppsByAppDeployRequest($project, $app, $deploy_req, $contentType);
+        $request = $this->postPlatformProjectsByProjectAppsByAppDeployRequest($project, $app, $platform_deploy_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7046,7 +8430,13 @@ class PlatformApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeploymentView',
+                        '\Hanzo\Cloud\Model\PlatformDeploymentView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7068,7 +8458,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeploymentView',
+                '\Hanzo\Cloud\Model\PlatformDeploymentView',
                 $request,
                 $response,
             );
@@ -7077,7 +8467,15 @@ class PlatformApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeploymentView',
+                        '\Hanzo\Cloud\Model\PlatformDeploymentView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7096,15 +8494,15 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\DeployReq $deploy_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformDeployReq $platform_deploy_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsByAppDeployAsync($project, $app, $deploy_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'][0])
+    public function postPlatformProjectsByProjectAppsByAppDeployAsync($project, $app, $platform_deploy_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'][0])
     {
-        return $this->postPlatformProjectsByProjectAppsByAppDeployAsyncWithHttpInfo($project, $app, $deploy_req, $contentType)
+        return $this->postPlatformProjectsByProjectAppsByAppDeployAsyncWithHttpInfo($project, $app, $platform_deploy_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7119,16 +8517,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\DeployReq $deploy_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformDeployReq $platform_deploy_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsByAppDeployAsyncWithHttpInfo($project, $app, $deploy_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'][0])
+    public function postPlatformProjectsByProjectAppsByAppDeployAsyncWithHttpInfo($project, $app, $platform_deploy_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeploymentView';
-        $request = $this->postPlatformProjectsByProjectAppsByAppDeployRequest($project, $app, $deploy_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformDeploymentView';
+        $request = $this->postPlatformProjectsByProjectAppsByAppDeployRequest($project, $app, $platform_deploy_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7171,13 +8569,13 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\DeployReq $deploy_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformDeployReq $platform_deploy_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPlatformProjectsByProjectAppsByAppDeployRequest($project, $app, $deploy_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'][0])
+    public function postPlatformProjectsByProjectAppsByAppDeployRequest($project, $app, $platform_deploy_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDeploy'][0])
     {
 
         // verify the required parameter 'project' is set
@@ -7194,10 +8592,10 @@ class PlatformApi
             );
         }
 
-        // verify the required parameter 'deploy_req' is set
-        if ($deploy_req === null || (is_array($deploy_req) && count($deploy_req) === 0)) {
+        // verify the required parameter 'platform_deploy_req' is set
+        if ($platform_deploy_req === null || (is_array($platform_deploy_req) && count($platform_deploy_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $deploy_req when calling postPlatformProjectsByProjectAppsByAppDeploy'
+                'Missing the required parameter $platform_deploy_req when calling postPlatformProjectsByProjectAppsByAppDeploy'
             );
         }
 
@@ -7230,18 +8628,18 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($deploy_req)) {
+        if (isset($platform_deploy_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($deploy_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_deploy_req));
             } else {
-                $httpBody = $deploy_req;
+                $httpBody = $platform_deploy_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7300,16 +8698,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\AddDomainReq $add_domain_req add_domain_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformAddDomainReq $platform_add_domain_req platform_add_domain_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DomainView|\Hanzo\Cloud\Model\DomainView
+     * @return \Hanzo\Cloud\Model\PlatformDomainView|\Hanzo\Cloud\Model\PlatformDomainView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPlatformProjectsByProjectAppsByAppDomains($project, $app, $add_domain_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'][0])
+    public function postPlatformProjectsByProjectAppsByAppDomains($project, $app, $platform_add_domain_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'][0])
     {
-        list($response) = $this->postPlatformProjectsByProjectAppsByAppDomainsWithHttpInfo($project, $app, $add_domain_req, $contentType);
+        list($response) = $this->postPlatformProjectsByProjectAppsByAppDomainsWithHttpInfo($project, $app, $platform_add_domain_req, $contentType);
         return $response;
     }
 
@@ -7320,16 +8718,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\AddDomainReq $add_domain_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformAddDomainReq $platform_add_domain_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DomainView|\Hanzo\Cloud\Model\DomainView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDomainView|\Hanzo\Cloud\Model\PlatformDomainView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPlatformProjectsByProjectAppsByAppDomainsWithHttpInfo($project, $app, $add_domain_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'][0])
+    public function postPlatformProjectsByProjectAppsByAppDomainsWithHttpInfo($project, $app, $platform_add_domain_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'][0])
     {
-        $request = $this->postPlatformProjectsByProjectAppsByAppDomainsRequest($project, $app, $add_domain_req, $contentType);
+        $request = $this->postPlatformProjectsByProjectAppsByAppDomainsRequest($project, $app, $platform_add_domain_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7357,13 +8755,19 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DomainView',
+                        '\Hanzo\Cloud\Model\PlatformDomainView',
                         $request,
                         $response,
                     );
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DomainView',
+                        '\Hanzo\Cloud\Model\PlatformDomainView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7385,7 +8789,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DomainView',
+                '\Hanzo\Cloud\Model\PlatformDomainView',
                 $request,
                 $response,
             );
@@ -7394,7 +8798,7 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DomainView',
+                        '\Hanzo\Cloud\Model\PlatformDomainView',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7402,7 +8806,15 @@ class PlatformApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DomainView',
+                        '\Hanzo\Cloud\Model\PlatformDomainView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7421,15 +8833,15 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\AddDomainReq $add_domain_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformAddDomainReq $platform_add_domain_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsByAppDomainsAsync($project, $app, $add_domain_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'][0])
+    public function postPlatformProjectsByProjectAppsByAppDomainsAsync($project, $app, $platform_add_domain_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'][0])
     {
-        return $this->postPlatformProjectsByProjectAppsByAppDomainsAsyncWithHttpInfo($project, $app, $add_domain_req, $contentType)
+        return $this->postPlatformProjectsByProjectAppsByAppDomainsAsyncWithHttpInfo($project, $app, $platform_add_domain_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7444,16 +8856,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\AddDomainReq $add_domain_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformAddDomainReq $platform_add_domain_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsByAppDomainsAsyncWithHttpInfo($project, $app, $add_domain_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'][0])
+    public function postPlatformProjectsByProjectAppsByAppDomainsAsyncWithHttpInfo($project, $app, $platform_add_domain_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DomainView';
-        $request = $this->postPlatformProjectsByProjectAppsByAppDomainsRequest($project, $app, $add_domain_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformDomainView';
+        $request = $this->postPlatformProjectsByProjectAppsByAppDomainsRequest($project, $app, $platform_add_domain_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7496,13 +8908,13 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\AddDomainReq $add_domain_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformAddDomainReq $platform_add_domain_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPlatformProjectsByProjectAppsByAppDomainsRequest($project, $app, $add_domain_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'][0])
+    public function postPlatformProjectsByProjectAppsByAppDomainsRequest($project, $app, $platform_add_domain_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomains'][0])
     {
 
         // verify the required parameter 'project' is set
@@ -7519,10 +8931,10 @@ class PlatformApi
             );
         }
 
-        // verify the required parameter 'add_domain_req' is set
-        if ($add_domain_req === null || (is_array($add_domain_req) && count($add_domain_req) === 0)) {
+        // verify the required parameter 'platform_add_domain_req' is set
+        if ($platform_add_domain_req === null || (is_array($platform_add_domain_req) && count($platform_add_domain_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $add_domain_req when calling postPlatformProjectsByProjectAppsByAppDomains'
+                'Missing the required parameter $platform_add_domain_req when calling postPlatformProjectsByProjectAppsByAppDomains'
             );
         }
 
@@ -7555,18 +8967,18 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($add_domain_req)) {
+        if (isset($platform_add_domain_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($add_domain_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_add_domain_req));
             } else {
-                $httpBody = $add_domain_req;
+                $httpBody = $platform_add_domain_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7630,7 +9042,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DomainView
+     * @return \Hanzo\Cloud\Model\PlatformDomainView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postPlatformProjectsByProjectAppsByAppDomainsByHostVerify($project, $app, $host, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomainsByHostVerify'][0])
     {
@@ -7650,7 +9062,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DomainView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDomainView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postPlatformProjectsByProjectAppsByAppDomainsByHostVerifyWithHttpInfo($project, $app, $host, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomainsByHostVerify'][0])
     {
@@ -7682,7 +9094,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DomainView',
+                        '\Hanzo\Cloud\Model\PlatformDomainView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7704,7 +9122,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DomainView',
+                '\Hanzo\Cloud\Model\PlatformDomainView',
                 $request,
                 $response,
             );
@@ -7713,7 +9131,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DomainView',
+                        '\Hanzo\Cloud\Model\PlatformDomainView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7763,7 +9189,7 @@ class PlatformApi
      */
     public function postPlatformProjectsByProjectAppsByAppDomainsByHostVerifyAsyncWithHttpInfo($project, $app, $host, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppDomainsByHostVerify'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DomainView';
+        $returnType = '\Hanzo\Cloud\Model\PlatformDomainView';
         $request = $this->postPlatformProjectsByProjectAppsByAppDomainsByHostVerifyRequest($project, $app, $host, $contentType);
 
         return $this->client
@@ -7874,7 +9300,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -7937,16 +9363,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the parent application lives under, from the path. (required)
      * @param  string $app App is the parent application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PreviewReq $preview_req preview_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformPreviewReq $platform_preview_req platform_preview_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PreviewView
+     * @return \Hanzo\Cloud\Model\PlatformPreviewView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPlatformProjectsByProjectAppsByAppPreview($project, $app, $preview_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'][0])
+    public function postPlatformProjectsByProjectAppsByAppPreview($project, $app, $platform_preview_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'][0])
     {
-        list($response) = $this->postPlatformProjectsByProjectAppsByAppPreviewWithHttpInfo($project, $app, $preview_req, $contentType);
+        list($response) = $this->postPlatformProjectsByProjectAppsByAppPreviewWithHttpInfo($project, $app, $platform_preview_req, $contentType);
         return $response;
     }
 
@@ -7957,16 +9383,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the parent application lives under, from the path. (required)
      * @param  string $app App is the parent application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PreviewReq $preview_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformPreviewReq $platform_preview_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PreviewView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformPreviewView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPlatformProjectsByProjectAppsByAppPreviewWithHttpInfo($project, $app, $preview_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'][0])
+    public function postPlatformProjectsByProjectAppsByAppPreviewWithHttpInfo($project, $app, $platform_preview_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'][0])
     {
-        $request = $this->postPlatformProjectsByProjectAppsByAppPreviewRequest($project, $app, $preview_req, $contentType);
+        $request = $this->postPlatformProjectsByProjectAppsByAppPreviewRequest($project, $app, $platform_preview_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7994,7 +9420,13 @@ class PlatformApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PreviewView',
+                        '\Hanzo\Cloud\Model\PlatformPreviewView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8016,7 +9448,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PreviewView',
+                '\Hanzo\Cloud\Model\PlatformPreviewView',
                 $request,
                 $response,
             );
@@ -8025,7 +9457,15 @@ class PlatformApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PreviewView',
+                        '\Hanzo\Cloud\Model\PlatformPreviewView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8044,15 +9484,15 @@ class PlatformApi
      *
      * @param  string $project Project is the project the parent application lives under, from the path. (required)
      * @param  string $app App is the parent application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PreviewReq $preview_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformPreviewReq $platform_preview_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsByAppPreviewAsync($project, $app, $preview_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'][0])
+    public function postPlatformProjectsByProjectAppsByAppPreviewAsync($project, $app, $platform_preview_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'][0])
     {
-        return $this->postPlatformProjectsByProjectAppsByAppPreviewAsyncWithHttpInfo($project, $app, $preview_req, $contentType)
+        return $this->postPlatformProjectsByProjectAppsByAppPreviewAsyncWithHttpInfo($project, $app, $platform_preview_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8067,16 +9507,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the parent application lives under, from the path. (required)
      * @param  string $app App is the parent application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PreviewReq $preview_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformPreviewReq $platform_preview_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsByAppPreviewAsyncWithHttpInfo($project, $app, $preview_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'][0])
+    public function postPlatformProjectsByProjectAppsByAppPreviewAsyncWithHttpInfo($project, $app, $platform_preview_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PreviewView';
-        $request = $this->postPlatformProjectsByProjectAppsByAppPreviewRequest($project, $app, $preview_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformPreviewView';
+        $request = $this->postPlatformProjectsByProjectAppsByAppPreviewRequest($project, $app, $platform_preview_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8119,13 +9559,13 @@ class PlatformApi
      *
      * @param  string $project Project is the project the parent application lives under, from the path. (required)
      * @param  string $app App is the parent application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PreviewReq $preview_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformPreviewReq $platform_preview_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPlatformProjectsByProjectAppsByAppPreviewRequest($project, $app, $preview_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'][0])
+    public function postPlatformProjectsByProjectAppsByAppPreviewRequest($project, $app, $platform_preview_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPreview'][0])
     {
 
         // verify the required parameter 'project' is set
@@ -8142,10 +9582,10 @@ class PlatformApi
             );
         }
 
-        // verify the required parameter 'preview_req' is set
-        if ($preview_req === null || (is_array($preview_req) && count($preview_req) === 0)) {
+        // verify the required parameter 'platform_preview_req' is set
+        if ($platform_preview_req === null || (is_array($platform_preview_req) && count($platform_preview_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $preview_req when calling postPlatformProjectsByProjectAppsByAppPreview'
+                'Missing the required parameter $platform_preview_req when calling postPlatformProjectsByProjectAppsByAppPreview'
             );
         }
 
@@ -8178,18 +9618,18 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($preview_req)) {
+        if (isset($platform_preview_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($preview_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_preview_req));
             } else {
-                $httpBody = $preview_req;
+                $httpBody = $platform_preview_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -8248,16 +9688,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PromoteReq $promote_req promote_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformPromoteReq $platform_promote_req platform_promote_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeploymentView
+     * @return \Hanzo\Cloud\Model\PlatformDeploymentView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPlatformProjectsByProjectAppsByAppPromote($project, $app, $promote_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'][0])
+    public function postPlatformProjectsByProjectAppsByAppPromote($project, $app, $platform_promote_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'][0])
     {
-        list($response) = $this->postPlatformProjectsByProjectAppsByAppPromoteWithHttpInfo($project, $app, $promote_req, $contentType);
+        list($response) = $this->postPlatformProjectsByProjectAppsByAppPromoteWithHttpInfo($project, $app, $platform_promote_req, $contentType);
         return $response;
     }
 
@@ -8268,16 +9708,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PromoteReq $promote_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformPromoteReq $platform_promote_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeploymentView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDeploymentView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPlatformProjectsByProjectAppsByAppPromoteWithHttpInfo($project, $app, $promote_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'][0])
+    public function postPlatformProjectsByProjectAppsByAppPromoteWithHttpInfo($project, $app, $platform_promote_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'][0])
     {
-        $request = $this->postPlatformProjectsByProjectAppsByAppPromoteRequest($project, $app, $promote_req, $contentType);
+        $request = $this->postPlatformProjectsByProjectAppsByAppPromoteRequest($project, $app, $platform_promote_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8305,7 +9745,13 @@ class PlatformApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeploymentView',
+                        '\Hanzo\Cloud\Model\PlatformDeploymentView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8327,7 +9773,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeploymentView',
+                '\Hanzo\Cloud\Model\PlatformDeploymentView',
                 $request,
                 $response,
             );
@@ -8336,7 +9782,15 @@ class PlatformApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeploymentView',
+                        '\Hanzo\Cloud\Model\PlatformDeploymentView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8355,15 +9809,15 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PromoteReq $promote_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformPromoteReq $platform_promote_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsByAppPromoteAsync($project, $app, $promote_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'][0])
+    public function postPlatformProjectsByProjectAppsByAppPromoteAsync($project, $app, $platform_promote_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'][0])
     {
-        return $this->postPlatformProjectsByProjectAppsByAppPromoteAsyncWithHttpInfo($project, $app, $promote_req, $contentType)
+        return $this->postPlatformProjectsByProjectAppsByAppPromoteAsyncWithHttpInfo($project, $app, $platform_promote_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8378,16 +9832,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PromoteReq $promote_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformPromoteReq $platform_promote_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsByAppPromoteAsyncWithHttpInfo($project, $app, $promote_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'][0])
+    public function postPlatformProjectsByProjectAppsByAppPromoteAsyncWithHttpInfo($project, $app, $platform_promote_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeploymentView';
-        $request = $this->postPlatformProjectsByProjectAppsByAppPromoteRequest($project, $app, $promote_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformDeploymentView';
+        $request = $this->postPlatformProjectsByProjectAppsByAppPromoteRequest($project, $app, $platform_promote_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8430,13 +9884,13 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\PromoteReq $promote_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformPromoteReq $platform_promote_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPlatformProjectsByProjectAppsByAppPromoteRequest($project, $app, $promote_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'][0])
+    public function postPlatformProjectsByProjectAppsByAppPromoteRequest($project, $app, $platform_promote_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppPromote'][0])
     {
 
         // verify the required parameter 'project' is set
@@ -8453,10 +9907,10 @@ class PlatformApi
             );
         }
 
-        // verify the required parameter 'promote_req' is set
-        if ($promote_req === null || (is_array($promote_req) && count($promote_req) === 0)) {
+        // verify the required parameter 'platform_promote_req' is set
+        if ($platform_promote_req === null || (is_array($platform_promote_req) && count($platform_promote_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $promote_req when calling postPlatformProjectsByProjectAppsByAppPromote'
+                'Missing the required parameter $platform_promote_req when calling postPlatformProjectsByProjectAppsByAppPromote'
             );
         }
 
@@ -8489,18 +9943,18 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($promote_req)) {
+        if (isset($platform_promote_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($promote_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_promote_req));
             } else {
-                $httpBody = $promote_req;
+                $httpBody = $platform_promote_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -8559,16 +10013,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RollbackReq $rollback_req rollback_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformRollbackReq $platform_rollback_req platform_rollback_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeploymentView
+     * @return \Hanzo\Cloud\Model\PlatformDeploymentView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPlatformProjectsByProjectAppsByAppRollback($project, $app, $rollback_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'][0])
+    public function postPlatformProjectsByProjectAppsByAppRollback($project, $app, $platform_rollback_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'][0])
     {
-        list($response) = $this->postPlatformProjectsByProjectAppsByAppRollbackWithHttpInfo($project, $app, $rollback_req, $contentType);
+        list($response) = $this->postPlatformProjectsByProjectAppsByAppRollbackWithHttpInfo($project, $app, $platform_rollback_req, $contentType);
         return $response;
     }
 
@@ -8579,16 +10033,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RollbackReq $rollback_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformRollbackReq $platform_rollback_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeploymentView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformDeploymentView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPlatformProjectsByProjectAppsByAppRollbackWithHttpInfo($project, $app, $rollback_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'][0])
+    public function postPlatformProjectsByProjectAppsByAppRollbackWithHttpInfo($project, $app, $platform_rollback_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'][0])
     {
-        $request = $this->postPlatformProjectsByProjectAppsByAppRollbackRequest($project, $app, $rollback_req, $contentType);
+        $request = $this->postPlatformProjectsByProjectAppsByAppRollbackRequest($project, $app, $platform_rollback_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8616,7 +10070,13 @@ class PlatformApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeploymentView',
+                        '\Hanzo\Cloud\Model\PlatformDeploymentView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8638,7 +10098,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeploymentView',
+                '\Hanzo\Cloud\Model\PlatformDeploymentView',
                 $request,
                 $response,
             );
@@ -8647,7 +10107,15 @@ class PlatformApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeploymentView',
+                        '\Hanzo\Cloud\Model\PlatformDeploymentView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -8666,15 +10134,15 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RollbackReq $rollback_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformRollbackReq $platform_rollback_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsByAppRollbackAsync($project, $app, $rollback_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'][0])
+    public function postPlatformProjectsByProjectAppsByAppRollbackAsync($project, $app, $platform_rollback_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'][0])
     {
-        return $this->postPlatformProjectsByProjectAppsByAppRollbackAsyncWithHttpInfo($project, $app, $rollback_req, $contentType)
+        return $this->postPlatformProjectsByProjectAppsByAppRollbackAsyncWithHttpInfo($project, $app, $platform_rollback_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8689,16 +10157,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RollbackReq $rollback_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformRollbackReq $platform_rollback_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformProjectsByProjectAppsByAppRollbackAsyncWithHttpInfo($project, $app, $rollback_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'][0])
+    public function postPlatformProjectsByProjectAppsByAppRollbackAsyncWithHttpInfo($project, $app, $platform_rollback_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeploymentView';
-        $request = $this->postPlatformProjectsByProjectAppsByAppRollbackRequest($project, $app, $rollback_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformDeploymentView';
+        $request = $this->postPlatformProjectsByProjectAppsByAppRollbackRequest($project, $app, $platform_rollback_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8741,13 +10209,13 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\RollbackReq $rollback_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformRollbackReq $platform_rollback_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPlatformProjectsByProjectAppsByAppRollbackRequest($project, $app, $rollback_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'][0])
+    public function postPlatformProjectsByProjectAppsByAppRollbackRequest($project, $app, $platform_rollback_req, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppRollback'][0])
     {
 
         // verify the required parameter 'project' is set
@@ -8764,10 +10232,10 @@ class PlatformApi
             );
         }
 
-        // verify the required parameter 'rollback_req' is set
-        if ($rollback_req === null || (is_array($rollback_req) && count($rollback_req) === 0)) {
+        // verify the required parameter 'platform_rollback_req' is set
+        if ($platform_rollback_req === null || (is_array($platform_rollback_req) && count($platform_rollback_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $rollback_req when calling postPlatformProjectsByProjectAppsByAppRollback'
+                'Missing the required parameter $platform_rollback_req when calling postPlatformProjectsByProjectAppsByAppRollback'
             );
         }
 
@@ -8800,18 +10268,18 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($rollback_req)) {
+        if (isset($platform_rollback_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($rollback_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_rollback_req));
             } else {
-                $httpBody = $rollback_req;
+                $httpBody = $platform_rollback_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -8874,7 +10342,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AppView
+     * @return \Hanzo\Cloud\Model\PlatformAppOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postPlatformProjectsByProjectAppsByAppStart($project, $app, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppStart'][0])
     {
@@ -8893,7 +10361,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AppView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformAppOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postPlatformProjectsByProjectAppsByAppStartWithHttpInfo($project, $app, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppStart'][0])
     {
@@ -8925,7 +10393,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformAppOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -8947,7 +10421,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AppView',
+                '\Hanzo\Cloud\Model\PlatformAppOut',
                 $request,
                 $response,
             );
@@ -8956,7 +10430,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformAppOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9004,7 +10486,7 @@ class PlatformApi
      */
     public function postPlatformProjectsByProjectAppsByAppStartAsyncWithHttpInfo($project, $app, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppStart'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AppView';
+        $returnType = '\Hanzo\Cloud\Model\PlatformAppOut';
         $request = $this->postPlatformProjectsByProjectAppsByAppStartRequest($project, $app, $contentType);
 
         return $this->client
@@ -9099,7 +10581,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -9166,7 +10648,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AppView
+     * @return \Hanzo\Cloud\Model\PlatformAppOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postPlatformProjectsByProjectAppsByAppStop($project, $app, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppStop'][0])
     {
@@ -9185,7 +10667,7 @@ class PlatformApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AppView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformAppOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postPlatformProjectsByProjectAppsByAppStopWithHttpInfo($project, $app, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppStop'][0])
     {
@@ -9217,7 +10699,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformAppOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -9239,7 +10727,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AppView',
+                '\Hanzo\Cloud\Model\PlatformAppOut',
                 $request,
                 $response,
             );
@@ -9248,7 +10736,15 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformAppOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9296,7 +10792,7 @@ class PlatformApi
      */
     public function postPlatformProjectsByProjectAppsByAppStopAsyncWithHttpInfo($project, $app, string $contentType = self::contentTypes['postPlatformProjectsByProjectAppsByAppStop'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AppView';
+        $returnType = '\Hanzo\Cloud\Model\PlatformAppOut';
         $request = $this->postPlatformProjectsByProjectAppsByAppStopRequest($project, $app, $contentType);
 
         return $this->client
@@ -9391,7 +10887,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -9452,16 +10948,16 @@ class PlatformApi
      *
      * Runs a container image and gives back a URL.
      *
-     * @param  \Hanzo\Cloud\Model\RunReq $run_req run_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformRunReq $platform_run_req platform_run_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformRun'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RunView
+     * @return \Hanzo\Cloud\Model\PlatformRunView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPlatformRun($run_req, string $contentType = self::contentTypes['postPlatformRun'][0])
+    public function postPlatformRun($platform_run_req, string $contentType = self::contentTypes['postPlatformRun'][0])
     {
-        list($response) = $this->postPlatformRunWithHttpInfo($run_req, $contentType);
+        list($response) = $this->postPlatformRunWithHttpInfo($platform_run_req, $contentType);
         return $response;
     }
 
@@ -9470,16 +10966,16 @@ class PlatformApi
      *
      * Runs a container image and gives back a URL.
      *
-     * @param  \Hanzo\Cloud\Model\RunReq $run_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformRunReq $platform_run_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformRun'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RunView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformRunView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPlatformRunWithHttpInfo($run_req, string $contentType = self::contentTypes['postPlatformRun'][0])
+    public function postPlatformRunWithHttpInfo($platform_run_req, string $contentType = self::contentTypes['postPlatformRun'][0])
     {
-        $request = $this->postPlatformRunRequest($run_req, $contentType);
+        $request = $this->postPlatformRunRequest($platform_run_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9507,7 +11003,13 @@ class PlatformApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RunView',
+                        '\Hanzo\Cloud\Model\PlatformRunView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -9529,7 +11031,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RunView',
+                '\Hanzo\Cloud\Model\PlatformRunView',
                 $request,
                 $response,
             );
@@ -9538,7 +11040,15 @@ class PlatformApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RunView',
+                        '\Hanzo\Cloud\Model\PlatformRunView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9555,15 +11065,15 @@ class PlatformApi
      *
      * Runs a container image and gives back a URL.
      *
-     * @param  \Hanzo\Cloud\Model\RunReq $run_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformRunReq $platform_run_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformRun'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformRunAsync($run_req, string $contentType = self::contentTypes['postPlatformRun'][0])
+    public function postPlatformRunAsync($platform_run_req, string $contentType = self::contentTypes['postPlatformRun'][0])
     {
-        return $this->postPlatformRunAsyncWithHttpInfo($run_req, $contentType)
+        return $this->postPlatformRunAsyncWithHttpInfo($platform_run_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9576,16 +11086,16 @@ class PlatformApi
      *
      * Runs a container image and gives back a URL.
      *
-     * @param  \Hanzo\Cloud\Model\RunReq $run_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformRunReq $platform_run_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformRun'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformRunAsyncWithHttpInfo($run_req, string $contentType = self::contentTypes['postPlatformRun'][0])
+    public function postPlatformRunAsyncWithHttpInfo($platform_run_req, string $contentType = self::contentTypes['postPlatformRun'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RunView';
-        $request = $this->postPlatformRunRequest($run_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformRunView';
+        $request = $this->postPlatformRunRequest($platform_run_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9626,19 +11136,19 @@ class PlatformApi
     /**
      * Create request for operation 'postPlatformRun'
      *
-     * @param  \Hanzo\Cloud\Model\RunReq $run_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformRunReq $platform_run_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformRun'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPlatformRunRequest($run_req, string $contentType = self::contentTypes['postPlatformRun'][0])
+    public function postPlatformRunRequest($platform_run_req, string $contentType = self::contentTypes['postPlatformRun'][0])
     {
 
-        // verify the required parameter 'run_req' is set
-        if ($run_req === null || (is_array($run_req) && count($run_req) === 0)) {
+        // verify the required parameter 'platform_run_req' is set
+        if ($platform_run_req === null || (is_array($platform_run_req) && count($platform_run_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $run_req when calling postPlatformRun'
+                'Missing the required parameter $platform_run_req when calling postPlatformRun'
             );
         }
 
@@ -9655,18 +11165,18 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($run_req)) {
+        if (isset($platform_run_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($run_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_run_req));
             } else {
-                $httpBody = $run_req;
+                $httpBody = $platform_run_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -9719,38 +11229,40 @@ class PlatformApi
     }
 
     /**
-     * Operation postPlatformRunner
+     * Operation putPlatformAppsByAppProject
      *
-     * Triggers a native build — an image, or the binaries a repo declares.
+     * Moves an app to a project.
      *
-     * @param  \Hanzo\Cloud\Model\RunnerBuildReq $runner_build_req runner_build_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformRunner'] to see the possible values for this operation
+     * @param  string $app App is the declaration&#39;s name, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformAppMove $platform_app_move platform_app_move (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformAppsByAppProject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RunnerBuildResp
+     * @return \Hanzo\Cloud\Model\PlatformProjectWrite|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPlatformRunner($runner_build_req, string $contentType = self::contentTypes['postPlatformRunner'][0])
+    public function putPlatformAppsByAppProject($app, $platform_app_move, string $contentType = self::contentTypes['putPlatformAppsByAppProject'][0])
     {
-        list($response) = $this->postPlatformRunnerWithHttpInfo($runner_build_req, $contentType);
+        list($response) = $this->putPlatformAppsByAppProjectWithHttpInfo($app, $platform_app_move, $contentType);
         return $response;
     }
 
     /**
-     * Operation postPlatformRunnerWithHttpInfo
+     * Operation putPlatformAppsByAppProjectWithHttpInfo
      *
-     * Triggers a native build — an image, or the binaries a repo declares.
+     * Moves an app to a project.
      *
-     * @param  \Hanzo\Cloud\Model\RunnerBuildReq $runner_build_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformRunner'] to see the possible values for this operation
+     * @param  string $app App is the declaration&#39;s name, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformAppMove $platform_app_move (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformAppsByAppProject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RunnerBuildResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformProjectWrite|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPlatformRunnerWithHttpInfo($runner_build_req, string $contentType = self::contentTypes['postPlatformRunner'][0])
+    public function putPlatformAppsByAppProjectWithHttpInfo($app, $platform_app_move, string $contentType = self::contentTypes['putPlatformAppsByAppProject'][0])
     {
-        $request = $this->postPlatformRunnerRequest($runner_build_req, $contentType);
+        $request = $this->putPlatformAppsByAppProjectRequest($app, $platform_app_move, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9776,9 +11288,15 @@ class PlatformApi
 
 
             switch($statusCode) {
-                case 202:
+                case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RunnerBuildResp',
+                        '\Hanzo\Cloud\Model\PlatformProjectWrite',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -9800,16 +11318,24 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RunnerBuildResp',
+                '\Hanzo\Cloud\Model\PlatformProjectWrite',
                 $request,
                 $response,
             );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 202:
+                case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RunnerBuildResp',
+                        '\Hanzo\Cloud\Model\PlatformProjectWrite',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -9822,19 +11348,20 @@ class PlatformApi
     }
 
     /**
-     * Operation postPlatformRunnerAsync
+     * Operation putPlatformAppsByAppProjectAsync
      *
-     * Triggers a native build — an image, or the binaries a repo declares.
+     * Moves an app to a project.
      *
-     * @param  \Hanzo\Cloud\Model\RunnerBuildReq $runner_build_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformRunner'] to see the possible values for this operation
+     * @param  string $app App is the declaration&#39;s name, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformAppMove $platform_app_move (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformAppsByAppProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformRunnerAsync($runner_build_req, string $contentType = self::contentTypes['postPlatformRunner'][0])
+    public function putPlatformAppsByAppProjectAsync($app, $platform_app_move, string $contentType = self::contentTypes['putPlatformAppsByAppProject'][0])
     {
-        return $this->postPlatformRunnerAsyncWithHttpInfo($runner_build_req, $contentType)
+        return $this->putPlatformAppsByAppProjectAsyncWithHttpInfo($app, $platform_app_move, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9843,20 +11370,21 @@ class PlatformApi
     }
 
     /**
-     * Operation postPlatformRunnerAsyncWithHttpInfo
+     * Operation putPlatformAppsByAppProjectAsyncWithHttpInfo
      *
-     * Triggers a native build — an image, or the binaries a repo declares.
+     * Moves an app to a project.
      *
-     * @param  \Hanzo\Cloud\Model\RunnerBuildReq $runner_build_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformRunner'] to see the possible values for this operation
+     * @param  string $app App is the declaration&#39;s name, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformAppMove $platform_app_move (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformAppsByAppProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPlatformRunnerAsyncWithHttpInfo($runner_build_req, string $contentType = self::contentTypes['postPlatformRunner'][0])
+    public function putPlatformAppsByAppProjectAsyncWithHttpInfo($app, $platform_app_move, string $contentType = self::contentTypes['putPlatformAppsByAppProject'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RunnerBuildResp';
-        $request = $this->postPlatformRunnerRequest($runner_build_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformProjectWrite';
+        $request = $this->putPlatformAppsByAppProjectRequest($app, $platform_app_move, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9895,26 +11423,34 @@ class PlatformApi
     }
 
     /**
-     * Create request for operation 'postPlatformRunner'
+     * Create request for operation 'putPlatformAppsByAppProject'
      *
-     * @param  \Hanzo\Cloud\Model\RunnerBuildReq $runner_build_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPlatformRunner'] to see the possible values for this operation
+     * @param  string $app App is the declaration&#39;s name, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformAppMove $platform_app_move (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformAppsByAppProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPlatformRunnerRequest($runner_build_req, string $contentType = self::contentTypes['postPlatformRunner'][0])
+    public function putPlatformAppsByAppProjectRequest($app, $platform_app_move, string $contentType = self::contentTypes['putPlatformAppsByAppProject'][0])
     {
 
-        // verify the required parameter 'runner_build_req' is set
-        if ($runner_build_req === null || (is_array($runner_build_req) && count($runner_build_req) === 0)) {
+        // verify the required parameter 'app' is set
+        if ($app === null || (is_array($app) && count($app) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $runner_build_req when calling postPlatformRunner'
+                'Missing the required parameter $app when calling putPlatformAppsByAppProject'
+            );
+        }
+
+        // verify the required parameter 'platform_app_move' is set
+        if ($platform_app_move === null || (is_array($platform_app_move) && count($platform_app_move) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $platform_app_move when calling putPlatformAppsByAppProject'
             );
         }
 
 
-        $resourcePath = '/v1/platform/runner';
+        $resourcePath = '/v1/platform/apps/{app}/project';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -9923,21 +11459,29 @@ class PlatformApi
 
 
 
+        // path params
+        if ($app !== null) {
+            $resourcePath = str_replace(
+                '{' . 'app' . '}',
+                ObjectSerializer::toPathValue($app),
+                $resourcePath
+            );
+        }
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($runner_build_req)) {
+        if (isset($platform_app_move)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($runner_build_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_app_move));
             } else {
-                $httpBody = $runner_build_req;
+                $httpBody = $platform_app_move;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -9982,7 +11526,7 @@ class PlatformApi
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
-            'POST',
+            'PUT',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -9990,42 +11534,40 @@ class PlatformApi
     }
 
     /**
-     * Operation putPlatformProjectsByProjectAppsByAppEnv
+     * Operation putPlatformProjectsByProject
      *
-     * Replaces an app&#39;s environment variables.
+     * Renames a project.
      *
-     * @param  string $project Project is the project the application lives under, from the path. (required)
-     * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SetEnvReq $set_env_req set_env_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'] to see the possible values for this operation
+     * @param  string $project Project is the project to rename, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformProjectRename $platform_project_rename platform_project_rename (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AppView
+     * @return \Hanzo\Cloud\Model\PlatformProjectWrite|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putPlatformProjectsByProjectAppsByAppEnv($project, $app, $set_env_req, string $contentType = self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'][0])
+    public function putPlatformProjectsByProject($project, $platform_project_rename, string $contentType = self::contentTypes['putPlatformProjectsByProject'][0])
     {
-        list($response) = $this->putPlatformProjectsByProjectAppsByAppEnvWithHttpInfo($project, $app, $set_env_req, $contentType);
+        list($response) = $this->putPlatformProjectsByProjectWithHttpInfo($project, $platform_project_rename, $contentType);
         return $response;
     }
 
     /**
-     * Operation putPlatformProjectsByProjectAppsByAppEnvWithHttpInfo
+     * Operation putPlatformProjectsByProjectWithHttpInfo
      *
-     * Replaces an app&#39;s environment variables.
+     * Renames a project.
      *
-     * @param  string $project Project is the project the application lives under, from the path. (required)
-     * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SetEnvReq $set_env_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'] to see the possible values for this operation
+     * @param  string $project Project is the project to rename, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformProjectRename $platform_project_rename (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AppView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlatformProjectWrite|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putPlatformProjectsByProjectAppsByAppEnvWithHttpInfo($project, $app, $set_env_req, string $contentType = self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'][0])
+    public function putPlatformProjectsByProjectWithHttpInfo($project, $platform_project_rename, string $contentType = self::contentTypes['putPlatformProjectsByProject'][0])
     {
-        $request = $this->putPlatformProjectsByProjectAppsByAppEnvRequest($project, $app, $set_env_req, $contentType);
+        $request = $this->putPlatformProjectsByProjectRequest($project, $platform_project_rename, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10053,7 +11595,13 @@ class PlatformApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformProjectWrite',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -10075,7 +11623,7 @@ class PlatformApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AppView',
+                '\Hanzo\Cloud\Model\PlatformProjectWrite',
                 $request,
                 $response,
             );
@@ -10084,7 +11632,322 @@ class PlatformApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AppView',
+                        '\Hanzo\Cloud\Model\PlatformProjectWrite',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putPlatformProjectsByProjectAsync
+     *
+     * Renames a project.
+     *
+     * @param  string $project Project is the project to rename, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformProjectRename $platform_project_rename (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProject'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putPlatformProjectsByProjectAsync($project, $platform_project_rename, string $contentType = self::contentTypes['putPlatformProjectsByProject'][0])
+    {
+        return $this->putPlatformProjectsByProjectAsyncWithHttpInfo($project, $platform_project_rename, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putPlatformProjectsByProjectAsyncWithHttpInfo
+     *
+     * Renames a project.
+     *
+     * @param  string $project Project is the project to rename, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformProjectRename $platform_project_rename (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProject'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putPlatformProjectsByProjectAsyncWithHttpInfo($project, $platform_project_rename, string $contentType = self::contentTypes['putPlatformProjectsByProject'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PlatformProjectWrite';
+        $request = $this->putPlatformProjectsByProjectRequest($project, $platform_project_rename, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putPlatformProjectsByProject'
+     *
+     * @param  string $project Project is the project to rename, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformProjectRename $platform_project_rename (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProject'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putPlatformProjectsByProjectRequest($project, $platform_project_rename, string $contentType = self::contentTypes['putPlatformProjectsByProject'][0])
+    {
+
+        // verify the required parameter 'project' is set
+        if ($project === null || (is_array($project) && count($project) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $project when calling putPlatformProjectsByProject'
+            );
+        }
+
+        // verify the required parameter 'platform_project_rename' is set
+        if ($platform_project_rename === null || (is_array($platform_project_rename) && count($platform_project_rename) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $platform_project_rename when calling putPlatformProjectsByProject'
+            );
+        }
+
+
+        $resourcePath = '/v1/platform/projects/{project}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($project !== null) {
+            $resourcePath = str_replace(
+                '{' . 'project' . '}',
+                ObjectSerializer::toPathValue($project),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($platform_project_rename)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_project_rename));
+            } else {
+                $httpBody = $platform_project_rename;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putPlatformProjectsByProjectAppsByAppEnv
+     *
+     * Replaces an app&#39;s environment variables.
+     *
+     * @param  string $project Project is the project the application lives under, from the path. (required)
+     * @param  string $app App is the application&#39;s slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformSetEnvReq $platform_set_env_req platform_set_env_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PlatformAppOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putPlatformProjectsByProjectAppsByAppEnv($project, $app, $platform_set_env_req, string $contentType = self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'][0])
+    {
+        list($response) = $this->putPlatformProjectsByProjectAppsByAppEnvWithHttpInfo($project, $app, $platform_set_env_req, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putPlatformProjectsByProjectAppsByAppEnvWithHttpInfo
+     *
+     * Replaces an app&#39;s environment variables.
+     *
+     * @param  string $project Project is the project the application lives under, from the path. (required)
+     * @param  string $app App is the application&#39;s slug, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\PlatformSetEnvReq $platform_set_env_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PlatformAppOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putPlatformProjectsByProjectAppsByAppEnvWithHttpInfo($project, $app, $platform_set_env_req, string $contentType = self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'][0])
+    {
+        $request = $this->putPlatformProjectsByProjectAppsByAppEnvRequest($project, $app, $platform_set_env_req, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PlatformAppOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PlatformAppOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PlatformAppOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -10103,15 +11966,15 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SetEnvReq $set_env_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformSetEnvReq $platform_set_env_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putPlatformProjectsByProjectAppsByAppEnvAsync($project, $app, $set_env_req, string $contentType = self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'][0])
+    public function putPlatformProjectsByProjectAppsByAppEnvAsync($project, $app, $platform_set_env_req, string $contentType = self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'][0])
     {
-        return $this->putPlatformProjectsByProjectAppsByAppEnvAsyncWithHttpInfo($project, $app, $set_env_req, $contentType)
+        return $this->putPlatformProjectsByProjectAppsByAppEnvAsyncWithHttpInfo($project, $app, $platform_set_env_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -10126,16 +11989,16 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SetEnvReq $set_env_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformSetEnvReq $platform_set_env_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putPlatformProjectsByProjectAppsByAppEnvAsyncWithHttpInfo($project, $app, $set_env_req, string $contentType = self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'][0])
+    public function putPlatformProjectsByProjectAppsByAppEnvAsyncWithHttpInfo($project, $app, $platform_set_env_req, string $contentType = self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AppView';
-        $request = $this->putPlatformProjectsByProjectAppsByAppEnvRequest($project, $app, $set_env_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PlatformAppOut';
+        $request = $this->putPlatformProjectsByProjectAppsByAppEnvRequest($project, $app, $platform_set_env_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -10178,13 +12041,13 @@ class PlatformApi
      *
      * @param  string $project Project is the project the application lives under, from the path. (required)
      * @param  string $app App is the application&#39;s slug, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SetEnvReq $set_env_req (required)
+     * @param  \Hanzo\Cloud\Model\PlatformSetEnvReq $platform_set_env_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putPlatformProjectsByProjectAppsByAppEnvRequest($project, $app, $set_env_req, string $contentType = self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'][0])
+    public function putPlatformProjectsByProjectAppsByAppEnvRequest($project, $app, $platform_set_env_req, string $contentType = self::contentTypes['putPlatformProjectsByProjectAppsByAppEnv'][0])
     {
 
         // verify the required parameter 'project' is set
@@ -10201,10 +12064,10 @@ class PlatformApi
             );
         }
 
-        // verify the required parameter 'set_env_req' is set
-        if ($set_env_req === null || (is_array($set_env_req) && count($set_env_req) === 0)) {
+        // verify the required parameter 'platform_set_env_req' is set
+        if ($platform_set_env_req === null || (is_array($platform_set_env_req) && count($platform_set_env_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $set_env_req when calling putPlatformProjectsByProjectAppsByAppEnv'
+                'Missing the required parameter $platform_set_env_req when calling putPlatformProjectsByProjectAppsByAppEnv'
             );
         }
 
@@ -10237,18 +12100,18 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($set_env_req)) {
+        if (isset($platform_set_env_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($set_env_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($platform_set_env_req));
             } else {
-                $httpBody = $set_env_req;
+                $httpBody = $platform_set_env_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

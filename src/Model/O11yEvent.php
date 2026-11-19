@@ -57,7 +57,7 @@ class O11yEvent implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'attribute_map' => 'array<string,object>',
+        'attribute_map' => 'array<string,mixed>',
         'is_error' => 'bool',
         'name' => 'string',
         'time_unix_nano' => 'int'
@@ -313,7 +313,7 @@ class O11yEvent implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets attribute_map
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getAttributeMap()
     {
@@ -323,7 +323,7 @@ class O11yEvent implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets attribute_map
      *
-     * @param array<string,object>|null $attribute_map attribute_map
+     * @param array<string,mixed>|null $attribute_map attribute_map
      *
      * @return self
      */

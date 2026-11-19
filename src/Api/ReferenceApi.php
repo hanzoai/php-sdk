@@ -83,9 +83,6 @@ class ReferenceApi
         'riskReferenceSets' => [
             'application/json',
         ],
-        'riskRefreshReference' => [
-            'application/json',
-        ],
         'riskResolveReference' => [
             'application/json',
         ],
@@ -151,7 +148,7 @@ class ReferenceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ClearReferenceOut
+     * @return \Hanzo\Cloud\Model\ReferenceClearReferenceOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskClearReference($set, $key = null, string $contentType = self::contentTypes['riskClearReference'][0])
     {
@@ -170,7 +167,7 @@ class ReferenceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ClearReferenceOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ReferenceClearReferenceOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskClearReferenceWithHttpInfo($set, $key = null, string $contentType = self::contentTypes['riskClearReference'][0])
     {
@@ -202,7 +199,13 @@ class ReferenceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ClearReferenceOut',
+                        '\Hanzo\Cloud\Model\ReferenceClearReferenceOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -224,7 +227,7 @@ class ReferenceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ClearReferenceOut',
+                '\Hanzo\Cloud\Model\ReferenceClearReferenceOut',
                 $request,
                 $response,
             );
@@ -233,7 +236,15 @@ class ReferenceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ClearReferenceOut',
+                        '\Hanzo\Cloud\Model\ReferenceClearReferenceOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -281,7 +292,7 @@ class ReferenceApi
      */
     public function riskClearReferenceAsyncWithHttpInfo($set, $key = null, string $contentType = self::contentTypes['riskClearReference'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ClearReferenceOut';
+        $returnType = '\Hanzo\Cloud\Model\ReferenceClearReferenceOut';
         $request = $this->riskClearReferenceRequest($set, $key, $contentType);
 
         return $this->client
@@ -371,7 +382,7 @@ class ReferenceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -439,7 +450,7 @@ class ReferenceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ReferenceOut
+     * @return \Hanzo\Cloud\Model\ReferenceReferenceOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskReference($set, $after = null, $limit = null, string $contentType = self::contentTypes['riskReference'][0])
     {
@@ -459,7 +470,7 @@ class ReferenceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ReferenceOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ReferenceReferenceOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskReferenceWithHttpInfo($set, $after = null, $limit = null, string $contentType = self::contentTypes['riskReference'][0])
     {
@@ -491,7 +502,13 @@ class ReferenceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ReferenceOut',
+                        '\Hanzo\Cloud\Model\ReferenceReferenceOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -513,7 +530,7 @@ class ReferenceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ReferenceOut',
+                '\Hanzo\Cloud\Model\ReferenceReferenceOut',
                 $request,
                 $response,
             );
@@ -522,7 +539,15 @@ class ReferenceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ReferenceOut',
+                        '\Hanzo\Cloud\Model\ReferenceReferenceOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -572,7 +597,7 @@ class ReferenceApi
      */
     public function riskReferenceAsyncWithHttpInfo($set, $after = null, $limit = null, string $contentType = self::contentTypes['riskReference'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ReferenceOut';
+        $returnType = '\Hanzo\Cloud\Model\ReferenceReferenceOut';
         $request = $this->riskReferenceRequest($set, $after, $limit, $contentType);
 
         return $this->client
@@ -673,7 +698,7 @@ class ReferenceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -738,7 +763,7 @@ class ReferenceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ReferenceSetsOut
+     * @return \Hanzo\Cloud\Model\ReferenceReferenceSetsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskReferenceSets(string $contentType = self::contentTypes['riskReferenceSets'][0])
     {
@@ -755,7 +780,7 @@ class ReferenceApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ReferenceSetsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ReferenceReferenceSetsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskReferenceSetsWithHttpInfo(string $contentType = self::contentTypes['riskReferenceSets'][0])
     {
@@ -787,7 +812,13 @@ class ReferenceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ReferenceSetsOut',
+                        '\Hanzo\Cloud\Model\ReferenceReferenceSetsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -809,7 +840,7 @@ class ReferenceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ReferenceSetsOut',
+                '\Hanzo\Cloud\Model\ReferenceReferenceSetsOut',
                 $request,
                 $response,
             );
@@ -818,7 +849,15 @@ class ReferenceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ReferenceSetsOut',
+                        '\Hanzo\Cloud\Model\ReferenceReferenceSetsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -862,7 +901,7 @@ class ReferenceApi
      */
     public function riskReferenceSetsAsyncWithHttpInfo(string $contentType = self::contentTypes['riskReferenceSets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ReferenceSetsOut';
+        $returnType = '\Hanzo\Cloud\Model\ReferenceReferenceSetsOut';
         $request = $this->riskReferenceSetsRequest($contentType);
 
         return $this->client
@@ -925,7 +964,7 @@ class ReferenceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -982,291 +1021,20 @@ class ReferenceApi
     }
 
     /**
-     * Operation riskRefreshReference
-     *
-     * Takes a new version of one set.
-     *
-     * @param  \Hanzo\Cloud\Model\RefreshReferenceIn $refresh_reference_in refresh_reference_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskRefreshReference'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RefreshReferenceOut
-     */
-    public function riskRefreshReference($refresh_reference_in, string $contentType = self::contentTypes['riskRefreshReference'][0])
-    {
-        list($response) = $this->riskRefreshReferenceWithHttpInfo($refresh_reference_in, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation riskRefreshReferenceWithHttpInfo
-     *
-     * Takes a new version of one set.
-     *
-     * @param  \Hanzo\Cloud\Model\RefreshReferenceIn $refresh_reference_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskRefreshReference'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RefreshReferenceOut, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function riskRefreshReferenceWithHttpInfo($refresh_reference_in, string $contentType = self::contentTypes['riskRefreshReference'][0])
-    {
-        $request = $this->riskRefreshReferenceRequest($refresh_reference_in, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RefreshReferenceOut',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RefreshReferenceOut',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RefreshReferenceOut',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation riskRefreshReferenceAsync
-     *
-     * Takes a new version of one set.
-     *
-     * @param  \Hanzo\Cloud\Model\RefreshReferenceIn $refresh_reference_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskRefreshReference'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function riskRefreshReferenceAsync($refresh_reference_in, string $contentType = self::contentTypes['riskRefreshReference'][0])
-    {
-        return $this->riskRefreshReferenceAsyncWithHttpInfo($refresh_reference_in, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation riskRefreshReferenceAsyncWithHttpInfo
-     *
-     * Takes a new version of one set.
-     *
-     * @param  \Hanzo\Cloud\Model\RefreshReferenceIn $refresh_reference_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskRefreshReference'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function riskRefreshReferenceAsyncWithHttpInfo($refresh_reference_in, string $contentType = self::contentTypes['riskRefreshReference'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\RefreshReferenceOut';
-        $request = $this->riskRefreshReferenceRequest($refresh_reference_in, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'riskRefreshReference'
-     *
-     * @param  \Hanzo\Cloud\Model\RefreshReferenceIn $refresh_reference_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskRefreshReference'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function riskRefreshReferenceRequest($refresh_reference_in, string $contentType = self::contentTypes['riskRefreshReference'][0])
-    {
-
-        // verify the required parameter 'refresh_reference_in' is set
-        if ($refresh_reference_in === null || (is_array($refresh_reference_in) && count($refresh_reference_in) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $refresh_reference_in when calling riskRefreshReference'
-            );
-        }
-
-
-        $resourcePath = '/v1/reference/refresh';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($refresh_reference_in)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($refresh_reference_in));
-            } else {
-                $httpBody = $refresh_reference_in;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation riskResolveReference
      *
      * Looks keys up against the reference plane.
      *
-     * @param  \Hanzo\Cloud\Model\ResolveReferenceIn $resolve_reference_in resolve_reference_in (required)
+     * @param  \Hanzo\Cloud\Model\ReferenceResolveReferenceIn $reference_resolve_reference_in reference_resolve_reference_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskResolveReference'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ResolveReferenceOut
+     * @return \Hanzo\Cloud\Model\ReferenceResolveReferenceOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskResolveReference($resolve_reference_in, string $contentType = self::contentTypes['riskResolveReference'][0])
+    public function riskResolveReference($reference_resolve_reference_in, string $contentType = self::contentTypes['riskResolveReference'][0])
     {
-        list($response) = $this->riskResolveReferenceWithHttpInfo($resolve_reference_in, $contentType);
+        list($response) = $this->riskResolveReferenceWithHttpInfo($reference_resolve_reference_in, $contentType);
         return $response;
     }
 
@@ -1275,16 +1043,16 @@ class ReferenceApi
      *
      * Looks keys up against the reference plane.
      *
-     * @param  \Hanzo\Cloud\Model\ResolveReferenceIn $resolve_reference_in (required)
+     * @param  \Hanzo\Cloud\Model\ReferenceResolveReferenceIn $reference_resolve_reference_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskResolveReference'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ResolveReferenceOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ReferenceResolveReferenceOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskResolveReferenceWithHttpInfo($resolve_reference_in, string $contentType = self::contentTypes['riskResolveReference'][0])
+    public function riskResolveReferenceWithHttpInfo($reference_resolve_reference_in, string $contentType = self::contentTypes['riskResolveReference'][0])
     {
-        $request = $this->riskResolveReferenceRequest($resolve_reference_in, $contentType);
+        $request = $this->riskResolveReferenceRequest($reference_resolve_reference_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1312,7 +1080,13 @@ class ReferenceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ResolveReferenceOut',
+                        '\Hanzo\Cloud\Model\ReferenceResolveReferenceOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1334,7 +1108,7 @@ class ReferenceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ResolveReferenceOut',
+                '\Hanzo\Cloud\Model\ReferenceResolveReferenceOut',
                 $request,
                 $response,
             );
@@ -1343,7 +1117,15 @@ class ReferenceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ResolveReferenceOut',
+                        '\Hanzo\Cloud\Model\ReferenceResolveReferenceOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1360,15 +1142,15 @@ class ReferenceApi
      *
      * Looks keys up against the reference plane.
      *
-     * @param  \Hanzo\Cloud\Model\ResolveReferenceIn $resolve_reference_in (required)
+     * @param  \Hanzo\Cloud\Model\ReferenceResolveReferenceIn $reference_resolve_reference_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskResolveReference'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskResolveReferenceAsync($resolve_reference_in, string $contentType = self::contentTypes['riskResolveReference'][0])
+    public function riskResolveReferenceAsync($reference_resolve_reference_in, string $contentType = self::contentTypes['riskResolveReference'][0])
     {
-        return $this->riskResolveReferenceAsyncWithHttpInfo($resolve_reference_in, $contentType)
+        return $this->riskResolveReferenceAsyncWithHttpInfo($reference_resolve_reference_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1381,16 +1163,16 @@ class ReferenceApi
      *
      * Looks keys up against the reference plane.
      *
-     * @param  \Hanzo\Cloud\Model\ResolveReferenceIn $resolve_reference_in (required)
+     * @param  \Hanzo\Cloud\Model\ReferenceResolveReferenceIn $reference_resolve_reference_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskResolveReference'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskResolveReferenceAsyncWithHttpInfo($resolve_reference_in, string $contentType = self::contentTypes['riskResolveReference'][0])
+    public function riskResolveReferenceAsyncWithHttpInfo($reference_resolve_reference_in, string $contentType = self::contentTypes['riskResolveReference'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ResolveReferenceOut';
-        $request = $this->riskResolveReferenceRequest($resolve_reference_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ReferenceResolveReferenceOut';
+        $request = $this->riskResolveReferenceRequest($reference_resolve_reference_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1431,19 +1213,19 @@ class ReferenceApi
     /**
      * Create request for operation 'riskResolveReference'
      *
-     * @param  \Hanzo\Cloud\Model\ResolveReferenceIn $resolve_reference_in (required)
+     * @param  \Hanzo\Cloud\Model\ReferenceResolveReferenceIn $reference_resolve_reference_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskResolveReference'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskResolveReferenceRequest($resolve_reference_in, string $contentType = self::contentTypes['riskResolveReference'][0])
+    public function riskResolveReferenceRequest($reference_resolve_reference_in, string $contentType = self::contentTypes['riskResolveReference'][0])
     {
 
-        // verify the required parameter 'resolve_reference_in' is set
-        if ($resolve_reference_in === null || (is_array($resolve_reference_in) && count($resolve_reference_in) === 0)) {
+        // verify the required parameter 'reference_resolve_reference_in' is set
+        if ($reference_resolve_reference_in === null || (is_array($reference_resolve_reference_in) && count($reference_resolve_reference_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $resolve_reference_in when calling riskResolveReference'
+                'Missing the required parameter $reference_resolve_reference_in when calling riskResolveReference'
             );
         }
 
@@ -1460,18 +1242,18 @@ class ReferenceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($resolve_reference_in)) {
+        if (isset($reference_resolve_reference_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($resolve_reference_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($reference_resolve_reference_in));
             } else {
-                $httpBody = $resolve_reference_in;
+                $httpBody = $reference_resolve_reference_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1529,16 +1311,16 @@ class ReferenceApi
      * Writes your organisation&#39;s own allow and deny entries over a set.
      *
      * @param  string $set set (required)
-     * @param  \Hanzo\Cloud\Model\SetReferenceIn $set_reference_in set_reference_in (required)
+     * @param  \Hanzo\Cloud\Model\ReferenceSetReferenceIn $reference_set_reference_in reference_set_reference_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSetReference'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SetReferenceOut
+     * @return \Hanzo\Cloud\Model\ReferenceSetReferenceOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskSetReference($set, $set_reference_in, string $contentType = self::contentTypes['riskSetReference'][0])
+    public function riskSetReference($set, $reference_set_reference_in, string $contentType = self::contentTypes['riskSetReference'][0])
     {
-        list($response) = $this->riskSetReferenceWithHttpInfo($set, $set_reference_in, $contentType);
+        list($response) = $this->riskSetReferenceWithHttpInfo($set, $reference_set_reference_in, $contentType);
         return $response;
     }
 
@@ -1548,16 +1330,16 @@ class ReferenceApi
      * Writes your organisation&#39;s own allow and deny entries over a set.
      *
      * @param  string $set (required)
-     * @param  \Hanzo\Cloud\Model\SetReferenceIn $set_reference_in (required)
+     * @param  \Hanzo\Cloud\Model\ReferenceSetReferenceIn $reference_set_reference_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSetReference'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SetReferenceOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ReferenceSetReferenceOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskSetReferenceWithHttpInfo($set, $set_reference_in, string $contentType = self::contentTypes['riskSetReference'][0])
+    public function riskSetReferenceWithHttpInfo($set, $reference_set_reference_in, string $contentType = self::contentTypes['riskSetReference'][0])
     {
-        $request = $this->riskSetReferenceRequest($set, $set_reference_in, $contentType);
+        $request = $this->riskSetReferenceRequest($set, $reference_set_reference_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1585,7 +1367,13 @@ class ReferenceApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SetReferenceOut',
+                        '\Hanzo\Cloud\Model\ReferenceSetReferenceOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1607,7 +1395,7 @@ class ReferenceApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SetReferenceOut',
+                '\Hanzo\Cloud\Model\ReferenceSetReferenceOut',
                 $request,
                 $response,
             );
@@ -1616,7 +1404,15 @@ class ReferenceApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SetReferenceOut',
+                        '\Hanzo\Cloud\Model\ReferenceSetReferenceOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1634,15 +1430,15 @@ class ReferenceApi
      * Writes your organisation&#39;s own allow and deny entries over a set.
      *
      * @param  string $set (required)
-     * @param  \Hanzo\Cloud\Model\SetReferenceIn $set_reference_in (required)
+     * @param  \Hanzo\Cloud\Model\ReferenceSetReferenceIn $reference_set_reference_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSetReference'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskSetReferenceAsync($set, $set_reference_in, string $contentType = self::contentTypes['riskSetReference'][0])
+    public function riskSetReferenceAsync($set, $reference_set_reference_in, string $contentType = self::contentTypes['riskSetReference'][0])
     {
-        return $this->riskSetReferenceAsyncWithHttpInfo($set, $set_reference_in, $contentType)
+        return $this->riskSetReferenceAsyncWithHttpInfo($set, $reference_set_reference_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1656,16 +1452,16 @@ class ReferenceApi
      * Writes your organisation&#39;s own allow and deny entries over a set.
      *
      * @param  string $set (required)
-     * @param  \Hanzo\Cloud\Model\SetReferenceIn $set_reference_in (required)
+     * @param  \Hanzo\Cloud\Model\ReferenceSetReferenceIn $reference_set_reference_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSetReference'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskSetReferenceAsyncWithHttpInfo($set, $set_reference_in, string $contentType = self::contentTypes['riskSetReference'][0])
+    public function riskSetReferenceAsyncWithHttpInfo($set, $reference_set_reference_in, string $contentType = self::contentTypes['riskSetReference'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SetReferenceOut';
-        $request = $this->riskSetReferenceRequest($set, $set_reference_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ReferenceSetReferenceOut';
+        $request = $this->riskSetReferenceRequest($set, $reference_set_reference_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1707,13 +1503,13 @@ class ReferenceApi
      * Create request for operation 'riskSetReference'
      *
      * @param  string $set (required)
-     * @param  \Hanzo\Cloud\Model\SetReferenceIn $set_reference_in (required)
+     * @param  \Hanzo\Cloud\Model\ReferenceSetReferenceIn $reference_set_reference_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskSetReference'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskSetReferenceRequest($set, $set_reference_in, string $contentType = self::contentTypes['riskSetReference'][0])
+    public function riskSetReferenceRequest($set, $reference_set_reference_in, string $contentType = self::contentTypes['riskSetReference'][0])
     {
 
         // verify the required parameter 'set' is set
@@ -1723,10 +1519,10 @@ class ReferenceApi
             );
         }
 
-        // verify the required parameter 'set_reference_in' is set
-        if ($set_reference_in === null || (is_array($set_reference_in) && count($set_reference_in) === 0)) {
+        // verify the required parameter 'reference_set_reference_in' is set
+        if ($reference_set_reference_in === null || (is_array($reference_set_reference_in) && count($reference_set_reference_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $set_reference_in when calling riskSetReference'
+                'Missing the required parameter $reference_set_reference_in when calling riskSetReference'
             );
         }
 
@@ -1751,18 +1547,18 @@ class ReferenceApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($set_reference_in)) {
+        if (isset($reference_set_reference_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($set_reference_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($reference_set_reference_in));
             } else {
-                $httpBody = $set_reference_in;
+                $httpBody = $reference_set_reference_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

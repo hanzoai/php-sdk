@@ -156,7 +156,7 @@ class FlowApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteFlowWorkflowsByWorkflow($workflow, string $contentType = self::contentTypes['deleteFlowWorkflowsByWorkflow'][0])
     {
@@ -174,7 +174,7 @@ class FlowApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteFlowWorkflowsByWorkflowWithHttpInfo($workflow, string $contentType = self::contentTypes['deleteFlowWorkflowsByWorkflow'][0])
     {
@@ -210,6 +210,12 @@ class FlowApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -238,6 +244,14 @@ class FlowApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -362,7 +376,7 @@ class FlowApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -421,14 +435,14 @@ class FlowApi
     /**
      * Operation getFlowRuns
      *
-     * Runs reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
+     * Reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
      *
      * @param  string|null $workflow Workflow is the UUID of the workflow whose run records to read. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFlowRuns($workflow = null, string $contentType = self::contentTypes['getFlowRuns'][0])
     {
@@ -439,14 +453,14 @@ class FlowApi
     /**
      * Operation getFlowRunsWithHttpInfo
      *
-     * Runs reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
+     * Reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
      *
      * @param  string|null $workflow Workflow is the UUID of the workflow whose run records to read. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFlowRunsWithHttpInfo($workflow = null, string $contentType = self::contentTypes['getFlowRuns'][0])
     {
@@ -482,6 +496,12 @@ class FlowApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -514,6 +534,14 @@ class FlowApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -524,7 +552,7 @@ class FlowApi
     /**
      * Operation getFlowRunsAsync
      *
-     * Runs reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
+     * Reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
      *
      * @param  string|null $workflow Workflow is the UUID of the workflow whose run records to read. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowRuns'] to see the possible values for this operation
@@ -545,7 +573,7 @@ class FlowApi
     /**
      * Operation getFlowRunsAsyncWithHttpInfo
      *
-     * Runs reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
+     * Reads one workflow&#39;s recorded runs: every component build with its result, keyed by component.
      *
      * @param  string|null $workflow Workflow is the UUID of the workflow whose run records to read. It rides the query string. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowRuns'] to see the possible values for this operation
@@ -629,7 +657,7 @@ class FlowApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -688,13 +716,13 @@ class FlowApi
     /**
      * Operation getFlowStatus
      *
-     * Status reports whether the flow service is reachable and which version it runs.
+     * Reports whether the flow service is reachable and which version it runs.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowStatus'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FlowStatus
+     * @return \Hanzo\Cloud\Model\FlowFlowStatus|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFlowStatus(string $contentType = self::contentTypes['getFlowStatus'][0])
     {
@@ -705,13 +733,13 @@ class FlowApi
     /**
      * Operation getFlowStatusWithHttpInfo
      *
-     * Status reports whether the flow service is reachable and which version it runs.
+     * Reports whether the flow service is reachable and which version it runs.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowStatus'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FlowStatus, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FlowFlowStatus|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFlowStatusWithHttpInfo(string $contentType = self::contentTypes['getFlowStatus'][0])
     {
@@ -743,7 +771,13 @@ class FlowApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FlowStatus',
+                        '\Hanzo\Cloud\Model\FlowFlowStatus',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -765,7 +799,7 @@ class FlowApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FlowStatus',
+                '\Hanzo\Cloud\Model\FlowFlowStatus',
                 $request,
                 $response,
             );
@@ -774,7 +808,15 @@ class FlowApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FlowStatus',
+                        '\Hanzo\Cloud\Model\FlowFlowStatus',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -789,7 +831,7 @@ class FlowApi
     /**
      * Operation getFlowStatusAsync
      *
-     * Status reports whether the flow service is reachable and which version it runs.
+     * Reports whether the flow service is reachable and which version it runs.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowStatus'] to see the possible values for this operation
      *
@@ -809,7 +851,7 @@ class FlowApi
     /**
      * Operation getFlowStatusAsyncWithHttpInfo
      *
-     * Status reports whether the flow service is reachable and which version it runs.
+     * Reports whether the flow service is reachable and which version it runs.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowStatus'] to see the possible values for this operation
      *
@@ -818,7 +860,7 @@ class FlowApi
      */
     public function getFlowStatusAsyncWithHttpInfo(string $contentType = self::contentTypes['getFlowStatus'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FlowStatus';
+        $returnType = '\Hanzo\Cloud\Model\FlowFlowStatus';
         $request = $this->getFlowStatusRequest($contentType);
 
         return $this->client
@@ -881,7 +923,7 @@ class FlowApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -940,7 +982,7 @@ class FlowApi
     /**
      * Operation getFlowWorkflows
      *
-     * Workflows lists the caller&#39;s workflows, paged.
+     * Lists the caller&#39;s workflows, paged.
      *
      * @param  string|null $page Page is the 1-based page of workflows to return. (optional)
      * @param  string|null $size Size is how many workflows one page holds (the product caps it at 100). (optional)
@@ -948,7 +990,7 @@ class FlowApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFlowWorkflows($page = null, $size = null, string $contentType = self::contentTypes['getFlowWorkflows'][0])
     {
@@ -959,7 +1001,7 @@ class FlowApi
     /**
      * Operation getFlowWorkflowsWithHttpInfo
      *
-     * Workflows lists the caller&#39;s workflows, paged.
+     * Lists the caller&#39;s workflows, paged.
      *
      * @param  string|null $page Page is the 1-based page of workflows to return. (optional)
      * @param  string|null $size Size is how many workflows one page holds (the product caps it at 100). (optional)
@@ -967,7 +1009,7 @@ class FlowApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFlowWorkflowsWithHttpInfo($page = null, $size = null, string $contentType = self::contentTypes['getFlowWorkflows'][0])
     {
@@ -1003,6 +1045,12 @@ class FlowApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1035,6 +1083,14 @@ class FlowApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1045,7 +1101,7 @@ class FlowApi
     /**
      * Operation getFlowWorkflowsAsync
      *
-     * Workflows lists the caller&#39;s workflows, paged.
+     * Lists the caller&#39;s workflows, paged.
      *
      * @param  string|null $page Page is the 1-based page of workflows to return. (optional)
      * @param  string|null $size Size is how many workflows one page holds (the product caps it at 100). (optional)
@@ -1067,7 +1123,7 @@ class FlowApi
     /**
      * Operation getFlowWorkflowsAsyncWithHttpInfo
      *
-     * Workflows lists the caller&#39;s workflows, paged.
+     * Lists the caller&#39;s workflows, paged.
      *
      * @param  string|null $page Page is the 1-based page of workflows to return. (optional)
      * @param  string|null $size Size is how many workflows one page holds (the product caps it at 100). (optional)
@@ -1163,7 +1219,7 @@ class FlowApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1222,14 +1278,14 @@ class FlowApi
     /**
      * Operation getFlowWorkflowsByWorkflow
      *
-     * Workflow reads one of the caller&#39;s workflows — the full record, graph included.
+     * Reads one of the caller&#39;s workflows — the full record, graph included.
      *
      * @param  string $workflow Workflow is the workflow&#39;s UUID, taken from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowWorkflowsByWorkflow'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFlowWorkflowsByWorkflow($workflow, string $contentType = self::contentTypes['getFlowWorkflowsByWorkflow'][0])
     {
@@ -1240,14 +1296,14 @@ class FlowApi
     /**
      * Operation getFlowWorkflowsByWorkflowWithHttpInfo
      *
-     * Workflow reads one of the caller&#39;s workflows — the full record, graph included.
+     * Reads one of the caller&#39;s workflows — the full record, graph included.
      *
      * @param  string $workflow Workflow is the workflow&#39;s UUID, taken from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowWorkflowsByWorkflow'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFlowWorkflowsByWorkflowWithHttpInfo($workflow, string $contentType = self::contentTypes['getFlowWorkflowsByWorkflow'][0])
     {
@@ -1283,6 +1339,12 @@ class FlowApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1315,6 +1377,14 @@ class FlowApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1325,7 +1395,7 @@ class FlowApi
     /**
      * Operation getFlowWorkflowsByWorkflowAsync
      *
-     * Workflow reads one of the caller&#39;s workflows — the full record, graph included.
+     * Reads one of the caller&#39;s workflows — the full record, graph included.
      *
      * @param  string $workflow Workflow is the workflow&#39;s UUID, taken from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowWorkflowsByWorkflow'] to see the possible values for this operation
@@ -1346,7 +1416,7 @@ class FlowApi
     /**
      * Operation getFlowWorkflowsByWorkflowAsyncWithHttpInfo
      *
-     * Workflow reads one of the caller&#39;s workflows — the full record, graph included.
+     * Reads one of the caller&#39;s workflows — the full record, graph included.
      *
      * @param  string $workflow Workflow is the workflow&#39;s UUID, taken from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlowWorkflowsByWorkflow'] to see the possible values for this operation
@@ -1435,7 +1505,7 @@ class FlowApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1497,16 +1567,16 @@ class FlowApi
      * Patches one of the caller&#39;s workflows: name, description, graph, or the locked flag — only the stated fields move.
      *
      * @param  string $workflow Workflow is the workflow&#39;s UUID, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\FlowUpdate $flow_update flow_update (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowUpdate $flow_flow_update flow_flow_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchFlowWorkflowsByWorkflow'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function patchFlowWorkflowsByWorkflow($workflow, $flow_update, string $contentType = self::contentTypes['patchFlowWorkflowsByWorkflow'][0])
+    public function patchFlowWorkflowsByWorkflow($workflow, $flow_flow_update, string $contentType = self::contentTypes['patchFlowWorkflowsByWorkflow'][0])
     {
-        list($response) = $this->patchFlowWorkflowsByWorkflowWithHttpInfo($workflow, $flow_update, $contentType);
+        list($response) = $this->patchFlowWorkflowsByWorkflowWithHttpInfo($workflow, $flow_flow_update, $contentType);
         return $response;
     }
 
@@ -1516,16 +1586,16 @@ class FlowApi
      * Patches one of the caller&#39;s workflows: name, description, graph, or the locked flag — only the stated fields move.
      *
      * @param  string $workflow Workflow is the workflow&#39;s UUID, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\FlowUpdate $flow_update (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowUpdate $flow_flow_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchFlowWorkflowsByWorkflow'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchFlowWorkflowsByWorkflowWithHttpInfo($workflow, $flow_update, string $contentType = self::contentTypes['patchFlowWorkflowsByWorkflow'][0])
+    public function patchFlowWorkflowsByWorkflowWithHttpInfo($workflow, $flow_flow_update, string $contentType = self::contentTypes['patchFlowWorkflowsByWorkflow'][0])
     {
-        $request = $this->patchFlowWorkflowsByWorkflowRequest($workflow, $flow_update, $contentType);
+        $request = $this->patchFlowWorkflowsByWorkflowRequest($workflow, $flow_flow_update, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1554,6 +1624,12 @@ class FlowApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1589,6 +1665,14 @@ class FlowApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1602,15 +1686,15 @@ class FlowApi
      * Patches one of the caller&#39;s workflows: name, description, graph, or the locked flag — only the stated fields move.
      *
      * @param  string $workflow Workflow is the workflow&#39;s UUID, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\FlowUpdate $flow_update (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowUpdate $flow_flow_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchFlowWorkflowsByWorkflow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchFlowWorkflowsByWorkflowAsync($workflow, $flow_update, string $contentType = self::contentTypes['patchFlowWorkflowsByWorkflow'][0])
+    public function patchFlowWorkflowsByWorkflowAsync($workflow, $flow_flow_update, string $contentType = self::contentTypes['patchFlowWorkflowsByWorkflow'][0])
     {
-        return $this->patchFlowWorkflowsByWorkflowAsyncWithHttpInfo($workflow, $flow_update, $contentType)
+        return $this->patchFlowWorkflowsByWorkflowAsyncWithHttpInfo($workflow, $flow_flow_update, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1624,16 +1708,16 @@ class FlowApi
      * Patches one of the caller&#39;s workflows: name, description, graph, or the locked flag — only the stated fields move.
      *
      * @param  string $workflow Workflow is the workflow&#39;s UUID, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\FlowUpdate $flow_update (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowUpdate $flow_flow_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchFlowWorkflowsByWorkflow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchFlowWorkflowsByWorkflowAsyncWithHttpInfo($workflow, $flow_update, string $contentType = self::contentTypes['patchFlowWorkflowsByWorkflow'][0])
+    public function patchFlowWorkflowsByWorkflowAsyncWithHttpInfo($workflow, $flow_flow_update, string $contentType = self::contentTypes['patchFlowWorkflowsByWorkflow'][0])
     {
         $returnType = 'mixed';
-        $request = $this->patchFlowWorkflowsByWorkflowRequest($workflow, $flow_update, $contentType);
+        $request = $this->patchFlowWorkflowsByWorkflowRequest($workflow, $flow_flow_update, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1675,13 +1759,13 @@ class FlowApi
      * Create request for operation 'patchFlowWorkflowsByWorkflow'
      *
      * @param  string $workflow Workflow is the workflow&#39;s UUID, taken from the path. (required)
-     * @param  \Hanzo\Cloud\Model\FlowUpdate $flow_update (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowUpdate $flow_flow_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchFlowWorkflowsByWorkflow'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchFlowWorkflowsByWorkflowRequest($workflow, $flow_update, string $contentType = self::contentTypes['patchFlowWorkflowsByWorkflow'][0])
+    public function patchFlowWorkflowsByWorkflowRequest($workflow, $flow_flow_update, string $contentType = self::contentTypes['patchFlowWorkflowsByWorkflow'][0])
     {
 
         // verify the required parameter 'workflow' is set
@@ -1691,10 +1775,10 @@ class FlowApi
             );
         }
 
-        // verify the required parameter 'flow_update' is set
-        if ($flow_update === null || (is_array($flow_update) && count($flow_update) === 0)) {
+        // verify the required parameter 'flow_flow_update' is set
+        if ($flow_flow_update === null || (is_array($flow_flow_update) && count($flow_flow_update) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $flow_update when calling patchFlowWorkflowsByWorkflow'
+                'Missing the required parameter $flow_flow_update when calling patchFlowWorkflowsByWorkflow'
             );
         }
 
@@ -1719,18 +1803,18 @@ class FlowApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($flow_update)) {
+        if (isset($flow_flow_update)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($flow_update));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($flow_flow_update));
             } else {
-                $httpBody = $flow_update;
+                $httpBody = $flow_flow_update;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1785,36 +1869,36 @@ class FlowApi
     /**
      * Operation postFlowRuns
      *
-     * Run executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
+     * Executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
      *
-     * @param  \Hanzo\Cloud\Model\FlowRun $flow_run flow_run (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowRun $flow_flow_run flow_flow_run (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlowRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postFlowRuns($flow_run, string $contentType = self::contentTypes['postFlowRuns'][0])
+    public function postFlowRuns($flow_flow_run, string $contentType = self::contentTypes['postFlowRuns'][0])
     {
-        list($response) = $this->postFlowRunsWithHttpInfo($flow_run, $contentType);
+        list($response) = $this->postFlowRunsWithHttpInfo($flow_flow_run, $contentType);
         return $response;
     }
 
     /**
      * Operation postFlowRunsWithHttpInfo
      *
-     * Run executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
+     * Executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
      *
-     * @param  \Hanzo\Cloud\Model\FlowRun $flow_run (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowRun $flow_flow_run (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlowRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postFlowRunsWithHttpInfo($flow_run, string $contentType = self::contentTypes['postFlowRuns'][0])
+    public function postFlowRunsWithHttpInfo($flow_flow_run, string $contentType = self::contentTypes['postFlowRuns'][0])
     {
-        $request = $this->postFlowRunsRequest($flow_run, $contentType);
+        $request = $this->postFlowRunsRequest($flow_flow_run, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1843,6 +1927,12 @@ class FlowApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1878,6 +1968,14 @@ class FlowApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1888,17 +1986,17 @@ class FlowApi
     /**
      * Operation postFlowRunsAsync
      *
-     * Run executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
+     * Executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
      *
-     * @param  \Hanzo\Cloud\Model\FlowRun $flow_run (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowRun $flow_flow_run (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlowRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFlowRunsAsync($flow_run, string $contentType = self::contentTypes['postFlowRuns'][0])
+    public function postFlowRunsAsync($flow_flow_run, string $contentType = self::contentTypes['postFlowRuns'][0])
     {
-        return $this->postFlowRunsAsyncWithHttpInfo($flow_run, $contentType)
+        return $this->postFlowRunsAsyncWithHttpInfo($flow_flow_run, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1909,18 +2007,18 @@ class FlowApi
     /**
      * Operation postFlowRunsAsyncWithHttpInfo
      *
-     * Run executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
+     * Executes one of the caller&#39;s workflows synchronously: the graph runs in the flow service and the response carries the run&#39;s session and outputs.
      *
-     * @param  \Hanzo\Cloud\Model\FlowRun $flow_run (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowRun $flow_flow_run (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlowRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFlowRunsAsyncWithHttpInfo($flow_run, string $contentType = self::contentTypes['postFlowRuns'][0])
+    public function postFlowRunsAsyncWithHttpInfo($flow_flow_run, string $contentType = self::contentTypes['postFlowRuns'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postFlowRunsRequest($flow_run, $contentType);
+        $request = $this->postFlowRunsRequest($flow_flow_run, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1961,19 +2059,19 @@ class FlowApi
     /**
      * Create request for operation 'postFlowRuns'
      *
-     * @param  \Hanzo\Cloud\Model\FlowRun $flow_run (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowRun $flow_flow_run (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlowRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postFlowRunsRequest($flow_run, string $contentType = self::contentTypes['postFlowRuns'][0])
+    public function postFlowRunsRequest($flow_flow_run, string $contentType = self::contentTypes['postFlowRuns'][0])
     {
 
-        // verify the required parameter 'flow_run' is set
-        if ($flow_run === null || (is_array($flow_run) && count($flow_run) === 0)) {
+        // verify the required parameter 'flow_flow_run' is set
+        if ($flow_flow_run === null || (is_array($flow_flow_run) && count($flow_flow_run) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $flow_run when calling postFlowRuns'
+                'Missing the required parameter $flow_flow_run when calling postFlowRuns'
             );
         }
 
@@ -1990,18 +2088,18 @@ class FlowApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($flow_run)) {
+        if (isset($flow_flow_run)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($flow_run));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($flow_flow_run));
             } else {
-                $httpBody = $flow_run;
+                $httpBody = $flow_flow_run;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2058,16 +2156,16 @@ class FlowApi
      *
      * Creates a workflow in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\FlowCreate $flow_create flow_create (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowCreate $flow_flow_create flow_flow_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlowWorkflows'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postFlowWorkflows($flow_create, string $contentType = self::contentTypes['postFlowWorkflows'][0])
+    public function postFlowWorkflows($flow_flow_create, string $contentType = self::contentTypes['postFlowWorkflows'][0])
     {
-        list($response) = $this->postFlowWorkflowsWithHttpInfo($flow_create, $contentType);
+        list($response) = $this->postFlowWorkflowsWithHttpInfo($flow_flow_create, $contentType);
         return $response;
     }
 
@@ -2076,16 +2174,16 @@ class FlowApi
      *
      * Creates a workflow in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\FlowCreate $flow_create (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowCreate $flow_flow_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlowWorkflows'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postFlowWorkflowsWithHttpInfo($flow_create, string $contentType = self::contentTypes['postFlowWorkflows'][0])
+    public function postFlowWorkflowsWithHttpInfo($flow_flow_create, string $contentType = self::contentTypes['postFlowWorkflows'][0])
     {
-        $request = $this->postFlowWorkflowsRequest($flow_create, $contentType);
+        $request = $this->postFlowWorkflowsRequest($flow_flow_create, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2114,6 +2212,12 @@ class FlowApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2149,6 +2253,14 @@ class FlowApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -2161,15 +2273,15 @@ class FlowApi
      *
      * Creates a workflow in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\FlowCreate $flow_create (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowCreate $flow_flow_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlowWorkflows'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFlowWorkflowsAsync($flow_create, string $contentType = self::contentTypes['postFlowWorkflows'][0])
+    public function postFlowWorkflowsAsync($flow_flow_create, string $contentType = self::contentTypes['postFlowWorkflows'][0])
     {
-        return $this->postFlowWorkflowsAsyncWithHttpInfo($flow_create, $contentType)
+        return $this->postFlowWorkflowsAsyncWithHttpInfo($flow_flow_create, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2182,16 +2294,16 @@ class FlowApi
      *
      * Creates a workflow in the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\FlowCreate $flow_create (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowCreate $flow_flow_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlowWorkflows'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFlowWorkflowsAsyncWithHttpInfo($flow_create, string $contentType = self::contentTypes['postFlowWorkflows'][0])
+    public function postFlowWorkflowsAsyncWithHttpInfo($flow_flow_create, string $contentType = self::contentTypes['postFlowWorkflows'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postFlowWorkflowsRequest($flow_create, $contentType);
+        $request = $this->postFlowWorkflowsRequest($flow_flow_create, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2232,19 +2344,19 @@ class FlowApi
     /**
      * Create request for operation 'postFlowWorkflows'
      *
-     * @param  \Hanzo\Cloud\Model\FlowCreate $flow_create (required)
+     * @param  \Hanzo\Cloud\Model\FlowFlowCreate $flow_flow_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlowWorkflows'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postFlowWorkflowsRequest($flow_create, string $contentType = self::contentTypes['postFlowWorkflows'][0])
+    public function postFlowWorkflowsRequest($flow_flow_create, string $contentType = self::contentTypes['postFlowWorkflows'][0])
     {
 
-        // verify the required parameter 'flow_create' is set
-        if ($flow_create === null || (is_array($flow_create) && count($flow_create) === 0)) {
+        // verify the required parameter 'flow_flow_create' is set
+        if ($flow_flow_create === null || (is_array($flow_flow_create) && count($flow_flow_create) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $flow_create when calling postFlowWorkflows'
+                'Missing the required parameter $flow_flow_create when calling postFlowWorkflows'
             );
         }
 
@@ -2261,18 +2373,18 @@ class FlowApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($flow_create)) {
+        if (isset($flow_flow_create)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($flow_create));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($flow_flow_create));
             } else {
-                $httpBody = $flow_create;
+                $httpBody = $flow_flow_create;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

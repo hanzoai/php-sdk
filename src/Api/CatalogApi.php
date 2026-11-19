@@ -128,7 +128,7 @@ class CatalogApi
     /**
      * Operation getCatalog
      *
-     * Browse searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
+     * Searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
      *
      * @param  string|null $q Q is the free-text query the lexical index scores relevance on. Empty is a browse rather than a search — the same request either way. (optional)
      * @param  string|null $org Org narrows to one builder org: hanzo | lux | zoo. Case-insensitive. (optional)
@@ -144,7 +144,7 @@ class CatalogApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CatalogPage
+     * @return \Hanzo\Cloud\Model\CatalogCatalogPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getCatalog($q = null, $org = null, $kind = null, $origin = null, $archetype = null, $language = null, $template = null, $forkable = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getCatalog'][0])
     {
@@ -155,7 +155,7 @@ class CatalogApi
     /**
      * Operation getCatalogWithHttpInfo
      *
-     * Browse searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
+     * Searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
      *
      * @param  string|null $q Q is the free-text query the lexical index scores relevance on. Empty is a browse rather than a search — the same request either way. (optional)
      * @param  string|null $org Org narrows to one builder org: hanzo | lux | zoo. Case-insensitive. (optional)
@@ -171,7 +171,7 @@ class CatalogApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CatalogPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CatalogCatalogPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getCatalogWithHttpInfo($q = null, $org = null, $kind = null, $origin = null, $archetype = null, $language = null, $template = null, $forkable = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getCatalog'][0])
     {
@@ -203,7 +203,13 @@ class CatalogApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CatalogPage',
+                        '\Hanzo\Cloud\Model\CatalogCatalogPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -225,7 +231,7 @@ class CatalogApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CatalogPage',
+                '\Hanzo\Cloud\Model\CatalogCatalogPage',
                 $request,
                 $response,
             );
@@ -234,7 +240,15 @@ class CatalogApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CatalogPage',
+                        '\Hanzo\Cloud\Model\CatalogCatalogPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -249,7 +263,7 @@ class CatalogApi
     /**
      * Operation getCatalogAsync
      *
-     * Browse searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
+     * Searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
      *
      * @param  string|null $q Q is the free-text query the lexical index scores relevance on. Empty is a browse rather than a search — the same request either way. (optional)
      * @param  string|null $org Org narrows to one builder org: hanzo | lux | zoo. Case-insensitive. (optional)
@@ -279,7 +293,7 @@ class CatalogApi
     /**
      * Operation getCatalogAsyncWithHttpInfo
      *
-     * Browse searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
+     * Searches AND browses the cross-org catalog: every project, app and site the fleet has built, whichever org built it.
      *
      * @param  string|null $q Q is the free-text query the lexical index scores relevance on. Empty is a browse rather than a search — the same request either way. (optional)
      * @param  string|null $org Org narrows to one builder org: hanzo | lux | zoo. Case-insensitive. (optional)
@@ -298,7 +312,7 @@ class CatalogApi
      */
     public function getCatalogAsyncWithHttpInfo($q = null, $org = null, $kind = null, $origin = null, $archetype = null, $language = null, $template = null, $forkable = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getCatalog'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CatalogPage';
+        $returnType = '\Hanzo\Cloud\Model\CatalogCatalogPage';
         $request = $this->getCatalogRequest($q, $org, $kind, $origin, $archetype, $language, $template, $forkable, $limit, $offset, $contentType);
 
         return $this->client
@@ -471,7 +485,7 @@ class CatalogApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

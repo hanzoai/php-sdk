@@ -86,13 +86,10 @@ class GuideApi
         'getGuideAnalytics' => [
             'application/json',
         ],
-        'getGuideBlueprint' => [
-            'application/json',
-        ],
-        'getGuideBlueprintVersions' => [
-            'application/json',
-        ],
         'getGuideCurriculum' => [
+            'application/json',
+        ],
+        'getGuidePortfolio' => [
             'application/json',
         ],
         'getGuideProfile' => [
@@ -104,7 +101,10 @@ class GuideApi
         'getGuideSuggest' => [
             'application/json',
         ],
-        'patchGuideBlueprintByCollectionById' => [
+        'getGuideVentures' => [
+            'application/json',
+        ],
+        'getGuideVenturesBySlug' => [
             'application/json',
         ],
         'postGuideChat' => [
@@ -125,7 +125,10 @@ class GuideApi
         'postGuideStepsByIdStart' => [
             'application/json',
         ],
-        'putGuideBlueprint' => [
+        'postGuideVentures' => [
+            'application/json',
+        ],
+        'postGuideVenturesBySlugLifecycle' => [
             'application/json',
         ],
         'putGuideCurriculum' => [
@@ -188,7 +191,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CurriculumView
+     * @return \Hanzo\Cloud\Model\GuideCurriculumView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteGuideCurriculum(string $contentType = self::contentTypes['deleteGuideCurriculum'][0])
     {
@@ -205,7 +208,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CurriculumView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideCurriculumView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteGuideCurriculumWithHttpInfo(string $contentType = self::contentTypes['deleteGuideCurriculum'][0])
     {
@@ -237,7 +240,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CurriculumView',
+                        '\Hanzo\Cloud\Model\GuideCurriculumView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -259,7 +268,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CurriculumView',
+                '\Hanzo\Cloud\Model\GuideCurriculumView',
                 $request,
                 $response,
             );
@@ -268,7 +277,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CurriculumView',
+                        '\Hanzo\Cloud\Model\GuideCurriculumView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -312,7 +329,7 @@ class GuideApi
      */
     public function deleteGuideCurriculumAsyncWithHttpInfo(string $contentType = self::contentTypes['deleteGuideCurriculum'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CurriculumView';
+        $returnType = '\Hanzo\Cloud\Model\GuideCurriculumView';
         $request = $this->deleteGuideCurriculumRequest($contentType);
 
         return $this->client
@@ -375,7 +392,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -434,13 +451,13 @@ class GuideApi
     /**
      * Operation getGuide
      *
-     * Overview returns the caller org&#39;s launch journey: the active curriculum&#39;s version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org&#39;s analytics funnel folded in.
+     * Returns the caller org&#39;s launch journey: the active curriculum&#39;s version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org&#39;s analytics funnel folded in.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuide'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OverviewView
+     * @return \Hanzo\Cloud\Model\GuideOverviewView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getGuide(string $contentType = self::contentTypes['getGuide'][0])
     {
@@ -451,13 +468,13 @@ class GuideApi
     /**
      * Operation getGuideWithHttpInfo
      *
-     * Overview returns the caller org&#39;s launch journey: the active curriculum&#39;s version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org&#39;s analytics funnel folded in.
+     * Returns the caller org&#39;s launch journey: the active curriculum&#39;s version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org&#39;s analytics funnel folded in.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuide'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OverviewView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideOverviewView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getGuideWithHttpInfo(string $contentType = self::contentTypes['getGuide'][0])
     {
@@ -489,7 +506,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OverviewView',
+                        '\Hanzo\Cloud\Model\GuideOverviewView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -511,7 +534,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OverviewView',
+                '\Hanzo\Cloud\Model\GuideOverviewView',
                 $request,
                 $response,
             );
@@ -520,7 +543,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OverviewView',
+                        '\Hanzo\Cloud\Model\GuideOverviewView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -535,7 +566,7 @@ class GuideApi
     /**
      * Operation getGuideAsync
      *
-     * Overview returns the caller org&#39;s launch journey: the active curriculum&#39;s version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org&#39;s analytics funnel folded in.
+     * Returns the caller org&#39;s launch journey: the active curriculum&#39;s version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org&#39;s analytics funnel folded in.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuide'] to see the possible values for this operation
      *
@@ -555,7 +586,7 @@ class GuideApi
     /**
      * Operation getGuideAsyncWithHttpInfo
      *
-     * Overview returns the caller org&#39;s launch journey: the active curriculum&#39;s version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org&#39;s analytics funnel folded in.
+     * Returns the caller org&#39;s launch journey: the active curriculum&#39;s version and title, every step with its state, whether it is available, what blocks it and whether the Business AI can run it, the done/total/percent progress with the next step to take, and the org&#39;s analytics funnel folded in.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuide'] to see the possible values for this operation
      *
@@ -564,7 +595,7 @@ class GuideApi
      */
     public function getGuideAsyncWithHttpInfo(string $contentType = self::contentTypes['getGuide'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OverviewView';
+        $returnType = '\Hanzo\Cloud\Model\GuideOverviewView';
         $request = $this->getGuideRequest($contentType);
 
         return $this->client
@@ -627,7 +658,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -692,7 +723,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ActionsView
+     * @return \Hanzo\Cloud\Model\GuideActionsView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getGuideActions(string $contentType = self::contentTypes['getGuideActions'][0])
     {
@@ -709,7 +740,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ActionsView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideActionsView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getGuideActionsWithHttpInfo(string $contentType = self::contentTypes['getGuideActions'][0])
     {
@@ -741,7 +772,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ActionsView',
+                        '\Hanzo\Cloud\Model\GuideActionsView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -763,7 +800,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ActionsView',
+                '\Hanzo\Cloud\Model\GuideActionsView',
                 $request,
                 $response,
             );
@@ -772,7 +809,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ActionsView',
+                        '\Hanzo\Cloud\Model\GuideActionsView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -816,7 +861,7 @@ class GuideApi
      */
     public function getGuideActionsAsyncWithHttpInfo(string $contentType = self::contentTypes['getGuideActions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ActionsView';
+        $returnType = '\Hanzo\Cloud\Model\GuideActionsView';
         $request = $this->getGuideActionsRequest($contentType);
 
         return $this->client
@@ -879,7 +924,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -938,13 +983,13 @@ class GuideApi
     /**
      * Operation getGuideAnalytics
      *
-     * Analytics returns the caller org&#39;s funnel from the analytics lens plus the GTM recommendations derived from it.
+     * Returns the caller org&#39;s funnel from the analytics lens plus the GTM recommendations derived from it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideAnalytics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AnalyticsView
+     * @return \Hanzo\Cloud\Model\GuideAnalyticsView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getGuideAnalytics(string $contentType = self::contentTypes['getGuideAnalytics'][0])
     {
@@ -955,13 +1000,13 @@ class GuideApi
     /**
      * Operation getGuideAnalyticsWithHttpInfo
      *
-     * Analytics returns the caller org&#39;s funnel from the analytics lens plus the GTM recommendations derived from it.
+     * Returns the caller org&#39;s funnel from the analytics lens plus the GTM recommendations derived from it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideAnalytics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AnalyticsView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideAnalyticsView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getGuideAnalyticsWithHttpInfo(string $contentType = self::contentTypes['getGuideAnalytics'][0])
     {
@@ -993,7 +1038,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AnalyticsView',
+                        '\Hanzo\Cloud\Model\GuideAnalyticsView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1015,7 +1066,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AnalyticsView',
+                '\Hanzo\Cloud\Model\GuideAnalyticsView',
                 $request,
                 $response,
             );
@@ -1024,7 +1075,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AnalyticsView',
+                        '\Hanzo\Cloud\Model\GuideAnalyticsView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1039,7 +1098,7 @@ class GuideApi
     /**
      * Operation getGuideAnalyticsAsync
      *
-     * Analytics returns the caller org&#39;s funnel from the analytics lens plus the GTM recommendations derived from it.
+     * Returns the caller org&#39;s funnel from the analytics lens plus the GTM recommendations derived from it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideAnalytics'] to see the possible values for this operation
      *
@@ -1059,7 +1118,7 @@ class GuideApi
     /**
      * Operation getGuideAnalyticsAsyncWithHttpInfo
      *
-     * Analytics returns the caller org&#39;s funnel from the analytics lens plus the GTM recommendations derived from it.
+     * Returns the caller org&#39;s funnel from the analytics lens plus the GTM recommendations derived from it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideAnalytics'] to see the possible values for this operation
      *
@@ -1068,7 +1127,7 @@ class GuideApi
      */
     public function getGuideAnalyticsAsyncWithHttpInfo(string $contentType = self::contentTypes['getGuideAnalytics'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AnalyticsView';
+        $returnType = '\Hanzo\Cloud\Model\GuideAnalyticsView';
         $request = $this->getGuideAnalyticsRequest($contentType);
 
         return $this->client
@@ -1131,511 +1190,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getGuideBlueprint
-     *
-     * Returns the FULL authored brand blueprint — every principle, section, step, strategy and template WITH its enabled flag made explicit, including the disabled items the org-facing reads never see — plus the active version number, the brand key it is stored under and the item counts.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideBlueprint'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BlueprintView
-     */
-    public function getGuideBlueprint(string $contentType = self::contentTypes['getGuideBlueprint'][0])
-    {
-        list($response) = $this->getGuideBlueprintWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getGuideBlueprintWithHttpInfo
-     *
-     * Returns the FULL authored brand blueprint — every principle, section, step, strategy and template WITH its enabled flag made explicit, including the disabled items the org-facing reads never see — plus the active version number, the brand key it is stored under and the item counts.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideBlueprint'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BlueprintView, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getGuideBlueprintWithHttpInfo(string $contentType = self::contentTypes['getGuideBlueprint'][0])
-    {
-        $request = $this->getGuideBlueprintRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BlueprintView',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BlueprintView',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BlueprintView',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getGuideBlueprintAsync
-     *
-     * Returns the FULL authored brand blueprint — every principle, section, step, strategy and template WITH its enabled flag made explicit, including the disabled items the org-facing reads never see — plus the active version number, the brand key it is stored under and the item counts.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideBlueprint'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getGuideBlueprintAsync(string $contentType = self::contentTypes['getGuideBlueprint'][0])
-    {
-        return $this->getGuideBlueprintAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getGuideBlueprintAsyncWithHttpInfo
-     *
-     * Returns the FULL authored brand blueprint — every principle, section, step, strategy and template WITH its enabled flag made explicit, including the disabled items the org-facing reads never see — plus the active version number, the brand key it is stored under and the item counts.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideBlueprint'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getGuideBlueprintAsyncWithHttpInfo(string $contentType = self::contentTypes['getGuideBlueprint'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\BlueprintView';
-        $request = $this->getGuideBlueprintRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getGuideBlueprint'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideBlueprint'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getGuideBlueprintRequest(string $contentType = self::contentTypes['getGuideBlueprint'][0])
-    {
-
-
-        $resourcePath = '/v1/guide/blueprint';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getGuideBlueprintVersions
-     *
-     * Returns the brand blueprint&#39;s version history — every stored version&#39;s number and edit time, newest first — which is the point-in-time-recovery and audit trail behind the authoring plane.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideBlueprintVersions'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BlueprintVersionsView
-     */
-    public function getGuideBlueprintVersions(string $contentType = self::contentTypes['getGuideBlueprintVersions'][0])
-    {
-        list($response) = $this->getGuideBlueprintVersionsWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getGuideBlueprintVersionsWithHttpInfo
-     *
-     * Returns the brand blueprint&#39;s version history — every stored version&#39;s number and edit time, newest first — which is the point-in-time-recovery and audit trail behind the authoring plane.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideBlueprintVersions'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BlueprintVersionsView, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getGuideBlueprintVersionsWithHttpInfo(string $contentType = self::contentTypes['getGuideBlueprintVersions'][0])
-    {
-        $request = $this->getGuideBlueprintVersionsRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BlueprintVersionsView',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BlueprintVersionsView',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BlueprintVersionsView',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getGuideBlueprintVersionsAsync
-     *
-     * Returns the brand blueprint&#39;s version history — every stored version&#39;s number and edit time, newest first — which is the point-in-time-recovery and audit trail behind the authoring plane.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideBlueprintVersions'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getGuideBlueprintVersionsAsync(string $contentType = self::contentTypes['getGuideBlueprintVersions'][0])
-    {
-        return $this->getGuideBlueprintVersionsAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getGuideBlueprintVersionsAsyncWithHttpInfo
-     *
-     * Returns the brand blueprint&#39;s version history — every stored version&#39;s number and edit time, newest first — which is the point-in-time-recovery and audit trail behind the authoring plane.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideBlueprintVersions'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getGuideBlueprintVersionsAsyncWithHttpInfo(string $contentType = self::contentTypes['getGuideBlueprintVersions'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\BlueprintVersionsView';
-        $request = $this->getGuideBlueprintVersionsRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getGuideBlueprintVersions'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideBlueprintVersions'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getGuideBlueprintVersionsRequest(string $contentType = self::contentTypes['getGuideBlueprintVersions'][0])
-    {
-
-
-        $resourcePath = '/v1/guide/blueprint/versions';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1700,7 +1255,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CurriculumView
+     * @return \Hanzo\Cloud\Model\GuideCurriculumView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getGuideCurriculum(string $contentType = self::contentTypes['getGuideCurriculum'][0])
     {
@@ -1717,7 +1272,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CurriculumView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideCurriculumView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getGuideCurriculumWithHttpInfo(string $contentType = self::contentTypes['getGuideCurriculum'][0])
     {
@@ -1749,7 +1304,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CurriculumView',
+                        '\Hanzo\Cloud\Model\GuideCurriculumView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1771,7 +1332,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CurriculumView',
+                '\Hanzo\Cloud\Model\GuideCurriculumView',
                 $request,
                 $response,
             );
@@ -1780,7 +1341,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CurriculumView',
+                        '\Hanzo\Cloud\Model\GuideCurriculumView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1824,7 +1393,7 @@ class GuideApi
      */
     public function getGuideCurriculumAsyncWithHttpInfo(string $contentType = self::contentTypes['getGuideCurriculum'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CurriculumView';
+        $returnType = '\Hanzo\Cloud\Model\GuideCurriculumView';
         $request = $this->getGuideCurriculumRequest($contentType);
 
         return $this->client
@@ -1887,7 +1456,273 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getGuidePortfolio
+     *
+     * Returns the studio&#39;s portfolio operations rollup: stage, status, checklist progress, decisions waiting on people, latest evidence, failed runs, and spend for every venture operated by the studio organization.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuidePortfolio'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GuidePortfolioView|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getGuidePortfolio(string $contentType = self::contentTypes['getGuidePortfolio'][0])
+    {
+        list($response) = $this->getGuidePortfolioWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getGuidePortfolioWithHttpInfo
+     *
+     * Returns the studio&#39;s portfolio operations rollup: stage, status, checklist progress, decisions waiting on people, latest evidence, failed runs, and spend for every venture operated by the studio organization.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuidePortfolio'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GuidePortfolioView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getGuidePortfolioWithHttpInfo(string $contentType = self::contentTypes['getGuidePortfolio'][0])
+    {
+        $request = $this->getGuidePortfolioRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GuidePortfolioView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GuidePortfolioView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GuidePortfolioView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getGuidePortfolioAsync
+     *
+     * Returns the studio&#39;s portfolio operations rollup: stage, status, checklist progress, decisions waiting on people, latest evidence, failed runs, and spend for every venture operated by the studio organization.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuidePortfolio'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getGuidePortfolioAsync(string $contentType = self::contentTypes['getGuidePortfolio'][0])
+    {
+        return $this->getGuidePortfolioAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getGuidePortfolioAsyncWithHttpInfo
+     *
+     * Returns the studio&#39;s portfolio operations rollup: stage, status, checklist progress, decisions waiting on people, latest evidence, failed runs, and spend for every venture operated by the studio organization.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuidePortfolio'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getGuidePortfolioAsyncWithHttpInfo(string $contentType = self::contentTypes['getGuidePortfolio'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GuidePortfolioView';
+        $request = $this->getGuidePortfolioRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getGuidePortfolio'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuidePortfolio'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getGuidePortfolioRequest(string $contentType = self::contentTypes['getGuidePortfolio'][0])
+    {
+
+
+        $resourcePath = '/v1/guide/portfolio';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1946,13 +1781,13 @@ class GuideApi
     /**
      * Operation getGuideProfile
      *
-     * Profile returns the caller org&#39;s OBSERVED growth profile — the signal set, the classified growth stage, and the org&#39;s own key metrics.
+     * Returns the caller org&#39;s OBSERVED growth profile — the signal set, the classified growth stage, and the org&#39;s own key metrics.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideProfile'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProfileResponse
+     * @return \Hanzo\Cloud\Model\GuideProfileResponse|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getGuideProfile(string $contentType = self::contentTypes['getGuideProfile'][0])
     {
@@ -1963,13 +1798,13 @@ class GuideApi
     /**
      * Operation getGuideProfileWithHttpInfo
      *
-     * Profile returns the caller org&#39;s OBSERVED growth profile — the signal set, the classified growth stage, and the org&#39;s own key metrics.
+     * Returns the caller org&#39;s OBSERVED growth profile — the signal set, the classified growth stage, and the org&#39;s own key metrics.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideProfile'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProfileResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideProfileResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getGuideProfileWithHttpInfo(string $contentType = self::contentTypes['getGuideProfile'][0])
     {
@@ -2001,7 +1836,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProfileResponse',
+                        '\Hanzo\Cloud\Model\GuideProfileResponse',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2023,7 +1864,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProfileResponse',
+                '\Hanzo\Cloud\Model\GuideProfileResponse',
                 $request,
                 $response,
             );
@@ -2032,7 +1873,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProfileResponse',
+                        '\Hanzo\Cloud\Model\GuideProfileResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2047,7 +1896,7 @@ class GuideApi
     /**
      * Operation getGuideProfileAsync
      *
-     * Profile returns the caller org&#39;s OBSERVED growth profile — the signal set, the classified growth stage, and the org&#39;s own key metrics.
+     * Returns the caller org&#39;s OBSERVED growth profile — the signal set, the classified growth stage, and the org&#39;s own key metrics.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideProfile'] to see the possible values for this operation
      *
@@ -2067,7 +1916,7 @@ class GuideApi
     /**
      * Operation getGuideProfileAsyncWithHttpInfo
      *
-     * Profile returns the caller org&#39;s OBSERVED growth profile — the signal set, the classified growth stage, and the org&#39;s own key metrics.
+     * Returns the caller org&#39;s OBSERVED growth profile — the signal set, the classified growth stage, and the org&#39;s own key metrics.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideProfile'] to see the possible values for this operation
      *
@@ -2076,7 +1925,7 @@ class GuideApi
      */
     public function getGuideProfileAsyncWithHttpInfo(string $contentType = self::contentTypes['getGuideProfile'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProfileResponse';
+        $returnType = '\Hanzo\Cloud\Model\GuideProfileResponse';
         $request = $this->getGuideProfileRequest($contentType);
 
         return $this->client
@@ -2139,7 +1988,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2198,7 +2047,7 @@ class GuideApi
     /**
      * Operation getGuideStrategies
      *
-     * Strategies returns the ENABLED tactics corpus for the caller&#39;s org: the tactics library narrowed by the explicit category/workload filters AND by the org&#39;s OBSERVED growth stage and capability signals (a tactic&#39;s tags are preconditions, so it surfaces only once the org can act on it).
+     * Returns the ENABLED tactics corpus for the caller&#39;s org: the tactics library narrowed by the explicit category/workload filters AND by the org&#39;s OBSERVED growth stage and capability signals (a tactic&#39;s tags are preconditions, so it surfaces only once the org can act on it).
      *
      * @param  string|null $category Category filters to tactics in exactly this category. (optional)
      * @param  string|null $stage Stage previews the corpus at a chosen growth stage (research|formed|launched|activated|scaling), overriding the org&#39;s observed one. An unknown value is ignored and the observed stage stands. (optional)
@@ -2207,7 +2056,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CorpusView
+     * @return \Hanzo\Cloud\Model\GuideCorpusView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getGuideStrategies($category = null, $stage = null, $workload = null, string $contentType = self::contentTypes['getGuideStrategies'][0])
     {
@@ -2218,7 +2067,7 @@ class GuideApi
     /**
      * Operation getGuideStrategiesWithHttpInfo
      *
-     * Strategies returns the ENABLED tactics corpus for the caller&#39;s org: the tactics library narrowed by the explicit category/workload filters AND by the org&#39;s OBSERVED growth stage and capability signals (a tactic&#39;s tags are preconditions, so it surfaces only once the org can act on it).
+     * Returns the ENABLED tactics corpus for the caller&#39;s org: the tactics library narrowed by the explicit category/workload filters AND by the org&#39;s OBSERVED growth stage and capability signals (a tactic&#39;s tags are preconditions, so it surfaces only once the org can act on it).
      *
      * @param  string|null $category Category filters to tactics in exactly this category. (optional)
      * @param  string|null $stage Stage previews the corpus at a chosen growth stage (research|formed|launched|activated|scaling), overriding the org&#39;s observed one. An unknown value is ignored and the observed stage stands. (optional)
@@ -2227,7 +2076,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CorpusView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideCorpusView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getGuideStrategiesWithHttpInfo($category = null, $stage = null, $workload = null, string $contentType = self::contentTypes['getGuideStrategies'][0])
     {
@@ -2259,7 +2108,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CorpusView',
+                        '\Hanzo\Cloud\Model\GuideCorpusView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2281,7 +2136,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CorpusView',
+                '\Hanzo\Cloud\Model\GuideCorpusView',
                 $request,
                 $response,
             );
@@ -2290,7 +2145,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CorpusView',
+                        '\Hanzo\Cloud\Model\GuideCorpusView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2305,7 +2168,7 @@ class GuideApi
     /**
      * Operation getGuideStrategiesAsync
      *
-     * Strategies returns the ENABLED tactics corpus for the caller&#39;s org: the tactics library narrowed by the explicit category/workload filters AND by the org&#39;s OBSERVED growth stage and capability signals (a tactic&#39;s tags are preconditions, so it surfaces only once the org can act on it).
+     * Returns the ENABLED tactics corpus for the caller&#39;s org: the tactics library narrowed by the explicit category/workload filters AND by the org&#39;s OBSERVED growth stage and capability signals (a tactic&#39;s tags are preconditions, so it surfaces only once the org can act on it).
      *
      * @param  string|null $category Category filters to tactics in exactly this category. (optional)
      * @param  string|null $stage Stage previews the corpus at a chosen growth stage (research|formed|launched|activated|scaling), overriding the org&#39;s observed one. An unknown value is ignored and the observed stage stands. (optional)
@@ -2328,7 +2191,7 @@ class GuideApi
     /**
      * Operation getGuideStrategiesAsyncWithHttpInfo
      *
-     * Strategies returns the ENABLED tactics corpus for the caller&#39;s org: the tactics library narrowed by the explicit category/workload filters AND by the org&#39;s OBSERVED growth stage and capability signals (a tactic&#39;s tags are preconditions, so it surfaces only once the org can act on it).
+     * Returns the ENABLED tactics corpus for the caller&#39;s org: the tactics library narrowed by the explicit category/workload filters AND by the org&#39;s OBSERVED growth stage and capability signals (a tactic&#39;s tags are preconditions, so it surfaces only once the org can act on it).
      *
      * @param  string|null $category Category filters to tactics in exactly this category. (optional)
      * @param  string|null $stage Stage previews the corpus at a chosen growth stage (research|formed|launched|activated|scaling), overriding the org&#39;s observed one. An unknown value is ignored and the observed stage stands. (optional)
@@ -2340,7 +2203,7 @@ class GuideApi
      */
     public function getGuideStrategiesAsyncWithHttpInfo($category = null, $stage = null, $workload = null, string $contentType = self::contentTypes['getGuideStrategies'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CorpusView';
+        $returnType = '\Hanzo\Cloud\Model\GuideCorpusView';
         $request = $this->getGuideStrategiesRequest($category, $stage, $workload, $contentType);
 
         return $this->client
@@ -2436,7 +2299,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2495,13 +2358,13 @@ class GuideApi
     /**
      * Operation getGuideSuggest
      *
-     * Suggest returns the caller org&#39;s next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org&#39;s funnel and the GTM recommendations derived from it.
+     * Returns the caller org&#39;s next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org&#39;s funnel and the GTM recommendations derived from it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideSuggest'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SuggestResponse
+     * @return \Hanzo\Cloud\Model\GuideSuggestResponse|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getGuideSuggest(string $contentType = self::contentTypes['getGuideSuggest'][0])
     {
@@ -2512,13 +2375,13 @@ class GuideApi
     /**
      * Operation getGuideSuggestWithHttpInfo
      *
-     * Suggest returns the caller org&#39;s next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org&#39;s funnel and the GTM recommendations derived from it.
+     * Returns the caller org&#39;s next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org&#39;s funnel and the GTM recommendations derived from it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideSuggest'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SuggestResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideSuggestResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getGuideSuggestWithHttpInfo(string $contentType = self::contentTypes['getGuideSuggest'][0])
     {
@@ -2550,7 +2413,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SuggestResponse',
+                        '\Hanzo\Cloud\Model\GuideSuggestResponse',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2572,7 +2441,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SuggestResponse',
+                '\Hanzo\Cloud\Model\GuideSuggestResponse',
                 $request,
                 $response,
             );
@@ -2581,7 +2450,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SuggestResponse',
+                        '\Hanzo\Cloud\Model\GuideSuggestResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2596,7 +2473,7 @@ class GuideApi
     /**
      * Operation getGuideSuggestAsync
      *
-     * Suggest returns the caller org&#39;s next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org&#39;s funnel and the GTM recommendations derived from it.
+     * Returns the caller org&#39;s next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org&#39;s funnel and the GTM recommendations derived from it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideSuggest'] to see the possible values for this operation
      *
@@ -2616,7 +2493,7 @@ class GuideApi
     /**
      * Operation getGuideSuggestAsyncWithHttpInfo
      *
-     * Suggest returns the caller org&#39;s next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org&#39;s funnel and the GTM recommendations derived from it.
+     * Returns the caller org&#39;s next-best quests: the available, non-terminal steps of its journey ranked by how much downstream work each unblocks, each with the grounded reason it is a good next move and whether the Business AI can run it, plus the org&#39;s funnel and the GTM recommendations derived from it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideSuggest'] to see the possible values for this operation
      *
@@ -2625,7 +2502,7 @@ class GuideApi
      */
     public function getGuideSuggestAsyncWithHttpInfo(string $contentType = self::contentTypes['getGuideSuggest'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SuggestResponse';
+        $returnType = '\Hanzo\Cloud\Model\GuideSuggestResponse';
         $request = $this->getGuideSuggestRequest($contentType);
 
         return $this->client
@@ -2688,7 +2565,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2745,39 +2622,36 @@ class GuideApi
     }
 
     /**
-     * Operation patchGuideBlueprintByCollectionById
+     * Operation getGuideVentures
      *
-     * Edit — or retire — one item of the brand blueprint
+     * Returns every venture in the caller studio organization&#39;s portfolio that the caller is authorized to access, with its live checklist progress and shared studio templates.
      *
-     * @param  string $collection collection (required)
-     * @param  string $id id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchGuideBlueprintByCollectionById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideVentures'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\GuideVentureList|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function patchGuideBlueprintByCollectionById($collection, $id, string $contentType = self::contentTypes['patchGuideBlueprintByCollectionById'][0])
+    public function getGuideVentures(string $contentType = self::contentTypes['getGuideVentures'][0])
     {
-        $this->patchGuideBlueprintByCollectionByIdWithHttpInfo($collection, $id, $contentType);
+        list($response) = $this->getGuideVenturesWithHttpInfo($contentType);
+        return $response;
     }
 
     /**
-     * Operation patchGuideBlueprintByCollectionByIdWithHttpInfo
+     * Operation getGuideVenturesWithHttpInfo
      *
-     * Edit — or retire — one item of the brand blueprint
+     * Returns every venture in the caller studio organization&#39;s portfolio that the caller is authorized to access, with its live checklist progress and shared studio templates.
      *
-     * @param  string $collection (required)
-     * @param  string $id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchGuideBlueprintByCollectionById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideVentures'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideVentureList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchGuideBlueprintByCollectionByIdWithHttpInfo($collection, $id, string $contentType = self::contentTypes['patchGuideBlueprintByCollectionById'][0])
+    public function getGuideVenturesWithHttpInfo(string $contentType = self::contentTypes['getGuideVentures'][0])
     {
-        $request = $this->patchGuideBlueprintByCollectionByIdRequest($collection, $id, $contentType);
+        $request = $this->getGuideVenturesRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2802,9 +2676,59 @@ class GuideApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GuideVentureList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GuideVentureList',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GuideVentureList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -2813,20 +2737,18 @@ class GuideApi
     }
 
     /**
-     * Operation patchGuideBlueprintByCollectionByIdAsync
+     * Operation getGuideVenturesAsync
      *
-     * Edit — or retire — one item of the brand blueprint
+     * Returns every venture in the caller studio organization&#39;s portfolio that the caller is authorized to access, with its live checklist progress and shared studio templates.
      *
-     * @param  string $collection (required)
-     * @param  string $id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchGuideBlueprintByCollectionById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideVentures'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchGuideBlueprintByCollectionByIdAsync($collection, $id, string $contentType = self::contentTypes['patchGuideBlueprintByCollectionById'][0])
+    public function getGuideVenturesAsync(string $contentType = self::contentTypes['getGuideVentures'][0])
     {
-        return $this->patchGuideBlueprintByCollectionByIdAsyncWithHttpInfo($collection, $id, $contentType)
+        return $this->getGuideVenturesAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2835,27 +2757,38 @@ class GuideApi
     }
 
     /**
-     * Operation patchGuideBlueprintByCollectionByIdAsyncWithHttpInfo
+     * Operation getGuideVenturesAsyncWithHttpInfo
      *
-     * Edit — or retire — one item of the brand blueprint
+     * Returns every venture in the caller studio organization&#39;s portfolio that the caller is authorized to access, with its live checklist progress and shared studio templates.
      *
-     * @param  string $collection (required)
-     * @param  string $id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchGuideBlueprintByCollectionById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideVentures'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchGuideBlueprintByCollectionByIdAsyncWithHttpInfo($collection, $id, string $contentType = self::contentTypes['patchGuideBlueprintByCollectionById'][0])
+    public function getGuideVenturesAsyncWithHttpInfo(string $contentType = self::contentTypes['getGuideVentures'][0])
     {
-        $returnType = '';
-        $request = $this->patchGuideBlueprintByCollectionByIdRequest($collection, $id, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\GuideVentureList';
+        $request = $this->getGuideVenturesRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -2875,34 +2808,18 @@ class GuideApi
     }
 
     /**
-     * Create request for operation 'patchGuideBlueprintByCollectionById'
+     * Create request for operation 'getGuideVentures'
      *
-     * @param  string $collection (required)
-     * @param  string $id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchGuideBlueprintByCollectionById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideVentures'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchGuideBlueprintByCollectionByIdRequest($collection, $id, string $contentType = self::contentTypes['patchGuideBlueprintByCollectionById'][0])
+    public function getGuideVenturesRequest(string $contentType = self::contentTypes['getGuideVentures'][0])
     {
 
-        // verify the required parameter 'collection' is set
-        if ($collection === null || (is_array($collection) && count($collection) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $collection when calling patchGuideBlueprintByCollectionById'
-            );
-        }
 
-        // verify the required parameter 'id' is set
-        if ($id === null || (is_array($id) && count($id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling patchGuideBlueprintByCollectionById'
-            );
-        }
-
-
-        $resourcePath = '/v1/guide/blueprint/{collection}/{id}';
+        $resourcePath = '/v1/guide/ventures';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2911,26 +2828,10 @@ class GuideApi
 
 
 
-        // path params
-        if ($collection !== null) {
-            $resourcePath = str_replace(
-                '{' . 'collection' . '}',
-                ObjectSerializer::toPathValue($collection),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($id),
-                $resourcePath
-            );
-        }
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2979,7 +2880,7 @@ class GuideApi
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
-            'PATCH',
+            'GET',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -2987,38 +2888,38 @@ class GuideApi
     }
 
     /**
-     * Operation postGuideChat
+     * Operation getGuideVenturesBySlug
      *
-     * Chat answers a founder&#39;s question about their launch journey as the Business AI coach: it grounds the reply in the org&#39;s REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
+     * Returns one venture from the caller studio&#39;s portfolio by slug, including its setup checkpoints, live checklist progress, and shared templates.
      *
-     * @param  \Hanzo\Cloud\Model\ChatRequest $chat_request chat_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideChat'] to see the possible values for this operation
+     * @param  string $slug Slug is the venture&#39;s unique handle in the studio portfolio, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideVenturesBySlug'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ChatResponse
+     * @return \Hanzo\Cloud\Model\GuideVentureRecord|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postGuideChat($chat_request, string $contentType = self::contentTypes['postGuideChat'][0])
+    public function getGuideVenturesBySlug($slug, string $contentType = self::contentTypes['getGuideVenturesBySlug'][0])
     {
-        list($response) = $this->postGuideChatWithHttpInfo($chat_request, $contentType);
+        list($response) = $this->getGuideVenturesBySlugWithHttpInfo($slug, $contentType);
         return $response;
     }
 
     /**
-     * Operation postGuideChatWithHttpInfo
+     * Operation getGuideVenturesBySlugWithHttpInfo
      *
-     * Chat answers a founder&#39;s question about their launch journey as the Business AI coach: it grounds the reply in the org&#39;s REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
+     * Returns one venture from the caller studio&#39;s portfolio by slug, including its setup checkpoints, live checklist progress, and shared templates.
      *
-     * @param  \Hanzo\Cloud\Model\ChatRequest $chat_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideChat'] to see the possible values for this operation
+     * @param  string $slug Slug is the venture&#39;s unique handle in the studio portfolio, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideVenturesBySlug'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ChatResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideVentureRecord|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postGuideChatWithHttpInfo($chat_request, string $contentType = self::contentTypes['postGuideChat'][0])
+    public function getGuideVenturesBySlugWithHttpInfo($slug, string $contentType = self::contentTypes['getGuideVenturesBySlug'][0])
     {
-        $request = $this->postGuideChatRequest($chat_request, $contentType);
+        $request = $this->getGuideVenturesBySlugRequest($slug, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3046,7 +2947,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ChatResponse',
+                        '\Hanzo\Cloud\Model\GuideVentureRecord',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3068,7 +2975,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ChatResponse',
+                '\Hanzo\Cloud\Model\GuideVentureRecord',
                 $request,
                 $response,
             );
@@ -3077,7 +2984,301 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ChatResponse',
+                        '\Hanzo\Cloud\Model\GuideVentureRecord',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getGuideVenturesBySlugAsync
+     *
+     * Returns one venture from the caller studio&#39;s portfolio by slug, including its setup checkpoints, live checklist progress, and shared templates.
+     *
+     * @param  string $slug Slug is the venture&#39;s unique handle in the studio portfolio, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideVenturesBySlug'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getGuideVenturesBySlugAsync($slug, string $contentType = self::contentTypes['getGuideVenturesBySlug'][0])
+    {
+        return $this->getGuideVenturesBySlugAsyncWithHttpInfo($slug, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getGuideVenturesBySlugAsyncWithHttpInfo
+     *
+     * Returns one venture from the caller studio&#39;s portfolio by slug, including its setup checkpoints, live checklist progress, and shared templates.
+     *
+     * @param  string $slug Slug is the venture&#39;s unique handle in the studio portfolio, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideVenturesBySlug'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getGuideVenturesBySlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getGuideVenturesBySlug'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GuideVentureRecord';
+        $request = $this->getGuideVenturesBySlugRequest($slug, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getGuideVenturesBySlug'
+     *
+     * @param  string $slug Slug is the venture&#39;s unique handle in the studio portfolio, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGuideVenturesBySlug'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getGuideVenturesBySlugRequest($slug, string $contentType = self::contentTypes['getGuideVenturesBySlug'][0])
+    {
+
+        // verify the required parameter 'slug' is set
+        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $slug when calling getGuideVenturesBySlug'
+            );
+        }
+
+
+        $resourcePath = '/v1/guide/ventures/{slug}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($slug !== null) {
+            $resourcePath = str_replace(
+                '{' . 'slug' . '}',
+                ObjectSerializer::toPathValue($slug),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postGuideChat
+     *
+     * Answers a founder&#39;s question about their launch journey as the Business AI coach: it grounds the reply in the org&#39;s REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
+     *
+     * @param  \Hanzo\Cloud\Model\GuideChatRequest $guide_chat_request guide_chat_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideChat'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GuideChatResponse|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postGuideChat($guide_chat_request, string $contentType = self::contentTypes['postGuideChat'][0])
+    {
+        list($response) = $this->postGuideChatWithHttpInfo($guide_chat_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postGuideChatWithHttpInfo
+     *
+     * Answers a founder&#39;s question about their launch journey as the Business AI coach: it grounds the reply in the org&#39;s REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
+     *
+     * @param  \Hanzo\Cloud\Model\GuideChatRequest $guide_chat_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideChat'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GuideChatResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postGuideChatWithHttpInfo($guide_chat_request, string $contentType = self::contentTypes['postGuideChat'][0])
+    {
+        $request = $this->postGuideChatRequest($guide_chat_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GuideChatResponse',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GuideChatResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GuideChatResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3092,17 +3293,17 @@ class GuideApi
     /**
      * Operation postGuideChatAsync
      *
-     * Chat answers a founder&#39;s question about their launch journey as the Business AI coach: it grounds the reply in the org&#39;s REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
+     * Answers a founder&#39;s question about their launch journey as the Business AI coach: it grounds the reply in the org&#39;s REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
      *
-     * @param  \Hanzo\Cloud\Model\ChatRequest $chat_request (required)
+     * @param  \Hanzo\Cloud\Model\GuideChatRequest $guide_chat_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideChat'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postGuideChatAsync($chat_request, string $contentType = self::contentTypes['postGuideChat'][0])
+    public function postGuideChatAsync($guide_chat_request, string $contentType = self::contentTypes['postGuideChat'][0])
     {
-        return $this->postGuideChatAsyncWithHttpInfo($chat_request, $contentType)
+        return $this->postGuideChatAsyncWithHttpInfo($guide_chat_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3113,18 +3314,18 @@ class GuideApi
     /**
      * Operation postGuideChatAsyncWithHttpInfo
      *
-     * Chat answers a founder&#39;s question about their launch journey as the Business AI coach: it grounds the reply in the org&#39;s REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
+     * Answers a founder&#39;s question about their launch journey as the Business AI coach: it grounds the reply in the org&#39;s REAL progress, its ranked available quests and its analytics funnel, and returns those candidate quests alongside so the caller can act on one.
      *
-     * @param  \Hanzo\Cloud\Model\ChatRequest $chat_request (required)
+     * @param  \Hanzo\Cloud\Model\GuideChatRequest $guide_chat_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideChat'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postGuideChatAsyncWithHttpInfo($chat_request, string $contentType = self::contentTypes['postGuideChat'][0])
+    public function postGuideChatAsyncWithHttpInfo($guide_chat_request, string $contentType = self::contentTypes['postGuideChat'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ChatResponse';
-        $request = $this->postGuideChatRequest($chat_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\GuideChatResponse';
+        $request = $this->postGuideChatRequest($guide_chat_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3165,19 +3366,19 @@ class GuideApi
     /**
      * Create request for operation 'postGuideChat'
      *
-     * @param  \Hanzo\Cloud\Model\ChatRequest $chat_request (required)
+     * @param  \Hanzo\Cloud\Model\GuideChatRequest $guide_chat_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideChat'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postGuideChatRequest($chat_request, string $contentType = self::contentTypes['postGuideChat'][0])
+    public function postGuideChatRequest($guide_chat_request, string $contentType = self::contentTypes['postGuideChat'][0])
     {
 
-        // verify the required parameter 'chat_request' is set
-        if ($chat_request === null || (is_array($chat_request) && count($chat_request) === 0)) {
+        // verify the required parameter 'guide_chat_request' is set
+        if ($guide_chat_request === null || (is_array($guide_chat_request) && count($guide_chat_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $chat_request when calling postGuideChat'
+                'Missing the required parameter $guide_chat_request when calling postGuideChat'
             );
         }
 
@@ -3194,18 +3395,18 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($chat_request)) {
+        if (isset($guide_chat_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($chat_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($guide_chat_request));
             } else {
-                $httpBody = $chat_request;
+                $httpBody = $guide_chat_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3489,7 +3690,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OverviewView
+     * @return \Hanzo\Cloud\Model\GuideOverviewView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postGuideStepsByIdDone($id, string $contentType = self::contentTypes['postGuideStepsByIdDone'][0])
     {
@@ -3507,7 +3708,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OverviewView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideOverviewView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postGuideStepsByIdDoneWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdDone'][0])
     {
@@ -3539,7 +3740,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OverviewView',
+                        '\Hanzo\Cloud\Model\GuideOverviewView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3561,7 +3768,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OverviewView',
+                '\Hanzo\Cloud\Model\GuideOverviewView',
                 $request,
                 $response,
             );
@@ -3570,7 +3777,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OverviewView',
+                        '\Hanzo\Cloud\Model\GuideOverviewView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3616,7 +3831,7 @@ class GuideApi
      */
     public function postGuideStepsByIdDoneAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdDone'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OverviewView';
+        $returnType = '\Hanzo\Cloud\Model\GuideOverviewView';
         $request = $this->postGuideStepsByIdDoneRequest($id, $contentType);
 
         return $this->client
@@ -3695,7 +3910,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3761,7 +3976,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OverviewView
+     * @return \Hanzo\Cloud\Model\GuideOverviewView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postGuideStepsByIdReset($id, string $contentType = self::contentTypes['postGuideStepsByIdReset'][0])
     {
@@ -3779,7 +3994,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OverviewView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideOverviewView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postGuideStepsByIdResetWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdReset'][0])
     {
@@ -3811,7 +4026,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OverviewView',
+                        '\Hanzo\Cloud\Model\GuideOverviewView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3833,7 +4054,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OverviewView',
+                '\Hanzo\Cloud\Model\GuideOverviewView',
                 $request,
                 $response,
             );
@@ -3842,7 +4063,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OverviewView',
+                        '\Hanzo\Cloud\Model\GuideOverviewView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3888,7 +4117,7 @@ class GuideApi
      */
     public function postGuideStepsByIdResetAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdReset'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OverviewView';
+        $returnType = '\Hanzo\Cloud\Model\GuideOverviewView';
         $request = $this->postGuideStepsByIdResetRequest($id, $contentType);
 
         return $this->client
@@ -3967,7 +4196,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4033,7 +4262,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OverviewView
+     * @return \Hanzo\Cloud\Model\GuideOverviewView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postGuideStepsByIdSkip($id, string $contentType = self::contentTypes['postGuideStepsByIdSkip'][0])
     {
@@ -4051,7 +4280,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OverviewView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideOverviewView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postGuideStepsByIdSkipWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdSkip'][0])
     {
@@ -4083,7 +4312,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OverviewView',
+                        '\Hanzo\Cloud\Model\GuideOverviewView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4105,7 +4340,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OverviewView',
+                '\Hanzo\Cloud\Model\GuideOverviewView',
                 $request,
                 $response,
             );
@@ -4114,7 +4349,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OverviewView',
+                        '\Hanzo\Cloud\Model\GuideOverviewView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4160,7 +4403,7 @@ class GuideApi
      */
     public function postGuideStepsByIdSkipAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdSkip'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OverviewView';
+        $returnType = '\Hanzo\Cloud\Model\GuideOverviewView';
         $request = $this->postGuideStepsByIdSkipRequest($id, $contentType);
 
         return $this->client
@@ -4239,7 +4482,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4305,7 +4548,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OverviewView
+     * @return \Hanzo\Cloud\Model\GuideOverviewView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postGuideStepsByIdStart($id, string $contentType = self::contentTypes['postGuideStepsByIdStart'][0])
     {
@@ -4323,7 +4566,7 @@ class GuideApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OverviewView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideOverviewView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postGuideStepsByIdStartWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdStart'][0])
     {
@@ -4355,7 +4598,13 @@ class GuideApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OverviewView',
+                        '\Hanzo\Cloud\Model\GuideOverviewView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4377,7 +4626,7 @@ class GuideApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OverviewView',
+                '\Hanzo\Cloud\Model\GuideOverviewView',
                 $request,
                 $response,
             );
@@ -4386,7 +4635,15 @@ class GuideApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OverviewView',
+                        '\Hanzo\Cloud\Model\GuideOverviewView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4432,7 +4689,7 @@ class GuideApi
      */
     public function postGuideStepsByIdStartAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdStart'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OverviewView';
+        $returnType = '\Hanzo\Cloud\Model\GuideOverviewView';
         $request = $this->postGuideStepsByIdStartRequest($id, $contentType);
 
         return $this->client
@@ -4511,7 +4768,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4568,35 +4825,38 @@ class GuideApi
     }
 
     /**
-     * Operation putGuideBlueprint
+     * Operation postGuideVentures
      *
-     * Publish a new version of the brand blueprint
+     * Creates or imports a venture under the caller studio&#39;s portfolio, captures its thesis, sponsor, owner, initial budget and seed evidence, and enrolls its isolated venture organization in a versioned Guide playbook (defaulting to venture).
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putGuideBlueprint'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\GuideCreateVentureIn $guide_create_venture_in guide_create_venture_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideVentures'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\GuideVentureRecord|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putGuideBlueprint(string $contentType = self::contentTypes['putGuideBlueprint'][0])
+    public function postGuideVentures($guide_create_venture_in, string $contentType = self::contentTypes['postGuideVentures'][0])
     {
-        $this->putGuideBlueprintWithHttpInfo($contentType);
+        list($response) = $this->postGuideVenturesWithHttpInfo($guide_create_venture_in, $contentType);
+        return $response;
     }
 
     /**
-     * Operation putGuideBlueprintWithHttpInfo
+     * Operation postGuideVenturesWithHttpInfo
      *
-     * Publish a new version of the brand blueprint
+     * Creates or imports a venture under the caller studio&#39;s portfolio, captures its thesis, sponsor, owner, initial budget and seed evidence, and enrolls its isolated venture organization in a versioned Guide playbook (defaulting to venture).
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putGuideBlueprint'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\GuideCreateVentureIn $guide_create_venture_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideVentures'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GuideVentureRecord|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putGuideBlueprintWithHttpInfo(string $contentType = self::contentTypes['putGuideBlueprint'][0])
+    public function postGuideVenturesWithHttpInfo($guide_create_venture_in, string $contentType = self::contentTypes['postGuideVentures'][0])
     {
-        $request = $this->putGuideBlueprintRequest($contentType);
+        $request = $this->postGuideVenturesRequest($guide_create_venture_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4621,9 +4881,59 @@ class GuideApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GuideVentureRecord',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GuideVentureRecord',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GuideVentureRecord',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -4632,18 +4942,19 @@ class GuideApi
     }
 
     /**
-     * Operation putGuideBlueprintAsync
+     * Operation postGuideVenturesAsync
      *
-     * Publish a new version of the brand blueprint
+     * Creates or imports a venture under the caller studio&#39;s portfolio, captures its thesis, sponsor, owner, initial budget and seed evidence, and enrolls its isolated venture organization in a versioned Guide playbook (defaulting to venture).
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putGuideBlueprint'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\GuideCreateVentureIn $guide_create_venture_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideVentures'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putGuideBlueprintAsync(string $contentType = self::contentTypes['putGuideBlueprint'][0])
+    public function postGuideVenturesAsync($guide_create_venture_in, string $contentType = self::contentTypes['postGuideVentures'][0])
     {
-        return $this->putGuideBlueprintAsyncWithHttpInfo($contentType)
+        return $this->postGuideVenturesAsyncWithHttpInfo($guide_create_venture_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4652,25 +4963,39 @@ class GuideApi
     }
 
     /**
-     * Operation putGuideBlueprintAsyncWithHttpInfo
+     * Operation postGuideVenturesAsyncWithHttpInfo
      *
-     * Publish a new version of the brand blueprint
+     * Creates or imports a venture under the caller studio&#39;s portfolio, captures its thesis, sponsor, owner, initial budget and seed evidence, and enrolls its isolated venture organization in a versioned Guide playbook (defaulting to venture).
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putGuideBlueprint'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\GuideCreateVentureIn $guide_create_venture_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideVentures'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putGuideBlueprintAsyncWithHttpInfo(string $contentType = self::contentTypes['putGuideBlueprint'][0])
+    public function postGuideVenturesAsyncWithHttpInfo($guide_create_venture_in, string $contentType = self::contentTypes['postGuideVentures'][0])
     {
-        $returnType = '';
-        $request = $this->putGuideBlueprintRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\GuideVentureRecord';
+        $request = $this->postGuideVenturesRequest($guide_create_venture_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -4690,18 +5015,26 @@ class GuideApi
     }
 
     /**
-     * Create request for operation 'putGuideBlueprint'
+     * Create request for operation 'postGuideVentures'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putGuideBlueprint'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\GuideCreateVentureIn $guide_create_venture_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideVentures'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putGuideBlueprintRequest(string $contentType = self::contentTypes['putGuideBlueprint'][0])
+    public function postGuideVenturesRequest($guide_create_venture_in, string $contentType = self::contentTypes['postGuideVentures'][0])
     {
 
+        // verify the required parameter 'guide_create_venture_in' is set
+        if ($guide_create_venture_in === null || (is_array($guide_create_venture_in) && count($guide_create_venture_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $guide_create_venture_in when calling postGuideVentures'
+            );
+        }
 
-        $resourcePath = '/v1/guide/blueprint';
+
+        $resourcePath = '/v1/guide/ventures';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4713,13 +5046,20 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($guide_create_venture_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($guide_create_venture_in));
+            } else {
+                $httpBody = $guide_create_venture_in;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -4762,7 +5102,312 @@ class GuideApi
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
-            'PUT',
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postGuideVenturesBySlugLifecycle
+     *
+     * Executes a portfolio lifecycle operation on a venture (pause, resume, advance, form, export, sync, offboard, assign_member, or revoke_member) and updates its operational telemetry (spend, pending decisions, failed runs, latest evidence, or company formation ID).
+     *
+     * @param  string $slug Slug is the venture handle from the URL path. (required)
+     * @param  \Hanzo\Cloud\Model\GuideVentureLifecycleIn $guide_venture_lifecycle_in guide_venture_lifecycle_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideVenturesBySlugLifecycle'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\GuideVentureLifecycleOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postGuideVenturesBySlugLifecycle($slug, $guide_venture_lifecycle_in, string $contentType = self::contentTypes['postGuideVenturesBySlugLifecycle'][0])
+    {
+        list($response) = $this->postGuideVenturesBySlugLifecycleWithHttpInfo($slug, $guide_venture_lifecycle_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postGuideVenturesBySlugLifecycleWithHttpInfo
+     *
+     * Executes a portfolio lifecycle operation on a venture (pause, resume, advance, form, export, sync, offboard, assign_member, or revoke_member) and updates its operational telemetry (spend, pending decisions, failed runs, latest evidence, or company formation ID).
+     *
+     * @param  string $slug Slug is the venture handle from the URL path. (required)
+     * @param  \Hanzo\Cloud\Model\GuideVentureLifecycleIn $guide_venture_lifecycle_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideVenturesBySlugLifecycle'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\GuideVentureLifecycleOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postGuideVenturesBySlugLifecycleWithHttpInfo($slug, $guide_venture_lifecycle_in, string $contentType = self::contentTypes['postGuideVenturesBySlugLifecycle'][0])
+    {
+        $request = $this->postGuideVenturesBySlugLifecycleRequest($slug, $guide_venture_lifecycle_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\GuideVentureLifecycleOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\GuideVentureLifecycleOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\GuideVentureLifecycleOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postGuideVenturesBySlugLifecycleAsync
+     *
+     * Executes a portfolio lifecycle operation on a venture (pause, resume, advance, form, export, sync, offboard, assign_member, or revoke_member) and updates its operational telemetry (spend, pending decisions, failed runs, latest evidence, or company formation ID).
+     *
+     * @param  string $slug Slug is the venture handle from the URL path. (required)
+     * @param  \Hanzo\Cloud\Model\GuideVentureLifecycleIn $guide_venture_lifecycle_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideVenturesBySlugLifecycle'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postGuideVenturesBySlugLifecycleAsync($slug, $guide_venture_lifecycle_in, string $contentType = self::contentTypes['postGuideVenturesBySlugLifecycle'][0])
+    {
+        return $this->postGuideVenturesBySlugLifecycleAsyncWithHttpInfo($slug, $guide_venture_lifecycle_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postGuideVenturesBySlugLifecycleAsyncWithHttpInfo
+     *
+     * Executes a portfolio lifecycle operation on a venture (pause, resume, advance, form, export, sync, offboard, assign_member, or revoke_member) and updates its operational telemetry (spend, pending decisions, failed runs, latest evidence, or company formation ID).
+     *
+     * @param  string $slug Slug is the venture handle from the URL path. (required)
+     * @param  \Hanzo\Cloud\Model\GuideVentureLifecycleIn $guide_venture_lifecycle_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideVenturesBySlugLifecycle'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postGuideVenturesBySlugLifecycleAsyncWithHttpInfo($slug, $guide_venture_lifecycle_in, string $contentType = self::contentTypes['postGuideVenturesBySlugLifecycle'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\GuideVentureLifecycleOut';
+        $request = $this->postGuideVenturesBySlugLifecycleRequest($slug, $guide_venture_lifecycle_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postGuideVenturesBySlugLifecycle'
+     *
+     * @param  string $slug Slug is the venture handle from the URL path. (required)
+     * @param  \Hanzo\Cloud\Model\GuideVentureLifecycleIn $guide_venture_lifecycle_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideVenturesBySlugLifecycle'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postGuideVenturesBySlugLifecycleRequest($slug, $guide_venture_lifecycle_in, string $contentType = self::contentTypes['postGuideVenturesBySlugLifecycle'][0])
+    {
+
+        // verify the required parameter 'slug' is set
+        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $slug when calling postGuideVenturesBySlugLifecycle'
+            );
+        }
+
+        // verify the required parameter 'guide_venture_lifecycle_in' is set
+        if ($guide_venture_lifecycle_in === null || (is_array($guide_venture_lifecycle_in) && count($guide_venture_lifecycle_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $guide_venture_lifecycle_in when calling postGuideVenturesBySlugLifecycle'
+            );
+        }
+
+
+        $resourcePath = '/v1/guide/ventures/{slug}/lifecycle';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($slug !== null) {
+            $resourcePath = str_replace(
+                '{' . 'slug' . '}',
+                ObjectSerializer::toPathValue($slug),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($guide_venture_lifecycle_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($guide_venture_lifecycle_in));
+            } else {
+                $httpBody = $guide_venture_lifecycle_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

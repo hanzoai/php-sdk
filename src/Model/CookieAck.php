@@ -302,7 +302,7 @@ class CookieAck implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets result
      *
-     * @param bool|null $result Result is true when the cookie was written or cleared.
+     * @param bool|null $result result
      *
      * @return self
      */

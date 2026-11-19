@@ -57,7 +57,7 @@ class O11yO11yFunnelRow implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @var string[]
       */
     protected static $openAPITypes = [
-        'data' => 'array<string,object>',
+        'data' => 'array<string,mixed>',
         'timestamp' => 'string'
     ];
 
@@ -299,7 +299,7 @@ class O11yO11yFunnelRow implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets data
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getData()
     {
@@ -309,7 +309,7 @@ class O11yO11yFunnelRow implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets data
      *
-     * @param array<string,object>|null $data Data are the row's columns, keyed by column name.
+     * @param array<string,mixed>|null $data Data are the row's columns, keyed by column name.
      *
      * @return self
      */

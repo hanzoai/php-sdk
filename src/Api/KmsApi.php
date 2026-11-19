@@ -74,6 +74,9 @@ class KmsApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'deleteKmsSecretsByWildcard1' => [
+            'application/json',
+        ],
         'getKmsConfig' => [
             'application/json',
         ],
@@ -81,6 +84,9 @@ class KmsApi
             'application/json',
         ],
         'getKmsSecrets' => [
+            'application/json',
+        ],
+        'getKmsSecretsByWildcard1' => [
             'application/json',
         ],
         'postKmsAuthLogin' => [
@@ -138,6 +144,307 @@ class KmsApi
     }
 
     /**
+     * Operation deleteKmsSecretsByWildcard1
+     *
+     * Removes one secret from your org.
+     *
+     * @param  string $wildcard1 Secret is the coordinate beneath the caller&#39;s own org root: an optional &#x60;/&#x60;-separated subpath and then the name, such as &#x60;ci/deploy/token&#x60;. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant&#39;s secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \&quot;everything\&quot;, and a blank address must not read as one. (required)
+     * @param  string|null $env Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKmsSecretsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\KmsKmsRemoved|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function deleteKmsSecretsByWildcard1($wildcard1, $env = null, string $contentType = self::contentTypes['deleteKmsSecretsByWildcard1'][0])
+    {
+        list($response) = $this->deleteKmsSecretsByWildcard1WithHttpInfo($wildcard1, $env, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteKmsSecretsByWildcard1WithHttpInfo
+     *
+     * Removes one secret from your org.
+     *
+     * @param  string $wildcard1 Secret is the coordinate beneath the caller&#39;s own org root: an optional &#x60;/&#x60;-separated subpath and then the name, such as &#x60;ci/deploy/token&#x60;. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant&#39;s secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \&quot;everything\&quot;, and a blank address must not read as one. (required)
+     * @param  string|null $env Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKmsSecretsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\KmsKmsRemoved|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteKmsSecretsByWildcard1WithHttpInfo($wildcard1, $env = null, string $contentType = self::contentTypes['deleteKmsSecretsByWildcard1'][0])
+    {
+        $request = $this->deleteKmsSecretsByWildcard1Request($wildcard1, $env, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\KmsKmsRemoved',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\KmsKmsRemoved',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\KmsKmsRemoved',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteKmsSecretsByWildcard1Async
+     *
+     * Removes one secret from your org.
+     *
+     * @param  string $wildcard1 Secret is the coordinate beneath the caller&#39;s own org root: an optional &#x60;/&#x60;-separated subpath and then the name, such as &#x60;ci/deploy/token&#x60;. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant&#39;s secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \&quot;everything\&quot;, and a blank address must not read as one. (required)
+     * @param  string|null $env Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKmsSecretsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteKmsSecretsByWildcard1Async($wildcard1, $env = null, string $contentType = self::contentTypes['deleteKmsSecretsByWildcard1'][0])
+    {
+        return $this->deleteKmsSecretsByWildcard1AsyncWithHttpInfo($wildcard1, $env, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteKmsSecretsByWildcard1AsyncWithHttpInfo
+     *
+     * Removes one secret from your org.
+     *
+     * @param  string $wildcard1 Secret is the coordinate beneath the caller&#39;s own org root: an optional &#x60;/&#x60;-separated subpath and then the name, such as &#x60;ci/deploy/token&#x60;. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant&#39;s secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \&quot;everything\&quot;, and a blank address must not read as one. (required)
+     * @param  string|null $env Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKmsSecretsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteKmsSecretsByWildcard1AsyncWithHttpInfo($wildcard1, $env = null, string $contentType = self::contentTypes['deleteKmsSecretsByWildcard1'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\KmsKmsRemoved';
+        $request = $this->deleteKmsSecretsByWildcard1Request($wildcard1, $env, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteKmsSecretsByWildcard1'
+     *
+     * @param  string $wildcard1 Secret is the coordinate beneath the caller&#39;s own org root: an optional &#x60;/&#x60;-separated subpath and then the name, such as &#x60;ci/deploy/token&#x60;. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant&#39;s secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \&quot;everything\&quot;, and a blank address must not read as one. (required)
+     * @param  string|null $env Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteKmsSecretsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteKmsSecretsByWildcard1Request($wildcard1, $env = null, string $contentType = self::contentTypes['deleteKmsSecretsByWildcard1'][0])
+    {
+
+        // verify the required parameter 'wildcard1' is set
+        if ($wildcard1 === null || (is_array($wildcard1) && count($wildcard1) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $wildcard1 when calling deleteKmsSecretsByWildcard1'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/kms/secrets/{wildcard1}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $env,
+            'env', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($wildcard1 !== null) {
+            $resourcePath = str_replace(
+                '{' . 'wildcard1' . '}',
+                ObjectSerializer::toPathValue($wildcard1),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getKmsConfig
      *
      * Returns the runtime configuration for the KMS console.
@@ -146,7 +453,7 @@ class KmsApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KmsConfig
+     * @return \Hanzo\Cloud\Model\KmsKmsConfig|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getKmsConfig(string $contentType = self::contentTypes['getKmsConfig'][0])
     {
@@ -163,7 +470,7 @@ class KmsApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KmsConfig, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KmsKmsConfig|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getKmsConfigWithHttpInfo(string $contentType = self::contentTypes['getKmsConfig'][0])
     {
@@ -195,7 +502,13 @@ class KmsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KmsConfig',
+                        '\Hanzo\Cloud\Model\KmsKmsConfig',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -217,7 +530,7 @@ class KmsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KmsConfig',
+                '\Hanzo\Cloud\Model\KmsKmsConfig',
                 $request,
                 $response,
             );
@@ -226,7 +539,15 @@ class KmsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KmsConfig',
+                        '\Hanzo\Cloud\Model\KmsKmsConfig',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -270,7 +591,7 @@ class KmsApi
      */
     public function getKmsConfigAsyncWithHttpInfo(string $contentType = self::contentTypes['getKmsConfig'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KmsConfig';
+        $returnType = '\Hanzo\Cloud\Model\KmsKmsConfig';
         $request = $this->getKmsConfigRequest($contentType);
 
         return $this->client
@@ -333,7 +654,7 @@ class KmsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -363,10 +684,6 @@ class KmsApi
             }
         }
 
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -398,7 +715,7 @@ class KmsApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KmsHealth|\Hanzo\Cloud\Model\KmsHealth
+     * @return \Hanzo\Cloud\Model\KmsKmsHealth|\Hanzo\Cloud\Model\KmsKmsHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getKmsHealth(string $contentType = self::contentTypes['getKmsHealth'][0])
     {
@@ -415,7 +732,7 @@ class KmsApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KmsHealth|\Hanzo\Cloud\Model\KmsHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KmsKmsHealth|\Hanzo\Cloud\Model\KmsKmsHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getKmsHealthWithHttpInfo(string $contentType = self::contentTypes['getKmsHealth'][0])
     {
@@ -447,13 +764,19 @@ class KmsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KmsHealth',
+                        '\Hanzo\Cloud\Model\KmsKmsHealth',
                         $request,
                         $response,
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KmsHealth',
+                        '\Hanzo\Cloud\Model\KmsKmsHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -475,7 +798,7 @@ class KmsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KmsHealth',
+                '\Hanzo\Cloud\Model\KmsKmsHealth',
                 $request,
                 $response,
             );
@@ -484,7 +807,7 @@ class KmsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KmsHealth',
+                        '\Hanzo\Cloud\Model\KmsKmsHealth',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -492,7 +815,15 @@ class KmsApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KmsHealth',
+                        '\Hanzo\Cloud\Model\KmsKmsHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -536,7 +867,7 @@ class KmsApi
      */
     public function getKmsHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getKmsHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KmsHealth';
+        $returnType = '\Hanzo\Cloud\Model\KmsKmsHealth';
         $request = $this->getKmsHealthRequest($contentType);
 
         return $this->client
@@ -599,7 +930,7 @@ class KmsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -629,10 +960,6 @@ class KmsApi
             }
         }
 
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -668,7 +995,7 @@ class KmsApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KmsSecrets
+     * @return \Hanzo\Cloud\Model\KmsKmsSecrets|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getKmsSecrets($env = null, $environment = null, $path = null, $secret_path = null, string $contentType = self::contentTypes['getKmsSecrets'][0])
     {
@@ -689,7 +1016,7 @@ class KmsApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KmsSecrets, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KmsKmsSecrets|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getKmsSecretsWithHttpInfo($env = null, $environment = null, $path = null, $secret_path = null, string $contentType = self::contentTypes['getKmsSecrets'][0])
     {
@@ -721,7 +1048,13 @@ class KmsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KmsSecrets',
+                        '\Hanzo\Cloud\Model\KmsKmsSecrets',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -743,7 +1076,7 @@ class KmsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KmsSecrets',
+                '\Hanzo\Cloud\Model\KmsKmsSecrets',
                 $request,
                 $response,
             );
@@ -752,7 +1085,15 @@ class KmsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KmsSecrets',
+                        '\Hanzo\Cloud\Model\KmsKmsSecrets',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -804,7 +1145,7 @@ class KmsApi
      */
     public function getKmsSecretsAsyncWithHttpInfo($env = null, $environment = null, $path = null, $secret_path = null, string $contentType = self::contentTypes['getKmsSecrets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KmsSecrets';
+        $returnType = '\Hanzo\Cloud\Model\KmsKmsSecrets';
         $request = $this->getKmsSecretsRequest($env, $environment, $path, $secret_path, $contentType);
 
         return $this->client
@@ -911,7 +1252,308 @@ class KmsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getKmsSecretsByWildcard1
+     *
+     * Reads one secret&#39;s value from your org.
+     *
+     * @param  string $wildcard1 Secret is the coordinate beneath the caller&#39;s own org root: an optional &#x60;/&#x60;-separated subpath and then the name, such as &#x60;ci/deploy/token&#x60;. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant&#39;s secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \&quot;everything\&quot;, and a blank address must not read as one. (required)
+     * @param  string|null $env Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKmsSecretsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\KmsKmsSecret|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getKmsSecretsByWildcard1($wildcard1, $env = null, string $contentType = self::contentTypes['getKmsSecretsByWildcard1'][0])
+    {
+        list($response) = $this->getKmsSecretsByWildcard1WithHttpInfo($wildcard1, $env, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getKmsSecretsByWildcard1WithHttpInfo
+     *
+     * Reads one secret&#39;s value from your org.
+     *
+     * @param  string $wildcard1 Secret is the coordinate beneath the caller&#39;s own org root: an optional &#x60;/&#x60;-separated subpath and then the name, such as &#x60;ci/deploy/token&#x60;. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant&#39;s secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \&quot;everything\&quot;, and a blank address must not read as one. (required)
+     * @param  string|null $env Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKmsSecretsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\KmsKmsSecret|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getKmsSecretsByWildcard1WithHttpInfo($wildcard1, $env = null, string $contentType = self::contentTypes['getKmsSecretsByWildcard1'][0])
+    {
+        $request = $this->getKmsSecretsByWildcard1Request($wildcard1, $env, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\KmsKmsSecret',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\KmsKmsSecret',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\KmsKmsSecret',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getKmsSecretsByWildcard1Async
+     *
+     * Reads one secret&#39;s value from your org.
+     *
+     * @param  string $wildcard1 Secret is the coordinate beneath the caller&#39;s own org root: an optional &#x60;/&#x60;-separated subpath and then the name, such as &#x60;ci/deploy/token&#x60;. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant&#39;s secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \&quot;everything\&quot;, and a blank address must not read as one. (required)
+     * @param  string|null $env Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKmsSecretsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKmsSecretsByWildcard1Async($wildcard1, $env = null, string $contentType = self::contentTypes['getKmsSecretsByWildcard1'][0])
+    {
+        return $this->getKmsSecretsByWildcard1AsyncWithHttpInfo($wildcard1, $env, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getKmsSecretsByWildcard1AsyncWithHttpInfo
+     *
+     * Reads one secret&#39;s value from your org.
+     *
+     * @param  string $wildcard1 Secret is the coordinate beneath the caller&#39;s own org root: an optional &#x60;/&#x60;-separated subpath and then the name, such as &#x60;ci/deploy/token&#x60;. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant&#39;s secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \&quot;everything\&quot;, and a blank address must not read as one. (required)
+     * @param  string|null $env Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKmsSecretsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getKmsSecretsByWildcard1AsyncWithHttpInfo($wildcard1, $env = null, string $contentType = self::contentTypes['getKmsSecretsByWildcard1'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\KmsKmsSecret';
+        $request = $this->getKmsSecretsByWildcard1Request($wildcard1, $env, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getKmsSecretsByWildcard1'
+     *
+     * @param  string $wildcard1 Secret is the coordinate beneath the caller&#39;s own org root: an optional &#x60;/&#x60;-separated subpath and then the name, such as &#x60;ci/deploy/token&#x60;. Over HTTP it is the trailing path itself, and the trailing path WINS over any other spelling sent with it. There is no org in it — the tenant comes from the validated claim — so another tenant&#39;s secret is not merely refused, it is unnameable. OMITTED is refused with a 400: there is no secret named \&quot;everything\&quot;, and a blank address must not read as one. (required)
+     * @param  string|null $env Env selects the environment to resolve the secret in. It is part of the storage key, so one name in two environments is two secrets. OMITTED means the &#x60;default&#x60; environment — where a WRITE refuses to default, because a misplaced write strands a value no reader looks for, a read or a delete aimed at the wrong environment simply answers 404 and the caller learns. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getKmsSecretsByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getKmsSecretsByWildcard1Request($wildcard1, $env = null, string $contentType = self::contentTypes['getKmsSecretsByWildcard1'][0])
+    {
+
+        // verify the required parameter 'wildcard1' is set
+        if ($wildcard1 === null || (is_array($wildcard1) && count($wildcard1) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $wildcard1 when calling getKmsSecretsByWildcard1'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/kms/secrets/{wildcard1}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $env,
+            'env', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($wildcard1 !== null) {
+            $resourcePath = str_replace(
+                '{' . 'wildcard1' . '}',
+                ObjectSerializer::toPathValue($wildcard1),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -972,16 +1614,16 @@ class KmsApi
      *
      * Exchanges a machine credential for an IAM bearer token.
      *
-     * @param  \Hanzo\Cloud\Model\KmsLogin $kms_login kms_login (required)
+     * @param  \Hanzo\Cloud\Model\KmsKmsLogin $kms_kms_login kms_kms_login (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKmsAuthLogin'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KmsToken
+     * @return \Hanzo\Cloud\Model\KmsKmsToken|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postKmsAuthLogin($kms_login, string $contentType = self::contentTypes['postKmsAuthLogin'][0])
+    public function postKmsAuthLogin($kms_kms_login, string $contentType = self::contentTypes['postKmsAuthLogin'][0])
     {
-        list($response) = $this->postKmsAuthLoginWithHttpInfo($kms_login, $contentType);
+        list($response) = $this->postKmsAuthLoginWithHttpInfo($kms_kms_login, $contentType);
         return $response;
     }
 
@@ -990,16 +1632,16 @@ class KmsApi
      *
      * Exchanges a machine credential for an IAM bearer token.
      *
-     * @param  \Hanzo\Cloud\Model\KmsLogin $kms_login (required)
+     * @param  \Hanzo\Cloud\Model\KmsKmsLogin $kms_kms_login (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKmsAuthLogin'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KmsToken, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KmsKmsToken|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postKmsAuthLoginWithHttpInfo($kms_login, string $contentType = self::contentTypes['postKmsAuthLogin'][0])
+    public function postKmsAuthLoginWithHttpInfo($kms_kms_login, string $contentType = self::contentTypes['postKmsAuthLogin'][0])
     {
-        $request = $this->postKmsAuthLoginRequest($kms_login, $contentType);
+        $request = $this->postKmsAuthLoginRequest($kms_kms_login, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1027,7 +1669,13 @@ class KmsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KmsToken',
+                        '\Hanzo\Cloud\Model\KmsKmsToken',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1049,7 +1697,7 @@ class KmsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KmsToken',
+                '\Hanzo\Cloud\Model\KmsKmsToken',
                 $request,
                 $response,
             );
@@ -1058,7 +1706,15 @@ class KmsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KmsToken',
+                        '\Hanzo\Cloud\Model\KmsKmsToken',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1075,15 +1731,15 @@ class KmsApi
      *
      * Exchanges a machine credential for an IAM bearer token.
      *
-     * @param  \Hanzo\Cloud\Model\KmsLogin $kms_login (required)
+     * @param  \Hanzo\Cloud\Model\KmsKmsLogin $kms_kms_login (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKmsAuthLogin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postKmsAuthLoginAsync($kms_login, string $contentType = self::contentTypes['postKmsAuthLogin'][0])
+    public function postKmsAuthLoginAsync($kms_kms_login, string $contentType = self::contentTypes['postKmsAuthLogin'][0])
     {
-        return $this->postKmsAuthLoginAsyncWithHttpInfo($kms_login, $contentType)
+        return $this->postKmsAuthLoginAsyncWithHttpInfo($kms_kms_login, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1096,16 +1752,16 @@ class KmsApi
      *
      * Exchanges a machine credential for an IAM bearer token.
      *
-     * @param  \Hanzo\Cloud\Model\KmsLogin $kms_login (required)
+     * @param  \Hanzo\Cloud\Model\KmsKmsLogin $kms_kms_login (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKmsAuthLogin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postKmsAuthLoginAsyncWithHttpInfo($kms_login, string $contentType = self::contentTypes['postKmsAuthLogin'][0])
+    public function postKmsAuthLoginAsyncWithHttpInfo($kms_kms_login, string $contentType = self::contentTypes['postKmsAuthLogin'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KmsToken';
-        $request = $this->postKmsAuthLoginRequest($kms_login, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\KmsKmsToken';
+        $request = $this->postKmsAuthLoginRequest($kms_kms_login, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1146,19 +1802,19 @@ class KmsApi
     /**
      * Create request for operation 'postKmsAuthLogin'
      *
-     * @param  \Hanzo\Cloud\Model\KmsLogin $kms_login (required)
+     * @param  \Hanzo\Cloud\Model\KmsKmsLogin $kms_kms_login (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKmsAuthLogin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postKmsAuthLoginRequest($kms_login, string $contentType = self::contentTypes['postKmsAuthLogin'][0])
+    public function postKmsAuthLoginRequest($kms_kms_login, string $contentType = self::contentTypes['postKmsAuthLogin'][0])
     {
 
-        // verify the required parameter 'kms_login' is set
-        if ($kms_login === null || (is_array($kms_login) && count($kms_login) === 0)) {
+        // verify the required parameter 'kms_kms_login' is set
+        if ($kms_kms_login === null || (is_array($kms_kms_login) && count($kms_kms_login) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $kms_login when calling postKmsAuthLogin'
+                'Missing the required parameter $kms_kms_login when calling postKmsAuthLogin'
             );
         }
 
@@ -1175,18 +1831,18 @@ class KmsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($kms_login)) {
+        if (isset($kms_kms_login)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($kms_login));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($kms_kms_login));
             } else {
-                $httpBody = $kms_login;
+                $httpBody = $kms_kms_login;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1212,10 +1868,6 @@ class KmsApi
             }
         }
 
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -1243,16 +1895,16 @@ class KmsApi
      *
      * Stores or replaces one secret in your org.
      *
-     * @param  \Hanzo\Cloud\Model\KmsPut $kms_put kms_put (required)
+     * @param  \Hanzo\Cloud\Model\KmsKmsPut $kms_kms_put kms_kms_put (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKmsSecrets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\KmsStored
+     * @return \Hanzo\Cloud\Model\KmsKmsStored|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postKmsSecrets($kms_put, string $contentType = self::contentTypes['postKmsSecrets'][0])
+    public function postKmsSecrets($kms_kms_put, string $contentType = self::contentTypes['postKmsSecrets'][0])
     {
-        list($response) = $this->postKmsSecretsWithHttpInfo($kms_put, $contentType);
+        list($response) = $this->postKmsSecretsWithHttpInfo($kms_kms_put, $contentType);
         return $response;
     }
 
@@ -1261,16 +1913,16 @@ class KmsApi
      *
      * Stores or replaces one secret in your org.
      *
-     * @param  \Hanzo\Cloud\Model\KmsPut $kms_put (required)
+     * @param  \Hanzo\Cloud\Model\KmsKmsPut $kms_kms_put (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKmsSecrets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\KmsStored, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\KmsKmsStored|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postKmsSecretsWithHttpInfo($kms_put, string $contentType = self::contentTypes['postKmsSecrets'][0])
+    public function postKmsSecretsWithHttpInfo($kms_kms_put, string $contentType = self::contentTypes['postKmsSecrets'][0])
     {
-        $request = $this->postKmsSecretsRequest($kms_put, $contentType);
+        $request = $this->postKmsSecretsRequest($kms_kms_put, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1298,7 +1950,13 @@ class KmsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\KmsStored',
+                        '\Hanzo\Cloud\Model\KmsKmsStored',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1320,7 +1978,7 @@ class KmsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\KmsStored',
+                '\Hanzo\Cloud\Model\KmsKmsStored',
                 $request,
                 $response,
             );
@@ -1329,7 +1987,15 @@ class KmsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\KmsStored',
+                        '\Hanzo\Cloud\Model\KmsKmsStored',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1346,15 +2012,15 @@ class KmsApi
      *
      * Stores or replaces one secret in your org.
      *
-     * @param  \Hanzo\Cloud\Model\KmsPut $kms_put (required)
+     * @param  \Hanzo\Cloud\Model\KmsKmsPut $kms_kms_put (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKmsSecrets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postKmsSecretsAsync($kms_put, string $contentType = self::contentTypes['postKmsSecrets'][0])
+    public function postKmsSecretsAsync($kms_kms_put, string $contentType = self::contentTypes['postKmsSecrets'][0])
     {
-        return $this->postKmsSecretsAsyncWithHttpInfo($kms_put, $contentType)
+        return $this->postKmsSecretsAsyncWithHttpInfo($kms_kms_put, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1367,16 +2033,16 @@ class KmsApi
      *
      * Stores or replaces one secret in your org.
      *
-     * @param  \Hanzo\Cloud\Model\KmsPut $kms_put (required)
+     * @param  \Hanzo\Cloud\Model\KmsKmsPut $kms_kms_put (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKmsSecrets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postKmsSecretsAsyncWithHttpInfo($kms_put, string $contentType = self::contentTypes['postKmsSecrets'][0])
+    public function postKmsSecretsAsyncWithHttpInfo($kms_kms_put, string $contentType = self::contentTypes['postKmsSecrets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\KmsStored';
-        $request = $this->postKmsSecretsRequest($kms_put, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\KmsKmsStored';
+        $request = $this->postKmsSecretsRequest($kms_kms_put, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1417,19 +2083,19 @@ class KmsApi
     /**
      * Create request for operation 'postKmsSecrets'
      *
-     * @param  \Hanzo\Cloud\Model\KmsPut $kms_put (required)
+     * @param  \Hanzo\Cloud\Model\KmsKmsPut $kms_kms_put (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postKmsSecrets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postKmsSecretsRequest($kms_put, string $contentType = self::contentTypes['postKmsSecrets'][0])
+    public function postKmsSecretsRequest($kms_kms_put, string $contentType = self::contentTypes['postKmsSecrets'][0])
     {
 
-        // verify the required parameter 'kms_put' is set
-        if ($kms_put === null || (is_array($kms_put) && count($kms_put) === 0)) {
+        // verify the required parameter 'kms_kms_put' is set
+        if ($kms_kms_put === null || (is_array($kms_kms_put) && count($kms_kms_put) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $kms_put when calling postKmsSecrets'
+                'Missing the required parameter $kms_kms_put when calling postKmsSecrets'
             );
         }
 
@@ -1446,18 +2112,18 @@ class KmsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($kms_put)) {
+        if (isset($kms_kms_put)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($kms_put));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($kms_kms_put));
             } else {
-                $httpBody = $kms_put;
+                $httpBody = $kms_kms_put;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

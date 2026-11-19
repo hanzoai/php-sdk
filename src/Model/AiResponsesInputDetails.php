@@ -57,6 +57,7 @@ class AiResponsesInputDetails implements ModelInterface, ArrayAccess, \JsonSeria
       * @var string[]
       */
     protected static $openAPITypes = [
+        'cache_write_tokens' => 'int',
         'cached_tokens' => 'int'
     ];
 
@@ -68,6 +69,7 @@ class AiResponsesInputDetails implements ModelInterface, ArrayAccess, \JsonSeria
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'cache_write_tokens' => null,
         'cached_tokens' => null
     ];
 
@@ -77,6 +79,7 @@ class AiResponsesInputDetails implements ModelInterface, ArrayAccess, \JsonSeria
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'cache_write_tokens' => false,
         'cached_tokens' => false
     ];
 
@@ -166,6 +169,7 @@ class AiResponsesInputDetails implements ModelInterface, ArrayAccess, \JsonSeria
      * @var string[]
      */
     protected static $attributeMap = [
+        'cache_write_tokens' => 'cache_write_tokens',
         'cached_tokens' => 'cached_tokens'
     ];
 
@@ -175,6 +179,7 @@ class AiResponsesInputDetails implements ModelInterface, ArrayAccess, \JsonSeria
      * @var string[]
      */
     protected static $setters = [
+        'cache_write_tokens' => 'setCacheWriteTokens',
         'cached_tokens' => 'setCachedTokens'
     ];
 
@@ -184,6 +189,7 @@ class AiResponsesInputDetails implements ModelInterface, ArrayAccess, \JsonSeria
      * @var string[]
      */
     protected static $getters = [
+        'cache_write_tokens' => 'getCacheWriteTokens',
         'cached_tokens' => 'getCachedTokens'
     ];
 
@@ -244,6 +250,7 @@ class AiResponsesInputDetails implements ModelInterface, ArrayAccess, \JsonSeria
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('cache_write_tokens', $data ?? [], null);
         $this->setIfExists('cached_tokens', $data ?? [], null);
     }
 
@@ -288,6 +295,33 @@ class AiResponsesInputDetails implements ModelInterface, ArrayAccess, \JsonSeria
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets cache_write_tokens
+     *
+     * @return int|null
+     */
+    public function getCacheWriteTokens()
+    {
+        return $this->container['cache_write_tokens'];
+    }
+
+    /**
+     * Sets cache_write_tokens
+     *
+     * @param int|null $cache_write_tokens cache_write_tokens
+     *
+     * @return self
+     */
+    public function setCacheWriteTokens($cache_write_tokens)
+    {
+        if (is_null($cache_write_tokens)) {
+            throw new \InvalidArgumentException('non-nullable cache_write_tokens cannot be null');
+        }
+        $this->container['cache_write_tokens'] = $cache_write_tokens;
+
+        return $this;
+    }
 
     /**
      * Gets cached_tokens

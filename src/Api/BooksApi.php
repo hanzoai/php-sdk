@@ -119,16 +119,10 @@ class BooksApi
         'postBooksAsk' => [
             'application/json',
         ],
-        'postBooksBankExchange' => [
-            'application/json',
-        ],
         'postBooksBankImport' => [
             'application/octet-stream',
         ],
         'postBooksBankSync' => [
-            'application/json',
-        ],
-        'postBooksBankToken' => [
             'application/json',
         ],
         'postBooksInbox' => [
@@ -207,7 +201,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Account[]
+     * @return \Hanzo\Cloud\Model\BooksAccount[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksAccounts($sandbox = null, string $contentType = self::contentTypes['getBooksAccounts'][0])
     {
@@ -225,7 +219,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Account[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksAccount[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksAccountsWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksAccounts'][0])
     {
@@ -257,7 +251,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Account[]',
+                        '\Hanzo\Cloud\Model\BooksAccount[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -279,7 +279,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Account[]',
+                '\Hanzo\Cloud\Model\BooksAccount[]',
                 $request,
                 $response,
             );
@@ -288,7 +288,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Account[]',
+                        '\Hanzo\Cloud\Model\BooksAccount[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -334,7 +342,7 @@ class BooksApi
      */
     public function getBooksAccountsAsyncWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksAccounts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Account[]';
+        $returnType = '\Hanzo\Cloud\Model\BooksAccount[]';
         $request = $this->getBooksAccountsRequest($sandbox, $contentType);
 
         return $this->client
@@ -408,7 +416,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -475,7 +483,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BankTxnRow[]
+     * @return \Hanzo\Cloud\Model\BooksBankTxnRow[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksBankTransactions($sandbox = null, $limit = null, string $contentType = self::contentTypes['getBooksBankTransactions'][0])
     {
@@ -494,7 +502,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BankTxnRow[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksBankTxnRow[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksBankTransactionsWithHttpInfo($sandbox = null, $limit = null, string $contentType = self::contentTypes['getBooksBankTransactions'][0])
     {
@@ -526,7 +534,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BankTxnRow[]',
+                        '\Hanzo\Cloud\Model\BooksBankTxnRow[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -548,7 +562,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BankTxnRow[]',
+                '\Hanzo\Cloud\Model\BooksBankTxnRow[]',
                 $request,
                 $response,
             );
@@ -557,7 +571,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BankTxnRow[]',
+                        '\Hanzo\Cloud\Model\BooksBankTxnRow[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -605,7 +627,7 @@ class BooksApi
      */
     public function getBooksBankTransactionsAsyncWithHttpInfo($sandbox = null, $limit = null, string $contentType = self::contentTypes['getBooksBankTransactions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BankTxnRow[]';
+        $returnType = '\Hanzo\Cloud\Model\BooksBankTxnRow[]';
         $request = $this->getBooksBankTransactionsRequest($sandbox, $limit, $contentType);
 
         return $this->client
@@ -690,7 +712,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -756,7 +778,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\UnreconciledOut
+     * @return \Hanzo\Cloud\Model\BooksUnreconciledOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksBankUnreconciled($sandbox = null, string $contentType = self::contentTypes['getBooksBankUnreconciled'][0])
     {
@@ -774,7 +796,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\UnreconciledOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksUnreconciledOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksBankUnreconciledWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksBankUnreconciled'][0])
     {
@@ -806,7 +828,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\UnreconciledOut',
+                        '\Hanzo\Cloud\Model\BooksUnreconciledOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -828,7 +856,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\UnreconciledOut',
+                '\Hanzo\Cloud\Model\BooksUnreconciledOut',
                 $request,
                 $response,
             );
@@ -837,7 +865,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\UnreconciledOut',
+                        '\Hanzo\Cloud\Model\BooksUnreconciledOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -883,7 +919,7 @@ class BooksApi
      */
     public function getBooksBankUnreconciledAsyncWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksBankUnreconciled'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\UnreconciledOut';
+        $returnType = '\Hanzo\Cloud\Model\BooksUnreconciledOut';
         $request = $this->getBooksBankUnreconciledRequest($sandbox, $contentType);
 
         return $this->client
@@ -957,7 +993,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1027,7 +1063,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FinancialPackage
+     * @return \Hanzo\Cloud\Model\BooksFinancialPackage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksExport($sandbox = null, $from = null, $to = null, $format = null, $limit = null, string $contentType = self::contentTypes['getBooksExport'][0])
     {
@@ -1049,7 +1085,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FinancialPackage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksFinancialPackage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksExportWithHttpInfo($sandbox = null, $from = null, $to = null, $format = null, $limit = null, string $contentType = self::contentTypes['getBooksExport'][0])
     {
@@ -1081,7 +1117,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FinancialPackage',
+                        '\Hanzo\Cloud\Model\BooksFinancialPackage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1103,7 +1145,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FinancialPackage',
+                '\Hanzo\Cloud\Model\BooksFinancialPackage',
                 $request,
                 $response,
             );
@@ -1112,7 +1154,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FinancialPackage',
+                        '\Hanzo\Cloud\Model\BooksFinancialPackage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1166,7 +1216,7 @@ class BooksApi
      */
     public function getBooksExportAsyncWithHttpInfo($sandbox = null, $from = null, $to = null, $format = null, $limit = null, string $contentType = self::contentTypes['getBooksExport'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FinancialPackage';
+        $returnType = '\Hanzo\Cloud\Model\BooksFinancialPackage';
         $request = $this->getBooksExportRequest($sandbox, $from, $to, $format, $limit, $contentType);
 
         return $this->client
@@ -1284,7 +1334,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1343,7 +1393,7 @@ class BooksApi
     /**
      * Operation getBooksGl
      *
-     * ListGL returns the org&#39;s most recent GL Entry rows, newest first.
+     * Returns the org&#39;s most recent GL Entry rows, newest first.
      *
      * @param  string|null $sandbox Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. (optional)
      * @param  int|null $limit Limit caps how many rows come back; 500 when absent or not positive. (optional)
@@ -1351,7 +1401,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GLRow[]
+     * @return \Hanzo\Cloud\Model\BooksGLRow[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksGl($sandbox = null, $limit = null, string $contentType = self::contentTypes['getBooksGl'][0])
     {
@@ -1362,7 +1412,7 @@ class BooksApi
     /**
      * Operation getBooksGlWithHttpInfo
      *
-     * ListGL returns the org&#39;s most recent GL Entry rows, newest first.
+     * Returns the org&#39;s most recent GL Entry rows, newest first.
      *
      * @param  string|null $sandbox Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. (optional)
      * @param  int|null $limit Limit caps how many rows come back; 500 when absent or not positive. (optional)
@@ -1370,7 +1420,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GLRow[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksGLRow[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksGlWithHttpInfo($sandbox = null, $limit = null, string $contentType = self::contentTypes['getBooksGl'][0])
     {
@@ -1402,7 +1452,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GLRow[]',
+                        '\Hanzo\Cloud\Model\BooksGLRow[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1424,7 +1480,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GLRow[]',
+                '\Hanzo\Cloud\Model\BooksGLRow[]',
                 $request,
                 $response,
             );
@@ -1433,7 +1489,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GLRow[]',
+                        '\Hanzo\Cloud\Model\BooksGLRow[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1448,7 +1512,7 @@ class BooksApi
     /**
      * Operation getBooksGlAsync
      *
-     * ListGL returns the org&#39;s most recent GL Entry rows, newest first.
+     * Returns the org&#39;s most recent GL Entry rows, newest first.
      *
      * @param  string|null $sandbox Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. (optional)
      * @param  int|null $limit Limit caps how many rows come back; 500 when absent or not positive. (optional)
@@ -1470,7 +1534,7 @@ class BooksApi
     /**
      * Operation getBooksGlAsyncWithHttpInfo
      *
-     * ListGL returns the org&#39;s most recent GL Entry rows, newest first.
+     * Returns the org&#39;s most recent GL Entry rows, newest first.
      *
      * @param  string|null $sandbox Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. (optional)
      * @param  int|null $limit Limit caps how many rows come back; 500 when absent or not positive. (optional)
@@ -1481,7 +1545,7 @@ class BooksApi
      */
     public function getBooksGlAsyncWithHttpInfo($sandbox = null, $limit = null, string $contentType = self::contentTypes['getBooksGl'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\GLRow[]';
+        $returnType = '\Hanzo\Cloud\Model\BooksGLRow[]';
         $request = $this->getBooksGlRequest($sandbox, $limit, $contentType);
 
         return $this->client
@@ -1566,7 +1630,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1632,7 +1696,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\InboxOut
+     * @return \Hanzo\Cloud\Model\BooksInboxOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksInbox($sandbox = null, string $contentType = self::contentTypes['getBooksInbox'][0])
     {
@@ -1650,7 +1714,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\InboxOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksInboxOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksInboxWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksInbox'][0])
     {
@@ -1682,7 +1746,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\InboxOut',
+                        '\Hanzo\Cloud\Model\BooksInboxOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1704,7 +1774,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\InboxOut',
+                '\Hanzo\Cloud\Model\BooksInboxOut',
                 $request,
                 $response,
             );
@@ -1713,7 +1783,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\InboxOut',
+                        '\Hanzo\Cloud\Model\BooksInboxOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1759,7 +1837,7 @@ class BooksApi
      */
     public function getBooksInboxAsyncWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksInbox'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\InboxOut';
+        $returnType = '\Hanzo\Cloud\Model\BooksInboxOut';
         $request = $this->getBooksInboxRequest($sandbox, $contentType);
 
         return $this->client
@@ -1833,7 +1911,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1892,7 +1970,7 @@ class BooksApi
     /**
      * Operation getBooksMetrics
      *
-     * Metrics returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
+     * Returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
      *
      * @param  string|null $sandbox Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. (optional)
      * @param  string|null $from From is the RFC3339 start of the window, exclusive. Empty means all time. (optional)
@@ -1901,7 +1979,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MetricsResponse
+     * @return \Hanzo\Cloud\Model\BooksMetricsResponse|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksMetrics($sandbox = null, $from = null, $to = null, string $contentType = self::contentTypes['getBooksMetrics'][0])
     {
@@ -1912,7 +1990,7 @@ class BooksApi
     /**
      * Operation getBooksMetricsWithHttpInfo
      *
-     * Metrics returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
+     * Returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
      *
      * @param  string|null $sandbox Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. (optional)
      * @param  string|null $from From is the RFC3339 start of the window, exclusive. Empty means all time. (optional)
@@ -1921,7 +1999,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MetricsResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksMetricsResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksMetricsWithHttpInfo($sandbox = null, $from = null, $to = null, string $contentType = self::contentTypes['getBooksMetrics'][0])
     {
@@ -1953,7 +2031,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MetricsResponse',
+                        '\Hanzo\Cloud\Model\BooksMetricsResponse',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1975,7 +2059,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MetricsResponse',
+                '\Hanzo\Cloud\Model\BooksMetricsResponse',
                 $request,
                 $response,
             );
@@ -1984,7 +2068,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MetricsResponse',
+                        '\Hanzo\Cloud\Model\BooksMetricsResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1999,7 +2091,7 @@ class BooksApi
     /**
      * Operation getBooksMetricsAsync
      *
-     * Metrics returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
+     * Returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
      *
      * @param  string|null $sandbox Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. (optional)
      * @param  string|null $from From is the RFC3339 start of the window, exclusive. Empty means all time. (optional)
@@ -2022,7 +2114,7 @@ class BooksApi
     /**
      * Operation getBooksMetricsAsyncWithHttpInfo
      *
-     * Metrics returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
+     * Returns the org&#39;s deterministic SaaS-metrics snapshot over an optional (from, to] window — MRR, ARR, revenue, COGS, burn, gross margin, net income, cash, deferred revenue, monthly burn and runway — as raw int64-cent figures AND the same figures already formatted.
      *
      * @param  string|null $sandbox Sandbox reads the org&#39;s SANDBOX ledger when it is exactly \&quot;true\&quot;. (optional)
      * @param  string|null $from From is the RFC3339 start of the window, exclusive. Empty means all time. (optional)
@@ -2034,7 +2126,7 @@ class BooksApi
      */
     public function getBooksMetricsAsyncWithHttpInfo($sandbox = null, $from = null, $to = null, string $contentType = self::contentTypes['getBooksMetrics'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MetricsResponse';
+        $returnType = '\Hanzo\Cloud\Model\BooksMetricsResponse';
         $request = $this->getBooksMetricsRequest($sandbox, $from, $to, $contentType);
 
         return $this->client
@@ -2130,7 +2222,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2198,7 +2290,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PnL
+     * @return \Hanzo\Cloud\Model\BooksPnL|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksPnl($sandbox = null, $from = null, $to = null, string $contentType = self::contentTypes['getBooksPnl'][0])
     {
@@ -2218,7 +2310,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PnL, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksPnL|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksPnlWithHttpInfo($sandbox = null, $from = null, $to = null, string $contentType = self::contentTypes['getBooksPnl'][0])
     {
@@ -2250,7 +2342,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PnL',
+                        '\Hanzo\Cloud\Model\BooksPnL',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2272,7 +2370,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PnL',
+                '\Hanzo\Cloud\Model\BooksPnL',
                 $request,
                 $response,
             );
@@ -2281,7 +2379,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PnL',
+                        '\Hanzo\Cloud\Model\BooksPnL',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2331,7 +2437,7 @@ class BooksApi
      */
     public function getBooksPnlAsyncWithHttpInfo($sandbox = null, $from = null, $to = null, string $contentType = self::contentTypes['getBooksPnl'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PnL';
+        $returnType = '\Hanzo\Cloud\Model\BooksPnL';
         $request = $this->getBooksPnlRequest($sandbox, $from, $to, $contentType);
 
         return $this->client
@@ -2427,7 +2533,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2494,7 +2600,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BalanceSheet
+     * @return \Hanzo\Cloud\Model\BooksBalanceSheet|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksPosition($sandbox = null, $to = null, string $contentType = self::contentTypes['getBooksPosition'][0])
     {
@@ -2513,7 +2619,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BalanceSheet, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksBalanceSheet|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksPositionWithHttpInfo($sandbox = null, $to = null, string $contentType = self::contentTypes['getBooksPosition'][0])
     {
@@ -2545,7 +2651,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BalanceSheet',
+                        '\Hanzo\Cloud\Model\BooksBalanceSheet',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2567,7 +2679,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BalanceSheet',
+                '\Hanzo\Cloud\Model\BooksBalanceSheet',
                 $request,
                 $response,
             );
@@ -2576,7 +2688,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BalanceSheet',
+                        '\Hanzo\Cloud\Model\BooksBalanceSheet',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2624,7 +2744,7 @@ class BooksApi
      */
     public function getBooksPositionAsyncWithHttpInfo($sandbox = null, $to = null, string $contentType = self::contentTypes['getBooksPosition'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BalanceSheet';
+        $returnType = '\Hanzo\Cloud\Model\BooksBalanceSheet';
         $request = $this->getBooksPositionRequest($sandbox, $to, $contentType);
 
         return $this->client
@@ -2709,7 +2829,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2775,7 +2895,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\QuestionsResponse
+     * @return \Hanzo\Cloud\Model\BooksQuestionsResponse|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksQuestions($sandbox = null, string $contentType = self::contentTypes['getBooksQuestions'][0])
     {
@@ -2793,7 +2913,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\QuestionsResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksQuestionsResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksQuestionsWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksQuestions'][0])
     {
@@ -2825,7 +2945,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\QuestionsResponse',
+                        '\Hanzo\Cloud\Model\BooksQuestionsResponse',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2847,7 +2973,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\QuestionsResponse',
+                '\Hanzo\Cloud\Model\BooksQuestionsResponse',
                 $request,
                 $response,
             );
@@ -2856,7 +2982,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\QuestionsResponse',
+                        '\Hanzo\Cloud\Model\BooksQuestionsResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2902,7 +3036,7 @@ class BooksApi
      */
     public function getBooksQuestionsAsyncWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksQuestions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\QuestionsResponse';
+        $returnType = '\Hanzo\Cloud\Model\BooksQuestionsResponse';
         $request = $this->getBooksQuestionsRequest($sandbox, $contentType);
 
         return $this->client
@@ -2976,7 +3110,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3042,7 +3176,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RulesOut
+     * @return \Hanzo\Cloud\Model\BooksRulesOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksRules($sandbox = null, string $contentType = self::contentTypes['getBooksRules'][0])
     {
@@ -3060,7 +3194,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RulesOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksRulesOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksRulesWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksRules'][0])
     {
@@ -3092,7 +3226,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RulesOut',
+                        '\Hanzo\Cloud\Model\BooksRulesOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3114,7 +3254,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RulesOut',
+                '\Hanzo\Cloud\Model\BooksRulesOut',
                 $request,
                 $response,
             );
@@ -3123,7 +3263,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RulesOut',
+                        '\Hanzo\Cloud\Model\BooksRulesOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3169,7 +3317,7 @@ class BooksApi
      */
     public function getBooksRulesAsyncWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksRules'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RulesOut';
+        $returnType = '\Hanzo\Cloud\Model\BooksRulesOut';
         $request = $this->getBooksRulesRequest($sandbox, $contentType);
 
         return $this->client
@@ -3243,7 +3391,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3314,7 +3462,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TransactionsOut
+     * @return \Hanzo\Cloud\Model\BooksTransactionsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksTransactions($sandbox = null, $from = null, $to = null, $category = null, $vendor = null, $limit = null, string $contentType = self::contentTypes['getBooksTransactions'][0])
     {
@@ -3337,7 +3485,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TransactionsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksTransactionsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksTransactionsWithHttpInfo($sandbox = null, $from = null, $to = null, $category = null, $vendor = null, $limit = null, string $contentType = self::contentTypes['getBooksTransactions'][0])
     {
@@ -3369,7 +3517,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TransactionsOut',
+                        '\Hanzo\Cloud\Model\BooksTransactionsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3391,7 +3545,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TransactionsOut',
+                '\Hanzo\Cloud\Model\BooksTransactionsOut',
                 $request,
                 $response,
             );
@@ -3400,7 +3554,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TransactionsOut',
+                        '\Hanzo\Cloud\Model\BooksTransactionsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3456,7 +3618,7 @@ class BooksApi
      */
     public function getBooksTransactionsAsyncWithHttpInfo($sandbox = null, $from = null, $to = null, $category = null, $vendor = null, $limit = null, string $contentType = self::contentTypes['getBooksTransactions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TransactionsOut';
+        $returnType = '\Hanzo\Cloud\Model\BooksTransactionsOut';
         $request = $this->getBooksTransactionsRequest($sandbox, $from, $to, $category, $vendor, $limit, $contentType);
 
         return $this->client
@@ -3585,7 +3747,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3653,7 +3815,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrialBalance
+     * @return \Hanzo\Cloud\Model\BooksTrialBalance|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksTrial($sandbox = null, $from = null, $to = null, string $contentType = self::contentTypes['getBooksTrial'][0])
     {
@@ -3673,7 +3835,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrialBalance, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksTrialBalance|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksTrialWithHttpInfo($sandbox = null, $from = null, $to = null, string $contentType = self::contentTypes['getBooksTrial'][0])
     {
@@ -3705,7 +3867,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrialBalance',
+                        '\Hanzo\Cloud\Model\BooksTrialBalance',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3727,7 +3895,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrialBalance',
+                '\Hanzo\Cloud\Model\BooksTrialBalance',
                 $request,
                 $response,
             );
@@ -3736,7 +3904,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrialBalance',
+                        '\Hanzo\Cloud\Model\BooksTrialBalance',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3786,7 +3962,7 @@ class BooksApi
      */
     public function getBooksTrialAsyncWithHttpInfo($sandbox = null, $from = null, $to = null, string $contentType = self::contentTypes['getBooksTrial'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrialBalance';
+        $returnType = '\Hanzo\Cloud\Model\BooksTrialBalance';
         $request = $this->getBooksTrialRequest($sandbox, $from, $to, $contentType);
 
         return $this->client
@@ -3882,7 +4058,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3948,7 +4124,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\VendorsOut
+     * @return \Hanzo\Cloud\Model\BooksVendorsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getBooksVendors($sandbox = null, string $contentType = self::contentTypes['getBooksVendors'][0])
     {
@@ -3966,7 +4142,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\VendorsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksVendorsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getBooksVendorsWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksVendors'][0])
     {
@@ -3998,7 +4174,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\VendorsOut',
+                        '\Hanzo\Cloud\Model\BooksVendorsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4020,7 +4202,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\VendorsOut',
+                '\Hanzo\Cloud\Model\BooksVendorsOut',
                 $request,
                 $response,
             );
@@ -4029,7 +4211,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\VendorsOut',
+                        '\Hanzo\Cloud\Model\BooksVendorsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4075,7 +4265,7 @@ class BooksApi
      */
     public function getBooksVendorsAsyncWithHttpInfo($sandbox = null, string $contentType = self::contentTypes['getBooksVendors'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\VendorsOut';
+        $returnType = '\Hanzo\Cloud\Model\BooksVendorsOut';
         $request = $this->getBooksVendorsRequest($sandbox, $contentType);
 
         return $this->client
@@ -4149,7 +4339,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4210,16 +4400,16 @@ class BooksApi
      *
      * Answers a plain-language question about the caller&#39;s own books — \&quot;what is my MRR?\&quot;, \&quot;how long is my runway?\&quot; — with figures taken from their ledger, never a guessed number.
      *
-     * @param  \Hanzo\Cloud\Model\AskRequest $ask_request ask_request (required)
+     * @param  \Hanzo\Cloud\Model\BooksAskRequest $books_ask_request books_ask_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksAsk'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AskResponse
+     * @return \Hanzo\Cloud\Model\BooksAskResponse|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postBooksAsk($ask_request, string $contentType = self::contentTypes['postBooksAsk'][0])
+    public function postBooksAsk($books_ask_request, string $contentType = self::contentTypes['postBooksAsk'][0])
     {
-        list($response) = $this->postBooksAskWithHttpInfo($ask_request, $contentType);
+        list($response) = $this->postBooksAskWithHttpInfo($books_ask_request, $contentType);
         return $response;
     }
 
@@ -4228,16 +4418,16 @@ class BooksApi
      *
      * Answers a plain-language question about the caller&#39;s own books — \&quot;what is my MRR?\&quot;, \&quot;how long is my runway?\&quot; — with figures taken from their ledger, never a guessed number.
      *
-     * @param  \Hanzo\Cloud\Model\AskRequest $ask_request (required)
+     * @param  \Hanzo\Cloud\Model\BooksAskRequest $books_ask_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksAsk'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AskResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksAskResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBooksAskWithHttpInfo($ask_request, string $contentType = self::contentTypes['postBooksAsk'][0])
+    public function postBooksAskWithHttpInfo($books_ask_request, string $contentType = self::contentTypes['postBooksAsk'][0])
     {
-        $request = $this->postBooksAskRequest($ask_request, $contentType);
+        $request = $this->postBooksAskRequest($books_ask_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4265,7 +4455,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AskResponse',
+                        '\Hanzo\Cloud\Model\BooksAskResponse',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4287,7 +4483,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AskResponse',
+                '\Hanzo\Cloud\Model\BooksAskResponse',
                 $request,
                 $response,
             );
@@ -4296,7 +4492,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AskResponse',
+                        '\Hanzo\Cloud\Model\BooksAskResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4313,15 +4517,15 @@ class BooksApi
      *
      * Answers a plain-language question about the caller&#39;s own books — \&quot;what is my MRR?\&quot;, \&quot;how long is my runway?\&quot; — with figures taken from their ledger, never a guessed number.
      *
-     * @param  \Hanzo\Cloud\Model\AskRequest $ask_request (required)
+     * @param  \Hanzo\Cloud\Model\BooksAskRequest $books_ask_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksAsk'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBooksAskAsync($ask_request, string $contentType = self::contentTypes['postBooksAsk'][0])
+    public function postBooksAskAsync($books_ask_request, string $contentType = self::contentTypes['postBooksAsk'][0])
     {
-        return $this->postBooksAskAsyncWithHttpInfo($ask_request, $contentType)
+        return $this->postBooksAskAsyncWithHttpInfo($books_ask_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4334,16 +4538,16 @@ class BooksApi
      *
      * Answers a plain-language question about the caller&#39;s own books — \&quot;what is my MRR?\&quot;, \&quot;how long is my runway?\&quot; — with figures taken from their ledger, never a guessed number.
      *
-     * @param  \Hanzo\Cloud\Model\AskRequest $ask_request (required)
+     * @param  \Hanzo\Cloud\Model\BooksAskRequest $books_ask_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksAsk'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBooksAskAsyncWithHttpInfo($ask_request, string $contentType = self::contentTypes['postBooksAsk'][0])
+    public function postBooksAskAsyncWithHttpInfo($books_ask_request, string $contentType = self::contentTypes['postBooksAsk'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AskResponse';
-        $request = $this->postBooksAskRequest($ask_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BooksAskResponse';
+        $request = $this->postBooksAskRequest($books_ask_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4384,19 +4588,19 @@ class BooksApi
     /**
      * Create request for operation 'postBooksAsk'
      *
-     * @param  \Hanzo\Cloud\Model\AskRequest $ask_request (required)
+     * @param  \Hanzo\Cloud\Model\BooksAskRequest $books_ask_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksAsk'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBooksAskRequest($ask_request, string $contentType = self::contentTypes['postBooksAsk'][0])
+    public function postBooksAskRequest($books_ask_request, string $contentType = self::contentTypes['postBooksAsk'][0])
     {
 
-        // verify the required parameter 'ask_request' is set
-        if ($ask_request === null || (is_array($ask_request) && count($ask_request) === 0)) {
+        // verify the required parameter 'books_ask_request' is set
+        if ($books_ask_request === null || (is_array($books_ask_request) && count($books_ask_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $ask_request when calling postBooksAsk'
+                'Missing the required parameter $books_ask_request when calling postBooksAsk'
             );
         }
 
@@ -4413,222 +4617,20 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($ask_request)) {
+        if (isset($books_ask_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ask_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($books_ask_request));
             } else {
-                $httpBody = $ask_request;
+                $httpBody = $books_ask_request;
             }
         } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postBooksBankExchange
-     *
-     * Finish connecting a bank account (not yet available)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksBankExchange'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postBooksBankExchange(string $contentType = self::contentTypes['postBooksBankExchange'][0])
-    {
-        $this->postBooksBankExchangeWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postBooksBankExchangeWithHttpInfo
-     *
-     * Finish connecting a bank account (not yet available)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksBankExchange'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postBooksBankExchangeWithHttpInfo(string $contentType = self::contentTypes['postBooksBankExchange'][0])
-    {
-        $request = $this->postBooksBankExchangeRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postBooksBankExchangeAsync
-     *
-     * Finish connecting a bank account (not yet available)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksBankExchange'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postBooksBankExchangeAsync(string $contentType = self::contentTypes['postBooksBankExchange'][0])
-    {
-        return $this->postBooksBankExchangeAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postBooksBankExchangeAsyncWithHttpInfo
-     *
-     * Finish connecting a bank account (not yet available)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksBankExchange'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postBooksBankExchangeAsyncWithHttpInfo(string $contentType = self::contentTypes['postBooksBankExchange'][0])
-    {
-        $returnType = '';
-        $request = $this->postBooksBankExchangeRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postBooksBankExchange'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksBankExchange'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postBooksBankExchangeRequest(string $contentType = self::contentTypes['postBooksBankExchange'][0])
-    {
-
-
-        $resourcePath = '/v1/books/bank/exchange';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -4955,7 +4957,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BankTally
+     * @return \Hanzo\Cloud\Model\BooksBankTally|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postBooksBankSync(string $contentType = self::contentTypes['postBooksBankSync'][0])
     {
@@ -4972,7 +4974,7 @@ class BooksApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BankTally, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksBankTally|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postBooksBankSyncWithHttpInfo(string $contentType = self::contentTypes['postBooksBankSync'][0])
     {
@@ -5004,7 +5006,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BankTally',
+                        '\Hanzo\Cloud\Model\BooksBankTally',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5026,7 +5034,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BankTally',
+                '\Hanzo\Cloud\Model\BooksBankTally',
                 $request,
                 $response,
             );
@@ -5035,7 +5043,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BankTally',
+                        '\Hanzo\Cloud\Model\BooksBankTally',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5079,7 +5095,7 @@ class BooksApi
      */
     public function postBooksBankSyncAsyncWithHttpInfo(string $contentType = self::contentTypes['postBooksBankSync'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BankTally';
+        $returnType = '\Hanzo\Cloud\Model\BooksBankTally';
         $request = $this->postBooksBankSyncRequest($contentType);
 
         return $this->client
@@ -5142,209 +5158,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postBooksBankToken
-     *
-     * Begin connecting a bank account (not yet available)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksBankToken'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postBooksBankToken(string $contentType = self::contentTypes['postBooksBankToken'][0])
-    {
-        $this->postBooksBankTokenWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postBooksBankTokenWithHttpInfo
-     *
-     * Begin connecting a bank account (not yet available)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksBankToken'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postBooksBankTokenWithHttpInfo(string $contentType = self::contentTypes['postBooksBankToken'][0])
-    {
-        $request = $this->postBooksBankTokenRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postBooksBankTokenAsync
-     *
-     * Begin connecting a bank account (not yet available)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksBankToken'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postBooksBankTokenAsync(string $contentType = self::contentTypes['postBooksBankToken'][0])
-    {
-        return $this->postBooksBankTokenAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postBooksBankTokenAsyncWithHttpInfo
-     *
-     * Begin connecting a bank account (not yet available)
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksBankToken'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postBooksBankTokenAsyncWithHttpInfo(string $contentType = self::contentTypes['postBooksBankToken'][0])
-    {
-        $returnType = '';
-        $request = $this->postBooksBankTokenRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postBooksBankToken'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksBankToken'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postBooksBankTokenRequest(string $contentType = self::contentTypes['postBooksBankToken'][0])
-    {
-
-
-        $resourcePath = '/v1/books/bank/token';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5673,16 +5487,16 @@ class BooksApi
      *
      * Creates or updates one auto-categorization rule, keyed by its pattern — writing a pattern that already exists REPLACES that row&#39;s category and priority.
      *
-     * @param  \Hanzo\Cloud\Model\Rule $rule rule (required)
+     * @param  \Hanzo\Cloud\Model\BooksRule $books_rule books_rule (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksRules'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Rule
+     * @return \Hanzo\Cloud\Model\BooksRule|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postBooksRules($rule, string $contentType = self::contentTypes['postBooksRules'][0])
+    public function postBooksRules($books_rule, string $contentType = self::contentTypes['postBooksRules'][0])
     {
-        list($response) = $this->postBooksRulesWithHttpInfo($rule, $contentType);
+        list($response) = $this->postBooksRulesWithHttpInfo($books_rule, $contentType);
         return $response;
     }
 
@@ -5691,16 +5505,16 @@ class BooksApi
      *
      * Creates or updates one auto-categorization rule, keyed by its pattern — writing a pattern that already exists REPLACES that row&#39;s category and priority.
      *
-     * @param  \Hanzo\Cloud\Model\Rule $rule (required)
+     * @param  \Hanzo\Cloud\Model\BooksRule $books_rule (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksRules'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Rule, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksRule|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBooksRulesWithHttpInfo($rule, string $contentType = self::contentTypes['postBooksRules'][0])
+    public function postBooksRulesWithHttpInfo($books_rule, string $contentType = self::contentTypes['postBooksRules'][0])
     {
-        $request = $this->postBooksRulesRequest($rule, $contentType);
+        $request = $this->postBooksRulesRequest($books_rule, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5728,7 +5542,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Rule',
+                        '\Hanzo\Cloud\Model\BooksRule',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5750,7 +5570,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Rule',
+                '\Hanzo\Cloud\Model\BooksRule',
                 $request,
                 $response,
             );
@@ -5759,7 +5579,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Rule',
+                        '\Hanzo\Cloud\Model\BooksRule',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5776,15 +5604,15 @@ class BooksApi
      *
      * Creates or updates one auto-categorization rule, keyed by its pattern — writing a pattern that already exists REPLACES that row&#39;s category and priority.
      *
-     * @param  \Hanzo\Cloud\Model\Rule $rule (required)
+     * @param  \Hanzo\Cloud\Model\BooksRule $books_rule (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksRules'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBooksRulesAsync($rule, string $contentType = self::contentTypes['postBooksRules'][0])
+    public function postBooksRulesAsync($books_rule, string $contentType = self::contentTypes['postBooksRules'][0])
     {
-        return $this->postBooksRulesAsyncWithHttpInfo($rule, $contentType)
+        return $this->postBooksRulesAsyncWithHttpInfo($books_rule, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5797,16 +5625,16 @@ class BooksApi
      *
      * Creates or updates one auto-categorization rule, keyed by its pattern — writing a pattern that already exists REPLACES that row&#39;s category and priority.
      *
-     * @param  \Hanzo\Cloud\Model\Rule $rule (required)
+     * @param  \Hanzo\Cloud\Model\BooksRule $books_rule (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksRules'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBooksRulesAsyncWithHttpInfo($rule, string $contentType = self::contentTypes['postBooksRules'][0])
+    public function postBooksRulesAsyncWithHttpInfo($books_rule, string $contentType = self::contentTypes['postBooksRules'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Rule';
-        $request = $this->postBooksRulesRequest($rule, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BooksRule';
+        $request = $this->postBooksRulesRequest($books_rule, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5847,19 +5675,19 @@ class BooksApi
     /**
      * Create request for operation 'postBooksRules'
      *
-     * @param  \Hanzo\Cloud\Model\Rule $rule (required)
+     * @param  \Hanzo\Cloud\Model\BooksRule $books_rule (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksRules'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBooksRulesRequest($rule, string $contentType = self::contentTypes['postBooksRules'][0])
+    public function postBooksRulesRequest($books_rule, string $contentType = self::contentTypes['postBooksRules'][0])
     {
 
-        // verify the required parameter 'rule' is set
-        if ($rule === null || (is_array($rule) && count($rule) === 0)) {
+        // verify the required parameter 'books_rule' is set
+        if ($books_rule === null || (is_array($books_rule) && count($books_rule) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $rule when calling postBooksRules'
+                'Missing the required parameter $books_rule when calling postBooksRules'
             );
         }
 
@@ -5876,18 +5704,18 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($rule)) {
+        if (isset($books_rule)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($rule));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($books_rule));
             } else {
-                $httpBody = $rule;
+                $httpBody = $books_rule;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6212,16 +6040,16 @@ class BooksApi
      *
      * Posts a reviewed scanned bill to the ledger.
      *
-     * @param  \Hanzo\Cloud\Model\BookRequest $book_request book_request (required)
+     * @param  \Hanzo\Cloud\Model\BooksBookRequest $books_book_request books_book_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksScanBook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BookResponse
+     * @return \Hanzo\Cloud\Model\BooksBookResponse|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postBooksScanBook($book_request, string $contentType = self::contentTypes['postBooksScanBook'][0])
+    public function postBooksScanBook($books_book_request, string $contentType = self::contentTypes['postBooksScanBook'][0])
     {
-        list($response) = $this->postBooksScanBookWithHttpInfo($book_request, $contentType);
+        list($response) = $this->postBooksScanBookWithHttpInfo($books_book_request, $contentType);
         return $response;
     }
 
@@ -6230,16 +6058,16 @@ class BooksApi
      *
      * Posts a reviewed scanned bill to the ledger.
      *
-     * @param  \Hanzo\Cloud\Model\BookRequest $book_request (required)
+     * @param  \Hanzo\Cloud\Model\BooksBookRequest $books_book_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksScanBook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BookResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksBookResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBooksScanBookWithHttpInfo($book_request, string $contentType = self::contentTypes['postBooksScanBook'][0])
+    public function postBooksScanBookWithHttpInfo($books_book_request, string $contentType = self::contentTypes['postBooksScanBook'][0])
     {
-        $request = $this->postBooksScanBookRequest($book_request, $contentType);
+        $request = $this->postBooksScanBookRequest($books_book_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6267,7 +6095,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BookResponse',
+                        '\Hanzo\Cloud\Model\BooksBookResponse',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6289,7 +6123,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BookResponse',
+                '\Hanzo\Cloud\Model\BooksBookResponse',
                 $request,
                 $response,
             );
@@ -6298,7 +6132,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BookResponse',
+                        '\Hanzo\Cloud\Model\BooksBookResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6315,15 +6157,15 @@ class BooksApi
      *
      * Posts a reviewed scanned bill to the ledger.
      *
-     * @param  \Hanzo\Cloud\Model\BookRequest $book_request (required)
+     * @param  \Hanzo\Cloud\Model\BooksBookRequest $books_book_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksScanBook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBooksScanBookAsync($book_request, string $contentType = self::contentTypes['postBooksScanBook'][0])
+    public function postBooksScanBookAsync($books_book_request, string $contentType = self::contentTypes['postBooksScanBook'][0])
     {
-        return $this->postBooksScanBookAsyncWithHttpInfo($book_request, $contentType)
+        return $this->postBooksScanBookAsyncWithHttpInfo($books_book_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6336,16 +6178,16 @@ class BooksApi
      *
      * Posts a reviewed scanned bill to the ledger.
      *
-     * @param  \Hanzo\Cloud\Model\BookRequest $book_request (required)
+     * @param  \Hanzo\Cloud\Model\BooksBookRequest $books_book_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksScanBook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBooksScanBookAsyncWithHttpInfo($book_request, string $contentType = self::contentTypes['postBooksScanBook'][0])
+    public function postBooksScanBookAsyncWithHttpInfo($books_book_request, string $contentType = self::contentTypes['postBooksScanBook'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BookResponse';
-        $request = $this->postBooksScanBookRequest($book_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BooksBookResponse';
+        $request = $this->postBooksScanBookRequest($books_book_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6386,19 +6228,19 @@ class BooksApi
     /**
      * Create request for operation 'postBooksScanBook'
      *
-     * @param  \Hanzo\Cloud\Model\BookRequest $book_request (required)
+     * @param  \Hanzo\Cloud\Model\BooksBookRequest $books_book_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksScanBook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBooksScanBookRequest($book_request, string $contentType = self::contentTypes['postBooksScanBook'][0])
+    public function postBooksScanBookRequest($books_book_request, string $contentType = self::contentTypes['postBooksScanBook'][0])
     {
 
-        // verify the required parameter 'book_request' is set
-        if ($book_request === null || (is_array($book_request) && count($book_request) === 0)) {
+        // verify the required parameter 'books_book_request' is set
+        if ($books_book_request === null || (is_array($books_book_request) && count($books_book_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $book_request when calling postBooksScanBook'
+                'Missing the required parameter $books_book_request when calling postBooksScanBook'
             );
         }
 
@@ -6415,18 +6257,18 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($book_request)) {
+        if (isset($books_book_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($book_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($books_book_request));
             } else {
-                $httpBody = $book_request;
+                $httpBody = $books_book_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6481,13 +6323,13 @@ class BooksApi
     /**
      * Operation postBooksSync
      *
-     * Sync ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
+     * Ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksSync'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SyncTally
+     * @return \Hanzo\Cloud\Model\BooksSyncTally|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postBooksSync(string $contentType = self::contentTypes['postBooksSync'][0])
     {
@@ -6498,13 +6340,13 @@ class BooksApi
     /**
      * Operation postBooksSyncWithHttpInfo
      *
-     * Sync ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
+     * Ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksSync'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SyncTally, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksSyncTally|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postBooksSyncWithHttpInfo(string $contentType = self::contentTypes['postBooksSync'][0])
     {
@@ -6536,7 +6378,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SyncTally',
+                        '\Hanzo\Cloud\Model\BooksSyncTally',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6558,7 +6406,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SyncTally',
+                '\Hanzo\Cloud\Model\BooksSyncTally',
                 $request,
                 $response,
             );
@@ -6567,7 +6415,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SyncTally',
+                        '\Hanzo\Cloud\Model\BooksSyncTally',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6582,7 +6438,7 @@ class BooksApi
     /**
      * Operation postBooksSyncAsync
      *
-     * Sync ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
+     * Ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksSync'] to see the possible values for this operation
      *
@@ -6602,7 +6458,7 @@ class BooksApi
     /**
      * Operation postBooksSyncAsyncWithHttpInfo
      *
-     * Sync ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
+     * Ingests the caller&#39;s OWN org from commerce into BOTH ledgers (live and sandbox) and reports how many new vouchers posted to each.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksSync'] to see the possible values for this operation
      *
@@ -6611,7 +6467,7 @@ class BooksApi
      */
     public function postBooksSyncAsyncWithHttpInfo(string $contentType = self::contentTypes['postBooksSync'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SyncTally';
+        $returnType = '\Hanzo\Cloud\Model\BooksSyncTally';
         $request = $this->postBooksSyncRequest($contentType);
 
         return $this->client
@@ -6674,7 +6530,7 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6735,16 +6591,16 @@ class BooksApi
      *
      * Creates or updates one vendor in the org&#39;s vendor book, keyed by its canonical name — writing a canonical name that already exists REPLACES that row&#39;s aliases and default category.
      *
-     * @param  \Hanzo\Cloud\Model\VendorRow $vendor_row vendor_row (required)
+     * @param  \Hanzo\Cloud\Model\BooksVendorRow $books_vendor_row books_vendor_row (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksVendors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\VendorRow
+     * @return \Hanzo\Cloud\Model\BooksVendorRow|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postBooksVendors($vendor_row, string $contentType = self::contentTypes['postBooksVendors'][0])
+    public function postBooksVendors($books_vendor_row, string $contentType = self::contentTypes['postBooksVendors'][0])
     {
-        list($response) = $this->postBooksVendorsWithHttpInfo($vendor_row, $contentType);
+        list($response) = $this->postBooksVendorsWithHttpInfo($books_vendor_row, $contentType);
         return $response;
     }
 
@@ -6753,16 +6609,16 @@ class BooksApi
      *
      * Creates or updates one vendor in the org&#39;s vendor book, keyed by its canonical name — writing a canonical name that already exists REPLACES that row&#39;s aliases and default category.
      *
-     * @param  \Hanzo\Cloud\Model\VendorRow $vendor_row (required)
+     * @param  \Hanzo\Cloud\Model\BooksVendorRow $books_vendor_row (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksVendors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\VendorRow, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\BooksVendorRow|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBooksVendorsWithHttpInfo($vendor_row, string $contentType = self::contentTypes['postBooksVendors'][0])
+    public function postBooksVendorsWithHttpInfo($books_vendor_row, string $contentType = self::contentTypes['postBooksVendors'][0])
     {
-        $request = $this->postBooksVendorsRequest($vendor_row, $contentType);
+        $request = $this->postBooksVendorsRequest($books_vendor_row, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6790,7 +6646,13 @@ class BooksApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\VendorRow',
+                        '\Hanzo\Cloud\Model\BooksVendorRow',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6812,7 +6674,7 @@ class BooksApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\VendorRow',
+                '\Hanzo\Cloud\Model\BooksVendorRow',
                 $request,
                 $response,
             );
@@ -6821,7 +6683,15 @@ class BooksApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\VendorRow',
+                        '\Hanzo\Cloud\Model\BooksVendorRow',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6838,15 +6708,15 @@ class BooksApi
      *
      * Creates or updates one vendor in the org&#39;s vendor book, keyed by its canonical name — writing a canonical name that already exists REPLACES that row&#39;s aliases and default category.
      *
-     * @param  \Hanzo\Cloud\Model\VendorRow $vendor_row (required)
+     * @param  \Hanzo\Cloud\Model\BooksVendorRow $books_vendor_row (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksVendors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBooksVendorsAsync($vendor_row, string $contentType = self::contentTypes['postBooksVendors'][0])
+    public function postBooksVendorsAsync($books_vendor_row, string $contentType = self::contentTypes['postBooksVendors'][0])
     {
-        return $this->postBooksVendorsAsyncWithHttpInfo($vendor_row, $contentType)
+        return $this->postBooksVendorsAsyncWithHttpInfo($books_vendor_row, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6859,16 +6729,16 @@ class BooksApi
      *
      * Creates or updates one vendor in the org&#39;s vendor book, keyed by its canonical name — writing a canonical name that already exists REPLACES that row&#39;s aliases and default category.
      *
-     * @param  \Hanzo\Cloud\Model\VendorRow $vendor_row (required)
+     * @param  \Hanzo\Cloud\Model\BooksVendorRow $books_vendor_row (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksVendors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBooksVendorsAsyncWithHttpInfo($vendor_row, string $contentType = self::contentTypes['postBooksVendors'][0])
+    public function postBooksVendorsAsyncWithHttpInfo($books_vendor_row, string $contentType = self::contentTypes['postBooksVendors'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\VendorRow';
-        $request = $this->postBooksVendorsRequest($vendor_row, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\BooksVendorRow';
+        $request = $this->postBooksVendorsRequest($books_vendor_row, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6909,19 +6779,19 @@ class BooksApi
     /**
      * Create request for operation 'postBooksVendors'
      *
-     * @param  \Hanzo\Cloud\Model\VendorRow $vendor_row (required)
+     * @param  \Hanzo\Cloud\Model\BooksVendorRow $books_vendor_row (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBooksVendors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBooksVendorsRequest($vendor_row, string $contentType = self::contentTypes['postBooksVendors'][0])
+    public function postBooksVendorsRequest($books_vendor_row, string $contentType = self::contentTypes['postBooksVendors'][0])
     {
 
-        // verify the required parameter 'vendor_row' is set
-        if ($vendor_row === null || (is_array($vendor_row) && count($vendor_row) === 0)) {
+        // verify the required parameter 'books_vendor_row' is set
+        if ($books_vendor_row === null || (is_array($books_vendor_row) && count($books_vendor_row) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $vendor_row when calling postBooksVendors'
+                'Missing the required parameter $books_vendor_row when calling postBooksVendors'
             );
         }
 
@@ -6938,18 +6808,18 @@ class BooksApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($vendor_row)) {
+        if (isset($books_vendor_row)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($vendor_row));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($books_vendor_row));
             } else {
-                $httpBody = $vendor_row;
+                $httpBody = $books_vendor_row;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

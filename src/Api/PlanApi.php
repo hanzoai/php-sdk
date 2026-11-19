@@ -173,7 +173,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanList
+     * @return \Hanzo\Cloud\Model\PlanPlanList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlan(string $contentType = self::contentTypes['getPlan'][0])
     {
@@ -190,7 +190,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanWithHttpInfo(string $contentType = self::contentTypes['getPlan'][0])
     {
@@ -222,7 +222,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanList',
+                        '\Hanzo\Cloud\Model\PlanPlanList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -244,7 +250,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanList',
+                '\Hanzo\Cloud\Model\PlanPlanList',
                 $request,
                 $response,
             );
@@ -253,7 +259,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanList',
+                        '\Hanzo\Cloud\Model\PlanPlanList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -297,7 +311,7 @@ class PlanApi
      */
     public function getPlanAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlan'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanList';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanList';
         $request = $this->getPlanRequest($contentType);
 
         return $this->client
@@ -360,7 +374,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -425,7 +439,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanList
+     * @return \Hanzo\Cloud\Model\PlanPlanList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanBlockchain(string $contentType = self::contentTypes['getPlanBlockchain'][0])
     {
@@ -442,7 +456,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanBlockchainWithHttpInfo(string $contentType = self::contentTypes['getPlanBlockchain'][0])
     {
@@ -474,7 +488,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanList',
+                        '\Hanzo\Cloud\Model\PlanPlanList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -496,7 +516,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanList',
+                '\Hanzo\Cloud\Model\PlanPlanList',
                 $request,
                 $response,
             );
@@ -505,7 +525,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanList',
+                        '\Hanzo\Cloud\Model\PlanPlanList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -549,7 +577,7 @@ class PlanApi
      */
     public function getPlanBlockchainAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlanBlockchain'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanList';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanList';
         $request = $this->getPlanBlockchainRequest($contentType);
 
         return $this->client
@@ -612,7 +640,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -671,13 +699,13 @@ class PlanApi
     /**
      * Operation getPlanDns
      *
-     * ListDNSPlans returns the DNS plan catalog: the tiers priced on zones, records per zone and queries per day.
+     * ListDNSPlans returns the DNS plans on sale: the tiers priced on zones, records per zone and queries per day.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanDns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanList
+     * @return \Hanzo\Cloud\Model\PlanPlanList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanDns(string $contentType = self::contentTypes['getPlanDns'][0])
     {
@@ -688,13 +716,13 @@ class PlanApi
     /**
      * Operation getPlanDnsWithHttpInfo
      *
-     * ListDNSPlans returns the DNS plan catalog: the tiers priced on zones, records per zone and queries per day.
+     * ListDNSPlans returns the DNS plans on sale: the tiers priced on zones, records per zone and queries per day.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanDns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanDnsWithHttpInfo(string $contentType = self::contentTypes['getPlanDns'][0])
     {
@@ -726,7 +754,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanList',
+                        '\Hanzo\Cloud\Model\PlanPlanList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -748,7 +782,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanList',
+                '\Hanzo\Cloud\Model\PlanPlanList',
                 $request,
                 $response,
             );
@@ -757,7 +791,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanList',
+                        '\Hanzo\Cloud\Model\PlanPlanList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -772,7 +814,7 @@ class PlanApi
     /**
      * Operation getPlanDnsAsync
      *
-     * ListDNSPlans returns the DNS plan catalog: the tiers priced on zones, records per zone and queries per day.
+     * ListDNSPlans returns the DNS plans on sale: the tiers priced on zones, records per zone and queries per day.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanDns'] to see the possible values for this operation
      *
@@ -792,7 +834,7 @@ class PlanApi
     /**
      * Operation getPlanDnsAsyncWithHttpInfo
      *
-     * ListDNSPlans returns the DNS plan catalog: the tiers priced on zones, records per zone and queries per day.
+     * ListDNSPlans returns the DNS plans on sale: the tiers priced on zones, records per zone and queries per day.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanDns'] to see the possible values for this operation
      *
@@ -801,7 +843,7 @@ class PlanApi
      */
     public function getPlanDnsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlanDns'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanList';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanList';
         $request = $this->getPlanDnsRequest($contentType);
 
         return $this->client
@@ -864,7 +906,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -925,12 +967,12 @@ class PlanApi
      *
      * Returns what one plan GRANTS and not what it costs: the canonical namespaced entitlement block and the flat license-feature list derived from it.
      *
-     * @param  string $id ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
+     * @param  string $id ID is the plan&#39;s slug in the plan authority (\&quot;go\&quot;, \&quot;team\&quot;), a slug that plan replaces, or a cloud VM plan&#39;s id. An archived plan still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanEntitlementsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanEntitlements
+     * @return \Hanzo\Cloud\Model\PlanPlanEntitlements|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanEntitlementsById($id, string $contentType = self::contentTypes['getPlanEntitlementsById'][0])
     {
@@ -943,12 +985,12 @@ class PlanApi
      *
      * Returns what one plan GRANTS and not what it costs: the canonical namespaced entitlement block and the flat license-feature list derived from it.
      *
-     * @param  string $id ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
+     * @param  string $id ID is the plan&#39;s slug in the plan authority (\&quot;go\&quot;, \&quot;team\&quot;), a slug that plan replaces, or a cloud VM plan&#39;s id. An archived plan still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanEntitlementsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanEntitlements, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanEntitlements|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanEntitlementsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getPlanEntitlementsById'][0])
     {
@@ -980,7 +1022,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanEntitlements',
+                        '\Hanzo\Cloud\Model\PlanPlanEntitlements',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1002,7 +1050,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanEntitlements',
+                '\Hanzo\Cloud\Model\PlanPlanEntitlements',
                 $request,
                 $response,
             );
@@ -1011,7 +1059,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanEntitlements',
+                        '\Hanzo\Cloud\Model\PlanPlanEntitlements',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1028,7 +1084,7 @@ class PlanApi
      *
      * Returns what one plan GRANTS and not what it costs: the canonical namespaced entitlement block and the flat license-feature list derived from it.
      *
-     * @param  string $id ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
+     * @param  string $id ID is the plan&#39;s slug in the plan authority (\&quot;go\&quot;, \&quot;team\&quot;), a slug that plan replaces, or a cloud VM plan&#39;s id. An archived plan still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanEntitlementsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1049,7 +1105,7 @@ class PlanApi
      *
      * Returns what one plan GRANTS and not what it costs: the canonical namespaced entitlement block and the flat license-feature list derived from it.
      *
-     * @param  string $id ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
+     * @param  string $id ID is the plan&#39;s slug in the plan authority (\&quot;go\&quot;, \&quot;team\&quot;), a slug that plan replaces, or a cloud VM plan&#39;s id. An archived plan still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanEntitlementsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1057,7 +1113,7 @@ class PlanApi
      */
     public function getPlanEntitlementsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getPlanEntitlementsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanEntitlements';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanEntitlements';
         $request = $this->getPlanEntitlementsByIdRequest($id, $contentType);
 
         return $this->client
@@ -1099,7 +1155,7 @@ class PlanApi
     /**
      * Create request for operation 'getPlanEntitlementsById'
      *
-     * @param  string $id ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
+     * @param  string $id ID is the plan&#39;s slug in the plan authority (\&quot;go\&quot;, \&quot;team\&quot;), a slug that plan replaces, or a cloud VM plan&#39;s id. An archived plan still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanEntitlementsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1136,7 +1192,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1201,7 +1257,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanTierList
+     * @return \Hanzo\Cloud\Model\PlanPlanTierList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanGpu(string $contentType = self::contentTypes['getPlanGpu'][0])
     {
@@ -1218,7 +1274,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanTierList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanTierList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanGpuWithHttpInfo(string $contentType = self::contentTypes['getPlanGpu'][0])
     {
@@ -1250,7 +1306,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanTierList',
+                        '\Hanzo\Cloud\Model\PlanPlanTierList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1272,7 +1334,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanTierList',
+                '\Hanzo\Cloud\Model\PlanPlanTierList',
                 $request,
                 $response,
             );
@@ -1281,7 +1343,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanTierList',
+                        '\Hanzo\Cloud\Model\PlanPlanTierList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1325,7 +1395,7 @@ class PlanApi
      */
     public function getPlanGpuAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlanGpu'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanTierList';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanTierList';
         $request = $this->getPlanGpuRequest($contentType);
 
         return $this->client
@@ -1388,7 +1458,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1447,13 +1517,13 @@ class PlanApi
     /**
      * Operation getPlanHealth
      *
-     * Health reports that the plans subsystem is mounted and serving.
+     * Reports that the plans subsystem is mounted and serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanHealth
+     * @return \Hanzo\Cloud\Model\PlanPlanHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanHealth(string $contentType = self::contentTypes['getPlanHealth'][0])
     {
@@ -1464,13 +1534,13 @@ class PlanApi
     /**
      * Operation getPlanHealthWithHttpInfo
      *
-     * Health reports that the plans subsystem is mounted and serving.
+     * Reports that the plans subsystem is mounted and serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanHealthWithHttpInfo(string $contentType = self::contentTypes['getPlanHealth'][0])
     {
@@ -1502,7 +1572,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanHealth',
+                        '\Hanzo\Cloud\Model\PlanPlanHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1524,7 +1600,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanHealth',
+                '\Hanzo\Cloud\Model\PlanPlanHealth',
                 $request,
                 $response,
             );
@@ -1533,7 +1609,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanHealth',
+                        '\Hanzo\Cloud\Model\PlanPlanHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1548,7 +1632,7 @@ class PlanApi
     /**
      * Operation getPlanHealthAsync
      *
-     * Health reports that the plans subsystem is mounted and serving.
+     * Reports that the plans subsystem is mounted and serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanHealth'] to see the possible values for this operation
      *
@@ -1568,7 +1652,7 @@ class PlanApi
     /**
      * Operation getPlanHealthAsyncWithHttpInfo
      *
-     * Health reports that the plans subsystem is mounted and serving.
+     * Reports that the plans subsystem is mounted and serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanHealth'] to see the possible values for this operation
      *
@@ -1577,7 +1661,7 @@ class PlanApi
      */
     public function getPlanHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlanHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanHealth';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanHealth';
         $request = $this->getPlanHealthRequest($contentType);
 
         return $this->client
@@ -1640,7 +1724,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1705,7 +1789,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,mixed>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanPolicy(string $contentType = self::contentTypes['getPlanPolicy'][0])
     {
@@ -1722,7 +1806,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,mixed>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanPolicyWithHttpInfo(string $contentType = self::contentTypes['getPlanPolicy'][0])
     {
@@ -1758,6 +1842,12 @@ class PlanApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1786,6 +1876,14 @@ class PlanApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1892,7 +1990,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1957,7 +2055,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanRegionList
+     * @return \Hanzo\Cloud\Model\PlanPlanRegionList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanRegions(string $contentType = self::contentTypes['getPlanRegions'][0])
     {
@@ -1974,7 +2072,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanRegionList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanRegionList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanRegionsWithHttpInfo(string $contentType = self::contentTypes['getPlanRegions'][0])
     {
@@ -2006,7 +2104,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanRegionList',
+                        '\Hanzo\Cloud\Model\PlanPlanRegionList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2028,7 +2132,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanRegionList',
+                '\Hanzo\Cloud\Model\PlanPlanRegionList',
                 $request,
                 $response,
             );
@@ -2037,7 +2141,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanRegionList',
+                        '\Hanzo\Cloud\Model\PlanPlanRegionList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2081,7 +2193,7 @@ class PlanApi
      */
     public function getPlanRegionsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlanRegions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanRegionList';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanRegionList';
         $request = $this->getPlanRegionsRequest($contentType);
 
         return $this->client
@@ -2144,7 +2256,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2205,12 +2317,12 @@ class PlanApi
      *
      * Resolves one plan to everything a consumer of the catalog needs at once: its canonical entitlement block, the flat license-feature list a signed license carries, its billing reference, and the catalog it came from.
      *
-     * @param  string $id ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
+     * @param  string $id ID is the plan&#39;s slug in the plan authority (\&quot;go\&quot;, \&quot;team\&quot;), a slug that plan replaces, or a cloud VM plan&#39;s id. An archived plan still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanResolveById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanResolution
+     * @return \Hanzo\Cloud\Model\PlanPlanResolution|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanResolveById($id, string $contentType = self::contentTypes['getPlanResolveById'][0])
     {
@@ -2223,12 +2335,12 @@ class PlanApi
      *
      * Resolves one plan to everything a consumer of the catalog needs at once: its canonical entitlement block, the flat license-feature list a signed license carries, its billing reference, and the catalog it came from.
      *
-     * @param  string $id ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
+     * @param  string $id ID is the plan&#39;s slug in the plan authority (\&quot;go\&quot;, \&quot;team\&quot;), a slug that plan replaces, or a cloud VM plan&#39;s id. An archived plan still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanResolveById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanResolution, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanResolution|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanResolveByIdWithHttpInfo($id, string $contentType = self::contentTypes['getPlanResolveById'][0])
     {
@@ -2260,7 +2372,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanResolution',
+                        '\Hanzo\Cloud\Model\PlanPlanResolution',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2282,7 +2400,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanResolution',
+                '\Hanzo\Cloud\Model\PlanPlanResolution',
                 $request,
                 $response,
             );
@@ -2291,7 +2409,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanResolution',
+                        '\Hanzo\Cloud\Model\PlanPlanResolution',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2308,7 +2434,7 @@ class PlanApi
      *
      * Resolves one plan to everything a consumer of the catalog needs at once: its canonical entitlement block, the flat license-feature list a signed license carries, its billing reference, and the catalog it came from.
      *
-     * @param  string $id ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
+     * @param  string $id ID is the plan&#39;s slug in the plan authority (\&quot;go\&quot;, \&quot;team\&quot;), a slug that plan replaces, or a cloud VM plan&#39;s id. An archived plan still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanResolveById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2329,7 +2455,7 @@ class PlanApi
      *
      * Resolves one plan to everything a consumer of the catalog needs at once: its canonical entitlement block, the flat license-feature list a signed license carries, its billing reference, and the catalog it came from.
      *
-     * @param  string $id ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
+     * @param  string $id ID is the plan&#39;s slug in the plan authority (\&quot;go\&quot;, \&quot;team\&quot;), a slug that plan replaces, or a cloud VM plan&#39;s id. An archived plan still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanResolveById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2337,7 +2463,7 @@ class PlanApi
      */
     public function getPlanResolveByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getPlanResolveById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanResolution';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanResolution';
         $request = $this->getPlanResolveByIdRequest($id, $contentType);
 
         return $this->client
@@ -2379,7 +2505,7 @@ class PlanApi
     /**
      * Create request for operation 'getPlanResolveById'
      *
-     * @param  string $id ID is the plan&#39;s catalog id or slug — \&quot;dev\&quot;, \&quot;max\&quot;, \&quot;team\&quot;, \&quot;rpc-growth\&quot;. Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
+     * @param  string $id ID is the plan&#39;s slug in the plan authority (\&quot;go\&quot;, \&quot;team\&quot;), a slug that plan replaces, or a cloud VM plan&#39;s id. An archived plan still resolves for a renewal, which is why this takes an id rather than a ladder position. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanResolveById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2416,7 +2542,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2481,7 +2607,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanSchemas
+     * @return \Hanzo\Cloud\Model\PlanPlanSchemas|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanSchema(string $contentType = self::contentTypes['getPlanSchema'][0])
     {
@@ -2498,7 +2624,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanSchemas, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanSchemas|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanSchemaWithHttpInfo(string $contentType = self::contentTypes['getPlanSchema'][0])
     {
@@ -2530,7 +2656,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanSchemas',
+                        '\Hanzo\Cloud\Model\PlanPlanSchemas',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2552,7 +2684,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanSchemas',
+                '\Hanzo\Cloud\Model\PlanPlanSchemas',
                 $request,
                 $response,
             );
@@ -2561,7 +2693,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanSchemas',
+                        '\Hanzo\Cloud\Model\PlanPlanSchemas',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2605,7 +2745,7 @@ class PlanApi
      */
     public function getPlanSchemaAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlanSchema'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanSchemas';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanSchemas';
         $request = $this->getPlanSchemaRequest($contentType);
 
         return $this->client
@@ -2668,7 +2808,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2733,7 +2873,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,mixed>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanStorage(string $contentType = self::contentTypes['getPlanStorage'][0])
     {
@@ -2750,7 +2890,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,mixed>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanStorageWithHttpInfo(string $contentType = self::contentTypes['getPlanStorage'][0])
     {
@@ -2786,6 +2926,12 @@ class PlanApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -2814,6 +2960,14 @@ class PlanApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2920,7 +3074,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2979,13 +3133,13 @@ class PlanApi
     /**
      * Operation getPlanSubscriptions
      *
-     * Returns the subscription ladder — the personal and team tiers a customer buys to use the cloud, each with its monthly and annual price, seat rules, limits and billing reference.
+     * Returns the plans a customer subscribes to that are on sale — each with its monthly and annual price, seat rules, limits, the entitlement block it grants and its billing reference.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanSubscriptions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanList
+     * @return \Hanzo\Cloud\Model\PlanPlanList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanSubscriptions(string $contentType = self::contentTypes['getPlanSubscriptions'][0])
     {
@@ -2996,13 +3150,13 @@ class PlanApi
     /**
      * Operation getPlanSubscriptionsWithHttpInfo
      *
-     * Returns the subscription ladder — the personal and team tiers a customer buys to use the cloud, each with its monthly and annual price, seat rules, limits and billing reference.
+     * Returns the plans a customer subscribes to that are on sale — each with its monthly and annual price, seat rules, limits, the entitlement block it grants and its billing reference.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanSubscriptions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanSubscriptionsWithHttpInfo(string $contentType = self::contentTypes['getPlanSubscriptions'][0])
     {
@@ -3034,7 +3188,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanList',
+                        '\Hanzo\Cloud\Model\PlanPlanList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3056,7 +3216,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanList',
+                '\Hanzo\Cloud\Model\PlanPlanList',
                 $request,
                 $response,
             );
@@ -3065,7 +3225,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanList',
+                        '\Hanzo\Cloud\Model\PlanPlanList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3080,7 +3248,7 @@ class PlanApi
     /**
      * Operation getPlanSubscriptionsAsync
      *
-     * Returns the subscription ladder — the personal and team tiers a customer buys to use the cloud, each with its monthly and annual price, seat rules, limits and billing reference.
+     * Returns the plans a customer subscribes to that are on sale — each with its monthly and annual price, seat rules, limits, the entitlement block it grants and its billing reference.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanSubscriptions'] to see the possible values for this operation
      *
@@ -3100,7 +3268,7 @@ class PlanApi
     /**
      * Operation getPlanSubscriptionsAsyncWithHttpInfo
      *
-     * Returns the subscription ladder — the personal and team tiers a customer buys to use the cloud, each with its monthly and annual price, seat rules, limits and billing reference.
+     * Returns the plans a customer subscribes to that are on sale — each with its monthly and annual price, seat rules, limits, the entitlement block it grants and its billing reference.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlanSubscriptions'] to see the possible values for this operation
      *
@@ -3109,7 +3277,7 @@ class PlanApi
      */
     public function getPlanSubscriptionsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlanSubscriptions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanList';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanList';
         $request = $this->getPlanSubscriptionsRequest($contentType);
 
         return $this->client
@@ -3172,7 +3340,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3237,7 +3405,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanToolList
+     * @return \Hanzo\Cloud\Model\PlanPlanToolList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanTools(string $contentType = self::contentTypes['getPlanTools'][0])
     {
@@ -3254,7 +3422,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanToolList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanToolList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanToolsWithHttpInfo(string $contentType = self::contentTypes['getPlanTools'][0])
     {
@@ -3286,7 +3454,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanToolList',
+                        '\Hanzo\Cloud\Model\PlanPlanToolList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3308,7 +3482,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanToolList',
+                '\Hanzo\Cloud\Model\PlanPlanToolList',
                 $request,
                 $response,
             );
@@ -3317,7 +3491,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanToolList',
+                        '\Hanzo\Cloud\Model\PlanPlanToolList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3361,7 +3543,7 @@ class PlanApi
      */
     public function getPlanToolsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlanTools'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanToolList';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanToolList';
         $request = $this->getPlanToolsRequest($contentType);
 
         return $this->client
@@ -3424,7 +3606,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3489,7 +3671,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PlanVocab
+     * @return \Hanzo\Cloud\Model\PlanPlanVocab|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPlanVocab(string $contentType = self::contentTypes['getPlanVocab'][0])
     {
@@ -3506,7 +3688,7 @@ class PlanApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PlanVocab, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PlanPlanVocab|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlanVocabWithHttpInfo(string $contentType = self::contentTypes['getPlanVocab'][0])
     {
@@ -3538,7 +3720,13 @@ class PlanApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PlanVocab',
+                        '\Hanzo\Cloud\Model\PlanPlanVocab',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3560,7 +3748,7 @@ class PlanApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PlanVocab',
+                '\Hanzo\Cloud\Model\PlanPlanVocab',
                 $request,
                 $response,
             );
@@ -3569,7 +3757,15 @@ class PlanApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PlanVocab',
+                        '\Hanzo\Cloud\Model\PlanPlanVocab',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3613,7 +3809,7 @@ class PlanApi
      */
     public function getPlanVocabAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlanVocab'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PlanVocab';
+        $returnType = '\Hanzo\Cloud\Model\PlanPlanVocab';
         $request = $this->getPlanVocabRequest($contentType);
 
         return $this->client
@@ -3676,7 +3872,7 @@ class PlanApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

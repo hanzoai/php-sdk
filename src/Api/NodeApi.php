@@ -143,7 +143,7 @@ class NodeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\NodesView
+     * @return \Hanzo\Cloud\Model\NodeNodesView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getNode(string $contentType = self::contentTypes['getNode'][0])
     {
@@ -160,7 +160,7 @@ class NodeApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\NodesView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\NodeNodesView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getNodeWithHttpInfo(string $contentType = self::contentTypes['getNode'][0])
     {
@@ -192,7 +192,13 @@ class NodeApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\NodesView',
+                        '\Hanzo\Cloud\Model\NodeNodesView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -214,7 +220,7 @@ class NodeApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\NodesView',
+                '\Hanzo\Cloud\Model\NodeNodesView',
                 $request,
                 $response,
             );
@@ -223,7 +229,15 @@ class NodeApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\NodesView',
+                        '\Hanzo\Cloud\Model\NodeNodesView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -267,7 +281,7 @@ class NodeApi
      */
     public function getNodeAsyncWithHttpInfo(string $contentType = self::contentTypes['getNode'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\NodesView';
+        $returnType = '\Hanzo\Cloud\Model\NodeNodesView';
         $request = $this->getNodeRequest($contentType);
 
         return $this->client
@@ -330,7 +344,7 @@ class NodeApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

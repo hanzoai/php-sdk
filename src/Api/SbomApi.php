@@ -74,10 +74,10 @@ class SbomApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
-        'getSbomHealth' => [
+        'getSbomByWildcard1' => [
             'application/json',
         ],
-        'postSbom' => [
+        'getSbomHealth' => [
             'application/json',
         ],
     ];
@@ -129,6 +129,292 @@ class SbomApi
     }
 
     /**
+     * Operation getSbomByWildcard1
+     *
+     * Returns everything inside one container image, addressed by its digest or by its image ref.
+     *
+     * @param  string $wildcard1 Ref is the image to resolve, either its content-addressed digest (&#x60;sha256:…&#x60;) or its full reference (&#x60;oci.hanzo.ai/hanzo/cloud:v1&#x60;). Both are matched, so either spelling of one image answers the same components. It is the greedy tail of the address, so slashes, a tag and a digest all travel in it whole, and a percent-encoded ref is decoded before it is looked up. Empty is a 400, never a scan of the store. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSbomByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SbomSbomView|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getSbomByWildcard1($wildcard1, string $contentType = self::contentTypes['getSbomByWildcard1'][0])
+    {
+        list($response) = $this->getSbomByWildcard1WithHttpInfo($wildcard1, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getSbomByWildcard1WithHttpInfo
+     *
+     * Returns everything inside one container image, addressed by its digest or by its image ref.
+     *
+     * @param  string $wildcard1 Ref is the image to resolve, either its content-addressed digest (&#x60;sha256:…&#x60;) or its full reference (&#x60;oci.hanzo.ai/hanzo/cloud:v1&#x60;). Both are matched, so either spelling of one image answers the same components. It is the greedy tail of the address, so slashes, a tag and a digest all travel in it whole, and a percent-encoded ref is decoded before it is looked up. Empty is a 400, never a scan of the store. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSbomByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SbomSbomView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getSbomByWildcard1WithHttpInfo($wildcard1, string $contentType = self::contentTypes['getSbomByWildcard1'][0])
+    {
+        $request = $this->getSbomByWildcard1Request($wildcard1, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SbomSbomView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SbomSbomView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SbomSbomView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getSbomByWildcard1Async
+     *
+     * Returns everything inside one container image, addressed by its digest or by its image ref.
+     *
+     * @param  string $wildcard1 Ref is the image to resolve, either its content-addressed digest (&#x60;sha256:…&#x60;) or its full reference (&#x60;oci.hanzo.ai/hanzo/cloud:v1&#x60;). Both are matched, so either spelling of one image answers the same components. It is the greedy tail of the address, so slashes, a tag and a digest all travel in it whole, and a percent-encoded ref is decoded before it is looked up. Empty is a 400, never a scan of the store. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSbomByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSbomByWildcard1Async($wildcard1, string $contentType = self::contentTypes['getSbomByWildcard1'][0])
+    {
+        return $this->getSbomByWildcard1AsyncWithHttpInfo($wildcard1, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getSbomByWildcard1AsyncWithHttpInfo
+     *
+     * Returns everything inside one container image, addressed by its digest or by its image ref.
+     *
+     * @param  string $wildcard1 Ref is the image to resolve, either its content-addressed digest (&#x60;sha256:…&#x60;) or its full reference (&#x60;oci.hanzo.ai/hanzo/cloud:v1&#x60;). Both are matched, so either spelling of one image answers the same components. It is the greedy tail of the address, so slashes, a tag and a digest all travel in it whole, and a percent-encoded ref is decoded before it is looked up. Empty is a 400, never a scan of the store. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSbomByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSbomByWildcard1AsyncWithHttpInfo($wildcard1, string $contentType = self::contentTypes['getSbomByWildcard1'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SbomSbomView';
+        $request = $this->getSbomByWildcard1Request($wildcard1, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getSbomByWildcard1'
+     *
+     * @param  string $wildcard1 Ref is the image to resolve, either its content-addressed digest (&#x60;sha256:…&#x60;) or its full reference (&#x60;oci.hanzo.ai/hanzo/cloud:v1&#x60;). Both are matched, so either spelling of one image answers the same components. It is the greedy tail of the address, so slashes, a tag and a digest all travel in it whole, and a percent-encoded ref is decoded before it is looked up. Empty is a 400, never a scan of the store. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSbomByWildcard1'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getSbomByWildcard1Request($wildcard1, string $contentType = self::contentTypes['getSbomByWildcard1'][0])
+    {
+
+        // verify the required parameter 'wildcard1' is set
+        if ($wildcard1 === null || (is_array($wildcard1) && count($wildcard1) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $wildcard1 when calling getSbomByWildcard1'
+            );
+        }
+
+
+        $resourcePath = '/v1/sbom/{wildcard1}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($wildcard1 !== null) {
+            $resourcePath = str_replace(
+                '{' . 'wildcard1' . '}',
+                ObjectSerializer::toPathValue($wildcard1),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getSbomHealth
      *
      * Health is a pure liveness probe: the service is up; datastore reflects whether the datastore store is connected.
@@ -137,7 +423,7 @@ class SbomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SbomHealth
+     * @return \Hanzo\Cloud\Model\SbomSbomHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSbomHealth(string $contentType = self::contentTypes['getSbomHealth'][0])
     {
@@ -154,7 +440,7 @@ class SbomApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SbomHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SbomSbomHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSbomHealthWithHttpInfo(string $contentType = self::contentTypes['getSbomHealth'][0])
     {
@@ -186,7 +472,13 @@ class SbomApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SbomHealth',
+                        '\Hanzo\Cloud\Model\SbomSbomHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -208,7 +500,7 @@ class SbomApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SbomHealth',
+                '\Hanzo\Cloud\Model\SbomSbomHealth',
                 $request,
                 $response,
             );
@@ -217,7 +509,15 @@ class SbomApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SbomHealth',
+                        '\Hanzo\Cloud\Model\SbomSbomHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -261,7 +561,7 @@ class SbomApi
      */
     public function getSbomHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getSbomHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SbomHealth';
+        $returnType = '\Hanzo\Cloud\Model\SbomSbomHealth';
         $request = $this->getSbomHealthRequest($contentType);
 
         return $this->client
@@ -324,7 +624,7 @@ class SbomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -374,277 +674,6 @@ class SbomApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postSbom
-     *
-     * Ingest persists a CycloneDX SBOM&#39;s components keyed by image digest.
-     *
-     * @param  \Hanzo\Cloud\Model\SbomIngest $sbom_ingest sbom_ingest (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSbom'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SbomIngested
-     */
-    public function postSbom($sbom_ingest, string $contentType = self::contentTypes['postSbom'][0])
-    {
-        list($response) = $this->postSbomWithHttpInfo($sbom_ingest, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postSbomWithHttpInfo
-     *
-     * Ingest persists a CycloneDX SBOM&#39;s components keyed by image digest.
-     *
-     * @param  \Hanzo\Cloud\Model\SbomIngest $sbom_ingest (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSbom'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SbomIngested, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postSbomWithHttpInfo($sbom_ingest, string $contentType = self::contentTypes['postSbom'][0])
-    {
-        $request = $this->postSbomRequest($sbom_ingest, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 201:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SbomIngested',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SbomIngested',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 201:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SbomIngested',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postSbomAsync
-     *
-     * Ingest persists a CycloneDX SBOM&#39;s components keyed by image digest.
-     *
-     * @param  \Hanzo\Cloud\Model\SbomIngest $sbom_ingest (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSbom'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postSbomAsync($sbom_ingest, string $contentType = self::contentTypes['postSbom'][0])
-    {
-        return $this->postSbomAsyncWithHttpInfo($sbom_ingest, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postSbomAsyncWithHttpInfo
-     *
-     * Ingest persists a CycloneDX SBOM&#39;s components keyed by image digest.
-     *
-     * @param  \Hanzo\Cloud\Model\SbomIngest $sbom_ingest (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSbom'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postSbomAsyncWithHttpInfo($sbom_ingest, string $contentType = self::contentTypes['postSbom'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\SbomIngested';
-        $request = $this->postSbomRequest($sbom_ingest, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postSbom'
-     *
-     * @param  \Hanzo\Cloud\Model\SbomIngest $sbom_ingest (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSbom'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postSbomRequest($sbom_ingest, string $contentType = self::contentTypes['postSbom'][0])
-    {
-
-        // verify the required parameter 'sbom_ingest' is set
-        if ($sbom_ingest === null || (is_array($sbom_ingest) && count($sbom_ingest) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $sbom_ingest when calling postSbom'
-            );
-        }
-
-
-        $resourcePath = '/v1/sbom';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($sbom_ingest)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sbom_ingest));
-            } else {
-                $httpBody = $sbom_ingest;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

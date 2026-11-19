@@ -183,7 +183,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexEnqueued
+     * @return \Hanzo\Cloud\Model\IndexIndexEnqueued|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIndexIndexesByUid($uid, string $contentType = self::contentTypes['deleteIndexIndexesByUid'][0])
     {
@@ -201,7 +201,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexEnqueued, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexEnqueued|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIndexIndexesByUidWithHttpInfo($uid, string $contentType = self::contentTypes['deleteIndexIndexesByUid'][0])
     {
@@ -233,7 +233,13 @@ class IndexApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexEnqueued',
+                        '\Hanzo\Cloud\Model\IndexIndexEnqueued',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -255,7 +261,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexEnqueued',
+                '\Hanzo\Cloud\Model\IndexIndexEnqueued',
                 $request,
                 $response,
             );
@@ -264,7 +270,15 @@ class IndexApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexEnqueued',
+                        '\Hanzo\Cloud\Model\IndexIndexEnqueued',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -310,7 +324,7 @@ class IndexApi
      */
     public function deleteIndexIndexesByUidAsyncWithHttpInfo($uid, string $contentType = self::contentTypes['deleteIndexIndexesByUid'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexEnqueued';
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexEnqueued';
         $request = $this->deleteIndexIndexesByUidRequest($uid, $contentType);
 
         return $this->client
@@ -389,7 +403,7 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -456,7 +470,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexEnqueued
+     * @return \Hanzo\Cloud\Model\IndexIndexEnqueued|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteIndexIndexesByUidDocumentsById($uid, $id, string $contentType = self::contentTypes['deleteIndexIndexesByUidDocumentsById'][0])
     {
@@ -475,7 +489,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexEnqueued, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexEnqueued|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteIndexIndexesByUidDocumentsByIdWithHttpInfo($uid, $id, string $contentType = self::contentTypes['deleteIndexIndexesByUidDocumentsById'][0])
     {
@@ -507,7 +521,13 @@ class IndexApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexEnqueued',
+                        '\Hanzo\Cloud\Model\IndexIndexEnqueued',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -529,7 +549,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexEnqueued',
+                '\Hanzo\Cloud\Model\IndexIndexEnqueued',
                 $request,
                 $response,
             );
@@ -538,7 +558,15 @@ class IndexApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexEnqueued',
+                        '\Hanzo\Cloud\Model\IndexIndexEnqueued',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -586,7 +614,7 @@ class IndexApi
      */
     public function deleteIndexIndexesByUidDocumentsByIdAsyncWithHttpInfo($uid, $id, string $contentType = self::contentTypes['deleteIndexIndexesByUidDocumentsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexEnqueued';
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexEnqueued';
         $request = $this->deleteIndexIndexesByUidDocumentsByIdRequest($uid, $id, $contentType);
 
         return $this->client
@@ -681,7 +709,7 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -746,7 +774,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexHealth|\Hanzo\Cloud\Model\IndexHealth
+     * @return \Hanzo\Cloud\Model\IndexIndexHealth|\Hanzo\Cloud\Model\IndexIndexHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIndexHealth(string $contentType = self::contentTypes['getIndexHealth'][0])
     {
@@ -763,7 +791,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexHealth|\Hanzo\Cloud\Model\IndexHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexHealth|\Hanzo\Cloud\Model\IndexIndexHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIndexHealthWithHttpInfo(string $contentType = self::contentTypes['getIndexHealth'][0])
     {
@@ -795,13 +823,19 @@ class IndexApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexHealth',
+                        '\Hanzo\Cloud\Model\IndexIndexHealth',
                         $request,
                         $response,
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexHealth',
+                        '\Hanzo\Cloud\Model\IndexIndexHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -823,7 +857,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexHealth',
+                '\Hanzo\Cloud\Model\IndexIndexHealth',
                 $request,
                 $response,
             );
@@ -832,7 +866,7 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexHealth',
+                        '\Hanzo\Cloud\Model\IndexIndexHealth',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -840,7 +874,15 @@ class IndexApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexHealth',
+                        '\Hanzo\Cloud\Model\IndexIndexHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -884,7 +926,7 @@ class IndexApi
      */
     public function getIndexHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getIndexHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexHealth';
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexHealth';
         $request = $this->getIndexHealthRequest($contentType);
 
         return $this->client
@@ -947,7 +989,7 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1012,7 +1054,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexList
+     * @return \Hanzo\Cloud\Model\IndexIndexList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIndexIndexes(string $contentType = self::contentTypes['getIndexIndexes'][0])
     {
@@ -1029,7 +1071,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIndexIndexesWithHttpInfo(string $contentType = self::contentTypes['getIndexIndexes'][0])
     {
@@ -1061,7 +1103,13 @@ class IndexApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexList',
+                        '\Hanzo\Cloud\Model\IndexIndexList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1083,7 +1131,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexList',
+                '\Hanzo\Cloud\Model\IndexIndexList',
                 $request,
                 $response,
             );
@@ -1092,7 +1140,15 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexList',
+                        '\Hanzo\Cloud\Model\IndexIndexList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1136,7 +1192,7 @@ class IndexApi
      */
     public function getIndexIndexesAsyncWithHttpInfo(string $contentType = self::contentTypes['getIndexIndexes'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexList';
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexList';
         $request = $this->getIndexIndexesRequest($contentType);
 
         return $this->client
@@ -1199,7 +1255,7 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1265,7 +1321,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexView
+     * @return \Hanzo\Cloud\Model\IndexIndexView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIndexIndexesByUid($uid, string $contentType = self::contentTypes['getIndexIndexesByUid'][0])
     {
@@ -1283,7 +1339,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIndexIndexesByUidWithHttpInfo($uid, string $contentType = self::contentTypes['getIndexIndexesByUid'][0])
     {
@@ -1315,7 +1371,13 @@ class IndexApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexView',
+                        '\Hanzo\Cloud\Model\IndexIndexView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1337,7 +1399,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexView',
+                '\Hanzo\Cloud\Model\IndexIndexView',
                 $request,
                 $response,
             );
@@ -1346,7 +1408,15 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexView',
+                        '\Hanzo\Cloud\Model\IndexIndexView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1392,7 +1462,7 @@ class IndexApi
      */
     public function getIndexIndexesByUidAsyncWithHttpInfo($uid, string $contentType = self::contentTypes['getIndexIndexesByUid'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexView';
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexView';
         $request = $this->getIndexIndexesByUidRequest($uid, $contentType);
 
         return $this->client
@@ -1471,7 +1541,7 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1539,7 +1609,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexDocuments
+     * @return \Hanzo\Cloud\Model\IndexIndexDocuments|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIndexIndexesByUidDocuments($uid, $limit = null, $offset = null, string $contentType = self::contentTypes['getIndexIndexesByUidDocuments'][0])
     {
@@ -1559,7 +1629,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexDocuments, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexDocuments|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIndexIndexesByUidDocumentsWithHttpInfo($uid, $limit = null, $offset = null, string $contentType = self::contentTypes['getIndexIndexesByUidDocuments'][0])
     {
@@ -1591,7 +1661,13 @@ class IndexApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexDocuments',
+                        '\Hanzo\Cloud\Model\IndexIndexDocuments',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1613,7 +1689,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexDocuments',
+                '\Hanzo\Cloud\Model\IndexIndexDocuments',
                 $request,
                 $response,
             );
@@ -1622,7 +1698,15 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexDocuments',
+                        '\Hanzo\Cloud\Model\IndexIndexDocuments',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1672,7 +1756,7 @@ class IndexApi
      */
     public function getIndexIndexesByUidDocumentsAsyncWithHttpInfo($uid, $limit = null, $offset = null, string $contentType = self::contentTypes['getIndexIndexesByUidDocuments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexDocuments';
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexDocuments';
         $request = $this->getIndexIndexesByUidDocumentsRequest($uid, $limit, $offset, $contentType);
 
         return $this->client
@@ -1773,7 +1857,7 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1840,7 +1924,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIndexIndexesByUidDocumentsById($uid, $id, string $contentType = self::contentTypes['getIndexIndexesByUidDocumentsById'][0])
     {
@@ -1859,7 +1943,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIndexIndexesByUidDocumentsByIdWithHttpInfo($uid, $id, string $contentType = self::contentTypes['getIndexIndexesByUidDocumentsById'][0])
     {
@@ -1895,6 +1979,12 @@ class IndexApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -1923,6 +2013,14 @@ class IndexApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         'mixed',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2065,7 +2163,7 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2131,7 +2229,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexSettings
+     * @return \Hanzo\Cloud\Model\IndexIndexSettings|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIndexIndexesByUidSettings($uid, string $contentType = self::contentTypes['getIndexIndexesByUidSettings'][0])
     {
@@ -2149,7 +2247,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexSettings, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexSettings|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIndexIndexesByUidSettingsWithHttpInfo($uid, string $contentType = self::contentTypes['getIndexIndexesByUidSettings'][0])
     {
@@ -2181,7 +2279,13 @@ class IndexApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexSettings',
+                        '\Hanzo\Cloud\Model\IndexIndexSettings',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2203,7 +2307,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexSettings',
+                '\Hanzo\Cloud\Model\IndexIndexSettings',
                 $request,
                 $response,
             );
@@ -2212,7 +2316,15 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexSettings',
+                        '\Hanzo\Cloud\Model\IndexIndexSettings',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2258,7 +2370,7 @@ class IndexApi
      */
     public function getIndexIndexesByUidSettingsAsyncWithHttpInfo($uid, string $contentType = self::contentTypes['getIndexIndexesByUidSettings'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexSettings';
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexSettings';
         $request = $this->getIndexIndexesByUidSettingsRequest($uid, $contentType);
 
         return $this->client
@@ -2337,7 +2449,7 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2402,7 +2514,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexStats
+     * @return \Hanzo\Cloud\Model\IndexIndexStats|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIndexStats(string $contentType = self::contentTypes['getIndexStats'][0])
     {
@@ -2419,7 +2531,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexStats, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexStats|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIndexStatsWithHttpInfo(string $contentType = self::contentTypes['getIndexStats'][0])
     {
@@ -2451,7 +2563,13 @@ class IndexApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexStats',
+                        '\Hanzo\Cloud\Model\IndexIndexStats',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2473,7 +2591,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexStats',
+                '\Hanzo\Cloud\Model\IndexIndexStats',
                 $request,
                 $response,
             );
@@ -2482,7 +2600,15 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexStats',
+                        '\Hanzo\Cloud\Model\IndexIndexStats',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2526,7 +2652,7 @@ class IndexApi
      */
     public function getIndexStatsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIndexStats'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexStats';
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexStats';
         $request = $this->getIndexStatsRequest($contentType);
 
         return $this->client
@@ -2589,7 +2715,7 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2655,7 +2781,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexTask
+     * @return \Hanzo\Cloud\Model\IndexIndexTask|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIndexTasksByUid($uid, string $contentType = self::contentTypes['getIndexTasksByUid'][0])
     {
@@ -2673,7 +2799,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexTask, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexTask|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIndexTasksByUidWithHttpInfo($uid, string $contentType = self::contentTypes['getIndexTasksByUid'][0])
     {
@@ -2705,7 +2831,13 @@ class IndexApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexTask',
+                        '\Hanzo\Cloud\Model\IndexIndexTask',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2727,7 +2859,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexTask',
+                '\Hanzo\Cloud\Model\IndexIndexTask',
                 $request,
                 $response,
             );
@@ -2736,7 +2868,15 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexTask',
+                        '\Hanzo\Cloud\Model\IndexIndexTask',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2782,7 +2922,7 @@ class IndexApi
      */
     public function getIndexTasksByUidAsyncWithHttpInfo($uid, string $contentType = self::contentTypes['getIndexTasksByUid'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexTask';
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexTask';
         $request = $this->getIndexTasksByUidRequest($uid, $contentType);
 
         return $this->client
@@ -2861,7 +3001,7 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2926,7 +3066,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexVersion
+     * @return \Hanzo\Cloud\Model\IndexIndexVersion|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIndexVersion(string $contentType = self::contentTypes['getIndexVersion'][0])
     {
@@ -2943,7 +3083,7 @@ class IndexApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexVersion, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexVersion|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIndexVersionWithHttpInfo(string $contentType = self::contentTypes['getIndexVersion'][0])
     {
@@ -2975,7 +3115,13 @@ class IndexApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexVersion',
+                        '\Hanzo\Cloud\Model\IndexIndexVersion',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2997,7 +3143,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexVersion',
+                '\Hanzo\Cloud\Model\IndexIndexVersion',
                 $request,
                 $response,
             );
@@ -3006,7 +3152,15 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexVersion',
+                        '\Hanzo\Cloud\Model\IndexIndexVersion',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3050,7 +3204,7 @@ class IndexApi
      */
     public function getIndexVersionAsyncWithHttpInfo(string $contentType = self::contentTypes['getIndexVersion'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexVersion';
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexVersion';
         $request = $this->getIndexVersionRequest($contentType);
 
         return $this->client
@@ -3113,7 +3267,7 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3175,16 +3329,16 @@ class IndexApi
      * Sets which attributes an index can be filtered on.
      *
      * @param  string $uid uid (required)
-     * @param  \Hanzo\Cloud\Model\IndexFilter $index_filter index_filter (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexFilter $index_index_filter index_index_filter (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchIndexIndexesByUidSettings'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexEnqueued
+     * @return \Hanzo\Cloud\Model\IndexIndexEnqueued|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function patchIndexIndexesByUidSettings($uid, $index_filter, string $contentType = self::contentTypes['patchIndexIndexesByUidSettings'][0])
+    public function patchIndexIndexesByUidSettings($uid, $index_index_filter, string $contentType = self::contentTypes['patchIndexIndexesByUidSettings'][0])
     {
-        list($response) = $this->patchIndexIndexesByUidSettingsWithHttpInfo($uid, $index_filter, $contentType);
+        list($response) = $this->patchIndexIndexesByUidSettingsWithHttpInfo($uid, $index_index_filter, $contentType);
         return $response;
     }
 
@@ -3194,16 +3348,16 @@ class IndexApi
      * Sets which attributes an index can be filtered on.
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\IndexFilter $index_filter (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexFilter $index_index_filter (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchIndexIndexesByUidSettings'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexEnqueued, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexEnqueued|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchIndexIndexesByUidSettingsWithHttpInfo($uid, $index_filter, string $contentType = self::contentTypes['patchIndexIndexesByUidSettings'][0])
+    public function patchIndexIndexesByUidSettingsWithHttpInfo($uid, $index_index_filter, string $contentType = self::contentTypes['patchIndexIndexesByUidSettings'][0])
     {
-        $request = $this->patchIndexIndexesByUidSettingsRequest($uid, $index_filter, $contentType);
+        $request = $this->patchIndexIndexesByUidSettingsRequest($uid, $index_index_filter, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3231,7 +3385,13 @@ class IndexApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexEnqueued',
+                        '\Hanzo\Cloud\Model\IndexIndexEnqueued',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3253,7 +3413,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexEnqueued',
+                '\Hanzo\Cloud\Model\IndexIndexEnqueued',
                 $request,
                 $response,
             );
@@ -3262,7 +3422,15 @@ class IndexApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexEnqueued',
+                        '\Hanzo\Cloud\Model\IndexIndexEnqueued',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3280,15 +3448,15 @@ class IndexApi
      * Sets which attributes an index can be filtered on.
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\IndexFilter $index_filter (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexFilter $index_index_filter (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchIndexIndexesByUidSettings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchIndexIndexesByUidSettingsAsync($uid, $index_filter, string $contentType = self::contentTypes['patchIndexIndexesByUidSettings'][0])
+    public function patchIndexIndexesByUidSettingsAsync($uid, $index_index_filter, string $contentType = self::contentTypes['patchIndexIndexesByUidSettings'][0])
     {
-        return $this->patchIndexIndexesByUidSettingsAsyncWithHttpInfo($uid, $index_filter, $contentType)
+        return $this->patchIndexIndexesByUidSettingsAsyncWithHttpInfo($uid, $index_index_filter, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3302,16 +3470,16 @@ class IndexApi
      * Sets which attributes an index can be filtered on.
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\IndexFilter $index_filter (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexFilter $index_index_filter (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchIndexIndexesByUidSettings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchIndexIndexesByUidSettingsAsyncWithHttpInfo($uid, $index_filter, string $contentType = self::contentTypes['patchIndexIndexesByUidSettings'][0])
+    public function patchIndexIndexesByUidSettingsAsyncWithHttpInfo($uid, $index_index_filter, string $contentType = self::contentTypes['patchIndexIndexesByUidSettings'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexEnqueued';
-        $request = $this->patchIndexIndexesByUidSettingsRequest($uid, $index_filter, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexEnqueued';
+        $request = $this->patchIndexIndexesByUidSettingsRequest($uid, $index_index_filter, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3353,13 +3521,13 @@ class IndexApi
      * Create request for operation 'patchIndexIndexesByUidSettings'
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\IndexFilter $index_filter (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexFilter $index_index_filter (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchIndexIndexesByUidSettings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchIndexIndexesByUidSettingsRequest($uid, $index_filter, string $contentType = self::contentTypes['patchIndexIndexesByUidSettings'][0])
+    public function patchIndexIndexesByUidSettingsRequest($uid, $index_index_filter, string $contentType = self::contentTypes['patchIndexIndexesByUidSettings'][0])
     {
 
         // verify the required parameter 'uid' is set
@@ -3369,10 +3537,10 @@ class IndexApi
             );
         }
 
-        // verify the required parameter 'index_filter' is set
-        if ($index_filter === null || (is_array($index_filter) && count($index_filter) === 0)) {
+        // verify the required parameter 'index_index_filter' is set
+        if ($index_index_filter === null || (is_array($index_index_filter) && count($index_index_filter) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $index_filter when calling patchIndexIndexesByUidSettings'
+                'Missing the required parameter $index_index_filter when calling patchIndexIndexesByUidSettings'
             );
         }
 
@@ -3397,18 +3565,18 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($index_filter)) {
+        if (isset($index_index_filter)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($index_filter));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($index_index_filter));
             } else {
-                $httpBody = $index_filter;
+                $httpBody = $index_index_filter;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3465,16 +3633,16 @@ class IndexApi
      *
      * Creates an index.
      *
-     * @param  \Hanzo\Cloud\Model\IndexNew $index_new index_new (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexNew $index_index_new index_index_new (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexEnqueued
+     * @return \Hanzo\Cloud\Model\IndexIndexEnqueued|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postIndexIndexes($index_new, string $contentType = self::contentTypes['postIndexIndexes'][0])
+    public function postIndexIndexes($index_index_new, string $contentType = self::contentTypes['postIndexIndexes'][0])
     {
-        list($response) = $this->postIndexIndexesWithHttpInfo($index_new, $contentType);
+        list($response) = $this->postIndexIndexesWithHttpInfo($index_index_new, $contentType);
         return $response;
     }
 
@@ -3483,16 +3651,16 @@ class IndexApi
      *
      * Creates an index.
      *
-     * @param  \Hanzo\Cloud\Model\IndexNew $index_new (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexNew $index_index_new (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexEnqueued, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexEnqueued|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIndexIndexesWithHttpInfo($index_new, string $contentType = self::contentTypes['postIndexIndexes'][0])
+    public function postIndexIndexesWithHttpInfo($index_index_new, string $contentType = self::contentTypes['postIndexIndexes'][0])
     {
-        $request = $this->postIndexIndexesRequest($index_new, $contentType);
+        $request = $this->postIndexIndexesRequest($index_index_new, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3520,7 +3688,13 @@ class IndexApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexEnqueued',
+                        '\Hanzo\Cloud\Model\IndexIndexEnqueued',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3542,7 +3716,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexEnqueued',
+                '\Hanzo\Cloud\Model\IndexIndexEnqueued',
                 $request,
                 $response,
             );
@@ -3551,7 +3725,15 @@ class IndexApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexEnqueued',
+                        '\Hanzo\Cloud\Model\IndexIndexEnqueued',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3568,15 +3750,15 @@ class IndexApi
      *
      * Creates an index.
      *
-     * @param  \Hanzo\Cloud\Model\IndexNew $index_new (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexNew $index_index_new (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIndexIndexesAsync($index_new, string $contentType = self::contentTypes['postIndexIndexes'][0])
+    public function postIndexIndexesAsync($index_index_new, string $contentType = self::contentTypes['postIndexIndexes'][0])
     {
-        return $this->postIndexIndexesAsyncWithHttpInfo($index_new, $contentType)
+        return $this->postIndexIndexesAsyncWithHttpInfo($index_index_new, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3589,16 +3771,16 @@ class IndexApi
      *
      * Creates an index.
      *
-     * @param  \Hanzo\Cloud\Model\IndexNew $index_new (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexNew $index_index_new (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIndexIndexesAsyncWithHttpInfo($index_new, string $contentType = self::contentTypes['postIndexIndexes'][0])
+    public function postIndexIndexesAsyncWithHttpInfo($index_index_new, string $contentType = self::contentTypes['postIndexIndexes'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexEnqueued';
-        $request = $this->postIndexIndexesRequest($index_new, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexEnqueued';
+        $request = $this->postIndexIndexesRequest($index_index_new, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3639,19 +3821,19 @@ class IndexApi
     /**
      * Create request for operation 'postIndexIndexes'
      *
-     * @param  \Hanzo\Cloud\Model\IndexNew $index_new (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexNew $index_index_new (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIndexIndexesRequest($index_new, string $contentType = self::contentTypes['postIndexIndexes'][0])
+    public function postIndexIndexesRequest($index_index_new, string $contentType = self::contentTypes['postIndexIndexes'][0])
     {
 
-        // verify the required parameter 'index_new' is set
-        if ($index_new === null || (is_array($index_new) && count($index_new) === 0)) {
+        // verify the required parameter 'index_index_new' is set
+        if ($index_index_new === null || (is_array($index_index_new) && count($index_index_new) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $index_new when calling postIndexIndexes'
+                'Missing the required parameter $index_index_new when calling postIndexIndexes'
             );
         }
 
@@ -3668,18 +3850,18 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($index_new)) {
+        if (isset($index_index_new)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($index_new));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($index_index_new));
             } else {
-                $httpBody = $index_new;
+                $httpBody = $index_index_new;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4313,16 +4495,16 @@ class IndexApi
      * Searches an index, forgiving typos.
      *
      * @param  string $uid uid (required)
-     * @param  \Hanzo\Cloud\Model\IndexQuery $index_query index_query (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexQuery $index_index_query index_index_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexesByUidSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexHits
+     * @return \Hanzo\Cloud\Model\IndexIndexHits|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postIndexIndexesByUidSearch($uid, $index_query, string $contentType = self::contentTypes['postIndexIndexesByUidSearch'][0])
+    public function postIndexIndexesByUidSearch($uid, $index_index_query, string $contentType = self::contentTypes['postIndexIndexesByUidSearch'][0])
     {
-        list($response) = $this->postIndexIndexesByUidSearchWithHttpInfo($uid, $index_query, $contentType);
+        list($response) = $this->postIndexIndexesByUidSearchWithHttpInfo($uid, $index_index_query, $contentType);
         return $response;
     }
 
@@ -4332,16 +4514,16 @@ class IndexApi
      * Searches an index, forgiving typos.
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\IndexQuery $index_query (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexQuery $index_index_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexesByUidSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexHits, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IndexIndexHits|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIndexIndexesByUidSearchWithHttpInfo($uid, $index_query, string $contentType = self::contentTypes['postIndexIndexesByUidSearch'][0])
+    public function postIndexIndexesByUidSearchWithHttpInfo($uid, $index_index_query, string $contentType = self::contentTypes['postIndexIndexesByUidSearch'][0])
     {
-        $request = $this->postIndexIndexesByUidSearchRequest($uid, $index_query, $contentType);
+        $request = $this->postIndexIndexesByUidSearchRequest($uid, $index_index_query, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4369,7 +4551,13 @@ class IndexApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexHits',
+                        '\Hanzo\Cloud\Model\IndexIndexHits',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4391,7 +4579,7 @@ class IndexApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexHits',
+                '\Hanzo\Cloud\Model\IndexIndexHits',
                 $request,
                 $response,
             );
@@ -4400,7 +4588,15 @@ class IndexApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexHits',
+                        '\Hanzo\Cloud\Model\IndexIndexHits',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4418,15 +4614,15 @@ class IndexApi
      * Searches an index, forgiving typos.
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\IndexQuery $index_query (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexQuery $index_index_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexesByUidSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIndexIndexesByUidSearchAsync($uid, $index_query, string $contentType = self::contentTypes['postIndexIndexesByUidSearch'][0])
+    public function postIndexIndexesByUidSearchAsync($uid, $index_index_query, string $contentType = self::contentTypes['postIndexIndexesByUidSearch'][0])
     {
-        return $this->postIndexIndexesByUidSearchAsyncWithHttpInfo($uid, $index_query, $contentType)
+        return $this->postIndexIndexesByUidSearchAsyncWithHttpInfo($uid, $index_index_query, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4440,16 +4636,16 @@ class IndexApi
      * Searches an index, forgiving typos.
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\IndexQuery $index_query (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexQuery $index_index_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexesByUidSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIndexIndexesByUidSearchAsyncWithHttpInfo($uid, $index_query, string $contentType = self::contentTypes['postIndexIndexesByUidSearch'][0])
+    public function postIndexIndexesByUidSearchAsyncWithHttpInfo($uid, $index_index_query, string $contentType = self::contentTypes['postIndexIndexesByUidSearch'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexHits';
-        $request = $this->postIndexIndexesByUidSearchRequest($uid, $index_query, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IndexIndexHits';
+        $request = $this->postIndexIndexesByUidSearchRequest($uid, $index_index_query, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4491,13 +4687,13 @@ class IndexApi
      * Create request for operation 'postIndexIndexesByUidSearch'
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\IndexQuery $index_query (required)
+     * @param  \Hanzo\Cloud\Model\IndexIndexQuery $index_index_query (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexesByUidSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIndexIndexesByUidSearchRequest($uid, $index_query, string $contentType = self::contentTypes['postIndexIndexesByUidSearch'][0])
+    public function postIndexIndexesByUidSearchRequest($uid, $index_index_query, string $contentType = self::contentTypes['postIndexIndexesByUidSearch'][0])
     {
 
         // verify the required parameter 'uid' is set
@@ -4507,10 +4703,10 @@ class IndexApi
             );
         }
 
-        // verify the required parameter 'index_query' is set
-        if ($index_query === null || (is_array($index_query) && count($index_query) === 0)) {
+        // verify the required parameter 'index_index_query' is set
+        if ($index_index_query === null || (is_array($index_index_query) && count($index_index_query) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $index_query when calling postIndexIndexesByUidSearch'
+                'Missing the required parameter $index_index_query when calling postIndexIndexesByUidSearch'
             );
         }
 
@@ -4535,18 +4731,18 @@ class IndexApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($index_query)) {
+        if (isset($index_index_query)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($index_query));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($index_index_query));
             } else {
-                $httpBody = $index_query;
+                $httpBody = $index_index_query;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

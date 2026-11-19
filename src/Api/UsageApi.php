@@ -150,7 +150,7 @@ class UsageApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\UsageAnalyticsView
+     * @return \Hanzo\Cloud\Model\UsageUsageAnalyticsView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getUsageAnalytics($end = null, $plan = null, $range = null, $start = null, string $contentType = self::contentTypes['getUsageAnalytics'][0])
     {
@@ -171,7 +171,7 @@ class UsageApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\UsageAnalyticsView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\UsageUsageAnalyticsView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getUsageAnalyticsWithHttpInfo($end = null, $plan = null, $range = null, $start = null, string $contentType = self::contentTypes['getUsageAnalytics'][0])
     {
@@ -203,7 +203,13 @@ class UsageApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\UsageAnalyticsView',
+                        '\Hanzo\Cloud\Model\UsageUsageAnalyticsView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -225,7 +231,7 @@ class UsageApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\UsageAnalyticsView',
+                '\Hanzo\Cloud\Model\UsageUsageAnalyticsView',
                 $request,
                 $response,
             );
@@ -234,7 +240,15 @@ class UsageApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\UsageAnalyticsView',
+                        '\Hanzo\Cloud\Model\UsageUsageAnalyticsView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -286,7 +300,7 @@ class UsageApi
      */
     public function getUsageAnalyticsAsyncWithHttpInfo($end = null, $plan = null, $range = null, $start = null, string $contentType = self::contentTypes['getUsageAnalytics'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\UsageAnalyticsView';
+        $returnType = '\Hanzo\Cloud\Model\UsageUsageAnalyticsView';
         $request = $this->getUsageAnalyticsRequest($end, $plan, $range, $start, $contentType);
 
         return $this->client
@@ -393,7 +407,7 @@ class UsageApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -459,7 +473,7 @@ class UsageApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\UsageAnalyticsAccess
+     * @return \Hanzo\Cloud\Model\UsageUsageAnalyticsAccess|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getUsageAnalyticsAccess($plan = null, string $contentType = self::contentTypes['getUsageAnalyticsAccess'][0])
     {
@@ -477,7 +491,7 @@ class UsageApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\UsageAnalyticsAccess, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\UsageUsageAnalyticsAccess|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getUsageAnalyticsAccessWithHttpInfo($plan = null, string $contentType = self::contentTypes['getUsageAnalyticsAccess'][0])
     {
@@ -509,7 +523,13 @@ class UsageApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\UsageAnalyticsAccess',
+                        '\Hanzo\Cloud\Model\UsageUsageAnalyticsAccess',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -531,7 +551,7 @@ class UsageApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\UsageAnalyticsAccess',
+                '\Hanzo\Cloud\Model\UsageUsageAnalyticsAccess',
                 $request,
                 $response,
             );
@@ -540,7 +560,15 @@ class UsageApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\UsageAnalyticsAccess',
+                        '\Hanzo\Cloud\Model\UsageUsageAnalyticsAccess',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -586,7 +614,7 @@ class UsageApi
      */
     public function getUsageAnalyticsAccessAsyncWithHttpInfo($plan = null, string $contentType = self::contentTypes['getUsageAnalyticsAccess'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\UsageAnalyticsAccess';
+        $returnType = '\Hanzo\Cloud\Model\UsageUsageAnalyticsAccess';
         $request = $this->getUsageAnalyticsAccessRequest($plan, $contentType);
 
         return $this->client
@@ -660,7 +688,7 @@ class UsageApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -729,7 +757,7 @@ class UsageApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DashResp
+     * @return \Hanzo\Cloud\Model\UsageDashResp|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getUsageSamples($account = null, $provider = null, $range = null, $window = null, string $contentType = self::contentTypes['getUsageSamples'][0])
     {
@@ -750,7 +778,7 @@ class UsageApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DashResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\UsageDashResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getUsageSamplesWithHttpInfo($account = null, $provider = null, $range = null, $window = null, string $contentType = self::contentTypes['getUsageSamples'][0])
     {
@@ -782,7 +810,13 @@ class UsageApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DashResp',
+                        '\Hanzo\Cloud\Model\UsageDashResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -804,7 +838,7 @@ class UsageApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DashResp',
+                '\Hanzo\Cloud\Model\UsageDashResp',
                 $request,
                 $response,
             );
@@ -813,7 +847,15 @@ class UsageApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DashResp',
+                        '\Hanzo\Cloud\Model\UsageDashResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -865,7 +907,7 @@ class UsageApi
      */
     public function getUsageSamplesAsyncWithHttpInfo($account = null, $provider = null, $range = null, $window = null, string $contentType = self::contentTypes['getUsageSamples'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DashResp';
+        $returnType = '\Hanzo\Cloud\Model\UsageDashResp';
         $request = $this->getUsageSamplesRequest($account, $provider, $range, $window, $contentType);
 
         return $this->client
@@ -972,7 +1014,7 @@ class UsageApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1031,7 +1073,7 @@ class UsageApi
     /**
      * Operation getUsageSummary
      *
-     * Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
+     * Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse (with what the prompt cache served and saved), the org&#39;s Kai decisions, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
      *
      * @param  string|null $range Range is the window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all, custom. Empty means 24h. A label this surface does not know, or one reaching past the 730-day horizon, is refused rather than silently replaced. (optional)
      * @param  string|null $start Start is the inclusive window start, RFC3339. Read only when Range is custom. (optional)
@@ -1040,7 +1082,7 @@ class UsageApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\UsageSummary
+     * @return \Hanzo\Cloud\Model\UsageUsageSummary|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getUsageSummary($range = null, $start = null, $end = null, string $contentType = self::contentTypes['getUsageSummary'][0])
     {
@@ -1051,7 +1093,7 @@ class UsageApi
     /**
      * Operation getUsageSummaryWithHttpInfo
      *
-     * Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
+     * Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse (with what the prompt cache served and saved), the org&#39;s Kai decisions, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
      *
      * @param  string|null $range Range is the window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all, custom. Empty means 24h. A label this surface does not know, or one reaching past the 730-day horizon, is refused rather than silently replaced. (optional)
      * @param  string|null $start Start is the inclusive window start, RFC3339. Read only when Range is custom. (optional)
@@ -1060,7 +1102,7 @@ class UsageApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\UsageSummary, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\UsageUsageSummary|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getUsageSummaryWithHttpInfo($range = null, $start = null, $end = null, string $contentType = self::contentTypes['getUsageSummary'][0])
     {
@@ -1092,7 +1134,13 @@ class UsageApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\UsageSummary',
+                        '\Hanzo\Cloud\Model\UsageUsageSummary',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1114,7 +1162,7 @@ class UsageApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\UsageSummary',
+                '\Hanzo\Cloud\Model\UsageUsageSummary',
                 $request,
                 $response,
             );
@@ -1123,7 +1171,15 @@ class UsageApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\UsageSummary',
+                        '\Hanzo\Cloud\Model\UsageUsageSummary',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1138,7 +1194,7 @@ class UsageApi
     /**
      * Operation getUsageSummaryAsync
      *
-     * Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
+     * Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse (with what the prompt cache served and saved), the org&#39;s Kai decisions, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
      *
      * @param  string|null $range Range is the window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all, custom. Empty means 24h. A label this surface does not know, or one reaching past the 730-day horizon, is refused rather than silently replaced. (optional)
      * @param  string|null $start Start is the inclusive window start, RFC3339. Read only when Range is custom. (optional)
@@ -1161,7 +1217,7 @@ class UsageApi
     /**
      * Operation getUsageSummaryAsyncWithHttpInfo
      *
-     * Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
+     * Answers GET /v1/usage/summary: the caller&#39;s own usage footprint over one window — the categorized spend roll-up from the commerce ledger, the org&#39;s LLM usage totals from the warehouse (with what the prompt cache served and saved), the org&#39;s Kai decisions, and the caller&#39;s OWN linked provider accounts beside the org&#39;s Hanzo-routed usage.
      *
      * @param  string|null $range Range is the window: a count and a unit — 24h, 7d, 90d, any &lt;N&gt;h or &lt;N&gt;d — or day, week, month, all, custom. Empty means 24h. A label this surface does not know, or one reaching past the 730-day horizon, is refused rather than silently replaced. (optional)
      * @param  string|null $start Start is the inclusive window start, RFC3339. Read only when Range is custom. (optional)
@@ -1173,7 +1229,7 @@ class UsageApi
      */
     public function getUsageSummaryAsyncWithHttpInfo($range = null, $start = null, $end = null, string $contentType = self::contentTypes['getUsageSummary'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\UsageSummary';
+        $returnType = '\Hanzo\Cloud\Model\UsageUsageSummary';
         $request = $this->getUsageSummaryRequest($range, $start, $end, $contentType);
 
         return $this->client
@@ -1269,7 +1325,7 @@ class UsageApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1330,16 +1386,16 @@ class UsageApi
      *
      * Ingests a batch of account-usage samples — what a developer&#39;s OWN AI accounts have consumed of their OWN plans, metered from each provider&#39;s own login — and appends them to the warehouse series.
      *
-     * @param  \Hanzo\Cloud\Model\ReportReq $report_req report_req (required)
+     * @param  \Hanzo\Cloud\Model\UsageReportReq $usage_report_req usage_report_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postUsage'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ReportResp
+     * @return \Hanzo\Cloud\Model\UsageReportResp|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postUsage($report_req, string $contentType = self::contentTypes['postUsage'][0])
+    public function postUsage($usage_report_req, string $contentType = self::contentTypes['postUsage'][0])
     {
-        list($response) = $this->postUsageWithHttpInfo($report_req, $contentType);
+        list($response) = $this->postUsageWithHttpInfo($usage_report_req, $contentType);
         return $response;
     }
 
@@ -1348,16 +1404,16 @@ class UsageApi
      *
      * Ingests a batch of account-usage samples — what a developer&#39;s OWN AI accounts have consumed of their OWN plans, metered from each provider&#39;s own login — and appends them to the warehouse series.
      *
-     * @param  \Hanzo\Cloud\Model\ReportReq $report_req (required)
+     * @param  \Hanzo\Cloud\Model\UsageReportReq $usage_report_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postUsage'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ReportResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\UsageReportResp|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postUsageWithHttpInfo($report_req, string $contentType = self::contentTypes['postUsage'][0])
+    public function postUsageWithHttpInfo($usage_report_req, string $contentType = self::contentTypes['postUsage'][0])
     {
-        $request = $this->postUsageRequest($report_req, $contentType);
+        $request = $this->postUsageRequest($usage_report_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1385,7 +1441,13 @@ class UsageApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ReportResp',
+                        '\Hanzo\Cloud\Model\UsageReportResp',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1407,7 +1469,7 @@ class UsageApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ReportResp',
+                '\Hanzo\Cloud\Model\UsageReportResp',
                 $request,
                 $response,
             );
@@ -1416,7 +1478,15 @@ class UsageApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ReportResp',
+                        '\Hanzo\Cloud\Model\UsageReportResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1433,15 +1503,15 @@ class UsageApi
      *
      * Ingests a batch of account-usage samples — what a developer&#39;s OWN AI accounts have consumed of their OWN plans, metered from each provider&#39;s own login — and appends them to the warehouse series.
      *
-     * @param  \Hanzo\Cloud\Model\ReportReq $report_req (required)
+     * @param  \Hanzo\Cloud\Model\UsageReportReq $usage_report_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postUsage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postUsageAsync($report_req, string $contentType = self::contentTypes['postUsage'][0])
+    public function postUsageAsync($usage_report_req, string $contentType = self::contentTypes['postUsage'][0])
     {
-        return $this->postUsageAsyncWithHttpInfo($report_req, $contentType)
+        return $this->postUsageAsyncWithHttpInfo($usage_report_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1454,16 +1524,16 @@ class UsageApi
      *
      * Ingests a batch of account-usage samples — what a developer&#39;s OWN AI accounts have consumed of their OWN plans, metered from each provider&#39;s own login — and appends them to the warehouse series.
      *
-     * @param  \Hanzo\Cloud\Model\ReportReq $report_req (required)
+     * @param  \Hanzo\Cloud\Model\UsageReportReq $usage_report_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postUsage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postUsageAsyncWithHttpInfo($report_req, string $contentType = self::contentTypes['postUsage'][0])
+    public function postUsageAsyncWithHttpInfo($usage_report_req, string $contentType = self::contentTypes['postUsage'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ReportResp';
-        $request = $this->postUsageRequest($report_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\UsageReportResp';
+        $request = $this->postUsageRequest($usage_report_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1504,19 +1574,19 @@ class UsageApi
     /**
      * Create request for operation 'postUsage'
      *
-     * @param  \Hanzo\Cloud\Model\ReportReq $report_req (required)
+     * @param  \Hanzo\Cloud\Model\UsageReportReq $usage_report_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postUsage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postUsageRequest($report_req, string $contentType = self::contentTypes['postUsage'][0])
+    public function postUsageRequest($usage_report_req, string $contentType = self::contentTypes['postUsage'][0])
     {
 
-        // verify the required parameter 'report_req' is set
-        if ($report_req === null || (is_array($report_req) && count($report_req) === 0)) {
+        // verify the required parameter 'usage_report_req' is set
+        if ($usage_report_req === null || (is_array($usage_report_req) && count($usage_report_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $report_req when calling postUsage'
+                'Missing the required parameter $usage_report_req when calling postUsage'
             );
         }
 
@@ -1533,18 +1603,18 @@ class UsageApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($report_req)) {
+        if (isset($usage_report_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($report_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($usage_report_req));
             } else {
-                $httpBody = $report_req;
+                $httpBody = $usage_report_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

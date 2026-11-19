@@ -57,7 +57,7 @@ class O11yInstalledIntegration implements ModelInterface, ArrayAccess, \JsonSeri
       * @var string[]
       */
     protected static $openAPITypes = [
-        'config' => 'array<string,object>',
+        'config' => 'array<string,mixed>',
         'id' => 'mixed',
         'installed_at' => '\DateTime',
         'org_id' => 'string',
@@ -320,7 +320,7 @@ class O11yInstalledIntegration implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets config
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getConfig()
     {
@@ -330,7 +330,7 @@ class O11yInstalledIntegration implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets config
      *
-     * @param array<string,object>|null $config config
+     * @param array<string,mixed>|null $config config
      *
      * @return self
      */

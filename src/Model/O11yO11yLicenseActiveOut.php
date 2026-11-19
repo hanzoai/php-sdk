@@ -57,7 +57,7 @@ class O11yO11yLicenseActiveOut implements ModelInterface, ArrayAccess, \JsonSeri
       * @var string[]
       */
     protected static $openAPITypes = [
-        'data' => 'object',
+        'data' => 'mixed',
         'status' => 'string'
     ];
 
@@ -79,7 +79,7 @@ class O11yO11yLicenseActiveOut implements ModelInterface, ArrayAccess, \JsonSeri
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'data' => false,
+        'data' => true,
         'status' => false
     ];
 
@@ -299,7 +299,7 @@ class O11yO11yLicenseActiveOut implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets data
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getData()
     {
@@ -309,14 +309,21 @@ class O11yO11yLicenseActiveOut implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets data
      *
-     * @param object|null $data Data is the license.
+     * @param mixed|null $data data
      *
      * @return self
      */
     public function setData($data)
     {
         if (is_null($data)) {
-            throw new \InvalidArgumentException('non-nullable data cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'data');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('data', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['data'] = $data;
 

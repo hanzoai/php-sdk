@@ -140,7 +140,7 @@ class GatewayApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TrafficView
+     * @return \Hanzo\Cloud\Model\GatewayTrafficView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function gatewayTraffic(string $contentType = self::contentTypes['gatewayTraffic'][0])
     {
@@ -157,7 +157,7 @@ class GatewayApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TrafficView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GatewayTrafficView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function gatewayTrafficWithHttpInfo(string $contentType = self::contentTypes['gatewayTraffic'][0])
     {
@@ -189,7 +189,13 @@ class GatewayApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TrafficView',
+                        '\Hanzo\Cloud\Model\GatewayTrafficView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -211,7 +217,7 @@ class GatewayApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TrafficView',
+                '\Hanzo\Cloud\Model\GatewayTrafficView',
                 $request,
                 $response,
             );
@@ -220,7 +226,15 @@ class GatewayApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TrafficView',
+                        '\Hanzo\Cloud\Model\GatewayTrafficView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -264,7 +278,7 @@ class GatewayApi
      */
     public function gatewayTrafficAsyncWithHttpInfo(string $contentType = self::contentTypes['gatewayTraffic'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TrafficView';
+        $returnType = '\Hanzo\Cloud\Model\GatewayTrafficView';
         $request = $this->gatewayTrafficRequest($contentType);
 
         return $this->client
@@ -327,7 +341,7 @@ class GatewayApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -386,13 +400,13 @@ class GatewayApi
     /**
      * Operation getGatewayConfig
      *
-     * Read returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller&#39;s own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
+     * Returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller&#39;s own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGatewayConfig'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Policy
+     * @return \Hanzo\Cloud\Model\GatewayPolicy|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getGatewayConfig(string $contentType = self::contentTypes['getGatewayConfig'][0])
     {
@@ -403,13 +417,13 @@ class GatewayApi
     /**
      * Operation getGatewayConfigWithHttpInfo
      *
-     * Read returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller&#39;s own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
+     * Returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller&#39;s own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGatewayConfig'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Policy, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GatewayPolicy|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getGatewayConfigWithHttpInfo(string $contentType = self::contentTypes['getGatewayConfig'][0])
     {
@@ -441,7 +455,13 @@ class GatewayApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Policy',
+                        '\Hanzo\Cloud\Model\GatewayPolicy',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -463,7 +483,7 @@ class GatewayApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Policy',
+                '\Hanzo\Cloud\Model\GatewayPolicy',
                 $request,
                 $response,
             );
@@ -472,7 +492,15 @@ class GatewayApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Policy',
+                        '\Hanzo\Cloud\Model\GatewayPolicy',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -487,7 +515,7 @@ class GatewayApi
     /**
      * Operation getGatewayConfigAsync
      *
-     * Read returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller&#39;s own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
+     * Returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller&#39;s own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGatewayConfig'] to see the possible values for this operation
      *
@@ -507,7 +535,7 @@ class GatewayApi
     /**
      * Operation getGatewayConfigAsyncWithHttpInfo
      *
-     * Read returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller&#39;s own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
+     * Returns the EFFECTIVE edge policy the caller is subject to: the platform CORS allowlist and pre-auth per-IP flood cap in force, plus the caller&#39;s own authenticated rate ceiling, edge-cache TTLs and accepted-method allowlist.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGatewayConfig'] to see the possible values for this operation
      *
@@ -516,7 +544,7 @@ class GatewayApi
      */
     public function getGatewayConfigAsyncWithHttpInfo(string $contentType = self::contentTypes['getGatewayConfig'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Policy';
+        $returnType = '\Hanzo\Cloud\Model\GatewayPolicy';
         $request = $this->getGatewayConfigRequest($contentType);
 
         return $this->client
@@ -579,7 +607,7 @@ class GatewayApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -638,36 +666,36 @@ class GatewayApi
     /**
      * Operation putGatewayConfig
      *
-     * Write updates one policy scope and returns the policy in force after the write.
+     * Updates one policy scope and returns the policy in force after the write.
      *
-     * @param  \Hanzo\Cloud\Model\Policy $policy policy (required)
+     * @param  \Hanzo\Cloud\Model\GatewayPolicy $gateway_policy gateway_policy (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putGatewayConfig'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Policy
+     * @return \Hanzo\Cloud\Model\GatewayPolicy|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putGatewayConfig($policy, string $contentType = self::contentTypes['putGatewayConfig'][0])
+    public function putGatewayConfig($gateway_policy, string $contentType = self::contentTypes['putGatewayConfig'][0])
     {
-        list($response) = $this->putGatewayConfigWithHttpInfo($policy, $contentType);
+        list($response) = $this->putGatewayConfigWithHttpInfo($gateway_policy, $contentType);
         return $response;
     }
 
     /**
      * Operation putGatewayConfigWithHttpInfo
      *
-     * Write updates one policy scope and returns the policy in force after the write.
+     * Updates one policy scope and returns the policy in force after the write.
      *
-     * @param  \Hanzo\Cloud\Model\Policy $policy (required)
+     * @param  \Hanzo\Cloud\Model\GatewayPolicy $gateway_policy (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putGatewayConfig'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Policy, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\GatewayPolicy|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putGatewayConfigWithHttpInfo($policy, string $contentType = self::contentTypes['putGatewayConfig'][0])
+    public function putGatewayConfigWithHttpInfo($gateway_policy, string $contentType = self::contentTypes['putGatewayConfig'][0])
     {
-        $request = $this->putGatewayConfigRequest($policy, $contentType);
+        $request = $this->putGatewayConfigRequest($gateway_policy, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -695,7 +723,13 @@ class GatewayApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Policy',
+                        '\Hanzo\Cloud\Model\GatewayPolicy',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -717,7 +751,7 @@ class GatewayApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Policy',
+                '\Hanzo\Cloud\Model\GatewayPolicy',
                 $request,
                 $response,
             );
@@ -726,7 +760,15 @@ class GatewayApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Policy',
+                        '\Hanzo\Cloud\Model\GatewayPolicy',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -741,17 +783,17 @@ class GatewayApi
     /**
      * Operation putGatewayConfigAsync
      *
-     * Write updates one policy scope and returns the policy in force after the write.
+     * Updates one policy scope and returns the policy in force after the write.
      *
-     * @param  \Hanzo\Cloud\Model\Policy $policy (required)
+     * @param  \Hanzo\Cloud\Model\GatewayPolicy $gateway_policy (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putGatewayConfig'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putGatewayConfigAsync($policy, string $contentType = self::contentTypes['putGatewayConfig'][0])
+    public function putGatewayConfigAsync($gateway_policy, string $contentType = self::contentTypes['putGatewayConfig'][0])
     {
-        return $this->putGatewayConfigAsyncWithHttpInfo($policy, $contentType)
+        return $this->putGatewayConfigAsyncWithHttpInfo($gateway_policy, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -762,18 +804,18 @@ class GatewayApi
     /**
      * Operation putGatewayConfigAsyncWithHttpInfo
      *
-     * Write updates one policy scope and returns the policy in force after the write.
+     * Updates one policy scope and returns the policy in force after the write.
      *
-     * @param  \Hanzo\Cloud\Model\Policy $policy (required)
+     * @param  \Hanzo\Cloud\Model\GatewayPolicy $gateway_policy (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putGatewayConfig'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putGatewayConfigAsyncWithHttpInfo($policy, string $contentType = self::contentTypes['putGatewayConfig'][0])
+    public function putGatewayConfigAsyncWithHttpInfo($gateway_policy, string $contentType = self::contentTypes['putGatewayConfig'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Policy';
-        $request = $this->putGatewayConfigRequest($policy, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\GatewayPolicy';
+        $request = $this->putGatewayConfigRequest($gateway_policy, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -814,19 +856,19 @@ class GatewayApi
     /**
      * Create request for operation 'putGatewayConfig'
      *
-     * @param  \Hanzo\Cloud\Model\Policy $policy (required)
+     * @param  \Hanzo\Cloud\Model\GatewayPolicy $gateway_policy (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putGatewayConfig'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putGatewayConfigRequest($policy, string $contentType = self::contentTypes['putGatewayConfig'][0])
+    public function putGatewayConfigRequest($gateway_policy, string $contentType = self::contentTypes['putGatewayConfig'][0])
     {
 
-        // verify the required parameter 'policy' is set
-        if ($policy === null || (is_array($policy) && count($policy) === 0)) {
+        // verify the required parameter 'gateway_policy' is set
+        if ($gateway_policy === null || (is_array($gateway_policy) && count($gateway_policy) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $policy when calling putGatewayConfig'
+                'Missing the required parameter $gateway_policy when calling putGatewayConfig'
             );
         }
 
@@ -843,18 +885,18 @@ class GatewayApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($policy)) {
+        if (isset($gateway_policy)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($policy));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($gateway_policy));
             } else {
-                $httpBody = $policy;
+                $httpBody = $gateway_policy;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

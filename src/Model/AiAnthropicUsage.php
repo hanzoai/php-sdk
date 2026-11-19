@@ -57,7 +57,11 @@ class AiAnthropicUsage implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'cache_creation' => '\Hanzo\Cloud\Model\AiCacheWrites',
+        'cache_creation_input_tokens' => 'int',
+        'cache_read_input_tokens' => 'int',
         'input_tokens' => 'int',
+        'iterations' => '\Hanzo\Cloud\Model\AiAnthropicUsage[]',
         'output_tokens' => 'int'
     ];
 
@@ -69,7 +73,11 @@ class AiAnthropicUsage implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'cache_creation' => null,
+        'cache_creation_input_tokens' => null,
+        'cache_read_input_tokens' => null,
         'input_tokens' => null,
+        'iterations' => null,
         'output_tokens' => null
     ];
 
@@ -79,7 +87,11 @@ class AiAnthropicUsage implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'cache_creation' => false,
+        'cache_creation_input_tokens' => false,
+        'cache_read_input_tokens' => false,
         'input_tokens' => false,
+        'iterations' => false,
         'output_tokens' => false
     ];
 
@@ -169,7 +181,11 @@ class AiAnthropicUsage implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'cache_creation' => 'cache_creation',
+        'cache_creation_input_tokens' => 'cache_creation_input_tokens',
+        'cache_read_input_tokens' => 'cache_read_input_tokens',
         'input_tokens' => 'input_tokens',
+        'iterations' => 'iterations',
         'output_tokens' => 'output_tokens'
     ];
 
@@ -179,7 +195,11 @@ class AiAnthropicUsage implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'cache_creation' => 'setCacheCreation',
+        'cache_creation_input_tokens' => 'setCacheCreationInputTokens',
+        'cache_read_input_tokens' => 'setCacheReadInputTokens',
         'input_tokens' => 'setInputTokens',
+        'iterations' => 'setIterations',
         'output_tokens' => 'setOutputTokens'
     ];
 
@@ -189,7 +209,11 @@ class AiAnthropicUsage implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'cache_creation' => 'getCacheCreation',
+        'cache_creation_input_tokens' => 'getCacheCreationInputTokens',
+        'cache_read_input_tokens' => 'getCacheReadInputTokens',
         'input_tokens' => 'getInputTokens',
+        'iterations' => 'getIterations',
         'output_tokens' => 'getOutputTokens'
     ];
 
@@ -250,7 +274,11 @@ class AiAnthropicUsage implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('cache_creation', $data ?? [], null);
+        $this->setIfExists('cache_creation_input_tokens', $data ?? [], null);
+        $this->setIfExists('cache_read_input_tokens', $data ?? [], null);
         $this->setIfExists('input_tokens', $data ?? [], null);
+        $this->setIfExists('iterations', $data ?? [], null);
         $this->setIfExists('output_tokens', $data ?? [], null);
     }
 
@@ -297,6 +325,87 @@ class AiAnthropicUsage implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
+     * Gets cache_creation
+     *
+     * @return \Hanzo\Cloud\Model\AiCacheWrites|null
+     */
+    public function getCacheCreation()
+    {
+        return $this->container['cache_creation'];
+    }
+
+    /**
+     * Sets cache_creation
+     *
+     * @param \Hanzo\Cloud\Model\AiCacheWrites|null $cache_creation cache_creation
+     *
+     * @return self
+     */
+    public function setCacheCreation($cache_creation)
+    {
+        if (is_null($cache_creation)) {
+            throw new \InvalidArgumentException('non-nullable cache_creation cannot be null');
+        }
+        $this->container['cache_creation'] = $cache_creation;
+
+        return $this;
+    }
+
+    /**
+     * Gets cache_creation_input_tokens
+     *
+     * @return int|null
+     */
+    public function getCacheCreationInputTokens()
+    {
+        return $this->container['cache_creation_input_tokens'];
+    }
+
+    /**
+     * Sets cache_creation_input_tokens
+     *
+     * @param int|null $cache_creation_input_tokens cache_creation_input_tokens
+     *
+     * @return self
+     */
+    public function setCacheCreationInputTokens($cache_creation_input_tokens)
+    {
+        if (is_null($cache_creation_input_tokens)) {
+            throw new \InvalidArgumentException('non-nullable cache_creation_input_tokens cannot be null');
+        }
+        $this->container['cache_creation_input_tokens'] = $cache_creation_input_tokens;
+
+        return $this;
+    }
+
+    /**
+     * Gets cache_read_input_tokens
+     *
+     * @return int|null
+     */
+    public function getCacheReadInputTokens()
+    {
+        return $this->container['cache_read_input_tokens'];
+    }
+
+    /**
+     * Sets cache_read_input_tokens
+     *
+     * @param int|null $cache_read_input_tokens cache_read_input_tokens
+     *
+     * @return self
+     */
+    public function setCacheReadInputTokens($cache_read_input_tokens)
+    {
+        if (is_null($cache_read_input_tokens)) {
+            throw new \InvalidArgumentException('non-nullable cache_read_input_tokens cannot be null');
+        }
+        $this->container['cache_read_input_tokens'] = $cache_read_input_tokens;
+
+        return $this;
+    }
+
+    /**
      * Gets input_tokens
      *
      * @return int|null
@@ -319,6 +428,33 @@ class AiAnthropicUsage implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable input_tokens cannot be null');
         }
         $this->container['input_tokens'] = $input_tokens;
+
+        return $this;
+    }
+
+    /**
+     * Gets iterations
+     *
+     * @return \Hanzo\Cloud\Model\AiAnthropicUsage[]|null
+     */
+    public function getIterations()
+    {
+        return $this->container['iterations'];
+    }
+
+    /**
+     * Sets iterations
+     *
+     * @param \Hanzo\Cloud\Model\AiAnthropicUsage[]|null $iterations iterations
+     *
+     * @return self
+     */
+    public function setIterations($iterations)
+    {
+        if (is_null($iterations)) {
+            throw new \InvalidArgumentException('non-nullable iterations cannot be null');
+        }
+        $this->container['iterations'] = $iterations;
 
         return $this;
     }

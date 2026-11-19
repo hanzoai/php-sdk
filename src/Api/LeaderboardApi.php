@@ -80,7 +80,25 @@ class LeaderboardApi
         'getLeaderboardActivity' => [
             'application/json',
         ],
+        'getLeaderboardBeta' => [
+            'application/json',
+        ],
+        'getLeaderboardBounty' => [
+            'application/json',
+        ],
+        'getLeaderboardFeed' => [
+            'application/json',
+        ],
+        'getLeaderboardGalaxy' => [
+            'application/json',
+        ],
         'getLeaderboardOptin' => [
+            'application/json',
+        ],
+        'getLeaderboardPulse' => [
+            'application/json',
+        ],
+        'getLeaderboardStanding' => [
             'application/json',
         ],
         'putLeaderboardOptin' => [
@@ -140,7 +158,7 @@ class LeaderboardApi
     /**
      * Operation getLeaderboard
      *
-     * Leaderboard ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
+     * Ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
      *
      * @param  string|null $scope Scope picks the board: \&quot;personal\&quot; (default) ranks the caller among their own org&#39;s users, \&quot;org\&quot; is that same org board named for an admin, \&quot;global\&quot; ranks organizations against each other. (optional)
      * @param  string|null $metric Metric is the value ranked: tokens (default), requests, or cost. (optional)
@@ -150,7 +168,7 @@ class LeaderboardApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LeaderboardView
+     * @return \Hanzo\Cloud\Model\LeaderboardLeaderboardView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLeaderboard($scope = null, $metric = null, $period = null, $limit = null, string $contentType = self::contentTypes['getLeaderboard'][0])
     {
@@ -161,7 +179,7 @@ class LeaderboardApi
     /**
      * Operation getLeaderboardWithHttpInfo
      *
-     * Leaderboard ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
+     * Ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
      *
      * @param  string|null $scope Scope picks the board: \&quot;personal\&quot; (default) ranks the caller among their own org&#39;s users, \&quot;org\&quot; is that same org board named for an admin, \&quot;global\&quot; ranks organizations against each other. (optional)
      * @param  string|null $metric Metric is the value ranked: tokens (default), requests, or cost. (optional)
@@ -171,7 +189,7 @@ class LeaderboardApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LeaderboardView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LeaderboardLeaderboardView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLeaderboardWithHttpInfo($scope = null, $metric = null, $period = null, $limit = null, string $contentType = self::contentTypes['getLeaderboard'][0])
     {
@@ -203,7 +221,13 @@ class LeaderboardApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\LeaderboardView',
+                        '\Hanzo\Cloud\Model\LeaderboardLeaderboardView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -225,7 +249,7 @@ class LeaderboardApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\LeaderboardView',
+                '\Hanzo\Cloud\Model\LeaderboardLeaderboardView',
                 $request,
                 $response,
             );
@@ -234,7 +258,15 @@ class LeaderboardApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\LeaderboardView',
+                        '\Hanzo\Cloud\Model\LeaderboardLeaderboardView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -249,7 +281,7 @@ class LeaderboardApi
     /**
      * Operation getLeaderboardAsync
      *
-     * Leaderboard ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
+     * Ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
      *
      * @param  string|null $scope Scope picks the board: \&quot;personal\&quot; (default) ranks the caller among their own org&#39;s users, \&quot;org\&quot; is that same org board named for an admin, \&quot;global\&quot; ranks organizations against each other. (optional)
      * @param  string|null $metric Metric is the value ranked: tokens (default), requests, or cost. (optional)
@@ -273,7 +305,7 @@ class LeaderboardApi
     /**
      * Operation getLeaderboardAsyncWithHttpInfo
      *
-     * Leaderboard ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
+     * Ranks AI usage over a window, either the users of the caller&#39;s own org or organizations against each other, and always reports the caller&#39;s own standing even when it falls outside the returned page.
      *
      * @param  string|null $scope Scope picks the board: \&quot;personal\&quot; (default) ranks the caller among their own org&#39;s users, \&quot;org\&quot; is that same org board named for an admin, \&quot;global\&quot; ranks organizations against each other. (optional)
      * @param  string|null $metric Metric is the value ranked: tokens (default), requests, or cost. (optional)
@@ -286,7 +318,7 @@ class LeaderboardApi
      */
     public function getLeaderboardAsyncWithHttpInfo($scope = null, $metric = null, $period = null, $limit = null, string $contentType = self::contentTypes['getLeaderboard'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\LeaderboardView';
+        $returnType = '\Hanzo\Cloud\Model\LeaderboardLeaderboardView';
         $request = $this->getLeaderboardRequest($scope, $metric, $period, $limit, $contentType);
 
         return $this->client
@@ -393,7 +425,7 @@ class LeaderboardApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -452,7 +484,7 @@ class LeaderboardApi
     /**
      * Operation getLeaderboardActivity
      *
-     * Activity returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
+     * Returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
      *
      * @param  string|null $subject Subject is what the series is about: \&quot;user\&quot; (default), \&quot;org\&quot; or \&quot;project\&quot;. (optional)
      * @param  string|null $id ID names the subject within what the caller is entitled to see. Omitted (or \&quot;me\&quot;) it is the caller themselves, or their own org. Another user requires org admin and must belong to the caller&#39;s org; another org requires a SuperAdmin. (optional)
@@ -462,7 +494,7 @@ class LeaderboardApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ActivityView
+     * @return \Hanzo\Cloud\Model\LeaderboardActivityView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLeaderboardActivity($subject = null, $id = null, $from = null, $to = null, string $contentType = self::contentTypes['getLeaderboardActivity'][0])
     {
@@ -473,7 +505,7 @@ class LeaderboardApi
     /**
      * Operation getLeaderboardActivityWithHttpInfo
      *
-     * Activity returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
+     * Returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
      *
      * @param  string|null $subject Subject is what the series is about: \&quot;user\&quot; (default), \&quot;org\&quot; or \&quot;project\&quot;. (optional)
      * @param  string|null $id ID names the subject within what the caller is entitled to see. Omitted (or \&quot;me\&quot;) it is the caller themselves, or their own org. Another user requires org admin and must belong to the caller&#39;s org; another org requires a SuperAdmin. (optional)
@@ -483,7 +515,7 @@ class LeaderboardApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ActivityView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LeaderboardActivityView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLeaderboardActivityWithHttpInfo($subject = null, $id = null, $from = null, $to = null, string $contentType = self::contentTypes['getLeaderboardActivity'][0])
     {
@@ -515,7 +547,13 @@ class LeaderboardApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ActivityView',
+                        '\Hanzo\Cloud\Model\LeaderboardActivityView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -537,7 +575,7 @@ class LeaderboardApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ActivityView',
+                '\Hanzo\Cloud\Model\LeaderboardActivityView',
                 $request,
                 $response,
             );
@@ -546,7 +584,15 @@ class LeaderboardApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ActivityView',
+                        '\Hanzo\Cloud\Model\LeaderboardActivityView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -561,7 +607,7 @@ class LeaderboardApi
     /**
      * Operation getLeaderboardActivityAsync
      *
-     * Activity returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
+     * Returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
      *
      * @param  string|null $subject Subject is what the series is about: \&quot;user\&quot; (default), \&quot;org\&quot; or \&quot;project\&quot;. (optional)
      * @param  string|null $id ID names the subject within what the caller is entitled to see. Omitted (or \&quot;me\&quot;) it is the caller themselves, or their own org. Another user requires org admin and must belong to the caller&#39;s org; another org requires a SuperAdmin. (optional)
@@ -585,7 +631,7 @@ class LeaderboardApi
     /**
      * Operation getLeaderboardActivityAsyncWithHttpInfo
      *
-     * Activity returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
+     * Returns the per-day usage series for ONE authorized subject — the points a contribution heatmap and a timeline are drawn from, gap-filled so every day in the range is present.
      *
      * @param  string|null $subject Subject is what the series is about: \&quot;user\&quot; (default), \&quot;org\&quot; or \&quot;project\&quot;. (optional)
      * @param  string|null $id ID names the subject within what the caller is entitled to see. Omitted (or \&quot;me\&quot;) it is the caller themselves, or their own org. Another user requires org admin and must belong to the caller&#39;s org; another org requires a SuperAdmin. (optional)
@@ -598,7 +644,7 @@ class LeaderboardApi
      */
     public function getLeaderboardActivityAsyncWithHttpInfo($subject = null, $id = null, $from = null, $to = null, string $contentType = self::contentTypes['getLeaderboardActivity'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ActivityView';
+        $returnType = '\Hanzo\Cloud\Model\LeaderboardActivityView';
         $request = $this->getLeaderboardActivityRequest($subject, $id, $from, $to, $contentType);
 
         return $this->client
@@ -705,7 +751,1090 @@ class LeaderboardApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getLeaderboardBeta
+     *
+     * Ranks everyone on the hanzo.ai/beta waitlist by one score: 1 per star on GitHub verified for the record and 1 per founder link followed, plus 1 per org that signed up with its referral code, plus 20 per such org that has made metered spend, plus 1 per 100,000 tokens the person used, all time.
+     *
+     * @param  int|null $limit Limit caps the rows, clamped to 1..100. Defaults to 25, which is also what a non-positive value takes. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardBeta'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\LeaderboardBetaBoard|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getLeaderboardBeta($limit = null, string $contentType = self::contentTypes['getLeaderboardBeta'][0])
+    {
+        list($response) = $this->getLeaderboardBetaWithHttpInfo($limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getLeaderboardBetaWithHttpInfo
+     *
+     * Ranks everyone on the hanzo.ai/beta waitlist by one score: 1 per star on GitHub verified for the record and 1 per founder link followed, plus 1 per org that signed up with its referral code, plus 20 per such org that has made metered spend, plus 1 per 100,000 tokens the person used, all time.
+     *
+     * @param  int|null $limit Limit caps the rows, clamped to 1..100. Defaults to 25, which is also what a non-positive value takes. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardBeta'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\LeaderboardBetaBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getLeaderboardBetaWithHttpInfo($limit = null, string $contentType = self::contentTypes['getLeaderboardBeta'][0])
+    {
+        $request = $this->getLeaderboardBetaRequest($limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\LeaderboardBetaBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\LeaderboardBetaBoard',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\LeaderboardBetaBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getLeaderboardBetaAsync
+     *
+     * Ranks everyone on the hanzo.ai/beta waitlist by one score: 1 per star on GitHub verified for the record and 1 per founder link followed, plus 1 per org that signed up with its referral code, plus 20 per such org that has made metered spend, plus 1 per 100,000 tokens the person used, all time.
+     *
+     * @param  int|null $limit Limit caps the rows, clamped to 1..100. Defaults to 25, which is also what a non-positive value takes. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardBeta'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardBetaAsync($limit = null, string $contentType = self::contentTypes['getLeaderboardBeta'][0])
+    {
+        return $this->getLeaderboardBetaAsyncWithHttpInfo($limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getLeaderboardBetaAsyncWithHttpInfo
+     *
+     * Ranks everyone on the hanzo.ai/beta waitlist by one score: 1 per star on GitHub verified for the record and 1 per founder link followed, plus 1 per org that signed up with its referral code, plus 20 per such org that has made metered spend, plus 1 per 100,000 tokens the person used, all time.
+     *
+     * @param  int|null $limit Limit caps the rows, clamped to 1..100. Defaults to 25, which is also what a non-positive value takes. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardBeta'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardBetaAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getLeaderboardBeta'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\LeaderboardBetaBoard';
+        $request = $this->getLeaderboardBetaRequest($limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getLeaderboardBeta'
+     *
+     * @param  int|null $limit Limit caps the rows, clamped to 1..100. Defaults to 25, which is also what a non-positive value takes. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardBeta'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getLeaderboardBetaRequest($limit = null, string $contentType = self::contentTypes['getLeaderboardBeta'][0])
+    {
+
+
+
+        $resourcePath = '/v1/leaderboard/beta';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getLeaderboardBounty
+     *
+     * Returns the ranked bug hunters and bounty contributors, and the recent bug and bounty awards.
+     *
+     * @param  int|null $limit Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardBounty'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\LeaderboardBountyBoard|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getLeaderboardBounty($limit = null, string $contentType = self::contentTypes['getLeaderboardBounty'][0])
+    {
+        list($response) = $this->getLeaderboardBountyWithHttpInfo($limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getLeaderboardBountyWithHttpInfo
+     *
+     * Returns the ranked bug hunters and bounty contributors, and the recent bug and bounty awards.
+     *
+     * @param  int|null $limit Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardBounty'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\LeaderboardBountyBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getLeaderboardBountyWithHttpInfo($limit = null, string $contentType = self::contentTypes['getLeaderboardBounty'][0])
+    {
+        $request = $this->getLeaderboardBountyRequest($limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\LeaderboardBountyBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\LeaderboardBountyBoard',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\LeaderboardBountyBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getLeaderboardBountyAsync
+     *
+     * Returns the ranked bug hunters and bounty contributors, and the recent bug and bounty awards.
+     *
+     * @param  int|null $limit Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardBounty'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardBountyAsync($limit = null, string $contentType = self::contentTypes['getLeaderboardBounty'][0])
+    {
+        return $this->getLeaderboardBountyAsyncWithHttpInfo($limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getLeaderboardBountyAsyncWithHttpInfo
+     *
+     * Returns the ranked bug hunters and bounty contributors, and the recent bug and bounty awards.
+     *
+     * @param  int|null $limit Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardBounty'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardBountyAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getLeaderboardBounty'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\LeaderboardBountyBoard';
+        $request = $this->getLeaderboardBountyRequest($limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getLeaderboardBounty'
+     *
+     * @param  int|null $limit Limit caps the hunter and award rows returned, clamped to 1..100. Defaults to 25. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardBounty'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getLeaderboardBountyRequest($limit = null, string $contentType = self::contentTypes['getLeaderboardBounty'][0])
+    {
+
+
+
+        $resourcePath = '/v1/leaderboard/bounty';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getLeaderboardFeed
+     *
+     * Stream the board&#39;s live lines to anyone as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardFeed'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \SplFileObject
+     */
+    public function getLeaderboardFeed(string $contentType = self::contentTypes['getLeaderboardFeed'][0])
+    {
+        list($response) = $this->getLeaderboardFeedWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getLeaderboardFeedWithHttpInfo
+     *
+     * Stream the board&#39;s live lines to anyone as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardFeed'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getLeaderboardFeedWithHttpInfo(string $contentType = self::contentTypes['getLeaderboardFeed'][0])
+    {
+        $request = $this->getLeaderboardFeedRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                
+            }
+
+            if ($this->responseWithinRangeCode('2XX', $statusCode)) {
+                return $this->handleResponseWithDataType(
+                    '\SplFileObject',
+                    $request,
+                    $response,
+                );
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\SplFileObject',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                
+            }
+        
+            if ($this->responseWithinRangeCode('2XX', $e->getCode())) {
+                $data = ObjectSerializer::deserialize(
+                    $e->getResponseBody(),
+                    '\SplFileObject',
+                    $e->getResponseHeaders()
+                );
+                $e->setResponseObject($data);
+                throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getLeaderboardFeedAsync
+     *
+     * Stream the board&#39;s live lines to anyone as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardFeed'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardFeedAsync(string $contentType = self::contentTypes['getLeaderboardFeed'][0])
+    {
+        return $this->getLeaderboardFeedAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getLeaderboardFeedAsyncWithHttpInfo
+     *
+     * Stream the board&#39;s live lines to anyone as Server-Sent Events
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardFeed'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardFeedAsyncWithHttpInfo(string $contentType = self::contentTypes['getLeaderboardFeed'][0])
+    {
+        $returnType = '\SplFileObject';
+        $request = $this->getLeaderboardFeedRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getLeaderboardFeed'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardFeed'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getLeaderboardFeedRequest(string $contentType = self::contentTypes['getLeaderboardFeed'][0])
+    {
+
+
+        $resourcePath = '/v1/leaderboard/feed';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['text/event-stream', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getLeaderboardGalaxy
+     *
+     * Returns every ranked org as a star, for a page to draw the community as a galaxy: each star holds its band in the reward program&#39;s level table, a coarse size (a factor of two), the star of the org that referred it, if any, and, only for the ranks the reader has earned a view of, its exact points and the name the standing shows for it.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardGalaxy'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\LeaderboardGalaxyView|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getLeaderboardGalaxy(string $contentType = self::contentTypes['getLeaderboardGalaxy'][0])
+    {
+        list($response) = $this->getLeaderboardGalaxyWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getLeaderboardGalaxyWithHttpInfo
+     *
+     * Returns every ranked org as a star, for a page to draw the community as a galaxy: each star holds its band in the reward program&#39;s level table, a coarse size (a factor of two), the star of the org that referred it, if any, and, only for the ranks the reader has earned a view of, its exact points and the name the standing shows for it.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardGalaxy'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\LeaderboardGalaxyView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getLeaderboardGalaxyWithHttpInfo(string $contentType = self::contentTypes['getLeaderboardGalaxy'][0])
+    {
+        $request = $this->getLeaderboardGalaxyRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\LeaderboardGalaxyView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\LeaderboardGalaxyView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\LeaderboardGalaxyView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getLeaderboardGalaxyAsync
+     *
+     * Returns every ranked org as a star, for a page to draw the community as a galaxy: each star holds its band in the reward program&#39;s level table, a coarse size (a factor of two), the star of the org that referred it, if any, and, only for the ranks the reader has earned a view of, its exact points and the name the standing shows for it.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardGalaxy'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardGalaxyAsync(string $contentType = self::contentTypes['getLeaderboardGalaxy'][0])
+    {
+        return $this->getLeaderboardGalaxyAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getLeaderboardGalaxyAsyncWithHttpInfo
+     *
+     * Returns every ranked org as a star, for a page to draw the community as a galaxy: each star holds its band in the reward program&#39;s level table, a coarse size (a factor of two), the star of the org that referred it, if any, and, only for the ranks the reader has earned a view of, its exact points and the name the standing shows for it.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardGalaxy'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardGalaxyAsyncWithHttpInfo(string $contentType = self::contentTypes['getLeaderboardGalaxy'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\LeaderboardGalaxyView';
+        $request = $this->getLeaderboardGalaxyRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getLeaderboardGalaxy'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardGalaxy'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getLeaderboardGalaxyRequest(string $contentType = self::contentTypes['getLeaderboardGalaxy'][0])
+    {
+
+
+        $resourcePath = '/v1/leaderboard/galaxy';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -770,7 +1899,7 @@ class LeaderboardApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OptinView
+     * @return \Hanzo\Cloud\Model\LeaderboardOptinView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLeaderboardOptin(string $contentType = self::contentTypes['getLeaderboardOptin'][0])
     {
@@ -787,7 +1916,7 @@ class LeaderboardApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OptinView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LeaderboardOptinView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLeaderboardOptinWithHttpInfo(string $contentType = self::contentTypes['getLeaderboardOptin'][0])
     {
@@ -819,7 +1948,13 @@ class LeaderboardApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OptinView',
+                        '\Hanzo\Cloud\Model\LeaderboardOptinView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -841,7 +1976,7 @@ class LeaderboardApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OptinView',
+                '\Hanzo\Cloud\Model\LeaderboardOptinView',
                 $request,
                 $response,
             );
@@ -850,7 +1985,15 @@ class LeaderboardApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OptinView',
+                        '\Hanzo\Cloud\Model\LeaderboardOptinView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -894,7 +2037,7 @@ class LeaderboardApi
      */
     public function getLeaderboardOptinAsyncWithHttpInfo(string $contentType = self::contentTypes['getLeaderboardOptin'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OptinView';
+        $returnType = '\Hanzo\Cloud\Model\LeaderboardOptinView';
         $request = $this->getLeaderboardOptinRequest($contentType);
 
         return $this->client
@@ -957,7 +2100,539 @@ class LeaderboardApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getLeaderboardPulse
+     *
+     * Returns how fast the platform is being used and is spreading, as counts by day for thirty days and by hour for the last day: tokens used, orgs active, orgs signed up, orgs that came through a referral link, orgs using a model for the first time (with the models most tried), and how many different models were in use (variety).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardPulse'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\LeaderboardPulseView|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getLeaderboardPulse(string $contentType = self::contentTypes['getLeaderboardPulse'][0])
+    {
+        list($response) = $this->getLeaderboardPulseWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getLeaderboardPulseWithHttpInfo
+     *
+     * Returns how fast the platform is being used and is spreading, as counts by day for thirty days and by hour for the last day: tokens used, orgs active, orgs signed up, orgs that came through a referral link, orgs using a model for the first time (with the models most tried), and how many different models were in use (variety).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardPulse'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\LeaderboardPulseView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getLeaderboardPulseWithHttpInfo(string $contentType = self::contentTypes['getLeaderboardPulse'][0])
+    {
+        $request = $this->getLeaderboardPulseRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\LeaderboardPulseView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\LeaderboardPulseView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\LeaderboardPulseView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getLeaderboardPulseAsync
+     *
+     * Returns how fast the platform is being used and is spreading, as counts by day for thirty days and by hour for the last day: tokens used, orgs active, orgs signed up, orgs that came through a referral link, orgs using a model for the first time (with the models most tried), and how many different models were in use (variety).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardPulse'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardPulseAsync(string $contentType = self::contentTypes['getLeaderboardPulse'][0])
+    {
+        return $this->getLeaderboardPulseAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getLeaderboardPulseAsyncWithHttpInfo
+     *
+     * Returns how fast the platform is being used and is spreading, as counts by day for thirty days and by hour for the last day: tokens used, orgs active, orgs signed up, orgs that came through a referral link, orgs using a model for the first time (with the models most tried), and how many different models were in use (variety).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardPulse'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardPulseAsyncWithHttpInfo(string $contentType = self::contentTypes['getLeaderboardPulse'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\LeaderboardPulseView';
+        $request = $this->getLeaderboardPulseRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getLeaderboardPulse'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardPulse'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getLeaderboardPulseRequest(string $contentType = self::contentTypes['getLeaderboardPulse'][0])
+    {
+
+
+        $resourcePath = '/v1/leaderboard/pulse';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getLeaderboardStanding
+     *
+     * Returns the public board of who has used and built the most on Hanzo, shown as a window around the reader.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardStanding'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\LeaderboardStandingView|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getLeaderboardStanding(string $contentType = self::contentTypes['getLeaderboardStanding'][0])
+    {
+        list($response) = $this->getLeaderboardStandingWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getLeaderboardStandingWithHttpInfo
+     *
+     * Returns the public board of who has used and built the most on Hanzo, shown as a window around the reader.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardStanding'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\LeaderboardStandingView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getLeaderboardStandingWithHttpInfo(string $contentType = self::contentTypes['getLeaderboardStanding'][0])
+    {
+        $request = $this->getLeaderboardStandingRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\LeaderboardStandingView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\LeaderboardStandingView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\LeaderboardStandingView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getLeaderboardStandingAsync
+     *
+     * Returns the public board of who has used and built the most on Hanzo, shown as a window around the reader.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardStanding'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardStandingAsync(string $contentType = self::contentTypes['getLeaderboardStanding'][0])
+    {
+        return $this->getLeaderboardStandingAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getLeaderboardStandingAsyncWithHttpInfo
+     *
+     * Returns the public board of who has used and built the most on Hanzo, shown as a window around the reader.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardStanding'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getLeaderboardStandingAsyncWithHttpInfo(string $contentType = self::contentTypes['getLeaderboardStanding'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\LeaderboardStandingView';
+        $request = $this->getLeaderboardStandingRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getLeaderboardStanding'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getLeaderboardStanding'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getLeaderboardStandingRequest(string $contentType = self::contentTypes['getLeaderboardStanding'][0])
+    {
+
+
+        $resourcePath = '/v1/leaderboard/standing';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1018,16 +2693,16 @@ class LeaderboardApi
      *
      * Sets the CALLER&#39;s own public-listing preference on the leaderboard.
      *
-     * @param  \Hanzo\Cloud\Model\UserOptinReq $user_optin_req user_optin_req (required)
+     * @param  \Hanzo\Cloud\Model\LeaderboardUserOptinReq $leaderboard_user_optin_req leaderboard_user_optin_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLeaderboardOptin'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\UserOptinView
+     * @return \Hanzo\Cloud\Model\LeaderboardUserOptinView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putLeaderboardOptin($user_optin_req, string $contentType = self::contentTypes['putLeaderboardOptin'][0])
+    public function putLeaderboardOptin($leaderboard_user_optin_req, string $contentType = self::contentTypes['putLeaderboardOptin'][0])
     {
-        list($response) = $this->putLeaderboardOptinWithHttpInfo($user_optin_req, $contentType);
+        list($response) = $this->putLeaderboardOptinWithHttpInfo($leaderboard_user_optin_req, $contentType);
         return $response;
     }
 
@@ -1036,16 +2711,16 @@ class LeaderboardApi
      *
      * Sets the CALLER&#39;s own public-listing preference on the leaderboard.
      *
-     * @param  \Hanzo\Cloud\Model\UserOptinReq $user_optin_req (required)
+     * @param  \Hanzo\Cloud\Model\LeaderboardUserOptinReq $leaderboard_user_optin_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLeaderboardOptin'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\UserOptinView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LeaderboardUserOptinView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putLeaderboardOptinWithHttpInfo($user_optin_req, string $contentType = self::contentTypes['putLeaderboardOptin'][0])
+    public function putLeaderboardOptinWithHttpInfo($leaderboard_user_optin_req, string $contentType = self::contentTypes['putLeaderboardOptin'][0])
     {
-        $request = $this->putLeaderboardOptinRequest($user_optin_req, $contentType);
+        $request = $this->putLeaderboardOptinRequest($leaderboard_user_optin_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1073,7 +2748,13 @@ class LeaderboardApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\UserOptinView',
+                        '\Hanzo\Cloud\Model\LeaderboardUserOptinView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1095,7 +2776,7 @@ class LeaderboardApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\UserOptinView',
+                '\Hanzo\Cloud\Model\LeaderboardUserOptinView',
                 $request,
                 $response,
             );
@@ -1104,7 +2785,15 @@ class LeaderboardApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\UserOptinView',
+                        '\Hanzo\Cloud\Model\LeaderboardUserOptinView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1121,15 +2810,15 @@ class LeaderboardApi
      *
      * Sets the CALLER&#39;s own public-listing preference on the leaderboard.
      *
-     * @param  \Hanzo\Cloud\Model\UserOptinReq $user_optin_req (required)
+     * @param  \Hanzo\Cloud\Model\LeaderboardUserOptinReq $leaderboard_user_optin_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLeaderboardOptin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putLeaderboardOptinAsync($user_optin_req, string $contentType = self::contentTypes['putLeaderboardOptin'][0])
+    public function putLeaderboardOptinAsync($leaderboard_user_optin_req, string $contentType = self::contentTypes['putLeaderboardOptin'][0])
     {
-        return $this->putLeaderboardOptinAsyncWithHttpInfo($user_optin_req, $contentType)
+        return $this->putLeaderboardOptinAsyncWithHttpInfo($leaderboard_user_optin_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1142,16 +2831,16 @@ class LeaderboardApi
      *
      * Sets the CALLER&#39;s own public-listing preference on the leaderboard.
      *
-     * @param  \Hanzo\Cloud\Model\UserOptinReq $user_optin_req (required)
+     * @param  \Hanzo\Cloud\Model\LeaderboardUserOptinReq $leaderboard_user_optin_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLeaderboardOptin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putLeaderboardOptinAsyncWithHttpInfo($user_optin_req, string $contentType = self::contentTypes['putLeaderboardOptin'][0])
+    public function putLeaderboardOptinAsyncWithHttpInfo($leaderboard_user_optin_req, string $contentType = self::contentTypes['putLeaderboardOptin'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\UserOptinView';
-        $request = $this->putLeaderboardOptinRequest($user_optin_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LeaderboardUserOptinView';
+        $request = $this->putLeaderboardOptinRequest($leaderboard_user_optin_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1192,19 +2881,19 @@ class LeaderboardApi
     /**
      * Create request for operation 'putLeaderboardOptin'
      *
-     * @param  \Hanzo\Cloud\Model\UserOptinReq $user_optin_req (required)
+     * @param  \Hanzo\Cloud\Model\LeaderboardUserOptinReq $leaderboard_user_optin_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLeaderboardOptin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putLeaderboardOptinRequest($user_optin_req, string $contentType = self::contentTypes['putLeaderboardOptin'][0])
+    public function putLeaderboardOptinRequest($leaderboard_user_optin_req, string $contentType = self::contentTypes['putLeaderboardOptin'][0])
     {
 
-        // verify the required parameter 'user_optin_req' is set
-        if ($user_optin_req === null || (is_array($user_optin_req) && count($user_optin_req) === 0)) {
+        // verify the required parameter 'leaderboard_user_optin_req' is set
+        if ($leaderboard_user_optin_req === null || (is_array($leaderboard_user_optin_req) && count($leaderboard_user_optin_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $user_optin_req when calling putLeaderboardOptin'
+                'Missing the required parameter $leaderboard_user_optin_req when calling putLeaderboardOptin'
             );
         }
 
@@ -1221,18 +2910,18 @@ class LeaderboardApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($user_optin_req)) {
+        if (isset($leaderboard_user_optin_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($user_optin_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($leaderboard_user_optin_req));
             } else {
-                $httpBody = $user_optin_req;
+                $httpBody = $leaderboard_user_optin_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1289,16 +2978,16 @@ class LeaderboardApi
      *
      * Sets the ORG&#39;s listing on the cross-org global board.
      *
-     * @param  \Hanzo\Cloud\Model\OrgOptinReq $org_optin_req org_optin_req (required)
+     * @param  \Hanzo\Cloud\Model\LeaderboardOrgOptinReq $leaderboard_org_optin_req leaderboard_org_optin_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLeaderboardOptinOrg'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OrgOptinView
+     * @return \Hanzo\Cloud\Model\LeaderboardOrgOptinView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putLeaderboardOptinOrg($org_optin_req, string $contentType = self::contentTypes['putLeaderboardOptinOrg'][0])
+    public function putLeaderboardOptinOrg($leaderboard_org_optin_req, string $contentType = self::contentTypes['putLeaderboardOptinOrg'][0])
     {
-        list($response) = $this->putLeaderboardOptinOrgWithHttpInfo($org_optin_req, $contentType);
+        list($response) = $this->putLeaderboardOptinOrgWithHttpInfo($leaderboard_org_optin_req, $contentType);
         return $response;
     }
 
@@ -1307,16 +2996,16 @@ class LeaderboardApi
      *
      * Sets the ORG&#39;s listing on the cross-org global board.
      *
-     * @param  \Hanzo\Cloud\Model\OrgOptinReq $org_optin_req (required)
+     * @param  \Hanzo\Cloud\Model\LeaderboardOrgOptinReq $leaderboard_org_optin_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLeaderboardOptinOrg'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OrgOptinView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LeaderboardOrgOptinView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putLeaderboardOptinOrgWithHttpInfo($org_optin_req, string $contentType = self::contentTypes['putLeaderboardOptinOrg'][0])
+    public function putLeaderboardOptinOrgWithHttpInfo($leaderboard_org_optin_req, string $contentType = self::contentTypes['putLeaderboardOptinOrg'][0])
     {
-        $request = $this->putLeaderboardOptinOrgRequest($org_optin_req, $contentType);
+        $request = $this->putLeaderboardOptinOrgRequest($leaderboard_org_optin_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1344,7 +3033,13 @@ class LeaderboardApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OrgOptinView',
+                        '\Hanzo\Cloud\Model\LeaderboardOrgOptinView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1366,7 +3061,7 @@ class LeaderboardApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OrgOptinView',
+                '\Hanzo\Cloud\Model\LeaderboardOrgOptinView',
                 $request,
                 $response,
             );
@@ -1375,7 +3070,15 @@ class LeaderboardApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OrgOptinView',
+                        '\Hanzo\Cloud\Model\LeaderboardOrgOptinView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1392,15 +3095,15 @@ class LeaderboardApi
      *
      * Sets the ORG&#39;s listing on the cross-org global board.
      *
-     * @param  \Hanzo\Cloud\Model\OrgOptinReq $org_optin_req (required)
+     * @param  \Hanzo\Cloud\Model\LeaderboardOrgOptinReq $leaderboard_org_optin_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLeaderboardOptinOrg'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putLeaderboardOptinOrgAsync($org_optin_req, string $contentType = self::contentTypes['putLeaderboardOptinOrg'][0])
+    public function putLeaderboardOptinOrgAsync($leaderboard_org_optin_req, string $contentType = self::contentTypes['putLeaderboardOptinOrg'][0])
     {
-        return $this->putLeaderboardOptinOrgAsyncWithHttpInfo($org_optin_req, $contentType)
+        return $this->putLeaderboardOptinOrgAsyncWithHttpInfo($leaderboard_org_optin_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1413,16 +3116,16 @@ class LeaderboardApi
      *
      * Sets the ORG&#39;s listing on the cross-org global board.
      *
-     * @param  \Hanzo\Cloud\Model\OrgOptinReq $org_optin_req (required)
+     * @param  \Hanzo\Cloud\Model\LeaderboardOrgOptinReq $leaderboard_org_optin_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLeaderboardOptinOrg'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putLeaderboardOptinOrgAsyncWithHttpInfo($org_optin_req, string $contentType = self::contentTypes['putLeaderboardOptinOrg'][0])
+    public function putLeaderboardOptinOrgAsyncWithHttpInfo($leaderboard_org_optin_req, string $contentType = self::contentTypes['putLeaderboardOptinOrg'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OrgOptinView';
-        $request = $this->putLeaderboardOptinOrgRequest($org_optin_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LeaderboardOrgOptinView';
+        $request = $this->putLeaderboardOptinOrgRequest($leaderboard_org_optin_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1463,19 +3166,19 @@ class LeaderboardApi
     /**
      * Create request for operation 'putLeaderboardOptinOrg'
      *
-     * @param  \Hanzo\Cloud\Model\OrgOptinReq $org_optin_req (required)
+     * @param  \Hanzo\Cloud\Model\LeaderboardOrgOptinReq $leaderboard_org_optin_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLeaderboardOptinOrg'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putLeaderboardOptinOrgRequest($org_optin_req, string $contentType = self::contentTypes['putLeaderboardOptinOrg'][0])
+    public function putLeaderboardOptinOrgRequest($leaderboard_org_optin_req, string $contentType = self::contentTypes['putLeaderboardOptinOrg'][0])
     {
 
-        // verify the required parameter 'org_optin_req' is set
-        if ($org_optin_req === null || (is_array($org_optin_req) && count($org_optin_req) === 0)) {
+        // verify the required parameter 'leaderboard_org_optin_req' is set
+        if ($leaderboard_org_optin_req === null || (is_array($leaderboard_org_optin_req) && count($leaderboard_org_optin_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $org_optin_req when calling putLeaderboardOptinOrg'
+                'Missing the required parameter $leaderboard_org_optin_req when calling putLeaderboardOptinOrg'
             );
         }
 
@@ -1492,18 +3195,18 @@ class LeaderboardApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($org_optin_req)) {
+        if (isset($leaderboard_org_optin_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($org_optin_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($leaderboard_org_optin_req));
             } else {
-                $httpBody = $org_optin_req;
+                $httpBody = $leaderboard_org_optin_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

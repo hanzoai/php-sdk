@@ -148,16 +148,16 @@ class LabelApi
      *
      * Dispose of this tenant&#39;s expired assertions, whole records only
      *
-     * @param  \Hanzo\Cloud\Model\RiskDisposeIn $risk_dispose_in risk_dispose_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskDisposeIn $label_risk_dispose_in label_risk_dispose_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskDisposeLabels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskDisposeOut
+     * @return \Hanzo\Cloud\Model\LabelRiskDisposeOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskDisposeLabels($risk_dispose_in, string $contentType = self::contentTypes['riskDisposeLabels'][0])
+    public function riskDisposeLabels($label_risk_dispose_in, string $contentType = self::contentTypes['riskDisposeLabels'][0])
     {
-        list($response) = $this->riskDisposeLabelsWithHttpInfo($risk_dispose_in, $contentType);
+        list($response) = $this->riskDisposeLabelsWithHttpInfo($label_risk_dispose_in, $contentType);
         return $response;
     }
 
@@ -166,16 +166,16 @@ class LabelApi
      *
      * Dispose of this tenant&#39;s expired assertions, whole records only
      *
-     * @param  \Hanzo\Cloud\Model\RiskDisposeIn $risk_dispose_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskDisposeIn $label_risk_dispose_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskDisposeLabels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskDisposeOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LabelRiskDisposeOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskDisposeLabelsWithHttpInfo($risk_dispose_in, string $contentType = self::contentTypes['riskDisposeLabels'][0])
+    public function riskDisposeLabelsWithHttpInfo($label_risk_dispose_in, string $contentType = self::contentTypes['riskDisposeLabels'][0])
     {
-        $request = $this->riskDisposeLabelsRequest($risk_dispose_in, $contentType);
+        $request = $this->riskDisposeLabelsRequest($label_risk_dispose_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -203,7 +203,13 @@ class LabelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskDisposeOut',
+                        '\Hanzo\Cloud\Model\LabelRiskDisposeOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -225,7 +231,7 @@ class LabelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskDisposeOut',
+                '\Hanzo\Cloud\Model\LabelRiskDisposeOut',
                 $request,
                 $response,
             );
@@ -234,7 +240,15 @@ class LabelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskDisposeOut',
+                        '\Hanzo\Cloud\Model\LabelRiskDisposeOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -251,15 +265,15 @@ class LabelApi
      *
      * Dispose of this tenant&#39;s expired assertions, whole records only
      *
-     * @param  \Hanzo\Cloud\Model\RiskDisposeIn $risk_dispose_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskDisposeIn $label_risk_dispose_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskDisposeLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskDisposeLabelsAsync($risk_dispose_in, string $contentType = self::contentTypes['riskDisposeLabels'][0])
+    public function riskDisposeLabelsAsync($label_risk_dispose_in, string $contentType = self::contentTypes['riskDisposeLabels'][0])
     {
-        return $this->riskDisposeLabelsAsyncWithHttpInfo($risk_dispose_in, $contentType)
+        return $this->riskDisposeLabelsAsyncWithHttpInfo($label_risk_dispose_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -272,16 +286,16 @@ class LabelApi
      *
      * Dispose of this tenant&#39;s expired assertions, whole records only
      *
-     * @param  \Hanzo\Cloud\Model\RiskDisposeIn $risk_dispose_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskDisposeIn $label_risk_dispose_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskDisposeLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskDisposeLabelsAsyncWithHttpInfo($risk_dispose_in, string $contentType = self::contentTypes['riskDisposeLabels'][0])
+    public function riskDisposeLabelsAsyncWithHttpInfo($label_risk_dispose_in, string $contentType = self::contentTypes['riskDisposeLabels'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskDisposeOut';
-        $request = $this->riskDisposeLabelsRequest($risk_dispose_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LabelRiskDisposeOut';
+        $request = $this->riskDisposeLabelsRequest($label_risk_dispose_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -322,19 +336,19 @@ class LabelApi
     /**
      * Create request for operation 'riskDisposeLabels'
      *
-     * @param  \Hanzo\Cloud\Model\RiskDisposeIn $risk_dispose_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskDisposeIn $label_risk_dispose_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskDisposeLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskDisposeLabelsRequest($risk_dispose_in, string $contentType = self::contentTypes['riskDisposeLabels'][0])
+    public function riskDisposeLabelsRequest($label_risk_dispose_in, string $contentType = self::contentTypes['riskDisposeLabels'][0])
     {
 
-        // verify the required parameter 'risk_dispose_in' is set
-        if ($risk_dispose_in === null || (is_array($risk_dispose_in) && count($risk_dispose_in) === 0)) {
+        // verify the required parameter 'label_risk_dispose_in' is set
+        if ($label_risk_dispose_in === null || (is_array($label_risk_dispose_in) && count($label_risk_dispose_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $risk_dispose_in when calling riskDisposeLabels'
+                'Missing the required parameter $label_risk_dispose_in when calling riskDisposeLabels'
             );
         }
 
@@ -351,18 +365,18 @@ class LabelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($risk_dispose_in)) {
+        if (isset($label_risk_dispose_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_dispose_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($label_risk_dispose_in));
             } else {
-                $httpBody = $risk_dispose_in;
+                $httpBody = $label_risk_dispose_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -419,16 +433,16 @@ class LabelApi
      *
      * Place or release a litigation hold on named records
      *
-     * @param  \Hanzo\Cloud\Model\RiskHoldIn $risk_hold_in risk_hold_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskHoldIn $label_risk_hold_in label_risk_hold_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskHoldLabels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskHoldOut
+     * @return \Hanzo\Cloud\Model\LabelRiskHoldOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskHoldLabels($risk_hold_in, string $contentType = self::contentTypes['riskHoldLabels'][0])
+    public function riskHoldLabels($label_risk_hold_in, string $contentType = self::contentTypes['riskHoldLabels'][0])
     {
-        list($response) = $this->riskHoldLabelsWithHttpInfo($risk_hold_in, $contentType);
+        list($response) = $this->riskHoldLabelsWithHttpInfo($label_risk_hold_in, $contentType);
         return $response;
     }
 
@@ -437,16 +451,16 @@ class LabelApi
      *
      * Place or release a litigation hold on named records
      *
-     * @param  \Hanzo\Cloud\Model\RiskHoldIn $risk_hold_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskHoldIn $label_risk_hold_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskHoldLabels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskHoldOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LabelRiskHoldOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskHoldLabelsWithHttpInfo($risk_hold_in, string $contentType = self::contentTypes['riskHoldLabels'][0])
+    public function riskHoldLabelsWithHttpInfo($label_risk_hold_in, string $contentType = self::contentTypes['riskHoldLabels'][0])
     {
-        $request = $this->riskHoldLabelsRequest($risk_hold_in, $contentType);
+        $request = $this->riskHoldLabelsRequest($label_risk_hold_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -474,7 +488,13 @@ class LabelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskHoldOut',
+                        '\Hanzo\Cloud\Model\LabelRiskHoldOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -496,7 +516,7 @@ class LabelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskHoldOut',
+                '\Hanzo\Cloud\Model\LabelRiskHoldOut',
                 $request,
                 $response,
             );
@@ -505,7 +525,15 @@ class LabelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskHoldOut',
+                        '\Hanzo\Cloud\Model\LabelRiskHoldOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -522,15 +550,15 @@ class LabelApi
      *
      * Place or release a litigation hold on named records
      *
-     * @param  \Hanzo\Cloud\Model\RiskHoldIn $risk_hold_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskHoldIn $label_risk_hold_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskHoldLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskHoldLabelsAsync($risk_hold_in, string $contentType = self::contentTypes['riskHoldLabels'][0])
+    public function riskHoldLabelsAsync($label_risk_hold_in, string $contentType = self::contentTypes['riskHoldLabels'][0])
     {
-        return $this->riskHoldLabelsAsyncWithHttpInfo($risk_hold_in, $contentType)
+        return $this->riskHoldLabelsAsyncWithHttpInfo($label_risk_hold_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -543,16 +571,16 @@ class LabelApi
      *
      * Place or release a litigation hold on named records
      *
-     * @param  \Hanzo\Cloud\Model\RiskHoldIn $risk_hold_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskHoldIn $label_risk_hold_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskHoldLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskHoldLabelsAsyncWithHttpInfo($risk_hold_in, string $contentType = self::contentTypes['riskHoldLabels'][0])
+    public function riskHoldLabelsAsyncWithHttpInfo($label_risk_hold_in, string $contentType = self::contentTypes['riskHoldLabels'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskHoldOut';
-        $request = $this->riskHoldLabelsRequest($risk_hold_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LabelRiskHoldOut';
+        $request = $this->riskHoldLabelsRequest($label_risk_hold_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -593,19 +621,19 @@ class LabelApi
     /**
      * Create request for operation 'riskHoldLabels'
      *
-     * @param  \Hanzo\Cloud\Model\RiskHoldIn $risk_hold_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskHoldIn $label_risk_hold_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskHoldLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskHoldLabelsRequest($risk_hold_in, string $contentType = self::contentTypes['riskHoldLabels'][0])
+    public function riskHoldLabelsRequest($label_risk_hold_in, string $contentType = self::contentTypes['riskHoldLabels'][0])
     {
 
-        // verify the required parameter 'risk_hold_in' is set
-        if ($risk_hold_in === null || (is_array($risk_hold_in) && count($risk_hold_in) === 0)) {
+        // verify the required parameter 'label_risk_hold_in' is set
+        if ($label_risk_hold_in === null || (is_array($label_risk_hold_in) && count($label_risk_hold_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $risk_hold_in when calling riskHoldLabels'
+                'Missing the required parameter $label_risk_hold_in when calling riskHoldLabels'
             );
         }
 
@@ -622,18 +650,18 @@ class LabelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($risk_hold_in)) {
+        if (isset($label_risk_hold_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_hold_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($label_risk_hold_in));
             } else {
-                $httpBody = $risk_hold_in;
+                $httpBody = $label_risk_hold_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -690,16 +718,16 @@ class LabelApi
      *
      * Assert ground truth about events
      *
-     * @param  \Hanzo\Cloud\Model\RiskLabelIn $risk_label_in risk_label_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskLabelIn $label_risk_label_in label_risk_label_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskLabel'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskLabelOut
+     * @return \Hanzo\Cloud\Model\LabelRiskLabelOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskLabel($risk_label_in, string $contentType = self::contentTypes['riskLabel'][0])
+    public function riskLabel($label_risk_label_in, string $contentType = self::contentTypes['riskLabel'][0])
     {
-        list($response) = $this->riskLabelWithHttpInfo($risk_label_in, $contentType);
+        list($response) = $this->riskLabelWithHttpInfo($label_risk_label_in, $contentType);
         return $response;
     }
 
@@ -708,16 +736,16 @@ class LabelApi
      *
      * Assert ground truth about events
      *
-     * @param  \Hanzo\Cloud\Model\RiskLabelIn $risk_label_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskLabelIn $label_risk_label_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskLabel'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskLabelOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LabelRiskLabelOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskLabelWithHttpInfo($risk_label_in, string $contentType = self::contentTypes['riskLabel'][0])
+    public function riskLabelWithHttpInfo($label_risk_label_in, string $contentType = self::contentTypes['riskLabel'][0])
     {
-        $request = $this->riskLabelRequest($risk_label_in, $contentType);
+        $request = $this->riskLabelRequest($label_risk_label_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -745,7 +773,13 @@ class LabelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskLabelOut',
+                        '\Hanzo\Cloud\Model\LabelRiskLabelOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -767,7 +801,7 @@ class LabelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskLabelOut',
+                '\Hanzo\Cloud\Model\LabelRiskLabelOut',
                 $request,
                 $response,
             );
@@ -776,7 +810,15 @@ class LabelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskLabelOut',
+                        '\Hanzo\Cloud\Model\LabelRiskLabelOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -793,15 +835,15 @@ class LabelApi
      *
      * Assert ground truth about events
      *
-     * @param  \Hanzo\Cloud\Model\RiskLabelIn $risk_label_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskLabelIn $label_risk_label_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskLabel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskLabelAsync($risk_label_in, string $contentType = self::contentTypes['riskLabel'][0])
+    public function riskLabelAsync($label_risk_label_in, string $contentType = self::contentTypes['riskLabel'][0])
     {
-        return $this->riskLabelAsyncWithHttpInfo($risk_label_in, $contentType)
+        return $this->riskLabelAsyncWithHttpInfo($label_risk_label_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -814,16 +856,16 @@ class LabelApi
      *
      * Assert ground truth about events
      *
-     * @param  \Hanzo\Cloud\Model\RiskLabelIn $risk_label_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskLabelIn $label_risk_label_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskLabel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskLabelAsyncWithHttpInfo($risk_label_in, string $contentType = self::contentTypes['riskLabel'][0])
+    public function riskLabelAsyncWithHttpInfo($label_risk_label_in, string $contentType = self::contentTypes['riskLabel'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskLabelOut';
-        $request = $this->riskLabelRequest($risk_label_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LabelRiskLabelOut';
+        $request = $this->riskLabelRequest($label_risk_label_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -864,19 +906,19 @@ class LabelApi
     /**
      * Create request for operation 'riskLabel'
      *
-     * @param  \Hanzo\Cloud\Model\RiskLabelIn $risk_label_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskLabelIn $label_risk_label_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskLabel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskLabelRequest($risk_label_in, string $contentType = self::contentTypes['riskLabel'][0])
+    public function riskLabelRequest($label_risk_label_in, string $contentType = self::contentTypes['riskLabel'][0])
     {
 
-        // verify the required parameter 'risk_label_in' is set
-        if ($risk_label_in === null || (is_array($risk_label_in) && count($risk_label_in) === 0)) {
+        // verify the required parameter 'label_risk_label_in' is set
+        if ($label_risk_label_in === null || (is_array($label_risk_label_in) && count($label_risk_label_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $risk_label_in when calling riskLabel'
+                'Missing the required parameter $label_risk_label_in when calling riskLabel'
             );
         }
 
@@ -893,18 +935,18 @@ class LabelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($risk_label_in)) {
+        if (isset($label_risk_label_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_label_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($label_risk_label_in));
             } else {
-                $httpBody = $risk_label_in;
+                $httpBody = $label_risk_label_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -968,7 +1010,7 @@ class LabelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskLabelCoverage
+     * @return \Hanzo\Cloud\Model\LabelRiskLabelCoverage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskLabelCoverage($from = null, $to = null, $horizon = null, string $contentType = self::contentTypes['riskLabelCoverage'][0])
     {
@@ -988,7 +1030,7 @@ class LabelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskLabelCoverage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LabelRiskLabelCoverage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskLabelCoverageWithHttpInfo($from = null, $to = null, $horizon = null, string $contentType = self::contentTypes['riskLabelCoverage'][0])
     {
@@ -1020,7 +1062,13 @@ class LabelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskLabelCoverage',
+                        '\Hanzo\Cloud\Model\LabelRiskLabelCoverage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1042,7 +1090,7 @@ class LabelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskLabelCoverage',
+                '\Hanzo\Cloud\Model\LabelRiskLabelCoverage',
                 $request,
                 $response,
             );
@@ -1051,7 +1099,15 @@ class LabelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskLabelCoverage',
+                        '\Hanzo\Cloud\Model\LabelRiskLabelCoverage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1101,7 +1157,7 @@ class LabelApi
      */
     public function riskLabelCoverageAsyncWithHttpInfo($from = null, $to = null, $horizon = null, string $contentType = self::contentTypes['riskLabelCoverage'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskLabelCoverage';
+        $returnType = '\Hanzo\Cloud\Model\LabelRiskLabelCoverage';
         $request = $this->riskLabelCoverageRequest($from, $to, $horizon, $contentType);
 
         return $this->client
@@ -1197,7 +1253,7 @@ class LabelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1262,7 +1318,7 @@ class LabelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskLabelVocabulary
+     * @return \Hanzo\Cloud\Model\LabelRiskLabelVocabulary|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskLabelVocabulary(string $contentType = self::contentTypes['riskLabelVocabulary'][0])
     {
@@ -1279,7 +1335,7 @@ class LabelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskLabelVocabulary, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LabelRiskLabelVocabulary|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskLabelVocabularyWithHttpInfo(string $contentType = self::contentTypes['riskLabelVocabulary'][0])
     {
@@ -1311,7 +1367,13 @@ class LabelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskLabelVocabulary',
+                        '\Hanzo\Cloud\Model\LabelRiskLabelVocabulary',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1333,7 +1395,7 @@ class LabelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskLabelVocabulary',
+                '\Hanzo\Cloud\Model\LabelRiskLabelVocabulary',
                 $request,
                 $response,
             );
@@ -1342,7 +1404,15 @@ class LabelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskLabelVocabulary',
+                        '\Hanzo\Cloud\Model\LabelRiskLabelVocabulary',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1386,7 +1456,7 @@ class LabelApi
      */
     public function riskLabelVocabularyAsyncWithHttpInfo(string $contentType = self::contentTypes['riskLabelVocabulary'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskLabelVocabulary';
+        $returnType = '\Hanzo\Cloud\Model\LabelRiskLabelVocabulary';
         $request = $this->riskLabelVocabularyRequest($contentType);
 
         return $this->client
@@ -1449,7 +1519,7 @@ class LabelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1520,7 +1590,7 @@ class LabelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskLabelsOut
+     * @return \Hanzo\Cloud\Model\LabelRiskLabelsOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function riskLabels($kind = null, $subject = null, $source = null, $from = null, $to = null, $limit = null, string $contentType = self::contentTypes['riskLabels'][0])
     {
@@ -1543,7 +1613,7 @@ class LabelApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskLabelsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LabelRiskLabelsOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function riskLabelsWithHttpInfo($kind = null, $subject = null, $source = null, $from = null, $to = null, $limit = null, string $contentType = self::contentTypes['riskLabels'][0])
     {
@@ -1575,7 +1645,13 @@ class LabelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskLabelsOut',
+                        '\Hanzo\Cloud\Model\LabelRiskLabelsOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1597,7 +1673,7 @@ class LabelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskLabelsOut',
+                '\Hanzo\Cloud\Model\LabelRiskLabelsOut',
                 $request,
                 $response,
             );
@@ -1606,7 +1682,15 @@ class LabelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskLabelsOut',
+                        '\Hanzo\Cloud\Model\LabelRiskLabelsOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1662,7 +1746,7 @@ class LabelApi
      */
     public function riskLabelsAsyncWithHttpInfo($kind = null, $subject = null, $source = null, $from = null, $to = null, $limit = null, string $contentType = self::contentTypes['riskLabels'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskLabelsOut';
+        $returnType = '\Hanzo\Cloud\Model\LabelRiskLabelsOut';
         $request = $this->riskLabelsRequest($kind, $subject, $source, $from, $to, $limit, $contentType);
 
         return $this->client
@@ -1791,7 +1875,7 @@ class LabelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1852,16 +1936,16 @@ class LabelApi
      *
      * Resolve the label in force for named events, as of each event&#39;s own horizon
      *
-     * @param  \Hanzo\Cloud\Model\RiskResolveIn $risk_resolve_in risk_resolve_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskResolveIn $label_risk_resolve_in label_risk_resolve_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskResolveLabels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RiskResolveOut
+     * @return \Hanzo\Cloud\Model\LabelRiskResolveOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function riskResolveLabels($risk_resolve_in, string $contentType = self::contentTypes['riskResolveLabels'][0])
+    public function riskResolveLabels($label_risk_resolve_in, string $contentType = self::contentTypes['riskResolveLabels'][0])
     {
-        list($response) = $this->riskResolveLabelsWithHttpInfo($risk_resolve_in, $contentType);
+        list($response) = $this->riskResolveLabelsWithHttpInfo($label_risk_resolve_in, $contentType);
         return $response;
     }
 
@@ -1870,16 +1954,16 @@ class LabelApi
      *
      * Resolve the label in force for named events, as of each event&#39;s own horizon
      *
-     * @param  \Hanzo\Cloud\Model\RiskResolveIn $risk_resolve_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskResolveIn $label_risk_resolve_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskResolveLabels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RiskResolveOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LabelRiskResolveOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function riskResolveLabelsWithHttpInfo($risk_resolve_in, string $contentType = self::contentTypes['riskResolveLabels'][0])
+    public function riskResolveLabelsWithHttpInfo($label_risk_resolve_in, string $contentType = self::contentTypes['riskResolveLabels'][0])
     {
-        $request = $this->riskResolveLabelsRequest($risk_resolve_in, $contentType);
+        $request = $this->riskResolveLabelsRequest($label_risk_resolve_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1907,7 +1991,13 @@ class LabelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RiskResolveOut',
+                        '\Hanzo\Cloud\Model\LabelRiskResolveOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1929,7 +2019,7 @@ class LabelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RiskResolveOut',
+                '\Hanzo\Cloud\Model\LabelRiskResolveOut',
                 $request,
                 $response,
             );
@@ -1938,7 +2028,15 @@ class LabelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RiskResolveOut',
+                        '\Hanzo\Cloud\Model\LabelRiskResolveOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1955,15 +2053,15 @@ class LabelApi
      *
      * Resolve the label in force for named events, as of each event&#39;s own horizon
      *
-     * @param  \Hanzo\Cloud\Model\RiskResolveIn $risk_resolve_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskResolveIn $label_risk_resolve_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskResolveLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskResolveLabelsAsync($risk_resolve_in, string $contentType = self::contentTypes['riskResolveLabels'][0])
+    public function riskResolveLabelsAsync($label_risk_resolve_in, string $contentType = self::contentTypes['riskResolveLabels'][0])
     {
-        return $this->riskResolveLabelsAsyncWithHttpInfo($risk_resolve_in, $contentType)
+        return $this->riskResolveLabelsAsyncWithHttpInfo($label_risk_resolve_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1976,16 +2074,16 @@ class LabelApi
      *
      * Resolve the label in force for named events, as of each event&#39;s own horizon
      *
-     * @param  \Hanzo\Cloud\Model\RiskResolveIn $risk_resolve_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskResolveIn $label_risk_resolve_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskResolveLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function riskResolveLabelsAsyncWithHttpInfo($risk_resolve_in, string $contentType = self::contentTypes['riskResolveLabels'][0])
+    public function riskResolveLabelsAsyncWithHttpInfo($label_risk_resolve_in, string $contentType = self::contentTypes['riskResolveLabels'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RiskResolveOut';
-        $request = $this->riskResolveLabelsRequest($risk_resolve_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LabelRiskResolveOut';
+        $request = $this->riskResolveLabelsRequest($label_risk_resolve_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2026,19 +2124,19 @@ class LabelApi
     /**
      * Create request for operation 'riskResolveLabels'
      *
-     * @param  \Hanzo\Cloud\Model\RiskResolveIn $risk_resolve_in (required)
+     * @param  \Hanzo\Cloud\Model\LabelRiskResolveIn $label_risk_resolve_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['riskResolveLabels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function riskResolveLabelsRequest($risk_resolve_in, string $contentType = self::contentTypes['riskResolveLabels'][0])
+    public function riskResolveLabelsRequest($label_risk_resolve_in, string $contentType = self::contentTypes['riskResolveLabels'][0])
     {
 
-        // verify the required parameter 'risk_resolve_in' is set
-        if ($risk_resolve_in === null || (is_array($risk_resolve_in) && count($risk_resolve_in) === 0)) {
+        // verify the required parameter 'label_risk_resolve_in' is set
+        if ($label_risk_resolve_in === null || (is_array($label_risk_resolve_in) && count($label_risk_resolve_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $risk_resolve_in when calling riskResolveLabels'
+                'Missing the required parameter $label_risk_resolve_in when calling riskResolveLabels'
             );
         }
 
@@ -2055,18 +2153,18 @@ class LabelApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($risk_resolve_in)) {
+        if (isset($label_risk_resolve_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($risk_resolve_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($label_risk_resolve_in));
             } else {
-                $httpBody = $risk_resolve_in;
+                $httpBody = $label_risk_resolve_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

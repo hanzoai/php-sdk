@@ -161,7 +161,7 @@ class AffiliateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AffiliateStanding
+     * @return \Hanzo\Cloud\Model\AffiliateAffiliateStanding|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAffiliate(string $contentType = self::contentTypes['getAffiliate'][0])
     {
@@ -178,7 +178,7 @@ class AffiliateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AffiliateStanding, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AffiliateAffiliateStanding|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAffiliateWithHttpInfo(string $contentType = self::contentTypes['getAffiliate'][0])
     {
@@ -210,7 +210,13 @@ class AffiliateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AffiliateStanding',
+                        '\Hanzo\Cloud\Model\AffiliateAffiliateStanding',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -232,7 +238,7 @@ class AffiliateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AffiliateStanding',
+                '\Hanzo\Cloud\Model\AffiliateAffiliateStanding',
                 $request,
                 $response,
             );
@@ -241,7 +247,15 @@ class AffiliateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AffiliateStanding',
+                        '\Hanzo\Cloud\Model\AffiliateAffiliateStanding',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -285,7 +299,7 @@ class AffiliateApi
      */
     public function getAffiliateAsyncWithHttpInfo(string $contentType = self::contentTypes['getAffiliate'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AffiliateStanding';
+        $returnType = '\Hanzo\Cloud\Model\AffiliateAffiliateStanding';
         $request = $this->getAffiliateRequest($contentType);
 
         return $this->client
@@ -348,7 +362,7 @@ class AffiliateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -413,7 +427,7 @@ class AffiliateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AffiliateBoard
+     * @return \Hanzo\Cloud\Model\AffiliateAffiliateBoard|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAffiliateLeaderboard(string $contentType = self::contentTypes['getAffiliateLeaderboard'][0])
     {
@@ -430,7 +444,7 @@ class AffiliateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AffiliateBoard, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AffiliateAffiliateBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAffiliateLeaderboardWithHttpInfo(string $contentType = self::contentTypes['getAffiliateLeaderboard'][0])
     {
@@ -462,7 +476,13 @@ class AffiliateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AffiliateBoard',
+                        '\Hanzo\Cloud\Model\AffiliateAffiliateBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -484,7 +504,7 @@ class AffiliateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AffiliateBoard',
+                '\Hanzo\Cloud\Model\AffiliateAffiliateBoard',
                 $request,
                 $response,
             );
@@ -493,7 +513,15 @@ class AffiliateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AffiliateBoard',
+                        '\Hanzo\Cloud\Model\AffiliateAffiliateBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -537,7 +565,7 @@ class AffiliateApi
      */
     public function getAffiliateLeaderboardAsyncWithHttpInfo(string $contentType = self::contentTypes['getAffiliateLeaderboard'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AffiliateBoard';
+        $returnType = '\Hanzo\Cloud\Model\AffiliateAffiliateBoard';
         $request = $this->getAffiliateLeaderboardRequest($contentType);
 
         return $this->client
@@ -600,7 +628,7 @@ class AffiliateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -665,7 +693,7 @@ class AffiliateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AffiliateSelf
+     * @return \Hanzo\Cloud\Model\AffiliateAffiliateSelf|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAffiliateMe(string $contentType = self::contentTypes['getAffiliateMe'][0])
     {
@@ -682,7 +710,7 @@ class AffiliateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AffiliateSelf, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AffiliateAffiliateSelf|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAffiliateMeWithHttpInfo(string $contentType = self::contentTypes['getAffiliateMe'][0])
     {
@@ -714,7 +742,13 @@ class AffiliateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AffiliateSelf',
+                        '\Hanzo\Cloud\Model\AffiliateAffiliateSelf',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -736,7 +770,7 @@ class AffiliateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AffiliateSelf',
+                '\Hanzo\Cloud\Model\AffiliateAffiliateSelf',
                 $request,
                 $response,
             );
@@ -745,7 +779,15 @@ class AffiliateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AffiliateSelf',
+                        '\Hanzo\Cloud\Model\AffiliateAffiliateSelf',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -789,7 +831,7 @@ class AffiliateApi
      */
     public function getAffiliateMeAsyncWithHttpInfo(string $contentType = self::contentTypes['getAffiliateMe'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AffiliateSelf';
+        $returnType = '\Hanzo\Cloud\Model\AffiliateAffiliateSelf';
         $request = $this->getAffiliateMeRequest($contentType);
 
         return $this->client
@@ -852,7 +894,7 @@ class AffiliateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -917,7 +959,7 @@ class AffiliateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AffiliateEarnings
+     * @return \Hanzo\Cloud\Model\AffiliateAffiliateEarnings|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAffiliateMeEarnings(string $contentType = self::contentTypes['getAffiliateMeEarnings'][0])
     {
@@ -934,7 +976,7 @@ class AffiliateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AffiliateEarnings, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AffiliateAffiliateEarnings|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAffiliateMeEarningsWithHttpInfo(string $contentType = self::contentTypes['getAffiliateMeEarnings'][0])
     {
@@ -966,7 +1008,13 @@ class AffiliateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AffiliateEarnings',
+                        '\Hanzo\Cloud\Model\AffiliateAffiliateEarnings',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -988,7 +1036,7 @@ class AffiliateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AffiliateEarnings',
+                '\Hanzo\Cloud\Model\AffiliateAffiliateEarnings',
                 $request,
                 $response,
             );
@@ -997,7 +1045,15 @@ class AffiliateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AffiliateEarnings',
+                        '\Hanzo\Cloud\Model\AffiliateAffiliateEarnings',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1041,7 +1097,7 @@ class AffiliateApi
      */
     public function getAffiliateMeEarningsAsyncWithHttpInfo(string $contentType = self::contentTypes['getAffiliateMeEarnings'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AffiliateEarnings';
+        $returnType = '\Hanzo\Cloud\Model\AffiliateAffiliateEarnings';
         $request = $this->getAffiliateMeEarningsRequest($contentType);
 
         return $this->client
@@ -1104,7 +1160,7 @@ class AffiliateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1169,7 +1225,7 @@ class AffiliateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AffiliateLinks
+     * @return \Hanzo\Cloud\Model\AffiliateAffiliateLinks|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getAffiliateMeLinks(string $contentType = self::contentTypes['getAffiliateMeLinks'][0])
     {
@@ -1186,7 +1242,7 @@ class AffiliateApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AffiliateLinks, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AffiliateAffiliateLinks|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getAffiliateMeLinksWithHttpInfo(string $contentType = self::contentTypes['getAffiliateMeLinks'][0])
     {
@@ -1218,7 +1274,13 @@ class AffiliateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AffiliateLinks',
+                        '\Hanzo\Cloud\Model\AffiliateAffiliateLinks',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1240,7 +1302,7 @@ class AffiliateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AffiliateLinks',
+                '\Hanzo\Cloud\Model\AffiliateAffiliateLinks',
                 $request,
                 $response,
             );
@@ -1249,7 +1311,15 @@ class AffiliateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AffiliateLinks',
+                        '\Hanzo\Cloud\Model\AffiliateAffiliateLinks',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1293,7 +1363,7 @@ class AffiliateApi
      */
     public function getAffiliateMeLinksAsyncWithHttpInfo(string $contentType = self::contentTypes['getAffiliateMeLinks'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AffiliateLinks';
+        $returnType = '\Hanzo\Cloud\Model\AffiliateAffiliateLinks';
         $request = $this->getAffiliateMeLinksRequest($contentType);
 
         return $this->client
@@ -1356,7 +1426,7 @@ class AffiliateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1417,16 +1487,16 @@ class AffiliateApi
      *
      * Enrolls the caller&#39;s OWN org as an affiliate at status &#x60;applied&#x60;, optionally requesting a vanity code, and answers the record — 201 on the first apply, 200 with &#x60;created:false&#x60; afterwards.
      *
-     * @param  \Hanzo\Cloud\Model\ApplyRequest $apply_request apply_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateApplyRequest $affiliate_apply_request affiliate_apply_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateApply'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Application|\Hanzo\Cloud\Model\Application
+     * @return \Hanzo\Cloud\Model\AffiliateApplication|\Hanzo\Cloud\Model\AffiliateApplication|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAffiliateApply($apply_request, string $contentType = self::contentTypes['postAffiliateApply'][0])
+    public function postAffiliateApply($affiliate_apply_request, string $contentType = self::contentTypes['postAffiliateApply'][0])
     {
-        list($response) = $this->postAffiliateApplyWithHttpInfo($apply_request, $contentType);
+        list($response) = $this->postAffiliateApplyWithHttpInfo($affiliate_apply_request, $contentType);
         return $response;
     }
 
@@ -1435,16 +1505,16 @@ class AffiliateApi
      *
      * Enrolls the caller&#39;s OWN org as an affiliate at status &#x60;applied&#x60;, optionally requesting a vanity code, and answers the record — 201 on the first apply, 200 with &#x60;created:false&#x60; afterwards.
      *
-     * @param  \Hanzo\Cloud\Model\ApplyRequest $apply_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateApplyRequest $affiliate_apply_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateApply'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Application|\Hanzo\Cloud\Model\Application, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AffiliateApplication|\Hanzo\Cloud\Model\AffiliateApplication|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAffiliateApplyWithHttpInfo($apply_request, string $contentType = self::contentTypes['postAffiliateApply'][0])
+    public function postAffiliateApplyWithHttpInfo($affiliate_apply_request, string $contentType = self::contentTypes['postAffiliateApply'][0])
     {
-        $request = $this->postAffiliateApplyRequest($apply_request, $contentType);
+        $request = $this->postAffiliateApplyRequest($affiliate_apply_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1472,13 +1542,19 @@ class AffiliateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Application',
+                        '\Hanzo\Cloud\Model\AffiliateApplication',
                         $request,
                         $response,
                     );
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Application',
+                        '\Hanzo\Cloud\Model\AffiliateApplication',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1500,7 +1576,7 @@ class AffiliateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Application',
+                '\Hanzo\Cloud\Model\AffiliateApplication',
                 $request,
                 $response,
             );
@@ -1509,7 +1585,7 @@ class AffiliateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Application',
+                        '\Hanzo\Cloud\Model\AffiliateApplication',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1517,7 +1593,15 @@ class AffiliateApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Application',
+                        '\Hanzo\Cloud\Model\AffiliateApplication',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1534,15 +1618,15 @@ class AffiliateApi
      *
      * Enrolls the caller&#39;s OWN org as an affiliate at status &#x60;applied&#x60;, optionally requesting a vanity code, and answers the record — 201 on the first apply, 200 with &#x60;created:false&#x60; afterwards.
      *
-     * @param  \Hanzo\Cloud\Model\ApplyRequest $apply_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateApplyRequest $affiliate_apply_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateApply'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAffiliateApplyAsync($apply_request, string $contentType = self::contentTypes['postAffiliateApply'][0])
+    public function postAffiliateApplyAsync($affiliate_apply_request, string $contentType = self::contentTypes['postAffiliateApply'][0])
     {
-        return $this->postAffiliateApplyAsyncWithHttpInfo($apply_request, $contentType)
+        return $this->postAffiliateApplyAsyncWithHttpInfo($affiliate_apply_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1555,16 +1639,16 @@ class AffiliateApi
      *
      * Enrolls the caller&#39;s OWN org as an affiliate at status &#x60;applied&#x60;, optionally requesting a vanity code, and answers the record — 201 on the first apply, 200 with &#x60;created:false&#x60; afterwards.
      *
-     * @param  \Hanzo\Cloud\Model\ApplyRequest $apply_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateApplyRequest $affiliate_apply_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateApply'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAffiliateApplyAsyncWithHttpInfo($apply_request, string $contentType = self::contentTypes['postAffiliateApply'][0])
+    public function postAffiliateApplyAsyncWithHttpInfo($affiliate_apply_request, string $contentType = self::contentTypes['postAffiliateApply'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Application';
-        $request = $this->postAffiliateApplyRequest($apply_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AffiliateApplication';
+        $request = $this->postAffiliateApplyRequest($affiliate_apply_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1605,19 +1689,19 @@ class AffiliateApi
     /**
      * Create request for operation 'postAffiliateApply'
      *
-     * @param  \Hanzo\Cloud\Model\ApplyRequest $apply_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateApplyRequest $affiliate_apply_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateApply'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAffiliateApplyRequest($apply_request, string $contentType = self::contentTypes['postAffiliateApply'][0])
+    public function postAffiliateApplyRequest($affiliate_apply_request, string $contentType = self::contentTypes['postAffiliateApply'][0])
     {
 
-        // verify the required parameter 'apply_request' is set
-        if ($apply_request === null || (is_array($apply_request) && count($apply_request) === 0)) {
+        // verify the required parameter 'affiliate_apply_request' is set
+        if ($affiliate_apply_request === null || (is_array($affiliate_apply_request) && count($affiliate_apply_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $apply_request when calling postAffiliateApply'
+                'Missing the required parameter $affiliate_apply_request when calling postAffiliateApply'
             );
         }
 
@@ -1634,18 +1718,18 @@ class AffiliateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($apply_request)) {
+        if (isset($affiliate_apply_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($apply_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($affiliate_apply_request));
             } else {
-                $httpBody = $apply_request;
+                $httpBody = $affiliate_apply_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1702,16 +1786,16 @@ class AffiliateApi
      *
      * Records the first-touch edge every later commission is computed from: the caller&#39;s org was referred by the affiliate that owns this code.
      *
-     * @param  \Hanzo\Cloud\Model\AttributeRequest $attribute_request attribute_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateAttributeRequest $affiliate_attribute_request affiliate_attribute_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateAttribute'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Attribution|\Hanzo\Cloud\Model\Attribution
+     * @return \Hanzo\Cloud\Model\AffiliateAttribution|\Hanzo\Cloud\Model\AffiliateAttribution|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAffiliateAttribute($attribute_request, string $contentType = self::contentTypes['postAffiliateAttribute'][0])
+    public function postAffiliateAttribute($affiliate_attribute_request, string $contentType = self::contentTypes['postAffiliateAttribute'][0])
     {
-        list($response) = $this->postAffiliateAttributeWithHttpInfo($attribute_request, $contentType);
+        list($response) = $this->postAffiliateAttributeWithHttpInfo($affiliate_attribute_request, $contentType);
         return $response;
     }
 
@@ -1720,16 +1804,16 @@ class AffiliateApi
      *
      * Records the first-touch edge every later commission is computed from: the caller&#39;s org was referred by the affiliate that owns this code.
      *
-     * @param  \Hanzo\Cloud\Model\AttributeRequest $attribute_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateAttributeRequest $affiliate_attribute_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateAttribute'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Attribution|\Hanzo\Cloud\Model\Attribution, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AffiliateAttribution|\Hanzo\Cloud\Model\AffiliateAttribution|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAffiliateAttributeWithHttpInfo($attribute_request, string $contentType = self::contentTypes['postAffiliateAttribute'][0])
+    public function postAffiliateAttributeWithHttpInfo($affiliate_attribute_request, string $contentType = self::contentTypes['postAffiliateAttribute'][0])
     {
-        $request = $this->postAffiliateAttributeRequest($attribute_request, $contentType);
+        $request = $this->postAffiliateAttributeRequest($affiliate_attribute_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1757,13 +1841,19 @@ class AffiliateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Attribution',
+                        '\Hanzo\Cloud\Model\AffiliateAttribution',
                         $request,
                         $response,
                     );
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Attribution',
+                        '\Hanzo\Cloud\Model\AffiliateAttribution',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1785,7 +1875,7 @@ class AffiliateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Attribution',
+                '\Hanzo\Cloud\Model\AffiliateAttribution',
                 $request,
                 $response,
             );
@@ -1794,7 +1884,7 @@ class AffiliateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Attribution',
+                        '\Hanzo\Cloud\Model\AffiliateAttribution',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1802,7 +1892,15 @@ class AffiliateApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Attribution',
+                        '\Hanzo\Cloud\Model\AffiliateAttribution',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1819,15 +1917,15 @@ class AffiliateApi
      *
      * Records the first-touch edge every later commission is computed from: the caller&#39;s org was referred by the affiliate that owns this code.
      *
-     * @param  \Hanzo\Cloud\Model\AttributeRequest $attribute_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateAttributeRequest $affiliate_attribute_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateAttribute'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAffiliateAttributeAsync($attribute_request, string $contentType = self::contentTypes['postAffiliateAttribute'][0])
+    public function postAffiliateAttributeAsync($affiliate_attribute_request, string $contentType = self::contentTypes['postAffiliateAttribute'][0])
     {
-        return $this->postAffiliateAttributeAsyncWithHttpInfo($attribute_request, $contentType)
+        return $this->postAffiliateAttributeAsyncWithHttpInfo($affiliate_attribute_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1840,16 +1938,16 @@ class AffiliateApi
      *
      * Records the first-touch edge every later commission is computed from: the caller&#39;s org was referred by the affiliate that owns this code.
      *
-     * @param  \Hanzo\Cloud\Model\AttributeRequest $attribute_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateAttributeRequest $affiliate_attribute_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateAttribute'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAffiliateAttributeAsyncWithHttpInfo($attribute_request, string $contentType = self::contentTypes['postAffiliateAttribute'][0])
+    public function postAffiliateAttributeAsyncWithHttpInfo($affiliate_attribute_request, string $contentType = self::contentTypes['postAffiliateAttribute'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Attribution';
-        $request = $this->postAffiliateAttributeRequest($attribute_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AffiliateAttribution';
+        $request = $this->postAffiliateAttributeRequest($affiliate_attribute_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1890,19 +1988,19 @@ class AffiliateApi
     /**
      * Create request for operation 'postAffiliateAttribute'
      *
-     * @param  \Hanzo\Cloud\Model\AttributeRequest $attribute_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateAttributeRequest $affiliate_attribute_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateAttribute'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAffiliateAttributeRequest($attribute_request, string $contentType = self::contentTypes['postAffiliateAttribute'][0])
+    public function postAffiliateAttributeRequest($affiliate_attribute_request, string $contentType = self::contentTypes['postAffiliateAttribute'][0])
     {
 
-        // verify the required parameter 'attribute_request' is set
-        if ($attribute_request === null || (is_array($attribute_request) && count($attribute_request) === 0)) {
+        // verify the required parameter 'affiliate_attribute_request' is set
+        if ($affiliate_attribute_request === null || (is_array($affiliate_attribute_request) && count($affiliate_attribute_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $attribute_request when calling postAffiliateAttribute'
+                'Missing the required parameter $affiliate_attribute_request when calling postAffiliateAttribute'
             );
         }
 
@@ -1919,18 +2017,18 @@ class AffiliateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($attribute_request)) {
+        if (isset($affiliate_attribute_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($attribute_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($affiliate_attribute_request));
             } else {
-                $httpBody = $attribute_request;
+                $httpBody = $affiliate_attribute_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1987,16 +2085,16 @@ class AffiliateApi
      *
      * Counts a click on a share link.
      *
-     * @param  \Hanzo\Cloud\Model\ClickRequest $click_request click_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateClickRequest $affiliate_click_request affiliate_click_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateClick'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ClickCount
+     * @return \Hanzo\Cloud\Model\AffiliateClickCount|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAffiliateClick($click_request, string $contentType = self::contentTypes['postAffiliateClick'][0])
+    public function postAffiliateClick($affiliate_click_request, string $contentType = self::contentTypes['postAffiliateClick'][0])
     {
-        list($response) = $this->postAffiliateClickWithHttpInfo($click_request, $contentType);
+        list($response) = $this->postAffiliateClickWithHttpInfo($affiliate_click_request, $contentType);
         return $response;
     }
 
@@ -2005,16 +2103,16 @@ class AffiliateApi
      *
      * Counts a click on a share link.
      *
-     * @param  \Hanzo\Cloud\Model\ClickRequest $click_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateClickRequest $affiliate_click_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateClick'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ClickCount, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AffiliateClickCount|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAffiliateClickWithHttpInfo($click_request, string $contentType = self::contentTypes['postAffiliateClick'][0])
+    public function postAffiliateClickWithHttpInfo($affiliate_click_request, string $contentType = self::contentTypes['postAffiliateClick'][0])
     {
-        $request = $this->postAffiliateClickRequest($click_request, $contentType);
+        $request = $this->postAffiliateClickRequest($affiliate_click_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2042,7 +2140,13 @@ class AffiliateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ClickCount',
+                        '\Hanzo\Cloud\Model\AffiliateClickCount',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2064,7 +2168,7 @@ class AffiliateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ClickCount',
+                '\Hanzo\Cloud\Model\AffiliateClickCount',
                 $request,
                 $response,
             );
@@ -2073,7 +2177,15 @@ class AffiliateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ClickCount',
+                        '\Hanzo\Cloud\Model\AffiliateClickCount',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2090,15 +2202,15 @@ class AffiliateApi
      *
      * Counts a click on a share link.
      *
-     * @param  \Hanzo\Cloud\Model\ClickRequest $click_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateClickRequest $affiliate_click_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateClick'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAffiliateClickAsync($click_request, string $contentType = self::contentTypes['postAffiliateClick'][0])
+    public function postAffiliateClickAsync($affiliate_click_request, string $contentType = self::contentTypes['postAffiliateClick'][0])
     {
-        return $this->postAffiliateClickAsyncWithHttpInfo($click_request, $contentType)
+        return $this->postAffiliateClickAsyncWithHttpInfo($affiliate_click_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2111,16 +2223,16 @@ class AffiliateApi
      *
      * Counts a click on a share link.
      *
-     * @param  \Hanzo\Cloud\Model\ClickRequest $click_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateClickRequest $affiliate_click_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateClick'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAffiliateClickAsyncWithHttpInfo($click_request, string $contentType = self::contentTypes['postAffiliateClick'][0])
+    public function postAffiliateClickAsyncWithHttpInfo($affiliate_click_request, string $contentType = self::contentTypes['postAffiliateClick'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ClickCount';
-        $request = $this->postAffiliateClickRequest($click_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AffiliateClickCount';
+        $request = $this->postAffiliateClickRequest($affiliate_click_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2161,19 +2273,19 @@ class AffiliateApi
     /**
      * Create request for operation 'postAffiliateClick'
      *
-     * @param  \Hanzo\Cloud\Model\ClickRequest $click_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateClickRequest $affiliate_click_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateClick'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAffiliateClickRequest($click_request, string $contentType = self::contentTypes['postAffiliateClick'][0])
+    public function postAffiliateClickRequest($affiliate_click_request, string $contentType = self::contentTypes['postAffiliateClick'][0])
     {
 
-        // verify the required parameter 'click_request' is set
-        if ($click_request === null || (is_array($click_request) && count($click_request) === 0)) {
+        // verify the required parameter 'affiliate_click_request' is set
+        if ($affiliate_click_request === null || (is_array($affiliate_click_request) && count($affiliate_click_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $click_request when calling postAffiliateClick'
+                'Missing the required parameter $affiliate_click_request when calling postAffiliateClick'
             );
         }
 
@@ -2190,18 +2302,18 @@ class AffiliateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($click_request)) {
+        if (isset($affiliate_click_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($click_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($affiliate_click_request));
             } else {
-                $httpBody = $click_request;
+                $httpBody = $affiliate_click_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2258,16 +2370,16 @@ class AffiliateApi
      *
      * Sets the caller&#39;s public leaderboard display name, or clears it.
      *
-     * @param  \Hanzo\Cloud\Model\HandleRequest $handle_request handle_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateHandleRequest $affiliate_handle_request affiliate_handle_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateMeHandle'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\HandleSet
+     * @return \Hanzo\Cloud\Model\AffiliateHandleSet|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAffiliateMeHandle($handle_request, string $contentType = self::contentTypes['postAffiliateMeHandle'][0])
+    public function postAffiliateMeHandle($affiliate_handle_request, string $contentType = self::contentTypes['postAffiliateMeHandle'][0])
     {
-        list($response) = $this->postAffiliateMeHandleWithHttpInfo($handle_request, $contentType);
+        list($response) = $this->postAffiliateMeHandleWithHttpInfo($affiliate_handle_request, $contentType);
         return $response;
     }
 
@@ -2276,16 +2388,16 @@ class AffiliateApi
      *
      * Sets the caller&#39;s public leaderboard display name, or clears it.
      *
-     * @param  \Hanzo\Cloud\Model\HandleRequest $handle_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateHandleRequest $affiliate_handle_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateMeHandle'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\HandleSet, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AffiliateHandleSet|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAffiliateMeHandleWithHttpInfo($handle_request, string $contentType = self::contentTypes['postAffiliateMeHandle'][0])
+    public function postAffiliateMeHandleWithHttpInfo($affiliate_handle_request, string $contentType = self::contentTypes['postAffiliateMeHandle'][0])
     {
-        $request = $this->postAffiliateMeHandleRequest($handle_request, $contentType);
+        $request = $this->postAffiliateMeHandleRequest($affiliate_handle_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2313,7 +2425,13 @@ class AffiliateApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\HandleSet',
+                        '\Hanzo\Cloud\Model\AffiliateHandleSet',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2335,7 +2453,7 @@ class AffiliateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\HandleSet',
+                '\Hanzo\Cloud\Model\AffiliateHandleSet',
                 $request,
                 $response,
             );
@@ -2344,7 +2462,15 @@ class AffiliateApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\HandleSet',
+                        '\Hanzo\Cloud\Model\AffiliateHandleSet',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2361,15 +2487,15 @@ class AffiliateApi
      *
      * Sets the caller&#39;s public leaderboard display name, or clears it.
      *
-     * @param  \Hanzo\Cloud\Model\HandleRequest $handle_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateHandleRequest $affiliate_handle_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateMeHandle'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAffiliateMeHandleAsync($handle_request, string $contentType = self::contentTypes['postAffiliateMeHandle'][0])
+    public function postAffiliateMeHandleAsync($affiliate_handle_request, string $contentType = self::contentTypes['postAffiliateMeHandle'][0])
     {
-        return $this->postAffiliateMeHandleAsyncWithHttpInfo($handle_request, $contentType)
+        return $this->postAffiliateMeHandleAsyncWithHttpInfo($affiliate_handle_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2382,16 +2508,16 @@ class AffiliateApi
      *
      * Sets the caller&#39;s public leaderboard display name, or clears it.
      *
-     * @param  \Hanzo\Cloud\Model\HandleRequest $handle_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateHandleRequest $affiliate_handle_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateMeHandle'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAffiliateMeHandleAsyncWithHttpInfo($handle_request, string $contentType = self::contentTypes['postAffiliateMeHandle'][0])
+    public function postAffiliateMeHandleAsyncWithHttpInfo($affiliate_handle_request, string $contentType = self::contentTypes['postAffiliateMeHandle'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\HandleSet';
-        $request = $this->postAffiliateMeHandleRequest($handle_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AffiliateHandleSet';
+        $request = $this->postAffiliateMeHandleRequest($affiliate_handle_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2432,19 +2558,19 @@ class AffiliateApi
     /**
      * Create request for operation 'postAffiliateMeHandle'
      *
-     * @param  \Hanzo\Cloud\Model\HandleRequest $handle_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateHandleRequest $affiliate_handle_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateMeHandle'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAffiliateMeHandleRequest($handle_request, string $contentType = self::contentTypes['postAffiliateMeHandle'][0])
+    public function postAffiliateMeHandleRequest($affiliate_handle_request, string $contentType = self::contentTypes['postAffiliateMeHandle'][0])
     {
 
-        // verify the required parameter 'handle_request' is set
-        if ($handle_request === null || (is_array($handle_request) && count($handle_request) === 0)) {
+        // verify the required parameter 'affiliate_handle_request' is set
+        if ($affiliate_handle_request === null || (is_array($affiliate_handle_request) && count($affiliate_handle_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $handle_request when calling postAffiliateMeHandle'
+                'Missing the required parameter $affiliate_handle_request when calling postAffiliateMeHandle'
             );
         }
 
@@ -2461,18 +2587,18 @@ class AffiliateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($handle_request)) {
+        if (isset($affiliate_handle_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($handle_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($affiliate_handle_request));
             } else {
-                $httpBody = $handle_request;
+                $httpBody = $affiliate_handle_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2529,16 +2655,16 @@ class AffiliateApi
      *
      * Mints a new share link for the caller&#39;s own affiliate and answers it with its full URL, 201.
      *
-     * @param  \Hanzo\Cloud\Model\CreateLinkRequest $create_link_request create_link_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateCreateLinkRequest $affiliate_create_link_request affiliate_create_link_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateMeLinks'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LinkMint
+     * @return \Hanzo\Cloud\Model\AffiliateLinkMint|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postAffiliateMeLinks($create_link_request, string $contentType = self::contentTypes['postAffiliateMeLinks'][0])
+    public function postAffiliateMeLinks($affiliate_create_link_request, string $contentType = self::contentTypes['postAffiliateMeLinks'][0])
     {
-        list($response) = $this->postAffiliateMeLinksWithHttpInfo($create_link_request, $contentType);
+        list($response) = $this->postAffiliateMeLinksWithHttpInfo($affiliate_create_link_request, $contentType);
         return $response;
     }
 
@@ -2547,16 +2673,16 @@ class AffiliateApi
      *
      * Mints a new share link for the caller&#39;s own affiliate and answers it with its full URL, 201.
      *
-     * @param  \Hanzo\Cloud\Model\CreateLinkRequest $create_link_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateCreateLinkRequest $affiliate_create_link_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateMeLinks'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LinkMint, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AffiliateLinkMint|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAffiliateMeLinksWithHttpInfo($create_link_request, string $contentType = self::contentTypes['postAffiliateMeLinks'][0])
+    public function postAffiliateMeLinksWithHttpInfo($affiliate_create_link_request, string $contentType = self::contentTypes['postAffiliateMeLinks'][0])
     {
-        $request = $this->postAffiliateMeLinksRequest($create_link_request, $contentType);
+        $request = $this->postAffiliateMeLinksRequest($affiliate_create_link_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2584,7 +2710,13 @@ class AffiliateApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\LinkMint',
+                        '\Hanzo\Cloud\Model\AffiliateLinkMint',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2606,7 +2738,7 @@ class AffiliateApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\LinkMint',
+                '\Hanzo\Cloud\Model\AffiliateLinkMint',
                 $request,
                 $response,
             );
@@ -2615,7 +2747,15 @@ class AffiliateApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\LinkMint',
+                        '\Hanzo\Cloud\Model\AffiliateLinkMint',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2632,15 +2772,15 @@ class AffiliateApi
      *
      * Mints a new share link for the caller&#39;s own affiliate and answers it with its full URL, 201.
      *
-     * @param  \Hanzo\Cloud\Model\CreateLinkRequest $create_link_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateCreateLinkRequest $affiliate_create_link_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateMeLinks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAffiliateMeLinksAsync($create_link_request, string $contentType = self::contentTypes['postAffiliateMeLinks'][0])
+    public function postAffiliateMeLinksAsync($affiliate_create_link_request, string $contentType = self::contentTypes['postAffiliateMeLinks'][0])
     {
-        return $this->postAffiliateMeLinksAsyncWithHttpInfo($create_link_request, $contentType)
+        return $this->postAffiliateMeLinksAsyncWithHttpInfo($affiliate_create_link_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2653,16 +2793,16 @@ class AffiliateApi
      *
      * Mints a new share link for the caller&#39;s own affiliate and answers it with its full URL, 201.
      *
-     * @param  \Hanzo\Cloud\Model\CreateLinkRequest $create_link_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateCreateLinkRequest $affiliate_create_link_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateMeLinks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAffiliateMeLinksAsyncWithHttpInfo($create_link_request, string $contentType = self::contentTypes['postAffiliateMeLinks'][0])
+    public function postAffiliateMeLinksAsyncWithHttpInfo($affiliate_create_link_request, string $contentType = self::contentTypes['postAffiliateMeLinks'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\LinkMint';
-        $request = $this->postAffiliateMeLinksRequest($create_link_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AffiliateLinkMint';
+        $request = $this->postAffiliateMeLinksRequest($affiliate_create_link_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2703,19 +2843,19 @@ class AffiliateApi
     /**
      * Create request for operation 'postAffiliateMeLinks'
      *
-     * @param  \Hanzo\Cloud\Model\CreateLinkRequest $create_link_request (required)
+     * @param  \Hanzo\Cloud\Model\AffiliateCreateLinkRequest $affiliate_create_link_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAffiliateMeLinks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAffiliateMeLinksRequest($create_link_request, string $contentType = self::contentTypes['postAffiliateMeLinks'][0])
+    public function postAffiliateMeLinksRequest($affiliate_create_link_request, string $contentType = self::contentTypes['postAffiliateMeLinks'][0])
     {
 
-        // verify the required parameter 'create_link_request' is set
-        if ($create_link_request === null || (is_array($create_link_request) && count($create_link_request) === 0)) {
+        // verify the required parameter 'affiliate_create_link_request' is set
+        if ($affiliate_create_link_request === null || (is_array($affiliate_create_link_request) && count($affiliate_create_link_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_link_request when calling postAffiliateMeLinks'
+                'Missing the required parameter $affiliate_create_link_request when calling postAffiliateMeLinks'
             );
         }
 
@@ -2732,18 +2872,18 @@ class AffiliateApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($create_link_request)) {
+        if (isset($affiliate_create_link_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_link_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($affiliate_create_link_request));
             } else {
-                $httpBody = $create_link_request;
+                $httpBody = $affiliate_create_link_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

@@ -58,7 +58,7 @@ class O11yIntegrationAssets implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPITypes = [
         'alerts' => 'mixed[]',
-        'dashboards' => 'array<string,object>[]',
+        'dashboards' => 'array<string,mixed>[]',
         'logs' => '\Hanzo\Cloud\Model\O11yLogsAssets'
     ];
 
@@ -333,7 +333,7 @@ class O11yIntegrationAssets implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets dashboards
      *
-     * @return array<string,object>[]|null
+     * @return array<string,mixed>[]|null
      */
     public function getDashboards()
     {
@@ -343,7 +343,7 @@ class O11yIntegrationAssets implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets dashboards
      *
-     * @param array<string,object>[]|null $dashboards dashboards
+     * @param array<string,mixed>[]|null $dashboards dashboards
      *
      * @return self
      */

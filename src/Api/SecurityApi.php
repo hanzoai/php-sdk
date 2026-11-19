@@ -155,7 +155,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FindingList
+     * @return \Hanzo\Cloud\Model\SecurityFindingList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSecurityFindings($scan_id = null, $min_severity = null, $limit = null, string $contentType = self::contentTypes['getSecurityFindings'][0])
     {
@@ -175,7 +175,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FindingList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SecurityFindingList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSecurityFindingsWithHttpInfo($scan_id = null, $min_severity = null, $limit = null, string $contentType = self::contentTypes['getSecurityFindings'][0])
     {
@@ -207,7 +207,13 @@ class SecurityApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FindingList',
+                        '\Hanzo\Cloud\Model\SecurityFindingList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -229,7 +235,7 @@ class SecurityApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FindingList',
+                '\Hanzo\Cloud\Model\SecurityFindingList',
                 $request,
                 $response,
             );
@@ -238,7 +244,15 @@ class SecurityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FindingList',
+                        '\Hanzo\Cloud\Model\SecurityFindingList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -288,7 +302,7 @@ class SecurityApi
      */
     public function getSecurityFindingsAsyncWithHttpInfo($scan_id = null, $min_severity = null, $limit = null, string $contentType = self::contentTypes['getSecurityFindings'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FindingList';
+        $returnType = '\Hanzo\Cloud\Model\SecurityFindingList';
         $request = $this->getSecurityFindingsRequest($scan_id, $min_severity, $limit, $contentType);
 
         return $this->client
@@ -384,7 +398,7 @@ class SecurityApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -450,7 +464,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FindingView
+     * @return \Hanzo\Cloud\Model\SecurityFindingView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSecurityFindingsById($id, string $contentType = self::contentTypes['getSecurityFindingsById'][0])
     {
@@ -468,7 +482,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FindingView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SecurityFindingView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSecurityFindingsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getSecurityFindingsById'][0])
     {
@@ -500,7 +514,13 @@ class SecurityApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FindingView',
+                        '\Hanzo\Cloud\Model\SecurityFindingView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -522,7 +542,7 @@ class SecurityApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FindingView',
+                '\Hanzo\Cloud\Model\SecurityFindingView',
                 $request,
                 $response,
             );
@@ -531,7 +551,15 @@ class SecurityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FindingView',
+                        '\Hanzo\Cloud\Model\SecurityFindingView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -577,7 +605,7 @@ class SecurityApi
      */
     public function getSecurityFindingsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getSecurityFindingsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FindingView';
+        $returnType = '\Hanzo\Cloud\Model\SecurityFindingView';
         $request = $this->getSecurityFindingsByIdRequest($id, $contentType);
 
         return $this->client
@@ -656,7 +684,7 @@ class SecurityApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -721,7 +749,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Ruleset
+     * @return \Hanzo\Cloud\Model\SecurityRuleset|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSecurityHealth(string $contentType = self::contentTypes['getSecurityHealth'][0])
     {
@@ -738,7 +766,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Ruleset, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SecurityRuleset|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSecurityHealthWithHttpInfo(string $contentType = self::contentTypes['getSecurityHealth'][0])
     {
@@ -770,7 +798,13 @@ class SecurityApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Ruleset',
+                        '\Hanzo\Cloud\Model\SecurityRuleset',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -792,7 +826,7 @@ class SecurityApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Ruleset',
+                '\Hanzo\Cloud\Model\SecurityRuleset',
                 $request,
                 $response,
             );
@@ -801,7 +835,15 @@ class SecurityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Ruleset',
+                        '\Hanzo\Cloud\Model\SecurityRuleset',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -845,7 +887,7 @@ class SecurityApi
      */
     public function getSecurityHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getSecurityHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Ruleset';
+        $returnType = '\Hanzo\Cloud\Model\SecurityRuleset';
         $request = $this->getSecurityHealthRequest($contentType);
 
         return $this->client
@@ -908,7 +950,7 @@ class SecurityApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -973,7 +1015,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RuleList
+     * @return \Hanzo\Cloud\Model\SecurityRuleList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSecurityRules(string $contentType = self::contentTypes['getSecurityRules'][0])
     {
@@ -990,7 +1032,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RuleList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SecurityRuleList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSecurityRulesWithHttpInfo(string $contentType = self::contentTypes['getSecurityRules'][0])
     {
@@ -1022,7 +1064,13 @@ class SecurityApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RuleList',
+                        '\Hanzo\Cloud\Model\SecurityRuleList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1044,7 +1092,7 @@ class SecurityApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RuleList',
+                '\Hanzo\Cloud\Model\SecurityRuleList',
                 $request,
                 $response,
             );
@@ -1053,7 +1101,15 @@ class SecurityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RuleList',
+                        '\Hanzo\Cloud\Model\SecurityRuleList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1097,7 +1153,7 @@ class SecurityApi
      */
     public function getSecurityRulesAsyncWithHttpInfo(string $contentType = self::contentTypes['getSecurityRules'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RuleList';
+        $returnType = '\Hanzo\Cloud\Model\SecurityRuleList';
         $request = $this->getSecurityRulesRequest($contentType);
 
         return $this->client
@@ -1160,7 +1216,7 @@ class SecurityApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1226,7 +1282,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ScanList
+     * @return \Hanzo\Cloud\Model\SecurityScanList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSecurityScans($limit = null, string $contentType = self::contentTypes['getSecurityScans'][0])
     {
@@ -1244,7 +1300,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ScanList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SecurityScanList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSecurityScansWithHttpInfo($limit = null, string $contentType = self::contentTypes['getSecurityScans'][0])
     {
@@ -1276,7 +1332,13 @@ class SecurityApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ScanList',
+                        '\Hanzo\Cloud\Model\SecurityScanList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1298,7 +1360,7 @@ class SecurityApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ScanList',
+                '\Hanzo\Cloud\Model\SecurityScanList',
                 $request,
                 $response,
             );
@@ -1307,7 +1369,15 @@ class SecurityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ScanList',
+                        '\Hanzo\Cloud\Model\SecurityScanList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1353,7 +1423,7 @@ class SecurityApi
      */
     public function getSecurityScansAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getSecurityScans'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ScanList';
+        $returnType = '\Hanzo\Cloud\Model\SecurityScanList';
         $request = $this->getSecurityScansRequest($limit, $contentType);
 
         return $this->client
@@ -1427,7 +1497,7 @@ class SecurityApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1493,7 +1563,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ScanDetail
+     * @return \Hanzo\Cloud\Model\SecurityScanDetail|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSecurityScansById($id, string $contentType = self::contentTypes['getSecurityScansById'][0])
     {
@@ -1511,7 +1581,7 @@ class SecurityApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ScanDetail, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SecurityScanDetail|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSecurityScansByIdWithHttpInfo($id, string $contentType = self::contentTypes['getSecurityScansById'][0])
     {
@@ -1543,7 +1613,13 @@ class SecurityApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ScanDetail',
+                        '\Hanzo\Cloud\Model\SecurityScanDetail',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1565,7 +1641,7 @@ class SecurityApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ScanDetail',
+                '\Hanzo\Cloud\Model\SecurityScanDetail',
                 $request,
                 $response,
             );
@@ -1574,7 +1650,15 @@ class SecurityApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ScanDetail',
+                        '\Hanzo\Cloud\Model\SecurityScanDetail',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1620,7 +1704,7 @@ class SecurityApi
      */
     public function getSecurityScansByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getSecurityScansById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ScanDetail';
+        $returnType = '\Hanzo\Cloud\Model\SecurityScanDetail';
         $request = $this->getSecurityScansByIdRequest($id, $contentType);
 
         return $this->client
@@ -1699,7 +1783,7 @@ class SecurityApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1760,16 +1844,16 @@ class SecurityApi
      *
      * Runs the detection engine over a batch of files and answers 201 with the scan summary: how many files were read, how many findings fired, and the tally by severity.
      *
-     * @param  \Hanzo\Cloud\Model\SubmitReq $submit_req submit_req (required)
+     * @param  \Hanzo\Cloud\Model\SecuritySubmitReq $security_submit_req security_submit_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSecurityScans'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ScanView
+     * @return \Hanzo\Cloud\Model\SecurityScanView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postSecurityScans($submit_req, string $contentType = self::contentTypes['postSecurityScans'][0])
+    public function postSecurityScans($security_submit_req, string $contentType = self::contentTypes['postSecurityScans'][0])
     {
-        list($response) = $this->postSecurityScansWithHttpInfo($submit_req, $contentType);
+        list($response) = $this->postSecurityScansWithHttpInfo($security_submit_req, $contentType);
         return $response;
     }
 
@@ -1778,16 +1862,16 @@ class SecurityApi
      *
      * Runs the detection engine over a batch of files and answers 201 with the scan summary: how many files were read, how many findings fired, and the tally by severity.
      *
-     * @param  \Hanzo\Cloud\Model\SubmitReq $submit_req (required)
+     * @param  \Hanzo\Cloud\Model\SecuritySubmitReq $security_submit_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSecurityScans'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ScanView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SecurityScanView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postSecurityScansWithHttpInfo($submit_req, string $contentType = self::contentTypes['postSecurityScans'][0])
+    public function postSecurityScansWithHttpInfo($security_submit_req, string $contentType = self::contentTypes['postSecurityScans'][0])
     {
-        $request = $this->postSecurityScansRequest($submit_req, $contentType);
+        $request = $this->postSecurityScansRequest($security_submit_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1815,7 +1899,13 @@ class SecurityApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ScanView',
+                        '\Hanzo\Cloud\Model\SecurityScanView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1837,7 +1927,7 @@ class SecurityApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ScanView',
+                '\Hanzo\Cloud\Model\SecurityScanView',
                 $request,
                 $response,
             );
@@ -1846,7 +1936,15 @@ class SecurityApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ScanView',
+                        '\Hanzo\Cloud\Model\SecurityScanView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1863,15 +1961,15 @@ class SecurityApi
      *
      * Runs the detection engine over a batch of files and answers 201 with the scan summary: how many files were read, how many findings fired, and the tally by severity.
      *
-     * @param  \Hanzo\Cloud\Model\SubmitReq $submit_req (required)
+     * @param  \Hanzo\Cloud\Model\SecuritySubmitReq $security_submit_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSecurityScans'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSecurityScansAsync($submit_req, string $contentType = self::contentTypes['postSecurityScans'][0])
+    public function postSecurityScansAsync($security_submit_req, string $contentType = self::contentTypes['postSecurityScans'][0])
     {
-        return $this->postSecurityScansAsyncWithHttpInfo($submit_req, $contentType)
+        return $this->postSecurityScansAsyncWithHttpInfo($security_submit_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1884,16 +1982,16 @@ class SecurityApi
      *
      * Runs the detection engine over a batch of files and answers 201 with the scan summary: how many files were read, how many findings fired, and the tally by severity.
      *
-     * @param  \Hanzo\Cloud\Model\SubmitReq $submit_req (required)
+     * @param  \Hanzo\Cloud\Model\SecuritySubmitReq $security_submit_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSecurityScans'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSecurityScansAsyncWithHttpInfo($submit_req, string $contentType = self::contentTypes['postSecurityScans'][0])
+    public function postSecurityScansAsyncWithHttpInfo($security_submit_req, string $contentType = self::contentTypes['postSecurityScans'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ScanView';
-        $request = $this->postSecurityScansRequest($submit_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SecurityScanView';
+        $request = $this->postSecurityScansRequest($security_submit_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1934,19 +2032,19 @@ class SecurityApi
     /**
      * Create request for operation 'postSecurityScans'
      *
-     * @param  \Hanzo\Cloud\Model\SubmitReq $submit_req (required)
+     * @param  \Hanzo\Cloud\Model\SecuritySubmitReq $security_submit_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSecurityScans'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postSecurityScansRequest($submit_req, string $contentType = self::contentTypes['postSecurityScans'][0])
+    public function postSecurityScansRequest($security_submit_req, string $contentType = self::contentTypes['postSecurityScans'][0])
     {
 
-        // verify the required parameter 'submit_req' is set
-        if ($submit_req === null || (is_array($submit_req) && count($submit_req) === 0)) {
+        // verify the required parameter 'security_submit_req' is set
+        if ($security_submit_req === null || (is_array($security_submit_req) && count($security_submit_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $submit_req when calling postSecurityScans'
+                'Missing the required parameter $security_submit_req when calling postSecurityScans'
             );
         }
 
@@ -1963,18 +2061,18 @@ class SecurityApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($submit_req)) {
+        if (isset($security_submit_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($submit_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($security_submit_req));
             } else {
-                $httpBody = $submit_req;
+                $httpBody = $security_submit_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

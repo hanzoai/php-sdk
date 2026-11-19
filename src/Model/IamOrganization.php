@@ -108,6 +108,7 @@ class IamOrganization implements ModelInterface, ArrayAccess, \JsonSerializable
         'password_options' => 'string[]',
         'password_salt' => 'string',
         'password_type' => 'string',
+        'platform' => 'bool',
         'tags' => 'string[]',
         'theme_data' => '\Hanzo\Cloud\Model\IamThemeData',
         'updated_at' => '\DateTime',
@@ -179,6 +180,7 @@ class IamOrganization implements ModelInterface, ArrayAccess, \JsonSerializable
         'password_options' => null,
         'password_salt' => null,
         'password_type' => null,
+        'platform' => null,
         'tags' => null,
         'theme_data' => null,
         'updated_at' => 'date-time',
@@ -248,6 +250,7 @@ class IamOrganization implements ModelInterface, ArrayAccess, \JsonSerializable
         'password_options' => false,
         'password_salt' => false,
         'password_type' => false,
+        'platform' => false,
         'tags' => false,
         'theme_data' => false,
         'updated_at' => false,
@@ -397,6 +400,7 @@ class IamOrganization implements ModelInterface, ArrayAccess, \JsonSerializable
         'password_options' => 'passwordOptions',
         'password_salt' => 'passwordSalt',
         'password_type' => 'passwordType',
+        'platform' => 'platform',
         'tags' => 'tags',
         'theme_data' => 'themeData',
         'updated_at' => 'updatedAt',
@@ -466,6 +470,7 @@ class IamOrganization implements ModelInterface, ArrayAccess, \JsonSerializable
         'password_options' => 'setPasswordOptions',
         'password_salt' => 'setPasswordSalt',
         'password_type' => 'setPasswordType',
+        'platform' => 'setPlatform',
         'tags' => 'setTags',
         'theme_data' => 'setThemeData',
         'updated_at' => 'setUpdatedAt',
@@ -535,6 +540,7 @@ class IamOrganization implements ModelInterface, ArrayAccess, \JsonSerializable
         'password_options' => 'getPasswordOptions',
         'password_salt' => 'getPasswordSalt',
         'password_type' => 'getPasswordType',
+        'platform' => 'getPlatform',
         'tags' => 'getTags',
         'theme_data' => 'getThemeData',
         'updated_at' => 'getUpdatedAt',
@@ -655,6 +661,7 @@ class IamOrganization implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('password_options', $data ?? [], null);
         $this->setIfExists('password_salt', $data ?? [], null);
         $this->setIfExists('password_type', $data ?? [], null);
+        $this->setIfExists('platform', $data ?? [], null);
         $this->setIfExists('tags', $data ?? [], null);
         $this->setIfExists('theme_data', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
@@ -1343,7 +1350,7 @@ class IamOrganization implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string|null $id Persisted fields
      *
      * @return self
      */
@@ -2082,6 +2089,33 @@ class IamOrganization implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable password_type cannot be null');
         }
         $this->container['password_type'] = $password_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets platform
+     *
+     * @return bool|null
+     */
+    public function getPlatform()
+    {
+        return $this->container['platform'];
+    }
+
+    /**
+     * Sets platform
+     *
+     * @param bool|null $platform Platform marks an organization the platform itself declares (init_data.json): the brand orgs and the others the seed creates, never one a customer made. The seed stamps it on every declared organization at boot, and no request sets or clears it. Only a SuperAdmin may delete an organization that carries it.
+     *
+     * @return self
+     */
+    public function setPlatform($platform)
+    {
+        if (is_null($platform)) {
+            throw new \InvalidArgumentException('non-nullable platform cannot be null');
+        }
+        $this->container['platform'] = $platform;
 
         return $this;
     }

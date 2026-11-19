@@ -58,7 +58,7 @@ class O11yFilterAttributeValueResponse implements ModelInterface, ArrayAccess, \
       */
     protected static $openAPITypes = [
         'bool_attribute_values' => 'bool[]',
-        'number_attribute_values' => 'object[]',
+        'number_attribute_values' => 'mixed[]',
         'related_values' => '\Hanzo\Cloud\Model\O11yFilterAttributeValueResponse',
         'string_attribute_values' => 'string[]'
     ];
@@ -340,7 +340,7 @@ class O11yFilterAttributeValueResponse implements ModelInterface, ArrayAccess, \
     /**
      * Gets number_attribute_values
      *
-     * @return object[]|null
+     * @return mixed[]|null
      */
     public function getNumberAttributeValues()
     {
@@ -350,7 +350,7 @@ class O11yFilterAttributeValueResponse implements ModelInterface, ArrayAccess, \
     /**
      * Sets number_attribute_values
      *
-     * @param object[]|null $number_attribute_values number_attribute_values
+     * @param mixed[]|null $number_attribute_values number_attribute_values
      *
      * @return self
      */

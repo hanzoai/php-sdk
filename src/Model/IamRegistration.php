@@ -62,6 +62,7 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'client_secret' => 'string',
         'display_name' => 'string',
         'enable_code_signin' => 'bool',
+        'enable_sign_up' => 'bool',
         'expire_in_hours' => 'float',
         'grant_types' => 'string[]',
         'is_shared' => 'bool',
@@ -69,7 +70,8 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization' => 'string',
         'public' => 'bool',
         'redirect_uris' => 'string[]',
-        'refresh_expire_in_hours' => 'float'
+        'refresh_expire_in_hours' => 'float',
+        'signin_url' => 'string'
     ];
 
     /**
@@ -85,6 +87,7 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'client_secret' => null,
         'display_name' => null,
         'enable_code_signin' => null,
+        'enable_sign_up' => null,
         'expire_in_hours' => 'double',
         'grant_types' => null,
         'is_shared' => null,
@@ -92,7 +95,8 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization' => null,
         'public' => null,
         'redirect_uris' => null,
-        'refresh_expire_in_hours' => 'double'
+        'refresh_expire_in_hours' => 'double',
+        'signin_url' => null
     ];
 
     /**
@@ -106,6 +110,7 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'client_secret' => false,
         'display_name' => false,
         'enable_code_signin' => false,
+        'enable_sign_up' => false,
         'expire_in_hours' => false,
         'grant_types' => false,
         'is_shared' => false,
@@ -113,7 +118,8 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization' => false,
         'public' => false,
         'redirect_uris' => false,
-        'refresh_expire_in_hours' => false
+        'refresh_expire_in_hours' => false,
+        'signin_url' => false
     ];
 
     /**
@@ -207,6 +213,7 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'client_secret' => 'clientSecret',
         'display_name' => 'displayName',
         'enable_code_signin' => 'enableCodeSignin',
+        'enable_sign_up' => 'enableSignUp',
         'expire_in_hours' => 'expireInHours',
         'grant_types' => 'grantTypes',
         'is_shared' => 'isShared',
@@ -214,7 +221,8 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization' => 'organization',
         'public' => 'public',
         'redirect_uris' => 'redirectUris',
-        'refresh_expire_in_hours' => 'refreshExpireInHours'
+        'refresh_expire_in_hours' => 'refreshExpireInHours',
+        'signin_url' => 'signinUrl'
     ];
 
     /**
@@ -228,6 +236,7 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'client_secret' => 'setClientSecret',
         'display_name' => 'setDisplayName',
         'enable_code_signin' => 'setEnableCodeSignin',
+        'enable_sign_up' => 'setEnableSignUp',
         'expire_in_hours' => 'setExpireInHours',
         'grant_types' => 'setGrantTypes',
         'is_shared' => 'setIsShared',
@@ -235,7 +244,8 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization' => 'setOrganization',
         'public' => 'setPublic',
         'redirect_uris' => 'setRedirectUris',
-        'refresh_expire_in_hours' => 'setRefreshExpireInHours'
+        'refresh_expire_in_hours' => 'setRefreshExpireInHours',
+        'signin_url' => 'setSigninUrl'
     ];
 
     /**
@@ -249,6 +259,7 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'client_secret' => 'getClientSecret',
         'display_name' => 'getDisplayName',
         'enable_code_signin' => 'getEnableCodeSignin',
+        'enable_sign_up' => 'getEnableSignUp',
         'expire_in_hours' => 'getExpireInHours',
         'grant_types' => 'getGrantTypes',
         'is_shared' => 'getIsShared',
@@ -256,7 +267,8 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'organization' => 'getOrganization',
         'public' => 'getPublic',
         'redirect_uris' => 'getRedirectUris',
-        'refresh_expire_in_hours' => 'getRefreshExpireInHours'
+        'refresh_expire_in_hours' => 'getRefreshExpireInHours',
+        'signin_url' => 'getSigninUrl'
     ];
 
     /**
@@ -321,6 +333,7 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('client_secret', $data ?? [], null);
         $this->setIfExists('display_name', $data ?? [], null);
         $this->setIfExists('enable_code_signin', $data ?? [], null);
+        $this->setIfExists('enable_sign_up', $data ?? [], null);
         $this->setIfExists('expire_in_hours', $data ?? [], null);
         $this->setIfExists('grant_types', $data ?? [], null);
         $this->setIfExists('is_shared', $data ?? [], null);
@@ -329,6 +342,7 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('public', $data ?? [], null);
         $this->setIfExists('redirect_uris', $data ?? [], null);
         $this->setIfExists('refresh_expire_in_hours', $data ?? [], null);
+        $this->setIfExists('signin_url', $data ?? [], null);
     }
 
     /**
@@ -504,6 +518,33 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable enable_code_signin cannot be null');
         }
         $this->container['enable_code_signin'] = $enable_code_signin;
+
+        return $this;
+    }
+
+    /**
+     * Gets enable_sign_up
+     *
+     * @return bool|null
+     */
+    public function getEnableSignUp()
+    {
+        return $this->container['enable_sign_up'];
+    }
+
+    /**
+     * Sets enable_sign_up
+     *
+     * @param bool|null $enable_sign_up EnableSignUp opens the application to self-service registration (password, email code, OAuth federation, wallet) and identifier-first address lookup. A POINTER so a reconcile that omits it preserves the stored setting.
+     *
+     * @return self
+     */
+    public function setEnableSignUp($enable_sign_up)
+    {
+        if (is_null($enable_sign_up)) {
+            throw new \InvalidArgumentException('non-nullable enable_sign_up cannot be null');
+        }
+        $this->container['enable_sign_up'] = $enable_sign_up;
 
         return $this;
     }
@@ -720,6 +761,33 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable refresh_expire_in_hours cannot be null');
         }
         $this->container['refresh_expire_in_hours'] = $refresh_expire_in_hours;
+
+        return $this;
+    }
+
+    /**
+     * Gets signin_url
+     *
+     * @return string|null
+     */
+    public function getSigninUrl()
+    {
+        return $this->container['signin_url'];
+    }
+
+    /**
+     * Sets signin_url
+     *
+     * @param string|null $signin_url SigninUrl is where this application's people sign in, when that is not the issuer: the origin of the page IAM sends them to for the approval of a device sign-in, and the hosted login of an authorize request. An absolute https URL, or \"\" to say the issuer. A POINTER so a reconcile that omits it preserves what the application has. IAM prints it only for an origin the operator configured as a sign-in origin of the issuer (oidc verificationOrigin).
+     *
+     * @return self
+     */
+    public function setSigninUrl($signin_url)
+    {
+        if (is_null($signin_url)) {
+            throw new \InvalidArgumentException('non-nullable signin_url cannot be null');
+        }
+        $this->container['signin_url'] = $signin_url;
 
         return $this;
     }

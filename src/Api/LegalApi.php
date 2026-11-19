@@ -165,7 +165,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DocumentPage
+     * @return \Hanzo\Cloud\Model\LegalDocumentPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLegalDocuments($limit = null, string $contentType = self::contentTypes['getLegalDocuments'][0])
     {
@@ -183,7 +183,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DocumentPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LegalDocumentPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLegalDocumentsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getLegalDocuments'][0])
     {
@@ -215,7 +215,13 @@ class LegalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DocumentPage',
+                        '\Hanzo\Cloud\Model\LegalDocumentPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -237,7 +243,7 @@ class LegalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DocumentPage',
+                '\Hanzo\Cloud\Model\LegalDocumentPage',
                 $request,
                 $response,
             );
@@ -246,7 +252,15 @@ class LegalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DocumentPage',
+                        '\Hanzo\Cloud\Model\LegalDocumentPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -292,7 +306,7 @@ class LegalApi
      */
     public function getLegalDocumentsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getLegalDocuments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DocumentPage';
+        $returnType = '\Hanzo\Cloud\Model\LegalDocumentPage';
         $request = $this->getLegalDocumentsRequest($limit, $contentType);
 
         return $this->client
@@ -366,7 +380,7 @@ class LegalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -432,7 +446,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DocumentReply
+     * @return \Hanzo\Cloud\Model\LegalDocumentReply|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLegalDocumentsById($id, string $contentType = self::contentTypes['getLegalDocumentsById'][0])
     {
@@ -450,7 +464,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DocumentReply, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LegalDocumentReply|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLegalDocumentsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getLegalDocumentsById'][0])
     {
@@ -482,7 +496,13 @@ class LegalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DocumentReply',
+                        '\Hanzo\Cloud\Model\LegalDocumentReply',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -504,7 +524,7 @@ class LegalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DocumentReply',
+                '\Hanzo\Cloud\Model\LegalDocumentReply',
                 $request,
                 $response,
             );
@@ -513,7 +533,15 @@ class LegalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DocumentReply',
+                        '\Hanzo\Cloud\Model\LegalDocumentReply',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -559,7 +587,7 @@ class LegalApi
      */
     public function getLegalDocumentsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getLegalDocumentsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DocumentReply';
+        $returnType = '\Hanzo\Cloud\Model\LegalDocumentReply';
         $request = $this->getLegalDocumentsByIdRequest($id, $contentType);
 
         return $this->client
@@ -638,7 +666,7 @@ class LegalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -704,7 +732,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FilingPage
+     * @return \Hanzo\Cloud\Model\LegalFilingPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLegalFilings($limit = null, string $contentType = self::contentTypes['getLegalFilings'][0])
     {
@@ -722,7 +750,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FilingPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LegalFilingPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLegalFilingsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getLegalFilings'][0])
     {
@@ -754,7 +782,13 @@ class LegalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FilingPage',
+                        '\Hanzo\Cloud\Model\LegalFilingPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -776,7 +810,7 @@ class LegalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FilingPage',
+                '\Hanzo\Cloud\Model\LegalFilingPage',
                 $request,
                 $response,
             );
@@ -785,7 +819,15 @@ class LegalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FilingPage',
+                        '\Hanzo\Cloud\Model\LegalFilingPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -831,7 +873,7 @@ class LegalApi
      */
     public function getLegalFilingsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getLegalFilings'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FilingPage';
+        $returnType = '\Hanzo\Cloud\Model\LegalFilingPage';
         $request = $this->getLegalFilingsRequest($limit, $contentType);
 
         return $this->client
@@ -905,7 +947,7 @@ class LegalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -970,7 +1012,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LegalHealth
+     * @return \Hanzo\Cloud\Model\LegalLegalHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLegalHealth(string $contentType = self::contentTypes['getLegalHealth'][0])
     {
@@ -987,7 +1029,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LegalHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LegalLegalHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLegalHealthWithHttpInfo(string $contentType = self::contentTypes['getLegalHealth'][0])
     {
@@ -1019,7 +1061,13 @@ class LegalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\LegalHealth',
+                        '\Hanzo\Cloud\Model\LegalLegalHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1041,7 +1089,7 @@ class LegalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\LegalHealth',
+                '\Hanzo\Cloud\Model\LegalLegalHealth',
                 $request,
                 $response,
             );
@@ -1050,7 +1098,15 @@ class LegalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\LegalHealth',
+                        '\Hanzo\Cloud\Model\LegalLegalHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1094,7 +1150,7 @@ class LegalApi
      */
     public function getLegalHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getLegalHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\LegalHealth';
+        $returnType = '\Hanzo\Cloud\Model\LegalLegalHealth';
         $request = $this->getLegalHealthRequest($contentType);
 
         return $this->client
@@ -1157,7 +1213,7 @@ class LegalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1222,7 +1278,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TemplateCatalog
+     * @return \Hanzo\Cloud\Model\LegalTemplateCatalog|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLegalTemplates(string $contentType = self::contentTypes['getLegalTemplates'][0])
     {
@@ -1239,7 +1295,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TemplateCatalog, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LegalTemplateCatalog|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLegalTemplatesWithHttpInfo(string $contentType = self::contentTypes['getLegalTemplates'][0])
     {
@@ -1271,7 +1327,13 @@ class LegalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TemplateCatalog',
+                        '\Hanzo\Cloud\Model\LegalTemplateCatalog',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1293,7 +1355,7 @@ class LegalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TemplateCatalog',
+                '\Hanzo\Cloud\Model\LegalTemplateCatalog',
                 $request,
                 $response,
             );
@@ -1302,7 +1364,15 @@ class LegalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TemplateCatalog',
+                        '\Hanzo\Cloud\Model\LegalTemplateCatalog',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1346,7 +1416,7 @@ class LegalApi
      */
     public function getLegalTemplatesAsyncWithHttpInfo(string $contentType = self::contentTypes['getLegalTemplates'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TemplateCatalog';
+        $returnType = '\Hanzo\Cloud\Model\LegalTemplateCatalog';
         $request = $this->getLegalTemplatesRequest($contentType);
 
         return $this->client
@@ -1409,7 +1479,7 @@ class LegalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1475,7 +1545,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TemplateReply
+     * @return \Hanzo\Cloud\Model\LegalTemplateReply|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getLegalTemplatesById($id, string $contentType = self::contentTypes['getLegalTemplatesById'][0])
     {
@@ -1493,7 +1563,7 @@ class LegalApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TemplateReply, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LegalTemplateReply|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getLegalTemplatesByIdWithHttpInfo($id, string $contentType = self::contentTypes['getLegalTemplatesById'][0])
     {
@@ -1525,7 +1595,13 @@ class LegalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TemplateReply',
+                        '\Hanzo\Cloud\Model\LegalTemplateReply',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1547,7 +1623,7 @@ class LegalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TemplateReply',
+                '\Hanzo\Cloud\Model\LegalTemplateReply',
                 $request,
                 $response,
             );
@@ -1556,7 +1632,15 @@ class LegalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TemplateReply',
+                        '\Hanzo\Cloud\Model\LegalTemplateReply',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1602,7 +1686,7 @@ class LegalApi
      */
     public function getLegalTemplatesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getLegalTemplatesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TemplateReply';
+        $returnType = '\Hanzo\Cloud\Model\LegalTemplateReply';
         $request = $this->getLegalTemplatesByIdRequest($id, $contentType);
 
         return $this->client
@@ -1681,7 +1765,7 @@ class LegalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1742,16 +1826,16 @@ class LegalApi
      *
      * Renders a document from a template and the caller&#39;s own merge data, seals it in the org&#39;s store, and returns it with its rendered body.
      *
-     * @param  \Hanzo\Cloud\Model\GenerateRequest $generate_request generate_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalGenerateRequest $legal_generate_request legal_generate_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalDocuments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DocumentReply
+     * @return \Hanzo\Cloud\Model\LegalDocumentReply|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postLegalDocuments($generate_request, string $contentType = self::contentTypes['postLegalDocuments'][0])
+    public function postLegalDocuments($legal_generate_request, string $contentType = self::contentTypes['postLegalDocuments'][0])
     {
-        list($response) = $this->postLegalDocumentsWithHttpInfo($generate_request, $contentType);
+        list($response) = $this->postLegalDocumentsWithHttpInfo($legal_generate_request, $contentType);
         return $response;
     }
 
@@ -1760,16 +1844,16 @@ class LegalApi
      *
      * Renders a document from a template and the caller&#39;s own merge data, seals it in the org&#39;s store, and returns it with its rendered body.
      *
-     * @param  \Hanzo\Cloud\Model\GenerateRequest $generate_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalGenerateRequest $legal_generate_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalDocuments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DocumentReply, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LegalDocumentReply|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postLegalDocumentsWithHttpInfo($generate_request, string $contentType = self::contentTypes['postLegalDocuments'][0])
+    public function postLegalDocumentsWithHttpInfo($legal_generate_request, string $contentType = self::contentTypes['postLegalDocuments'][0])
     {
-        $request = $this->postLegalDocumentsRequest($generate_request, $contentType);
+        $request = $this->postLegalDocumentsRequest($legal_generate_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1797,7 +1881,13 @@ class LegalApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DocumentReply',
+                        '\Hanzo\Cloud\Model\LegalDocumentReply',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1819,7 +1909,7 @@ class LegalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DocumentReply',
+                '\Hanzo\Cloud\Model\LegalDocumentReply',
                 $request,
                 $response,
             );
@@ -1828,7 +1918,15 @@ class LegalApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DocumentReply',
+                        '\Hanzo\Cloud\Model\LegalDocumentReply',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1845,15 +1943,15 @@ class LegalApi
      *
      * Renders a document from a template and the caller&#39;s own merge data, seals it in the org&#39;s store, and returns it with its rendered body.
      *
-     * @param  \Hanzo\Cloud\Model\GenerateRequest $generate_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalGenerateRequest $legal_generate_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLegalDocumentsAsync($generate_request, string $contentType = self::contentTypes['postLegalDocuments'][0])
+    public function postLegalDocumentsAsync($legal_generate_request, string $contentType = self::contentTypes['postLegalDocuments'][0])
     {
-        return $this->postLegalDocumentsAsyncWithHttpInfo($generate_request, $contentType)
+        return $this->postLegalDocumentsAsyncWithHttpInfo($legal_generate_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1866,16 +1964,16 @@ class LegalApi
      *
      * Renders a document from a template and the caller&#39;s own merge data, seals it in the org&#39;s store, and returns it with its rendered body.
      *
-     * @param  \Hanzo\Cloud\Model\GenerateRequest $generate_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalGenerateRequest $legal_generate_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLegalDocumentsAsyncWithHttpInfo($generate_request, string $contentType = self::contentTypes['postLegalDocuments'][0])
+    public function postLegalDocumentsAsyncWithHttpInfo($legal_generate_request, string $contentType = self::contentTypes['postLegalDocuments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DocumentReply';
-        $request = $this->postLegalDocumentsRequest($generate_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LegalDocumentReply';
+        $request = $this->postLegalDocumentsRequest($legal_generate_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1916,19 +2014,19 @@ class LegalApi
     /**
      * Create request for operation 'postLegalDocuments'
      *
-     * @param  \Hanzo\Cloud\Model\GenerateRequest $generate_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalGenerateRequest $legal_generate_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postLegalDocumentsRequest($generate_request, string $contentType = self::contentTypes['postLegalDocuments'][0])
+    public function postLegalDocumentsRequest($legal_generate_request, string $contentType = self::contentTypes['postLegalDocuments'][0])
     {
 
-        // verify the required parameter 'generate_request' is set
-        if ($generate_request === null || (is_array($generate_request) && count($generate_request) === 0)) {
+        // verify the required parameter 'legal_generate_request' is set
+        if ($legal_generate_request === null || (is_array($legal_generate_request) && count($legal_generate_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $generate_request when calling postLegalDocuments'
+                'Missing the required parameter $legal_generate_request when calling postLegalDocuments'
             );
         }
 
@@ -1945,18 +2043,18 @@ class LegalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($generate_request)) {
+        if (isset($legal_generate_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($legal_generate_request));
             } else {
-                $httpBody = $generate_request;
+                $httpBody = $legal_generate_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2014,16 +2112,16 @@ class LegalApi
      * Opens an e-signature request over one document and moves it to out_for_signature, returning the provider&#39;s reference for the request.
      *
      * @param  string $id ID is the document to send for signature, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SignRequest $sign_request sign_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalSignRequest $legal_sign_request legal_sign_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalDocumentsByIdSign'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SignReply
+     * @return \Hanzo\Cloud\Model\LegalSignReply|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postLegalDocumentsByIdSign($id, $sign_request, string $contentType = self::contentTypes['postLegalDocumentsByIdSign'][0])
+    public function postLegalDocumentsByIdSign($id, $legal_sign_request, string $contentType = self::contentTypes['postLegalDocumentsByIdSign'][0])
     {
-        list($response) = $this->postLegalDocumentsByIdSignWithHttpInfo($id, $sign_request, $contentType);
+        list($response) = $this->postLegalDocumentsByIdSignWithHttpInfo($id, $legal_sign_request, $contentType);
         return $response;
     }
 
@@ -2033,16 +2131,16 @@ class LegalApi
      * Opens an e-signature request over one document and moves it to out_for_signature, returning the provider&#39;s reference for the request.
      *
      * @param  string $id ID is the document to send for signature, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SignRequest $sign_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalSignRequest $legal_sign_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalDocumentsByIdSign'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SignReply, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LegalSignReply|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postLegalDocumentsByIdSignWithHttpInfo($id, $sign_request, string $contentType = self::contentTypes['postLegalDocumentsByIdSign'][0])
+    public function postLegalDocumentsByIdSignWithHttpInfo($id, $legal_sign_request, string $contentType = self::contentTypes['postLegalDocumentsByIdSign'][0])
     {
-        $request = $this->postLegalDocumentsByIdSignRequest($id, $sign_request, $contentType);
+        $request = $this->postLegalDocumentsByIdSignRequest($id, $legal_sign_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2070,7 +2168,13 @@ class LegalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SignReply',
+                        '\Hanzo\Cloud\Model\LegalSignReply',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2092,7 +2196,7 @@ class LegalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SignReply',
+                '\Hanzo\Cloud\Model\LegalSignReply',
                 $request,
                 $response,
             );
@@ -2101,7 +2205,15 @@ class LegalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SignReply',
+                        '\Hanzo\Cloud\Model\LegalSignReply',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2119,15 +2231,15 @@ class LegalApi
      * Opens an e-signature request over one document and moves it to out_for_signature, returning the provider&#39;s reference for the request.
      *
      * @param  string $id ID is the document to send for signature, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SignRequest $sign_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalSignRequest $legal_sign_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalDocumentsByIdSign'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLegalDocumentsByIdSignAsync($id, $sign_request, string $contentType = self::contentTypes['postLegalDocumentsByIdSign'][0])
+    public function postLegalDocumentsByIdSignAsync($id, $legal_sign_request, string $contentType = self::contentTypes['postLegalDocumentsByIdSign'][0])
     {
-        return $this->postLegalDocumentsByIdSignAsyncWithHttpInfo($id, $sign_request, $contentType)
+        return $this->postLegalDocumentsByIdSignAsyncWithHttpInfo($id, $legal_sign_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2141,16 +2253,16 @@ class LegalApi
      * Opens an e-signature request over one document and moves it to out_for_signature, returning the provider&#39;s reference for the request.
      *
      * @param  string $id ID is the document to send for signature, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SignRequest $sign_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalSignRequest $legal_sign_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalDocumentsByIdSign'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLegalDocumentsByIdSignAsyncWithHttpInfo($id, $sign_request, string $contentType = self::contentTypes['postLegalDocumentsByIdSign'][0])
+    public function postLegalDocumentsByIdSignAsyncWithHttpInfo($id, $legal_sign_request, string $contentType = self::contentTypes['postLegalDocumentsByIdSign'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SignReply';
-        $request = $this->postLegalDocumentsByIdSignRequest($id, $sign_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LegalSignReply';
+        $request = $this->postLegalDocumentsByIdSignRequest($id, $legal_sign_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2192,13 +2304,13 @@ class LegalApi
      * Create request for operation 'postLegalDocumentsByIdSign'
      *
      * @param  string $id ID is the document to send for signature, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\SignRequest $sign_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalSignRequest $legal_sign_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalDocumentsByIdSign'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postLegalDocumentsByIdSignRequest($id, $sign_request, string $contentType = self::contentTypes['postLegalDocumentsByIdSign'][0])
+    public function postLegalDocumentsByIdSignRequest($id, $legal_sign_request, string $contentType = self::contentTypes['postLegalDocumentsByIdSign'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -2208,10 +2320,10 @@ class LegalApi
             );
         }
 
-        // verify the required parameter 'sign_request' is set
-        if ($sign_request === null || (is_array($sign_request) && count($sign_request) === 0)) {
+        // verify the required parameter 'legal_sign_request' is set
+        if ($legal_sign_request === null || (is_array($legal_sign_request) && count($legal_sign_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $sign_request when calling postLegalDocumentsByIdSign'
+                'Missing the required parameter $legal_sign_request when calling postLegalDocumentsByIdSign'
             );
         }
 
@@ -2236,18 +2348,18 @@ class LegalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($sign_request)) {
+        if (isset($legal_sign_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sign_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($legal_sign_request));
             } else {
-                $httpBody = $sign_request;
+                $httpBody = $legal_sign_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2526,16 +2638,16 @@ class LegalApi
      *
      * Records a filing of one or more of the org&#39;s documents with a state or agency, and returns the tracking record.
      *
-     * @param  \Hanzo\Cloud\Model\FilingRequest $filing_request filing_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalFilingRequest $legal_filing_request legal_filing_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalFilings'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FilingReply
+     * @return \Hanzo\Cloud\Model\LegalFilingReply|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postLegalFilings($filing_request, string $contentType = self::contentTypes['postLegalFilings'][0])
+    public function postLegalFilings($legal_filing_request, string $contentType = self::contentTypes['postLegalFilings'][0])
     {
-        list($response) = $this->postLegalFilingsWithHttpInfo($filing_request, $contentType);
+        list($response) = $this->postLegalFilingsWithHttpInfo($legal_filing_request, $contentType);
         return $response;
     }
 
@@ -2544,16 +2656,16 @@ class LegalApi
      *
      * Records a filing of one or more of the org&#39;s documents with a state or agency, and returns the tracking record.
      *
-     * @param  \Hanzo\Cloud\Model\FilingRequest $filing_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalFilingRequest $legal_filing_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalFilings'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FilingReply, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LegalFilingReply|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postLegalFilingsWithHttpInfo($filing_request, string $contentType = self::contentTypes['postLegalFilings'][0])
+    public function postLegalFilingsWithHttpInfo($legal_filing_request, string $contentType = self::contentTypes['postLegalFilings'][0])
     {
-        $request = $this->postLegalFilingsRequest($filing_request, $contentType);
+        $request = $this->postLegalFilingsRequest($legal_filing_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2581,7 +2693,13 @@ class LegalApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FilingReply',
+                        '\Hanzo\Cloud\Model\LegalFilingReply',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2603,7 +2721,7 @@ class LegalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FilingReply',
+                '\Hanzo\Cloud\Model\LegalFilingReply',
                 $request,
                 $response,
             );
@@ -2612,7 +2730,15 @@ class LegalApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FilingReply',
+                        '\Hanzo\Cloud\Model\LegalFilingReply',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2629,15 +2755,15 @@ class LegalApi
      *
      * Records a filing of one or more of the org&#39;s documents with a state or agency, and returns the tracking record.
      *
-     * @param  \Hanzo\Cloud\Model\FilingRequest $filing_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalFilingRequest $legal_filing_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalFilings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLegalFilingsAsync($filing_request, string $contentType = self::contentTypes['postLegalFilings'][0])
+    public function postLegalFilingsAsync($legal_filing_request, string $contentType = self::contentTypes['postLegalFilings'][0])
     {
-        return $this->postLegalFilingsAsyncWithHttpInfo($filing_request, $contentType)
+        return $this->postLegalFilingsAsyncWithHttpInfo($legal_filing_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2650,16 +2776,16 @@ class LegalApi
      *
      * Records a filing of one or more of the org&#39;s documents with a state or agency, and returns the tracking record.
      *
-     * @param  \Hanzo\Cloud\Model\FilingRequest $filing_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalFilingRequest $legal_filing_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalFilings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postLegalFilingsAsyncWithHttpInfo($filing_request, string $contentType = self::contentTypes['postLegalFilings'][0])
+    public function postLegalFilingsAsyncWithHttpInfo($legal_filing_request, string $contentType = self::contentTypes['postLegalFilings'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FilingReply';
-        $request = $this->postLegalFilingsRequest($filing_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LegalFilingReply';
+        $request = $this->postLegalFilingsRequest($legal_filing_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2700,19 +2826,19 @@ class LegalApi
     /**
      * Create request for operation 'postLegalFilings'
      *
-     * @param  \Hanzo\Cloud\Model\FilingRequest $filing_request (required)
+     * @param  \Hanzo\Cloud\Model\LegalFilingRequest $legal_filing_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postLegalFilings'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postLegalFilingsRequest($filing_request, string $contentType = self::contentTypes['postLegalFilings'][0])
+    public function postLegalFilingsRequest($legal_filing_request, string $contentType = self::contentTypes['postLegalFilings'][0])
     {
 
-        // verify the required parameter 'filing_request' is set
-        if ($filing_request === null || (is_array($filing_request) && count($filing_request) === 0)) {
+        // verify the required parameter 'legal_filing_request' is set
+        if ($legal_filing_request === null || (is_array($legal_filing_request) && count($legal_filing_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $filing_request when calling postLegalFilings'
+                'Missing the required parameter $legal_filing_request when calling postLegalFilings'
             );
         }
 
@@ -2729,18 +2855,18 @@ class LegalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($filing_request)) {
+        if (isset($legal_filing_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($filing_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($legal_filing_request));
             } else {
-                $httpBody = $filing_request;
+                $httpBody = $legal_filing_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2798,16 +2924,16 @@ class LegalApi
      * Saves the org&#39;s own version of a template — a custom NDA, a house MSA — and returns it with its new version number.
      *
      * @param  string $id ID is the template to override, from the path. Overriding a built-in id inherits that built-in&#39;s category, title and counsel-review posture. (required)
-     * @param  \Hanzo\Cloud\Model\TemplateOverride $template_override template_override (required)
+     * @param  \Hanzo\Cloud\Model\LegalTemplateOverride $legal_template_override legal_template_override (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLegalTemplatesById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TemplateReply
+     * @return \Hanzo\Cloud\Model\LegalTemplateReply|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putLegalTemplatesById($id, $template_override, string $contentType = self::contentTypes['putLegalTemplatesById'][0])
+    public function putLegalTemplatesById($id, $legal_template_override, string $contentType = self::contentTypes['putLegalTemplatesById'][0])
     {
-        list($response) = $this->putLegalTemplatesByIdWithHttpInfo($id, $template_override, $contentType);
+        list($response) = $this->putLegalTemplatesByIdWithHttpInfo($id, $legal_template_override, $contentType);
         return $response;
     }
 
@@ -2817,16 +2943,16 @@ class LegalApi
      * Saves the org&#39;s own version of a template — a custom NDA, a house MSA — and returns it with its new version number.
      *
      * @param  string $id ID is the template to override, from the path. Overriding a built-in id inherits that built-in&#39;s category, title and counsel-review posture. (required)
-     * @param  \Hanzo\Cloud\Model\TemplateOverride $template_override (required)
+     * @param  \Hanzo\Cloud\Model\LegalTemplateOverride $legal_template_override (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLegalTemplatesById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TemplateReply, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\LegalTemplateReply|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putLegalTemplatesByIdWithHttpInfo($id, $template_override, string $contentType = self::contentTypes['putLegalTemplatesById'][0])
+    public function putLegalTemplatesByIdWithHttpInfo($id, $legal_template_override, string $contentType = self::contentTypes['putLegalTemplatesById'][0])
     {
-        $request = $this->putLegalTemplatesByIdRequest($id, $template_override, $contentType);
+        $request = $this->putLegalTemplatesByIdRequest($id, $legal_template_override, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2854,7 +2980,13 @@ class LegalApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TemplateReply',
+                        '\Hanzo\Cloud\Model\LegalTemplateReply',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2876,7 +3008,7 @@ class LegalApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TemplateReply',
+                '\Hanzo\Cloud\Model\LegalTemplateReply',
                 $request,
                 $response,
             );
@@ -2885,7 +3017,15 @@ class LegalApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TemplateReply',
+                        '\Hanzo\Cloud\Model\LegalTemplateReply',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2903,15 +3043,15 @@ class LegalApi
      * Saves the org&#39;s own version of a template — a custom NDA, a house MSA — and returns it with its new version number.
      *
      * @param  string $id ID is the template to override, from the path. Overriding a built-in id inherits that built-in&#39;s category, title and counsel-review posture. (required)
-     * @param  \Hanzo\Cloud\Model\TemplateOverride $template_override (required)
+     * @param  \Hanzo\Cloud\Model\LegalTemplateOverride $legal_template_override (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLegalTemplatesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putLegalTemplatesByIdAsync($id, $template_override, string $contentType = self::contentTypes['putLegalTemplatesById'][0])
+    public function putLegalTemplatesByIdAsync($id, $legal_template_override, string $contentType = self::contentTypes['putLegalTemplatesById'][0])
     {
-        return $this->putLegalTemplatesByIdAsyncWithHttpInfo($id, $template_override, $contentType)
+        return $this->putLegalTemplatesByIdAsyncWithHttpInfo($id, $legal_template_override, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2925,16 +3065,16 @@ class LegalApi
      * Saves the org&#39;s own version of a template — a custom NDA, a house MSA — and returns it with its new version number.
      *
      * @param  string $id ID is the template to override, from the path. Overriding a built-in id inherits that built-in&#39;s category, title and counsel-review posture. (required)
-     * @param  \Hanzo\Cloud\Model\TemplateOverride $template_override (required)
+     * @param  \Hanzo\Cloud\Model\LegalTemplateOverride $legal_template_override (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLegalTemplatesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putLegalTemplatesByIdAsyncWithHttpInfo($id, $template_override, string $contentType = self::contentTypes['putLegalTemplatesById'][0])
+    public function putLegalTemplatesByIdAsyncWithHttpInfo($id, $legal_template_override, string $contentType = self::contentTypes['putLegalTemplatesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TemplateReply';
-        $request = $this->putLegalTemplatesByIdRequest($id, $template_override, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\LegalTemplateReply';
+        $request = $this->putLegalTemplatesByIdRequest($id, $legal_template_override, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2976,13 +3116,13 @@ class LegalApi
      * Create request for operation 'putLegalTemplatesById'
      *
      * @param  string $id ID is the template to override, from the path. Overriding a built-in id inherits that built-in&#39;s category, title and counsel-review posture. (required)
-     * @param  \Hanzo\Cloud\Model\TemplateOverride $template_override (required)
+     * @param  \Hanzo\Cloud\Model\LegalTemplateOverride $legal_template_override (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putLegalTemplatesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putLegalTemplatesByIdRequest($id, $template_override, string $contentType = self::contentTypes['putLegalTemplatesById'][0])
+    public function putLegalTemplatesByIdRequest($id, $legal_template_override, string $contentType = self::contentTypes['putLegalTemplatesById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -2992,10 +3132,10 @@ class LegalApi
             );
         }
 
-        // verify the required parameter 'template_override' is set
-        if ($template_override === null || (is_array($template_override) && count($template_override) === 0)) {
+        // verify the required parameter 'legal_template_override' is set
+        if ($legal_template_override === null || (is_array($legal_template_override) && count($legal_template_override) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $template_override when calling putLegalTemplatesById'
+                'Missing the required parameter $legal_template_override when calling putLegalTemplatesById'
             );
         }
 
@@ -3020,18 +3160,18 @@ class LegalApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($template_override)) {
+        if (isset($legal_template_override)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($template_override));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($legal_template_override));
             } else {
-                $httpBody = $template_override;
+                $httpBody = $legal_template_override;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

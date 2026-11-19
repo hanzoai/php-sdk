@@ -74,6 +74,9 @@ class NotifyApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'deleteNotifyCredentialsByProviderByKey' => [
+            'application/json',
+        ],
         'getNotifyHealth' => [
             'application/json',
         ],
@@ -84,6 +87,9 @@ class NotifyApi
             'application/json',
         ],
         'postNotifySendSms' => [
+            'application/json',
+        ],
+        'putNotifyCredentialsByProviderByKey' => [
             'application/json',
         ],
     ];
@@ -135,6 +141,256 @@ class NotifyApi
     }
 
     /**
+     * Operation deleteNotifyCredentialsByProviderByKey
+     *
+     * Removes one of your org&#39;s notify provider credentials.
+     *
+     * @param  string $provider Provider is the delivery provider the credential is for. (required)
+     * @param  string $key Key is the credential&#39;s name within that provider. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNotifyCredentialsByProviderByKey'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteNotifyCredentialsByProviderByKey($provider, $key, string $contentType = self::contentTypes['deleteNotifyCredentialsByProviderByKey'][0])
+    {
+        $this->deleteNotifyCredentialsByProviderByKeyWithHttpInfo($provider, $key, $contentType);
+    }
+
+    /**
+     * Operation deleteNotifyCredentialsByProviderByKeyWithHttpInfo
+     *
+     * Removes one of your org&#39;s notify provider credentials.
+     *
+     * @param  string $provider Provider is the delivery provider the credential is for. (required)
+     * @param  string $key Key is the credential&#39;s name within that provider. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNotifyCredentialsByProviderByKey'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteNotifyCredentialsByProviderByKeyWithHttpInfo($provider, $key, string $contentType = self::contentTypes['deleteNotifyCredentialsByProviderByKey'][0])
+    {
+        $request = $this->deleteNotifyCredentialsByProviderByKeyRequest($provider, $key, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteNotifyCredentialsByProviderByKeyAsync
+     *
+     * Removes one of your org&#39;s notify provider credentials.
+     *
+     * @param  string $provider Provider is the delivery provider the credential is for. (required)
+     * @param  string $key Key is the credential&#39;s name within that provider. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNotifyCredentialsByProviderByKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteNotifyCredentialsByProviderByKeyAsync($provider, $key, string $contentType = self::contentTypes['deleteNotifyCredentialsByProviderByKey'][0])
+    {
+        return $this->deleteNotifyCredentialsByProviderByKeyAsyncWithHttpInfo($provider, $key, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteNotifyCredentialsByProviderByKeyAsyncWithHttpInfo
+     *
+     * Removes one of your org&#39;s notify provider credentials.
+     *
+     * @param  string $provider Provider is the delivery provider the credential is for. (required)
+     * @param  string $key Key is the credential&#39;s name within that provider. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNotifyCredentialsByProviderByKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteNotifyCredentialsByProviderByKeyAsyncWithHttpInfo($provider, $key, string $contentType = self::contentTypes['deleteNotifyCredentialsByProviderByKey'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteNotifyCredentialsByProviderByKeyRequest($provider, $key, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteNotifyCredentialsByProviderByKey'
+     *
+     * @param  string $provider Provider is the delivery provider the credential is for. (required)
+     * @param  string $key Key is the credential&#39;s name within that provider. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNotifyCredentialsByProviderByKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteNotifyCredentialsByProviderByKeyRequest($provider, $key, string $contentType = self::contentTypes['deleteNotifyCredentialsByProviderByKey'][0])
+    {
+
+        // verify the required parameter 'provider' is set
+        if ($provider === null || (is_array($provider) && count($provider) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $provider when calling deleteNotifyCredentialsByProviderByKey'
+            );
+        }
+
+        // verify the required parameter 'key' is set
+        if ($key === null || (is_array($key) && count($key) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $key when calling deleteNotifyCredentialsByProviderByKey'
+            );
+        }
+
+
+        $resourcePath = '/v1/notify/credentials/{provider}/{key}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($provider !== null) {
+            $resourcePath = str_replace(
+                '{' . 'provider' . '}',
+                ObjectSerializer::toPathValue($provider),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($key !== null) {
+            $resourcePath = str_replace(
+                '{' . 'key' . '}',
+                ObjectSerializer::toPathValue($key),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getNotifyHealth
      *
      * Reports that the notify send surface is mounted.
@@ -143,7 +399,7 @@ class NotifyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\NotifyHealth
+     * @return \Hanzo\Cloud\Model\NotifyNotifyHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getNotifyHealth(string $contentType = self::contentTypes['getNotifyHealth'][0])
     {
@@ -160,7 +416,7 @@ class NotifyApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\NotifyHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\NotifyNotifyHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getNotifyHealthWithHttpInfo(string $contentType = self::contentTypes['getNotifyHealth'][0])
     {
@@ -192,7 +448,13 @@ class NotifyApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\NotifyHealth',
+                        '\Hanzo\Cloud\Model\NotifyNotifyHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -214,7 +476,7 @@ class NotifyApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\NotifyHealth',
+                '\Hanzo\Cloud\Model\NotifyNotifyHealth',
                 $request,
                 $response,
             );
@@ -223,7 +485,15 @@ class NotifyApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\NotifyHealth',
+                        '\Hanzo\Cloud\Model\NotifyNotifyHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -267,7 +537,7 @@ class NotifyApi
      */
     public function getNotifyHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getNotifyHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\NotifyHealth';
+        $returnType = '\Hanzo\Cloud\Model\NotifyNotifyHealth';
         $request = $this->getNotifyHealthRequest($contentType);
 
         return $this->client
@@ -330,7 +600,7 @@ class NotifyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -391,16 +661,16 @@ class NotifyApi
      *
      * Delivers one transactional message by email or SMS through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySend'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postNotifySend($notify_send, string $contentType = self::contentTypes['postNotifySend'][0])
+    public function postNotifySend($notify_notify_send, string $contentType = self::contentTypes['postNotifySend'][0])
     {
-        list($response) = $this->postNotifySendWithHttpInfo($notify_send, $contentType);
+        list($response) = $this->postNotifySendWithHttpInfo($notify_notify_send, $contentType);
         return $response;
     }
 
@@ -409,16 +679,16 @@ class NotifyApi
      *
      * Delivers one transactional message by email or SMS through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySend'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postNotifySendWithHttpInfo($notify_send, string $contentType = self::contentTypes['postNotifySend'][0])
+    public function postNotifySendWithHttpInfo($notify_notify_send, string $contentType = self::contentTypes['postNotifySend'][0])
     {
-        $request = $this->postNotifySendRequest($notify_send, $contentType);
+        $request = $this->postNotifySendRequest($notify_notify_send, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -447,6 +717,12 @@ class NotifyApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -482,6 +758,14 @@ class NotifyApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -494,15 +778,15 @@ class NotifyApi
      *
      * Delivers one transactional message by email or SMS through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySend'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postNotifySendAsync($notify_send, string $contentType = self::contentTypes['postNotifySend'][0])
+    public function postNotifySendAsync($notify_notify_send, string $contentType = self::contentTypes['postNotifySend'][0])
     {
-        return $this->postNotifySendAsyncWithHttpInfo($notify_send, $contentType)
+        return $this->postNotifySendAsyncWithHttpInfo($notify_notify_send, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -515,16 +799,16 @@ class NotifyApi
      *
      * Delivers one transactional message by email or SMS through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySend'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postNotifySendAsyncWithHttpInfo($notify_send, string $contentType = self::contentTypes['postNotifySend'][0])
+    public function postNotifySendAsyncWithHttpInfo($notify_notify_send, string $contentType = self::contentTypes['postNotifySend'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postNotifySendRequest($notify_send, $contentType);
+        $request = $this->postNotifySendRequest($notify_notify_send, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -565,19 +849,19 @@ class NotifyApi
     /**
      * Create request for operation 'postNotifySend'
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySend'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postNotifySendRequest($notify_send, string $contentType = self::contentTypes['postNotifySend'][0])
+    public function postNotifySendRequest($notify_notify_send, string $contentType = self::contentTypes['postNotifySend'][0])
     {
 
-        // verify the required parameter 'notify_send' is set
-        if ($notify_send === null || (is_array($notify_send) && count($notify_send) === 0)) {
+        // verify the required parameter 'notify_notify_send' is set
+        if ($notify_notify_send === null || (is_array($notify_notify_send) && count($notify_notify_send) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $notify_send when calling postNotifySend'
+                'Missing the required parameter $notify_notify_send when calling postNotifySend'
             );
         }
 
@@ -594,18 +878,18 @@ class NotifyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($notify_send)) {
+        if (isset($notify_notify_send)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($notify_send));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($notify_notify_send));
             } else {
-                $httpBody = $notify_send;
+                $httpBody = $notify_notify_send;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -662,16 +946,16 @@ class NotifyApi
      *
      * Delivers one transactional email through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySendEmail'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postNotifySendEmail($notify_send, string $contentType = self::contentTypes['postNotifySendEmail'][0])
+    public function postNotifySendEmail($notify_notify_send, string $contentType = self::contentTypes['postNotifySendEmail'][0])
     {
-        list($response) = $this->postNotifySendEmailWithHttpInfo($notify_send, $contentType);
+        list($response) = $this->postNotifySendEmailWithHttpInfo($notify_notify_send, $contentType);
         return $response;
     }
 
@@ -680,16 +964,16 @@ class NotifyApi
      *
      * Delivers one transactional email through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySendEmail'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postNotifySendEmailWithHttpInfo($notify_send, string $contentType = self::contentTypes['postNotifySendEmail'][0])
+    public function postNotifySendEmailWithHttpInfo($notify_notify_send, string $contentType = self::contentTypes['postNotifySendEmail'][0])
     {
-        $request = $this->postNotifySendEmailRequest($notify_send, $contentType);
+        $request = $this->postNotifySendEmailRequest($notify_notify_send, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -718,6 +1002,12 @@ class NotifyApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -753,6 +1043,14 @@ class NotifyApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -765,15 +1063,15 @@ class NotifyApi
      *
      * Delivers one transactional email through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySendEmail'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postNotifySendEmailAsync($notify_send, string $contentType = self::contentTypes['postNotifySendEmail'][0])
+    public function postNotifySendEmailAsync($notify_notify_send, string $contentType = self::contentTypes['postNotifySendEmail'][0])
     {
-        return $this->postNotifySendEmailAsyncWithHttpInfo($notify_send, $contentType)
+        return $this->postNotifySendEmailAsyncWithHttpInfo($notify_notify_send, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -786,16 +1084,16 @@ class NotifyApi
      *
      * Delivers one transactional email through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySendEmail'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postNotifySendEmailAsyncWithHttpInfo($notify_send, string $contentType = self::contentTypes['postNotifySendEmail'][0])
+    public function postNotifySendEmailAsyncWithHttpInfo($notify_notify_send, string $contentType = self::contentTypes['postNotifySendEmail'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postNotifySendEmailRequest($notify_send, $contentType);
+        $request = $this->postNotifySendEmailRequest($notify_notify_send, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -836,19 +1134,19 @@ class NotifyApi
     /**
      * Create request for operation 'postNotifySendEmail'
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySendEmail'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postNotifySendEmailRequest($notify_send, string $contentType = self::contentTypes['postNotifySendEmail'][0])
+    public function postNotifySendEmailRequest($notify_notify_send, string $contentType = self::contentTypes['postNotifySendEmail'][0])
     {
 
-        // verify the required parameter 'notify_send' is set
-        if ($notify_send === null || (is_array($notify_send) && count($notify_send) === 0)) {
+        // verify the required parameter 'notify_notify_send' is set
+        if ($notify_notify_send === null || (is_array($notify_notify_send) && count($notify_notify_send) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $notify_send when calling postNotifySendEmail'
+                'Missing the required parameter $notify_notify_send when calling postNotifySendEmail'
             );
         }
 
@@ -865,18 +1163,18 @@ class NotifyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($notify_send)) {
+        if (isset($notify_notify_send)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($notify_send));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($notify_notify_send));
             } else {
-                $httpBody = $notify_send;
+                $httpBody = $notify_notify_send;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -933,16 +1231,16 @@ class NotifyApi
      *
      * Delivers one transactional SMS through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySendSms'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return mixed|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postNotifySendSms($notify_send, string $contentType = self::contentTypes['postNotifySendSms'][0])
+    public function postNotifySendSms($notify_notify_send, string $contentType = self::contentTypes['postNotifySendSms'][0])
     {
-        list($response) = $this->postNotifySendSmsWithHttpInfo($notify_send, $contentType);
+        list($response) = $this->postNotifySendSmsWithHttpInfo($notify_notify_send, $contentType);
         return $response;
     }
 
@@ -951,16 +1249,16 @@ class NotifyApi
      *
      * Delivers one transactional SMS through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySendSms'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of mixed|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postNotifySendSmsWithHttpInfo($notify_send, string $contentType = self::contentTypes['postNotifySendSms'][0])
+    public function postNotifySendSmsWithHttpInfo($notify_notify_send, string $contentType = self::contentTypes['postNotifySendSms'][0])
     {
-        $request = $this->postNotifySendSmsRequest($notify_send, $contentType);
+        $request = $this->postNotifySendSmsRequest($notify_notify_send, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -989,6 +1287,12 @@ class NotifyApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         'mixed',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1024,6 +1328,14 @@ class NotifyApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1036,15 +1348,15 @@ class NotifyApi
      *
      * Delivers one transactional SMS through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySendSms'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postNotifySendSmsAsync($notify_send, string $contentType = self::contentTypes['postNotifySendSms'][0])
+    public function postNotifySendSmsAsync($notify_notify_send, string $contentType = self::contentTypes['postNotifySendSms'][0])
     {
-        return $this->postNotifySendSmsAsyncWithHttpInfo($notify_send, $contentType)
+        return $this->postNotifySendSmsAsyncWithHttpInfo($notify_notify_send, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1057,16 +1369,16 @@ class NotifyApi
      *
      * Delivers one transactional SMS through the caller org&#39;s own provider credential.
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySendSms'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postNotifySendSmsAsyncWithHttpInfo($notify_send, string $contentType = self::contentTypes['postNotifySendSms'][0])
+    public function postNotifySendSmsAsyncWithHttpInfo($notify_notify_send, string $contentType = self::contentTypes['postNotifySendSms'][0])
     {
         $returnType = 'mixed';
-        $request = $this->postNotifySendSmsRequest($notify_send, $contentType);
+        $request = $this->postNotifySendSmsRequest($notify_notify_send, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1107,19 +1419,19 @@ class NotifyApi
     /**
      * Create request for operation 'postNotifySendSms'
      *
-     * @param  \Hanzo\Cloud\Model\NotifySend $notify_send (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifySend $notify_notify_send (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNotifySendSms'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postNotifySendSmsRequest($notify_send, string $contentType = self::contentTypes['postNotifySendSms'][0])
+    public function postNotifySendSmsRequest($notify_notify_send, string $contentType = self::contentTypes['postNotifySendSms'][0])
     {
 
-        // verify the required parameter 'notify_send' is set
-        if ($notify_send === null || (is_array($notify_send) && count($notify_send) === 0)) {
+        // verify the required parameter 'notify_notify_send' is set
+        if ($notify_notify_send === null || (is_array($notify_notify_send) && count($notify_notify_send) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $notify_send when calling postNotifySendSms'
+                'Missing the required parameter $notify_notify_send when calling postNotifySendSms'
             );
         }
 
@@ -1136,18 +1448,18 @@ class NotifyApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($notify_send)) {
+        if (isset($notify_notify_send)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($notify_send));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($notify_notify_send));
             } else {
-                $httpBody = $notify_send;
+                $httpBody = $notify_notify_send;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1193,6 +1505,331 @@ class NotifyApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putNotifyCredentialsByProviderByKey
+     *
+     * Sets one of your org&#39;s notify provider credentials.
+     *
+     * @param  string $provider Provider is the delivery provider the credential is for: twilio, plivo, twilio_email or mail. (required)
+     * @param  string $key Key is one of the credentials that provider reads, such as auth-token or smtp-host. A key the provider does not read is refused. (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifyCredential $notify_notify_credential notify_notify_credential (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putNotifyCredentialsByProviderByKey'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\NotifyNotifyStored|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putNotifyCredentialsByProviderByKey($provider, $key, $notify_notify_credential, string $contentType = self::contentTypes['putNotifyCredentialsByProviderByKey'][0])
+    {
+        list($response) = $this->putNotifyCredentialsByProviderByKeyWithHttpInfo($provider, $key, $notify_notify_credential, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putNotifyCredentialsByProviderByKeyWithHttpInfo
+     *
+     * Sets one of your org&#39;s notify provider credentials.
+     *
+     * @param  string $provider Provider is the delivery provider the credential is for: twilio, plivo, twilio_email or mail. (required)
+     * @param  string $key Key is one of the credentials that provider reads, such as auth-token or smtp-host. A key the provider does not read is refused. (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifyCredential $notify_notify_credential (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putNotifyCredentialsByProviderByKey'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\NotifyNotifyStored|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putNotifyCredentialsByProviderByKeyWithHttpInfo($provider, $key, $notify_notify_credential, string $contentType = self::contentTypes['putNotifyCredentialsByProviderByKey'][0])
+    {
+        $request = $this->putNotifyCredentialsByProviderByKeyRequest($provider, $key, $notify_notify_credential, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\NotifyNotifyStored',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\NotifyNotifyStored',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\NotifyNotifyStored',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putNotifyCredentialsByProviderByKeyAsync
+     *
+     * Sets one of your org&#39;s notify provider credentials.
+     *
+     * @param  string $provider Provider is the delivery provider the credential is for: twilio, plivo, twilio_email or mail. (required)
+     * @param  string $key Key is one of the credentials that provider reads, such as auth-token or smtp-host. A key the provider does not read is refused. (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifyCredential $notify_notify_credential (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putNotifyCredentialsByProviderByKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putNotifyCredentialsByProviderByKeyAsync($provider, $key, $notify_notify_credential, string $contentType = self::contentTypes['putNotifyCredentialsByProviderByKey'][0])
+    {
+        return $this->putNotifyCredentialsByProviderByKeyAsyncWithHttpInfo($provider, $key, $notify_notify_credential, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putNotifyCredentialsByProviderByKeyAsyncWithHttpInfo
+     *
+     * Sets one of your org&#39;s notify provider credentials.
+     *
+     * @param  string $provider Provider is the delivery provider the credential is for: twilio, plivo, twilio_email or mail. (required)
+     * @param  string $key Key is one of the credentials that provider reads, such as auth-token or smtp-host. A key the provider does not read is refused. (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifyCredential $notify_notify_credential (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putNotifyCredentialsByProviderByKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putNotifyCredentialsByProviderByKeyAsyncWithHttpInfo($provider, $key, $notify_notify_credential, string $contentType = self::contentTypes['putNotifyCredentialsByProviderByKey'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\NotifyNotifyStored';
+        $request = $this->putNotifyCredentialsByProviderByKeyRequest($provider, $key, $notify_notify_credential, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putNotifyCredentialsByProviderByKey'
+     *
+     * @param  string $provider Provider is the delivery provider the credential is for: twilio, plivo, twilio_email or mail. (required)
+     * @param  string $key Key is one of the credentials that provider reads, such as auth-token or smtp-host. A key the provider does not read is refused. (required)
+     * @param  \Hanzo\Cloud\Model\NotifyNotifyCredential $notify_notify_credential (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putNotifyCredentialsByProviderByKey'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putNotifyCredentialsByProviderByKeyRequest($provider, $key, $notify_notify_credential, string $contentType = self::contentTypes['putNotifyCredentialsByProviderByKey'][0])
+    {
+
+        // verify the required parameter 'provider' is set
+        if ($provider === null || (is_array($provider) && count($provider) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $provider when calling putNotifyCredentialsByProviderByKey'
+            );
+        }
+
+        // verify the required parameter 'key' is set
+        if ($key === null || (is_array($key) && count($key) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $key when calling putNotifyCredentialsByProviderByKey'
+            );
+        }
+
+        // verify the required parameter 'notify_notify_credential' is set
+        if ($notify_notify_credential === null || (is_array($notify_notify_credential) && count($notify_notify_credential) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $notify_notify_credential when calling putNotifyCredentialsByProviderByKey'
+            );
+        }
+
+
+        $resourcePath = '/v1/notify/credentials/{provider}/{key}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($provider !== null) {
+            $resourcePath = str_replace(
+                '{' . 'provider' . '}',
+                ObjectSerializer::toPathValue($provider),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($key !== null) {
+            $resourcePath = str_replace(
+                '{' . 'key' . '}',
+                ObjectSerializer::toPathValue($key),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($notify_notify_credential)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($notify_notify_credential));
+            } else {
+                $httpBody = $notify_notify_credential;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

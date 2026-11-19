@@ -153,7 +153,7 @@ class ContentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BoardPage
+     * @return \Hanzo\Cloud\Model\ContentBoardPage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getContentBoard($status = null, $project = null, $doctype = null, $limit = null, string $contentType = self::contentTypes['getContentBoard'][0])
     {
@@ -174,7 +174,7 @@ class ContentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BoardPage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ContentBoardPage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getContentBoardWithHttpInfo($status = null, $project = null, $doctype = null, $limit = null, string $contentType = self::contentTypes['getContentBoard'][0])
     {
@@ -206,7 +206,13 @@ class ContentApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BoardPage',
+                        '\Hanzo\Cloud\Model\ContentBoardPage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -228,7 +234,7 @@ class ContentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BoardPage',
+                '\Hanzo\Cloud\Model\ContentBoardPage',
                 $request,
                 $response,
             );
@@ -237,7 +243,15 @@ class ContentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BoardPage',
+                        '\Hanzo\Cloud\Model\ContentBoardPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -289,7 +303,7 @@ class ContentApi
      */
     public function getContentBoardAsyncWithHttpInfo($status = null, $project = null, $doctype = null, $limit = null, string $contentType = self::contentTypes['getContentBoard'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BoardPage';
+        $returnType = '\Hanzo\Cloud\Model\ContentBoardPage';
         $request = $this->getContentBoardRequest($status, $project, $doctype, $limit, $contentType);
 
         return $this->client
@@ -396,7 +410,7 @@ class ContentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -461,7 +475,7 @@ class ContentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ChannelList
+     * @return \Hanzo\Cloud\Model\ContentChannelList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getContentChannels(string $contentType = self::contentTypes['getContentChannels'][0])
     {
@@ -478,7 +492,7 @@ class ContentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ChannelList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ContentChannelList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getContentChannelsWithHttpInfo(string $contentType = self::contentTypes['getContentChannels'][0])
     {
@@ -510,7 +524,13 @@ class ContentApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ChannelList',
+                        '\Hanzo\Cloud\Model\ContentChannelList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -532,7 +552,7 @@ class ContentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ChannelList',
+                '\Hanzo\Cloud\Model\ContentChannelList',
                 $request,
                 $response,
             );
@@ -541,7 +561,15 @@ class ContentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ChannelList',
+                        '\Hanzo\Cloud\Model\ContentChannelList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -585,7 +613,7 @@ class ContentApi
      */
     public function getContentChannelsAsyncWithHttpInfo(string $contentType = self::contentTypes['getContentChannels'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ChannelList';
+        $returnType = '\Hanzo\Cloud\Model\ContentChannelList';
         $request = $this->getContentChannelsRequest($contentType);
 
         return $this->client
@@ -648,7 +676,7 @@ class ContentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -713,7 +741,7 @@ class ContentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\StateGraph
+     * @return \Hanzo\Cloud\Model\ContentStateGraph|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getContentLifecycle(string $contentType = self::contentTypes['getContentLifecycle'][0])
     {
@@ -730,7 +758,7 @@ class ContentApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\StateGraph, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ContentStateGraph|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getContentLifecycleWithHttpInfo(string $contentType = self::contentTypes['getContentLifecycle'][0])
     {
@@ -762,7 +790,13 @@ class ContentApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\StateGraph',
+                        '\Hanzo\Cloud\Model\ContentStateGraph',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -784,7 +818,7 @@ class ContentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\StateGraph',
+                '\Hanzo\Cloud\Model\ContentStateGraph',
                 $request,
                 $response,
             );
@@ -793,7 +827,15 @@ class ContentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\StateGraph',
+                        '\Hanzo\Cloud\Model\ContentStateGraph',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -837,7 +879,7 @@ class ContentApi
      */
     public function getContentLifecycleAsyncWithHttpInfo(string $contentType = self::contentTypes['getContentLifecycle'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\StateGraph';
+        $returnType = '\Hanzo\Cloud\Model\ContentStateGraph';
         $request = $this->getContentLifecycleRequest($contentType);
 
         return $this->client
@@ -900,7 +942,7 @@ class ContentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -963,16 +1005,16 @@ class ContentApi
      *
      * @param  string $doctype DocType is the content type to act on, from the path. (required)
      * @param  string $name Name is the document to act on, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TransitionIn $transition_in transition_in (required)
+     * @param  \Hanzo\Cloud\Model\ContentTransitionIn $content_transition_in content_transition_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentByDoctypeByNameTransition'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TransitionResult
+     * @return \Hanzo\Cloud\Model\ContentTransitionResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postContentByDoctypeByNameTransition($doctype, $name, $transition_in, string $contentType = self::contentTypes['postContentByDoctypeByNameTransition'][0])
+    public function postContentByDoctypeByNameTransition($doctype, $name, $content_transition_in, string $contentType = self::contentTypes['postContentByDoctypeByNameTransition'][0])
     {
-        list($response) = $this->postContentByDoctypeByNameTransitionWithHttpInfo($doctype, $name, $transition_in, $contentType);
+        list($response) = $this->postContentByDoctypeByNameTransitionWithHttpInfo($doctype, $name, $content_transition_in, $contentType);
         return $response;
     }
 
@@ -983,16 +1025,16 @@ class ContentApi
      *
      * @param  string $doctype DocType is the content type to act on, from the path. (required)
      * @param  string $name Name is the document to act on, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TransitionIn $transition_in (required)
+     * @param  \Hanzo\Cloud\Model\ContentTransitionIn $content_transition_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentByDoctypeByNameTransition'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TransitionResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ContentTransitionResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postContentByDoctypeByNameTransitionWithHttpInfo($doctype, $name, $transition_in, string $contentType = self::contentTypes['postContentByDoctypeByNameTransition'][0])
+    public function postContentByDoctypeByNameTransitionWithHttpInfo($doctype, $name, $content_transition_in, string $contentType = self::contentTypes['postContentByDoctypeByNameTransition'][0])
     {
-        $request = $this->postContentByDoctypeByNameTransitionRequest($doctype, $name, $transition_in, $contentType);
+        $request = $this->postContentByDoctypeByNameTransitionRequest($doctype, $name, $content_transition_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1020,7 +1062,13 @@ class ContentApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TransitionResult',
+                        '\Hanzo\Cloud\Model\ContentTransitionResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1042,7 +1090,7 @@ class ContentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TransitionResult',
+                '\Hanzo\Cloud\Model\ContentTransitionResult',
                 $request,
                 $response,
             );
@@ -1051,7 +1099,15 @@ class ContentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TransitionResult',
+                        '\Hanzo\Cloud\Model\ContentTransitionResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1070,15 +1126,15 @@ class ContentApi
      *
      * @param  string $doctype DocType is the content type to act on, from the path. (required)
      * @param  string $name Name is the document to act on, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TransitionIn $transition_in (required)
+     * @param  \Hanzo\Cloud\Model\ContentTransitionIn $content_transition_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentByDoctypeByNameTransition'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postContentByDoctypeByNameTransitionAsync($doctype, $name, $transition_in, string $contentType = self::contentTypes['postContentByDoctypeByNameTransition'][0])
+    public function postContentByDoctypeByNameTransitionAsync($doctype, $name, $content_transition_in, string $contentType = self::contentTypes['postContentByDoctypeByNameTransition'][0])
     {
-        return $this->postContentByDoctypeByNameTransitionAsyncWithHttpInfo($doctype, $name, $transition_in, $contentType)
+        return $this->postContentByDoctypeByNameTransitionAsyncWithHttpInfo($doctype, $name, $content_transition_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1093,16 +1149,16 @@ class ContentApi
      *
      * @param  string $doctype DocType is the content type to act on, from the path. (required)
      * @param  string $name Name is the document to act on, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TransitionIn $transition_in (required)
+     * @param  \Hanzo\Cloud\Model\ContentTransitionIn $content_transition_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentByDoctypeByNameTransition'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postContentByDoctypeByNameTransitionAsyncWithHttpInfo($doctype, $name, $transition_in, string $contentType = self::contentTypes['postContentByDoctypeByNameTransition'][0])
+    public function postContentByDoctypeByNameTransitionAsyncWithHttpInfo($doctype, $name, $content_transition_in, string $contentType = self::contentTypes['postContentByDoctypeByNameTransition'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TransitionResult';
-        $request = $this->postContentByDoctypeByNameTransitionRequest($doctype, $name, $transition_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ContentTransitionResult';
+        $request = $this->postContentByDoctypeByNameTransitionRequest($doctype, $name, $content_transition_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1145,13 +1201,13 @@ class ContentApi
      *
      * @param  string $doctype DocType is the content type to act on, from the path. (required)
      * @param  string $name Name is the document to act on, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\TransitionIn $transition_in (required)
+     * @param  \Hanzo\Cloud\Model\ContentTransitionIn $content_transition_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentByDoctypeByNameTransition'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postContentByDoctypeByNameTransitionRequest($doctype, $name, $transition_in, string $contentType = self::contentTypes['postContentByDoctypeByNameTransition'][0])
+    public function postContentByDoctypeByNameTransitionRequest($doctype, $name, $content_transition_in, string $contentType = self::contentTypes['postContentByDoctypeByNameTransition'][0])
     {
 
         // verify the required parameter 'doctype' is set
@@ -1168,10 +1224,10 @@ class ContentApi
             );
         }
 
-        // verify the required parameter 'transition_in' is set
-        if ($transition_in === null || (is_array($transition_in) && count($transition_in) === 0)) {
+        // verify the required parameter 'content_transition_in' is set
+        if ($content_transition_in === null || (is_array($content_transition_in) && count($content_transition_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $transition_in when calling postContentByDoctypeByNameTransition'
+                'Missing the required parameter $content_transition_in when calling postContentByDoctypeByNameTransition'
             );
         }
 
@@ -1204,18 +1260,18 @@ class ContentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($transition_in)) {
+        if (isset($content_transition_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($transition_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($content_transition_in));
             } else {
-                $httpBody = $transition_in;
+                $httpBody = $content_transition_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1270,36 +1326,36 @@ class ContentApi
     /**
      * Operation postContentGenerate
      *
-     * Draft a piece of marketing content and file it in the CMS as a draft.
+     * Draft a provider of marketing content and file it in the CMS as a draft.
      *
-     * @param  \Hanzo\Cloud\Model\GenerateInput $generate_input generate_input (required)
+     * @param  \Hanzo\Cloud\Model\ContentGenerateInput $content_generate_input content_generate_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentGenerate'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\GenerateResult|\Hanzo\Cloud\Model\GenerateResult
+     * @return \Hanzo\Cloud\Model\ContentGenerateResult|\Hanzo\Cloud\Model\ContentGenerateResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postContentGenerate($generate_input, string $contentType = self::contentTypes['postContentGenerate'][0])
+    public function postContentGenerate($content_generate_input, string $contentType = self::contentTypes['postContentGenerate'][0])
     {
-        list($response) = $this->postContentGenerateWithHttpInfo($generate_input, $contentType);
+        list($response) = $this->postContentGenerateWithHttpInfo($content_generate_input, $contentType);
         return $response;
     }
 
     /**
      * Operation postContentGenerateWithHttpInfo
      *
-     * Draft a piece of marketing content and file it in the CMS as a draft.
+     * Draft a provider of marketing content and file it in the CMS as a draft.
      *
-     * @param  \Hanzo\Cloud\Model\GenerateInput $generate_input (required)
+     * @param  \Hanzo\Cloud\Model\ContentGenerateInput $content_generate_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentGenerate'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\GenerateResult|\Hanzo\Cloud\Model\GenerateResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ContentGenerateResult|\Hanzo\Cloud\Model\ContentGenerateResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postContentGenerateWithHttpInfo($generate_input, string $contentType = self::contentTypes['postContentGenerate'][0])
+    public function postContentGenerateWithHttpInfo($content_generate_input, string $contentType = self::contentTypes['postContentGenerate'][0])
     {
-        $request = $this->postContentGenerateRequest($generate_input, $contentType);
+        $request = $this->postContentGenerateRequest($content_generate_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1327,13 +1383,19 @@ class ContentApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GenerateResult',
+                        '\Hanzo\Cloud\Model\ContentGenerateResult',
                         $request,
                         $response,
                     );
                 case 402:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\GenerateResult',
+                        '\Hanzo\Cloud\Model\ContentGenerateResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1355,7 +1417,7 @@ class ContentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\GenerateResult',
+                '\Hanzo\Cloud\Model\ContentGenerateResult',
                 $request,
                 $response,
             );
@@ -1364,7 +1426,7 @@ class ContentApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GenerateResult',
+                        '\Hanzo\Cloud\Model\ContentGenerateResult',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1372,7 +1434,15 @@ class ContentApi
                 case 402:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\GenerateResult',
+                        '\Hanzo\Cloud\Model\ContentGenerateResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1387,17 +1457,17 @@ class ContentApi
     /**
      * Operation postContentGenerateAsync
      *
-     * Draft a piece of marketing content and file it in the CMS as a draft.
+     * Draft a provider of marketing content and file it in the CMS as a draft.
      *
-     * @param  \Hanzo\Cloud\Model\GenerateInput $generate_input (required)
+     * @param  \Hanzo\Cloud\Model\ContentGenerateInput $content_generate_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentGenerate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postContentGenerateAsync($generate_input, string $contentType = self::contentTypes['postContentGenerate'][0])
+    public function postContentGenerateAsync($content_generate_input, string $contentType = self::contentTypes['postContentGenerate'][0])
     {
-        return $this->postContentGenerateAsyncWithHttpInfo($generate_input, $contentType)
+        return $this->postContentGenerateAsyncWithHttpInfo($content_generate_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1408,18 +1478,18 @@ class ContentApi
     /**
      * Operation postContentGenerateAsyncWithHttpInfo
      *
-     * Draft a piece of marketing content and file it in the CMS as a draft.
+     * Draft a provider of marketing content and file it in the CMS as a draft.
      *
-     * @param  \Hanzo\Cloud\Model\GenerateInput $generate_input (required)
+     * @param  \Hanzo\Cloud\Model\ContentGenerateInput $content_generate_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentGenerate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postContentGenerateAsyncWithHttpInfo($generate_input, string $contentType = self::contentTypes['postContentGenerate'][0])
+    public function postContentGenerateAsyncWithHttpInfo($content_generate_input, string $contentType = self::contentTypes['postContentGenerate'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\GenerateResult';
-        $request = $this->postContentGenerateRequest($generate_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ContentGenerateResult';
+        $request = $this->postContentGenerateRequest($content_generate_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1460,19 +1530,19 @@ class ContentApi
     /**
      * Create request for operation 'postContentGenerate'
      *
-     * @param  \Hanzo\Cloud\Model\GenerateInput $generate_input (required)
+     * @param  \Hanzo\Cloud\Model\ContentGenerateInput $content_generate_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentGenerate'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postContentGenerateRequest($generate_input, string $contentType = self::contentTypes['postContentGenerate'][0])
+    public function postContentGenerateRequest($content_generate_input, string $contentType = self::contentTypes['postContentGenerate'][0])
     {
 
-        // verify the required parameter 'generate_input' is set
-        if ($generate_input === null || (is_array($generate_input) && count($generate_input) === 0)) {
+        // verify the required parameter 'content_generate_input' is set
+        if ($content_generate_input === null || (is_array($content_generate_input) && count($content_generate_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $generate_input when calling postContentGenerate'
+                'Missing the required parameter $content_generate_input when calling postContentGenerate'
             );
         }
 
@@ -1489,18 +1559,18 @@ class ContentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($generate_input)) {
+        if (isset($content_generate_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($generate_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($content_generate_input));
             } else {
-                $httpBody = $generate_input;
+                $httpBody = $content_generate_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1557,16 +1627,16 @@ class ContentApi
      *
      * Publish distributes one CMS content item to the channels recorded on it and returns the honest per-channel outcome.
      *
-     * @param  \Hanzo\Cloud\Model\PublishInput $publish_input publish_input (required)
+     * @param  \Hanzo\Cloud\Model\ContentPublishInput $content_publish_input content_publish_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentPublish'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PublishResult
+     * @return \Hanzo\Cloud\Model\ContentPublishResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postContentPublish($publish_input, string $contentType = self::contentTypes['postContentPublish'][0])
+    public function postContentPublish($content_publish_input, string $contentType = self::contentTypes['postContentPublish'][0])
     {
-        list($response) = $this->postContentPublishWithHttpInfo($publish_input, $contentType);
+        list($response) = $this->postContentPublishWithHttpInfo($content_publish_input, $contentType);
         return $response;
     }
 
@@ -1575,16 +1645,16 @@ class ContentApi
      *
      * Publish distributes one CMS content item to the channels recorded on it and returns the honest per-channel outcome.
      *
-     * @param  \Hanzo\Cloud\Model\PublishInput $publish_input (required)
+     * @param  \Hanzo\Cloud\Model\ContentPublishInput $content_publish_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentPublish'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PublishResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ContentPublishResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postContentPublishWithHttpInfo($publish_input, string $contentType = self::contentTypes['postContentPublish'][0])
+    public function postContentPublishWithHttpInfo($content_publish_input, string $contentType = self::contentTypes['postContentPublish'][0])
     {
-        $request = $this->postContentPublishRequest($publish_input, $contentType);
+        $request = $this->postContentPublishRequest($content_publish_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1612,7 +1682,13 @@ class ContentApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PublishResult',
+                        '\Hanzo\Cloud\Model\ContentPublishResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1634,7 +1710,7 @@ class ContentApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PublishResult',
+                '\Hanzo\Cloud\Model\ContentPublishResult',
                 $request,
                 $response,
             );
@@ -1643,7 +1719,15 @@ class ContentApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PublishResult',
+                        '\Hanzo\Cloud\Model\ContentPublishResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1660,15 +1744,15 @@ class ContentApi
      *
      * Publish distributes one CMS content item to the channels recorded on it and returns the honest per-channel outcome.
      *
-     * @param  \Hanzo\Cloud\Model\PublishInput $publish_input (required)
+     * @param  \Hanzo\Cloud\Model\ContentPublishInput $content_publish_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentPublish'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postContentPublishAsync($publish_input, string $contentType = self::contentTypes['postContentPublish'][0])
+    public function postContentPublishAsync($content_publish_input, string $contentType = self::contentTypes['postContentPublish'][0])
     {
-        return $this->postContentPublishAsyncWithHttpInfo($publish_input, $contentType)
+        return $this->postContentPublishAsyncWithHttpInfo($content_publish_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1681,16 +1765,16 @@ class ContentApi
      *
      * Publish distributes one CMS content item to the channels recorded on it and returns the honest per-channel outcome.
      *
-     * @param  \Hanzo\Cloud\Model\PublishInput $publish_input (required)
+     * @param  \Hanzo\Cloud\Model\ContentPublishInput $content_publish_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentPublish'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postContentPublishAsyncWithHttpInfo($publish_input, string $contentType = self::contentTypes['postContentPublish'][0])
+    public function postContentPublishAsyncWithHttpInfo($content_publish_input, string $contentType = self::contentTypes['postContentPublish'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PublishResult';
-        $request = $this->postContentPublishRequest($publish_input, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ContentPublishResult';
+        $request = $this->postContentPublishRequest($content_publish_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1731,19 +1815,19 @@ class ContentApi
     /**
      * Create request for operation 'postContentPublish'
      *
-     * @param  \Hanzo\Cloud\Model\PublishInput $publish_input (required)
+     * @param  \Hanzo\Cloud\Model\ContentPublishInput $content_publish_input (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postContentPublish'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postContentPublishRequest($publish_input, string $contentType = self::contentTypes['postContentPublish'][0])
+    public function postContentPublishRequest($content_publish_input, string $contentType = self::contentTypes['postContentPublish'][0])
     {
 
-        // verify the required parameter 'publish_input' is set
-        if ($publish_input === null || (is_array($publish_input) && count($publish_input) === 0)) {
+        // verify the required parameter 'content_publish_input' is set
+        if ($content_publish_input === null || (is_array($content_publish_input) && count($content_publish_input) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $publish_input when calling postContentPublish'
+                'Missing the required parameter $content_publish_input when calling postContentPublish'
             );
         }
 
@@ -1760,18 +1844,18 @@ class ContentApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($publish_input)) {
+        if (isset($content_publish_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($publish_input));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($content_publish_input));
             } else {
-                $httpBody = $publish_input;
+                $httpBody = $content_publish_input;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

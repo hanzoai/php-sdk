@@ -158,7 +158,7 @@ class WalletApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\WalletList
+     * @return \Hanzo\Cloud\Model\WalletWalletList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWallet($project = null, $agent = null, $account = null, string $contentType = self::contentTypes['getWallet'][0])
     {
@@ -178,7 +178,7 @@ class WalletApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\WalletList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WalletWalletList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWalletWithHttpInfo($project = null, $agent = null, $account = null, string $contentType = self::contentTypes['getWallet'][0])
     {
@@ -210,7 +210,13 @@ class WalletApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\WalletList',
+                        '\Hanzo\Cloud\Model\WalletWalletList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -232,7 +238,7 @@ class WalletApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\WalletList',
+                '\Hanzo\Cloud\Model\WalletWalletList',
                 $request,
                 $response,
             );
@@ -241,7 +247,15 @@ class WalletApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\WalletList',
+                        '\Hanzo\Cloud\Model\WalletWalletList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -291,7 +305,7 @@ class WalletApi
      */
     public function getWalletAsyncWithHttpInfo($project = null, $agent = null, $account = null, string $contentType = self::contentTypes['getWallet'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\WalletList';
+        $returnType = '\Hanzo\Cloud\Model\WalletWalletList';
         $request = $this->getWalletRequest($project, $agent, $account, $contentType);
 
         return $this->client
@@ -387,7 +401,7 @@ class WalletApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -452,7 +466,7 @@ class WalletApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AccountList
+     * @return \Hanzo\Cloud\Model\WalletAccountList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWalletAccounts(string $contentType = self::contentTypes['getWalletAccounts'][0])
     {
@@ -469,7 +483,7 @@ class WalletApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AccountList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WalletAccountList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWalletAccountsWithHttpInfo(string $contentType = self::contentTypes['getWalletAccounts'][0])
     {
@@ -501,7 +515,13 @@ class WalletApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AccountList',
+                        '\Hanzo\Cloud\Model\WalletAccountList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -523,7 +543,7 @@ class WalletApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AccountList',
+                '\Hanzo\Cloud\Model\WalletAccountList',
                 $request,
                 $response,
             );
@@ -532,7 +552,15 @@ class WalletApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AccountList',
+                        '\Hanzo\Cloud\Model\WalletAccountList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -576,7 +604,7 @@ class WalletApi
      */
     public function getWalletAccountsAsyncWithHttpInfo(string $contentType = self::contentTypes['getWalletAccounts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AccountList';
+        $returnType = '\Hanzo\Cloud\Model\WalletAccountList';
         $request = $this->getWalletAccountsRequest($contentType);
 
         return $this->client
@@ -639,7 +667,7 @@ class WalletApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -705,7 +733,7 @@ class WalletApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Wallet
+     * @return \Hanzo\Cloud\Model\WalletWallet|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWalletById($id, string $contentType = self::contentTypes['getWalletById'][0])
     {
@@ -723,7 +751,7 @@ class WalletApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Wallet, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WalletWallet|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWalletByIdWithHttpInfo($id, string $contentType = self::contentTypes['getWalletById'][0])
     {
@@ -755,7 +783,13 @@ class WalletApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Wallet',
+                        '\Hanzo\Cloud\Model\WalletWallet',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -777,7 +811,7 @@ class WalletApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Wallet',
+                '\Hanzo\Cloud\Model\WalletWallet',
                 $request,
                 $response,
             );
@@ -786,7 +820,15 @@ class WalletApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Wallet',
+                        '\Hanzo\Cloud\Model\WalletWallet',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -832,7 +874,7 @@ class WalletApi
      */
     public function getWalletByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getWalletById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Wallet';
+        $returnType = '\Hanzo\Cloud\Model\WalletWallet';
         $request = $this->getWalletByIdRequest($id, $contentType);
 
         return $this->client
@@ -911,7 +953,7 @@ class WalletApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -972,16 +1014,16 @@ class WalletApi
      *
      * Provisions a new signing identity under one of the caller org&#39;s accounts and answers the stored wallet including its on-chain address.
      *
-     * @param  \Hanzo\Cloud\Model\CreateWalletIn $create_wallet_in create_wallet_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletCreateWalletIn $wallet_create_wallet_in wallet_create_wallet_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWallet'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Wallet
+     * @return \Hanzo\Cloud\Model\WalletWallet|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postWallet($create_wallet_in, string $contentType = self::contentTypes['postWallet'][0])
+    public function postWallet($wallet_create_wallet_in, string $contentType = self::contentTypes['postWallet'][0])
     {
-        list($response) = $this->postWalletWithHttpInfo($create_wallet_in, $contentType);
+        list($response) = $this->postWalletWithHttpInfo($wallet_create_wallet_in, $contentType);
         return $response;
     }
 
@@ -990,16 +1032,16 @@ class WalletApi
      *
      * Provisions a new signing identity under one of the caller org&#39;s accounts and answers the stored wallet including its on-chain address.
      *
-     * @param  \Hanzo\Cloud\Model\CreateWalletIn $create_wallet_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletCreateWalletIn $wallet_create_wallet_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWallet'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Wallet, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WalletWallet|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postWalletWithHttpInfo($create_wallet_in, string $contentType = self::contentTypes['postWallet'][0])
+    public function postWalletWithHttpInfo($wallet_create_wallet_in, string $contentType = self::contentTypes['postWallet'][0])
     {
-        $request = $this->postWalletRequest($create_wallet_in, $contentType);
+        $request = $this->postWalletRequest($wallet_create_wallet_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1027,7 +1069,13 @@ class WalletApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Wallet',
+                        '\Hanzo\Cloud\Model\WalletWallet',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1049,7 +1097,7 @@ class WalletApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Wallet',
+                '\Hanzo\Cloud\Model\WalletWallet',
                 $request,
                 $response,
             );
@@ -1058,7 +1106,15 @@ class WalletApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Wallet',
+                        '\Hanzo\Cloud\Model\WalletWallet',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1075,15 +1131,15 @@ class WalletApi
      *
      * Provisions a new signing identity under one of the caller org&#39;s accounts and answers the stored wallet including its on-chain address.
      *
-     * @param  \Hanzo\Cloud\Model\CreateWalletIn $create_wallet_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletCreateWalletIn $wallet_create_wallet_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWallet'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWalletAsync($create_wallet_in, string $contentType = self::contentTypes['postWallet'][0])
+    public function postWalletAsync($wallet_create_wallet_in, string $contentType = self::contentTypes['postWallet'][0])
     {
-        return $this->postWalletAsyncWithHttpInfo($create_wallet_in, $contentType)
+        return $this->postWalletAsyncWithHttpInfo($wallet_create_wallet_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1096,16 +1152,16 @@ class WalletApi
      *
      * Provisions a new signing identity under one of the caller org&#39;s accounts and answers the stored wallet including its on-chain address.
      *
-     * @param  \Hanzo\Cloud\Model\CreateWalletIn $create_wallet_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletCreateWalletIn $wallet_create_wallet_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWallet'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWalletAsyncWithHttpInfo($create_wallet_in, string $contentType = self::contentTypes['postWallet'][0])
+    public function postWalletAsyncWithHttpInfo($wallet_create_wallet_in, string $contentType = self::contentTypes['postWallet'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Wallet';
-        $request = $this->postWalletRequest($create_wallet_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\WalletWallet';
+        $request = $this->postWalletRequest($wallet_create_wallet_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1146,19 +1202,19 @@ class WalletApi
     /**
      * Create request for operation 'postWallet'
      *
-     * @param  \Hanzo\Cloud\Model\CreateWalletIn $create_wallet_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletCreateWalletIn $wallet_create_wallet_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWallet'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postWalletRequest($create_wallet_in, string $contentType = self::contentTypes['postWallet'][0])
+    public function postWalletRequest($wallet_create_wallet_in, string $contentType = self::contentTypes['postWallet'][0])
     {
 
-        // verify the required parameter 'create_wallet_in' is set
-        if ($create_wallet_in === null || (is_array($create_wallet_in) && count($create_wallet_in) === 0)) {
+        // verify the required parameter 'wallet_create_wallet_in' is set
+        if ($wallet_create_wallet_in === null || (is_array($wallet_create_wallet_in) && count($wallet_create_wallet_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_wallet_in when calling postWallet'
+                'Missing the required parameter $wallet_create_wallet_in when calling postWallet'
             );
         }
 
@@ -1175,18 +1231,18 @@ class WalletApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($create_wallet_in)) {
+        if (isset($wallet_create_wallet_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_wallet_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($wallet_create_wallet_in));
             } else {
-                $httpBody = $create_wallet_in;
+                $httpBody = $wallet_create_wallet_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1243,16 +1299,16 @@ class WalletApi
      *
      * Opens a named wallet account for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\CreateAccountIn $create_account_in create_account_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletCreateAccountIn $wallet_create_account_in wallet_create_account_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletAccounts'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\WalletAccount
+     * @return \Hanzo\Cloud\Model\WalletWalletAccount|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postWalletAccounts($create_account_in, string $contentType = self::contentTypes['postWalletAccounts'][0])
+    public function postWalletAccounts($wallet_create_account_in, string $contentType = self::contentTypes['postWalletAccounts'][0])
     {
-        list($response) = $this->postWalletAccountsWithHttpInfo($create_account_in, $contentType);
+        list($response) = $this->postWalletAccountsWithHttpInfo($wallet_create_account_in, $contentType);
         return $response;
     }
 
@@ -1261,16 +1317,16 @@ class WalletApi
      *
      * Opens a named wallet account for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\CreateAccountIn $create_account_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletCreateAccountIn $wallet_create_account_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletAccounts'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\WalletAccount, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WalletWalletAccount|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postWalletAccountsWithHttpInfo($create_account_in, string $contentType = self::contentTypes['postWalletAccounts'][0])
+    public function postWalletAccountsWithHttpInfo($wallet_create_account_in, string $contentType = self::contentTypes['postWalletAccounts'][0])
     {
-        $request = $this->postWalletAccountsRequest($create_account_in, $contentType);
+        $request = $this->postWalletAccountsRequest($wallet_create_account_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1298,7 +1354,13 @@ class WalletApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\WalletAccount',
+                        '\Hanzo\Cloud\Model\WalletWalletAccount',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1320,7 +1382,7 @@ class WalletApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\WalletAccount',
+                '\Hanzo\Cloud\Model\WalletWalletAccount',
                 $request,
                 $response,
             );
@@ -1329,7 +1391,15 @@ class WalletApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\WalletAccount',
+                        '\Hanzo\Cloud\Model\WalletWalletAccount',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1346,15 +1416,15 @@ class WalletApi
      *
      * Opens a named wallet account for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\CreateAccountIn $create_account_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletCreateAccountIn $wallet_create_account_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletAccounts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWalletAccountsAsync($create_account_in, string $contentType = self::contentTypes['postWalletAccounts'][0])
+    public function postWalletAccountsAsync($wallet_create_account_in, string $contentType = self::contentTypes['postWalletAccounts'][0])
     {
-        return $this->postWalletAccountsAsyncWithHttpInfo($create_account_in, $contentType)
+        return $this->postWalletAccountsAsyncWithHttpInfo($wallet_create_account_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1367,16 +1437,16 @@ class WalletApi
      *
      * Opens a named wallet account for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\CreateAccountIn $create_account_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletCreateAccountIn $wallet_create_account_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletAccounts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWalletAccountsAsyncWithHttpInfo($create_account_in, string $contentType = self::contentTypes['postWalletAccounts'][0])
+    public function postWalletAccountsAsyncWithHttpInfo($wallet_create_account_in, string $contentType = self::contentTypes['postWalletAccounts'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\WalletAccount';
-        $request = $this->postWalletAccountsRequest($create_account_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\WalletWalletAccount';
+        $request = $this->postWalletAccountsRequest($wallet_create_account_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1417,19 +1487,19 @@ class WalletApi
     /**
      * Create request for operation 'postWalletAccounts'
      *
-     * @param  \Hanzo\Cloud\Model\CreateAccountIn $create_account_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletCreateAccountIn $wallet_create_account_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletAccounts'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postWalletAccountsRequest($create_account_in, string $contentType = self::contentTypes['postWalletAccounts'][0])
+    public function postWalletAccountsRequest($wallet_create_account_in, string $contentType = self::contentTypes['postWalletAccounts'][0])
     {
 
-        // verify the required parameter 'create_account_in' is set
-        if ($create_account_in === null || (is_array($create_account_in) && count($create_account_in) === 0)) {
+        // verify the required parameter 'wallet_create_account_in' is set
+        if ($wallet_create_account_in === null || (is_array($wallet_create_account_in) && count($wallet_create_account_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_account_in when calling postWalletAccounts'
+                'Missing the required parameter $wallet_create_account_in when calling postWalletAccounts'
             );
         }
 
@@ -1446,18 +1516,18 @@ class WalletApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($create_account_in)) {
+        if (isset($wallet_create_account_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_account_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($wallet_create_account_in));
             } else {
-                $httpBody = $create_account_in;
+                $httpBody = $wallet_create_account_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1519,7 +1589,7 @@ class WalletApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Wallet
+     * @return \Hanzo\Cloud\Model\WalletWallet|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postWalletByIdKeys($id, string $contentType = self::contentTypes['postWalletByIdKeys'][0])
     {
@@ -1537,7 +1607,7 @@ class WalletApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Wallet, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WalletWallet|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postWalletByIdKeysWithHttpInfo($id, string $contentType = self::contentTypes['postWalletByIdKeys'][0])
     {
@@ -1569,7 +1639,13 @@ class WalletApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Wallet',
+                        '\Hanzo\Cloud\Model\WalletWallet',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1591,7 +1667,7 @@ class WalletApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Wallet',
+                '\Hanzo\Cloud\Model\WalletWallet',
                 $request,
                 $response,
             );
@@ -1600,7 +1676,15 @@ class WalletApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Wallet',
+                        '\Hanzo\Cloud\Model\WalletWallet',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1646,7 +1730,7 @@ class WalletApi
      */
     public function postWalletByIdKeysAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postWalletByIdKeys'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Wallet';
+        $returnType = '\Hanzo\Cloud\Model\WalletWallet';
         $request = $this->postWalletByIdKeysRequest($id, $contentType);
 
         return $this->client
@@ -1725,7 +1809,7 @@ class WalletApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1787,16 +1871,16 @@ class WalletApi
      * Produces a secp256k1 signature from one of the caller org&#39;s wallets over a 32-byte digest, through whichever custody backend that wallet uses.
      *
      * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\SignIn $sign_in sign_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletSignIn $wallet_sign_in wallet_sign_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletByIdSign'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Signature
+     * @return \Hanzo\Cloud\Model\WalletSignature|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postWalletByIdSign($id, $sign_in, string $contentType = self::contentTypes['postWalletByIdSign'][0])
+    public function postWalletByIdSign($id, $wallet_sign_in, string $contentType = self::contentTypes['postWalletByIdSign'][0])
     {
-        list($response) = $this->postWalletByIdSignWithHttpInfo($id, $sign_in, $contentType);
+        list($response) = $this->postWalletByIdSignWithHttpInfo($id, $wallet_sign_in, $contentType);
         return $response;
     }
 
@@ -1806,16 +1890,16 @@ class WalletApi
      * Produces a secp256k1 signature from one of the caller org&#39;s wallets over a 32-byte digest, through whichever custody backend that wallet uses.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SignIn $sign_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletSignIn $wallet_sign_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletByIdSign'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Signature, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WalletSignature|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postWalletByIdSignWithHttpInfo($id, $sign_in, string $contentType = self::contentTypes['postWalletByIdSign'][0])
+    public function postWalletByIdSignWithHttpInfo($id, $wallet_sign_in, string $contentType = self::contentTypes['postWalletByIdSign'][0])
     {
-        $request = $this->postWalletByIdSignRequest($id, $sign_in, $contentType);
+        $request = $this->postWalletByIdSignRequest($id, $wallet_sign_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1843,7 +1927,13 @@ class WalletApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Signature',
+                        '\Hanzo\Cloud\Model\WalletSignature',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1865,7 +1955,7 @@ class WalletApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Signature',
+                '\Hanzo\Cloud\Model\WalletSignature',
                 $request,
                 $response,
             );
@@ -1874,7 +1964,15 @@ class WalletApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Signature',
+                        '\Hanzo\Cloud\Model\WalletSignature',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1892,15 +1990,15 @@ class WalletApi
      * Produces a secp256k1 signature from one of the caller org&#39;s wallets over a 32-byte digest, through whichever custody backend that wallet uses.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SignIn $sign_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletSignIn $wallet_sign_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletByIdSign'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWalletByIdSignAsync($id, $sign_in, string $contentType = self::contentTypes['postWalletByIdSign'][0])
+    public function postWalletByIdSignAsync($id, $wallet_sign_in, string $contentType = self::contentTypes['postWalletByIdSign'][0])
     {
-        return $this->postWalletByIdSignAsyncWithHttpInfo($id, $sign_in, $contentType)
+        return $this->postWalletByIdSignAsyncWithHttpInfo($id, $wallet_sign_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1914,16 +2012,16 @@ class WalletApi
      * Produces a secp256k1 signature from one of the caller org&#39;s wallets over a 32-byte digest, through whichever custody backend that wallet uses.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SignIn $sign_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletSignIn $wallet_sign_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletByIdSign'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWalletByIdSignAsyncWithHttpInfo($id, $sign_in, string $contentType = self::contentTypes['postWalletByIdSign'][0])
+    public function postWalletByIdSignAsyncWithHttpInfo($id, $wallet_sign_in, string $contentType = self::contentTypes['postWalletByIdSign'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Signature';
-        $request = $this->postWalletByIdSignRequest($id, $sign_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\WalletSignature';
+        $request = $this->postWalletByIdSignRequest($id, $wallet_sign_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1965,13 +2063,13 @@ class WalletApi
      * Create request for operation 'postWalletByIdSign'
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SignIn $sign_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletSignIn $wallet_sign_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletByIdSign'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postWalletByIdSignRequest($id, $sign_in, string $contentType = self::contentTypes['postWalletByIdSign'][0])
+    public function postWalletByIdSignRequest($id, $wallet_sign_in, string $contentType = self::contentTypes['postWalletByIdSign'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -1981,10 +2079,10 @@ class WalletApi
             );
         }
 
-        // verify the required parameter 'sign_in' is set
-        if ($sign_in === null || (is_array($sign_in) && count($sign_in) === 0)) {
+        // verify the required parameter 'wallet_sign_in' is set
+        if ($wallet_sign_in === null || (is_array($wallet_sign_in) && count($wallet_sign_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $sign_in when calling postWalletByIdSign'
+                'Missing the required parameter $wallet_sign_in when calling postWalletByIdSign'
             );
         }
 
@@ -2009,18 +2107,18 @@ class WalletApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($sign_in)) {
+        if (isset($wallet_sign_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sign_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($wallet_sign_in));
             } else {
-                $httpBody = $sign_in;
+                $httpBody = $wallet_sign_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2078,16 +2176,16 @@ class WalletApi
      * Composes a Safe transaction on the MPC ring and answers its EIP-712 hash together with the owner approval the ring&#39;s threshold signature produced.
      *
      * @param  string $id id (required)
-     * @param  \Hanzo\Cloud\Model\SafeTxIn $safe_tx_in safe_tx_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletSafeTxIn $wallet_safe_tx_in wallet_safe_tx_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletByIdTransactions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SafeProposal
+     * @return \Hanzo\Cloud\Model\WalletSafeProposal|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postWalletByIdTransactions($id, $safe_tx_in, string $contentType = self::contentTypes['postWalletByIdTransactions'][0])
+    public function postWalletByIdTransactions($id, $wallet_safe_tx_in, string $contentType = self::contentTypes['postWalletByIdTransactions'][0])
     {
-        list($response) = $this->postWalletByIdTransactionsWithHttpInfo($id, $safe_tx_in, $contentType);
+        list($response) = $this->postWalletByIdTransactionsWithHttpInfo($id, $wallet_safe_tx_in, $contentType);
         return $response;
     }
 
@@ -2097,16 +2195,16 @@ class WalletApi
      * Composes a Safe transaction on the MPC ring and answers its EIP-712 hash together with the owner approval the ring&#39;s threshold signature produced.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SafeTxIn $safe_tx_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletSafeTxIn $wallet_safe_tx_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletByIdTransactions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SafeProposal, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WalletSafeProposal|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postWalletByIdTransactionsWithHttpInfo($id, $safe_tx_in, string $contentType = self::contentTypes['postWalletByIdTransactions'][0])
+    public function postWalletByIdTransactionsWithHttpInfo($id, $wallet_safe_tx_in, string $contentType = self::contentTypes['postWalletByIdTransactions'][0])
     {
-        $request = $this->postWalletByIdTransactionsRequest($id, $safe_tx_in, $contentType);
+        $request = $this->postWalletByIdTransactionsRequest($id, $wallet_safe_tx_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2134,7 +2232,13 @@ class WalletApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SafeProposal',
+                        '\Hanzo\Cloud\Model\WalletSafeProposal',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2156,7 +2260,7 @@ class WalletApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SafeProposal',
+                '\Hanzo\Cloud\Model\WalletSafeProposal',
                 $request,
                 $response,
             );
@@ -2165,7 +2269,15 @@ class WalletApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SafeProposal',
+                        '\Hanzo\Cloud\Model\WalletSafeProposal',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2183,15 +2295,15 @@ class WalletApi
      * Composes a Safe transaction on the MPC ring and answers its EIP-712 hash together with the owner approval the ring&#39;s threshold signature produced.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SafeTxIn $safe_tx_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletSafeTxIn $wallet_safe_tx_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletByIdTransactions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWalletByIdTransactionsAsync($id, $safe_tx_in, string $contentType = self::contentTypes['postWalletByIdTransactions'][0])
+    public function postWalletByIdTransactionsAsync($id, $wallet_safe_tx_in, string $contentType = self::contentTypes['postWalletByIdTransactions'][0])
     {
-        return $this->postWalletByIdTransactionsAsyncWithHttpInfo($id, $safe_tx_in, $contentType)
+        return $this->postWalletByIdTransactionsAsyncWithHttpInfo($id, $wallet_safe_tx_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2205,16 +2317,16 @@ class WalletApi
      * Composes a Safe transaction on the MPC ring and answers its EIP-712 hash together with the owner approval the ring&#39;s threshold signature produced.
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SafeTxIn $safe_tx_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletSafeTxIn $wallet_safe_tx_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletByIdTransactions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postWalletByIdTransactionsAsyncWithHttpInfo($id, $safe_tx_in, string $contentType = self::contentTypes['postWalletByIdTransactions'][0])
+    public function postWalletByIdTransactionsAsyncWithHttpInfo($id, $wallet_safe_tx_in, string $contentType = self::contentTypes['postWalletByIdTransactions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SafeProposal';
-        $request = $this->postWalletByIdTransactionsRequest($id, $safe_tx_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\WalletSafeProposal';
+        $request = $this->postWalletByIdTransactionsRequest($id, $wallet_safe_tx_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2256,13 +2368,13 @@ class WalletApi
      * Create request for operation 'postWalletByIdTransactions'
      *
      * @param  string $id (required)
-     * @param  \Hanzo\Cloud\Model\SafeTxIn $safe_tx_in (required)
+     * @param  \Hanzo\Cloud\Model\WalletSafeTxIn $wallet_safe_tx_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postWalletByIdTransactions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postWalletByIdTransactionsRequest($id, $safe_tx_in, string $contentType = self::contentTypes['postWalletByIdTransactions'][0])
+    public function postWalletByIdTransactionsRequest($id, $wallet_safe_tx_in, string $contentType = self::contentTypes['postWalletByIdTransactions'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -2272,10 +2384,10 @@ class WalletApi
             );
         }
 
-        // verify the required parameter 'safe_tx_in' is set
-        if ($safe_tx_in === null || (is_array($safe_tx_in) && count($safe_tx_in) === 0)) {
+        // verify the required parameter 'wallet_safe_tx_in' is set
+        if ($wallet_safe_tx_in === null || (is_array($wallet_safe_tx_in) && count($wallet_safe_tx_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $safe_tx_in when calling postWalletByIdTransactions'
+                'Missing the required parameter $wallet_safe_tx_in when calling postWalletByIdTransactions'
             );
         }
 
@@ -2300,18 +2412,18 @@ class WalletApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($safe_tx_in)) {
+        if (isset($wallet_safe_tx_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($safe_tx_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($wallet_safe_tx_in));
             } else {
-                $httpBody = $safe_tx_in;
+                $httpBody = $wallet_safe_tx_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

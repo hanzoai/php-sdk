@@ -214,6 +214,14 @@ class FunctionApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -321,7 +329,7 @@ class FunctionApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -386,7 +394,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FnList
+     * @return \Hanzo\Cloud\Model\FunctionFnList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFunction(string $contentType = self::contentTypes['getFunction'][0])
     {
@@ -403,7 +411,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FnList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FunctionFnList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFunctionWithHttpInfo(string $contentType = self::contentTypes['getFunction'][0])
     {
@@ -435,7 +443,13 @@ class FunctionApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FnList',
+                        '\Hanzo\Cloud\Model\FunctionFnList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -457,7 +471,7 @@ class FunctionApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FnList',
+                '\Hanzo\Cloud\Model\FunctionFnList',
                 $request,
                 $response,
             );
@@ -466,7 +480,15 @@ class FunctionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FnList',
+                        '\Hanzo\Cloud\Model\FunctionFnList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -510,7 +532,7 @@ class FunctionApi
      */
     public function getFunctionAsyncWithHttpInfo(string $contentType = self::contentTypes['getFunction'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FnList';
+        $returnType = '\Hanzo\Cloud\Model\FunctionFnList';
         $request = $this->getFunctionRequest($contentType);
 
         return $this->client
@@ -573,7 +595,7 @@ class FunctionApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -639,7 +661,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FunctionDetail
+     * @return \Hanzo\Cloud\Model\FunctionFunctionDetail|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFunctionByName($name, string $contentType = self::contentTypes['getFunctionByName'][0])
     {
@@ -657,7 +679,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FunctionDetail, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FunctionFunctionDetail|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFunctionByNameWithHttpInfo($name, string $contentType = self::contentTypes['getFunctionByName'][0])
     {
@@ -689,7 +711,13 @@ class FunctionApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FunctionDetail',
+                        '\Hanzo\Cloud\Model\FunctionFunctionDetail',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -711,7 +739,7 @@ class FunctionApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FunctionDetail',
+                '\Hanzo\Cloud\Model\FunctionFunctionDetail',
                 $request,
                 $response,
             );
@@ -720,7 +748,15 @@ class FunctionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FunctionDetail',
+                        '\Hanzo\Cloud\Model\FunctionFunctionDetail',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -766,7 +802,7 @@ class FunctionApi
      */
     public function getFunctionByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getFunctionByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FunctionDetail';
+        $returnType = '\Hanzo\Cloud\Model\FunctionFunctionDetail';
         $request = $this->getFunctionByNameRequest($name, $contentType);
 
         return $this->client
@@ -845,7 +881,7 @@ class FunctionApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -912,7 +948,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\InvocationList
+     * @return \Hanzo\Cloud\Model\FunctionInvocationList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFunctionByNameInvocations($name, $limit = null, string $contentType = self::contentTypes['getFunctionByNameInvocations'][0])
     {
@@ -931,7 +967,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\InvocationList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FunctionInvocationList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFunctionByNameInvocationsWithHttpInfo($name, $limit = null, string $contentType = self::contentTypes['getFunctionByNameInvocations'][0])
     {
@@ -963,7 +999,13 @@ class FunctionApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\InvocationList',
+                        '\Hanzo\Cloud\Model\FunctionInvocationList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -985,7 +1027,7 @@ class FunctionApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\InvocationList',
+                '\Hanzo\Cloud\Model\FunctionInvocationList',
                 $request,
                 $response,
             );
@@ -994,7 +1036,15 @@ class FunctionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\InvocationList',
+                        '\Hanzo\Cloud\Model\FunctionInvocationList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1042,7 +1092,7 @@ class FunctionApi
      */
     public function getFunctionByNameInvocationsAsyncWithHttpInfo($name, $limit = null, string $contentType = self::contentTypes['getFunctionByNameInvocations'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\InvocationList';
+        $returnType = '\Hanzo\Cloud\Model\FunctionInvocationList';
         $request = $this->getFunctionByNameInvocationsRequest($name, $limit, $contentType);
 
         return $this->client
@@ -1132,7 +1182,7 @@ class FunctionApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1198,7 +1248,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LogLines
+     * @return \Hanzo\Cloud\Model\FunctionLogLines|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFunctionByNameLogs($name, string $contentType = self::contentTypes['getFunctionByNameLogs'][0])
     {
@@ -1216,7 +1266,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LogLines, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FunctionLogLines|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFunctionByNameLogsWithHttpInfo($name, string $contentType = self::contentTypes['getFunctionByNameLogs'][0])
     {
@@ -1248,7 +1298,13 @@ class FunctionApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\LogLines',
+                        '\Hanzo\Cloud\Model\FunctionLogLines',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1270,7 +1326,7 @@ class FunctionApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\LogLines',
+                '\Hanzo\Cloud\Model\FunctionLogLines',
                 $request,
                 $response,
             );
@@ -1279,7 +1335,15 @@ class FunctionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\LogLines',
+                        '\Hanzo\Cloud\Model\FunctionLogLines',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1325,7 +1389,7 @@ class FunctionApi
      */
     public function getFunctionByNameLogsAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getFunctionByNameLogs'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\LogLines';
+        $returnType = '\Hanzo\Cloud\Model\FunctionLogLines';
         $request = $this->getFunctionByNameLogsRequest($name, $contentType);
 
         return $this->client
@@ -1404,7 +1468,7 @@ class FunctionApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1469,7 +1533,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FnList
+     * @return \Hanzo\Cloud\Model\FunctionFnList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFunctionDeployments(string $contentType = self::contentTypes['getFunctionDeployments'][0])
     {
@@ -1486,7 +1550,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FnList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FunctionFnList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFunctionDeploymentsWithHttpInfo(string $contentType = self::contentTypes['getFunctionDeployments'][0])
     {
@@ -1518,7 +1582,13 @@ class FunctionApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FnList',
+                        '\Hanzo\Cloud\Model\FunctionFnList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1540,7 +1610,7 @@ class FunctionApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FnList',
+                '\Hanzo\Cloud\Model\FunctionFnList',
                 $request,
                 $response,
             );
@@ -1549,7 +1619,15 @@ class FunctionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FnList',
+                        '\Hanzo\Cloud\Model\FunctionFnList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1593,7 +1671,7 @@ class FunctionApi
      */
     public function getFunctionDeploymentsAsyncWithHttpInfo(string $contentType = self::contentTypes['getFunctionDeployments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FnList';
+        $returnType = '\Hanzo\Cloud\Model\FunctionFnList';
         $request = $this->getFunctionDeploymentsRequest($contentType);
 
         return $this->client
@@ -1656,7 +1734,7 @@ class FunctionApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1722,7 +1800,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Usage
+     * @return \Hanzo\Cloud\Model\FunctionUsage|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFunctionMetrics($range = null, string $contentType = self::contentTypes['getFunctionMetrics'][0])
     {
@@ -1740,7 +1818,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Usage, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FunctionUsage|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFunctionMetricsWithHttpInfo($range = null, string $contentType = self::contentTypes['getFunctionMetrics'][0])
     {
@@ -1772,7 +1850,13 @@ class FunctionApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Usage',
+                        '\Hanzo\Cloud\Model\FunctionUsage',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1794,7 +1878,7 @@ class FunctionApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Usage',
+                '\Hanzo\Cloud\Model\FunctionUsage',
                 $request,
                 $response,
             );
@@ -1803,7 +1887,15 @@ class FunctionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Usage',
+                        '\Hanzo\Cloud\Model\FunctionUsage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1849,7 +1941,7 @@ class FunctionApi
      */
     public function getFunctionMetricsAsyncWithHttpInfo($range = null, string $contentType = self::contentTypes['getFunctionMetrics'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Usage';
+        $returnType = '\Hanzo\Cloud\Model\FunctionUsage';
         $request = $this->getFunctionMetricsRequest($range, $contentType);
 
         return $this->client
@@ -1923,7 +2015,7 @@ class FunctionApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1988,7 +2080,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SecretList
+     * @return \Hanzo\Cloud\Model\FunctionSecretList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFunctionSecrets(string $contentType = self::contentTypes['getFunctionSecrets'][0])
     {
@@ -2005,7 +2097,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SecretList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FunctionSecretList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFunctionSecretsWithHttpInfo(string $contentType = self::contentTypes['getFunctionSecrets'][0])
     {
@@ -2037,7 +2129,13 @@ class FunctionApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SecretList',
+                        '\Hanzo\Cloud\Model\FunctionSecretList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2059,7 +2157,7 @@ class FunctionApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SecretList',
+                '\Hanzo\Cloud\Model\FunctionSecretList',
                 $request,
                 $response,
             );
@@ -2068,7 +2166,15 @@ class FunctionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SecretList',
+                        '\Hanzo\Cloud\Model\FunctionSecretList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2112,7 +2218,7 @@ class FunctionApi
      */
     public function getFunctionSecretsAsyncWithHttpInfo(string $contentType = self::contentTypes['getFunctionSecrets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SecretList';
+        $returnType = '\Hanzo\Cloud\Model\FunctionSecretList';
         $request = $this->getFunctionSecretsRequest($contentType);
 
         return $this->client
@@ -2175,7 +2281,7 @@ class FunctionApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2240,7 +2346,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TriggerList
+     * @return \Hanzo\Cloud\Model\FunctionTriggerList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getFunctionTriggers(string $contentType = self::contentTypes['getFunctionTriggers'][0])
     {
@@ -2257,7 +2363,7 @@ class FunctionApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TriggerList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FunctionTriggerList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getFunctionTriggersWithHttpInfo(string $contentType = self::contentTypes['getFunctionTriggers'][0])
     {
@@ -2289,7 +2395,13 @@ class FunctionApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TriggerList',
+                        '\Hanzo\Cloud\Model\FunctionTriggerList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2311,7 +2423,7 @@ class FunctionApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TriggerList',
+                '\Hanzo\Cloud\Model\FunctionTriggerList',
                 $request,
                 $response,
             );
@@ -2320,7 +2432,15 @@ class FunctionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TriggerList',
+                        '\Hanzo\Cloud\Model\FunctionTriggerList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2364,7 +2484,7 @@ class FunctionApi
      */
     public function getFunctionTriggersAsyncWithHttpInfo(string $contentType = self::contentTypes['getFunctionTriggers'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TriggerList';
+        $returnType = '\Hanzo\Cloud\Model\FunctionTriggerList';
         $request = $this->getFunctionTriggersRequest($contentType);
 
         return $this->client
@@ -2427,7 +2547,7 @@ class FunctionApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2488,16 +2608,16 @@ class FunctionApi
      *
      * Publishes a serverless function under the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\Definition $definition definition (required)
+     * @param  \Hanzo\Cloud\Model\FunctionDefinition $function_definition function_definition (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunction'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\FunctionView
+     * @return \Hanzo\Cloud\Model\FunctionFunctionView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postFunction($definition, string $contentType = self::contentTypes['postFunction'][0])
+    public function postFunction($function_definition, string $contentType = self::contentTypes['postFunction'][0])
     {
-        list($response) = $this->postFunctionWithHttpInfo($definition, $contentType);
+        list($response) = $this->postFunctionWithHttpInfo($function_definition, $contentType);
         return $response;
     }
 
@@ -2506,16 +2626,16 @@ class FunctionApi
      *
      * Publishes a serverless function under the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\Definition $definition (required)
+     * @param  \Hanzo\Cloud\Model\FunctionDefinition $function_definition (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunction'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\FunctionView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FunctionFunctionView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postFunctionWithHttpInfo($definition, string $contentType = self::contentTypes['postFunction'][0])
+    public function postFunctionWithHttpInfo($function_definition, string $contentType = self::contentTypes['postFunction'][0])
     {
-        $request = $this->postFunctionRequest($definition, $contentType);
+        $request = $this->postFunctionRequest($function_definition, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2543,7 +2663,13 @@ class FunctionApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\FunctionView',
+                        '\Hanzo\Cloud\Model\FunctionFunctionView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2565,7 +2691,7 @@ class FunctionApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\FunctionView',
+                '\Hanzo\Cloud\Model\FunctionFunctionView',
                 $request,
                 $response,
             );
@@ -2574,7 +2700,15 @@ class FunctionApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\FunctionView',
+                        '\Hanzo\Cloud\Model\FunctionFunctionView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2591,15 +2725,15 @@ class FunctionApi
      *
      * Publishes a serverless function under the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\Definition $definition (required)
+     * @param  \Hanzo\Cloud\Model\FunctionDefinition $function_definition (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunction'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFunctionAsync($definition, string $contentType = self::contentTypes['postFunction'][0])
+    public function postFunctionAsync($function_definition, string $contentType = self::contentTypes['postFunction'][0])
     {
-        return $this->postFunctionAsyncWithHttpInfo($definition, $contentType)
+        return $this->postFunctionAsyncWithHttpInfo($function_definition, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2612,16 +2746,16 @@ class FunctionApi
      *
      * Publishes a serverless function under the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\Definition $definition (required)
+     * @param  \Hanzo\Cloud\Model\FunctionDefinition $function_definition (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunction'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFunctionAsyncWithHttpInfo($definition, string $contentType = self::contentTypes['postFunction'][0])
+    public function postFunctionAsyncWithHttpInfo($function_definition, string $contentType = self::contentTypes['postFunction'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\FunctionView';
-        $request = $this->postFunctionRequest($definition, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\FunctionFunctionView';
+        $request = $this->postFunctionRequest($function_definition, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2662,19 +2796,19 @@ class FunctionApi
     /**
      * Create request for operation 'postFunction'
      *
-     * @param  \Hanzo\Cloud\Model\Definition $definition (required)
+     * @param  \Hanzo\Cloud\Model\FunctionDefinition $function_definition (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunction'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postFunctionRequest($definition, string $contentType = self::contentTypes['postFunction'][0])
+    public function postFunctionRequest($function_definition, string $contentType = self::contentTypes['postFunction'][0])
     {
 
-        // verify the required parameter 'definition' is set
-        if ($definition === null || (is_array($definition) && count($definition) === 0)) {
+        // verify the required parameter 'function_definition' is set
+        if ($function_definition === null || (is_array($function_definition) && count($function_definition) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $definition when calling postFunction'
+                'Missing the required parameter $function_definition when calling postFunction'
             );
         }
 
@@ -2691,18 +2825,18 @@ class FunctionApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($definition)) {
+        if (isset($function_definition)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($definition));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($function_definition));
             } else {
-                $httpBody = $definition;
+                $httpBody = $function_definition;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2760,16 +2894,16 @@ class FunctionApi
      * Runs a function and records a REAL invocation.
      *
      * @param  string $name name (required)
-     * @param  \Hanzo\Cloud\Model\InvokeReq $invoke_req invoke_req (required)
+     * @param  \Hanzo\Cloud\Model\FunctionInvokeReq $function_invoke_req function_invoke_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunctionByNameInvoke'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\InvocationView|\Hanzo\Cloud\Model\InvocationView|\Hanzo\Cloud\Model\InvocationView
+     * @return \Hanzo\Cloud\Model\FunctionInvocationView|\Hanzo\Cloud\Model\FunctionInvocationView|\Hanzo\Cloud\Model\FunctionInvocationView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postFunctionByNameInvoke($name, $invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
+    public function postFunctionByNameInvoke($name, $function_invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
     {
-        list($response) = $this->postFunctionByNameInvokeWithHttpInfo($name, $invoke_req, $contentType);
+        list($response) = $this->postFunctionByNameInvokeWithHttpInfo($name, $function_invoke_req, $contentType);
         return $response;
     }
 
@@ -2779,16 +2913,16 @@ class FunctionApi
      * Runs a function and records a REAL invocation.
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\InvokeReq $invoke_req (required)
+     * @param  \Hanzo\Cloud\Model\FunctionInvokeReq $function_invoke_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunctionByNameInvoke'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\InvocationView|\Hanzo\Cloud\Model\InvocationView|\Hanzo\Cloud\Model\InvocationView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FunctionInvocationView|\Hanzo\Cloud\Model\FunctionInvocationView|\Hanzo\Cloud\Model\FunctionInvocationView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postFunctionByNameInvokeWithHttpInfo($name, $invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
+    public function postFunctionByNameInvokeWithHttpInfo($name, $function_invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
     {
-        $request = $this->postFunctionByNameInvokeRequest($name, $invoke_req, $contentType);
+        $request = $this->postFunctionByNameInvokeRequest($name, $function_invoke_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2816,19 +2950,25 @@ class FunctionApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\InvocationView',
+                        '\Hanzo\Cloud\Model\FunctionInvocationView',
                         $request,
                         $response,
                     );
                 case 502:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\InvocationView',
+                        '\Hanzo\Cloud\Model\FunctionInvocationView',
                         $request,
                         $response,
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\InvocationView',
+                        '\Hanzo\Cloud\Model\FunctionInvocationView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2850,7 +2990,7 @@ class FunctionApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\InvocationView',
+                '\Hanzo\Cloud\Model\FunctionInvocationView',
                 $request,
                 $response,
             );
@@ -2859,7 +2999,7 @@ class FunctionApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\InvocationView',
+                        '\Hanzo\Cloud\Model\FunctionInvocationView',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2867,7 +3007,7 @@ class FunctionApi
                 case 502:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\InvocationView',
+                        '\Hanzo\Cloud\Model\FunctionInvocationView',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2875,7 +3015,15 @@ class FunctionApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\InvocationView',
+                        '\Hanzo\Cloud\Model\FunctionInvocationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2893,15 +3041,15 @@ class FunctionApi
      * Runs a function and records a REAL invocation.
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\InvokeReq $invoke_req (required)
+     * @param  \Hanzo\Cloud\Model\FunctionInvokeReq $function_invoke_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunctionByNameInvoke'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFunctionByNameInvokeAsync($name, $invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
+    public function postFunctionByNameInvokeAsync($name, $function_invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
     {
-        return $this->postFunctionByNameInvokeAsyncWithHttpInfo($name, $invoke_req, $contentType)
+        return $this->postFunctionByNameInvokeAsyncWithHttpInfo($name, $function_invoke_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2915,16 +3063,16 @@ class FunctionApi
      * Runs a function and records a REAL invocation.
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\InvokeReq $invoke_req (required)
+     * @param  \Hanzo\Cloud\Model\FunctionInvokeReq $function_invoke_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunctionByNameInvoke'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFunctionByNameInvokeAsyncWithHttpInfo($name, $invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
+    public function postFunctionByNameInvokeAsyncWithHttpInfo($name, $function_invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\InvocationView';
-        $request = $this->postFunctionByNameInvokeRequest($name, $invoke_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\FunctionInvocationView';
+        $request = $this->postFunctionByNameInvokeRequest($name, $function_invoke_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2966,13 +3114,13 @@ class FunctionApi
      * Create request for operation 'postFunctionByNameInvoke'
      *
      * @param  string $name (required)
-     * @param  \Hanzo\Cloud\Model\InvokeReq $invoke_req (required)
+     * @param  \Hanzo\Cloud\Model\FunctionInvokeReq $function_invoke_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunctionByNameInvoke'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postFunctionByNameInvokeRequest($name, $invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
+    public function postFunctionByNameInvokeRequest($name, $function_invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
     {
 
         // verify the required parameter 'name' is set
@@ -2982,10 +3130,10 @@ class FunctionApi
             );
         }
 
-        // verify the required parameter 'invoke_req' is set
-        if ($invoke_req === null || (is_array($invoke_req) && count($invoke_req) === 0)) {
+        // verify the required parameter 'function_invoke_req' is set
+        if ($function_invoke_req === null || (is_array($function_invoke_req) && count($function_invoke_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $invoke_req when calling postFunctionByNameInvoke'
+                'Missing the required parameter $function_invoke_req when calling postFunctionByNameInvoke'
             );
         }
 
@@ -3010,18 +3158,18 @@ class FunctionApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($invoke_req)) {
+        if (isset($function_invoke_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($invoke_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($function_invoke_req));
             } else {
-                $httpBody = $invoke_req;
+                $httpBody = $function_invoke_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

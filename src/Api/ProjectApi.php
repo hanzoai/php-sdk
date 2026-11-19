@@ -95,6 +95,9 @@ class ProjectApi
         'getProjectBySlugDeploymentsById' => [
             'application/json',
         ],
+        'getProjectBySlugDeploymentsByIdObjects' => [
+            'application/json',
+        ],
         'getProjectBySlugDomains' => [
             'application/json',
         ],
@@ -268,6 +271,14 @@ class ProjectApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -375,7 +386,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -492,6 +503,14 @@ class ProjectApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -617,7 +636,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -683,7 +702,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsStar
+     * @return \Hanzo\Cloud\Model\ProjectProjectsStar|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteProjectBySlugStar($slug, string $contentType = self::contentTypes['deleteProjectBySlugStar'][0])
     {
@@ -701,7 +720,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsStar, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsStar|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteProjectBySlugStarWithHttpInfo($slug, string $contentType = self::contentTypes['deleteProjectBySlugStar'][0])
     {
@@ -733,7 +752,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsStar',
+                        '\Hanzo\Cloud\Model\ProjectProjectsStar',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -755,7 +780,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsStar',
+                '\Hanzo\Cloud\Model\ProjectProjectsStar',
                 $request,
                 $response,
             );
@@ -764,7 +789,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsStar',
+                        '\Hanzo\Cloud\Model\ProjectProjectsStar',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -810,7 +843,7 @@ class ProjectApi
      */
     public function deleteProjectBySlugStarAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['deleteProjectBySlugStar'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsStar';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsStar';
         $request = $this->deleteProjectBySlugStarRequest($slug, $contentType);
 
         return $this->client
@@ -889,7 +922,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -954,7 +987,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsProject[]
+     * @return \Hanzo\Cloud\Model\ProjectProjectsProject[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProject(string $contentType = self::contentTypes['getProject'][0])
     {
@@ -971,7 +1004,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsProject[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsProject[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProjectWithHttpInfo(string $contentType = self::contentTypes['getProject'][0])
     {
@@ -1003,7 +1036,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsProject[]',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1025,7 +1064,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsProject[]',
+                '\Hanzo\Cloud\Model\ProjectProjectsProject[]',
                 $request,
                 $response,
             );
@@ -1034,7 +1073,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsProject[]',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1078,7 +1125,7 @@ class ProjectApi
      */
     public function getProjectAsyncWithHttpInfo(string $contentType = self::contentTypes['getProject'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsProject[]';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsProject[]';
         $request = $this->getProjectRequest($contentType);
 
         return $this->client
@@ -1141,7 +1188,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1207,7 +1254,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsProject
+     * @return \Hanzo\Cloud\Model\ProjectProjectsProject|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProjectBySlug($slug, string $contentType = self::contentTypes['getProjectBySlug'][0])
     {
@@ -1225,7 +1272,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsProject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsProject|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProjectBySlugWithHttpInfo($slug, string $contentType = self::contentTypes['getProjectBySlug'][0])
     {
@@ -1257,7 +1304,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsProject',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1279,7 +1332,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsProject',
+                '\Hanzo\Cloud\Model\ProjectProjectsProject',
                 $request,
                 $response,
             );
@@ -1288,7 +1341,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsProject',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1334,7 +1395,7 @@ class ProjectApi
      */
     public function getProjectBySlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getProjectBySlug'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsProject';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsProject';
         $request = $this->getProjectBySlugRequest($slug, $contentType);
 
         return $this->client
@@ -1413,7 +1474,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1479,7 +1540,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsDeployment[]
+     * @return \Hanzo\Cloud\Model\ProjectProjectsDeployment[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProjectBySlugDeployments($slug, string $contentType = self::contentTypes['getProjectBySlugDeployments'][0])
     {
@@ -1497,7 +1558,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsDeployment[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsDeployment[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProjectBySlugDeploymentsWithHttpInfo($slug, string $contentType = self::contentTypes['getProjectBySlugDeployments'][0])
     {
@@ -1529,7 +1590,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsDeployment[]',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDeployment[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1551,7 +1618,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsDeployment[]',
+                '\Hanzo\Cloud\Model\ProjectProjectsDeployment[]',
                 $request,
                 $response,
             );
@@ -1560,7 +1627,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsDeployment[]',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDeployment[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1606,7 +1681,7 @@ class ProjectApi
      */
     public function getProjectBySlugDeploymentsAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getProjectBySlugDeployments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsDeployment[]';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsDeployment[]';
         $request = $this->getProjectBySlugDeploymentsRequest($slug, $contentType);
 
         return $this->client
@@ -1685,7 +1760,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1752,7 +1827,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsDeployment
+     * @return \Hanzo\Cloud\Model\ProjectProjectsDeployment|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProjectBySlugDeploymentsById($slug, $id, string $contentType = self::contentTypes['getProjectBySlugDeploymentsById'][0])
     {
@@ -1771,7 +1846,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsDeployment, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsDeployment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProjectBySlugDeploymentsByIdWithHttpInfo($slug, $id, string $contentType = self::contentTypes['getProjectBySlugDeploymentsById'][0])
     {
@@ -1803,7 +1878,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsDeployment',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDeployment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1825,7 +1906,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsDeployment',
+                '\Hanzo\Cloud\Model\ProjectProjectsDeployment',
                 $request,
                 $response,
             );
@@ -1834,7 +1915,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsDeployment',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDeployment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1882,7 +1971,7 @@ class ProjectApi
      */
     public function getProjectBySlugDeploymentsByIdAsyncWithHttpInfo($slug, $id, string $contentType = self::contentTypes['getProjectBySlugDeploymentsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsDeployment';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsDeployment';
         $request = $this->getProjectBySlugDeploymentsByIdRequest($slug, $id, $contentType);
 
         return $this->client
@@ -1977,7 +2066,313 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getProjectBySlugDeploymentsByIdObjects
+     *
+     * Returns every object under a deployment&#39;s prefix as the object store itself records it: each key relative to the prefix, its size in bytes and its ETag.
+     *
+     * @param  string $slug Slug is the project the deployment belongs to, from the path. (required)
+     * @param  string $id ID is the deployment id, from the path. A deployment of another project — or of another tenant&#39;s project — is not found. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProjectBySlugDeploymentsByIdObjects'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\ProjectProjectsObjects|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getProjectBySlugDeploymentsByIdObjects($slug, $id, string $contentType = self::contentTypes['getProjectBySlugDeploymentsByIdObjects'][0])
+    {
+        list($response) = $this->getProjectBySlugDeploymentsByIdObjectsWithHttpInfo($slug, $id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getProjectBySlugDeploymentsByIdObjectsWithHttpInfo
+     *
+     * Returns every object under a deployment&#39;s prefix as the object store itself records it: each key relative to the prefix, its size in bytes and its ETag.
+     *
+     * @param  string $slug Slug is the project the deployment belongs to, from the path. (required)
+     * @param  string $id ID is the deployment id, from the path. A deployment of another project — or of another tenant&#39;s project — is not found. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProjectBySlugDeploymentsByIdObjects'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsObjects|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getProjectBySlugDeploymentsByIdObjectsWithHttpInfo($slug, $id, string $contentType = self::contentTypes['getProjectBySlugDeploymentsByIdObjects'][0])
+    {
+        $request = $this->getProjectBySlugDeploymentsByIdObjectsRequest($slug, $id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProjectProjectsObjects',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ProjectProjectsObjects',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProjectProjectsObjects',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getProjectBySlugDeploymentsByIdObjectsAsync
+     *
+     * Returns every object under a deployment&#39;s prefix as the object store itself records it: each key relative to the prefix, its size in bytes and its ETag.
+     *
+     * @param  string $slug Slug is the project the deployment belongs to, from the path. (required)
+     * @param  string $id ID is the deployment id, from the path. A deployment of another project — or of another tenant&#39;s project — is not found. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProjectBySlugDeploymentsByIdObjects'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getProjectBySlugDeploymentsByIdObjectsAsync($slug, $id, string $contentType = self::contentTypes['getProjectBySlugDeploymentsByIdObjects'][0])
+    {
+        return $this->getProjectBySlugDeploymentsByIdObjectsAsyncWithHttpInfo($slug, $id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getProjectBySlugDeploymentsByIdObjectsAsyncWithHttpInfo
+     *
+     * Returns every object under a deployment&#39;s prefix as the object store itself records it: each key relative to the prefix, its size in bytes and its ETag.
+     *
+     * @param  string $slug Slug is the project the deployment belongs to, from the path. (required)
+     * @param  string $id ID is the deployment id, from the path. A deployment of another project — or of another tenant&#39;s project — is not found. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProjectBySlugDeploymentsByIdObjects'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getProjectBySlugDeploymentsByIdObjectsAsyncWithHttpInfo($slug, $id, string $contentType = self::contentTypes['getProjectBySlugDeploymentsByIdObjects'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsObjects';
+        $request = $this->getProjectBySlugDeploymentsByIdObjectsRequest($slug, $id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getProjectBySlugDeploymentsByIdObjects'
+     *
+     * @param  string $slug Slug is the project the deployment belongs to, from the path. (required)
+     * @param  string $id ID is the deployment id, from the path. A deployment of another project — or of another tenant&#39;s project — is not found. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProjectBySlugDeploymentsByIdObjects'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getProjectBySlugDeploymentsByIdObjectsRequest($slug, $id, string $contentType = self::contentTypes['getProjectBySlugDeploymentsByIdObjects'][0])
+    {
+
+        // verify the required parameter 'slug' is set
+        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $slug when calling getProjectBySlugDeploymentsByIdObjects'
+            );
+        }
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getProjectBySlugDeploymentsByIdObjects'
+            );
+        }
+
+
+        $resourcePath = '/v1/project/{slug}/deployments/{id}/objects';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($slug !== null) {
+            $resourcePath = str_replace(
+                '{' . 'slug' . '}',
+                ObjectSerializer::toPathValue($slug),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2043,7 +2438,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsDomains
+     * @return \Hanzo\Cloud\Model\ProjectProjectsDomains|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProjectBySlugDomains($slug, string $contentType = self::contentTypes['getProjectBySlugDomains'][0])
     {
@@ -2061,7 +2456,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsDomains, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsDomains|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProjectBySlugDomainsWithHttpInfo($slug, string $contentType = self::contentTypes['getProjectBySlugDomains'][0])
     {
@@ -2093,7 +2488,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsDomains',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDomains',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2115,7 +2516,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsDomains',
+                '\Hanzo\Cloud\Model\ProjectProjectsDomains',
                 $request,
                 $response,
             );
@@ -2124,7 +2525,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsDomains',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDomains',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2170,7 +2579,7 @@ class ProjectApi
      */
     public function getProjectBySlugDomainsAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getProjectBySlugDomains'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsDomains';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsDomains';
         $request = $this->getProjectBySlugDomainsRequest($slug, $contentType);
 
         return $this->client
@@ -2249,7 +2658,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2315,7 +2724,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsRelease[]
+     * @return \Hanzo\Cloud\Model\ProjectProjectsRelease[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProjectBySlugReleases($slug, string $contentType = self::contentTypes['getProjectBySlugReleases'][0])
     {
@@ -2333,7 +2742,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsRelease[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsRelease[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProjectBySlugReleasesWithHttpInfo($slug, string $contentType = self::contentTypes['getProjectBySlugReleases'][0])
     {
@@ -2365,7 +2774,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsRelease[]',
+                        '\Hanzo\Cloud\Model\ProjectProjectsRelease[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2387,7 +2802,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsRelease[]',
+                '\Hanzo\Cloud\Model\ProjectProjectsRelease[]',
                 $request,
                 $response,
             );
@@ -2396,7 +2811,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsRelease[]',
+                        '\Hanzo\Cloud\Model\ProjectProjectsRelease[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2442,7 +2865,7 @@ class ProjectApi
      */
     public function getProjectBySlugReleasesAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getProjectBySlugReleases'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsRelease[]';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsRelease[]';
         $request = $this->getProjectBySlugReleasesRequest($slug, $contentType);
 
         return $this->client
@@ -2521,7 +2944,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2808,7 +3231,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EdgeState|\Hanzo\Cloud\Model\EdgeState
+     * @return \Hanzo\Cloud\Model\ProjectEdgeState|\Hanzo\Cloud\Model\ProjectEdgeState|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProjectEdge(string $contentType = self::contentTypes['getProjectEdge'][0])
     {
@@ -2825,7 +3248,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EdgeState|\Hanzo\Cloud\Model\EdgeState, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectEdgeState|\Hanzo\Cloud\Model\ProjectEdgeState|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProjectEdgeWithHttpInfo(string $contentType = self::contentTypes['getProjectEdge'][0])
     {
@@ -2857,13 +3280,19 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EdgeState',
+                        '\Hanzo\Cloud\Model\ProjectEdgeState',
                         $request,
                         $response,
                     );
                 case 503:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EdgeState',
+                        '\Hanzo\Cloud\Model\ProjectEdgeState',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2885,7 +3314,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EdgeState',
+                '\Hanzo\Cloud\Model\ProjectEdgeState',
                 $request,
                 $response,
             );
@@ -2894,7 +3323,7 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EdgeState',
+                        '\Hanzo\Cloud\Model\ProjectEdgeState',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2902,7 +3331,15 @@ class ProjectApi
                 case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EdgeState',
+                        '\Hanzo\Cloud\Model\ProjectEdgeState',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2946,7 +3383,7 @@ class ProjectApi
      */
     public function getProjectEdgeAsyncWithHttpInfo(string $contentType = self::contentTypes['getProjectEdge'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EdgeState';
+        $returnType = '\Hanzo\Cloud\Model\ProjectEdgeState';
         $request = $this->getProjectEdgeRequest($contentType);
 
         return $this->client
@@ -3009,7 +3446,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3074,7 +3511,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsSite[]
+     * @return \Hanzo\Cloud\Model\ProjectProjectsSite[]|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProjectSites(string $contentType = self::contentTypes['getProjectSites'][0])
     {
@@ -3091,7 +3528,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsSite[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsSite[]|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProjectSitesWithHttpInfo(string $contentType = self::contentTypes['getProjectSites'][0])
     {
@@ -3123,7 +3560,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsSite[]',
+                        '\Hanzo\Cloud\Model\ProjectProjectsSite[]',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3145,7 +3588,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsSite[]',
+                '\Hanzo\Cloud\Model\ProjectProjectsSite[]',
                 $request,
                 $response,
             );
@@ -3154,7 +3597,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsSite[]',
+                        '\Hanzo\Cloud\Model\ProjectProjectsSite[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3198,7 +3649,7 @@ class ProjectApi
      */
     public function getProjectSitesAsyncWithHttpInfo(string $contentType = self::contentTypes['getProjectSites'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsSite[]';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsSite[]';
         $request = $this->getProjectSitesRequest($contentType);
 
         return $this->client
@@ -3261,7 +3712,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3327,7 +3778,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsSite
+     * @return \Hanzo\Cloud\Model\ProjectProjectsSite|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getProjectSitesBySlug($slug, string $contentType = self::contentTypes['getProjectSitesBySlug'][0])
     {
@@ -3345,7 +3796,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsSite, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsSite|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProjectSitesBySlugWithHttpInfo($slug, string $contentType = self::contentTypes['getProjectSitesBySlug'][0])
     {
@@ -3377,7 +3828,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsSite',
+                        '\Hanzo\Cloud\Model\ProjectProjectsSite',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3399,7 +3856,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsSite',
+                '\Hanzo\Cloud\Model\ProjectProjectsSite',
                 $request,
                 $response,
             );
@@ -3408,7 +3865,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsSite',
+                        '\Hanzo\Cloud\Model\ProjectProjectsSite',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3454,7 +3919,7 @@ class ProjectApi
      */
     public function getProjectSitesBySlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['getProjectSitesBySlug'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsSite';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsSite';
         $request = $this->getProjectSitesBySlugRequest($slug, $contentType);
 
         return $this->client
@@ -3533,7 +3998,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3850,16 +4315,16 @@ class ProjectApi
      * Changes a project&#39;s settings, and only the settings you send.
      *
      * @param  string $slug Slug is the project to update, from the path. The URL is the addressing authority — a &#x60;slug&#x60; in the body cannot move the write to another project. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsUpdate $projects_update projects_update (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsUpdate $project_projects_update project_projects_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchProjectBySlug'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsProject
+     * @return \Hanzo\Cloud\Model\ProjectProjectsProject|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function patchProjectBySlug($slug, $projects_update, string $contentType = self::contentTypes['patchProjectBySlug'][0])
+    public function patchProjectBySlug($slug, $project_projects_update, string $contentType = self::contentTypes['patchProjectBySlug'][0])
     {
-        list($response) = $this->patchProjectBySlugWithHttpInfo($slug, $projects_update, $contentType);
+        list($response) = $this->patchProjectBySlugWithHttpInfo($slug, $project_projects_update, $contentType);
         return $response;
     }
 
@@ -3869,16 +4334,16 @@ class ProjectApi
      * Changes a project&#39;s settings, and only the settings you send.
      *
      * @param  string $slug Slug is the project to update, from the path. The URL is the addressing authority — a &#x60;slug&#x60; in the body cannot move the write to another project. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsUpdate $projects_update (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsUpdate $project_projects_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchProjectBySlug'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsProject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsProject|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchProjectBySlugWithHttpInfo($slug, $projects_update, string $contentType = self::contentTypes['patchProjectBySlug'][0])
+    public function patchProjectBySlugWithHttpInfo($slug, $project_projects_update, string $contentType = self::contentTypes['patchProjectBySlug'][0])
     {
-        $request = $this->patchProjectBySlugRequest($slug, $projects_update, $contentType);
+        $request = $this->patchProjectBySlugRequest($slug, $project_projects_update, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3906,7 +4371,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsProject',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3928,7 +4399,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsProject',
+                '\Hanzo\Cloud\Model\ProjectProjectsProject',
                 $request,
                 $response,
             );
@@ -3937,7 +4408,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsProject',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3955,15 +4434,15 @@ class ProjectApi
      * Changes a project&#39;s settings, and only the settings you send.
      *
      * @param  string $slug Slug is the project to update, from the path. The URL is the addressing authority — a &#x60;slug&#x60; in the body cannot move the write to another project. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsUpdate $projects_update (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsUpdate $project_projects_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchProjectBySlug'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchProjectBySlugAsync($slug, $projects_update, string $contentType = self::contentTypes['patchProjectBySlug'][0])
+    public function patchProjectBySlugAsync($slug, $project_projects_update, string $contentType = self::contentTypes['patchProjectBySlug'][0])
     {
-        return $this->patchProjectBySlugAsyncWithHttpInfo($slug, $projects_update, $contentType)
+        return $this->patchProjectBySlugAsyncWithHttpInfo($slug, $project_projects_update, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3977,16 +4456,16 @@ class ProjectApi
      * Changes a project&#39;s settings, and only the settings you send.
      *
      * @param  string $slug Slug is the project to update, from the path. The URL is the addressing authority — a &#x60;slug&#x60; in the body cannot move the write to another project. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsUpdate $projects_update (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsUpdate $project_projects_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchProjectBySlug'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchProjectBySlugAsyncWithHttpInfo($slug, $projects_update, string $contentType = self::contentTypes['patchProjectBySlug'][0])
+    public function patchProjectBySlugAsyncWithHttpInfo($slug, $project_projects_update, string $contentType = self::contentTypes['patchProjectBySlug'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsProject';
-        $request = $this->patchProjectBySlugRequest($slug, $projects_update, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsProject';
+        $request = $this->patchProjectBySlugRequest($slug, $project_projects_update, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4028,13 +4507,13 @@ class ProjectApi
      * Create request for operation 'patchProjectBySlug'
      *
      * @param  string $slug Slug is the project to update, from the path. The URL is the addressing authority — a &#x60;slug&#x60; in the body cannot move the write to another project. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsUpdate $projects_update (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsUpdate $project_projects_update (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchProjectBySlug'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchProjectBySlugRequest($slug, $projects_update, string $contentType = self::contentTypes['patchProjectBySlug'][0])
+    public function patchProjectBySlugRequest($slug, $project_projects_update, string $contentType = self::contentTypes['patchProjectBySlug'][0])
     {
 
         // verify the required parameter 'slug' is set
@@ -4044,10 +4523,10 @@ class ProjectApi
             );
         }
 
-        // verify the required parameter 'projects_update' is set
-        if ($projects_update === null || (is_array($projects_update) && count($projects_update) === 0)) {
+        // verify the required parameter 'project_projects_update' is set
+        if ($project_projects_update === null || (is_array($project_projects_update) && count($project_projects_update) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $projects_update when calling patchProjectBySlug'
+                'Missing the required parameter $project_projects_update when calling patchProjectBySlug'
             );
         }
 
@@ -4072,18 +4551,18 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($projects_update)) {
+        if (isset($project_projects_update)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($projects_update));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($project_projects_update));
             } else {
-                $httpBody = $projects_update;
+                $httpBody = $project_projects_update;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4140,16 +4619,16 @@ class ProjectApi
      *
      * Creates a project — the handle a site is deployed and served under — and answers 201 with it in &#x60;draft&#x60;.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsCreate $projects_create projects_create (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsCreate $project_projects_create project_projects_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsProject
+     * @return \Hanzo\Cloud\Model\ProjectProjectsProject|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProject($projects_create, string $contentType = self::contentTypes['postProject'][0])
+    public function postProject($project_projects_create, string $contentType = self::contentTypes['postProject'][0])
     {
-        list($response) = $this->postProjectWithHttpInfo($projects_create, $contentType);
+        list($response) = $this->postProjectWithHttpInfo($project_projects_create, $contentType);
         return $response;
     }
 
@@ -4158,16 +4637,16 @@ class ProjectApi
      *
      * Creates a project — the handle a site is deployed and served under — and answers 201 with it in &#x60;draft&#x60;.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsCreate $projects_create (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsCreate $project_projects_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsProject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsProject|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProjectWithHttpInfo($projects_create, string $contentType = self::contentTypes['postProject'][0])
+    public function postProjectWithHttpInfo($project_projects_create, string $contentType = self::contentTypes['postProject'][0])
     {
-        $request = $this->postProjectRequest($projects_create, $contentType);
+        $request = $this->postProjectRequest($project_projects_create, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4195,7 +4674,13 @@ class ProjectApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsProject',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4217,7 +4702,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsProject',
+                '\Hanzo\Cloud\Model\ProjectProjectsProject',
                 $request,
                 $response,
             );
@@ -4226,7 +4711,15 @@ class ProjectApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsProject',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4243,15 +4736,15 @@ class ProjectApi
      *
      * Creates a project — the handle a site is deployed and served under — and answers 201 with it in &#x60;draft&#x60;.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsCreate $projects_create (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsCreate $project_projects_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectAsync($projects_create, string $contentType = self::contentTypes['postProject'][0])
+    public function postProjectAsync($project_projects_create, string $contentType = self::contentTypes['postProject'][0])
     {
-        return $this->postProjectAsyncWithHttpInfo($projects_create, $contentType)
+        return $this->postProjectAsyncWithHttpInfo($project_projects_create, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4264,16 +4757,16 @@ class ProjectApi
      *
      * Creates a project — the handle a site is deployed and served under — and answers 201 with it in &#x60;draft&#x60;.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsCreate $projects_create (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsCreate $project_projects_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectAsyncWithHttpInfo($projects_create, string $contentType = self::contentTypes['postProject'][0])
+    public function postProjectAsyncWithHttpInfo($project_projects_create, string $contentType = self::contentTypes['postProject'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsProject';
-        $request = $this->postProjectRequest($projects_create, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsProject';
+        $request = $this->postProjectRequest($project_projects_create, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4314,19 +4807,19 @@ class ProjectApi
     /**
      * Create request for operation 'postProject'
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsCreate $projects_create (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsCreate $project_projects_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProjectRequest($projects_create, string $contentType = self::contentTypes['postProject'][0])
+    public function postProjectRequest($project_projects_create, string $contentType = self::contentTypes['postProject'][0])
     {
 
-        // verify the required parameter 'projects_create' is set
-        if ($projects_create === null || (is_array($projects_create) && count($projects_create) === 0)) {
+        // verify the required parameter 'project_projects_create' is set
+        if ($project_projects_create === null || (is_array($project_projects_create) && count($project_projects_create) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $projects_create when calling postProject'
+                'Missing the required parameter $project_projects_create when calling postProject'
             );
         }
 
@@ -4343,18 +4836,18 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($projects_create)) {
+        if (isset($project_projects_create)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($projects_create));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($project_projects_create));
             } else {
-                $httpBody = $projects_create;
+                $httpBody = $project_projects_create;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4700,16 +5193,16 @@ class ProjectApi
      * Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
      *
      * @param  string $slug Slug is the site to deploy, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsDeployStart $projects_deploy_start projects_deploy_start (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDeployStart $project_projects_deploy_start project_projects_deploy_start (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDeployments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsDeployment
+     * @return \Hanzo\Cloud\Model\ProjectProjectsDeployment|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProjectBySlugDeployments($slug, $projects_deploy_start, string $contentType = self::contentTypes['postProjectBySlugDeployments'][0])
+    public function postProjectBySlugDeployments($slug, $project_projects_deploy_start, string $contentType = self::contentTypes['postProjectBySlugDeployments'][0])
     {
-        list($response) = $this->postProjectBySlugDeploymentsWithHttpInfo($slug, $projects_deploy_start, $contentType);
+        list($response) = $this->postProjectBySlugDeploymentsWithHttpInfo($slug, $project_projects_deploy_start, $contentType);
         return $response;
     }
 
@@ -4719,16 +5212,16 @@ class ProjectApi
      * Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
      *
      * @param  string $slug Slug is the site to deploy, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsDeployStart $projects_deploy_start (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDeployStart $project_projects_deploy_start (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDeployments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsDeployment, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsDeployment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProjectBySlugDeploymentsWithHttpInfo($slug, $projects_deploy_start, string $contentType = self::contentTypes['postProjectBySlugDeployments'][0])
+    public function postProjectBySlugDeploymentsWithHttpInfo($slug, $project_projects_deploy_start, string $contentType = self::contentTypes['postProjectBySlugDeployments'][0])
     {
-        $request = $this->postProjectBySlugDeploymentsRequest($slug, $projects_deploy_start, $contentType);
+        $request = $this->postProjectBySlugDeploymentsRequest($slug, $project_projects_deploy_start, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4756,7 +5249,13 @@ class ProjectApi
             switch($statusCode) {
                 case 202:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsDeployment',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDeployment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4778,7 +5277,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsDeployment',
+                '\Hanzo\Cloud\Model\ProjectProjectsDeployment',
                 $request,
                 $response,
             );
@@ -4787,7 +5286,15 @@ class ProjectApi
                 case 202:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsDeployment',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDeployment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4805,15 +5312,15 @@ class ProjectApi
      * Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
      *
      * @param  string $slug Slug is the site to deploy, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsDeployStart $projects_deploy_start (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDeployStart $project_projects_deploy_start (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDeployments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectBySlugDeploymentsAsync($slug, $projects_deploy_start, string $contentType = self::contentTypes['postProjectBySlugDeployments'][0])
+    public function postProjectBySlugDeploymentsAsync($slug, $project_projects_deploy_start, string $contentType = self::contentTypes['postProjectBySlugDeployments'][0])
     {
-        return $this->postProjectBySlugDeploymentsAsyncWithHttpInfo($slug, $projects_deploy_start, $contentType)
+        return $this->postProjectBySlugDeploymentsAsyncWithHttpInfo($slug, $project_projects_deploy_start, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4827,16 +5334,16 @@ class ProjectApi
      * Opens a deployment and hands back a short-lived, prefix-scoped grant to write its bytes straight to object storage.
      *
      * @param  string $slug Slug is the site to deploy, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsDeployStart $projects_deploy_start (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDeployStart $project_projects_deploy_start (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDeployments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectBySlugDeploymentsAsyncWithHttpInfo($slug, $projects_deploy_start, string $contentType = self::contentTypes['postProjectBySlugDeployments'][0])
+    public function postProjectBySlugDeploymentsAsyncWithHttpInfo($slug, $project_projects_deploy_start, string $contentType = self::contentTypes['postProjectBySlugDeployments'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsDeployment';
-        $request = $this->postProjectBySlugDeploymentsRequest($slug, $projects_deploy_start, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsDeployment';
+        $request = $this->postProjectBySlugDeploymentsRequest($slug, $project_projects_deploy_start, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4878,13 +5385,13 @@ class ProjectApi
      * Create request for operation 'postProjectBySlugDeployments'
      *
      * @param  string $slug Slug is the site to deploy, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsDeployStart $projects_deploy_start (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDeployStart $project_projects_deploy_start (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDeployments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProjectBySlugDeploymentsRequest($slug, $projects_deploy_start, string $contentType = self::contentTypes['postProjectBySlugDeployments'][0])
+    public function postProjectBySlugDeploymentsRequest($slug, $project_projects_deploy_start, string $contentType = self::contentTypes['postProjectBySlugDeployments'][0])
     {
 
         // verify the required parameter 'slug' is set
@@ -4894,10 +5401,10 @@ class ProjectApi
             );
         }
 
-        // verify the required parameter 'projects_deploy_start' is set
-        if ($projects_deploy_start === null || (is_array($projects_deploy_start) && count($projects_deploy_start) === 0)) {
+        // verify the required parameter 'project_projects_deploy_start' is set
+        if ($project_projects_deploy_start === null || (is_array($project_projects_deploy_start) && count($project_projects_deploy_start) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $projects_deploy_start when calling postProjectBySlugDeployments'
+                'Missing the required parameter $project_projects_deploy_start when calling postProjectBySlugDeployments'
             );
         }
 
@@ -4922,18 +5429,18 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($projects_deploy_start)) {
+        if (isset($project_projects_deploy_start)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($projects_deploy_start));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($project_projects_deploy_start));
             } else {
-                $httpBody = $projects_deploy_start;
+                $httpBody = $project_projects_deploy_start;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4992,16 +5499,16 @@ class ProjectApi
      *
      * @param  string $slug Slug is the project the deployment belongs to, from the path. (required)
      * @param  string $id ID is the queued deployment to complete, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsComplete $projects_complete projects_complete (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsComplete $project_projects_complete project_projects_complete (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDeploymentsByIdComplete'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsDeployment
+     * @return \Hanzo\Cloud\Model\ProjectProjectsDeployment|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProjectBySlugDeploymentsByIdComplete($slug, $id, $projects_complete, string $contentType = self::contentTypes['postProjectBySlugDeploymentsByIdComplete'][0])
+    public function postProjectBySlugDeploymentsByIdComplete($slug, $id, $project_projects_complete, string $contentType = self::contentTypes['postProjectBySlugDeploymentsByIdComplete'][0])
     {
-        list($response) = $this->postProjectBySlugDeploymentsByIdCompleteWithHttpInfo($slug, $id, $projects_complete, $contentType);
+        list($response) = $this->postProjectBySlugDeploymentsByIdCompleteWithHttpInfo($slug, $id, $project_projects_complete, $contentType);
         return $response;
     }
 
@@ -5012,16 +5519,16 @@ class ProjectApi
      *
      * @param  string $slug Slug is the project the deployment belongs to, from the path. (required)
      * @param  string $id ID is the queued deployment to complete, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsComplete $projects_complete (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsComplete $project_projects_complete (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDeploymentsByIdComplete'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsDeployment, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsDeployment|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProjectBySlugDeploymentsByIdCompleteWithHttpInfo($slug, $id, $projects_complete, string $contentType = self::contentTypes['postProjectBySlugDeploymentsByIdComplete'][0])
+    public function postProjectBySlugDeploymentsByIdCompleteWithHttpInfo($slug, $id, $project_projects_complete, string $contentType = self::contentTypes['postProjectBySlugDeploymentsByIdComplete'][0])
     {
-        $request = $this->postProjectBySlugDeploymentsByIdCompleteRequest($slug, $id, $projects_complete, $contentType);
+        $request = $this->postProjectBySlugDeploymentsByIdCompleteRequest($slug, $id, $project_projects_complete, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5049,7 +5556,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsDeployment',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDeployment',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5071,7 +5584,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsDeployment',
+                '\Hanzo\Cloud\Model\ProjectProjectsDeployment',
                 $request,
                 $response,
             );
@@ -5080,7 +5593,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsDeployment',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDeployment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5099,15 +5620,15 @@ class ProjectApi
      *
      * @param  string $slug Slug is the project the deployment belongs to, from the path. (required)
      * @param  string $id ID is the queued deployment to complete, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsComplete $projects_complete (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsComplete $project_projects_complete (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDeploymentsByIdComplete'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectBySlugDeploymentsByIdCompleteAsync($slug, $id, $projects_complete, string $contentType = self::contentTypes['postProjectBySlugDeploymentsByIdComplete'][0])
+    public function postProjectBySlugDeploymentsByIdCompleteAsync($slug, $id, $project_projects_complete, string $contentType = self::contentTypes['postProjectBySlugDeploymentsByIdComplete'][0])
     {
-        return $this->postProjectBySlugDeploymentsByIdCompleteAsyncWithHttpInfo($slug, $id, $projects_complete, $contentType)
+        return $this->postProjectBySlugDeploymentsByIdCompleteAsyncWithHttpInfo($slug, $id, $project_projects_complete, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5122,16 +5643,16 @@ class ProjectApi
      *
      * @param  string $slug Slug is the project the deployment belongs to, from the path. (required)
      * @param  string $id ID is the queued deployment to complete, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsComplete $projects_complete (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsComplete $project_projects_complete (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDeploymentsByIdComplete'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectBySlugDeploymentsByIdCompleteAsyncWithHttpInfo($slug, $id, $projects_complete, string $contentType = self::contentTypes['postProjectBySlugDeploymentsByIdComplete'][0])
+    public function postProjectBySlugDeploymentsByIdCompleteAsyncWithHttpInfo($slug, $id, $project_projects_complete, string $contentType = self::contentTypes['postProjectBySlugDeploymentsByIdComplete'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsDeployment';
-        $request = $this->postProjectBySlugDeploymentsByIdCompleteRequest($slug, $id, $projects_complete, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsDeployment';
+        $request = $this->postProjectBySlugDeploymentsByIdCompleteRequest($slug, $id, $project_projects_complete, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5174,13 +5695,13 @@ class ProjectApi
      *
      * @param  string $slug Slug is the project the deployment belongs to, from the path. (required)
      * @param  string $id ID is the queued deployment to complete, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsComplete $projects_complete (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsComplete $project_projects_complete (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDeploymentsByIdComplete'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProjectBySlugDeploymentsByIdCompleteRequest($slug, $id, $projects_complete, string $contentType = self::contentTypes['postProjectBySlugDeploymentsByIdComplete'][0])
+    public function postProjectBySlugDeploymentsByIdCompleteRequest($slug, $id, $project_projects_complete, string $contentType = self::contentTypes['postProjectBySlugDeploymentsByIdComplete'][0])
     {
 
         // verify the required parameter 'slug' is set
@@ -5197,10 +5718,10 @@ class ProjectApi
             );
         }
 
-        // verify the required parameter 'projects_complete' is set
-        if ($projects_complete === null || (is_array($projects_complete) && count($projects_complete) === 0)) {
+        // verify the required parameter 'project_projects_complete' is set
+        if ($project_projects_complete === null || (is_array($project_projects_complete) && count($project_projects_complete) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $projects_complete when calling postProjectBySlugDeploymentsByIdComplete'
+                'Missing the required parameter $project_projects_complete when calling postProjectBySlugDeploymentsByIdComplete'
             );
         }
 
@@ -5233,18 +5754,18 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($projects_complete)) {
+        if (isset($project_projects_complete)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($projects_complete));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($project_projects_complete));
             } else {
-                $httpBody = $projects_complete;
+                $httpBody = $project_projects_complete;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5302,16 +5823,16 @@ class ProjectApi
      * Attaches one or more CUSTOM public hostnames to this org&#39;s site.
      *
      * @param  string $slug Slug is the site the hosts attach to, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsDomainsBind $projects_domains_bind projects_domains_bind (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDomainsBind $project_projects_domains_bind project_projects_domains_bind (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDomains'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsBoundDomains
+     * @return \Hanzo\Cloud\Model\ProjectProjectsBoundDomains|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProjectBySlugDomains($slug, $projects_domains_bind, string $contentType = self::contentTypes['postProjectBySlugDomains'][0])
+    public function postProjectBySlugDomains($slug, $project_projects_domains_bind, string $contentType = self::contentTypes['postProjectBySlugDomains'][0])
     {
-        list($response) = $this->postProjectBySlugDomainsWithHttpInfo($slug, $projects_domains_bind, $contentType);
+        list($response) = $this->postProjectBySlugDomainsWithHttpInfo($slug, $project_projects_domains_bind, $contentType);
         return $response;
     }
 
@@ -5321,16 +5842,16 @@ class ProjectApi
      * Attaches one or more CUSTOM public hostnames to this org&#39;s site.
      *
      * @param  string $slug Slug is the site the hosts attach to, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsDomainsBind $projects_domains_bind (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDomainsBind $project_projects_domains_bind (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDomains'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsBoundDomains, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsBoundDomains|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProjectBySlugDomainsWithHttpInfo($slug, $projects_domains_bind, string $contentType = self::contentTypes['postProjectBySlugDomains'][0])
+    public function postProjectBySlugDomainsWithHttpInfo($slug, $project_projects_domains_bind, string $contentType = self::contentTypes['postProjectBySlugDomains'][0])
     {
-        $request = $this->postProjectBySlugDomainsRequest($slug, $projects_domains_bind, $contentType);
+        $request = $this->postProjectBySlugDomainsRequest($slug, $project_projects_domains_bind, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5358,7 +5879,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsBoundDomains',
+                        '\Hanzo\Cloud\Model\ProjectProjectsBoundDomains',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5380,7 +5907,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsBoundDomains',
+                '\Hanzo\Cloud\Model\ProjectProjectsBoundDomains',
                 $request,
                 $response,
             );
@@ -5389,7 +5916,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsBoundDomains',
+                        '\Hanzo\Cloud\Model\ProjectProjectsBoundDomains',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5407,15 +5942,15 @@ class ProjectApi
      * Attaches one or more CUSTOM public hostnames to this org&#39;s site.
      *
      * @param  string $slug Slug is the site the hosts attach to, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsDomainsBind $projects_domains_bind (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDomainsBind $project_projects_domains_bind (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDomains'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectBySlugDomainsAsync($slug, $projects_domains_bind, string $contentType = self::contentTypes['postProjectBySlugDomains'][0])
+    public function postProjectBySlugDomainsAsync($slug, $project_projects_domains_bind, string $contentType = self::contentTypes['postProjectBySlugDomains'][0])
     {
-        return $this->postProjectBySlugDomainsAsyncWithHttpInfo($slug, $projects_domains_bind, $contentType)
+        return $this->postProjectBySlugDomainsAsyncWithHttpInfo($slug, $project_projects_domains_bind, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5429,16 +5964,16 @@ class ProjectApi
      * Attaches one or more CUSTOM public hostnames to this org&#39;s site.
      *
      * @param  string $slug Slug is the site the hosts attach to, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsDomainsBind $projects_domains_bind (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDomainsBind $project_projects_domains_bind (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDomains'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectBySlugDomainsAsyncWithHttpInfo($slug, $projects_domains_bind, string $contentType = self::contentTypes['postProjectBySlugDomains'][0])
+    public function postProjectBySlugDomainsAsyncWithHttpInfo($slug, $project_projects_domains_bind, string $contentType = self::contentTypes['postProjectBySlugDomains'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsBoundDomains';
-        $request = $this->postProjectBySlugDomainsRequest($slug, $projects_domains_bind, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsBoundDomains';
+        $request = $this->postProjectBySlugDomainsRequest($slug, $project_projects_domains_bind, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5480,13 +6015,13 @@ class ProjectApi
      * Create request for operation 'postProjectBySlugDomains'
      *
      * @param  string $slug Slug is the site the hosts attach to, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsDomainsBind $projects_domains_bind (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDomainsBind $project_projects_domains_bind (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugDomains'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProjectBySlugDomainsRequest($slug, $projects_domains_bind, string $contentType = self::contentTypes['postProjectBySlugDomains'][0])
+    public function postProjectBySlugDomainsRequest($slug, $project_projects_domains_bind, string $contentType = self::contentTypes['postProjectBySlugDomains'][0])
     {
 
         // verify the required parameter 'slug' is set
@@ -5496,10 +6031,10 @@ class ProjectApi
             );
         }
 
-        // verify the required parameter 'projects_domains_bind' is set
-        if ($projects_domains_bind === null || (is_array($projects_domains_bind) && count($projects_domains_bind) === 0)) {
+        // verify the required parameter 'project_projects_domains_bind' is set
+        if ($project_projects_domains_bind === null || (is_array($project_projects_domains_bind) && count($project_projects_domains_bind) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $projects_domains_bind when calling postProjectBySlugDomains'
+                'Missing the required parameter $project_projects_domains_bind when calling postProjectBySlugDomains'
             );
         }
 
@@ -5524,18 +6059,18 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($projects_domains_bind)) {
+        if (isset($project_projects_domains_bind)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($projects_domains_bind));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($project_projects_domains_bind));
             } else {
-                $httpBody = $projects_domains_bind;
+                $httpBody = $project_projects_domains_bind;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5598,7 +6133,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsDomain
+     * @return \Hanzo\Cloud\Model\ProjectProjectsDomain|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postProjectBySlugDomainsByHostVerify($slug, $host, string $contentType = self::contentTypes['postProjectBySlugDomainsByHostVerify'][0])
     {
@@ -5617,7 +6152,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsDomain, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsDomain|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postProjectBySlugDomainsByHostVerifyWithHttpInfo($slug, $host, string $contentType = self::contentTypes['postProjectBySlugDomainsByHostVerify'][0])
     {
@@ -5649,7 +6184,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsDomain',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDomain',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5671,7 +6212,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsDomain',
+                '\Hanzo\Cloud\Model\ProjectProjectsDomain',
                 $request,
                 $response,
             );
@@ -5680,7 +6221,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsDomain',
+                        '\Hanzo\Cloud\Model\ProjectProjectsDomain',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5728,7 +6277,7 @@ class ProjectApi
      */
     public function postProjectBySlugDomainsByHostVerifyAsyncWithHttpInfo($slug, $host, string $contentType = self::contentTypes['postProjectBySlugDomainsByHostVerify'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsDomain';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsDomain';
         $request = $this->postProjectBySlugDomainsByHostVerifyRequest($slug, $host, $contentType);
 
         return $this->client
@@ -5823,7 +6372,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5885,16 +6434,16 @@ class ProjectApi
      * Promotes a build output into a new release AND goes live with it — create+activate in one call, which is the 99% path.
      *
      * @param  string $slug Slug is the site to publish, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsPublish $projects_publish projects_publish (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsPublish $project_projects_publish project_projects_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugPublish'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsRelease
+     * @return \Hanzo\Cloud\Model\ProjectProjectsRelease|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProjectBySlugPublish($slug, $projects_publish, string $contentType = self::contentTypes['postProjectBySlugPublish'][0])
+    public function postProjectBySlugPublish($slug, $project_projects_publish, string $contentType = self::contentTypes['postProjectBySlugPublish'][0])
     {
-        list($response) = $this->postProjectBySlugPublishWithHttpInfo($slug, $projects_publish, $contentType);
+        list($response) = $this->postProjectBySlugPublishWithHttpInfo($slug, $project_projects_publish, $contentType);
         return $response;
     }
 
@@ -5904,16 +6453,16 @@ class ProjectApi
      * Promotes a build output into a new release AND goes live with it — create+activate in one call, which is the 99% path.
      *
      * @param  string $slug Slug is the site to publish, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsPublish $projects_publish (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsPublish $project_projects_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugPublish'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsRelease, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsRelease|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProjectBySlugPublishWithHttpInfo($slug, $projects_publish, string $contentType = self::contentTypes['postProjectBySlugPublish'][0])
+    public function postProjectBySlugPublishWithHttpInfo($slug, $project_projects_publish, string $contentType = self::contentTypes['postProjectBySlugPublish'][0])
     {
-        $request = $this->postProjectBySlugPublishRequest($slug, $projects_publish, $contentType);
+        $request = $this->postProjectBySlugPublishRequest($slug, $project_projects_publish, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5941,7 +6490,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsRelease',
+                        '\Hanzo\Cloud\Model\ProjectProjectsRelease',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5963,7 +6518,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsRelease',
+                '\Hanzo\Cloud\Model\ProjectProjectsRelease',
                 $request,
                 $response,
             );
@@ -5972,7 +6527,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsRelease',
+                        '\Hanzo\Cloud\Model\ProjectProjectsRelease',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5990,15 +6553,15 @@ class ProjectApi
      * Promotes a build output into a new release AND goes live with it — create+activate in one call, which is the 99% path.
      *
      * @param  string $slug Slug is the site to publish, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsPublish $projects_publish (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsPublish $project_projects_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugPublish'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectBySlugPublishAsync($slug, $projects_publish, string $contentType = self::contentTypes['postProjectBySlugPublish'][0])
+    public function postProjectBySlugPublishAsync($slug, $project_projects_publish, string $contentType = self::contentTypes['postProjectBySlugPublish'][0])
     {
-        return $this->postProjectBySlugPublishAsyncWithHttpInfo($slug, $projects_publish, $contentType)
+        return $this->postProjectBySlugPublishAsyncWithHttpInfo($slug, $project_projects_publish, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6012,16 +6575,16 @@ class ProjectApi
      * Promotes a build output into a new release AND goes live with it — create+activate in one call, which is the 99% path.
      *
      * @param  string $slug Slug is the site to publish, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsPublish $projects_publish (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsPublish $project_projects_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugPublish'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectBySlugPublishAsyncWithHttpInfo($slug, $projects_publish, string $contentType = self::contentTypes['postProjectBySlugPublish'][0])
+    public function postProjectBySlugPublishAsyncWithHttpInfo($slug, $project_projects_publish, string $contentType = self::contentTypes['postProjectBySlugPublish'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsRelease';
-        $request = $this->postProjectBySlugPublishRequest($slug, $projects_publish, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsRelease';
+        $request = $this->postProjectBySlugPublishRequest($slug, $project_projects_publish, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6063,13 +6626,13 @@ class ProjectApi
      * Create request for operation 'postProjectBySlugPublish'
      *
      * @param  string $slug Slug is the site to publish, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsPublish $projects_publish (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsPublish $project_projects_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugPublish'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProjectBySlugPublishRequest($slug, $projects_publish, string $contentType = self::contentTypes['postProjectBySlugPublish'][0])
+    public function postProjectBySlugPublishRequest($slug, $project_projects_publish, string $contentType = self::contentTypes['postProjectBySlugPublish'][0])
     {
 
         // verify the required parameter 'slug' is set
@@ -6079,10 +6642,10 @@ class ProjectApi
             );
         }
 
-        // verify the required parameter 'projects_publish' is set
-        if ($projects_publish === null || (is_array($projects_publish) && count($projects_publish) === 0)) {
+        // verify the required parameter 'project_projects_publish' is set
+        if ($project_projects_publish === null || (is_array($project_projects_publish) && count($project_projects_publish) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $projects_publish when calling postProjectBySlugPublish'
+                'Missing the required parameter $project_projects_publish when calling postProjectBySlugPublish'
             );
         }
 
@@ -6107,18 +6670,18 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($projects_publish)) {
+        if (isset($project_projects_publish)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($projects_publish));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($project_projects_publish));
             } else {
-                $httpBody = $projects_publish;
+                $httpBody = $project_projects_publish;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6180,7 +6743,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsProject
+     * @return \Hanzo\Cloud\Model\ProjectProjectsProject|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postProjectBySlugPurge($slug, string $contentType = self::contentTypes['postProjectBySlugPurge'][0])
     {
@@ -6198,7 +6761,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsProject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsProject|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postProjectBySlugPurgeWithHttpInfo($slug, string $contentType = self::contentTypes['postProjectBySlugPurge'][0])
     {
@@ -6230,7 +6793,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsProject',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6252,7 +6821,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsProject',
+                '\Hanzo\Cloud\Model\ProjectProjectsProject',
                 $request,
                 $response,
             );
@@ -6261,7 +6830,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsProject',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6307,7 +6884,7 @@ class ProjectApi
      */
     public function postProjectBySlugPurgeAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['postProjectBySlugPurge'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsProject';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsProject';
         $request = $this->postProjectBySlugPurgeRequest($slug, $contentType);
 
         return $this->client
@@ -6386,7 +6963,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6448,16 +7025,16 @@ class ProjectApi
      * Promotes a build output into a new immutable release WITHOUT serving it — the staged half of publishing, for when you want to check a release before it goes live.
      *
      * @param  string $slug Slug is the site to publish, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsPublish $projects_publish projects_publish (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsPublish $project_projects_publish project_projects_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugReleases'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsRelease
+     * @return \Hanzo\Cloud\Model\ProjectProjectsRelease|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProjectBySlugReleases($slug, $projects_publish, string $contentType = self::contentTypes['postProjectBySlugReleases'][0])
+    public function postProjectBySlugReleases($slug, $project_projects_publish, string $contentType = self::contentTypes['postProjectBySlugReleases'][0])
     {
-        list($response) = $this->postProjectBySlugReleasesWithHttpInfo($slug, $projects_publish, $contentType);
+        list($response) = $this->postProjectBySlugReleasesWithHttpInfo($slug, $project_projects_publish, $contentType);
         return $response;
     }
 
@@ -6467,16 +7044,16 @@ class ProjectApi
      * Promotes a build output into a new immutable release WITHOUT serving it — the staged half of publishing, for when you want to check a release before it goes live.
      *
      * @param  string $slug Slug is the site to publish, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsPublish $projects_publish (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsPublish $project_projects_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugReleases'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsRelease, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsRelease|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProjectBySlugReleasesWithHttpInfo($slug, $projects_publish, string $contentType = self::contentTypes['postProjectBySlugReleases'][0])
+    public function postProjectBySlugReleasesWithHttpInfo($slug, $project_projects_publish, string $contentType = self::contentTypes['postProjectBySlugReleases'][0])
     {
-        $request = $this->postProjectBySlugReleasesRequest($slug, $projects_publish, $contentType);
+        $request = $this->postProjectBySlugReleasesRequest($slug, $project_projects_publish, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6504,7 +7081,13 @@ class ProjectApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsRelease',
+                        '\Hanzo\Cloud\Model\ProjectProjectsRelease',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6526,7 +7109,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsRelease',
+                '\Hanzo\Cloud\Model\ProjectProjectsRelease',
                 $request,
                 $response,
             );
@@ -6535,7 +7118,15 @@ class ProjectApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsRelease',
+                        '\Hanzo\Cloud\Model\ProjectProjectsRelease',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6553,15 +7144,15 @@ class ProjectApi
      * Promotes a build output into a new immutable release WITHOUT serving it — the staged half of publishing, for when you want to check a release before it goes live.
      *
      * @param  string $slug Slug is the site to publish, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsPublish $projects_publish (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsPublish $project_projects_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugReleases'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectBySlugReleasesAsync($slug, $projects_publish, string $contentType = self::contentTypes['postProjectBySlugReleases'][0])
+    public function postProjectBySlugReleasesAsync($slug, $project_projects_publish, string $contentType = self::contentTypes['postProjectBySlugReleases'][0])
     {
-        return $this->postProjectBySlugReleasesAsyncWithHttpInfo($slug, $projects_publish, $contentType)
+        return $this->postProjectBySlugReleasesAsyncWithHttpInfo($slug, $project_projects_publish, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6575,16 +7166,16 @@ class ProjectApi
      * Promotes a build output into a new immutable release WITHOUT serving it — the staged half of publishing, for when you want to check a release before it goes live.
      *
      * @param  string $slug Slug is the site to publish, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsPublish $projects_publish (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsPublish $project_projects_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugReleases'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectBySlugReleasesAsyncWithHttpInfo($slug, $projects_publish, string $contentType = self::contentTypes['postProjectBySlugReleases'][0])
+    public function postProjectBySlugReleasesAsyncWithHttpInfo($slug, $project_projects_publish, string $contentType = self::contentTypes['postProjectBySlugReleases'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsRelease';
-        $request = $this->postProjectBySlugReleasesRequest($slug, $projects_publish, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsRelease';
+        $request = $this->postProjectBySlugReleasesRequest($slug, $project_projects_publish, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6626,13 +7217,13 @@ class ProjectApi
      * Create request for operation 'postProjectBySlugReleases'
      *
      * @param  string $slug Slug is the site to publish, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ProjectsPublish $projects_publish (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsPublish $project_projects_publish (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectBySlugReleases'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProjectBySlugReleasesRequest($slug, $projects_publish, string $contentType = self::contentTypes['postProjectBySlugReleases'][0])
+    public function postProjectBySlugReleasesRequest($slug, $project_projects_publish, string $contentType = self::contentTypes['postProjectBySlugReleases'][0])
     {
 
         // verify the required parameter 'slug' is set
@@ -6642,10 +7233,10 @@ class ProjectApi
             );
         }
 
-        // verify the required parameter 'projects_publish' is set
-        if ($projects_publish === null || (is_array($projects_publish) && count($projects_publish) === 0)) {
+        // verify the required parameter 'project_projects_publish' is set
+        if ($project_projects_publish === null || (is_array($project_projects_publish) && count($project_projects_publish) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $projects_publish when calling postProjectBySlugReleases'
+                'Missing the required parameter $project_projects_publish when calling postProjectBySlugReleases'
             );
         }
 
@@ -6670,18 +7261,18 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($projects_publish)) {
+        if (isset($project_projects_publish)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($projects_publish));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($project_projects_publish));
             } else {
-                $httpBody = $projects_publish;
+                $httpBody = $project_projects_publish;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -6744,7 +7335,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsRelease
+     * @return \Hanzo\Cloud\Model\ProjectProjectsRelease|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postProjectBySlugReleasesByReleaseActivate($slug, $release, string $contentType = self::contentTypes['postProjectBySlugReleasesByReleaseActivate'][0])
     {
@@ -6763,7 +7354,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsRelease, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsRelease|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postProjectBySlugReleasesByReleaseActivateWithHttpInfo($slug, $release, string $contentType = self::contentTypes['postProjectBySlugReleasesByReleaseActivate'][0])
     {
@@ -6795,7 +7386,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsRelease',
+                        '\Hanzo\Cloud\Model\ProjectProjectsRelease',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6817,7 +7414,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsRelease',
+                '\Hanzo\Cloud\Model\ProjectProjectsRelease',
                 $request,
                 $response,
             );
@@ -6826,7 +7423,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsRelease',
+                        '\Hanzo\Cloud\Model\ProjectProjectsRelease',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6874,7 +7479,7 @@ class ProjectApi
      */
     public function postProjectBySlugReleasesByReleaseActivateAsyncWithHttpInfo($slug, $release, string $contentType = self::contentTypes['postProjectBySlugReleasesByReleaseActivate'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsRelease';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsRelease';
         $request = $this->postProjectBySlugReleasesByReleaseActivateRequest($slug, $release, $contentType);
 
         return $this->client
@@ -6969,7 +7574,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -7030,16 +7635,16 @@ class ProjectApi
      *
      * Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org&#39;s app serving at &lt;slug&gt;.hanzo.app).
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsFork $projects_fork projects_fork (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsFork $project_projects_fork project_projects_fork (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectFork'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsProject
+     * @return \Hanzo\Cloud\Model\ProjectProjectsProject|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProjectFork($projects_fork, string $contentType = self::contentTypes['postProjectFork'][0])
+    public function postProjectFork($project_projects_fork, string $contentType = self::contentTypes['postProjectFork'][0])
     {
-        list($response) = $this->postProjectForkWithHttpInfo($projects_fork, $contentType);
+        list($response) = $this->postProjectForkWithHttpInfo($project_projects_fork, $contentType);
         return $response;
     }
 
@@ -7048,16 +7653,16 @@ class ProjectApi
      *
      * Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org&#39;s app serving at &lt;slug&gt;.hanzo.app).
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsFork $projects_fork (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsFork $project_projects_fork (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectFork'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsProject, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsProject|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProjectForkWithHttpInfo($projects_fork, string $contentType = self::contentTypes['postProjectFork'][0])
+    public function postProjectForkWithHttpInfo($project_projects_fork, string $contentType = self::contentTypes['postProjectFork'][0])
     {
-        $request = $this->postProjectForkRequest($projects_fork, $contentType);
+        $request = $this->postProjectForkRequest($project_projects_fork, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7085,7 +7690,13 @@ class ProjectApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsProject',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7107,7 +7718,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsProject',
+                '\Hanzo\Cloud\Model\ProjectProjectsProject',
                 $request,
                 $response,
             );
@@ -7116,7 +7727,15 @@ class ProjectApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsProject',
+                        '\Hanzo\Cloud\Model\ProjectProjectsProject',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7133,15 +7752,15 @@ class ProjectApi
      *
      * Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org&#39;s app serving at &lt;slug&gt;.hanzo.app).
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsFork $projects_fork (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsFork $project_projects_fork (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectFork'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectForkAsync($projects_fork, string $contentType = self::contentTypes['postProjectFork'][0])
+    public function postProjectForkAsync($project_projects_fork, string $contentType = self::contentTypes['postProjectFork'][0])
     {
-        return $this->postProjectForkAsyncWithHttpInfo($projects_fork, $contentType)
+        return $this->postProjectForkAsyncWithHttpInfo($project_projects_fork, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7154,16 +7773,16 @@ class ProjectApi
      *
      * Creates a project seeded from a PUBLISHED EXAMPLE — either a starter-kit template from the ONE embedded gallery catalog, or any live project on the platform (an example a seeded creator published, or another org&#39;s app serving at &lt;slug&gt;.hanzo.app).
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsFork $projects_fork (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsFork $project_projects_fork (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectFork'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectForkAsyncWithHttpInfo($projects_fork, string $contentType = self::contentTypes['postProjectFork'][0])
+    public function postProjectForkAsyncWithHttpInfo($project_projects_fork, string $contentType = self::contentTypes['postProjectFork'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsProject';
-        $request = $this->postProjectForkRequest($projects_fork, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsProject';
+        $request = $this->postProjectForkRequest($project_projects_fork, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7204,19 +7823,19 @@ class ProjectApi
     /**
      * Create request for operation 'postProjectFork'
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsFork $projects_fork (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsFork $project_projects_fork (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectFork'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProjectForkRequest($projects_fork, string $contentType = self::contentTypes['postProjectFork'][0])
+    public function postProjectForkRequest($project_projects_fork, string $contentType = self::contentTypes['postProjectFork'][0])
     {
 
-        // verify the required parameter 'projects_fork' is set
-        if ($projects_fork === null || (is_array($projects_fork) && count($projects_fork) === 0)) {
+        // verify the required parameter 'project_projects_fork' is set
+        if ($project_projects_fork === null || (is_array($project_projects_fork) && count($project_projects_fork) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $projects_fork when calling postProjectFork'
+                'Missing the required parameter $project_projects_fork when calling postProjectFork'
             );
         }
 
@@ -7233,18 +7852,18 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($projects_fork)) {
+        if (isset($project_projects_fork)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($projects_fork));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($project_projects_fork));
             } else {
-                $httpBody = $projects_fork;
+                $httpBody = $project_projects_fork;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7301,16 +7920,16 @@ class ProjectApi
      *
      * Generates a self-contained, mobile-responsive static site from a natural-language brief and deploys it live in one call.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsBuildSite $projects_build_site projects_build_site (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsBuildSite $project_projects_build_site project_projects_build_site (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectSites'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsSiteDeploy
+     * @return \Hanzo\Cloud\Model\ProjectProjectsSiteDeploy|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProjectSites($projects_build_site, string $contentType = self::contentTypes['postProjectSites'][0])
+    public function postProjectSites($project_projects_build_site, string $contentType = self::contentTypes['postProjectSites'][0])
     {
-        list($response) = $this->postProjectSitesWithHttpInfo($projects_build_site, $contentType);
+        list($response) = $this->postProjectSitesWithHttpInfo($project_projects_build_site, $contentType);
         return $response;
     }
 
@@ -7319,16 +7938,16 @@ class ProjectApi
      *
      * Generates a self-contained, mobile-responsive static site from a natural-language brief and deploys it live in one call.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsBuildSite $projects_build_site (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsBuildSite $project_projects_build_site (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectSites'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsSiteDeploy, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsSiteDeploy|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProjectSitesWithHttpInfo($projects_build_site, string $contentType = self::contentTypes['postProjectSites'][0])
+    public function postProjectSitesWithHttpInfo($project_projects_build_site, string $contentType = self::contentTypes['postProjectSites'][0])
     {
-        $request = $this->postProjectSitesRequest($projects_build_site, $contentType);
+        $request = $this->postProjectSitesRequest($project_projects_build_site, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7356,7 +7975,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsSiteDeploy',
+                        '\Hanzo\Cloud\Model\ProjectProjectsSiteDeploy',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7378,7 +8003,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsSiteDeploy',
+                '\Hanzo\Cloud\Model\ProjectProjectsSiteDeploy',
                 $request,
                 $response,
             );
@@ -7387,7 +8012,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsSiteDeploy',
+                        '\Hanzo\Cloud\Model\ProjectProjectsSiteDeploy',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7404,15 +8037,15 @@ class ProjectApi
      *
      * Generates a self-contained, mobile-responsive static site from a natural-language brief and deploys it live in one call.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsBuildSite $projects_build_site (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsBuildSite $project_projects_build_site (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectSites'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectSitesAsync($projects_build_site, string $contentType = self::contentTypes['postProjectSites'][0])
+    public function postProjectSitesAsync($project_projects_build_site, string $contentType = self::contentTypes['postProjectSites'][0])
     {
-        return $this->postProjectSitesAsyncWithHttpInfo($projects_build_site, $contentType)
+        return $this->postProjectSitesAsyncWithHttpInfo($project_projects_build_site, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7425,16 +8058,16 @@ class ProjectApi
      *
      * Generates a self-contained, mobile-responsive static site from a natural-language brief and deploys it live in one call.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsBuildSite $projects_build_site (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsBuildSite $project_projects_build_site (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectSites'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectSitesAsyncWithHttpInfo($projects_build_site, string $contentType = self::contentTypes['postProjectSites'][0])
+    public function postProjectSitesAsyncWithHttpInfo($project_projects_build_site, string $contentType = self::contentTypes['postProjectSites'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsSiteDeploy';
-        $request = $this->postProjectSitesRequest($projects_build_site, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsSiteDeploy';
+        $request = $this->postProjectSitesRequest($project_projects_build_site, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7475,19 +8108,19 @@ class ProjectApi
     /**
      * Create request for operation 'postProjectSites'
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsBuildSite $projects_build_site (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsBuildSite $project_projects_build_site (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectSites'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProjectSitesRequest($projects_build_site, string $contentType = self::contentTypes['postProjectSites'][0])
+    public function postProjectSitesRequest($project_projects_build_site, string $contentType = self::contentTypes['postProjectSites'][0])
     {
 
-        // verify the required parameter 'projects_build_site' is set
-        if ($projects_build_site === null || (is_array($projects_build_site) && count($projects_build_site) === 0)) {
+        // verify the required parameter 'project_projects_build_site' is set
+        if ($project_projects_build_site === null || (is_array($project_projects_build_site) && count($project_projects_build_site) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $projects_build_site when calling postProjectSites'
+                'Missing the required parameter $project_projects_build_site when calling postProjectSites'
             );
         }
 
@@ -7504,18 +8137,18 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($projects_build_site)) {
+        if (isset($project_projects_build_site)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($projects_build_site));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($project_projects_build_site));
             } else {
-                $httpBody = $projects_build_site;
+                $httpBody = $project_projects_build_site;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7572,16 +8205,16 @@ class ProjectApi
      *
      * Deploys a caller-supplied file manifest — the deploy_site capability an agent calls — and answers with where it went live.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsDeploySite $projects_deploy_site projects_deploy_site (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDeploySite $project_projects_deploy_site project_projects_deploy_site (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectSitesDeploy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsSiteDeploy
+     * @return \Hanzo\Cloud\Model\ProjectProjectsSiteDeploy|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postProjectSitesDeploy($projects_deploy_site, string $contentType = self::contentTypes['postProjectSitesDeploy'][0])
+    public function postProjectSitesDeploy($project_projects_deploy_site, string $contentType = self::contentTypes['postProjectSitesDeploy'][0])
     {
-        list($response) = $this->postProjectSitesDeployWithHttpInfo($projects_deploy_site, $contentType);
+        list($response) = $this->postProjectSitesDeployWithHttpInfo($project_projects_deploy_site, $contentType);
         return $response;
     }
 
@@ -7590,16 +8223,16 @@ class ProjectApi
      *
      * Deploys a caller-supplied file manifest — the deploy_site capability an agent calls — and answers with where it went live.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsDeploySite $projects_deploy_site (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDeploySite $project_projects_deploy_site (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectSitesDeploy'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsSiteDeploy, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsSiteDeploy|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postProjectSitesDeployWithHttpInfo($projects_deploy_site, string $contentType = self::contentTypes['postProjectSitesDeploy'][0])
+    public function postProjectSitesDeployWithHttpInfo($project_projects_deploy_site, string $contentType = self::contentTypes['postProjectSitesDeploy'][0])
     {
-        $request = $this->postProjectSitesDeployRequest($projects_deploy_site, $contentType);
+        $request = $this->postProjectSitesDeployRequest($project_projects_deploy_site, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7627,7 +8260,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsSiteDeploy',
+                        '\Hanzo\Cloud\Model\ProjectProjectsSiteDeploy',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7649,7 +8288,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsSiteDeploy',
+                '\Hanzo\Cloud\Model\ProjectProjectsSiteDeploy',
                 $request,
                 $response,
             );
@@ -7658,7 +8297,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsSiteDeploy',
+                        '\Hanzo\Cloud\Model\ProjectProjectsSiteDeploy',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7675,15 +8322,15 @@ class ProjectApi
      *
      * Deploys a caller-supplied file manifest — the deploy_site capability an agent calls — and answers with where it went live.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsDeploySite $projects_deploy_site (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDeploySite $project_projects_deploy_site (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectSitesDeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectSitesDeployAsync($projects_deploy_site, string $contentType = self::contentTypes['postProjectSitesDeploy'][0])
+    public function postProjectSitesDeployAsync($project_projects_deploy_site, string $contentType = self::contentTypes['postProjectSitesDeploy'][0])
     {
-        return $this->postProjectSitesDeployAsyncWithHttpInfo($projects_deploy_site, $contentType)
+        return $this->postProjectSitesDeployAsyncWithHttpInfo($project_projects_deploy_site, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7696,16 +8343,16 @@ class ProjectApi
      *
      * Deploys a caller-supplied file manifest — the deploy_site capability an agent calls — and answers with where it went live.
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsDeploySite $projects_deploy_site (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDeploySite $project_projects_deploy_site (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectSitesDeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postProjectSitesDeployAsyncWithHttpInfo($projects_deploy_site, string $contentType = self::contentTypes['postProjectSitesDeploy'][0])
+    public function postProjectSitesDeployAsyncWithHttpInfo($project_projects_deploy_site, string $contentType = self::contentTypes['postProjectSitesDeploy'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsSiteDeploy';
-        $request = $this->postProjectSitesDeployRequest($projects_deploy_site, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsSiteDeploy';
+        $request = $this->postProjectSitesDeployRequest($project_projects_deploy_site, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7746,19 +8393,19 @@ class ProjectApi
     /**
      * Create request for operation 'postProjectSitesDeploy'
      *
-     * @param  \Hanzo\Cloud\Model\ProjectsDeploySite $projects_deploy_site (required)
+     * @param  \Hanzo\Cloud\Model\ProjectProjectsDeploySite $project_projects_deploy_site (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postProjectSitesDeploy'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postProjectSitesDeployRequest($projects_deploy_site, string $contentType = self::contentTypes['postProjectSitesDeploy'][0])
+    public function postProjectSitesDeployRequest($project_projects_deploy_site, string $contentType = self::contentTypes['postProjectSitesDeploy'][0])
     {
 
-        // verify the required parameter 'projects_deploy_site' is set
-        if ($projects_deploy_site === null || (is_array($projects_deploy_site) && count($projects_deploy_site) === 0)) {
+        // verify the required parameter 'project_projects_deploy_site' is set
+        if ($project_projects_deploy_site === null || (is_array($project_projects_deploy_site) && count($project_projects_deploy_site) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $projects_deploy_site when calling postProjectSitesDeploy'
+                'Missing the required parameter $project_projects_deploy_site when calling postProjectSitesDeploy'
             );
         }
 
@@ -7775,18 +8422,18 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($projects_deploy_site)) {
+        if (isset($project_projects_deploy_site)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($projects_deploy_site));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($project_projects_deploy_site));
             } else {
-                $httpBody = $projects_deploy_site;
+                $httpBody = $project_projects_deploy_site;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -7848,7 +8495,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectsStar
+     * @return \Hanzo\Cloud\Model\ProjectProjectsStar|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function putProjectBySlugStar($slug, string $contentType = self::contentTypes['putProjectBySlugStar'][0])
     {
@@ -7866,7 +8513,7 @@ class ProjectApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectsStar, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ProjectProjectsStar|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function putProjectBySlugStarWithHttpInfo($slug, string $contentType = self::contentTypes['putProjectBySlugStar'][0])
     {
@@ -7898,7 +8545,13 @@ class ProjectApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectsStar',
+                        '\Hanzo\Cloud\Model\ProjectProjectsStar',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -7920,7 +8573,7 @@ class ProjectApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectsStar',
+                '\Hanzo\Cloud\Model\ProjectProjectsStar',
                 $request,
                 $response,
             );
@@ -7929,7 +8582,15 @@ class ProjectApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectsStar',
+                        '\Hanzo\Cloud\Model\ProjectProjectsStar',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -7975,7 +8636,7 @@ class ProjectApi
      */
     public function putProjectBySlugStarAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['putProjectBySlugStar'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectsStar';
+        $returnType = '\Hanzo\Cloud\Model\ProjectProjectsStar';
         $request = $this->putProjectBySlugStarRequest($slug, $contentType);
 
         return $this->client
@@ -8054,7 +8715,7 @@ class ProjectApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

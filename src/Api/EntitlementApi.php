@@ -134,13 +134,13 @@ class EntitlementApi
     /**
      * Operation getEntitlement
      *
-     * Projection reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
+     * Reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEntitlement'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ProjectionView
+     * @return \Hanzo\Cloud\Model\EntitlementProjectionView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEntitlement(string $contentType = self::contentTypes['getEntitlement'][0])
     {
@@ -151,13 +151,13 @@ class EntitlementApi
     /**
      * Operation getEntitlementWithHttpInfo
      *
-     * Projection reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
+     * Reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEntitlement'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ProjectionView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EntitlementProjectionView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEntitlementWithHttpInfo(string $contentType = self::contentTypes['getEntitlement'][0])
     {
@@ -189,7 +189,13 @@ class EntitlementApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ProjectionView',
+                        '\Hanzo\Cloud\Model\EntitlementProjectionView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -211,7 +217,7 @@ class EntitlementApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ProjectionView',
+                '\Hanzo\Cloud\Model\EntitlementProjectionView',
                 $request,
                 $response,
             );
@@ -220,7 +226,15 @@ class EntitlementApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ProjectionView',
+                        '\Hanzo\Cloud\Model\EntitlementProjectionView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -235,7 +249,7 @@ class EntitlementApi
     /**
      * Operation getEntitlementAsync
      *
-     * Projection reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
+     * Reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEntitlement'] to see the possible values for this operation
      *
@@ -255,7 +269,7 @@ class EntitlementApi
     /**
      * Operation getEntitlementAsyncWithHttpInfo
      *
-     * Projection reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
+     * Reports which console apps the CALLER&#39;s org may open, and the plan slug that decides it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEntitlement'] to see the possible values for this operation
      *
@@ -264,7 +278,7 @@ class EntitlementApi
      */
     public function getEntitlementAsyncWithHttpInfo(string $contentType = self::contentTypes['getEntitlement'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ProjectionView';
+        $returnType = '\Hanzo\Cloud\Model\EntitlementProjectionView';
         $request = $this->getEntitlementRequest($contentType);
 
         return $this->client
@@ -327,7 +341,7 @@ class EntitlementApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -386,14 +400,14 @@ class EntitlementApi
     /**
      * Operation getEntitlementOrgsByOrg
      *
-     * Get lists the products an org has ENABLED — its own intent, which the console&#39;s paid-product sidebar reads to decide what to show.
+     * Lists the products an org has ENABLED — its own intent, which the console&#39;s paid-product sidebar reads to decide what to show.
      *
      * @param  string $org org (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEntitlementOrgsByOrg'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EntitlementsView
+     * @return \Hanzo\Cloud\Model\EntitlementEntitlementsView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getEntitlementOrgsByOrg($org, string $contentType = self::contentTypes['getEntitlementOrgsByOrg'][0])
     {
@@ -404,14 +418,14 @@ class EntitlementApi
     /**
      * Operation getEntitlementOrgsByOrgWithHttpInfo
      *
-     * Get lists the products an org has ENABLED — its own intent, which the console&#39;s paid-product sidebar reads to decide what to show.
+     * Lists the products an org has ENABLED — its own intent, which the console&#39;s paid-product sidebar reads to decide what to show.
      *
      * @param  string $org (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEntitlementOrgsByOrg'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EntitlementsView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EntitlementEntitlementsView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getEntitlementOrgsByOrgWithHttpInfo($org, string $contentType = self::contentTypes['getEntitlementOrgsByOrg'][0])
     {
@@ -443,7 +457,13 @@ class EntitlementApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EntitlementsView',
+                        '\Hanzo\Cloud\Model\EntitlementEntitlementsView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -465,7 +485,7 @@ class EntitlementApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EntitlementsView',
+                '\Hanzo\Cloud\Model\EntitlementEntitlementsView',
                 $request,
                 $response,
             );
@@ -474,7 +494,15 @@ class EntitlementApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EntitlementsView',
+                        '\Hanzo\Cloud\Model\EntitlementEntitlementsView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -489,7 +517,7 @@ class EntitlementApi
     /**
      * Operation getEntitlementOrgsByOrgAsync
      *
-     * Get lists the products an org has ENABLED — its own intent, which the console&#39;s paid-product sidebar reads to decide what to show.
+     * Lists the products an org has ENABLED — its own intent, which the console&#39;s paid-product sidebar reads to decide what to show.
      *
      * @param  string $org (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEntitlementOrgsByOrg'] to see the possible values for this operation
@@ -510,7 +538,7 @@ class EntitlementApi
     /**
      * Operation getEntitlementOrgsByOrgAsyncWithHttpInfo
      *
-     * Get lists the products an org has ENABLED — its own intent, which the console&#39;s paid-product sidebar reads to decide what to show.
+     * Lists the products an org has ENABLED — its own intent, which the console&#39;s paid-product sidebar reads to decide what to show.
      *
      * @param  string $org (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEntitlementOrgsByOrg'] to see the possible values for this operation
@@ -520,7 +548,7 @@ class EntitlementApi
      */
     public function getEntitlementOrgsByOrgAsyncWithHttpInfo($org, string $contentType = self::contentTypes['getEntitlementOrgsByOrg'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EntitlementsView';
+        $returnType = '\Hanzo\Cloud\Model\EntitlementEntitlementsView';
         $request = $this->getEntitlementOrgsByOrgRequest($org, $contentType);
 
         return $this->client
@@ -599,7 +627,7 @@ class EntitlementApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -658,38 +686,38 @@ class EntitlementApi
     /**
      * Operation postEntitlementOrgsByOrg
      *
-     * Post turns products on or off for an org and returns the enabled set afterwards.
+     * Turns products on or off for an org and returns the enabled set afterwards.
      *
      * @param  string $org org (required)
-     * @param  \Hanzo\Cloud\Model\MutateReq $mutate_req mutate_req (required)
+     * @param  \Hanzo\Cloud\Model\EntitlementMutateReq $entitlement_mutate_req entitlement_mutate_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEntitlementOrgsByOrg'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EntitlementsView
+     * @return \Hanzo\Cloud\Model\EntitlementEntitlementsView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postEntitlementOrgsByOrg($org, $mutate_req, string $contentType = self::contentTypes['postEntitlementOrgsByOrg'][0])
+    public function postEntitlementOrgsByOrg($org, $entitlement_mutate_req, string $contentType = self::contentTypes['postEntitlementOrgsByOrg'][0])
     {
-        list($response) = $this->postEntitlementOrgsByOrgWithHttpInfo($org, $mutate_req, $contentType);
+        list($response) = $this->postEntitlementOrgsByOrgWithHttpInfo($org, $entitlement_mutate_req, $contentType);
         return $response;
     }
 
     /**
      * Operation postEntitlementOrgsByOrgWithHttpInfo
      *
-     * Post turns products on or off for an org and returns the enabled set afterwards.
+     * Turns products on or off for an org and returns the enabled set afterwards.
      *
      * @param  string $org (required)
-     * @param  \Hanzo\Cloud\Model\MutateReq $mutate_req (required)
+     * @param  \Hanzo\Cloud\Model\EntitlementMutateReq $entitlement_mutate_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEntitlementOrgsByOrg'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EntitlementsView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EntitlementEntitlementsView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postEntitlementOrgsByOrgWithHttpInfo($org, $mutate_req, string $contentType = self::contentTypes['postEntitlementOrgsByOrg'][0])
+    public function postEntitlementOrgsByOrgWithHttpInfo($org, $entitlement_mutate_req, string $contentType = self::contentTypes['postEntitlementOrgsByOrg'][0])
     {
-        $request = $this->postEntitlementOrgsByOrgRequest($org, $mutate_req, $contentType);
+        $request = $this->postEntitlementOrgsByOrgRequest($org, $entitlement_mutate_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -717,7 +745,13 @@ class EntitlementApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EntitlementsView',
+                        '\Hanzo\Cloud\Model\EntitlementEntitlementsView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -739,7 +773,7 @@ class EntitlementApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EntitlementsView',
+                '\Hanzo\Cloud\Model\EntitlementEntitlementsView',
                 $request,
                 $response,
             );
@@ -748,7 +782,15 @@ class EntitlementApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EntitlementsView',
+                        '\Hanzo\Cloud\Model\EntitlementEntitlementsView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -763,18 +805,18 @@ class EntitlementApi
     /**
      * Operation postEntitlementOrgsByOrgAsync
      *
-     * Post turns products on or off for an org and returns the enabled set afterwards.
+     * Turns products on or off for an org and returns the enabled set afterwards.
      *
      * @param  string $org (required)
-     * @param  \Hanzo\Cloud\Model\MutateReq $mutate_req (required)
+     * @param  \Hanzo\Cloud\Model\EntitlementMutateReq $entitlement_mutate_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEntitlementOrgsByOrg'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEntitlementOrgsByOrgAsync($org, $mutate_req, string $contentType = self::contentTypes['postEntitlementOrgsByOrg'][0])
+    public function postEntitlementOrgsByOrgAsync($org, $entitlement_mutate_req, string $contentType = self::contentTypes['postEntitlementOrgsByOrg'][0])
     {
-        return $this->postEntitlementOrgsByOrgAsyncWithHttpInfo($org, $mutate_req, $contentType)
+        return $this->postEntitlementOrgsByOrgAsyncWithHttpInfo($org, $entitlement_mutate_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -785,19 +827,19 @@ class EntitlementApi
     /**
      * Operation postEntitlementOrgsByOrgAsyncWithHttpInfo
      *
-     * Post turns products on or off for an org and returns the enabled set afterwards.
+     * Turns products on or off for an org and returns the enabled set afterwards.
      *
      * @param  string $org (required)
-     * @param  \Hanzo\Cloud\Model\MutateReq $mutate_req (required)
+     * @param  \Hanzo\Cloud\Model\EntitlementMutateReq $entitlement_mutate_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEntitlementOrgsByOrg'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postEntitlementOrgsByOrgAsyncWithHttpInfo($org, $mutate_req, string $contentType = self::contentTypes['postEntitlementOrgsByOrg'][0])
+    public function postEntitlementOrgsByOrgAsyncWithHttpInfo($org, $entitlement_mutate_req, string $contentType = self::contentTypes['postEntitlementOrgsByOrg'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EntitlementsView';
-        $request = $this->postEntitlementOrgsByOrgRequest($org, $mutate_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EntitlementEntitlementsView';
+        $request = $this->postEntitlementOrgsByOrgRequest($org, $entitlement_mutate_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -839,13 +881,13 @@ class EntitlementApi
      * Create request for operation 'postEntitlementOrgsByOrg'
      *
      * @param  string $org (required)
-     * @param  \Hanzo\Cloud\Model\MutateReq $mutate_req (required)
+     * @param  \Hanzo\Cloud\Model\EntitlementMutateReq $entitlement_mutate_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postEntitlementOrgsByOrg'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postEntitlementOrgsByOrgRequest($org, $mutate_req, string $contentType = self::contentTypes['postEntitlementOrgsByOrg'][0])
+    public function postEntitlementOrgsByOrgRequest($org, $entitlement_mutate_req, string $contentType = self::contentTypes['postEntitlementOrgsByOrg'][0])
     {
 
         // verify the required parameter 'org' is set
@@ -855,10 +897,10 @@ class EntitlementApi
             );
         }
 
-        // verify the required parameter 'mutate_req' is set
-        if ($mutate_req === null || (is_array($mutate_req) && count($mutate_req) === 0)) {
+        // verify the required parameter 'entitlement_mutate_req' is set
+        if ($entitlement_mutate_req === null || (is_array($entitlement_mutate_req) && count($entitlement_mutate_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $mutate_req when calling postEntitlementOrgsByOrg'
+                'Missing the required parameter $entitlement_mutate_req when calling postEntitlementOrgsByOrg'
             );
         }
 
@@ -883,18 +925,18 @@ class EntitlementApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($mutate_req)) {
+        if (isset($entitlement_mutate_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($mutate_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($entitlement_mutate_req));
             } else {
-                $httpBody = $mutate_req;
+                $httpBody = $entitlement_mutate_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

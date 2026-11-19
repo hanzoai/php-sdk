@@ -589,7 +589,7 @@ class O11yHTTPClientConfig implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets no_proxy
      *
-     * @param string|null $no_proxy no_proxy
+     * @param string|null $no_proxy NoProxy contains addresses that should not use a proxy.
      *
      * @return self
      */
@@ -643,7 +643,7 @@ class O11yHTTPClientConfig implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets proxy_connect_header
      *
-     * @param array<string,mixed[]>|null $proxy_connect_header proxy_connect_header
+     * @param array<string,mixed[]>|null $proxy_connect_header ProxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests. Assume that at least _some_ of these headers are going to contain secrets and use Secret as the value type instead of string.
      *
      * @return self
      */
@@ -670,7 +670,7 @@ class O11yHTTPClientConfig implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets proxy_from_environment
      *
-     * @param bool|null $proxy_from_environment proxy_from_environment
+     * @param bool|null $proxy_from_environment ProxyFromEnvironment makes use of net/http ProxyFromEnvironment function to determine proxies.
      *
      * @return self
      */

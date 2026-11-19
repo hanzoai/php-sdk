@@ -58,9 +58,9 @@ class IamAnswer implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'code' => 'string',
-        'data' => 'object',
-        'data2' => 'object',
-        'data3' => 'object',
+        'data' => 'mixed',
+        'data2' => 'mixed',
+        'data3' => 'mixed',
         'msg' => 'string',
         'name' => 'string',
         'status' => 'string',
@@ -92,9 +92,9 @@ class IamAnswer implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'code' => false,
-        'data' => false,
-        'data2' => false,
-        'data3' => false,
+        'data' => true,
+        'data2' => true,
+        'data3' => true,
         'msg' => false,
         'name' => false,
         'status' => false,
@@ -351,7 +351,7 @@ class IamAnswer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets code
      *
-     * @param string|null $code code
+     * @param string|null $code Code is a STABLE machine-readable reason, where the human `msg` is deliberately generic. `msg` is prose for a person and several distinct causes legitimately share one sentence; a caller that must BRANCH on the cause — or tell its own user which of them happened — cannot parse prose. Optional, so every existing envelope is byte-identical and no SDK changes.
      *
      * @return self
      */
@@ -368,7 +368,7 @@ class IamAnswer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets data
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getData()
     {
@@ -378,14 +378,21 @@ class IamAnswer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets data
      *
-     * @param object|null $data data
+     * @param mixed|null $data data
      *
      * @return self
      */
     public function setData($data)
     {
         if (is_null($data)) {
-            throw new \InvalidArgumentException('non-nullable data cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'data');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('data', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['data'] = $data;
 
@@ -395,7 +402,7 @@ class IamAnswer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets data2
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getData2()
     {
@@ -405,14 +412,21 @@ class IamAnswer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets data2
      *
-     * @param object|null $data2 data2
+     * @param mixed|null $data2 data2
      *
      * @return self
      */
     public function setData2($data2)
     {
         if (is_null($data2)) {
-            throw new \InvalidArgumentException('non-nullable data2 cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'data2');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('data2', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['data2'] = $data2;
 
@@ -422,7 +436,7 @@ class IamAnswer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets data3
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getData3()
     {
@@ -432,14 +446,21 @@ class IamAnswer implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets data3
      *
-     * @param object|null $data3 data3
+     * @param mixed|null $data3 data3
      *
      * @return self
      */
     public function setData3($data3)
     {
         if (is_null($data3)) {
-            throw new \InvalidArgumentException('non-nullable data3 cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'data3');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('data3', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['data3'] = $data3;
 

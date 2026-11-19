@@ -74,6 +74,9 @@ class SandboxApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'computerInSandbox' => [
+            'application/json',
+        ],
         'deleteSandboxById' => [
             'application/json',
         ],
@@ -89,6 +92,9 @@ class SandboxApi
         'getSandboxByIdFs' => [
             'application/json',
         ],
+        'getSandboxByIdPorts' => [
+            'application/json',
+        ],
         'getSandboxByIdScreen' => [
             'application/json',
         ],
@@ -101,16 +107,31 @@ class SandboxApi
         'getSandboxByIdTerminalWs' => [
             'application/json',
         ],
+        'getSandboxQuota' => [
+            'application/json',
+        ],
         'leaseSandbox' => [
             'application/json',
         ],
         'postSandbox' => [
             'application/json',
         ],
+        'postSandboxByIdAgent' => [
+            'application/json',
+        ],
         'postSandboxByIdExec' => [
             'application/json',
         ],
         'postSandboxByIdFs' => [
+            'application/json',
+        ],
+        'postSandboxByIdPause' => [
+            'application/json',
+        ],
+        'postSandboxByIdPreview' => [
+            'application/json',
+        ],
+        'postSandboxByIdResume' => [
             'application/json',
         ],
         'postSandboxByIdScreenTicket' => [
@@ -180,6 +201,291 @@ class SandboxApi
     }
 
     /**
+     * Operation computerInSandbox
+     *
+     * Use a desktop sandbox&#39;s screen, mouse, keyboard and browser
+     *
+     * @param  \Hanzo\Cloud\Model\SandboxComputerIn $sandbox_computer_in sandbox_computer_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['computerInSandbox'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SandboxComputerOut|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function computerInSandbox($sandbox_computer_in, string $contentType = self::contentTypes['computerInSandbox'][0])
+    {
+        list($response) = $this->computerInSandboxWithHttpInfo($sandbox_computer_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation computerInSandboxWithHttpInfo
+     *
+     * Use a desktop sandbox&#39;s screen, mouse, keyboard and browser
+     *
+     * @param  \Hanzo\Cloud\Model\SandboxComputerIn $sandbox_computer_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['computerInSandbox'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SandboxComputerOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function computerInSandboxWithHttpInfo($sandbox_computer_in, string $contentType = self::contentTypes['computerInSandbox'][0])
+    {
+        $request = $this->computerInSandboxRequest($sandbox_computer_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SandboxComputerOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SandboxComputerOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SandboxComputerOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation computerInSandboxAsync
+     *
+     * Use a desktop sandbox&#39;s screen, mouse, keyboard and browser
+     *
+     * @param  \Hanzo\Cloud\Model\SandboxComputerIn $sandbox_computer_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['computerInSandbox'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function computerInSandboxAsync($sandbox_computer_in, string $contentType = self::contentTypes['computerInSandbox'][0])
+    {
+        return $this->computerInSandboxAsyncWithHttpInfo($sandbox_computer_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation computerInSandboxAsyncWithHttpInfo
+     *
+     * Use a desktop sandbox&#39;s screen, mouse, keyboard and browser
+     *
+     * @param  \Hanzo\Cloud\Model\SandboxComputerIn $sandbox_computer_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['computerInSandbox'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function computerInSandboxAsyncWithHttpInfo($sandbox_computer_in, string $contentType = self::contentTypes['computerInSandbox'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SandboxComputerOut';
+        $request = $this->computerInSandboxRequest($sandbox_computer_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'computerInSandbox'
+     *
+     * @param  \Hanzo\Cloud\Model\SandboxComputerIn $sandbox_computer_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['computerInSandbox'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function computerInSandboxRequest($sandbox_computer_in, string $contentType = self::contentTypes['computerInSandbox'][0])
+    {
+
+        // verify the required parameter 'sandbox_computer_in' is set
+        if ($sandbox_computer_in === null || (is_array($sandbox_computer_in) && count($sandbox_computer_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $sandbox_computer_in when calling computerInSandbox'
+            );
+        }
+
+
+        $resourcePath = '/v1/sandbox/computer';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($sandbox_computer_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sandbox_computer_in));
+            } else {
+                $httpBody = $sandbox_computer_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation deleteSandboxById
      *
      * Ends a sandbox and releases the compute behind it.
@@ -240,6 +546,14 @@ class SandboxApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -360,7 +674,7 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -421,16 +735,16 @@ class SandboxApi
      *
      * End a sandbox and release it
      *
-     * @param  \Hanzo\Cloud\Model\EndIn $end_in end_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxEndIn $sandbox_end_in sandbox_end_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['endSandbox'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function endSandbox($end_in, string $contentType = self::contentTypes['endSandbox'][0])
+    public function endSandbox($sandbox_end_in, string $contentType = self::contentTypes['endSandbox'][0])
     {
-        $this->endSandboxWithHttpInfo($end_in, $contentType);
+        $this->endSandboxWithHttpInfo($sandbox_end_in, $contentType);
     }
 
     /**
@@ -438,16 +752,16 @@ class SandboxApi
      *
      * End a sandbox and release it
      *
-     * @param  \Hanzo\Cloud\Model\EndIn $end_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxEndIn $sandbox_end_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['endSandbox'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function endSandboxWithHttpInfo($end_in, string $contentType = self::contentTypes['endSandbox'][0])
+    public function endSandboxWithHttpInfo($sandbox_end_in, string $contentType = self::contentTypes['endSandbox'][0])
     {
-        $request = $this->endSandboxRequest($end_in, $contentType);
+        $request = $this->endSandboxRequest($sandbox_end_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -475,6 +789,14 @@ class SandboxApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -487,15 +809,15 @@ class SandboxApi
      *
      * End a sandbox and release it
      *
-     * @param  \Hanzo\Cloud\Model\EndIn $end_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxEndIn $sandbox_end_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['endSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function endSandboxAsync($end_in, string $contentType = self::contentTypes['endSandbox'][0])
+    public function endSandboxAsync($sandbox_end_in, string $contentType = self::contentTypes['endSandbox'][0])
     {
-        return $this->endSandboxAsyncWithHttpInfo($end_in, $contentType)
+        return $this->endSandboxAsyncWithHttpInfo($sandbox_end_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -508,16 +830,16 @@ class SandboxApi
      *
      * End a sandbox and release it
      *
-     * @param  \Hanzo\Cloud\Model\EndIn $end_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxEndIn $sandbox_end_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['endSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function endSandboxAsyncWithHttpInfo($end_in, string $contentType = self::contentTypes['endSandbox'][0])
+    public function endSandboxAsyncWithHttpInfo($sandbox_end_in, string $contentType = self::contentTypes['endSandbox'][0])
     {
         $returnType = '';
-        $request = $this->endSandboxRequest($end_in, $contentType);
+        $request = $this->endSandboxRequest($sandbox_end_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -545,19 +867,19 @@ class SandboxApi
     /**
      * Create request for operation 'endSandbox'
      *
-     * @param  \Hanzo\Cloud\Model\EndIn $end_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxEndIn $sandbox_end_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['endSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function endSandboxRequest($end_in, string $contentType = self::contentTypes['endSandbox'][0])
+    public function endSandboxRequest($sandbox_end_in, string $contentType = self::contentTypes['endSandbox'][0])
     {
 
-        // verify the required parameter 'end_in' is set
-        if ($end_in === null || (is_array($end_in) && count($end_in) === 0)) {
+        // verify the required parameter 'sandbox_end_in' is set
+        if ($sandbox_end_in === null || (is_array($sandbox_end_in) && count($sandbox_end_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $end_in when calling endSandbox'
+                'Missing the required parameter $sandbox_end_in when calling endSandbox'
             );
         }
 
@@ -574,18 +896,18 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($end_in)) {
+        if (isset($sandbox_end_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($end_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sandbox_end_in));
             } else {
-                $httpBody = $end_in;
+                $httpBody = $sandbox_end_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -640,7 +962,7 @@ class SandboxApi
     /**
      * Operation getSandbox
      *
-     * Lists the caller org&#39;s sandboxes, newest first.
+     * Lists the sandboxes the caller holds, newest first.
      *
      * @param  string|null $project project (optional)
      * @param  string|null $status status (optional)
@@ -648,7 +970,7 @@ class SandboxApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SandboxList
+     * @return \Hanzo\Cloud\Model\SandboxSandboxList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSandbox($project = null, $status = null, string $contentType = self::contentTypes['getSandbox'][0])
     {
@@ -659,7 +981,7 @@ class SandboxApi
     /**
      * Operation getSandboxWithHttpInfo
      *
-     * Lists the caller org&#39;s sandboxes, newest first.
+     * Lists the sandboxes the caller holds, newest first.
      *
      * @param  string|null $project (optional)
      * @param  string|null $status (optional)
@@ -667,7 +989,7 @@ class SandboxApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SandboxList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SandboxSandboxList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSandboxWithHttpInfo($project = null, $status = null, string $contentType = self::contentTypes['getSandbox'][0])
     {
@@ -699,7 +1021,13 @@ class SandboxApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SandboxList',
+                        '\Hanzo\Cloud\Model\SandboxSandboxList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -721,7 +1049,7 @@ class SandboxApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SandboxList',
+                '\Hanzo\Cloud\Model\SandboxSandboxList',
                 $request,
                 $response,
             );
@@ -730,7 +1058,15 @@ class SandboxApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SandboxList',
+                        '\Hanzo\Cloud\Model\SandboxSandboxList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -745,7 +1081,7 @@ class SandboxApi
     /**
      * Operation getSandboxAsync
      *
-     * Lists the caller org&#39;s sandboxes, newest first.
+     * Lists the sandboxes the caller holds, newest first.
      *
      * @param  string|null $project (optional)
      * @param  string|null $status (optional)
@@ -767,7 +1103,7 @@ class SandboxApi
     /**
      * Operation getSandboxAsyncWithHttpInfo
      *
-     * Lists the caller org&#39;s sandboxes, newest first.
+     * Lists the sandboxes the caller holds, newest first.
      *
      * @param  string|null $project (optional)
      * @param  string|null $status (optional)
@@ -778,7 +1114,7 @@ class SandboxApi
      */
     public function getSandboxAsyncWithHttpInfo($project = null, $status = null, string $contentType = self::contentTypes['getSandbox'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SandboxList';
+        $returnType = '\Hanzo\Cloud\Model\SandboxSandboxList';
         $request = $this->getSandboxRequest($project, $status, $contentType);
 
         return $this->client
@@ -863,7 +1199,7 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -929,7 +1265,7 @@ class SandboxApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Sandbox
+     * @return \Hanzo\Cloud\Model\SandboxSandbox|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSandboxById($id, string $contentType = self::contentTypes['getSandboxById'][0])
     {
@@ -947,7 +1283,7 @@ class SandboxApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Sandbox, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SandboxSandbox|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSandboxByIdWithHttpInfo($id, string $contentType = self::contentTypes['getSandboxById'][0])
     {
@@ -979,7 +1315,13 @@ class SandboxApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Sandbox',
+                        '\Hanzo\Cloud\Model\SandboxSandbox',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1001,7 +1343,7 @@ class SandboxApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Sandbox',
+                '\Hanzo\Cloud\Model\SandboxSandbox',
                 $request,
                 $response,
             );
@@ -1010,7 +1352,15 @@ class SandboxApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Sandbox',
+                        '\Hanzo\Cloud\Model\SandboxSandbox',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1056,7 +1406,7 @@ class SandboxApi
      */
     public function getSandboxByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getSandboxById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Sandbox';
+        $returnType = '\Hanzo\Cloud\Model\SandboxSandbox';
         $request = $this->getSandboxByIdRequest($id, $contentType);
 
         return $this->client
@@ -1135,7 +1485,7 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1358,6 +1708,292 @@ class SandboxApi
 
         $headers = $this->headerSelector->selectHeaders(
             [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getSandboxByIdPorts
+     *
+     * Lists the TCP ports something listens on in a sandbox the caller holds, each with the preview host that serves it — what the sandbox&#39;s Browser can open.
+     *
+     * @param  string $id ID is the sandbox, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSandboxByIdPorts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SandboxPorts|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getSandboxByIdPorts($id, string $contentType = self::contentTypes['getSandboxByIdPorts'][0])
+    {
+        list($response) = $this->getSandboxByIdPortsWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getSandboxByIdPortsWithHttpInfo
+     *
+     * Lists the TCP ports something listens on in a sandbox the caller holds, each with the preview host that serves it — what the sandbox&#39;s Browser can open.
+     *
+     * @param  string $id ID is the sandbox, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSandboxByIdPorts'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SandboxPorts|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getSandboxByIdPortsWithHttpInfo($id, string $contentType = self::contentTypes['getSandboxByIdPorts'][0])
+    {
+        $request = $this->getSandboxByIdPortsRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SandboxPorts',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SandboxPorts',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SandboxPorts',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getSandboxByIdPortsAsync
+     *
+     * Lists the TCP ports something listens on in a sandbox the caller holds, each with the preview host that serves it — what the sandbox&#39;s Browser can open.
+     *
+     * @param  string $id ID is the sandbox, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSandboxByIdPorts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSandboxByIdPortsAsync($id, string $contentType = self::contentTypes['getSandboxByIdPorts'][0])
+    {
+        return $this->getSandboxByIdPortsAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getSandboxByIdPortsAsyncWithHttpInfo
+     *
+     * Lists the TCP ports something listens on in a sandbox the caller holds, each with the preview host that serves it — what the sandbox&#39;s Browser can open.
+     *
+     * @param  string $id ID is the sandbox, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSandboxByIdPorts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSandboxByIdPortsAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getSandboxByIdPorts'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SandboxPorts';
+        $request = $this->getSandboxByIdPortsRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getSandboxByIdPorts'
+     *
+     * @param  string $id ID is the sandbox, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSandboxByIdPorts'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getSandboxByIdPortsRequest($id, string $contentType = self::contentTypes['getSandboxByIdPorts'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getSandboxByIdPorts'
+            );
+        }
+
+
+        $resourcePath = '/v1/sandbox/{id}/ports';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2302,38 +2938,36 @@ class SandboxApi
     }
 
     /**
-     * Operation leaseSandbox
+     * Operation getSandboxQuota
      *
-     * Lease a sandbox — a real computer — or resume one you hold
+     * Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound).
      *
-     * @param  \Hanzo\Cloud\Model\LeaseIn $lease_in lease_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['leaseSandbox'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSandboxQuota'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Leased
+     * @return \Hanzo\Cloud\Model\SandboxQuota|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function leaseSandbox($lease_in, string $contentType = self::contentTypes['leaseSandbox'][0])
+    public function getSandboxQuota(string $contentType = self::contentTypes['getSandboxQuota'][0])
     {
-        list($response) = $this->leaseSandboxWithHttpInfo($lease_in, $contentType);
+        list($response) = $this->getSandboxQuotaWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation leaseSandboxWithHttpInfo
+     * Operation getSandboxQuotaWithHttpInfo
      *
-     * Lease a sandbox — a real computer — or resume one you hold
+     * Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound).
      *
-     * @param  \Hanzo\Cloud\Model\LeaseIn $lease_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['leaseSandbox'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSandboxQuota'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Leased, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SandboxQuota|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function leaseSandboxWithHttpInfo($lease_in, string $contentType = self::contentTypes['leaseSandbox'][0])
+    public function getSandboxQuotaWithHttpInfo(string $contentType = self::contentTypes['getSandboxQuota'][0])
     {
-        $request = $this->leaseSandboxRequest($lease_in, $contentType);
+        $request = $this->getSandboxQuotaRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2361,7 +2995,13 @@ class SandboxApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Leased',
+                        '\Hanzo\Cloud\Model\SandboxQuota',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2383,7 +3023,7 @@ class SandboxApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Leased',
+                '\Hanzo\Cloud\Model\SandboxQuota',
                 $request,
                 $response,
             );
@@ -2392,7 +3032,283 @@ class SandboxApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Leased',
+                        '\Hanzo\Cloud\Model\SandboxQuota',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getSandboxQuotaAsync
+     *
+     * Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSandboxQuota'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSandboxQuotaAsync(string $contentType = self::contentTypes['getSandboxQuota'][0])
+    {
+        return $this->getSandboxQuotaAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getSandboxQuotaAsyncWithHttpInfo
+     *
+     * Answers the caller&#39;s sandbox quota: the account it belongs to — the org, or a person in the signup org — how many of that account&#39;s paid sandboxes are running, and how many may run at once (-1 for no bound).
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSandboxQuota'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSandboxQuotaAsyncWithHttpInfo(string $contentType = self::contentTypes['getSandboxQuota'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SandboxQuota';
+        $request = $this->getSandboxQuotaRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getSandboxQuota'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSandboxQuota'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getSandboxQuotaRequest(string $contentType = self::contentTypes['getSandboxQuota'][0])
+    {
+
+
+        $resourcePath = '/v1/sandbox/quota';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation leaseSandbox
+     *
+     * Lease a sandbox — a real computer — or resume one you hold
+     *
+     * @param  \Hanzo\Cloud\Model\SandboxLeaseIn $sandbox_lease_in sandbox_lease_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['leaseSandbox'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SandboxLeased|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function leaseSandbox($sandbox_lease_in, string $contentType = self::contentTypes['leaseSandbox'][0])
+    {
+        list($response) = $this->leaseSandboxWithHttpInfo($sandbox_lease_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation leaseSandboxWithHttpInfo
+     *
+     * Lease a sandbox — a real computer — or resume one you hold
+     *
+     * @param  \Hanzo\Cloud\Model\SandboxLeaseIn $sandbox_lease_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['leaseSandbox'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SandboxLeased|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function leaseSandboxWithHttpInfo($sandbox_lease_in, string $contentType = self::contentTypes['leaseSandbox'][0])
+    {
+        $request = $this->leaseSandboxRequest($sandbox_lease_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SandboxLeased',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SandboxLeased',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SandboxLeased',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2409,15 +3325,15 @@ class SandboxApi
      *
      * Lease a sandbox — a real computer — or resume one you hold
      *
-     * @param  \Hanzo\Cloud\Model\LeaseIn $lease_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxLeaseIn $sandbox_lease_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['leaseSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function leaseSandboxAsync($lease_in, string $contentType = self::contentTypes['leaseSandbox'][0])
+    public function leaseSandboxAsync($sandbox_lease_in, string $contentType = self::contentTypes['leaseSandbox'][0])
     {
-        return $this->leaseSandboxAsyncWithHttpInfo($lease_in, $contentType)
+        return $this->leaseSandboxAsyncWithHttpInfo($sandbox_lease_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2430,16 +3346,16 @@ class SandboxApi
      *
      * Lease a sandbox — a real computer — or resume one you hold
      *
-     * @param  \Hanzo\Cloud\Model\LeaseIn $lease_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxLeaseIn $sandbox_lease_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['leaseSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function leaseSandboxAsyncWithHttpInfo($lease_in, string $contentType = self::contentTypes['leaseSandbox'][0])
+    public function leaseSandboxAsyncWithHttpInfo($sandbox_lease_in, string $contentType = self::contentTypes['leaseSandbox'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Leased';
-        $request = $this->leaseSandboxRequest($lease_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SandboxLeased';
+        $request = $this->leaseSandboxRequest($sandbox_lease_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2480,19 +3396,19 @@ class SandboxApi
     /**
      * Create request for operation 'leaseSandbox'
      *
-     * @param  \Hanzo\Cloud\Model\LeaseIn $lease_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxLeaseIn $sandbox_lease_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['leaseSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function leaseSandboxRequest($lease_in, string $contentType = self::contentTypes['leaseSandbox'][0])
+    public function leaseSandboxRequest($sandbox_lease_in, string $contentType = self::contentTypes['leaseSandbox'][0])
     {
 
-        // verify the required parameter 'lease_in' is set
-        if ($lease_in === null || (is_array($lease_in) && count($lease_in) === 0)) {
+        // verify the required parameter 'sandbox_lease_in' is set
+        if ($sandbox_lease_in === null || (is_array($sandbox_lease_in) && count($sandbox_lease_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $lease_in when calling leaseSandbox'
+                'Missing the required parameter $sandbox_lease_in when calling leaseSandbox'
             );
         }
 
@@ -2509,18 +3425,18 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($lease_in)) {
+        if (isset($sandbox_lease_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($lease_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sandbox_lease_in));
             } else {
-                $httpBody = $lease_in;
+                $httpBody = $sandbox_lease_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2577,16 +3493,16 @@ class SandboxApi
      *
      * Leases a sandbox — a real computer — for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\LeaseIn $lease_in lease_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxSandboxIn $sandbox_sandbox_in sandbox_sandbox_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandbox'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Sandbox
+     * @return \Hanzo\Cloud\Model\SandboxSandbox|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postSandbox($lease_in, string $contentType = self::contentTypes['postSandbox'][0])
+    public function postSandbox($sandbox_sandbox_in, string $contentType = self::contentTypes['postSandbox'][0])
     {
-        list($response) = $this->postSandboxWithHttpInfo($lease_in, $contentType);
+        list($response) = $this->postSandboxWithHttpInfo($sandbox_sandbox_in, $contentType);
         return $response;
     }
 
@@ -2595,16 +3511,16 @@ class SandboxApi
      *
      * Leases a sandbox — a real computer — for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\LeaseIn $lease_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxSandboxIn $sandbox_sandbox_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandbox'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Sandbox, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SandboxSandbox|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postSandboxWithHttpInfo($lease_in, string $contentType = self::contentTypes['postSandbox'][0])
+    public function postSandboxWithHttpInfo($sandbox_sandbox_in, string $contentType = self::contentTypes['postSandbox'][0])
     {
-        $request = $this->postSandboxRequest($lease_in, $contentType);
+        $request = $this->postSandboxRequest($sandbox_sandbox_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2632,7 +3548,13 @@ class SandboxApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Sandbox',
+                        '\Hanzo\Cloud\Model\SandboxSandbox',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2654,7 +3576,7 @@ class SandboxApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Sandbox',
+                '\Hanzo\Cloud\Model\SandboxSandbox',
                 $request,
                 $response,
             );
@@ -2663,7 +3585,15 @@ class SandboxApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Sandbox',
+                        '\Hanzo\Cloud\Model\SandboxSandbox',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2680,15 +3610,15 @@ class SandboxApi
      *
      * Leases a sandbox — a real computer — for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\LeaseIn $lease_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxSandboxIn $sandbox_sandbox_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSandboxAsync($lease_in, string $contentType = self::contentTypes['postSandbox'][0])
+    public function postSandboxAsync($sandbox_sandbox_in, string $contentType = self::contentTypes['postSandbox'][0])
     {
-        return $this->postSandboxAsyncWithHttpInfo($lease_in, $contentType)
+        return $this->postSandboxAsyncWithHttpInfo($sandbox_sandbox_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2701,16 +3631,16 @@ class SandboxApi
      *
      * Leases a sandbox — a real computer — for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\LeaseIn $lease_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxSandboxIn $sandbox_sandbox_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSandboxAsyncWithHttpInfo($lease_in, string $contentType = self::contentTypes['postSandbox'][0])
+    public function postSandboxAsyncWithHttpInfo($sandbox_sandbox_in, string $contentType = self::contentTypes['postSandbox'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Sandbox';
-        $request = $this->postSandboxRequest($lease_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SandboxSandbox';
+        $request = $this->postSandboxRequest($sandbox_sandbox_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2751,19 +3681,19 @@ class SandboxApi
     /**
      * Create request for operation 'postSandbox'
      *
-     * @param  \Hanzo\Cloud\Model\LeaseIn $lease_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxSandboxIn $sandbox_sandbox_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postSandboxRequest($lease_in, string $contentType = self::contentTypes['postSandbox'][0])
+    public function postSandboxRequest($sandbox_sandbox_in, string $contentType = self::contentTypes['postSandbox'][0])
     {
 
-        // verify the required parameter 'lease_in' is set
-        if ($lease_in === null || (is_array($lease_in) && count($lease_in) === 0)) {
+        // verify the required parameter 'sandbox_sandbox_in' is set
+        if ($sandbox_sandbox_in === null || (is_array($sandbox_sandbox_in) && count($sandbox_sandbox_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $lease_in when calling postSandbox'
+                'Missing the required parameter $sandbox_sandbox_in when calling postSandbox'
             );
         }
 
@@ -2780,20 +3710,242 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($lease_in)) {
+        if (isset($sandbox_sandbox_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($lease_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sandbox_sandbox_in));
             } else {
-                $httpBody = $lease_in;
+                $httpBody = $sandbox_sandbox_in;
             }
         } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postSandboxByIdAgent
+     *
+     * Have a model work a sandbox
+     *
+     * @param  string $id id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdAgent'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function postSandboxByIdAgent($id, string $contentType = self::contentTypes['postSandboxByIdAgent'][0])
+    {
+        $this->postSandboxByIdAgentWithHttpInfo($id, $contentType);
+    }
+
+    /**
+     * Operation postSandboxByIdAgentWithHttpInfo
+     *
+     * Have a model work a sandbox
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdAgent'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postSandboxByIdAgentWithHttpInfo($id, string $contentType = self::contentTypes['postSandboxByIdAgent'][0])
+    {
+        $request = $this->postSandboxByIdAgentRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postSandboxByIdAgentAsync
+     *
+     * Have a model work a sandbox
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdAgent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postSandboxByIdAgentAsync($id, string $contentType = self::contentTypes['postSandboxByIdAgent'][0])
+    {
+        return $this->postSandboxByIdAgentAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postSandboxByIdAgentAsyncWithHttpInfo
+     *
+     * Have a model work a sandbox
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdAgent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postSandboxByIdAgentAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postSandboxByIdAgent'][0])
+    {
+        $returnType = '';
+        $request = $this->postSandboxByIdAgentRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postSandboxByIdAgent'
+     *
+     * @param  string $id (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdAgent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postSandboxByIdAgentRequest($id, string $contentType = self::contentTypes['postSandboxByIdAgent'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postSandboxByIdAgent'
+            );
+        }
+
+
+        $resourcePath = '/v1/sandbox/{id}/agent';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -2849,16 +4001,16 @@ class SandboxApi
      * Runs one command in a sandbox the caller holds and answers with its exit code, stdout and stderr.
      *
      * @param  string $id ID is the sandbox to run in, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ExecRequest $exec_request exec_request (required)
+     * @param  \Hanzo\Cloud\Model\SandboxExecRequest $sandbox_exec_request sandbox_exec_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdExec'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ExecResult
+     * @return \Hanzo\Cloud\Model\SandboxExecResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postSandboxByIdExec($id, $exec_request, string $contentType = self::contentTypes['postSandboxByIdExec'][0])
+    public function postSandboxByIdExec($id, $sandbox_exec_request, string $contentType = self::contentTypes['postSandboxByIdExec'][0])
     {
-        list($response) = $this->postSandboxByIdExecWithHttpInfo($id, $exec_request, $contentType);
+        list($response) = $this->postSandboxByIdExecWithHttpInfo($id, $sandbox_exec_request, $contentType);
         return $response;
     }
 
@@ -2868,16 +4020,16 @@ class SandboxApi
      * Runs one command in a sandbox the caller holds and answers with its exit code, stdout and stderr.
      *
      * @param  string $id ID is the sandbox to run in, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ExecRequest $exec_request (required)
+     * @param  \Hanzo\Cloud\Model\SandboxExecRequest $sandbox_exec_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdExec'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ExecResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SandboxExecResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postSandboxByIdExecWithHttpInfo($id, $exec_request, string $contentType = self::contentTypes['postSandboxByIdExec'][0])
+    public function postSandboxByIdExecWithHttpInfo($id, $sandbox_exec_request, string $contentType = self::contentTypes['postSandboxByIdExec'][0])
     {
-        $request = $this->postSandboxByIdExecRequest($id, $exec_request, $contentType);
+        $request = $this->postSandboxByIdExecRequest($id, $sandbox_exec_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2905,7 +4057,13 @@ class SandboxApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ExecResult',
+                        '\Hanzo\Cloud\Model\SandboxExecResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2927,7 +4085,7 @@ class SandboxApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ExecResult',
+                '\Hanzo\Cloud\Model\SandboxExecResult',
                 $request,
                 $response,
             );
@@ -2936,7 +4094,15 @@ class SandboxApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ExecResult',
+                        '\Hanzo\Cloud\Model\SandboxExecResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2954,15 +4120,15 @@ class SandboxApi
      * Runs one command in a sandbox the caller holds and answers with its exit code, stdout and stderr.
      *
      * @param  string $id ID is the sandbox to run in, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ExecRequest $exec_request (required)
+     * @param  \Hanzo\Cloud\Model\SandboxExecRequest $sandbox_exec_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdExec'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSandboxByIdExecAsync($id, $exec_request, string $contentType = self::contentTypes['postSandboxByIdExec'][0])
+    public function postSandboxByIdExecAsync($id, $sandbox_exec_request, string $contentType = self::contentTypes['postSandboxByIdExec'][0])
     {
-        return $this->postSandboxByIdExecAsyncWithHttpInfo($id, $exec_request, $contentType)
+        return $this->postSandboxByIdExecAsyncWithHttpInfo($id, $sandbox_exec_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2976,16 +4142,16 @@ class SandboxApi
      * Runs one command in a sandbox the caller holds and answers with its exit code, stdout and stderr.
      *
      * @param  string $id ID is the sandbox to run in, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ExecRequest $exec_request (required)
+     * @param  \Hanzo\Cloud\Model\SandboxExecRequest $sandbox_exec_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdExec'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postSandboxByIdExecAsyncWithHttpInfo($id, $exec_request, string $contentType = self::contentTypes['postSandboxByIdExec'][0])
+    public function postSandboxByIdExecAsyncWithHttpInfo($id, $sandbox_exec_request, string $contentType = self::contentTypes['postSandboxByIdExec'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ExecResult';
-        $request = $this->postSandboxByIdExecRequest($id, $exec_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SandboxExecResult';
+        $request = $this->postSandboxByIdExecRequest($id, $sandbox_exec_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3027,13 +4193,13 @@ class SandboxApi
      * Create request for operation 'postSandboxByIdExec'
      *
      * @param  string $id ID is the sandbox to run in, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\ExecRequest $exec_request (required)
+     * @param  \Hanzo\Cloud\Model\SandboxExecRequest $sandbox_exec_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdExec'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postSandboxByIdExecRequest($id, $exec_request, string $contentType = self::contentTypes['postSandboxByIdExec'][0])
+    public function postSandboxByIdExecRequest($id, $sandbox_exec_request, string $contentType = self::contentTypes['postSandboxByIdExec'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -3043,10 +4209,10 @@ class SandboxApi
             );
         }
 
-        // verify the required parameter 'exec_request' is set
-        if ($exec_request === null || (is_array($exec_request) && count($exec_request) === 0)) {
+        // verify the required parameter 'sandbox_exec_request' is set
+        if ($sandbox_exec_request === null || (is_array($sandbox_exec_request) && count($sandbox_exec_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $exec_request when calling postSandboxByIdExec'
+                'Missing the required parameter $sandbox_exec_request when calling postSandboxByIdExec'
             );
         }
 
@@ -3071,18 +4237,18 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($exec_request)) {
+        if (isset($sandbox_exec_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($exec_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sandbox_exec_request));
             } else {
-                $httpBody = $exec_request;
+                $httpBody = $sandbox_exec_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3357,6 +4523,883 @@ class SandboxApi
     }
 
     /**
+     * Operation postSandboxByIdPause
+     *
+     * Stops the pod, keeps the row and the volume, and settles the tail: POST /v1/sandbox/:id/pause.
+     *
+     * @param  string $id ID is the sandbox to address, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdPause'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SandboxSandbox|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postSandboxByIdPause($id, string $contentType = self::contentTypes['postSandboxByIdPause'][0])
+    {
+        list($response) = $this->postSandboxByIdPauseWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postSandboxByIdPauseWithHttpInfo
+     *
+     * Stops the pod, keeps the row and the volume, and settles the tail: POST /v1/sandbox/:id/pause.
+     *
+     * @param  string $id ID is the sandbox to address, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdPause'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SandboxSandbox|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postSandboxByIdPauseWithHttpInfo($id, string $contentType = self::contentTypes['postSandboxByIdPause'][0])
+    {
+        $request = $this->postSandboxByIdPauseRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SandboxSandbox',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SandboxSandbox',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SandboxSandbox',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postSandboxByIdPauseAsync
+     *
+     * Stops the pod, keeps the row and the volume, and settles the tail: POST /v1/sandbox/:id/pause.
+     *
+     * @param  string $id ID is the sandbox to address, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdPause'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postSandboxByIdPauseAsync($id, string $contentType = self::contentTypes['postSandboxByIdPause'][0])
+    {
+        return $this->postSandboxByIdPauseAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postSandboxByIdPauseAsyncWithHttpInfo
+     *
+     * Stops the pod, keeps the row and the volume, and settles the tail: POST /v1/sandbox/:id/pause.
+     *
+     * @param  string $id ID is the sandbox to address, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdPause'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postSandboxByIdPauseAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postSandboxByIdPause'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SandboxSandbox';
+        $request = $this->postSandboxByIdPauseRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postSandboxByIdPause'
+     *
+     * @param  string $id ID is the sandbox to address, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdPause'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postSandboxByIdPauseRequest($id, string $contentType = self::contentTypes['postSandboxByIdPause'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postSandboxByIdPause'
+            );
+        }
+
+
+        $resourcePath = '/v1/sandbox/{id}/pause';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postSandboxByIdPreview
+     *
+     * Opens a port of a sandbox the caller holds in a browser.
+     *
+     * @param  string $id ID is the sandbox, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\SandboxPreviewIn $sandbox_preview_in sandbox_preview_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdPreview'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SandboxPreviewGrant|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postSandboxByIdPreview($id, $sandbox_preview_in, string $contentType = self::contentTypes['postSandboxByIdPreview'][0])
+    {
+        list($response) = $this->postSandboxByIdPreviewWithHttpInfo($id, $sandbox_preview_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postSandboxByIdPreviewWithHttpInfo
+     *
+     * Opens a port of a sandbox the caller holds in a browser.
+     *
+     * @param  string $id ID is the sandbox, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\SandboxPreviewIn $sandbox_preview_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdPreview'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SandboxPreviewGrant|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postSandboxByIdPreviewWithHttpInfo($id, $sandbox_preview_in, string $contentType = self::contentTypes['postSandboxByIdPreview'][0])
+    {
+        $request = $this->postSandboxByIdPreviewRequest($id, $sandbox_preview_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SandboxPreviewGrant',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SandboxPreviewGrant',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SandboxPreviewGrant',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postSandboxByIdPreviewAsync
+     *
+     * Opens a port of a sandbox the caller holds in a browser.
+     *
+     * @param  string $id ID is the sandbox, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\SandboxPreviewIn $sandbox_preview_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdPreview'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postSandboxByIdPreviewAsync($id, $sandbox_preview_in, string $contentType = self::contentTypes['postSandboxByIdPreview'][0])
+    {
+        return $this->postSandboxByIdPreviewAsyncWithHttpInfo($id, $sandbox_preview_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postSandboxByIdPreviewAsyncWithHttpInfo
+     *
+     * Opens a port of a sandbox the caller holds in a browser.
+     *
+     * @param  string $id ID is the sandbox, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\SandboxPreviewIn $sandbox_preview_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdPreview'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postSandboxByIdPreviewAsyncWithHttpInfo($id, $sandbox_preview_in, string $contentType = self::contentTypes['postSandboxByIdPreview'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SandboxPreviewGrant';
+        $request = $this->postSandboxByIdPreviewRequest($id, $sandbox_preview_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postSandboxByIdPreview'
+     *
+     * @param  string $id ID is the sandbox, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\SandboxPreviewIn $sandbox_preview_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdPreview'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postSandboxByIdPreviewRequest($id, $sandbox_preview_in, string $contentType = self::contentTypes['postSandboxByIdPreview'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postSandboxByIdPreview'
+            );
+        }
+
+        // verify the required parameter 'sandbox_preview_in' is set
+        if ($sandbox_preview_in === null || (is_array($sandbox_preview_in) && count($sandbox_preview_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $sandbox_preview_in when calling postSandboxByIdPreview'
+            );
+        }
+
+
+        $resourcePath = '/v1/sandbox/{id}/preview';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($sandbox_preview_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sandbox_preview_in));
+            } else {
+                $httpBody = $sandbox_preview_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postSandboxByIdResume
+     *
+     * Gives a parked sandbox a pod again: POST /v1/sandbox/:id/resume.
+     *
+     * @param  string $id ID is the sandbox to address, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdResume'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SandboxSandbox|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function postSandboxByIdResume($id, string $contentType = self::contentTypes['postSandboxByIdResume'][0])
+    {
+        list($response) = $this->postSandboxByIdResumeWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postSandboxByIdResumeWithHttpInfo
+     *
+     * Gives a parked sandbox a pod again: POST /v1/sandbox/:id/resume.
+     *
+     * @param  string $id ID is the sandbox to address, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdResume'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SandboxSandbox|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postSandboxByIdResumeWithHttpInfo($id, string $contentType = self::contentTypes['postSandboxByIdResume'][0])
+    {
+        $request = $this->postSandboxByIdResumeRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SandboxSandbox',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SandboxSandbox',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SandboxSandbox',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postSandboxByIdResumeAsync
+     *
+     * Gives a parked sandbox a pod again: POST /v1/sandbox/:id/resume.
+     *
+     * @param  string $id ID is the sandbox to address, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdResume'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postSandboxByIdResumeAsync($id, string $contentType = self::contentTypes['postSandboxByIdResume'][0])
+    {
+        return $this->postSandboxByIdResumeAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postSandboxByIdResumeAsyncWithHttpInfo
+     *
+     * Gives a parked sandbox a pod again: POST /v1/sandbox/:id/resume.
+     *
+     * @param  string $id ID is the sandbox to address, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdResume'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postSandboxByIdResumeAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postSandboxByIdResume'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SandboxSandbox';
+        $request = $this->postSandboxByIdResumeRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postSandboxByIdResume'
+     *
+     * @param  string $id ID is the sandbox to address, from the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postSandboxByIdResume'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postSandboxByIdResumeRequest($id, string $contentType = self::contentTypes['postSandboxByIdResume'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postSandboxByIdResume'
+            );
+        }
+
+
+        $resourcePath = '/v1/sandbox/{id}/resume';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation postSandboxByIdScreenTicket
      *
      * Mints a short-lived grant to open the screen of a desktop sandbox.
@@ -3366,7 +5409,7 @@ class SandboxApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TicketGrant
+     * @return \Hanzo\Cloud\Model\SandboxTicketGrant|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postSandboxByIdScreenTicket($id, string $contentType = self::contentTypes['postSandboxByIdScreenTicket'][0])
     {
@@ -3384,7 +5427,7 @@ class SandboxApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TicketGrant, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SandboxTicketGrant|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postSandboxByIdScreenTicketWithHttpInfo($id, string $contentType = self::contentTypes['postSandboxByIdScreenTicket'][0])
     {
@@ -3416,7 +5459,13 @@ class SandboxApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TicketGrant',
+                        '\Hanzo\Cloud\Model\SandboxTicketGrant',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3438,7 +5487,7 @@ class SandboxApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TicketGrant',
+                '\Hanzo\Cloud\Model\SandboxTicketGrant',
                 $request,
                 $response,
             );
@@ -3447,7 +5496,15 @@ class SandboxApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TicketGrant',
+                        '\Hanzo\Cloud\Model\SandboxTicketGrant',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3493,7 +5550,7 @@ class SandboxApi
      */
     public function postSandboxByIdScreenTicketAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postSandboxByIdScreenTicket'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TicketGrant';
+        $returnType = '\Hanzo\Cloud\Model\SandboxTicketGrant';
         $request = $this->postSandboxByIdScreenTicketRequest($id, $contentType);
 
         return $this->client
@@ -3572,7 +5629,7 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3638,7 +5695,7 @@ class SandboxApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TicketGrant
+     * @return \Hanzo\Cloud\Model\SandboxTicketGrant|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function postSandboxByIdTerminalTicket($id, string $contentType = self::contentTypes['postSandboxByIdTerminalTicket'][0])
     {
@@ -3656,7 +5713,7 @@ class SandboxApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TicketGrant, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SandboxTicketGrant|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function postSandboxByIdTerminalTicketWithHttpInfo($id, string $contentType = self::contentTypes['postSandboxByIdTerminalTicket'][0])
     {
@@ -3688,7 +5745,13 @@ class SandboxApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TicketGrant',
+                        '\Hanzo\Cloud\Model\SandboxTicketGrant',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3710,7 +5773,7 @@ class SandboxApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TicketGrant',
+                '\Hanzo\Cloud\Model\SandboxTicketGrant',
                 $request,
                 $response,
             );
@@ -3719,7 +5782,15 @@ class SandboxApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TicketGrant',
+                        '\Hanzo\Cloud\Model\SandboxTicketGrant',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3765,7 +5836,7 @@ class SandboxApi
      */
     public function postSandboxByIdTerminalTicketAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postSandboxByIdTerminalTicket'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TicketGrant';
+        $returnType = '\Hanzo\Cloud\Model\SandboxTicketGrant';
         $request = $this->postSandboxByIdTerminalTicketRequest($id, $contentType);
 
         return $this->client
@@ -3844,7 +5915,7 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3905,16 +5976,16 @@ class SandboxApi
      *
      * Read a file from a sandbox you hold
      *
-     * @param  \Hanzo\Cloud\Model\PathIn $path_in path_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxPathIn $sandbox_path_in sandbox_path_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readSandboxFile'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Blob
+     * @return \Hanzo\Cloud\Model\SandboxBlob|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function readSandboxFile($path_in, string $contentType = self::contentTypes['readSandboxFile'][0])
+    public function readSandboxFile($sandbox_path_in, string $contentType = self::contentTypes['readSandboxFile'][0])
     {
-        list($response) = $this->readSandboxFileWithHttpInfo($path_in, $contentType);
+        list($response) = $this->readSandboxFileWithHttpInfo($sandbox_path_in, $contentType);
         return $response;
     }
 
@@ -3923,16 +5994,16 @@ class SandboxApi
      *
      * Read a file from a sandbox you hold
      *
-     * @param  \Hanzo\Cloud\Model\PathIn $path_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxPathIn $sandbox_path_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readSandboxFile'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Blob, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SandboxBlob|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function readSandboxFileWithHttpInfo($path_in, string $contentType = self::contentTypes['readSandboxFile'][0])
+    public function readSandboxFileWithHttpInfo($sandbox_path_in, string $contentType = self::contentTypes['readSandboxFile'][0])
     {
-        $request = $this->readSandboxFileRequest($path_in, $contentType);
+        $request = $this->readSandboxFileRequest($sandbox_path_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3960,7 +6031,13 @@ class SandboxApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Blob',
+                        '\Hanzo\Cloud\Model\SandboxBlob',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3982,7 +6059,7 @@ class SandboxApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Blob',
+                '\Hanzo\Cloud\Model\SandboxBlob',
                 $request,
                 $response,
             );
@@ -3991,7 +6068,15 @@ class SandboxApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Blob',
+                        '\Hanzo\Cloud\Model\SandboxBlob',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4008,15 +6093,15 @@ class SandboxApi
      *
      * Read a file from a sandbox you hold
      *
-     * @param  \Hanzo\Cloud\Model\PathIn $path_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxPathIn $sandbox_path_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readSandboxFile'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function readSandboxFileAsync($path_in, string $contentType = self::contentTypes['readSandboxFile'][0])
+    public function readSandboxFileAsync($sandbox_path_in, string $contentType = self::contentTypes['readSandboxFile'][0])
     {
-        return $this->readSandboxFileAsyncWithHttpInfo($path_in, $contentType)
+        return $this->readSandboxFileAsyncWithHttpInfo($sandbox_path_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4029,16 +6114,16 @@ class SandboxApi
      *
      * Read a file from a sandbox you hold
      *
-     * @param  \Hanzo\Cloud\Model\PathIn $path_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxPathIn $sandbox_path_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readSandboxFile'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function readSandboxFileAsyncWithHttpInfo($path_in, string $contentType = self::contentTypes['readSandboxFile'][0])
+    public function readSandboxFileAsyncWithHttpInfo($sandbox_path_in, string $contentType = self::contentTypes['readSandboxFile'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Blob';
-        $request = $this->readSandboxFileRequest($path_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SandboxBlob';
+        $request = $this->readSandboxFileRequest($sandbox_path_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4079,19 +6164,19 @@ class SandboxApi
     /**
      * Create request for operation 'readSandboxFile'
      *
-     * @param  \Hanzo\Cloud\Model\PathIn $path_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxPathIn $sandbox_path_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['readSandboxFile'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function readSandboxFileRequest($path_in, string $contentType = self::contentTypes['readSandboxFile'][0])
+    public function readSandboxFileRequest($sandbox_path_in, string $contentType = self::contentTypes['readSandboxFile'][0])
     {
 
-        // verify the required parameter 'path_in' is set
-        if ($path_in === null || (is_array($path_in) && count($path_in) === 0)) {
+        // verify the required parameter 'sandbox_path_in' is set
+        if ($sandbox_path_in === null || (is_array($sandbox_path_in) && count($sandbox_path_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $path_in when calling readSandboxFile'
+                'Missing the required parameter $sandbox_path_in when calling readSandboxFile'
             );
         }
 
@@ -4108,18 +6193,18 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($path_in)) {
+        if (isset($sandbox_path_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($path_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sandbox_path_in));
             } else {
-                $httpBody = $path_in;
+                $httpBody = $sandbox_path_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4176,16 +6261,16 @@ class SandboxApi
      *
      * Run a command in a sandbox you hold and read its output
      *
-     * @param  \Hanzo\Cloud\Model\RunIn $run_in run_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxRunIn $sandbox_run_in sandbox_run_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['runInSandbox'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Ran
+     * @return \Hanzo\Cloud\Model\SandboxRan|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function runInSandbox($run_in, string $contentType = self::contentTypes['runInSandbox'][0])
+    public function runInSandbox($sandbox_run_in, string $contentType = self::contentTypes['runInSandbox'][0])
     {
-        list($response) = $this->runInSandboxWithHttpInfo($run_in, $contentType);
+        list($response) = $this->runInSandboxWithHttpInfo($sandbox_run_in, $contentType);
         return $response;
     }
 
@@ -4194,16 +6279,16 @@ class SandboxApi
      *
      * Run a command in a sandbox you hold and read its output
      *
-     * @param  \Hanzo\Cloud\Model\RunIn $run_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxRunIn $sandbox_run_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['runInSandbox'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Ran, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SandboxRan|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function runInSandboxWithHttpInfo($run_in, string $contentType = self::contentTypes['runInSandbox'][0])
+    public function runInSandboxWithHttpInfo($sandbox_run_in, string $contentType = self::contentTypes['runInSandbox'][0])
     {
-        $request = $this->runInSandboxRequest($run_in, $contentType);
+        $request = $this->runInSandboxRequest($sandbox_run_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4231,7 +6316,13 @@ class SandboxApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Ran',
+                        '\Hanzo\Cloud\Model\SandboxRan',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4253,7 +6344,7 @@ class SandboxApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Ran',
+                '\Hanzo\Cloud\Model\SandboxRan',
                 $request,
                 $response,
             );
@@ -4262,7 +6353,15 @@ class SandboxApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Ran',
+                        '\Hanzo\Cloud\Model\SandboxRan',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4279,15 +6378,15 @@ class SandboxApi
      *
      * Run a command in a sandbox you hold and read its output
      *
-     * @param  \Hanzo\Cloud\Model\RunIn $run_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxRunIn $sandbox_run_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['runInSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function runInSandboxAsync($run_in, string $contentType = self::contentTypes['runInSandbox'][0])
+    public function runInSandboxAsync($sandbox_run_in, string $contentType = self::contentTypes['runInSandbox'][0])
     {
-        return $this->runInSandboxAsyncWithHttpInfo($run_in, $contentType)
+        return $this->runInSandboxAsyncWithHttpInfo($sandbox_run_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4300,16 +6399,16 @@ class SandboxApi
      *
      * Run a command in a sandbox you hold and read its output
      *
-     * @param  \Hanzo\Cloud\Model\RunIn $run_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxRunIn $sandbox_run_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['runInSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function runInSandboxAsyncWithHttpInfo($run_in, string $contentType = self::contentTypes['runInSandbox'][0])
+    public function runInSandboxAsyncWithHttpInfo($sandbox_run_in, string $contentType = self::contentTypes['runInSandbox'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Ran';
-        $request = $this->runInSandboxRequest($run_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SandboxRan';
+        $request = $this->runInSandboxRequest($sandbox_run_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4350,19 +6449,19 @@ class SandboxApi
     /**
      * Create request for operation 'runInSandbox'
      *
-     * @param  \Hanzo\Cloud\Model\RunIn $run_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxRunIn $sandbox_run_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['runInSandbox'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function runInSandboxRequest($run_in, string $contentType = self::contentTypes['runInSandbox'][0])
+    public function runInSandboxRequest($sandbox_run_in, string $contentType = self::contentTypes['runInSandbox'][0])
     {
 
-        // verify the required parameter 'run_in' is set
-        if ($run_in === null || (is_array($run_in) && count($run_in) === 0)) {
+        // verify the required parameter 'sandbox_run_in' is set
+        if ($sandbox_run_in === null || (is_array($sandbox_run_in) && count($sandbox_run_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $run_in when calling runInSandbox'
+                'Missing the required parameter $sandbox_run_in when calling runInSandbox'
             );
         }
 
@@ -4379,18 +6478,18 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($run_in)) {
+        if (isset($sandbox_run_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($run_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sandbox_run_in));
             } else {
-                $httpBody = $run_in;
+                $httpBody = $sandbox_run_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4447,16 +6546,16 @@ class SandboxApi
      *
      * Stop what a sandbox is running, and keep the sandbox
      *
-     * @param  \Hanzo\Cloud\Model\StopIn $stop_in stop_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxStopIn $sandbox_stop_in sandbox_stop_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['stopRun'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Stopped
+     * @return \Hanzo\Cloud\Model\SandboxStopped|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function stopRun($stop_in, string $contentType = self::contentTypes['stopRun'][0])
+    public function stopRun($sandbox_stop_in, string $contentType = self::contentTypes['stopRun'][0])
     {
-        list($response) = $this->stopRunWithHttpInfo($stop_in, $contentType);
+        list($response) = $this->stopRunWithHttpInfo($sandbox_stop_in, $contentType);
         return $response;
     }
 
@@ -4465,16 +6564,16 @@ class SandboxApi
      *
      * Stop what a sandbox is running, and keep the sandbox
      *
-     * @param  \Hanzo\Cloud\Model\StopIn $stop_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxStopIn $sandbox_stop_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['stopRun'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Stopped, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SandboxStopped|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function stopRunWithHttpInfo($stop_in, string $contentType = self::contentTypes['stopRun'][0])
+    public function stopRunWithHttpInfo($sandbox_stop_in, string $contentType = self::contentTypes['stopRun'][0])
     {
-        $request = $this->stopRunRequest($stop_in, $contentType);
+        $request = $this->stopRunRequest($sandbox_stop_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4502,7 +6601,13 @@ class SandboxApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Stopped',
+                        '\Hanzo\Cloud\Model\SandboxStopped',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4524,7 +6629,7 @@ class SandboxApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Stopped',
+                '\Hanzo\Cloud\Model\SandboxStopped',
                 $request,
                 $response,
             );
@@ -4533,7 +6638,15 @@ class SandboxApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Stopped',
+                        '\Hanzo\Cloud\Model\SandboxStopped',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4550,15 +6663,15 @@ class SandboxApi
      *
      * Stop what a sandbox is running, and keep the sandbox
      *
-     * @param  \Hanzo\Cloud\Model\StopIn $stop_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxStopIn $sandbox_stop_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['stopRun'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function stopRunAsync($stop_in, string $contentType = self::contentTypes['stopRun'][0])
+    public function stopRunAsync($sandbox_stop_in, string $contentType = self::contentTypes['stopRun'][0])
     {
-        return $this->stopRunAsyncWithHttpInfo($stop_in, $contentType)
+        return $this->stopRunAsyncWithHttpInfo($sandbox_stop_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4571,16 +6684,16 @@ class SandboxApi
      *
      * Stop what a sandbox is running, and keep the sandbox
      *
-     * @param  \Hanzo\Cloud\Model\StopIn $stop_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxStopIn $sandbox_stop_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['stopRun'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function stopRunAsyncWithHttpInfo($stop_in, string $contentType = self::contentTypes['stopRun'][0])
+    public function stopRunAsyncWithHttpInfo($sandbox_stop_in, string $contentType = self::contentTypes['stopRun'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Stopped';
-        $request = $this->stopRunRequest($stop_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SandboxStopped';
+        $request = $this->stopRunRequest($sandbox_stop_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4621,19 +6734,19 @@ class SandboxApi
     /**
      * Create request for operation 'stopRun'
      *
-     * @param  \Hanzo\Cloud\Model\StopIn $stop_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxStopIn $sandbox_stop_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['stopRun'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function stopRunRequest($stop_in, string $contentType = self::contentTypes['stopRun'][0])
+    public function stopRunRequest($sandbox_stop_in, string $contentType = self::contentTypes['stopRun'][0])
     {
 
-        // verify the required parameter 'stop_in' is set
-        if ($stop_in === null || (is_array($stop_in) && count($stop_in) === 0)) {
+        // verify the required parameter 'sandbox_stop_in' is set
+        if ($sandbox_stop_in === null || (is_array($sandbox_stop_in) && count($sandbox_stop_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $stop_in when calling stopRun'
+                'Missing the required parameter $sandbox_stop_in when calling stopRun'
             );
         }
 
@@ -4650,18 +6763,18 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($stop_in)) {
+        if (isset($sandbox_stop_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($stop_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sandbox_stop_in));
             } else {
-                $httpBody = $stop_in;
+                $httpBody = $sandbox_stop_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4718,16 +6831,16 @@ class SandboxApi
      *
      * Write a file into a sandbox you hold
      *
-     * @param  \Hanzo\Cloud\Model\WriteIn $write_in write_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxWriteIn $sandbox_write_in sandbox_write_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['writeSandboxFile'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Wrote
+     * @return \Hanzo\Cloud\Model\SandboxWrote|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function writeSandboxFile($write_in, string $contentType = self::contentTypes['writeSandboxFile'][0])
+    public function writeSandboxFile($sandbox_write_in, string $contentType = self::contentTypes['writeSandboxFile'][0])
     {
-        list($response) = $this->writeSandboxFileWithHttpInfo($write_in, $contentType);
+        list($response) = $this->writeSandboxFileWithHttpInfo($sandbox_write_in, $contentType);
         return $response;
     }
 
@@ -4736,16 +6849,16 @@ class SandboxApi
      *
      * Write a file into a sandbox you hold
      *
-     * @param  \Hanzo\Cloud\Model\WriteIn $write_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxWriteIn $sandbox_write_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['writeSandboxFile'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Wrote, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SandboxWrote|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function writeSandboxFileWithHttpInfo($write_in, string $contentType = self::contentTypes['writeSandboxFile'][0])
+    public function writeSandboxFileWithHttpInfo($sandbox_write_in, string $contentType = self::contentTypes['writeSandboxFile'][0])
     {
-        $request = $this->writeSandboxFileRequest($write_in, $contentType);
+        $request = $this->writeSandboxFileRequest($sandbox_write_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4773,7 +6886,13 @@ class SandboxApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Wrote',
+                        '\Hanzo\Cloud\Model\SandboxWrote',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4795,7 +6914,7 @@ class SandboxApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Wrote',
+                '\Hanzo\Cloud\Model\SandboxWrote',
                 $request,
                 $response,
             );
@@ -4804,7 +6923,15 @@ class SandboxApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Wrote',
+                        '\Hanzo\Cloud\Model\SandboxWrote',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4821,15 +6948,15 @@ class SandboxApi
      *
      * Write a file into a sandbox you hold
      *
-     * @param  \Hanzo\Cloud\Model\WriteIn $write_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxWriteIn $sandbox_write_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['writeSandboxFile'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function writeSandboxFileAsync($write_in, string $contentType = self::contentTypes['writeSandboxFile'][0])
+    public function writeSandboxFileAsync($sandbox_write_in, string $contentType = self::contentTypes['writeSandboxFile'][0])
     {
-        return $this->writeSandboxFileAsyncWithHttpInfo($write_in, $contentType)
+        return $this->writeSandboxFileAsyncWithHttpInfo($sandbox_write_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4842,16 +6969,16 @@ class SandboxApi
      *
      * Write a file into a sandbox you hold
      *
-     * @param  \Hanzo\Cloud\Model\WriteIn $write_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxWriteIn $sandbox_write_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['writeSandboxFile'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function writeSandboxFileAsyncWithHttpInfo($write_in, string $contentType = self::contentTypes['writeSandboxFile'][0])
+    public function writeSandboxFileAsyncWithHttpInfo($sandbox_write_in, string $contentType = self::contentTypes['writeSandboxFile'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Wrote';
-        $request = $this->writeSandboxFileRequest($write_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SandboxWrote';
+        $request = $this->writeSandboxFileRequest($sandbox_write_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4892,19 +7019,19 @@ class SandboxApi
     /**
      * Create request for operation 'writeSandboxFile'
      *
-     * @param  \Hanzo\Cloud\Model\WriteIn $write_in (required)
+     * @param  \Hanzo\Cloud\Model\SandboxWriteIn $sandbox_write_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['writeSandboxFile'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function writeSandboxFileRequest($write_in, string $contentType = self::contentTypes['writeSandboxFile'][0])
+    public function writeSandboxFileRequest($sandbox_write_in, string $contentType = self::contentTypes['writeSandboxFile'][0])
     {
 
-        // verify the required parameter 'write_in' is set
-        if ($write_in === null || (is_array($write_in) && count($write_in) === 0)) {
+        // verify the required parameter 'sandbox_write_in' is set
+        if ($sandbox_write_in === null || (is_array($sandbox_write_in) && count($sandbox_write_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $write_in when calling writeSandboxFile'
+                'Missing the required parameter $sandbox_write_in when calling writeSandboxFile'
             );
         }
 
@@ -4921,18 +7048,18 @@ class SandboxApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($write_in)) {
+        if (isset($sandbox_write_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($write_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($sandbox_write_in));
             } else {
-                $httpBody = $write_in;
+                $httpBody = $sandbox_write_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

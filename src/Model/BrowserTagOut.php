@@ -57,6 +57,7 @@ class BrowserTagOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'events' => 'array<string,string>',
         'id' => 'string',
         'platform' => 'string',
         'type' => 'string'
@@ -70,6 +71,7 @@ class BrowserTagOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'events' => null,
         'id' => null,
         'platform' => null,
         'type' => null
@@ -81,6 +83,7 @@ class BrowserTagOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'events' => false,
         'id' => false,
         'platform' => false,
         'type' => false
@@ -172,6 +175,7 @@ class BrowserTagOut implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'events' => 'events',
         'id' => 'id',
         'platform' => 'platform',
         'type' => 'type'
@@ -183,6 +187,7 @@ class BrowserTagOut implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'events' => 'setEvents',
         'id' => 'setId',
         'platform' => 'setPlatform',
         'type' => 'setType'
@@ -194,6 +199,7 @@ class BrowserTagOut implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'events' => 'getEvents',
         'id' => 'getId',
         'platform' => 'getPlatform',
         'type' => 'getType'
@@ -256,6 +262,7 @@ class BrowserTagOut implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('events', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('platform', $data ?? [], null);
         $this->setIfExists('type', $data ?? [], null);
@@ -302,6 +309,33 @@ class BrowserTagOut implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets events
+     *
+     * @return array<string,string>|null
+     */
+    public function getEvents()
+    {
+        return $this->container['events'];
+    }
+
+    /**
+     * Sets events
+     *
+     * @param array<string,string>|null $events events
+     *
+     * @return self
+     */
+    public function setEvents($events)
+    {
+        if (is_null($events)) {
+            throw new \InvalidArgumentException('non-nullable events cannot be null');
+        }
+        $this->container['events'] = $events;
+
+        return $this;
+    }
 
     /**
      * Gets id

@@ -138,7 +138,7 @@ class SettingsApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SettingsView
+     * @return \Hanzo\Cloud\Model\SettingsView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getSettingsByProduct($product, string $contentType = self::contentTypes['getSettingsByProduct'][0])
     {
@@ -156,7 +156,7 @@ class SettingsApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SettingsView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SettingsView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSettingsByProductWithHttpInfo($product, string $contentType = self::contentTypes['getSettingsByProduct'][0])
     {
@@ -192,6 +192,12 @@ class SettingsApi
                         $request,
                         $response,
                     );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
             }
 
             
@@ -220,6 +226,14 @@ class SettingsApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Hanzo\Cloud\Model\SettingsView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -344,7 +358,7 @@ class SettingsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -406,16 +420,16 @@ class SettingsApi
      * Writes the caller org&#39;s configuration for one product and answers the stored result, secrets masked.
      *
      * @param  string $product Product is the catalog slug, from the PATH. zip binds the path last, so the URL names the product being written whatever a body field claims. (required)
-     * @param  \Hanzo\Cloud\Model\SettingsReq $settings_req settings_req (required)
+     * @param  \Hanzo\Cloud\Model\SettingsSettingsReq $settings_settings_req settings_settings_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSettingsByProduct'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SettingsView
+     * @return \Hanzo\Cloud\Model\SettingsView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putSettingsByProduct($product, $settings_req, string $contentType = self::contentTypes['putSettingsByProduct'][0])
+    public function putSettingsByProduct($product, $settings_settings_req, string $contentType = self::contentTypes['putSettingsByProduct'][0])
     {
-        list($response) = $this->putSettingsByProductWithHttpInfo($product, $settings_req, $contentType);
+        list($response) = $this->putSettingsByProductWithHttpInfo($product, $settings_settings_req, $contentType);
         return $response;
     }
 
@@ -425,16 +439,16 @@ class SettingsApi
      * Writes the caller org&#39;s configuration for one product and answers the stored result, secrets masked.
      *
      * @param  string $product Product is the catalog slug, from the PATH. zip binds the path last, so the URL names the product being written whatever a body field claims. (required)
-     * @param  \Hanzo\Cloud\Model\SettingsReq $settings_req (required)
+     * @param  \Hanzo\Cloud\Model\SettingsSettingsReq $settings_settings_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSettingsByProduct'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SettingsView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SettingsView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putSettingsByProductWithHttpInfo($product, $settings_req, string $contentType = self::contentTypes['putSettingsByProduct'][0])
+    public function putSettingsByProductWithHttpInfo($product, $settings_settings_req, string $contentType = self::contentTypes['putSettingsByProduct'][0])
     {
-        $request = $this->putSettingsByProductRequest($product, $settings_req, $contentType);
+        $request = $this->putSettingsByProductRequest($product, $settings_settings_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -463,6 +477,12 @@ class SettingsApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         '\Hanzo\Cloud\Model\SettingsView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -498,6 +518,14 @@ class SettingsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -511,15 +539,15 @@ class SettingsApi
      * Writes the caller org&#39;s configuration for one product and answers the stored result, secrets masked.
      *
      * @param  string $product Product is the catalog slug, from the PATH. zip binds the path last, so the URL names the product being written whatever a body field claims. (required)
-     * @param  \Hanzo\Cloud\Model\SettingsReq $settings_req (required)
+     * @param  \Hanzo\Cloud\Model\SettingsSettingsReq $settings_settings_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSettingsByProduct'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putSettingsByProductAsync($product, $settings_req, string $contentType = self::contentTypes['putSettingsByProduct'][0])
+    public function putSettingsByProductAsync($product, $settings_settings_req, string $contentType = self::contentTypes['putSettingsByProduct'][0])
     {
-        return $this->putSettingsByProductAsyncWithHttpInfo($product, $settings_req, $contentType)
+        return $this->putSettingsByProductAsyncWithHttpInfo($product, $settings_settings_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -533,16 +561,16 @@ class SettingsApi
      * Writes the caller org&#39;s configuration for one product and answers the stored result, secrets masked.
      *
      * @param  string $product Product is the catalog slug, from the PATH. zip binds the path last, so the URL names the product being written whatever a body field claims. (required)
-     * @param  \Hanzo\Cloud\Model\SettingsReq $settings_req (required)
+     * @param  \Hanzo\Cloud\Model\SettingsSettingsReq $settings_settings_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSettingsByProduct'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putSettingsByProductAsyncWithHttpInfo($product, $settings_req, string $contentType = self::contentTypes['putSettingsByProduct'][0])
+    public function putSettingsByProductAsyncWithHttpInfo($product, $settings_settings_req, string $contentType = self::contentTypes['putSettingsByProduct'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\SettingsView';
-        $request = $this->putSettingsByProductRequest($product, $settings_req, $contentType);
+        $request = $this->putSettingsByProductRequest($product, $settings_settings_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -584,13 +612,13 @@ class SettingsApi
      * Create request for operation 'putSettingsByProduct'
      *
      * @param  string $product Product is the catalog slug, from the PATH. zip binds the path last, so the URL names the product being written whatever a body field claims. (required)
-     * @param  \Hanzo\Cloud\Model\SettingsReq $settings_req (required)
+     * @param  \Hanzo\Cloud\Model\SettingsSettingsReq $settings_settings_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putSettingsByProduct'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putSettingsByProductRequest($product, $settings_req, string $contentType = self::contentTypes['putSettingsByProduct'][0])
+    public function putSettingsByProductRequest($product, $settings_settings_req, string $contentType = self::contentTypes['putSettingsByProduct'][0])
     {
 
         // verify the required parameter 'product' is set
@@ -600,10 +628,10 @@ class SettingsApi
             );
         }
 
-        // verify the required parameter 'settings_req' is set
-        if ($settings_req === null || (is_array($settings_req) && count($settings_req) === 0)) {
+        // verify the required parameter 'settings_settings_req' is set
+        if ($settings_settings_req === null || (is_array($settings_settings_req) && count($settings_settings_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $settings_req when calling putSettingsByProduct'
+                'Missing the required parameter $settings_settings_req when calling putSettingsByProduct'
             );
         }
 
@@ -628,18 +656,18 @@ class SettingsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($settings_req)) {
+        if (isset($settings_settings_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($settings_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($settings_settings_req));
             } else {
-                $httpBody = $settings_req;
+                $httpBody = $settings_settings_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

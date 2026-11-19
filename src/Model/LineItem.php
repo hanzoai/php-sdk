@@ -69,7 +69,7 @@ class LineItem implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_cents' => 'int64',
+        'amount_cents' => null,
         'description' => null
     ];
 
@@ -309,7 +309,7 @@ class LineItem implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets amount_cents
      *
-     * @param int|null $amount_cents AmountCents is that line's amount in whole cents. The scanner is instructed to return integer cents rather than a decimal, so no float rounding can enter the ledger through here.
+     * @param int|null $amount_cents amount_cents
      *
      * @return self
      */
@@ -336,7 +336,7 @@ class LineItem implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets description
      *
-     * @param string|null $description Description is the line as it appears on the document.
+     * @param string|null $description description
      *
      * @return self
      */

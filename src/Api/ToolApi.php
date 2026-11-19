@@ -95,6 +95,9 @@ class ToolApi
         'getToolCatalogById' => [
             'application/json',
         ],
+        'getToolKit' => [
+            'application/json',
+        ],
         'getToolMcpServers' => [
             'application/json',
         ],
@@ -110,13 +113,10 @@ class ToolApi
         'getToolSkillsAuthored' => [
             'application/json',
         ],
-        'patchToolCatalogById' => [
-            'application/json',
-        ],
         'postToolCall' => [
             'application/json',
         ],
-        'postToolCatalogSync' => [
+        'postToolDetect' => [
             'application/json',
         ],
         'postToolMcpServers' => [
@@ -129,6 +129,9 @@ class ToolApi
             'application/json',
         ],
         'putToolActivation' => [
+            'application/json',
+        ],
+        'putToolKit' => [
             'application/json',
         ],
     ];
@@ -238,6 +241,14 @@ class ToolApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -345,7 +356,7 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -411,7 +422,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PluginDeleted
+     * @return \Hanzo\Cloud\Model\ToolPluginDeleted|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteToolPluginsAuthoredById($id, string $contentType = self::contentTypes['deleteToolPluginsAuthoredById'][0])
     {
@@ -429,7 +440,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PluginDeleted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolPluginDeleted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteToolPluginsAuthoredByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolPluginsAuthoredById'][0])
     {
@@ -461,7 +472,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PluginDeleted',
+                        '\Hanzo\Cloud\Model\ToolPluginDeleted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -483,7 +500,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PluginDeleted',
+                '\Hanzo\Cloud\Model\ToolPluginDeleted',
                 $request,
                 $response,
             );
@@ -492,7 +509,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PluginDeleted',
+                        '\Hanzo\Cloud\Model\ToolPluginDeleted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -538,7 +563,7 @@ class ToolApi
      */
     public function deleteToolPluginsAuthoredByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolPluginsAuthoredById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PluginDeleted';
+        $returnType = '\Hanzo\Cloud\Model\ToolPluginDeleted';
         $request = $this->deleteToolPluginsAuthoredByIdRequest($id, $contentType);
 
         return $this->client
@@ -617,7 +642,7 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -683,7 +708,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SkillDeleted
+     * @return \Hanzo\Cloud\Model\ToolSkillDeleted|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function deleteToolSkillsById($id, string $contentType = self::contentTypes['deleteToolSkillsById'][0])
     {
@@ -701,7 +726,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SkillDeleted, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolSkillDeleted|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteToolSkillsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolSkillsById'][0])
     {
@@ -733,7 +758,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SkillDeleted',
+                        '\Hanzo\Cloud\Model\ToolSkillDeleted',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -755,7 +786,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SkillDeleted',
+                '\Hanzo\Cloud\Model\ToolSkillDeleted',
                 $request,
                 $response,
             );
@@ -764,7 +795,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SkillDeleted',
+                        '\Hanzo\Cloud\Model\ToolSkillDeleted',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -810,7 +849,7 @@ class ToolApi
      */
     public function deleteToolSkillsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolSkillsById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SkillDeleted';
+        $returnType = '\Hanzo\Cloud\Model\ToolSkillDeleted';
         $request = $this->deleteToolSkillsByIdRequest($id, $contentType);
 
         return $this->client
@@ -889,7 +928,7 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -956,7 +995,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ToolList
+     * @return \Hanzo\Cloud\Model\ToolToolList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getTool($source = null, $activated = null, string $contentType = self::contentTypes['getTool'][0])
     {
@@ -975,7 +1014,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ToolList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolToolList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getToolWithHttpInfo($source = null, $activated = null, string $contentType = self::contentTypes['getTool'][0])
     {
@@ -1007,7 +1046,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ToolList',
+                        '\Hanzo\Cloud\Model\ToolToolList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1029,7 +1074,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ToolList',
+                '\Hanzo\Cloud\Model\ToolToolList',
                 $request,
                 $response,
             );
@@ -1038,7 +1083,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ToolList',
+                        '\Hanzo\Cloud\Model\ToolToolList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1086,7 +1139,7 @@ class ToolApi
      */
     public function getToolAsyncWithHttpInfo($source = null, $activated = null, string $contentType = self::contentTypes['getTool'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ToolList';
+        $returnType = '\Hanzo\Cloud\Model\ToolToolList';
         $request = $this->getToolRequest($source, $activated, $contentType);
 
         return $this->client
@@ -1171,7 +1224,7 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1236,7 +1289,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ActivationSet
+     * @return \Hanzo\Cloud\Model\ToolActivationSet|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getToolActivation(string $contentType = self::contentTypes['getToolActivation'][0])
     {
@@ -1253,7 +1306,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ActivationSet, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolActivationSet|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getToolActivationWithHttpInfo(string $contentType = self::contentTypes['getToolActivation'][0])
     {
@@ -1285,7 +1338,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ActivationSet',
+                        '\Hanzo\Cloud\Model\ToolActivationSet',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1307,7 +1366,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ActivationSet',
+                '\Hanzo\Cloud\Model\ToolActivationSet',
                 $request,
                 $response,
             );
@@ -1316,7 +1375,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ActivationSet',
+                        '\Hanzo\Cloud\Model\ToolActivationSet',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1360,7 +1427,7 @@ class ToolApi
      */
     public function getToolActivationAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolActivation'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ActivationSet';
+        $returnType = '\Hanzo\Cloud\Model\ToolActivationSet';
         $request = $this->getToolActivationRequest($contentType);
 
         return $this->client
@@ -1423,7 +1490,7 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1493,7 +1560,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\McpCatalog
+     * @return \Hanzo\Cloud\Model\ToolMcpCatalog|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getToolCatalog($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolCatalog'][0])
     {
@@ -1515,7 +1582,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\McpCatalog, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolMcpCatalog|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getToolCatalogWithHttpInfo($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolCatalog'][0])
     {
@@ -1547,7 +1614,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\McpCatalog',
+                        '\Hanzo\Cloud\Model\ToolMcpCatalog',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1569,7 +1642,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\McpCatalog',
+                '\Hanzo\Cloud\Model\ToolMcpCatalog',
                 $request,
                 $response,
             );
@@ -1578,7 +1651,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\McpCatalog',
+                        '\Hanzo\Cloud\Model\ToolMcpCatalog',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1632,7 +1713,7 @@ class ToolApi
      */
     public function getToolCatalogAsyncWithHttpInfo($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolCatalog'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\McpCatalog';
+        $returnType = '\Hanzo\Cloud\Model\ToolMcpCatalog';
         $request = $this->getToolCatalogRequest($q, $featured, $official, $limit, $offset, $contentType);
 
         return $this->client
@@ -1750,7 +1831,7 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1780,10 +1861,6 @@ class ToolApi
             }
         }
 
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -1816,7 +1893,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MCPListing
+     * @return \Hanzo\Cloud\Model\ToolMCPListing|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getToolCatalogById($id, string $contentType = self::contentTypes['getToolCatalogById'][0])
     {
@@ -1834,7 +1911,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MCPListing, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolMCPListing|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getToolCatalogByIdWithHttpInfo($id, string $contentType = self::contentTypes['getToolCatalogById'][0])
     {
@@ -1866,7 +1943,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MCPListing',
+                        '\Hanzo\Cloud\Model\ToolMCPListing',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1888,7 +1971,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MCPListing',
+                '\Hanzo\Cloud\Model\ToolMCPListing',
                 $request,
                 $response,
             );
@@ -1897,7 +1980,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MCPListing',
+                        '\Hanzo\Cloud\Model\ToolMCPListing',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1943,7 +2034,7 @@ class ToolApi
      */
     public function getToolCatalogByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getToolCatalogById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MCPListing';
+        $returnType = '\Hanzo\Cloud\Model\ToolMCPListing';
         $request = $this->getToolCatalogByIdRequest($id, $contentType);
 
         return $this->client
@@ -2022,7 +2113,269 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getToolKit
+     *
+     * Answers the caller&#39;s kit: what their coding runs carry of the org&#39;s tool plane.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolKit'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\ToolKit|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getToolKit(string $contentType = self::contentTypes['getToolKit'][0])
+    {
+        list($response) = $this->getToolKitWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getToolKitWithHttpInfo
+     *
+     * Answers the caller&#39;s kit: what their coding runs carry of the org&#39;s tool plane.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolKit'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\ToolKit|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getToolKitWithHttpInfo(string $contentType = self::contentTypes['getToolKit'][0])
+    {
+        $request = $this->getToolKitRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ToolKit',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ToolKit',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ToolKit',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getToolKitAsync
+     *
+     * Answers the caller&#39;s kit: what their coding runs carry of the org&#39;s tool plane.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolKit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getToolKitAsync(string $contentType = self::contentTypes['getToolKit'][0])
+    {
+        return $this->getToolKitAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getToolKitAsyncWithHttpInfo
+     *
+     * Answers the caller&#39;s kit: what their coding runs carry of the org&#39;s tool plane.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolKit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getToolKitAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolKit'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\ToolKit';
+        $request = $this->getToolKitRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getToolKit'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolKit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getToolKitRequest(string $contentType = self::contentTypes['getToolKit'][0])
+    {
+
+
+        $resourcePath = '/v1/tool/kit';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2087,7 +2440,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\McpServerList
+     * @return \Hanzo\Cloud\Model\ToolMcpServerList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getToolMcpServers(string $contentType = self::contentTypes['getToolMcpServers'][0])
     {
@@ -2104,7 +2457,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\McpServerList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolMcpServerList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getToolMcpServersWithHttpInfo(string $contentType = self::contentTypes['getToolMcpServers'][0])
     {
@@ -2136,7 +2489,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\McpServerList',
+                        '\Hanzo\Cloud\Model\ToolMcpServerList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2158,7 +2517,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\McpServerList',
+                '\Hanzo\Cloud\Model\ToolMcpServerList',
                 $request,
                 $response,
             );
@@ -2167,7 +2526,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\McpServerList',
+                        '\Hanzo\Cloud\Model\ToolMcpServerList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2211,7 +2578,7 @@ class ToolApi
      */
     public function getToolMcpServersAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolMcpServers'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\McpServerList';
+        $returnType = '\Hanzo\Cloud\Model\ToolMcpServerList';
         $request = $this->getToolMcpServersRequest($contentType);
 
         return $this->client
@@ -2274,7 +2641,7 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2340,7 +2707,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PluginMountList
+     * @return \Hanzo\Cloud\Model\ToolPluginMountList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getToolPlugins($all = null, string $contentType = self::contentTypes['getToolPlugins'][0])
     {
@@ -2358,7 +2725,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PluginMountList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolPluginMountList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getToolPluginsWithHttpInfo($all = null, string $contentType = self::contentTypes['getToolPlugins'][0])
     {
@@ -2390,7 +2757,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PluginMountList',
+                        '\Hanzo\Cloud\Model\ToolPluginMountList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2412,7 +2785,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PluginMountList',
+                '\Hanzo\Cloud\Model\ToolPluginMountList',
                 $request,
                 $response,
             );
@@ -2421,7 +2794,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PluginMountList',
+                        '\Hanzo\Cloud\Model\ToolPluginMountList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2467,7 +2848,7 @@ class ToolApi
      */
     public function getToolPluginsAsyncWithHttpInfo($all = null, string $contentType = self::contentTypes['getToolPlugins'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PluginMountList';
+        $returnType = '\Hanzo\Cloud\Model\ToolPluginMountList';
         $request = $this->getToolPluginsRequest($all, $contentType);
 
         return $this->client
@@ -2541,7 +2922,7 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2606,7 +2987,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AuthoredPluginList
+     * @return \Hanzo\Cloud\Model\ToolAuthoredPluginList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getToolPluginsAuthored(string $contentType = self::contentTypes['getToolPluginsAuthored'][0])
     {
@@ -2623,7 +3004,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AuthoredPluginList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolAuthoredPluginList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getToolPluginsAuthoredWithHttpInfo(string $contentType = self::contentTypes['getToolPluginsAuthored'][0])
     {
@@ -2655,7 +3036,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AuthoredPluginList',
+                        '\Hanzo\Cloud\Model\ToolAuthoredPluginList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2677,7 +3064,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AuthoredPluginList',
+                '\Hanzo\Cloud\Model\ToolAuthoredPluginList',
                 $request,
                 $response,
             );
@@ -2686,7 +3073,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AuthoredPluginList',
+                        '\Hanzo\Cloud\Model\ToolAuthoredPluginList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2730,7 +3125,7 @@ class ToolApi
      */
     public function getToolPluginsAuthoredAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolPluginsAuthored'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AuthoredPluginList';
+        $returnType = '\Hanzo\Cloud\Model\ToolAuthoredPluginList';
         $request = $this->getToolPluginsAuthoredRequest($contentType);
 
         return $this->client
@@ -2793,7 +3188,7 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2859,7 +3254,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SourceToolList
+     * @return \Hanzo\Cloud\Model\ToolSourceToolList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getToolSkills($activated = null, string $contentType = self::contentTypes['getToolSkills'][0])
     {
@@ -2877,7 +3272,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SourceToolList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolSourceToolList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getToolSkillsWithHttpInfo($activated = null, string $contentType = self::contentTypes['getToolSkills'][0])
     {
@@ -2909,7 +3304,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SourceToolList',
+                        '\Hanzo\Cloud\Model\ToolSourceToolList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2931,7 +3332,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SourceToolList',
+                '\Hanzo\Cloud\Model\ToolSourceToolList',
                 $request,
                 $response,
             );
@@ -2940,7 +3341,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SourceToolList',
+                        '\Hanzo\Cloud\Model\ToolSourceToolList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2986,7 +3395,7 @@ class ToolApi
      */
     public function getToolSkillsAsyncWithHttpInfo($activated = null, string $contentType = self::contentTypes['getToolSkills'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SourceToolList';
+        $returnType = '\Hanzo\Cloud\Model\ToolSourceToolList';
         $request = $this->getToolSkillsRequest($activated, $contentType);
 
         return $this->client
@@ -3060,7 +3469,7 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3125,7 +3534,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AuthoredSkillList
+     * @return \Hanzo\Cloud\Model\ToolAuthoredSkillList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getToolSkillsAuthored(string $contentType = self::contentTypes['getToolSkillsAuthored'][0])
     {
@@ -3142,7 +3551,7 @@ class ToolApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AuthoredSkillList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolAuthoredSkillList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getToolSkillsAuthoredWithHttpInfo(string $contentType = self::contentTypes['getToolSkillsAuthored'][0])
     {
@@ -3174,7 +3583,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AuthoredSkillList',
+                        '\Hanzo\Cloud\Model\ToolAuthoredSkillList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3196,7 +3611,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AuthoredSkillList',
+                '\Hanzo\Cloud\Model\ToolAuthoredSkillList',
                 $request,
                 $response,
             );
@@ -3205,7 +3620,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AuthoredSkillList',
+                        '\Hanzo\Cloud\Model\ToolAuthoredSkillList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3249,7 +3672,7 @@ class ToolApi
      */
     public function getToolSkillsAuthoredAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolSkillsAuthored'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\AuthoredSkillList';
+        $returnType = '\Hanzo\Cloud\Model\ToolAuthoredSkillList';
         $request = $this->getToolSkillsAuthoredRequest($contentType);
 
         return $this->client
@@ -3312,7 +3735,7 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3369,311 +3792,20 @@ class ToolApi
     }
 
     /**
-     * Operation patchToolCatalogById
-     *
-     * Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
-     *
-     * @param  string $id ID is the listing to curate, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CurateReq $curate_req curate_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolCatalogById'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MCPListing
-     */
-    public function patchToolCatalogById($id, $curate_req, string $contentType = self::contentTypes['patchToolCatalogById'][0])
-    {
-        list($response) = $this->patchToolCatalogByIdWithHttpInfo($id, $curate_req, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation patchToolCatalogByIdWithHttpInfo
-     *
-     * Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
-     *
-     * @param  string $id ID is the listing to curate, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CurateReq $curate_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolCatalogById'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MCPListing, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function patchToolCatalogByIdWithHttpInfo($id, $curate_req, string $contentType = self::contentTypes['patchToolCatalogById'][0])
-    {
-        $request = $this->patchToolCatalogByIdRequest($id, $curate_req, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MCPListing',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MCPListing',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MCPListing',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation patchToolCatalogByIdAsync
-     *
-     * Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
-     *
-     * @param  string $id ID is the listing to curate, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CurateReq $curate_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolCatalogById'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function patchToolCatalogByIdAsync($id, $curate_req, string $contentType = self::contentTypes['patchToolCatalogById'][0])
-    {
-        return $this->patchToolCatalogByIdAsyncWithHttpInfo($id, $curate_req, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation patchToolCatalogByIdAsyncWithHttpInfo
-     *
-     * Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
-     *
-     * @param  string $id ID is the listing to curate, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CurateReq $curate_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolCatalogById'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function patchToolCatalogByIdAsyncWithHttpInfo($id, $curate_req, string $contentType = self::contentTypes['patchToolCatalogById'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\MCPListing';
-        $request = $this->patchToolCatalogByIdRequest($id, $curate_req, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'patchToolCatalogById'
-     *
-     * @param  string $id ID is the listing to curate, from the path. (required)
-     * @param  \Hanzo\Cloud\Model\CurateReq $curate_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolCatalogById'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function patchToolCatalogByIdRequest($id, $curate_req, string $contentType = self::contentTypes['patchToolCatalogById'][0])
-    {
-
-        // verify the required parameter 'id' is set
-        if ($id === null || (is_array($id) && count($id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling patchToolCatalogById'
-            );
-        }
-
-        // verify the required parameter 'curate_req' is set
-        if ($curate_req === null || (is_array($curate_req) && count($curate_req) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $curate_req when calling patchToolCatalogById'
-            );
-        }
-
-
-        $resourcePath = '/v1/tool/catalog/{id}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($id),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($curate_req)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($curate_req));
-            } else {
-                $httpBody = $curate_req;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'PATCH',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation postToolCall
      *
      * Runs one of the caller&#39;s activated tools and answers with its output.
      *
-     * @param  \Hanzo\Cloud\Model\ToolCall $tool_call tool_call (required)
+     * @param  \Hanzo\Cloud\Model\ToolToolCall $tool_tool_call tool_tool_call (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ToolResult
+     * @return \Hanzo\Cloud\Model\ToolToolResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postToolCall($tool_call, string $contentType = self::contentTypes['postToolCall'][0])
+    public function postToolCall($tool_tool_call, string $contentType = self::contentTypes['postToolCall'][0])
     {
-        list($response) = $this->postToolCallWithHttpInfo($tool_call, $contentType);
+        list($response) = $this->postToolCallWithHttpInfo($tool_tool_call, $contentType);
         return $response;
     }
 
@@ -3682,16 +3814,16 @@ class ToolApi
      *
      * Runs one of the caller&#39;s activated tools and answers with its output.
      *
-     * @param  \Hanzo\Cloud\Model\ToolCall $tool_call (required)
+     * @param  \Hanzo\Cloud\Model\ToolToolCall $tool_tool_call (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ToolResult, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolToolResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postToolCallWithHttpInfo($tool_call, string $contentType = self::contentTypes['postToolCall'][0])
+    public function postToolCallWithHttpInfo($tool_tool_call, string $contentType = self::contentTypes['postToolCall'][0])
     {
-        $request = $this->postToolCallRequest($tool_call, $contentType);
+        $request = $this->postToolCallRequest($tool_tool_call, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3719,7 +3851,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ToolResult',
+                        '\Hanzo\Cloud\Model\ToolToolResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3741,7 +3879,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ToolResult',
+                '\Hanzo\Cloud\Model\ToolToolResult',
                 $request,
                 $response,
             );
@@ -3750,7 +3888,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ToolResult',
+                        '\Hanzo\Cloud\Model\ToolToolResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3767,15 +3913,15 @@ class ToolApi
      *
      * Runs one of the caller&#39;s activated tools and answers with its output.
      *
-     * @param  \Hanzo\Cloud\Model\ToolCall $tool_call (required)
+     * @param  \Hanzo\Cloud\Model\ToolToolCall $tool_tool_call (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolCallAsync($tool_call, string $contentType = self::contentTypes['postToolCall'][0])
+    public function postToolCallAsync($tool_tool_call, string $contentType = self::contentTypes['postToolCall'][0])
     {
-        return $this->postToolCallAsyncWithHttpInfo($tool_call, $contentType)
+        return $this->postToolCallAsyncWithHttpInfo($tool_tool_call, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3788,16 +3934,16 @@ class ToolApi
      *
      * Runs one of the caller&#39;s activated tools and answers with its output.
      *
-     * @param  \Hanzo\Cloud\Model\ToolCall $tool_call (required)
+     * @param  \Hanzo\Cloud\Model\ToolToolCall $tool_tool_call (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolCallAsyncWithHttpInfo($tool_call, string $contentType = self::contentTypes['postToolCall'][0])
+    public function postToolCallAsyncWithHttpInfo($tool_tool_call, string $contentType = self::contentTypes['postToolCall'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ToolResult';
-        $request = $this->postToolCallRequest($tool_call, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ToolToolResult';
+        $request = $this->postToolCallRequest($tool_tool_call, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3838,19 +3984,19 @@ class ToolApi
     /**
      * Create request for operation 'postToolCall'
      *
-     * @param  \Hanzo\Cloud\Model\ToolCall $tool_call (required)
+     * @param  \Hanzo\Cloud\Model\ToolToolCall $tool_tool_call (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postToolCallRequest($tool_call, string $contentType = self::contentTypes['postToolCall'][0])
+    public function postToolCallRequest($tool_tool_call, string $contentType = self::contentTypes['postToolCall'][0])
     {
 
-        // verify the required parameter 'tool_call' is set
-        if ($tool_call === null || (is_array($tool_call) && count($tool_call) === 0)) {
+        // verify the required parameter 'tool_tool_call' is set
+        if ($tool_tool_call === null || (is_array($tool_tool_call) && count($tool_tool_call) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $tool_call when calling postToolCall'
+                'Missing the required parameter $tool_tool_call when calling postToolCall'
             );
         }
 
@@ -3867,18 +4013,18 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($tool_call)) {
+        if (isset($tool_tool_call)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tool_call));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tool_tool_call));
             } else {
-                $httpBody = $tool_call;
+                $httpBody = $tool_tool_call;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3931,36 +4077,38 @@ class ToolApi
     }
 
     /**
-     * Operation postToolCatalogSync
+     * Operation postToolDetect
      *
-     * Pulls the public MCP registry into our canonical copy and reports what changed.
+     * Asks Kai (POST /v1/decisions) which skills and tools in the caller&#39;s org and project are relevant to a prompt, and optionally activates them automatically.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCatalogSync'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ToolDetectReq $tool_detect_req tool_detect_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolDetect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\McpCatalogSync
+     * @return \Hanzo\Cloud\Model\ToolDetectResult|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postToolCatalogSync(string $contentType = self::contentTypes['postToolCatalogSync'][0])
+    public function postToolDetect($tool_detect_req, string $contentType = self::contentTypes['postToolDetect'][0])
     {
-        list($response) = $this->postToolCatalogSyncWithHttpInfo($contentType);
+        list($response) = $this->postToolDetectWithHttpInfo($tool_detect_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation postToolCatalogSyncWithHttpInfo
+     * Operation postToolDetectWithHttpInfo
      *
-     * Pulls the public MCP registry into our canonical copy and reports what changed.
+     * Asks Kai (POST /v1/decisions) which skills and tools in the caller&#39;s org and project are relevant to a prompt, and optionally activates them automatically.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCatalogSync'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ToolDetectReq $tool_detect_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolDetect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\McpCatalogSync, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolDetectResult|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postToolCatalogSyncWithHttpInfo(string $contentType = self::contentTypes['postToolCatalogSync'][0])
+    public function postToolDetectWithHttpInfo($tool_detect_req, string $contentType = self::contentTypes['postToolDetect'][0])
     {
-        $request = $this->postToolCatalogSyncRequest($contentType);
+        $request = $this->postToolDetectRequest($tool_detect_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3988,7 +4136,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\McpCatalogSync',
+                        '\Hanzo\Cloud\Model\ToolDetectResult',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4010,7 +4164,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\McpCatalogSync',
+                '\Hanzo\Cloud\Model\ToolDetectResult',
                 $request,
                 $response,
             );
@@ -4019,7 +4173,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\McpCatalogSync',
+                        '\Hanzo\Cloud\Model\ToolDetectResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4032,18 +4194,19 @@ class ToolApi
     }
 
     /**
-     * Operation postToolCatalogSyncAsync
+     * Operation postToolDetectAsync
      *
-     * Pulls the public MCP registry into our canonical copy and reports what changed.
+     * Asks Kai (POST /v1/decisions) which skills and tools in the caller&#39;s org and project are relevant to a prompt, and optionally activates them automatically.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCatalogSync'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ToolDetectReq $tool_detect_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolDetect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolCatalogSyncAsync(string $contentType = self::contentTypes['postToolCatalogSync'][0])
+    public function postToolDetectAsync($tool_detect_req, string $contentType = self::contentTypes['postToolDetect'][0])
     {
-        return $this->postToolCatalogSyncAsyncWithHttpInfo($contentType)
+        return $this->postToolDetectAsyncWithHttpInfo($tool_detect_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4052,19 +4215,20 @@ class ToolApi
     }
 
     /**
-     * Operation postToolCatalogSyncAsyncWithHttpInfo
+     * Operation postToolDetectAsyncWithHttpInfo
      *
-     * Pulls the public MCP registry into our canonical copy and reports what changed.
+     * Asks Kai (POST /v1/decisions) which skills and tools in the caller&#39;s org and project are relevant to a prompt, and optionally activates them automatically.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCatalogSync'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ToolDetectReq $tool_detect_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolDetect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolCatalogSyncAsyncWithHttpInfo(string $contentType = self::contentTypes['postToolCatalogSync'][0])
+    public function postToolDetectAsyncWithHttpInfo($tool_detect_req, string $contentType = self::contentTypes['postToolDetect'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\McpCatalogSync';
-        $request = $this->postToolCatalogSyncRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\ToolDetectResult';
+        $request = $this->postToolDetectRequest($tool_detect_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4103,18 +4267,26 @@ class ToolApi
     }
 
     /**
-     * Create request for operation 'postToolCatalogSync'
+     * Create request for operation 'postToolDetect'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCatalogSync'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ToolDetectReq $tool_detect_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolDetect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postToolCatalogSyncRequest(string $contentType = self::contentTypes['postToolCatalogSync'][0])
+    public function postToolDetectRequest($tool_detect_req, string $contentType = self::contentTypes['postToolDetect'][0])
     {
 
+        // verify the required parameter 'tool_detect_req' is set
+        if ($tool_detect_req === null || (is_array($tool_detect_req) && count($tool_detect_req) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $tool_detect_req when calling postToolDetect'
+            );
+        }
 
-        $resourcePath = '/v1/tool/catalog/sync';
+
+        $resourcePath = '/v1/tool/detect';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4126,13 +4298,20 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($tool_detect_req)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tool_detect_req));
+            } else {
+                $httpBody = $tool_detect_req;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -4187,16 +4366,16 @@ class ToolApi
      *
      * Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
      *
-     * @param  \Hanzo\Cloud\Model\CreateServerReq $create_server_req create_server_req (required)
+     * @param  \Hanzo\Cloud\Model\ToolCreateServerReq $tool_create_server_req tool_create_server_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolMcpServers'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MCPServer
+     * @return \Hanzo\Cloud\Model\ToolMCPServer|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postToolMcpServers($create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
+    public function postToolMcpServers($tool_create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
     {
-        list($response) = $this->postToolMcpServersWithHttpInfo($create_server_req, $contentType);
+        list($response) = $this->postToolMcpServersWithHttpInfo($tool_create_server_req, $contentType);
         return $response;
     }
 
@@ -4205,16 +4384,16 @@ class ToolApi
      *
      * Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
      *
-     * @param  \Hanzo\Cloud\Model\CreateServerReq $create_server_req (required)
+     * @param  \Hanzo\Cloud\Model\ToolCreateServerReq $tool_create_server_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolMcpServers'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MCPServer, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolMCPServer|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postToolMcpServersWithHttpInfo($create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
+    public function postToolMcpServersWithHttpInfo($tool_create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
     {
-        $request = $this->postToolMcpServersRequest($create_server_req, $contentType);
+        $request = $this->postToolMcpServersRequest($tool_create_server_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4242,7 +4421,13 @@ class ToolApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MCPServer',
+                        '\Hanzo\Cloud\Model\ToolMCPServer',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4264,7 +4449,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MCPServer',
+                '\Hanzo\Cloud\Model\ToolMCPServer',
                 $request,
                 $response,
             );
@@ -4273,7 +4458,15 @@ class ToolApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MCPServer',
+                        '\Hanzo\Cloud\Model\ToolMCPServer',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4290,15 +4483,15 @@ class ToolApi
      *
      * Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
      *
-     * @param  \Hanzo\Cloud\Model\CreateServerReq $create_server_req (required)
+     * @param  \Hanzo\Cloud\Model\ToolCreateServerReq $tool_create_server_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolMcpServers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolMcpServersAsync($create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
+    public function postToolMcpServersAsync($tool_create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
     {
-        return $this->postToolMcpServersAsyncWithHttpInfo($create_server_req, $contentType)
+        return $this->postToolMcpServersAsyncWithHttpInfo($tool_create_server_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4311,16 +4504,16 @@ class ToolApi
      *
      * Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
      *
-     * @param  \Hanzo\Cloud\Model\CreateServerReq $create_server_req (required)
+     * @param  \Hanzo\Cloud\Model\ToolCreateServerReq $tool_create_server_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolMcpServers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolMcpServersAsyncWithHttpInfo($create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
+    public function postToolMcpServersAsyncWithHttpInfo($tool_create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MCPServer';
-        $request = $this->postToolMcpServersRequest($create_server_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ToolMCPServer';
+        $request = $this->postToolMcpServersRequest($tool_create_server_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4361,19 +4554,19 @@ class ToolApi
     /**
      * Create request for operation 'postToolMcpServers'
      *
-     * @param  \Hanzo\Cloud\Model\CreateServerReq $create_server_req (required)
+     * @param  \Hanzo\Cloud\Model\ToolCreateServerReq $tool_create_server_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolMcpServers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postToolMcpServersRequest($create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
+    public function postToolMcpServersRequest($tool_create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
     {
 
-        // verify the required parameter 'create_server_req' is set
-        if ($create_server_req === null || (is_array($create_server_req) && count($create_server_req) === 0)) {
+        // verify the required parameter 'tool_create_server_req' is set
+        if ($tool_create_server_req === null || (is_array($tool_create_server_req) && count($tool_create_server_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_server_req when calling postToolMcpServers'
+                'Missing the required parameter $tool_create_server_req when calling postToolMcpServers'
             );
         }
 
@@ -4390,18 +4583,18 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($create_server_req)) {
+        if (isset($tool_create_server_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($create_server_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tool_create_server_req));
             } else {
-                $httpBody = $create_server_req;
+                $httpBody = $tool_create_server_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4458,16 +4651,16 @@ class ToolApi
      *
      * Builds and stores one plugin for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\BuildRequest $build_request build_request (required)
+     * @param  \Hanzo\Cloud\Model\ToolBuildRequest $tool_build_request tool_build_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolPluginsBuild'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\BuildOut
+     * @return \Hanzo\Cloud\Model\ToolBuildOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postToolPluginsBuild($build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
+    public function postToolPluginsBuild($tool_build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
     {
-        list($response) = $this->postToolPluginsBuildWithHttpInfo($build_request, $contentType);
+        list($response) = $this->postToolPluginsBuildWithHttpInfo($tool_build_request, $contentType);
         return $response;
     }
 
@@ -4476,16 +4669,16 @@ class ToolApi
      *
      * Builds and stores one plugin for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\BuildRequest $build_request (required)
+     * @param  \Hanzo\Cloud\Model\ToolBuildRequest $tool_build_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolPluginsBuild'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\BuildOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolBuildOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postToolPluginsBuildWithHttpInfo($build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
+    public function postToolPluginsBuildWithHttpInfo($tool_build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
     {
-        $request = $this->postToolPluginsBuildRequest($build_request, $contentType);
+        $request = $this->postToolPluginsBuildRequest($tool_build_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4513,7 +4706,13 @@ class ToolApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\BuildOut',
+                        '\Hanzo\Cloud\Model\ToolBuildOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4535,7 +4734,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\BuildOut',
+                '\Hanzo\Cloud\Model\ToolBuildOut',
                 $request,
                 $response,
             );
@@ -4544,7 +4743,15 @@ class ToolApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\BuildOut',
+                        '\Hanzo\Cloud\Model\ToolBuildOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4561,15 +4768,15 @@ class ToolApi
      *
      * Builds and stores one plugin for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\BuildRequest $build_request (required)
+     * @param  \Hanzo\Cloud\Model\ToolBuildRequest $tool_build_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolPluginsBuild'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolPluginsBuildAsync($build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
+    public function postToolPluginsBuildAsync($tool_build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
     {
-        return $this->postToolPluginsBuildAsyncWithHttpInfo($build_request, $contentType)
+        return $this->postToolPluginsBuildAsyncWithHttpInfo($tool_build_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4582,16 +4789,16 @@ class ToolApi
      *
      * Builds and stores one plugin for the caller&#39;s org.
      *
-     * @param  \Hanzo\Cloud\Model\BuildRequest $build_request (required)
+     * @param  \Hanzo\Cloud\Model\ToolBuildRequest $tool_build_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolPluginsBuild'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolPluginsBuildAsyncWithHttpInfo($build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
+    public function postToolPluginsBuildAsyncWithHttpInfo($tool_build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\BuildOut';
-        $request = $this->postToolPluginsBuildRequest($build_request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ToolBuildOut';
+        $request = $this->postToolPluginsBuildRequest($tool_build_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4632,19 +4839,19 @@ class ToolApi
     /**
      * Create request for operation 'postToolPluginsBuild'
      *
-     * @param  \Hanzo\Cloud\Model\BuildRequest $build_request (required)
+     * @param  \Hanzo\Cloud\Model\ToolBuildRequest $tool_build_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolPluginsBuild'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postToolPluginsBuildRequest($build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
+    public function postToolPluginsBuildRequest($tool_build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
     {
 
-        // verify the required parameter 'build_request' is set
-        if ($build_request === null || (is_array($build_request) && count($build_request) === 0)) {
+        // verify the required parameter 'tool_build_request' is set
+        if ($tool_build_request === null || (is_array($tool_build_request) && count($tool_build_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $build_request when calling postToolPluginsBuild'
+                'Missing the required parameter $tool_build_request when calling postToolPluginsBuild'
             );
         }
 
@@ -4661,18 +4868,18 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($build_request)) {
+        if (isset($tool_build_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($build_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tool_build_request));
             } else {
-                $httpBody = $build_request;
+                $httpBody = $tool_build_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4729,16 +4936,16 @@ class ToolApi
      *
      * Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
      *
-     * @param  \Hanzo\Cloud\Model\SkillIn $skill_in skill_in (required)
+     * @param  \Hanzo\Cloud\Model\ToolSkillIn $tool_skill_in tool_skill_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolSkills'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SkillWritten
+     * @return \Hanzo\Cloud\Model\ToolSkillWritten|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postToolSkills($skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
+    public function postToolSkills($tool_skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
     {
-        list($response) = $this->postToolSkillsWithHttpInfo($skill_in, $contentType);
+        list($response) = $this->postToolSkillsWithHttpInfo($tool_skill_in, $contentType);
         return $response;
     }
 
@@ -4747,16 +4954,16 @@ class ToolApi
      *
      * Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
      *
-     * @param  \Hanzo\Cloud\Model\SkillIn $skill_in (required)
+     * @param  \Hanzo\Cloud\Model\ToolSkillIn $tool_skill_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolSkills'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SkillWritten, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolSkillWritten|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postToolSkillsWithHttpInfo($skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
+    public function postToolSkillsWithHttpInfo($tool_skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
     {
-        $request = $this->postToolSkillsRequest($skill_in, $contentType);
+        $request = $this->postToolSkillsRequest($tool_skill_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4784,7 +4991,13 @@ class ToolApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SkillWritten',
+                        '\Hanzo\Cloud\Model\ToolSkillWritten',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4806,7 +5019,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SkillWritten',
+                '\Hanzo\Cloud\Model\ToolSkillWritten',
                 $request,
                 $response,
             );
@@ -4815,7 +5028,15 @@ class ToolApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SkillWritten',
+                        '\Hanzo\Cloud\Model\ToolSkillWritten',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4832,15 +5053,15 @@ class ToolApi
      *
      * Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
      *
-     * @param  \Hanzo\Cloud\Model\SkillIn $skill_in (required)
+     * @param  \Hanzo\Cloud\Model\ToolSkillIn $tool_skill_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolSkills'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolSkillsAsync($skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
+    public function postToolSkillsAsync($tool_skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
     {
-        return $this->postToolSkillsAsyncWithHttpInfo($skill_in, $contentType)
+        return $this->postToolSkillsAsyncWithHttpInfo($tool_skill_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4853,16 +5074,16 @@ class ToolApi
      *
      * Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
      *
-     * @param  \Hanzo\Cloud\Model\SkillIn $skill_in (required)
+     * @param  \Hanzo\Cloud\Model\ToolSkillIn $tool_skill_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolSkills'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolSkillsAsyncWithHttpInfo($skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
+    public function postToolSkillsAsyncWithHttpInfo($tool_skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SkillWritten';
-        $request = $this->postToolSkillsRequest($skill_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ToolSkillWritten';
+        $request = $this->postToolSkillsRequest($tool_skill_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4903,19 +5124,19 @@ class ToolApi
     /**
      * Create request for operation 'postToolSkills'
      *
-     * @param  \Hanzo\Cloud\Model\SkillIn $skill_in (required)
+     * @param  \Hanzo\Cloud\Model\ToolSkillIn $tool_skill_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolSkills'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postToolSkillsRequest($skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
+    public function postToolSkillsRequest($tool_skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
     {
 
-        // verify the required parameter 'skill_in' is set
-        if ($skill_in === null || (is_array($skill_in) && count($skill_in) === 0)) {
+        // verify the required parameter 'tool_skill_in' is set
+        if ($tool_skill_in === null || (is_array($tool_skill_in) && count($tool_skill_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $skill_in when calling postToolSkills'
+                'Missing the required parameter $tool_skill_in when calling postToolSkills'
             );
         }
 
@@ -4932,18 +5153,18 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($skill_in)) {
+        if (isset($tool_skill_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($skill_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tool_skill_in));
             } else {
-                $httpBody = $skill_in;
+                $httpBody = $tool_skill_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -5000,16 +5221,16 @@ class ToolApi
      *
      * Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
      *
-     * @param  \Hanzo\Cloud\Model\ActivationReq $activation_req activation_req (required)
+     * @param  \Hanzo\Cloud\Model\ToolActivationReq $tool_activation_req tool_activation_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolActivation'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ActivationSet
+     * @return \Hanzo\Cloud\Model\ToolActivationSet|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putToolActivation($activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
+    public function putToolActivation($tool_activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
     {
-        list($response) = $this->putToolActivationWithHttpInfo($activation_req, $contentType);
+        list($response) = $this->putToolActivationWithHttpInfo($tool_activation_req, $contentType);
         return $response;
     }
 
@@ -5018,16 +5239,16 @@ class ToolApi
      *
      * Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
      *
-     * @param  \Hanzo\Cloud\Model\ActivationReq $activation_req (required)
+     * @param  \Hanzo\Cloud\Model\ToolActivationReq $tool_activation_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolActivation'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ActivationSet, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ToolActivationSet|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putToolActivationWithHttpInfo($activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
+    public function putToolActivationWithHttpInfo($tool_activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
     {
-        $request = $this->putToolActivationRequest($activation_req, $contentType);
+        $request = $this->putToolActivationRequest($tool_activation_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5055,7 +5276,13 @@ class ToolApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ActivationSet',
+                        '\Hanzo\Cloud\Model\ToolActivationSet',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5077,7 +5304,7 @@ class ToolApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ActivationSet',
+                '\Hanzo\Cloud\Model\ToolActivationSet',
                 $request,
                 $response,
             );
@@ -5086,7 +5313,15 @@ class ToolApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ActivationSet',
+                        '\Hanzo\Cloud\Model\ToolActivationSet',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5103,15 +5338,15 @@ class ToolApi
      *
      * Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
      *
-     * @param  \Hanzo\Cloud\Model\ActivationReq $activation_req (required)
+     * @param  \Hanzo\Cloud\Model\ToolActivationReq $tool_activation_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolActivation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putToolActivationAsync($activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
+    public function putToolActivationAsync($tool_activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
     {
-        return $this->putToolActivationAsyncWithHttpInfo($activation_req, $contentType)
+        return $this->putToolActivationAsyncWithHttpInfo($tool_activation_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5124,16 +5359,16 @@ class ToolApi
      *
      * Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
      *
-     * @param  \Hanzo\Cloud\Model\ActivationReq $activation_req (required)
+     * @param  \Hanzo\Cloud\Model\ToolActivationReq $tool_activation_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolActivation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putToolActivationAsyncWithHttpInfo($activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
+    public function putToolActivationAsyncWithHttpInfo($tool_activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ActivationSet';
-        $request = $this->putToolActivationRequest($activation_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ToolActivationSet';
+        $request = $this->putToolActivationRequest($tool_activation_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5174,19 +5409,19 @@ class ToolApi
     /**
      * Create request for operation 'putToolActivation'
      *
-     * @param  \Hanzo\Cloud\Model\ActivationReq $activation_req (required)
+     * @param  \Hanzo\Cloud\Model\ToolActivationReq $tool_activation_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolActivation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putToolActivationRequest($activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
+    public function putToolActivationRequest($tool_activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
     {
 
-        // verify the required parameter 'activation_req' is set
-        if ($activation_req === null || (is_array($activation_req) && count($activation_req) === 0)) {
+        // verify the required parameter 'tool_activation_req' is set
+        if ($tool_activation_req === null || (is_array($tool_activation_req) && count($tool_activation_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $activation_req when calling putToolActivation'
+                'Missing the required parameter $tool_activation_req when calling putToolActivation'
             );
         }
 
@@ -5203,18 +5438,303 @@ class ToolApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($activation_req)) {
+        if (isset($tool_activation_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($activation_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tool_activation_req));
             } else {
-                $httpBody = $activation_req;
+                $httpBody = $tool_activation_req;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putToolKit
+     *
+     * Mutes and unmutes names of the org&#39;s kit for the caller&#39;s own runs, and answers the caller&#39;s kit after.
+     *
+     * @param  \Hanzo\Cloud\Model\ToolMuteReq $tool_mute_req tool_mute_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolKit'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\ToolKit|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function putToolKit($tool_mute_req, string $contentType = self::contentTypes['putToolKit'][0])
+    {
+        list($response) = $this->putToolKitWithHttpInfo($tool_mute_req, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putToolKitWithHttpInfo
+     *
+     * Mutes and unmutes names of the org&#39;s kit for the caller&#39;s own runs, and answers the caller&#39;s kit after.
+     *
+     * @param  \Hanzo\Cloud\Model\ToolMuteReq $tool_mute_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolKit'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\ToolKit|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putToolKitWithHttpInfo($tool_mute_req, string $contentType = self::contentTypes['putToolKit'][0])
+    {
+        $request = $this->putToolKitRequest($tool_mute_req, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ToolKit',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ToolKit',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ToolKit',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putToolKitAsync
+     *
+     * Mutes and unmutes names of the org&#39;s kit for the caller&#39;s own runs, and answers the caller&#39;s kit after.
+     *
+     * @param  \Hanzo\Cloud\Model\ToolMuteReq $tool_mute_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolKit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putToolKitAsync($tool_mute_req, string $contentType = self::contentTypes['putToolKit'][0])
+    {
+        return $this->putToolKitAsyncWithHttpInfo($tool_mute_req, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putToolKitAsyncWithHttpInfo
+     *
+     * Mutes and unmutes names of the org&#39;s kit for the caller&#39;s own runs, and answers the caller&#39;s kit after.
+     *
+     * @param  \Hanzo\Cloud\Model\ToolMuteReq $tool_mute_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolKit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putToolKitAsyncWithHttpInfo($tool_mute_req, string $contentType = self::contentTypes['putToolKit'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\ToolKit';
+        $request = $this->putToolKitRequest($tool_mute_req, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putToolKit'
+     *
+     * @param  \Hanzo\Cloud\Model\ToolMuteReq $tool_mute_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolKit'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putToolKitRequest($tool_mute_req, string $contentType = self::contentTypes['putToolKit'][0])
+    {
+
+        // verify the required parameter 'tool_mute_req' is set
+        if ($tool_mute_req === null || (is_array($tool_mute_req) && count($tool_mute_req) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $tool_mute_req when calling putToolKit'
+            );
+        }
+
+
+        $resourcePath = '/v1/tool/kit';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($tool_mute_req)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tool_mute_req));
+            } else {
+                $httpBody = $tool_mute_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

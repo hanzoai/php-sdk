@@ -57,7 +57,7 @@ class O11yO11yLicensesOut implements ModelInterface, ArrayAccess, \JsonSerializa
       * @var string[]
       */
     protected static $openAPITypes = [
-        'data' => 'object[]',
+        'data' => 'mixed[]',
         'status' => 'string'
     ];
 
@@ -299,7 +299,7 @@ class O11yO11yLicensesOut implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets data
      *
-     * @return object[]|null
+     * @return mixed[]|null
      */
     public function getData()
     {
@@ -309,7 +309,7 @@ class O11yO11yLicensesOut implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets data
      *
-     * @param object[]|null $data Data are the licenses.
+     * @param mixed[]|null $data Data are the licenses.
      *
      * @return self
      */

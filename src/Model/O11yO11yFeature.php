@@ -61,9 +61,9 @@ class O11yO11yFeature implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'string',
         'kind' => 'string',
         'name' => 'string',
-        'resolved_value' => 'object',
+        'resolved_value' => 'mixed',
         'stage' => 'string',
-        'variants' => 'array<string,object>'
+        'variants' => 'array<string,mixed>'
     ];
 
     /**
@@ -93,7 +93,7 @@ class O11yO11yFeature implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => false,
         'kind' => false,
         'name' => false,
-        'resolved_value' => false,
+        'resolved_value' => true,
         'stage' => false,
         'variants' => false
     ];
@@ -442,7 +442,7 @@ class O11yO11yFeature implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets resolved_value
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getResolvedValue()
     {
@@ -452,14 +452,21 @@ class O11yO11yFeature implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets resolved_value
      *
-     * @param object|null $resolved_value ResolvedValue is the value resolved for the caller's org.
+     * @param mixed|null $resolved_value resolved_value
      *
      * @return self
      */
     public function setResolvedValue($resolved_value)
     {
         if (is_null($resolved_value)) {
-            throw new \InvalidArgumentException('non-nullable resolved_value cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'resolved_value');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('resolved_value', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['resolved_value'] = $resolved_value;
 
@@ -496,7 +503,7 @@ class O11yO11yFeature implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets variants
      *
-     * @return array<string,object>|null
+     * @return array<string,mixed>|null
      */
     public function getVariants()
     {
@@ -506,7 +513,7 @@ class O11yO11yFeature implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets variants
      *
-     * @param array<string,object>|null $variants Variants are the flag's possible values, by variant name.
+     * @param array<string,mixed>|null $variants Variants are the flag's possible values, by variant name.
      *
      * @return self
      */

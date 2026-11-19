@@ -57,13 +57,11 @@ class Delivery implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'data' => 'string',
-        'headers' => 'array<string,string[]>',
-        'num_delivered' => 'int',
-        'num_pending' => 'int',
-        'sequence' => 'int',
-        'subject' => 'string',
-        'timestamp' => '\DateTime'
+        'detected_source' => 'string',
+        'model' => 'string',
+        'tier' => 'string',
+        'translations' => '\Hanzo\Cloud\Model\Translation[]',
+        'usage' => '\Hanzo\Cloud\Model\Tally'
     ];
 
     /**
@@ -74,13 +72,11 @@ class Delivery implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'data' => null,
-        'headers' => null,
-        'num_delivered' => 'int64',
-        'num_pending' => 'uint64',
-        'sequence' => 'uint64',
-        'subject' => null,
-        'timestamp' => 'date-time'
+        'detected_source' => null,
+        'model' => null,
+        'tier' => null,
+        'translations' => null,
+        'usage' => null
     ];
 
     /**
@@ -89,13 +85,11 @@ class Delivery implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'data' => false,
-        'headers' => false,
-        'num_delivered' => false,
-        'num_pending' => false,
-        'sequence' => false,
-        'subject' => false,
-        'timestamp' => false
+        'detected_source' => false,
+        'model' => false,
+        'tier' => false,
+        'translations' => false,
+        'usage' => false
     ];
 
     /**
@@ -184,13 +178,11 @@ class Delivery implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'data' => 'data',
-        'headers' => 'headers',
-        'num_delivered' => 'num_delivered',
-        'num_pending' => 'num_pending',
-        'sequence' => 'sequence',
-        'subject' => 'subject',
-        'timestamp' => 'timestamp'
+        'detected_source' => 'detected_source',
+        'model' => 'model',
+        'tier' => 'tier',
+        'translations' => 'translations',
+        'usage' => 'usage'
     ];
 
     /**
@@ -199,13 +191,11 @@ class Delivery implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'data' => 'setData',
-        'headers' => 'setHeaders',
-        'num_delivered' => 'setNumDelivered',
-        'num_pending' => 'setNumPending',
-        'sequence' => 'setSequence',
-        'subject' => 'setSubject',
-        'timestamp' => 'setTimestamp'
+        'detected_source' => 'setDetectedSource',
+        'model' => 'setModel',
+        'tier' => 'setTier',
+        'translations' => 'setTranslations',
+        'usage' => 'setUsage'
     ];
 
     /**
@@ -214,13 +204,11 @@ class Delivery implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'data' => 'getData',
-        'headers' => 'getHeaders',
-        'num_delivered' => 'getNumDelivered',
-        'num_pending' => 'getNumPending',
-        'sequence' => 'getSequence',
-        'subject' => 'getSubject',
-        'timestamp' => 'getTimestamp'
+        'detected_source' => 'getDetectedSource',
+        'model' => 'getModel',
+        'tier' => 'getTier',
+        'translations' => 'getTranslations',
+        'usage' => 'getUsage'
     ];
 
     /**
@@ -280,13 +268,11 @@ class Delivery implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('data', $data ?? [], null);
-        $this->setIfExists('headers', $data ?? [], null);
-        $this->setIfExists('num_delivered', $data ?? [], null);
-        $this->setIfExists('num_pending', $data ?? [], null);
-        $this->setIfExists('sequence', $data ?? [], null);
-        $this->setIfExists('subject', $data ?? [], null);
-        $this->setIfExists('timestamp', $data ?? [], null);
+        $this->setIfExists('detected_source', $data ?? [], null);
+        $this->setIfExists('model', $data ?? [], null);
+        $this->setIfExists('tier', $data ?? [], null);
+        $this->setIfExists('translations', $data ?? [], null);
+        $this->setIfExists('usage', $data ?? [], null);
     }
 
     /**
@@ -332,190 +318,136 @@ class Delivery implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets data
+     * Gets detected_source
      *
      * @return string|null
      */
-    public function getData()
+    public function getDetectedSource()
     {
-        return $this->container['data'];
+        return $this->container['detected_source'];
     }
 
     /**
-     * Sets data
+     * Sets detected_source
      *
-     * @param string|null $data Data is the payload, base64-encoded.
+     * @param string|null $detected_source detected_source
      *
      * @return self
      */
-    public function setData($data)
+    public function setDetectedSource($detected_source)
     {
-        if (is_null($data)) {
-            throw new \InvalidArgumentException('non-nullable data cannot be null');
+        if (is_null($detected_source)) {
+            throw new \InvalidArgumentException('non-nullable detected_source cannot be null');
         }
-        $this->container['data'] = $data;
+        $this->container['detected_source'] = $detected_source;
 
         return $this;
     }
 
     /**
-     * Gets headers
-     *
-     * @return array<string,string[]>|null
-     */
-    public function getHeaders()
-    {
-        return $this->container['headers'];
-    }
-
-    /**
-     * Sets headers
-     *
-     * @param array<string,string[]>|null $headers Headers are the message headers, when any were published.
-     *
-     * @return self
-     */
-    public function setHeaders($headers)
-    {
-        if (is_null($headers)) {
-            throw new \InvalidArgumentException('non-nullable headers cannot be null');
-        }
-        $this->container['headers'] = $headers;
-
-        return $this;
-    }
-
-    /**
-     * Gets num_delivered
-     *
-     * @return int|null
-     */
-    public function getNumDelivered()
-    {
-        return $this->container['num_delivered'];
-    }
-
-    /**
-     * Sets num_delivered
-     *
-     * @param int|null $num_delivered Delivered is how many times a consumer has been handed this message (pulls only).
-     *
-     * @return self
-     */
-    public function setNumDelivered($num_delivered)
-    {
-        if (is_null($num_delivered)) {
-            throw new \InvalidArgumentException('non-nullable num_delivered cannot be null');
-        }
-        $this->container['num_delivered'] = $num_delivered;
-
-        return $this;
-    }
-
-    /**
-     * Gets num_pending
-     *
-     * @return int|null
-     */
-    public function getNumPending()
-    {
-        return $this->container['num_pending'];
-    }
-
-    /**
-     * Sets num_pending
-     *
-     * @param int|null $num_pending Remaining is how many messages follow this one for the consumer (pulls only).
-     *
-     * @return self
-     */
-    public function setNumPending($num_pending)
-    {
-        if (is_null($num_pending)) {
-            throw new \InvalidArgumentException('non-nullable num_pending cannot be null');
-        }
-        $this->container['num_pending'] = $num_pending;
-
-        return $this;
-    }
-
-    /**
-     * Gets sequence
-     *
-     * @return int|null
-     */
-    public function getSequence()
-    {
-        return $this->container['sequence'];
-    }
-
-    /**
-     * Sets sequence
-     *
-     * @param int|null $sequence Sequence is the message's stream sequence.
-     *
-     * @return self
-     */
-    public function setSequence($sequence)
-    {
-        if (is_null($sequence)) {
-            throw new \InvalidArgumentException('non-nullable sequence cannot be null');
-        }
-        $this->container['sequence'] = $sequence;
-
-        return $this;
-    }
-
-    /**
-     * Gets subject
+     * Gets model
      *
      * @return string|null
      */
-    public function getSubject()
+    public function getModel()
     {
-        return $this->container['subject'];
+        return $this->container['model'];
     }
 
     /**
-     * Sets subject
+     * Sets model
      *
-     * @param string|null $subject Subject is the org-relative subject the message was stored under.
+     * @param string|null $model model
      *
      * @return self
      */
-    public function setSubject($subject)
+    public function setModel($model)
     {
-        if (is_null($subject)) {
-            throw new \InvalidArgumentException('non-nullable subject cannot be null');
+        if (is_null($model)) {
+            throw new \InvalidArgumentException('non-nullable model cannot be null');
         }
-        $this->container['subject'] = $subject;
+        $this->container['model'] = $model;
 
         return $this;
     }
 
     /**
-     * Gets timestamp
+     * Gets tier
      *
-     * @return \DateTime|null
+     * @return string|null
      */
-    public function getTimestamp()
+    public function getTier()
     {
-        return $this->container['timestamp'];
+        return $this->container['tier'];
     }
 
     /**
-     * Sets timestamp
+     * Sets tier
      *
-     * @param \DateTime|null $timestamp Timestamp is when the broker stored the message.
+     * @param string|null $tier tier
      *
      * @return self
      */
-    public function setTimestamp($timestamp)
+    public function setTier($tier)
     {
-        if (is_null($timestamp)) {
-            throw new \InvalidArgumentException('non-nullable timestamp cannot be null');
+        if (is_null($tier)) {
+            throw new \InvalidArgumentException('non-nullable tier cannot be null');
         }
-        $this->container['timestamp'] = $timestamp;
+        $this->container['tier'] = $tier;
+
+        return $this;
+    }
+
+    /**
+     * Gets translations
+     *
+     * @return \Hanzo\Cloud\Model\Translation[]|null
+     */
+    public function getTranslations()
+    {
+        return $this->container['translations'];
+    }
+
+    /**
+     * Sets translations
+     *
+     * @param \Hanzo\Cloud\Model\Translation[]|null $translations translations
+     *
+     * @return self
+     */
+    public function setTranslations($translations)
+    {
+        if (is_null($translations)) {
+            throw new \InvalidArgumentException('non-nullable translations cannot be null');
+        }
+        $this->container['translations'] = $translations;
+
+        return $this;
+    }
+
+    /**
+     * Gets usage
+     *
+     * @return \Hanzo\Cloud\Model\Tally|null
+     */
+    public function getUsage()
+    {
+        return $this->container['usage'];
+    }
+
+    /**
+     * Sets usage
+     *
+     * @param \Hanzo\Cloud\Model\Tally|null $usage usage
+     *
+     * @return self
+     */
+    public function setUsage($usage)
+    {
+        if (is_null($usage)) {
+            throw new \InvalidArgumentException('non-nullable usage cannot be null');
+        }
+        $this->container['usage'] = $usage;
 
         return $this;
     }

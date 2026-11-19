@@ -59,7 +59,7 @@ class O11yO11yTraceSpanWindow implements ModelInterface, ArrayAccess, \JsonSeria
     protected static $openAPITypes = [
         'columns' => 'string[]',
         'end_timestamp_millis' => 'int',
-        'events' => 'object[][]',
+        'events' => 'mixed[][]',
         'is_sub_tree' => 'bool',
         'start_timestamp_millis' => 'int'
     ];
@@ -374,7 +374,7 @@ class O11yO11yTraceSpanWindow implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Gets events
      *
-     * @return object[][]|null
+     * @return mixed[][]|null
      */
     public function getEvents()
     {
@@ -384,7 +384,7 @@ class O11yO11yTraceSpanWindow implements ModelInterface, ArrayAccess, \JsonSeria
     /**
      * Sets events
      *
-     * @param object[][]|null $events Events are the rows, each positionally matching Columns.
+     * @param mixed[][]|null $events Events are the rows, each positionally matching Columns.
      *
      * @return self
      */

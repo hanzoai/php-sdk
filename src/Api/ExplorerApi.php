@@ -137,7 +137,7 @@ class ExplorerApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IndexersOut
+     * @return \Hanzo\Cloud\Model\ExplorerIndexersOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getExplorerIndexers(string $contentType = self::contentTypes['getExplorerIndexers'][0])
     {
@@ -154,7 +154,7 @@ class ExplorerApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IndexersOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ExplorerIndexersOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getExplorerIndexersWithHttpInfo(string $contentType = self::contentTypes['getExplorerIndexers'][0])
     {
@@ -186,7 +186,13 @@ class ExplorerApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IndexersOut',
+                        '\Hanzo\Cloud\Model\ExplorerIndexersOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -208,7 +214,7 @@ class ExplorerApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IndexersOut',
+                '\Hanzo\Cloud\Model\ExplorerIndexersOut',
                 $request,
                 $response,
             );
@@ -217,7 +223,15 @@ class ExplorerApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IndexersOut',
+                        '\Hanzo\Cloud\Model\ExplorerIndexersOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -261,7 +275,7 @@ class ExplorerApi
      */
     public function getExplorerIndexersAsyncWithHttpInfo(string $contentType = self::contentTypes['getExplorerIndexers'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IndexersOut';
+        $returnType = '\Hanzo\Cloud\Model\ExplorerIndexersOut';
         $request = $this->getExplorerIndexersRequest($contentType);
 
         return $this->client
@@ -324,7 +338,7 @@ class ExplorerApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -389,7 +403,7 @@ class ExplorerApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OraclesOut
+     * @return \Hanzo\Cloud\Model\ExplorerOraclesOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getExplorerOracles(string $contentType = self::contentTypes['getExplorerOracles'][0])
     {
@@ -406,7 +420,7 @@ class ExplorerApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OraclesOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ExplorerOraclesOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getExplorerOraclesWithHttpInfo(string $contentType = self::contentTypes['getExplorerOracles'][0])
     {
@@ -438,7 +452,13 @@ class ExplorerApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OraclesOut',
+                        '\Hanzo\Cloud\Model\ExplorerOraclesOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -460,7 +480,7 @@ class ExplorerApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OraclesOut',
+                '\Hanzo\Cloud\Model\ExplorerOraclesOut',
                 $request,
                 $response,
             );
@@ -469,7 +489,15 @@ class ExplorerApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OraclesOut',
+                        '\Hanzo\Cloud\Model\ExplorerOraclesOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -513,7 +541,7 @@ class ExplorerApi
      */
     public function getExplorerOraclesAsyncWithHttpInfo(string $contentType = self::contentTypes['getExplorerOracles'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OraclesOut';
+        $returnType = '\Hanzo\Cloud\Model\ExplorerOraclesOut';
         $request = $this->getExplorerOraclesRequest($contentType);
 
         return $this->client
@@ -576,7 +604,7 @@ class ExplorerApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

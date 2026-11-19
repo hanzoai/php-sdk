@@ -59,15 +59,18 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'application' => 'string',
         'automated' => 'bool',
+        'component' => 'string',
         'digest' => 'string',
         'env' => '\Hanzo\Cloud\Model\DeclareEnv[]',
         'hosts' => 'string[]',
         'name' => 'string',
         'org' => 'string',
+        'part_of' => 'string',
         'path' => 'string',
         'project' => 'string',
         'replicas' => 'int',
         'repository' => 'string',
+        'secrets' => '\Hanzo\Cloud\Model\SecretRef[]',
         'tag' => 'string'
     ];
 
@@ -81,15 +84,18 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'application' => null,
         'automated' => null,
+        'component' => null,
         'digest' => null,
         'env' => null,
         'hosts' => null,
         'name' => null,
         'org' => null,
+        'part_of' => null,
         'path' => null,
         'project' => null,
-        'replicas' => 'int64',
+        'replicas' => null,
         'repository' => null,
+        'secrets' => null,
         'tag' => null
     ];
 
@@ -101,15 +107,18 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'application' => false,
         'automated' => false,
+        'component' => false,
         'digest' => false,
         'env' => false,
         'hosts' => false,
         'name' => false,
         'org' => false,
+        'part_of' => false,
         'path' => false,
         'project' => false,
         'replicas' => false,
         'repository' => false,
+        'secrets' => false,
         'tag' => false
     ];
 
@@ -201,15 +210,18 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'application' => 'application',
         'automated' => 'automated',
+        'component' => 'component',
         'digest' => 'digest',
         'env' => 'env',
         'hosts' => 'hosts',
         'name' => 'name',
         'org' => 'org',
+        'part_of' => 'partOf',
         'path' => 'path',
         'project' => 'project',
         'replicas' => 'replicas',
         'repository' => 'repository',
+        'secrets' => 'secrets',
         'tag' => 'tag'
     ];
 
@@ -221,15 +233,18 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'application' => 'setApplication',
         'automated' => 'setAutomated',
+        'component' => 'setComponent',
         'digest' => 'setDigest',
         'env' => 'setEnv',
         'hosts' => 'setHosts',
         'name' => 'setName',
         'org' => 'setOrg',
+        'part_of' => 'setPartOf',
         'path' => 'setPath',
         'project' => 'setProject',
         'replicas' => 'setReplicas',
         'repository' => 'setRepository',
+        'secrets' => 'setSecrets',
         'tag' => 'setTag'
     ];
 
@@ -241,15 +256,18 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'application' => 'getApplication',
         'automated' => 'getAutomated',
+        'component' => 'getComponent',
         'digest' => 'getDigest',
         'env' => 'getEnv',
         'hosts' => 'getHosts',
         'name' => 'getName',
         'org' => 'getOrg',
+        'part_of' => 'getPartOf',
         'path' => 'getPath',
         'project' => 'getProject',
         'replicas' => 'getReplicas',
         'repository' => 'getRepository',
+        'secrets' => 'getSecrets',
         'tag' => 'getTag'
     ];
 
@@ -312,15 +330,18 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('application', $data ?? [], null);
         $this->setIfExists('automated', $data ?? [], null);
+        $this->setIfExists('component', $data ?? [], null);
         $this->setIfExists('digest', $data ?? [], null);
         $this->setIfExists('env', $data ?? [], null);
         $this->setIfExists('hosts', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('org', $data ?? [], null);
+        $this->setIfExists('part_of', $data ?? [], null);
         $this->setIfExists('path', $data ?? [], null);
         $this->setIfExists('project', $data ?? [], null);
         $this->setIfExists('replicas', $data ?? [], null);
         $this->setIfExists('repository', $data ?? [], null);
+        $this->setIfExists('secrets', $data ?? [], null);
         $this->setIfExists('tag', $data ?? [], null);
     }
 
@@ -379,7 +400,7 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets application
      *
-     * @param string|null $application Application is the CD Application name the generator mints: <org>-<name>. It is the join key against /v1/platform/cd.
+     * @param string|null $application application
      *
      * @return self
      */
@@ -406,7 +427,7 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets automated
      *
-     * @param bool|null $automated Automated is cd.automated: false means the Application reports drift and NOTHING moves. It is off by default for a new file on purpose.
+     * @param bool|null $automated automated
      *
      * @return self
      */
@@ -416,6 +437,33 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable automated cannot be null');
         }
         $this->container['automated'] = $automated;
+
+        return $this;
+    }
+
+    /**
+     * Gets component
+     *
+     * @return string|null
+     */
+    public function getComponent()
+    {
+        return $this->container['component'];
+    }
+
+    /**
+     * Sets component
+     *
+     * @param string|null $component component
+     *
+     * @return self
+     */
+    public function setComponent($component)
+    {
+        if (is_null($component)) {
+            throw new \InvalidArgumentException('non-nullable component cannot be null');
+        }
+        $this->container['component'] = $component;
 
         return $this;
     }
@@ -433,7 +481,7 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets digest
      *
-     * @param string|null $digest image.digest — wins over tag
+     * @param string|null $digest digest
      *
      * @return self
      */
@@ -460,7 +508,7 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets env
      *
-     * @param \Hanzo\Cloud\Model\DeclareEnv[]|null $env Env is the declared container environment, as the chart's list of {name,value}. It is read back so a re-declare of an identical body is a no-op rather than a refusal — idempotency is what makes a retry safe.
+     * @param \Hanzo\Cloud\Model\DeclareEnv[]|null $env env
      *
      * @return self
      */
@@ -487,7 +535,7 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets hosts
      *
-     * @param string[]|null $hosts ingress.hosts, both shapes flattened
+     * @param string[]|null $hosts hosts
      *
      * @return self
      */
@@ -514,7 +562,7 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name the Helm release name — the file's basename
+     * @param string|null $name name
      *
      * @return self
      */
@@ -541,7 +589,7 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets org
      *
-     * @param string|null $org Org is the owner. It is ALSO the values directory and the destination namespace, because those are one value under one name — see the header.
+     * @param string|null $org org
      *
      * @return self
      */
@@ -551,6 +599,33 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable org cannot be null');
         }
         $this->container['org'] = $org;
+
+        return $this;
+    }
+
+    /**
+     * Gets part_of
+     *
+     * @return string|null
+     */
+    public function getPartOf()
+    {
+        return $this->container['part_of'];
+    }
+
+    /**
+     * Sets part_of
+     *
+     * @param string|null $part_of part_of
+     *
+     * @return self
+     */
+    public function setPartOf($part_of)
+    {
+        if (is_null($part_of)) {
+            throw new \InvalidArgumentException('non-nullable part_of cannot be null');
+        }
+        $this->container['part_of'] = $part_of;
 
         return $this;
     }
@@ -568,7 +643,7 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets path
      *
-     * @param string|null $path Path is the file, relative to the repository root.
+     * @param string|null $path path
      *
      * @return self
      */
@@ -595,7 +670,7 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets project
      *
-     * @param string|null $project Project is the AppProject the sync is admitted under, derived from the directory exactly as the ApplicationSet derives it. It differs from Org for a reserved directory, which syncs under the platform fence.
+     * @param string|null $project project
      *
      * @return self
      */
@@ -649,7 +724,7 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets repository
      *
-     * @param string|null $repository image.repository
+     * @param string|null $repository repository
      *
      * @return self
      */
@@ -659,6 +734,33 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable repository cannot be null');
         }
         $this->container['repository'] = $repository;
+
+        return $this;
+    }
+
+    /**
+     * Gets secrets
+     *
+     * @return \Hanzo\Cloud\Model\SecretRef[]|null
+     */
+    public function getSecrets()
+    {
+        return $this->container['secrets'];
+    }
+
+    /**
+     * Sets secrets
+     *
+     * @param \Hanzo\Cloud\Model\SecretRef[]|null $secrets secrets
+     *
+     * @return self
+     */
+    public function setSecrets($secrets)
+    {
+        if (is_null($secrets)) {
+            throw new \InvalidArgumentException('non-nullable secrets cannot be null');
+        }
+        $this->container['secrets'] = $secrets;
 
         return $this;
     }
@@ -676,7 +778,7 @@ class Declaration implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets tag
      *
-     * @param string|null $tag image.tag
+     * @param string|null $tag tag
      *
      * @return self
      */

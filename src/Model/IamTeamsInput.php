@@ -63,6 +63,7 @@ class IamTeamsInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'is_enabled' => 'bool',
         'name' => 'string',
         'organization' => 'string',
+        'owner' => 'string',
         'parent' => 'string',
         'users' => 'string[]'
     ];
@@ -81,6 +82,7 @@ class IamTeamsInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'is_enabled' => null,
         'name' => null,
         'organization' => null,
+        'owner' => null,
         'parent' => null,
         'users' => null
     ];
@@ -97,6 +99,7 @@ class IamTeamsInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'is_enabled' => false,
         'name' => false,
         'organization' => false,
+        'owner' => false,
         'parent' => false,
         'users' => false
     ];
@@ -193,6 +196,7 @@ class IamTeamsInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'is_enabled' => 'isEnabled',
         'name' => 'name',
         'organization' => 'organization',
+        'owner' => 'owner',
         'parent' => 'parent',
         'users' => 'users'
     ];
@@ -209,6 +213,7 @@ class IamTeamsInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'is_enabled' => 'setIsEnabled',
         'name' => 'setName',
         'organization' => 'setOrganization',
+        'owner' => 'setOwner',
         'parent' => 'setParent',
         'users' => 'setUsers'
     ];
@@ -225,6 +230,7 @@ class IamTeamsInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'is_enabled' => 'getIsEnabled',
         'name' => 'getName',
         'organization' => 'getOrganization',
+        'owner' => 'getOwner',
         'parent' => 'getParent',
         'users' => 'getUsers'
     ];
@@ -292,6 +298,7 @@ class IamTeamsInput implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('is_enabled', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('organization', $data ?? [], null);
+        $this->setIfExists('owner', $data ?? [], null);
         $this->setIfExists('parent', $data ?? [], null);
         $this->setIfExists('users', $data ?? [], null);
     }
@@ -496,6 +503,33 @@ class IamTeamsInput implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable organization cannot be null');
         }
         $this->container['organization'] = $organization;
+
+        return $this;
+    }
+
+    /**
+     * Gets owner
+     *
+     * @return string|null
+     */
+    public function getOwner()
+    {
+        return $this->container['owner'];
+    }
+
+    /**
+     * Sets owner
+     *
+     * @param string|null $owner Owner is the organization the team belongs to. Leave it out and it is yours, from your credentials; name another only if you administer it.
+     *
+     * @return self
+     */
+    public function setOwner($owner)
+    {
+        if (is_null($owner)) {
+            throw new \InvalidArgumentException('non-nullable owner cannot be null');
+        }
+        $this->container['owner'] = $owner;
 
         return $this;
     }

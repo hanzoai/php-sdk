@@ -316,7 +316,7 @@ class O11yO11yDashboardViewUpdateIn implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets data
      *
-     * @param \Hanzo\Cloud\Model\O11yO11yDashboardViewData|null $data data
+     * @param \Hanzo\Cloud\Model\O11yO11yDashboardViewData|null $data Data is the listing state the view captures.
      *
      * @return self
      */
@@ -370,7 +370,7 @@ class O11yO11yDashboardViewUpdateIn implements ModelInterface, ArrayAccess, \Jso
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string|null $name Name is the saved view's name; at most 32 characters, no surrounding space.
      *
      * @return self
      */

@@ -148,16 +148,16 @@ class SeoApi
      *
      * Fetch one page and report what it gets wrong
      *
-     * @param  \Hanzo\Cloud\Model\SeoAuditIn $seo_audit_in seo_audit_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoAuditIn $seo_seo_audit_in seo_seo_audit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoAudit'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SeoAuditOut
+     * @return \Hanzo\Cloud\Model\SeoSeoAuditOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function seoAudit($seo_audit_in, string $contentType = self::contentTypes['seoAudit'][0])
+    public function seoAudit($seo_seo_audit_in, string $contentType = self::contentTypes['seoAudit'][0])
     {
-        list($response) = $this->seoAuditWithHttpInfo($seo_audit_in, $contentType);
+        list($response) = $this->seoAuditWithHttpInfo($seo_seo_audit_in, $contentType);
         return $response;
     }
 
@@ -166,16 +166,16 @@ class SeoApi
      *
      * Fetch one page and report what it gets wrong
      *
-     * @param  \Hanzo\Cloud\Model\SeoAuditIn $seo_audit_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoAuditIn $seo_seo_audit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoAudit'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SeoAuditOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SeoSeoAuditOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function seoAuditWithHttpInfo($seo_audit_in, string $contentType = self::contentTypes['seoAudit'][0])
+    public function seoAuditWithHttpInfo($seo_seo_audit_in, string $contentType = self::contentTypes['seoAudit'][0])
     {
-        $request = $this->seoAuditRequest($seo_audit_in, $contentType);
+        $request = $this->seoAuditRequest($seo_seo_audit_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -203,7 +203,13 @@ class SeoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SeoAuditOut',
+                        '\Hanzo\Cloud\Model\SeoSeoAuditOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -225,7 +231,7 @@ class SeoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SeoAuditOut',
+                '\Hanzo\Cloud\Model\SeoSeoAuditOut',
                 $request,
                 $response,
             );
@@ -234,7 +240,15 @@ class SeoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SeoAuditOut',
+                        '\Hanzo\Cloud\Model\SeoSeoAuditOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -251,15 +265,15 @@ class SeoApi
      *
      * Fetch one page and report what it gets wrong
      *
-     * @param  \Hanzo\Cloud\Model\SeoAuditIn $seo_audit_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoAuditIn $seo_seo_audit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoAudit'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoAuditAsync($seo_audit_in, string $contentType = self::contentTypes['seoAudit'][0])
+    public function seoAuditAsync($seo_seo_audit_in, string $contentType = self::contentTypes['seoAudit'][0])
     {
-        return $this->seoAuditAsyncWithHttpInfo($seo_audit_in, $contentType)
+        return $this->seoAuditAsyncWithHttpInfo($seo_seo_audit_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -272,16 +286,16 @@ class SeoApi
      *
      * Fetch one page and report what it gets wrong
      *
-     * @param  \Hanzo\Cloud\Model\SeoAuditIn $seo_audit_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoAuditIn $seo_seo_audit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoAudit'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoAuditAsyncWithHttpInfo($seo_audit_in, string $contentType = self::contentTypes['seoAudit'][0])
+    public function seoAuditAsyncWithHttpInfo($seo_seo_audit_in, string $contentType = self::contentTypes['seoAudit'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SeoAuditOut';
-        $request = $this->seoAuditRequest($seo_audit_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SeoSeoAuditOut';
+        $request = $this->seoAuditRequest($seo_seo_audit_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -322,19 +336,19 @@ class SeoApi
     /**
      * Create request for operation 'seoAudit'
      *
-     * @param  \Hanzo\Cloud\Model\SeoAuditIn $seo_audit_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoAuditIn $seo_seo_audit_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoAudit'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function seoAuditRequest($seo_audit_in, string $contentType = self::contentTypes['seoAudit'][0])
+    public function seoAuditRequest($seo_seo_audit_in, string $contentType = self::contentTypes['seoAudit'][0])
     {
 
-        // verify the required parameter 'seo_audit_in' is set
-        if ($seo_audit_in === null || (is_array($seo_audit_in) && count($seo_audit_in) === 0)) {
+        // verify the required parameter 'seo_seo_audit_in' is set
+        if ($seo_seo_audit_in === null || (is_array($seo_seo_audit_in) && count($seo_seo_audit_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $seo_audit_in when calling seoAudit'
+                'Missing the required parameter $seo_seo_audit_in when calling seoAudit'
             );
         }
 
@@ -351,18 +365,18 @@ class SeoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($seo_audit_in)) {
+        if (isset($seo_seo_audit_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_audit_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_seo_audit_in));
             } else {
-                $httpBody = $seo_audit_in;
+                $httpBody = $seo_seo_audit_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -419,16 +433,16 @@ class SeoApi
      *
      * Who links to a target, and how much of it is broken or spam
      *
-     * @param  \Hanzo\Cloud\Model\SeoBacklinkIn $seo_backlink_in seo_backlink_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoBacklinkIn $seo_seo_backlink_in seo_seo_backlink_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoBacklink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SeoBacklinkOut
+     * @return \Hanzo\Cloud\Model\SeoSeoBacklinkOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function seoBacklink($seo_backlink_in, string $contentType = self::contentTypes['seoBacklink'][0])
+    public function seoBacklink($seo_seo_backlink_in, string $contentType = self::contentTypes['seoBacklink'][0])
     {
-        list($response) = $this->seoBacklinkWithHttpInfo($seo_backlink_in, $contentType);
+        list($response) = $this->seoBacklinkWithHttpInfo($seo_seo_backlink_in, $contentType);
         return $response;
     }
 
@@ -437,16 +451,16 @@ class SeoApi
      *
      * Who links to a target, and how much of it is broken or spam
      *
-     * @param  \Hanzo\Cloud\Model\SeoBacklinkIn $seo_backlink_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoBacklinkIn $seo_seo_backlink_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoBacklink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SeoBacklinkOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SeoSeoBacklinkOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function seoBacklinkWithHttpInfo($seo_backlink_in, string $contentType = self::contentTypes['seoBacklink'][0])
+    public function seoBacklinkWithHttpInfo($seo_seo_backlink_in, string $contentType = self::contentTypes['seoBacklink'][0])
     {
-        $request = $this->seoBacklinkRequest($seo_backlink_in, $contentType);
+        $request = $this->seoBacklinkRequest($seo_seo_backlink_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -474,7 +488,13 @@ class SeoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SeoBacklinkOut',
+                        '\Hanzo\Cloud\Model\SeoSeoBacklinkOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -496,7 +516,7 @@ class SeoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SeoBacklinkOut',
+                '\Hanzo\Cloud\Model\SeoSeoBacklinkOut',
                 $request,
                 $response,
             );
@@ -505,7 +525,15 @@ class SeoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SeoBacklinkOut',
+                        '\Hanzo\Cloud\Model\SeoSeoBacklinkOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -522,15 +550,15 @@ class SeoApi
      *
      * Who links to a target, and how much of it is broken or spam
      *
-     * @param  \Hanzo\Cloud\Model\SeoBacklinkIn $seo_backlink_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoBacklinkIn $seo_seo_backlink_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoBacklink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoBacklinkAsync($seo_backlink_in, string $contentType = self::contentTypes['seoBacklink'][0])
+    public function seoBacklinkAsync($seo_seo_backlink_in, string $contentType = self::contentTypes['seoBacklink'][0])
     {
-        return $this->seoBacklinkAsyncWithHttpInfo($seo_backlink_in, $contentType)
+        return $this->seoBacklinkAsyncWithHttpInfo($seo_seo_backlink_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -543,16 +571,16 @@ class SeoApi
      *
      * Who links to a target, and how much of it is broken or spam
      *
-     * @param  \Hanzo\Cloud\Model\SeoBacklinkIn $seo_backlink_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoBacklinkIn $seo_seo_backlink_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoBacklink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoBacklinkAsyncWithHttpInfo($seo_backlink_in, string $contentType = self::contentTypes['seoBacklink'][0])
+    public function seoBacklinkAsyncWithHttpInfo($seo_seo_backlink_in, string $contentType = self::contentTypes['seoBacklink'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SeoBacklinkOut';
-        $request = $this->seoBacklinkRequest($seo_backlink_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SeoSeoBacklinkOut';
+        $request = $this->seoBacklinkRequest($seo_seo_backlink_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -593,19 +621,19 @@ class SeoApi
     /**
      * Create request for operation 'seoBacklink'
      *
-     * @param  \Hanzo\Cloud\Model\SeoBacklinkIn $seo_backlink_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoBacklinkIn $seo_seo_backlink_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoBacklink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function seoBacklinkRequest($seo_backlink_in, string $contentType = self::contentTypes['seoBacklink'][0])
+    public function seoBacklinkRequest($seo_seo_backlink_in, string $contentType = self::contentTypes['seoBacklink'][0])
     {
 
-        // verify the required parameter 'seo_backlink_in' is set
-        if ($seo_backlink_in === null || (is_array($seo_backlink_in) && count($seo_backlink_in) === 0)) {
+        // verify the required parameter 'seo_seo_backlink_in' is set
+        if ($seo_seo_backlink_in === null || (is_array($seo_seo_backlink_in) && count($seo_seo_backlink_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $seo_backlink_in when calling seoBacklink'
+                'Missing the required parameter $seo_seo_backlink_in when calling seoBacklink'
             );
         }
 
@@ -622,18 +650,18 @@ class SeoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($seo_backlink_in)) {
+        if (isset($seo_seo_backlink_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_backlink_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_seo_backlink_in));
             } else {
-                $httpBody = $seo_backlink_in;
+                $httpBody = $seo_seo_backlink_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -690,16 +718,16 @@ class SeoApi
      *
      * The domains that place for the same phrases
      *
-     * @param  \Hanzo\Cloud\Model\SeoCompetitorIn $seo_competitor_in seo_competitor_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoCompetitorIn $seo_seo_competitor_in seo_seo_competitor_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoCompetitor'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SeoCompetitorOut
+     * @return \Hanzo\Cloud\Model\SeoSeoCompetitorOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function seoCompetitor($seo_competitor_in, string $contentType = self::contentTypes['seoCompetitor'][0])
+    public function seoCompetitor($seo_seo_competitor_in, string $contentType = self::contentTypes['seoCompetitor'][0])
     {
-        list($response) = $this->seoCompetitorWithHttpInfo($seo_competitor_in, $contentType);
+        list($response) = $this->seoCompetitorWithHttpInfo($seo_seo_competitor_in, $contentType);
         return $response;
     }
 
@@ -708,16 +736,16 @@ class SeoApi
      *
      * The domains that place for the same phrases
      *
-     * @param  \Hanzo\Cloud\Model\SeoCompetitorIn $seo_competitor_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoCompetitorIn $seo_seo_competitor_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoCompetitor'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SeoCompetitorOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SeoSeoCompetitorOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function seoCompetitorWithHttpInfo($seo_competitor_in, string $contentType = self::contentTypes['seoCompetitor'][0])
+    public function seoCompetitorWithHttpInfo($seo_seo_competitor_in, string $contentType = self::contentTypes['seoCompetitor'][0])
     {
-        $request = $this->seoCompetitorRequest($seo_competitor_in, $contentType);
+        $request = $this->seoCompetitorRequest($seo_seo_competitor_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -745,7 +773,13 @@ class SeoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SeoCompetitorOut',
+                        '\Hanzo\Cloud\Model\SeoSeoCompetitorOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -767,7 +801,7 @@ class SeoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SeoCompetitorOut',
+                '\Hanzo\Cloud\Model\SeoSeoCompetitorOut',
                 $request,
                 $response,
             );
@@ -776,7 +810,15 @@ class SeoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SeoCompetitorOut',
+                        '\Hanzo\Cloud\Model\SeoSeoCompetitorOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -793,15 +835,15 @@ class SeoApi
      *
      * The domains that place for the same phrases
      *
-     * @param  \Hanzo\Cloud\Model\SeoCompetitorIn $seo_competitor_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoCompetitorIn $seo_seo_competitor_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoCompetitor'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoCompetitorAsync($seo_competitor_in, string $contentType = self::contentTypes['seoCompetitor'][0])
+    public function seoCompetitorAsync($seo_seo_competitor_in, string $contentType = self::contentTypes['seoCompetitor'][0])
     {
-        return $this->seoCompetitorAsyncWithHttpInfo($seo_competitor_in, $contentType)
+        return $this->seoCompetitorAsyncWithHttpInfo($seo_seo_competitor_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -814,16 +856,16 @@ class SeoApi
      *
      * The domains that place for the same phrases
      *
-     * @param  \Hanzo\Cloud\Model\SeoCompetitorIn $seo_competitor_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoCompetitorIn $seo_seo_competitor_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoCompetitor'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoCompetitorAsyncWithHttpInfo($seo_competitor_in, string $contentType = self::contentTypes['seoCompetitor'][0])
+    public function seoCompetitorAsyncWithHttpInfo($seo_seo_competitor_in, string $contentType = self::contentTypes['seoCompetitor'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SeoCompetitorOut';
-        $request = $this->seoCompetitorRequest($seo_competitor_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SeoSeoCompetitorOut';
+        $request = $this->seoCompetitorRequest($seo_seo_competitor_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -864,19 +906,19 @@ class SeoApi
     /**
      * Create request for operation 'seoCompetitor'
      *
-     * @param  \Hanzo\Cloud\Model\SeoCompetitorIn $seo_competitor_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoCompetitorIn $seo_seo_competitor_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoCompetitor'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function seoCompetitorRequest($seo_competitor_in, string $contentType = self::contentTypes['seoCompetitor'][0])
+    public function seoCompetitorRequest($seo_seo_competitor_in, string $contentType = self::contentTypes['seoCompetitor'][0])
     {
 
-        // verify the required parameter 'seo_competitor_in' is set
-        if ($seo_competitor_in === null || (is_array($seo_competitor_in) && count($seo_competitor_in) === 0)) {
+        // verify the required parameter 'seo_seo_competitor_in' is set
+        if ($seo_seo_competitor_in === null || (is_array($seo_seo_competitor_in) && count($seo_seo_competitor_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $seo_competitor_in when calling seoCompetitor'
+                'Missing the required parameter $seo_seo_competitor_in when calling seoCompetitor'
             );
         }
 
@@ -893,18 +935,18 @@ class SeoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($seo_competitor_in)) {
+        if (isset($seo_seo_competitor_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_competitor_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_seo_competitor_in));
             } else {
-                $httpBody = $seo_competitor_in;
+                $httpBody = $seo_seo_competitor_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -961,16 +1003,16 @@ class SeoApi
      *
      * Grow a seed phrase into the phrases nobody named yet
      *
-     * @param  \Hanzo\Cloud\Model\SeoIdeaIn $seo_idea_in seo_idea_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoIdeaIn $seo_seo_idea_in seo_seo_idea_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoIdea'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SeoIdeaOut
+     * @return \Hanzo\Cloud\Model\SeoSeoIdeaOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function seoIdea($seo_idea_in, string $contentType = self::contentTypes['seoIdea'][0])
+    public function seoIdea($seo_seo_idea_in, string $contentType = self::contentTypes['seoIdea'][0])
     {
-        list($response) = $this->seoIdeaWithHttpInfo($seo_idea_in, $contentType);
+        list($response) = $this->seoIdeaWithHttpInfo($seo_seo_idea_in, $contentType);
         return $response;
     }
 
@@ -979,16 +1021,16 @@ class SeoApi
      *
      * Grow a seed phrase into the phrases nobody named yet
      *
-     * @param  \Hanzo\Cloud\Model\SeoIdeaIn $seo_idea_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoIdeaIn $seo_seo_idea_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoIdea'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SeoIdeaOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SeoSeoIdeaOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function seoIdeaWithHttpInfo($seo_idea_in, string $contentType = self::contentTypes['seoIdea'][0])
+    public function seoIdeaWithHttpInfo($seo_seo_idea_in, string $contentType = self::contentTypes['seoIdea'][0])
     {
-        $request = $this->seoIdeaRequest($seo_idea_in, $contentType);
+        $request = $this->seoIdeaRequest($seo_seo_idea_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1016,7 +1058,13 @@ class SeoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SeoIdeaOut',
+                        '\Hanzo\Cloud\Model\SeoSeoIdeaOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1038,7 +1086,7 @@ class SeoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SeoIdeaOut',
+                '\Hanzo\Cloud\Model\SeoSeoIdeaOut',
                 $request,
                 $response,
             );
@@ -1047,7 +1095,15 @@ class SeoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SeoIdeaOut',
+                        '\Hanzo\Cloud\Model\SeoSeoIdeaOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1064,15 +1120,15 @@ class SeoApi
      *
      * Grow a seed phrase into the phrases nobody named yet
      *
-     * @param  \Hanzo\Cloud\Model\SeoIdeaIn $seo_idea_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoIdeaIn $seo_seo_idea_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoIdea'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoIdeaAsync($seo_idea_in, string $contentType = self::contentTypes['seoIdea'][0])
+    public function seoIdeaAsync($seo_seo_idea_in, string $contentType = self::contentTypes['seoIdea'][0])
     {
-        return $this->seoIdeaAsyncWithHttpInfo($seo_idea_in, $contentType)
+        return $this->seoIdeaAsyncWithHttpInfo($seo_seo_idea_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1085,16 +1141,16 @@ class SeoApi
      *
      * Grow a seed phrase into the phrases nobody named yet
      *
-     * @param  \Hanzo\Cloud\Model\SeoIdeaIn $seo_idea_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoIdeaIn $seo_seo_idea_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoIdea'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoIdeaAsyncWithHttpInfo($seo_idea_in, string $contentType = self::contentTypes['seoIdea'][0])
+    public function seoIdeaAsyncWithHttpInfo($seo_seo_idea_in, string $contentType = self::contentTypes['seoIdea'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SeoIdeaOut';
-        $request = $this->seoIdeaRequest($seo_idea_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SeoSeoIdeaOut';
+        $request = $this->seoIdeaRequest($seo_seo_idea_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1135,19 +1191,19 @@ class SeoApi
     /**
      * Create request for operation 'seoIdea'
      *
-     * @param  \Hanzo\Cloud\Model\SeoIdeaIn $seo_idea_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoIdeaIn $seo_seo_idea_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoIdea'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function seoIdeaRequest($seo_idea_in, string $contentType = self::contentTypes['seoIdea'][0])
+    public function seoIdeaRequest($seo_seo_idea_in, string $contentType = self::contentTypes['seoIdea'][0])
     {
 
-        // verify the required parameter 'seo_idea_in' is set
-        if ($seo_idea_in === null || (is_array($seo_idea_in) && count($seo_idea_in) === 0)) {
+        // verify the required parameter 'seo_seo_idea_in' is set
+        if ($seo_seo_idea_in === null || (is_array($seo_seo_idea_in) && count($seo_seo_idea_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $seo_idea_in when calling seoIdea'
+                'Missing the required parameter $seo_seo_idea_in when calling seoIdea'
             );
         }
 
@@ -1164,18 +1220,18 @@ class SeoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($seo_idea_in)) {
+        if (isset($seo_seo_idea_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_idea_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_seo_idea_in));
             } else {
-                $httpBody = $seo_idea_in;
+                $httpBody = $seo_seo_idea_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1232,16 +1288,16 @@ class SeoApi
      *
      * How often named phrases are searched, and what a click costs
      *
-     * @param  \Hanzo\Cloud\Model\SeoKeywordIn $seo_keyword_in seo_keyword_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoKeywordIn $seo_seo_keyword_in seo_seo_keyword_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoKeyword'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SeoKeywordOut
+     * @return \Hanzo\Cloud\Model\SeoSeoKeywordOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function seoKeyword($seo_keyword_in, string $contentType = self::contentTypes['seoKeyword'][0])
+    public function seoKeyword($seo_seo_keyword_in, string $contentType = self::contentTypes['seoKeyword'][0])
     {
-        list($response) = $this->seoKeywordWithHttpInfo($seo_keyword_in, $contentType);
+        list($response) = $this->seoKeywordWithHttpInfo($seo_seo_keyword_in, $contentType);
         return $response;
     }
 
@@ -1250,16 +1306,16 @@ class SeoApi
      *
      * How often named phrases are searched, and what a click costs
      *
-     * @param  \Hanzo\Cloud\Model\SeoKeywordIn $seo_keyword_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoKeywordIn $seo_seo_keyword_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoKeyword'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SeoKeywordOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SeoSeoKeywordOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function seoKeywordWithHttpInfo($seo_keyword_in, string $contentType = self::contentTypes['seoKeyword'][0])
+    public function seoKeywordWithHttpInfo($seo_seo_keyword_in, string $contentType = self::contentTypes['seoKeyword'][0])
     {
-        $request = $this->seoKeywordRequest($seo_keyword_in, $contentType);
+        $request = $this->seoKeywordRequest($seo_seo_keyword_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1287,7 +1343,13 @@ class SeoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SeoKeywordOut',
+                        '\Hanzo\Cloud\Model\SeoSeoKeywordOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1309,7 +1371,7 @@ class SeoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SeoKeywordOut',
+                '\Hanzo\Cloud\Model\SeoSeoKeywordOut',
                 $request,
                 $response,
             );
@@ -1318,7 +1380,15 @@ class SeoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SeoKeywordOut',
+                        '\Hanzo\Cloud\Model\SeoSeoKeywordOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1335,15 +1405,15 @@ class SeoApi
      *
      * How often named phrases are searched, and what a click costs
      *
-     * @param  \Hanzo\Cloud\Model\SeoKeywordIn $seo_keyword_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoKeywordIn $seo_seo_keyword_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoKeyword'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoKeywordAsync($seo_keyword_in, string $contentType = self::contentTypes['seoKeyword'][0])
+    public function seoKeywordAsync($seo_seo_keyword_in, string $contentType = self::contentTypes['seoKeyword'][0])
     {
-        return $this->seoKeywordAsyncWithHttpInfo($seo_keyword_in, $contentType)
+        return $this->seoKeywordAsyncWithHttpInfo($seo_seo_keyword_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1356,16 +1426,16 @@ class SeoApi
      *
      * How often named phrases are searched, and what a click costs
      *
-     * @param  \Hanzo\Cloud\Model\SeoKeywordIn $seo_keyword_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoKeywordIn $seo_seo_keyword_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoKeyword'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoKeywordAsyncWithHttpInfo($seo_keyword_in, string $contentType = self::contentTypes['seoKeyword'][0])
+    public function seoKeywordAsyncWithHttpInfo($seo_seo_keyword_in, string $contentType = self::contentTypes['seoKeyword'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SeoKeywordOut';
-        $request = $this->seoKeywordRequest($seo_keyword_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SeoSeoKeywordOut';
+        $request = $this->seoKeywordRequest($seo_seo_keyword_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1406,19 +1476,19 @@ class SeoApi
     /**
      * Create request for operation 'seoKeyword'
      *
-     * @param  \Hanzo\Cloud\Model\SeoKeywordIn $seo_keyword_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoKeywordIn $seo_seo_keyword_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoKeyword'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function seoKeywordRequest($seo_keyword_in, string $contentType = self::contentTypes['seoKeyword'][0])
+    public function seoKeywordRequest($seo_seo_keyword_in, string $contentType = self::contentTypes['seoKeyword'][0])
     {
 
-        // verify the required parameter 'seo_keyword_in' is set
-        if ($seo_keyword_in === null || (is_array($seo_keyword_in) && count($seo_keyword_in) === 0)) {
+        // verify the required parameter 'seo_seo_keyword_in' is set
+        if ($seo_seo_keyword_in === null || (is_array($seo_seo_keyword_in) && count($seo_seo_keyword_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $seo_keyword_in when calling seoKeyword'
+                'Missing the required parameter $seo_seo_keyword_in when calling seoKeyword'
             );
         }
 
@@ -1435,18 +1505,18 @@ class SeoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($seo_keyword_in)) {
+        if (isset($seo_seo_keyword_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_keyword_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_seo_keyword_in));
             } else {
-                $httpBody = $seo_keyword_in;
+                $httpBody = $seo_seo_keyword_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1503,16 +1573,16 @@ class SeoApi
      *
      * Every phrase a domain already places for, with its position
      *
-     * @param  \Hanzo\Cloud\Model\SeoRankIn $seo_rank_in seo_rank_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoRankIn $seo_seo_rank_in seo_seo_rank_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoRank'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SeoRankOut
+     * @return \Hanzo\Cloud\Model\SeoSeoRankOut|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function seoRank($seo_rank_in, string $contentType = self::contentTypes['seoRank'][0])
+    public function seoRank($seo_seo_rank_in, string $contentType = self::contentTypes['seoRank'][0])
     {
-        list($response) = $this->seoRankWithHttpInfo($seo_rank_in, $contentType);
+        list($response) = $this->seoRankWithHttpInfo($seo_seo_rank_in, $contentType);
         return $response;
     }
 
@@ -1521,16 +1591,16 @@ class SeoApi
      *
      * Every phrase a domain already places for, with its position
      *
-     * @param  \Hanzo\Cloud\Model\SeoRankIn $seo_rank_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoRankIn $seo_seo_rank_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoRank'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SeoRankOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SeoSeoRankOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function seoRankWithHttpInfo($seo_rank_in, string $contentType = self::contentTypes['seoRank'][0])
+    public function seoRankWithHttpInfo($seo_seo_rank_in, string $contentType = self::contentTypes['seoRank'][0])
     {
-        $request = $this->seoRankRequest($seo_rank_in, $contentType);
+        $request = $this->seoRankRequest($seo_seo_rank_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1558,7 +1628,13 @@ class SeoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SeoRankOut',
+                        '\Hanzo\Cloud\Model\SeoSeoRankOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1580,7 +1656,7 @@ class SeoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SeoRankOut',
+                '\Hanzo\Cloud\Model\SeoSeoRankOut',
                 $request,
                 $response,
             );
@@ -1589,7 +1665,15 @@ class SeoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SeoRankOut',
+                        '\Hanzo\Cloud\Model\SeoSeoRankOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1606,15 +1690,15 @@ class SeoApi
      *
      * Every phrase a domain already places for, with its position
      *
-     * @param  \Hanzo\Cloud\Model\SeoRankIn $seo_rank_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoRankIn $seo_seo_rank_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoRank'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoRankAsync($seo_rank_in, string $contentType = self::contentTypes['seoRank'][0])
+    public function seoRankAsync($seo_seo_rank_in, string $contentType = self::contentTypes['seoRank'][0])
     {
-        return $this->seoRankAsyncWithHttpInfo($seo_rank_in, $contentType)
+        return $this->seoRankAsyncWithHttpInfo($seo_seo_rank_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1627,16 +1711,16 @@ class SeoApi
      *
      * Every phrase a domain already places for, with its position
      *
-     * @param  \Hanzo\Cloud\Model\SeoRankIn $seo_rank_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoRankIn $seo_seo_rank_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoRank'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function seoRankAsyncWithHttpInfo($seo_rank_in, string $contentType = self::contentTypes['seoRank'][0])
+    public function seoRankAsyncWithHttpInfo($seo_seo_rank_in, string $contentType = self::contentTypes['seoRank'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SeoRankOut';
-        $request = $this->seoRankRequest($seo_rank_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SeoSeoRankOut';
+        $request = $this->seoRankRequest($seo_seo_rank_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1677,19 +1761,19 @@ class SeoApi
     /**
      * Create request for operation 'seoRank'
      *
-     * @param  \Hanzo\Cloud\Model\SeoRankIn $seo_rank_in (required)
+     * @param  \Hanzo\Cloud\Model\SeoSeoRankIn $seo_seo_rank_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['seoRank'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function seoRankRequest($seo_rank_in, string $contentType = self::contentTypes['seoRank'][0])
+    public function seoRankRequest($seo_seo_rank_in, string $contentType = self::contentTypes['seoRank'][0])
     {
 
-        // verify the required parameter 'seo_rank_in' is set
-        if ($seo_rank_in === null || (is_array($seo_rank_in) && count($seo_rank_in) === 0)) {
+        // verify the required parameter 'seo_seo_rank_in' is set
+        if ($seo_seo_rank_in === null || (is_array($seo_seo_rank_in) && count($seo_seo_rank_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $seo_rank_in when calling seoRank'
+                'Missing the required parameter $seo_seo_rank_in when calling seoRank'
             );
         }
 
@@ -1706,18 +1790,18 @@ class SeoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($seo_rank_in)) {
+        if (isset($seo_seo_rank_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_rank_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($seo_seo_rank_in));
             } else {
-                $httpBody = $seo_rank_in;
+                $httpBody = $seo_seo_rank_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1778,7 +1862,7 @@ class SeoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\SeoRateOut
+     * @return \Hanzo\Cloud\Model\SeoSeoRateOut|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function seoRate(string $contentType = self::contentTypes['seoRate'][0])
     {
@@ -1795,7 +1879,7 @@ class SeoApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\SeoRateOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SeoSeoRateOut|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function seoRateWithHttpInfo(string $contentType = self::contentTypes['seoRate'][0])
     {
@@ -1827,7 +1911,13 @@ class SeoApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\SeoRateOut',
+                        '\Hanzo\Cloud\Model\SeoSeoRateOut',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1849,7 +1939,7 @@ class SeoApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\SeoRateOut',
+                '\Hanzo\Cloud\Model\SeoSeoRateOut',
                 $request,
                 $response,
             );
@@ -1858,7 +1948,15 @@ class SeoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\SeoRateOut',
+                        '\Hanzo\Cloud\Model\SeoSeoRateOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1902,7 +2000,7 @@ class SeoApi
      */
     public function seoRateAsyncWithHttpInfo(string $contentType = self::contentTypes['seoRate'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\SeoRateOut';
+        $returnType = '\Hanzo\Cloud\Model\SeoSeoRateOut';
         $request = $this->seoRateRequest($contentType);
 
         return $this->client
@@ -1965,7 +2063,7 @@ class SeoApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

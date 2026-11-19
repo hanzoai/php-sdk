@@ -59,7 +59,7 @@ class O11yO11yFilterItem implements ModelInterface, ArrayAccess, \JsonSerializab
     protected static $openAPITypes = [
         'key' => '\Hanzo\Cloud\Model\O11yO11yAttributeKey',
         'op' => 'string',
-        'value' => 'object'
+        'value' => 'mixed'
     ];
 
     /**
@@ -83,7 +83,7 @@ class O11yO11yFilterItem implements ModelInterface, ArrayAccess, \JsonSerializab
     protected static array $openAPINullables = [
         'key' => false,
         'op' => false,
-        'value' => false
+        'value' => true
     ];
 
     /**
@@ -360,7 +360,7 @@ class O11yO11yFilterItem implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets value
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getValue()
     {
@@ -370,14 +370,21 @@ class O11yO11yFilterItem implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets value
      *
-     * @param object|null $value Value is what it is tested against; its type follows the attribute's.
+     * @param mixed|null $value value
      *
      * @return self
      */
     public function setValue($value)
     {
         if (is_null($value)) {
-            throw new \InvalidArgumentException('non-nullable value cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'value');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('value', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['value'] = $value;
 

@@ -202,6 +202,14 @@ class MlApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -309,7 +317,7 @@ class MlApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -576,7 +584,7 @@ class MlApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MlResourceList
+     * @return \Hanzo\Cloud\Model\MlMlResourceList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMlModels(string $contentType = self::contentTypes['getMlModels'][0])
     {
@@ -593,7 +601,7 @@ class MlApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MlResourceList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MlMlResourceList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMlModelsWithHttpInfo(string $contentType = self::contentTypes['getMlModels'][0])
     {
@@ -625,7 +633,13 @@ class MlApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MlResourceList',
+                        '\Hanzo\Cloud\Model\MlMlResourceList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -647,7 +661,7 @@ class MlApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MlResourceList',
+                '\Hanzo\Cloud\Model\MlMlResourceList',
                 $request,
                 $response,
             );
@@ -656,7 +670,15 @@ class MlApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MlResourceList',
+                        '\Hanzo\Cloud\Model\MlMlResourceList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -700,7 +722,7 @@ class MlApi
      */
     public function getMlModelsAsyncWithHttpInfo(string $contentType = self::contentTypes['getMlModels'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MlResourceList';
+        $returnType = '\Hanzo\Cloud\Model\MlMlResourceList';
         $request = $this->getMlModelsRequest($contentType);
 
         return $this->client
@@ -763,7 +785,7 @@ class MlApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -829,7 +851,7 @@ class MlApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MlResource
+     * @return \Hanzo\Cloud\Model\MlMlResource|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getMlModelsByName($name, string $contentType = self::contentTypes['getMlModelsByName'][0])
     {
@@ -847,7 +869,7 @@ class MlApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MlResource, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MlMlResource|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getMlModelsByNameWithHttpInfo($name, string $contentType = self::contentTypes['getMlModelsByName'][0])
     {
@@ -879,7 +901,13 @@ class MlApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MlResource',
+                        '\Hanzo\Cloud\Model\MlMlResource',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -901,7 +929,7 @@ class MlApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MlResource',
+                '\Hanzo\Cloud\Model\MlMlResource',
                 $request,
                 $response,
             );
@@ -910,7 +938,15 @@ class MlApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MlResource',
+                        '\Hanzo\Cloud\Model\MlMlResource',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -956,7 +992,7 @@ class MlApi
      */
     public function getMlModelsByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getMlModelsByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MlResource';
+        $returnType = '\Hanzo\Cloud\Model\MlMlResource';
         $request = $this->getMlModelsByNameRequest($name, $contentType);
 
         return $this->client
@@ -1035,7 +1071,7 @@ class MlApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1318,16 +1354,16 @@ class MlApi
      *
      * Deploys one inference model for the caller&#39;s org, and answers 201 with the model as Kubernetes admitted it.
      *
-     * @param  \Hanzo\Cloud\Model\MlCreate $ml_create ml_create (required)
+     * @param  \Hanzo\Cloud\Model\MlMlCreate $ml_ml_create ml_ml_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMlModels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MlResource
+     * @return \Hanzo\Cloud\Model\MlMlResource|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postMlModels($ml_create, string $contentType = self::contentTypes['postMlModels'][0])
+    public function postMlModels($ml_ml_create, string $contentType = self::contentTypes['postMlModels'][0])
     {
-        list($response) = $this->postMlModelsWithHttpInfo($ml_create, $contentType);
+        list($response) = $this->postMlModelsWithHttpInfo($ml_ml_create, $contentType);
         return $response;
     }
 
@@ -1336,16 +1372,16 @@ class MlApi
      *
      * Deploys one inference model for the caller&#39;s org, and answers 201 with the model as Kubernetes admitted it.
      *
-     * @param  \Hanzo\Cloud\Model\MlCreate $ml_create (required)
+     * @param  \Hanzo\Cloud\Model\MlMlCreate $ml_ml_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMlModels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MlResource, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\MlMlResource|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postMlModelsWithHttpInfo($ml_create, string $contentType = self::contentTypes['postMlModels'][0])
+    public function postMlModelsWithHttpInfo($ml_ml_create, string $contentType = self::contentTypes['postMlModels'][0])
     {
-        $request = $this->postMlModelsRequest($ml_create, $contentType);
+        $request = $this->postMlModelsRequest($ml_ml_create, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1373,7 +1409,13 @@ class MlApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MlResource',
+                        '\Hanzo\Cloud\Model\MlMlResource',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1395,7 +1437,7 @@ class MlApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MlResource',
+                '\Hanzo\Cloud\Model\MlMlResource',
                 $request,
                 $response,
             );
@@ -1404,7 +1446,15 @@ class MlApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MlResource',
+                        '\Hanzo\Cloud\Model\MlMlResource',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1421,15 +1471,15 @@ class MlApi
      *
      * Deploys one inference model for the caller&#39;s org, and answers 201 with the model as Kubernetes admitted it.
      *
-     * @param  \Hanzo\Cloud\Model\MlCreate $ml_create (required)
+     * @param  \Hanzo\Cloud\Model\MlMlCreate $ml_ml_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMlModels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMlModelsAsync($ml_create, string $contentType = self::contentTypes['postMlModels'][0])
+    public function postMlModelsAsync($ml_ml_create, string $contentType = self::contentTypes['postMlModels'][0])
     {
-        return $this->postMlModelsAsyncWithHttpInfo($ml_create, $contentType)
+        return $this->postMlModelsAsyncWithHttpInfo($ml_ml_create, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1442,16 +1492,16 @@ class MlApi
      *
      * Deploys one inference model for the caller&#39;s org, and answers 201 with the model as Kubernetes admitted it.
      *
-     * @param  \Hanzo\Cloud\Model\MlCreate $ml_create (required)
+     * @param  \Hanzo\Cloud\Model\MlMlCreate $ml_ml_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMlModels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postMlModelsAsyncWithHttpInfo($ml_create, string $contentType = self::contentTypes['postMlModels'][0])
+    public function postMlModelsAsyncWithHttpInfo($ml_ml_create, string $contentType = self::contentTypes['postMlModels'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MlResource';
-        $request = $this->postMlModelsRequest($ml_create, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\MlMlResource';
+        $request = $this->postMlModelsRequest($ml_ml_create, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1492,19 +1542,19 @@ class MlApi
     /**
      * Create request for operation 'postMlModels'
      *
-     * @param  \Hanzo\Cloud\Model\MlCreate $ml_create (required)
+     * @param  \Hanzo\Cloud\Model\MlMlCreate $ml_ml_create (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postMlModels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postMlModelsRequest($ml_create, string $contentType = self::contentTypes['postMlModels'][0])
+    public function postMlModelsRequest($ml_ml_create, string $contentType = self::contentTypes['postMlModels'][0])
     {
 
-        // verify the required parameter 'ml_create' is set
-        if ($ml_create === null || (is_array($ml_create) && count($ml_create) === 0)) {
+        // verify the required parameter 'ml_ml_create' is set
+        if ($ml_ml_create === null || (is_array($ml_ml_create) && count($ml_ml_create) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $ml_create when calling postMlModels'
+                'Missing the required parameter $ml_ml_create when calling postMlModels'
             );
         }
 
@@ -1521,18 +1571,18 @@ class MlApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($ml_create)) {
+        if (isset($ml_ml_create)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ml_create));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ml_ml_create));
             } else {
-                $httpBody = $ml_create;
+                $httpBody = $ml_ml_create;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

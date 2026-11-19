@@ -58,7 +58,7 @@ class IamReply implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'action' => 'string',
-        'data' => 'object',
+        'data' => 'mixed',
         'msg' => 'string',
         'status' => 'string'
     ];
@@ -84,7 +84,7 @@ class IamReply implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'action' => false,
-        'data' => false,
+        'data' => true,
         'msg' => false,
         'status' => false
     ];
@@ -340,7 +340,7 @@ class IamReply implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets data
      *
-     * @return object|null
+     * @return mixed|null
      */
     public function getData()
     {
@@ -350,14 +350,21 @@ class IamReply implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets data
      *
-     * @param object|null $data data
+     * @param mixed|null $data data
      *
      * @return self
      */
     public function setData($data)
     {
         if (is_null($data)) {
-            throw new \InvalidArgumentException('non-nullable data cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'data');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('data', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['data'] = $data;
 

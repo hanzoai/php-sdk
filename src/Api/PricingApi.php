@@ -146,16 +146,10 @@ class PricingApi
         'getPricingSummary' => [
             'application/json',
         ],
+        'getPricingTariff' => [
+            'application/json',
+        ],
         'getPricingTools' => [
-            'application/json',
-        ],
-        'postPricingEnablementOptin' => [
-            'application/json',
-        ],
-        'postPricingEnablementOptout' => [
-            'application/json',
-        ],
-        'postPricingSync' => [
             'application/json',
         ],
     ];
@@ -215,7 +209,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricing(string $contentType = self::contentTypes['getPricing'][0])
     {
@@ -232,7 +226,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingWithHttpInfo(string $contentType = self::contentTypes['getPricing'][0])
     {
@@ -264,7 +258,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -286,7 +286,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -295,7 +295,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -339,7 +347,7 @@ class PricingApi
      */
     public function getPricingAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricing'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getPricingRequest($contentType);
 
         return $this->client
@@ -402,7 +410,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -467,7 +475,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingPlanList
+     * @return \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingBase(string $contentType = self::contentTypes['getPricingBase'][0])
     {
@@ -484,7 +492,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingPlanList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingBaseWithHttpInfo(string $contentType = self::contentTypes['getPricingBase'][0])
     {
@@ -516,7 +524,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -538,7 +552,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingPlanList',
+                '\Hanzo\Cloud\Model\PricingPricingPlanList',
                 $request,
                 $response,
             );
@@ -547,7 +561,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -591,7 +613,7 @@ class PricingApi
      */
     public function getPricingBaseAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingBase'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingPlanList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingPlanList';
         $request = $this->getPricingBaseRequest($contentType);
 
         return $this->client
@@ -654,7 +676,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -719,7 +741,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingPlanList
+     * @return \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingBlockchain(string $contentType = self::contentTypes['getPricingBlockchain'][0])
     {
@@ -736,7 +758,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingPlanList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingBlockchainWithHttpInfo(string $contentType = self::contentTypes['getPricingBlockchain'][0])
     {
@@ -768,7 +790,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -790,7 +818,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingPlanList',
+                '\Hanzo\Cloud\Model\PricingPricingPlanList',
                 $request,
                 $response,
             );
@@ -799,7 +827,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -843,7 +879,7 @@ class PricingApi
      */
     public function getPricingBlockchainAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingBlockchain'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingPlanList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingPlanList';
         $request = $this->getPricingBlockchainRequest($contentType);
 
         return $this->client
@@ -906,7 +942,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -971,7 +1007,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingCloud(string $contentType = self::contentTypes['getPricingCloud'][0])
     {
@@ -988,7 +1024,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingCloudWithHttpInfo(string $contentType = self::contentTypes['getPricingCloud'][0])
     {
@@ -1020,7 +1056,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1042,7 +1084,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -1051,7 +1093,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1095,7 +1145,7 @@ class PricingApi
      */
     public function getPricingCloudAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingCloud'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getPricingCloudRequest($contentType);
 
         return $this->client
@@ -1158,7 +1208,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1223,7 +1273,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingPlanList
+     * @return \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingCloudPlans(string $contentType = self::contentTypes['getPricingCloudPlans'][0])
     {
@@ -1240,7 +1290,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingPlanList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingCloudPlansWithHttpInfo(string $contentType = self::contentTypes['getPricingCloudPlans'][0])
     {
@@ -1272,7 +1322,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1294,7 +1350,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingPlanList',
+                '\Hanzo\Cloud\Model\PricingPricingPlanList',
                 $request,
                 $response,
             );
@@ -1303,7 +1359,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1347,7 +1411,7 @@ class PricingApi
      */
     public function getPricingCloudPlansAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingCloudPlans'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingPlanList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingPlanList';
         $request = $this->getPricingCloudPlansRequest($contentType);
 
         return $this->client
@@ -1410,7 +1474,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1475,7 +1539,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingRegionList
+     * @return \Hanzo\Cloud\Model\PricingPricingRegionList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingCloudRegions(string $contentType = self::contentTypes['getPricingCloudRegions'][0])
     {
@@ -1492,7 +1556,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingRegionList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingRegionList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingCloudRegionsWithHttpInfo(string $contentType = self::contentTypes['getPricingCloudRegions'][0])
     {
@@ -1524,7 +1588,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingRegionList',
+                        '\Hanzo\Cloud\Model\PricingPricingRegionList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1546,7 +1616,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingRegionList',
+                '\Hanzo\Cloud\Model\PricingPricingRegionList',
                 $request,
                 $response,
             );
@@ -1555,7 +1625,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingRegionList',
+                        '\Hanzo\Cloud\Model\PricingPricingRegionList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1599,7 +1677,7 @@ class PricingApi
      */
     public function getPricingCloudRegionsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingCloudRegions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingRegionList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingRegionList';
         $request = $this->getPricingCloudRegionsRequest($contentType);
 
         return $this->client
@@ -1662,7 +1740,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1727,7 +1805,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingCloudStorage(string $contentType = self::contentTypes['getPricingCloudStorage'][0])
     {
@@ -1744,7 +1822,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingCloudStorageWithHttpInfo(string $contentType = self::contentTypes['getPricingCloudStorage'][0])
     {
@@ -1776,7 +1854,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1798,7 +1882,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -1807,7 +1891,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1851,7 +1943,7 @@ class PricingApi
      */
     public function getPricingCloudStorageAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingCloudStorage'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getPricingCloudStorageRequest($contentType);
 
         return $this->client
@@ -1914,7 +2006,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1979,7 +2071,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingCompute(string $contentType = self::contentTypes['getPricingCompute'][0])
     {
@@ -1996,7 +2088,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingComputeWithHttpInfo(string $contentType = self::contentTypes['getPricingCompute'][0])
     {
@@ -2028,7 +2120,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2050,7 +2148,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -2059,7 +2157,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2103,7 +2209,7 @@ class PricingApi
      */
     public function getPricingComputeAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingCompute'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getPricingComputeRequest($contentType);
 
         return $this->client
@@ -2166,7 +2272,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2231,7 +2337,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingPresetList
+     * @return \Hanzo\Cloud\Model\PricingPricingPresetList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingComputePresets(string $contentType = self::contentTypes['getPricingComputePresets'][0])
     {
@@ -2248,7 +2354,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingPresetList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingPresetList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingComputePresetsWithHttpInfo(string $contentType = self::contentTypes['getPricingComputePresets'][0])
     {
@@ -2280,7 +2386,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingPresetList',
+                        '\Hanzo\Cloud\Model\PricingPricingPresetList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2302,7 +2414,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingPresetList',
+                '\Hanzo\Cloud\Model\PricingPricingPresetList',
                 $request,
                 $response,
             );
@@ -2311,7 +2423,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingPresetList',
+                        '\Hanzo\Cloud\Model\PricingPricingPresetList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2355,7 +2475,7 @@ class PricingApi
      */
     public function getPricingComputePresetsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingComputePresets'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingPresetList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingPresetList';
         $request = $this->getPricingComputePresetsRequest($contentType);
 
         return $this->client
@@ -2418,7 +2538,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2483,7 +2603,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingDatastore(string $contentType = self::contentTypes['getPricingDatastore'][0])
     {
@@ -2500,7 +2620,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingDatastoreWithHttpInfo(string $contentType = self::contentTypes['getPricingDatastore'][0])
     {
@@ -2532,7 +2652,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2554,7 +2680,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -2563,7 +2689,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2607,7 +2741,7 @@ class PricingApi
      */
     public function getPricingDatastoreAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingDatastore'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getPricingDatastoreRequest($contentType);
 
         return $this->client
@@ -2670,7 +2804,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2729,13 +2863,13 @@ class PricingApi
     /**
      * Operation getPricingEnablement
      *
-     * Returns what the caller&#39;s org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
+     * Returns what the caller can actually use: every managed item with its global state and whether it is effective for this caller — a beta item is, while the platform&#39;s &#x60;beta&#x60; switch is on for it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingEnablement'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EnablementBoard
+     * @return \Hanzo\Cloud\Model\PricingEnablementBoard|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingEnablement(string $contentType = self::contentTypes['getPricingEnablement'][0])
     {
@@ -2746,13 +2880,13 @@ class PricingApi
     /**
      * Operation getPricingEnablementWithHttpInfo
      *
-     * Returns what the caller&#39;s org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
+     * Returns what the caller can actually use: every managed item with its global state and whether it is effective for this caller — a beta item is, while the platform&#39;s &#x60;beta&#x60; switch is on for it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingEnablement'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EnablementBoard, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingEnablementBoard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingEnablementWithHttpInfo(string $contentType = self::contentTypes['getPricingEnablement'][0])
     {
@@ -2784,7 +2918,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EnablementBoard',
+                        '\Hanzo\Cloud\Model\PricingEnablementBoard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2806,7 +2946,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EnablementBoard',
+                '\Hanzo\Cloud\Model\PricingEnablementBoard',
                 $request,
                 $response,
             );
@@ -2815,7 +2955,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EnablementBoard',
+                        '\Hanzo\Cloud\Model\PricingEnablementBoard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2830,7 +2978,7 @@ class PricingApi
     /**
      * Operation getPricingEnablementAsync
      *
-     * Returns what the caller&#39;s org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
+     * Returns what the caller can actually use: every managed item with its global state and whether it is effective for this caller — a beta item is, while the platform&#39;s &#x60;beta&#x60; switch is on for it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingEnablement'] to see the possible values for this operation
      *
@@ -2850,7 +2998,7 @@ class PricingApi
     /**
      * Operation getPricingEnablementAsyncWithHttpInfo
      *
-     * Returns what the caller&#39;s org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
+     * Returns what the caller can actually use: every managed item with its global state and whether it is effective for this caller — a beta item is, while the platform&#39;s &#x60;beta&#x60; switch is on for it.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingEnablement'] to see the possible values for this operation
      *
@@ -2859,7 +3007,7 @@ class PricingApi
      */
     public function getPricingEnablementAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingEnablement'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\EnablementBoard';
+        $returnType = '\Hanzo\Cloud\Model\PricingEnablementBoard';
         $request = $this->getPricingEnablementRequest($contentType);
 
         return $this->client
@@ -2922,7 +3070,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2987,7 +3135,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingModelList
+     * @return \Hanzo\Cloud\Model\PricingPricingModelList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingFeatured(string $contentType = self::contentTypes['getPricingFeatured'][0])
     {
@@ -3004,7 +3152,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingModelList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingModelList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingFeaturedWithHttpInfo(string $contentType = self::contentTypes['getPricingFeatured'][0])
     {
@@ -3036,7 +3184,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingModelList',
+                        '\Hanzo\Cloud\Model\PricingPricingModelList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3058,7 +3212,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingModelList',
+                '\Hanzo\Cloud\Model\PricingPricingModelList',
                 $request,
                 $response,
             );
@@ -3067,7 +3221,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingModelList',
+                        '\Hanzo\Cloud\Model\PricingPricingModelList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3111,7 +3273,7 @@ class PricingApi
      */
     public function getPricingFeaturedAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingFeatured'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingModelList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingModelList';
         $request = $this->getPricingFeaturedRequest($contentType);
 
         return $this->client
@@ -3174,7 +3336,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3239,7 +3401,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingModelList
+     * @return \Hanzo\Cloud\Model\PricingPricingModelList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingFree(string $contentType = self::contentTypes['getPricingFree'][0])
     {
@@ -3256,7 +3418,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingModelList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingModelList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingFreeWithHttpInfo(string $contentType = self::contentTypes['getPricingFree'][0])
     {
@@ -3288,7 +3450,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingModelList',
+                        '\Hanzo\Cloud\Model\PricingPricingModelList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3310,7 +3478,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingModelList',
+                '\Hanzo\Cloud\Model\PricingPricingModelList',
                 $request,
                 $response,
             );
@@ -3319,7 +3487,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingModelList',
+                        '\Hanzo\Cloud\Model\PricingPricingModelList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3363,7 +3539,7 @@ class PricingApi
      */
     public function getPricingFreeAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingFree'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingModelList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingModelList';
         $request = $this->getPricingFreeRequest($contentType);
 
         return $this->client
@@ -3426,7 +3602,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3491,7 +3667,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingTierList
+     * @return \Hanzo\Cloud\Model\PricingPricingTierList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingGpu(string $contentType = self::contentTypes['getPricingGpu'][0])
     {
@@ -3508,7 +3684,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingTierList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingTierList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingGpuWithHttpInfo(string $contentType = self::contentTypes['getPricingGpu'][0])
     {
@@ -3540,7 +3716,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingTierList',
+                        '\Hanzo\Cloud\Model\PricingPricingTierList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3562,7 +3744,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingTierList',
+                '\Hanzo\Cloud\Model\PricingPricingTierList',
                 $request,
                 $response,
             );
@@ -3571,7 +3753,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingTierList',
+                        '\Hanzo\Cloud\Model\PricingPricingTierList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3615,7 +3805,7 @@ class PricingApi
      */
     public function getPricingGpuAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingGpu'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingTierList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingTierList';
         $request = $this->getPricingGpuRequest($contentType);
 
         return $this->client
@@ -3678,7 +3868,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3737,13 +3927,13 @@ class PricingApi
     /**
      * Operation getPricingHealth
      *
-     * Health reports that the pricing subsystem is mounted and serving.
+     * Reports that the pricing subsystem is mounted and serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingHealth
+     * @return \Hanzo\Cloud\Model\PricingPricingHealth|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingHealth(string $contentType = self::contentTypes['getPricingHealth'][0])
     {
@@ -3754,13 +3944,13 @@ class PricingApi
     /**
      * Operation getPricingHealthWithHttpInfo
      *
-     * Health reports that the pricing subsystem is mounted and serving.
+     * Reports that the pricing subsystem is mounted and serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingHealth, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingHealth|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingHealthWithHttpInfo(string $contentType = self::contentTypes['getPricingHealth'][0])
     {
@@ -3792,7 +3982,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingHealth',
+                        '\Hanzo\Cloud\Model\PricingPricingHealth',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3814,7 +4010,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingHealth',
+                '\Hanzo\Cloud\Model\PricingPricingHealth',
                 $request,
                 $response,
             );
@@ -3823,7 +4019,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingHealth',
+                        '\Hanzo\Cloud\Model\PricingPricingHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3838,7 +4042,7 @@ class PricingApi
     /**
      * Operation getPricingHealthAsync
      *
-     * Health reports that the pricing subsystem is mounted and serving.
+     * Reports that the pricing subsystem is mounted and serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingHealth'] to see the possible values for this operation
      *
@@ -3858,7 +4062,7 @@ class PricingApi
     /**
      * Operation getPricingHealthAsyncWithHttpInfo
      *
-     * Health reports that the pricing subsystem is mounted and serving.
+     * Reports that the pricing subsystem is mounted and serving.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingHealth'] to see the possible values for this operation
      *
@@ -3867,7 +4071,7 @@ class PricingApi
      */
     public function getPricingHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingHealth'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingHealth';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingHealth';
         $request = $this->getPricingHealthRequest($contentType);
 
         return $this->client
@@ -3930,7 +4134,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -3995,7 +4199,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingPlanList
+     * @return \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingIam(string $contentType = self::contentTypes['getPricingIam'][0])
     {
@@ -4012,7 +4216,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingPlanList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingIamWithHttpInfo(string $contentType = self::contentTypes['getPricingIam'][0])
     {
@@ -4044,7 +4248,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4066,7 +4276,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingPlanList',
+                '\Hanzo\Cloud\Model\PricingPricingPlanList',
                 $request,
                 $response,
             );
@@ -4075,7 +4285,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4119,7 +4337,7 @@ class PricingApi
      */
     public function getPricingIamAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingIam'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingPlanList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingPlanList';
         $request = $this->getPricingIamRequest($contentType);
 
         return $this->client
@@ -4182,7 +4400,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4248,7 +4466,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingModelByName($name, string $contentType = self::contentTypes['getPricingModelByName'][0])
     {
@@ -4266,7 +4484,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingModelByNameWithHttpInfo($name, string $contentType = self::contentTypes['getPricingModelByName'][0])
     {
@@ -4298,7 +4516,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4320,7 +4544,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -4329,7 +4553,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4375,7 +4607,7 @@ class PricingApi
      */
     public function getPricingModelByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getPricingModelByName'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getPricingModelByNameRequest($name, $contentType);
 
         return $this->client
@@ -4454,7 +4686,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4513,34 +4745,36 @@ class PricingApi
     /**
      * Operation getPricingModels
      *
-     * Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller&#39;s org may see.
+     * Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller may see.
      *
+     * @param  string|null $id ID is the models to answer, comma-separated: each matches a model whose id or name is exactly it, or whose id&#39;s last path segment is (&#x60;gpt-5.5&#x60; finds &#x60;openai/gpt-5.5&#x60;). A model the catalog lists without an id is identified by its name, so &#x60;kai&#x60; also finds &#x60;hanzo/kai&#x60;. Absent answers the whole catalog. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingModels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingModelList
+     * @return \Hanzo\Cloud\Model\PricingPricingModelList|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function getPricingModels(string $contentType = self::contentTypes['getPricingModels'][0])
+    public function getPricingModels($id = null, string $contentType = self::contentTypes['getPricingModels'][0])
     {
-        list($response) = $this->getPricingModelsWithHttpInfo($contentType);
+        list($response) = $this->getPricingModelsWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
      * Operation getPricingModelsWithHttpInfo
      *
-     * Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller&#39;s org may see.
+     * Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller may see.
      *
+     * @param  string|null $id ID is the models to answer, comma-separated: each matches a model whose id or name is exactly it, or whose id&#39;s last path segment is (&#x60;gpt-5.5&#x60; finds &#x60;openai/gpt-5.5&#x60;). A model the catalog lists without an id is identified by its name, so &#x60;kai&#x60; also finds &#x60;hanzo/kai&#x60;. Absent answers the whole catalog. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingModels'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingModelList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingModelList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPricingModelsWithHttpInfo(string $contentType = self::contentTypes['getPricingModels'][0])
+    public function getPricingModelsWithHttpInfo($id = null, string $contentType = self::contentTypes['getPricingModels'][0])
     {
-        $request = $this->getPricingModelsRequest($contentType);
+        $request = $this->getPricingModelsRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4568,7 +4802,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingModelList',
+                        '\Hanzo\Cloud\Model\PricingPricingModelList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4590,7 +4830,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingModelList',
+                '\Hanzo\Cloud\Model\PricingPricingModelList',
                 $request,
                 $response,
             );
@@ -4599,7 +4839,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingModelList',
+                        '\Hanzo\Cloud\Model\PricingPricingModelList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4614,16 +4862,17 @@ class PricingApi
     /**
      * Operation getPricingModelsAsync
      *
-     * Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller&#39;s org may see.
+     * Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller may see.
      *
+     * @param  string|null $id ID is the models to answer, comma-separated: each matches a model whose id or name is exactly it, or whose id&#39;s last path segment is (&#x60;gpt-5.5&#x60; finds &#x60;openai/gpt-5.5&#x60;). A model the catalog lists without an id is identified by its name, so &#x60;kai&#x60; also finds &#x60;hanzo/kai&#x60;. Absent answers the whole catalog. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingModels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPricingModelsAsync(string $contentType = self::contentTypes['getPricingModels'][0])
+    public function getPricingModelsAsync($id = null, string $contentType = self::contentTypes['getPricingModels'][0])
     {
-        return $this->getPricingModelsAsyncWithHttpInfo($contentType)
+        return $this->getPricingModelsAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4634,17 +4883,18 @@ class PricingApi
     /**
      * Operation getPricingModelsAsyncWithHttpInfo
      *
-     * Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller&#39;s org may see.
+     * Returns the whole model catalog — every model the gateway serves, Zen and third-party alike — filtered to what the caller may see.
      *
+     * @param  string|null $id ID is the models to answer, comma-separated: each matches a model whose id or name is exactly it, or whose id&#39;s last path segment is (&#x60;gpt-5.5&#x60; finds &#x60;openai/gpt-5.5&#x60;). A model the catalog lists without an id is identified by its name, so &#x60;kai&#x60; also finds &#x60;hanzo/kai&#x60;. Absent answers the whole catalog. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingModels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPricingModelsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingModels'][0])
+    public function getPricingModelsAsyncWithHttpInfo($id = null, string $contentType = self::contentTypes['getPricingModels'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingModelList';
-        $request = $this->getPricingModelsRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingModelList';
+        $request = $this->getPricingModelsRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4685,13 +4935,15 @@ class PricingApi
     /**
      * Create request for operation 'getPricingModels'
      *
+     * @param  string|null $id ID is the models to answer, comma-separated: each matches a model whose id or name is exactly it, or whose id&#39;s last path segment is (&#x60;gpt-5.5&#x60; finds &#x60;openai/gpt-5.5&#x60;). A model the catalog lists without an id is identified by its name, so &#x60;kai&#x60; also finds &#x60;hanzo/kai&#x60;. Absent answers the whole catalog. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingModels'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getPricingModelsRequest(string $contentType = self::contentTypes['getPricingModels'][0])
+    public function getPricingModelsRequest($id = null, string $contentType = self::contentTypes['getPricingModels'][0])
     {
+
 
 
         $resourcePath = '/v1/pricing/models';
@@ -4701,12 +4953,21 @@ class PricingApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $id,
+            'id', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -4771,7 +5032,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingPlanList
+     * @return \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingPaas(string $contentType = self::contentTypes['getPricingPaas'][0])
     {
@@ -4788,7 +5049,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingPlanList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingPaasWithHttpInfo(string $contentType = self::contentTypes['getPricingPaas'][0])
     {
@@ -4820,7 +5081,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4842,7 +5109,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingPlanList',
+                '\Hanzo\Cloud\Model\PricingPricingPlanList',
                 $request,
                 $response,
             );
@@ -4851,7 +5118,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4895,7 +5170,7 @@ class PricingApi
      */
     public function getPricingPaasAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingPaas'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingPlanList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingPlanList';
         $request = $this->getPricingPaasRequest($contentType);
 
         return $this->client
@@ -4958,7 +5233,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5023,7 +5298,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingPolicy(string $contentType = self::contentTypes['getPricingPolicy'][0])
     {
@@ -5040,7 +5315,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingPolicyWithHttpInfo(string $contentType = self::contentTypes['getPricingPolicy'][0])
     {
@@ -5072,7 +5347,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5094,7 +5375,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -5103,7 +5384,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5147,7 +5436,7 @@ class PricingApi
      */
     public function getPricingPolicyAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingPolicy'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getPricingPolicyRequest($contentType);
 
         return $this->client
@@ -5210,7 +5499,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5275,7 +5564,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingProviderList
+     * @return \Hanzo\Cloud\Model\PricingPricingProviderList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingProviders(string $contentType = self::contentTypes['getPricingProviders'][0])
     {
@@ -5292,7 +5581,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingProviderList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingProviderList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingProvidersWithHttpInfo(string $contentType = self::contentTypes['getPricingProviders'][0])
     {
@@ -5324,7 +5613,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingProviderList',
+                        '\Hanzo\Cloud\Model\PricingPricingProviderList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5346,7 +5641,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingProviderList',
+                '\Hanzo\Cloud\Model\PricingPricingProviderList',
                 $request,
                 $response,
             );
@@ -5355,7 +5650,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingProviderList',
+                        '\Hanzo\Cloud\Model\PricingPricingProviderList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5399,7 +5702,7 @@ class PricingApi
      */
     public function getPricingProvidersAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingProviders'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingProviderList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingProviderList';
         $request = $this->getPricingProvidersRequest($contentType);
 
         return $this->client
@@ -5462,7 +5765,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5527,7 +5830,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingServices(string $contentType = self::contentTypes['getPricingServices'][0])
     {
@@ -5544,7 +5847,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingServicesWithHttpInfo(string $contentType = self::contentTypes['getPricingServices'][0])
     {
@@ -5576,7 +5879,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5598,7 +5907,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -5607,7 +5916,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5651,7 +5968,7 @@ class PricingApi
      */
     public function getPricingServicesAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingServices'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getPricingServicesRequest($contentType);
 
         return $this->client
@@ -5714,7 +6031,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -5779,7 +6096,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingPlanList
+     * @return \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingSubscriptions(string $contentType = self::contentTypes['getPricingSubscriptions'][0])
     {
@@ -5796,7 +6113,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingPlanList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingPlanList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingSubscriptionsWithHttpInfo(string $contentType = self::contentTypes['getPricingSubscriptions'][0])
     {
@@ -5828,7 +6145,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -5850,7 +6173,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingPlanList',
+                '\Hanzo\Cloud\Model\PricingPricingPlanList',
                 $request,
                 $response,
             );
@@ -5859,7 +6182,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingPlanList',
+                        '\Hanzo\Cloud\Model\PricingPricingPlanList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -5903,7 +6234,7 @@ class PricingApi
      */
     public function getPricingSubscriptionsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingSubscriptions'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingPlanList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingPlanList';
         $request = $this->getPricingSubscriptionsRequest($contentType);
 
         return $this->client
@@ -5966,7 +6297,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6031,7 +6362,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array<string,object>
+     * @return array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingSummary(string $contentType = self::contentTypes['getPricingSummary'][0])
     {
@@ -6048,7 +6379,7 @@ class PricingApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of array<string,object>, HTTP status code, HTTP response headers (array of strings)
+     * @return array of array<string,mixed>|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingSummaryWithHttpInfo(string $contentType = self::contentTypes['getPricingSummary'][0])
     {
@@ -6080,7 +6411,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6102,7 +6439,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                'array<string,object>',
+                'array<string,mixed>',
                 $request,
                 $response,
             );
@@ -6111,7 +6448,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'array<string,object>',
+                        'array<string,mixed>',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6155,7 +6500,7 @@ class PricingApi
      */
     public function getPricingSummaryAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingSummary'][0])
     {
-        $returnType = 'array<string,object>';
+        $returnType = 'array<string,mixed>';
         $request = $this->getPricingSummaryRequest($contentType);
 
         return $this->client
@@ -6218,7 +6563,273 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getPricingTariff
+     *
+     * Returns the platform&#39;s rate card: what a bill is made of, what each part costs, and the completion windows a request may ask for.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingTariff'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PricingCard|\Hanzo\Cloud\Model\ProblemDetails
+     */
+    public function getPricingTariff(string $contentType = self::contentTypes['getPricingTariff'][0])
+    {
+        list($response) = $this->getPricingTariffWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getPricingTariffWithHttpInfo
+     *
+     * Returns the platform&#39;s rate card: what a bill is made of, what each part costs, and the completion windows a request may ask for.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingTariff'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PricingCard|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getPricingTariffWithHttpInfo(string $contentType = self::contentTypes['getPricingTariff'][0])
+    {
+        $request = $this->getPricingTariffRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PricingCard',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PricingCard',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PricingCard',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getPricingTariffAsync
+     *
+     * Returns the platform&#39;s rate card: what a bill is made of, what each part costs, and the completion windows a request may ask for.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingTariff'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPricingTariffAsync(string $contentType = self::contentTypes['getPricingTariff'][0])
+    {
+        return $this->getPricingTariffAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getPricingTariffAsyncWithHttpInfo
+     *
+     * Returns the platform&#39;s rate card: what a bill is made of, what each part costs, and the completion windows a request may ask for.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingTariff'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getPricingTariffAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingTariff'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PricingCard';
+        $request = $this->getPricingTariffRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getPricingTariff'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingTariff'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getPricingTariffRequest(string $contentType = self::contentTypes['getPricingTariff'][0])
+    {
+
+
+        $resourcePath = '/v1/pricing/tariff';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6277,13 +6888,13 @@ class PricingApi
     /**
      * Operation getPricingTools
      *
-     * Returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
+     * Returns the per-use tool prices — web search, web fetch, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingTools'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingToolList
+     * @return \Hanzo\Cloud\Model\PricingPricingToolList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPricingTools(string $contentType = self::contentTypes['getPricingTools'][0])
     {
@@ -6294,13 +6905,13 @@ class PricingApi
     /**
      * Operation getPricingToolsWithHttpInfo
      *
-     * Returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
+     * Returns the per-use tool prices — web search, web fetch, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingTools'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingToolList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PricingPricingToolList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPricingToolsWithHttpInfo(string $contentType = self::contentTypes['getPricingTools'][0])
     {
@@ -6332,7 +6943,13 @@ class PricingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingToolList',
+                        '\Hanzo\Cloud\Model\PricingPricingToolList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -6354,7 +6971,7 @@ class PricingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingToolList',
+                '\Hanzo\Cloud\Model\PricingPricingToolList',
                 $request,
                 $response,
             );
@@ -6363,7 +6980,15 @@ class PricingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingToolList',
+                        '\Hanzo\Cloud\Model\PricingPricingToolList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -6378,7 +7003,7 @@ class PricingApi
     /**
      * Operation getPricingToolsAsync
      *
-     * Returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
+     * Returns the per-use tool prices — web search, web fetch, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingTools'] to see the possible values for this operation
      *
@@ -6398,7 +7023,7 @@ class PricingApi
     /**
      * Operation getPricingToolsAsyncWithHttpInfo
      *
-     * Returns the per-use tool prices — web search, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
+     * Returns the per-use tool prices — web search, web fetch, code interpreter, file storage, image generation, speech-to-text and text-to-speech — each with the unit it is billed by and its price in that unit.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPricingTools'] to see the possible values for this operation
      *
@@ -6407,7 +7032,7 @@ class PricingApi
      */
     public function getPricingToolsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPricingTools'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PricingToolList';
+        $returnType = '\Hanzo\Cloud\Model\PricingPricingToolList';
         $request = $this->getPricingToolsRequest($contentType);
 
         return $this->client
@@ -6470,7 +7095,7 @@ class PricingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -6520,800 +7145,6 @@ class PricingApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postPricingEnablementOptin
-     *
-     * Opts the caller&#39;s OWN org into a beta item.
-     *
-     * @param  \Hanzo\Cloud\Model\EnablementOptRef $enablement_opt_ref enablement_opt_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingEnablementOptin'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\UserEnablementItem
-     */
-    public function postPricingEnablementOptin($enablement_opt_ref, string $contentType = self::contentTypes['postPricingEnablementOptin'][0])
-    {
-        list($response) = $this->postPricingEnablementOptinWithHttpInfo($enablement_opt_ref, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postPricingEnablementOptinWithHttpInfo
-     *
-     * Opts the caller&#39;s OWN org into a beta item.
-     *
-     * @param  \Hanzo\Cloud\Model\EnablementOptRef $enablement_opt_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingEnablementOptin'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\UserEnablementItem, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postPricingEnablementOptinWithHttpInfo($enablement_opt_ref, string $contentType = self::contentTypes['postPricingEnablementOptin'][0])
-    {
-        $request = $this->postPricingEnablementOptinRequest($enablement_opt_ref, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\UserEnablementItem',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\UserEnablementItem',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\UserEnablementItem',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postPricingEnablementOptinAsync
-     *
-     * Opts the caller&#39;s OWN org into a beta item.
-     *
-     * @param  \Hanzo\Cloud\Model\EnablementOptRef $enablement_opt_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingEnablementOptin'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postPricingEnablementOptinAsync($enablement_opt_ref, string $contentType = self::contentTypes['postPricingEnablementOptin'][0])
-    {
-        return $this->postPricingEnablementOptinAsyncWithHttpInfo($enablement_opt_ref, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postPricingEnablementOptinAsyncWithHttpInfo
-     *
-     * Opts the caller&#39;s OWN org into a beta item.
-     *
-     * @param  \Hanzo\Cloud\Model\EnablementOptRef $enablement_opt_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingEnablementOptin'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postPricingEnablementOptinAsyncWithHttpInfo($enablement_opt_ref, string $contentType = self::contentTypes['postPricingEnablementOptin'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\UserEnablementItem';
-        $request = $this->postPricingEnablementOptinRequest($enablement_opt_ref, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postPricingEnablementOptin'
-     *
-     * @param  \Hanzo\Cloud\Model\EnablementOptRef $enablement_opt_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingEnablementOptin'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postPricingEnablementOptinRequest($enablement_opt_ref, string $contentType = self::contentTypes['postPricingEnablementOptin'][0])
-    {
-
-        // verify the required parameter 'enablement_opt_ref' is set
-        if ($enablement_opt_ref === null || (is_array($enablement_opt_ref) && count($enablement_opt_ref) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $enablement_opt_ref when calling postPricingEnablementOptin'
-            );
-        }
-
-
-        $resourcePath = '/v1/pricing/enablement/optin';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($enablement_opt_ref)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($enablement_opt_ref));
-            } else {
-                $httpBody = $enablement_opt_ref;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postPricingEnablementOptout
-     *
-     * Removes the caller&#39;s OWN org from a beta item&#39;s grant list, the reverse of OptIntoBeta and idempotent.
-     *
-     * @param  \Hanzo\Cloud\Model\EnablementOptRef $enablement_opt_ref enablement_opt_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingEnablementOptout'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\UserEnablementItem
-     */
-    public function postPricingEnablementOptout($enablement_opt_ref, string $contentType = self::contentTypes['postPricingEnablementOptout'][0])
-    {
-        list($response) = $this->postPricingEnablementOptoutWithHttpInfo($enablement_opt_ref, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postPricingEnablementOptoutWithHttpInfo
-     *
-     * Removes the caller&#39;s OWN org from a beta item&#39;s grant list, the reverse of OptIntoBeta and idempotent.
-     *
-     * @param  \Hanzo\Cloud\Model\EnablementOptRef $enablement_opt_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingEnablementOptout'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\UserEnablementItem, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postPricingEnablementOptoutWithHttpInfo($enablement_opt_ref, string $contentType = self::contentTypes['postPricingEnablementOptout'][0])
-    {
-        $request = $this->postPricingEnablementOptoutRequest($enablement_opt_ref, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\UserEnablementItem',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\UserEnablementItem',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\UserEnablementItem',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postPricingEnablementOptoutAsync
-     *
-     * Removes the caller&#39;s OWN org from a beta item&#39;s grant list, the reverse of OptIntoBeta and idempotent.
-     *
-     * @param  \Hanzo\Cloud\Model\EnablementOptRef $enablement_opt_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingEnablementOptout'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postPricingEnablementOptoutAsync($enablement_opt_ref, string $contentType = self::contentTypes['postPricingEnablementOptout'][0])
-    {
-        return $this->postPricingEnablementOptoutAsyncWithHttpInfo($enablement_opt_ref, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postPricingEnablementOptoutAsyncWithHttpInfo
-     *
-     * Removes the caller&#39;s OWN org from a beta item&#39;s grant list, the reverse of OptIntoBeta and idempotent.
-     *
-     * @param  \Hanzo\Cloud\Model\EnablementOptRef $enablement_opt_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingEnablementOptout'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postPricingEnablementOptoutAsyncWithHttpInfo($enablement_opt_ref, string $contentType = self::contentTypes['postPricingEnablementOptout'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\UserEnablementItem';
-        $request = $this->postPricingEnablementOptoutRequest($enablement_opt_ref, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postPricingEnablementOptout'
-     *
-     * @param  \Hanzo\Cloud\Model\EnablementOptRef $enablement_opt_ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingEnablementOptout'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postPricingEnablementOptoutRequest($enablement_opt_ref, string $contentType = self::contentTypes['postPricingEnablementOptout'][0])
-    {
-
-        // verify the required parameter 'enablement_opt_ref' is set
-        if ($enablement_opt_ref === null || (is_array($enablement_opt_ref) && count($enablement_opt_ref) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $enablement_opt_ref when calling postPricingEnablementOptout'
-            );
-        }
-
-
-        $resourcePath = '/v1/pricing/enablement/optout';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($enablement_opt_ref)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($enablement_opt_ref));
-            } else {
-                $httpBody = $enablement_opt_ref;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postPricingSync
-     *
-     * Refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingSync'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PricingSyncOut
-     */
-    public function postPricingSync(string $contentType = self::contentTypes['postPricingSync'][0])
-    {
-        list($response) = $this->postPricingSyncWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postPricingSyncWithHttpInfo
-     *
-     * Refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingSync'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PricingSyncOut, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postPricingSyncWithHttpInfo(string $contentType = self::contentTypes['postPricingSync'][0])
-    {
-        $request = $this->postPricingSyncRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PricingSyncOut',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PricingSyncOut',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PricingSyncOut',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postPricingSyncAsync
-     *
-     * Refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingSync'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postPricingSyncAsync(string $contentType = self::contentTypes['postPricingSync'][0])
-    {
-        return $this->postPricingSyncAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postPricingSyncAsyncWithHttpInfo
-     *
-     * Refreshes the third-party section of the catalog from its upstream listings and returns the time the refreshed catalog was stamped with.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingSync'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postPricingSyncAsyncWithHttpInfo(string $contentType = self::contentTypes['postPricingSync'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\PricingSyncOut';
-        $request = $this->postPricingSyncRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postPricingSync'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPricingSync'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postPricingSyncRequest(string $contentType = self::contentTypes['postPricingSync'][0])
-    {
-
-
-        $resourcePath = '/v1/pricing/sync';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

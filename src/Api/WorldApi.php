@@ -149,7 +149,7 @@ class WorldApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\WorldIndex
+     * @return \Hanzo\Cloud\Model\WorldWorldIndex|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWorld(string $contentType = self::contentTypes['getWorld'][0])
     {
@@ -166,7 +166,7 @@ class WorldApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\WorldIndex, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WorldWorldIndex|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWorldWithHttpInfo(string $contentType = self::contentTypes['getWorld'][0])
     {
@@ -198,7 +198,13 @@ class WorldApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\WorldIndex',
+                        '\Hanzo\Cloud\Model\WorldWorldIndex',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -220,7 +226,7 @@ class WorldApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\WorldIndex',
+                '\Hanzo\Cloud\Model\WorldWorldIndex',
                 $request,
                 $response,
             );
@@ -229,7 +235,15 @@ class WorldApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\WorldIndex',
+                        '\Hanzo\Cloud\Model\WorldWorldIndex',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -273,7 +287,7 @@ class WorldApi
      */
     public function getWorldAsyncWithHttpInfo(string $contentType = self::contentTypes['getWorld'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\WorldIndex';
+        $returnType = '\Hanzo\Cloud\Model\WorldWorldIndex';
         $request = $this->getWorldRequest($contentType);
 
         return $this->client
@@ -336,7 +350,7 @@ class WorldApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -402,7 +416,7 @@ class WorldApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\LimitsView
+     * @return \Hanzo\Cloud\Model\WorldLimitsView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWorldLimits($plan = null, string $contentType = self::contentTypes['getWorldLimits'][0])
     {
@@ -420,7 +434,7 @@ class WorldApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\LimitsView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WorldLimitsView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWorldLimitsWithHttpInfo($plan = null, string $contentType = self::contentTypes['getWorldLimits'][0])
     {
@@ -452,7 +466,13 @@ class WorldApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\LimitsView',
+                        '\Hanzo\Cloud\Model\WorldLimitsView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -474,7 +494,7 @@ class WorldApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\LimitsView',
+                '\Hanzo\Cloud\Model\WorldLimitsView',
                 $request,
                 $response,
             );
@@ -483,7 +503,15 @@ class WorldApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\LimitsView',
+                        '\Hanzo\Cloud\Model\WorldLimitsView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -529,7 +557,7 @@ class WorldApi
      */
     public function getWorldLimitsAsyncWithHttpInfo($plan = null, string $contentType = self::contentTypes['getWorldLimits'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\LimitsView';
+        $returnType = '\Hanzo\Cloud\Model\WorldLimitsView';
         $request = $this->getWorldLimitsRequest($plan, $contentType);
 
         return $this->client
@@ -603,7 +631,7 @@ class WorldApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -668,7 +696,7 @@ class WorldApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\NewsResponse
+     * @return \Hanzo\Cloud\Model\WorldNewsResponse|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWorldNews(string $contentType = self::contentTypes['getWorldNews'][0])
     {
@@ -685,7 +713,7 @@ class WorldApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\NewsResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WorldNewsResponse|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWorldNewsWithHttpInfo(string $contentType = self::contentTypes['getWorldNews'][0])
     {
@@ -717,7 +745,13 @@ class WorldApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\NewsResponse',
+                        '\Hanzo\Cloud\Model\WorldNewsResponse',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -739,7 +773,7 @@ class WorldApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\NewsResponse',
+                '\Hanzo\Cloud\Model\WorldNewsResponse',
                 $request,
                 $response,
             );
@@ -748,7 +782,15 @@ class WorldApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\NewsResponse',
+                        '\Hanzo\Cloud\Model\WorldNewsResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -792,7 +834,7 @@ class WorldApi
      */
     public function getWorldNewsAsyncWithHttpInfo(string $contentType = self::contentTypes['getWorldNews'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\NewsResponse';
+        $returnType = '\Hanzo\Cloud\Model\WorldNewsResponse';
         $request = $this->getWorldNewsRequest($contentType);
 
         return $this->client
@@ -855,7 +897,7 @@ class WorldApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -920,7 +962,7 @@ class WorldApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PipelineView
+     * @return \Hanzo\Cloud\Model\WorldPipelineView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getWorldPipeline(string $contentType = self::contentTypes['getWorldPipeline'][0])
     {
@@ -937,7 +979,7 @@ class WorldApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PipelineView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WorldPipelineView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getWorldPipelineWithHttpInfo(string $contentType = self::contentTypes['getWorldPipeline'][0])
     {
@@ -969,7 +1011,13 @@ class WorldApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PipelineView',
+                        '\Hanzo\Cloud\Model\WorldPipelineView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -991,7 +1039,7 @@ class WorldApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PipelineView',
+                '\Hanzo\Cloud\Model\WorldPipelineView',
                 $request,
                 $response,
             );
@@ -1000,7 +1048,15 @@ class WorldApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PipelineView',
+                        '\Hanzo\Cloud\Model\WorldPipelineView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1044,7 +1100,7 @@ class WorldApi
      */
     public function getWorldPipelineAsyncWithHttpInfo(string $contentType = self::contentTypes['getWorldPipeline'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PipelineView';
+        $returnType = '\Hanzo\Cloud\Model\WorldPipelineView';
         $request = $this->getWorldPipelineRequest($contentType);
 
         return $this->client
@@ -1107,7 +1163,7 @@ class WorldApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1370,16 +1426,16 @@ class WorldApi
      *
      * Replaces the caller project&#39;s news pipeline and returns what was stored.
      *
-     * @param  \Hanzo\Cloud\Model\PipelineReq $pipeline_req pipeline_req (required)
+     * @param  \Hanzo\Cloud\Model\WorldPipelineReq $world_pipeline_req world_pipeline_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWorldPipeline'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PipelineView
+     * @return \Hanzo\Cloud\Model\WorldPipelineView|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putWorldPipeline($pipeline_req, string $contentType = self::contentTypes['putWorldPipeline'][0])
+    public function putWorldPipeline($world_pipeline_req, string $contentType = self::contentTypes['putWorldPipeline'][0])
     {
-        list($response) = $this->putWorldPipelineWithHttpInfo($pipeline_req, $contentType);
+        list($response) = $this->putWorldPipelineWithHttpInfo($world_pipeline_req, $contentType);
         return $response;
     }
 
@@ -1388,16 +1444,16 @@ class WorldApi
      *
      * Replaces the caller project&#39;s news pipeline and returns what was stored.
      *
-     * @param  \Hanzo\Cloud\Model\PipelineReq $pipeline_req (required)
+     * @param  \Hanzo\Cloud\Model\WorldPipelineReq $world_pipeline_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWorldPipeline'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PipelineView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\WorldPipelineView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putWorldPipelineWithHttpInfo($pipeline_req, string $contentType = self::contentTypes['putWorldPipeline'][0])
+    public function putWorldPipelineWithHttpInfo($world_pipeline_req, string $contentType = self::contentTypes['putWorldPipeline'][0])
     {
-        $request = $this->putWorldPipelineRequest($pipeline_req, $contentType);
+        $request = $this->putWorldPipelineRequest($world_pipeline_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1425,7 +1481,13 @@ class WorldApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PipelineView',
+                        '\Hanzo\Cloud\Model\WorldPipelineView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1447,7 +1509,7 @@ class WorldApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PipelineView',
+                '\Hanzo\Cloud\Model\WorldPipelineView',
                 $request,
                 $response,
             );
@@ -1456,7 +1518,15 @@ class WorldApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PipelineView',
+                        '\Hanzo\Cloud\Model\WorldPipelineView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1473,15 +1543,15 @@ class WorldApi
      *
      * Replaces the caller project&#39;s news pipeline and returns what was stored.
      *
-     * @param  \Hanzo\Cloud\Model\PipelineReq $pipeline_req (required)
+     * @param  \Hanzo\Cloud\Model\WorldPipelineReq $world_pipeline_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWorldPipeline'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putWorldPipelineAsync($pipeline_req, string $contentType = self::contentTypes['putWorldPipeline'][0])
+    public function putWorldPipelineAsync($world_pipeline_req, string $contentType = self::contentTypes['putWorldPipeline'][0])
     {
-        return $this->putWorldPipelineAsyncWithHttpInfo($pipeline_req, $contentType)
+        return $this->putWorldPipelineAsyncWithHttpInfo($world_pipeline_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1494,16 +1564,16 @@ class WorldApi
      *
      * Replaces the caller project&#39;s news pipeline and returns what was stored.
      *
-     * @param  \Hanzo\Cloud\Model\PipelineReq $pipeline_req (required)
+     * @param  \Hanzo\Cloud\Model\WorldPipelineReq $world_pipeline_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWorldPipeline'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putWorldPipelineAsyncWithHttpInfo($pipeline_req, string $contentType = self::contentTypes['putWorldPipeline'][0])
+    public function putWorldPipelineAsyncWithHttpInfo($world_pipeline_req, string $contentType = self::contentTypes['putWorldPipeline'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PipelineView';
-        $request = $this->putWorldPipelineRequest($pipeline_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\WorldPipelineView';
+        $request = $this->putWorldPipelineRequest($world_pipeline_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1544,19 +1614,19 @@ class WorldApi
     /**
      * Create request for operation 'putWorldPipeline'
      *
-     * @param  \Hanzo\Cloud\Model\PipelineReq $pipeline_req (required)
+     * @param  \Hanzo\Cloud\Model\WorldPipelineReq $world_pipeline_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putWorldPipeline'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putWorldPipelineRequest($pipeline_req, string $contentType = self::contentTypes['putWorldPipeline'][0])
+    public function putWorldPipelineRequest($world_pipeline_req, string $contentType = self::contentTypes['putWorldPipeline'][0])
     {
 
-        // verify the required parameter 'pipeline_req' is set
-        if ($pipeline_req === null || (is_array($pipeline_req) && count($pipeline_req) === 0)) {
+        // verify the required parameter 'world_pipeline_req' is set
+        if ($world_pipeline_req === null || (is_array($world_pipeline_req) && count($world_pipeline_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $pipeline_req when calling putWorldPipeline'
+                'Missing the required parameter $world_pipeline_req when calling putWorldPipeline'
             );
         }
 
@@ -1573,18 +1643,18 @@ class WorldApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($pipeline_req)) {
+        if (isset($world_pipeline_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($pipeline_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($world_pipeline_req));
             } else {
-                $httpBody = $pipeline_req;
+                $httpBody = $world_pipeline_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

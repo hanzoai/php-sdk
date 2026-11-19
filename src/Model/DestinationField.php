@@ -323,7 +323,7 @@ class DestinationField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets example
      *
-     * @param string|null $example a sample value of the right shape (\"G-XXXXXXX\"), when one helps
+     * @param string|null $example example
      *
      * @return self
      */
@@ -350,7 +350,7 @@ class DestinationField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets key
      *
-     * @param string|null $key the camelCase key on both the connect body and the stored config
+     * @param string|null $key key
      *
      * @return self
      */
@@ -377,7 +377,7 @@ class DestinationField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets label
      *
-     * @param string|null $label human label for the console card's input
+     * @param string|null $label label
      *
      * @return self
      */
@@ -404,7 +404,7 @@ class DestinationField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets required
      *
-     * @param bool|null $required when true, a connect that leaves it empty is refused 400
+     * @param bool|null $required required
      *
      * @return self
      */

@@ -199,6 +199,14 @@ class PromptApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -306,7 +314,7 @@ class PromptApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -365,13 +373,13 @@ class PromptApi
     /**
      * Operation getPrompt
      *
-     * List returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
+     * Returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPrompt'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PromptList
+     * @return \Hanzo\Cloud\Model\PromptPromptList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPrompt(string $contentType = self::contentTypes['getPrompt'][0])
     {
@@ -382,13 +390,13 @@ class PromptApi
     /**
      * Operation getPromptWithHttpInfo
      *
-     * List returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
+     * Returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPrompt'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PromptList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PromptPromptList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPromptWithHttpInfo(string $contentType = self::contentTypes['getPrompt'][0])
     {
@@ -420,7 +428,13 @@ class PromptApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PromptList',
+                        '\Hanzo\Cloud\Model\PromptPromptList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -442,7 +456,7 @@ class PromptApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PromptList',
+                '\Hanzo\Cloud\Model\PromptPromptList',
                 $request,
                 $response,
             );
@@ -451,7 +465,15 @@ class PromptApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PromptList',
+                        '\Hanzo\Cloud\Model\PromptPromptList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -466,7 +488,7 @@ class PromptApi
     /**
      * Operation getPromptAsync
      *
-     * List returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
+     * Returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPrompt'] to see the possible values for this operation
      *
@@ -486,7 +508,7 @@ class PromptApi
     /**
      * Operation getPromptAsyncWithHttpInfo
      *
-     * List returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
+     * Returns the caller org&#39;s prompt library as one row per prompt: its name, type, every version number it has, its taxonomy and when it last changed.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPrompt'] to see the possible values for this operation
      *
@@ -495,7 +517,7 @@ class PromptApi
      */
     public function getPromptAsyncWithHttpInfo(string $contentType = self::contentTypes['getPrompt'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PromptList';
+        $returnType = '\Hanzo\Cloud\Model\PromptPromptList';
         $request = $this->getPromptRequest($contentType);
 
         return $this->client
@@ -558,7 +580,7 @@ class PromptApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -617,14 +639,14 @@ class PromptApi
     /**
      * Operation getPromptByName
      *
-     * Get returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
+     * Returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
      *
      * @param  string $name Name is the prompt to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PromptDetail
+     * @return \Hanzo\Cloud\Model\PromptPromptDetail|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPromptByName($name, string $contentType = self::contentTypes['getPromptByName'][0])
     {
@@ -635,14 +657,14 @@ class PromptApi
     /**
      * Operation getPromptByNameWithHttpInfo
      *
-     * Get returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
+     * Returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
      *
      * @param  string $name Name is the prompt to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PromptDetail, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PromptPromptDetail|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPromptByNameWithHttpInfo($name, string $contentType = self::contentTypes['getPromptByName'][0])
     {
@@ -674,7 +696,13 @@ class PromptApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PromptDetail',
+                        '\Hanzo\Cloud\Model\PromptPromptDetail',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -696,7 +724,7 @@ class PromptApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PromptDetail',
+                '\Hanzo\Cloud\Model\PromptPromptDetail',
                 $request,
                 $response,
             );
@@ -705,7 +733,15 @@ class PromptApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PromptDetail',
+                        '\Hanzo\Cloud\Model\PromptPromptDetail',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -720,7 +756,7 @@ class PromptApi
     /**
      * Operation getPromptByNameAsync
      *
-     * Get returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
+     * Returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
      *
      * @param  string $name Name is the prompt to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptByName'] to see the possible values for this operation
@@ -741,7 +777,7 @@ class PromptApi
     /**
      * Operation getPromptByNameAsyncWithHttpInfo
      *
-     * Get returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
+     * Returns one of the caller org&#39;s prompts: its CURRENT template text plus the metadata of every version it has had.
      *
      * @param  string $name Name is the prompt to act on, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptByName'] to see the possible values for this operation
@@ -751,7 +787,7 @@ class PromptApi
      */
     public function getPromptByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getPromptByName'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PromptDetail';
+        $returnType = '\Hanzo\Cloud\Model\PromptPromptDetail';
         $request = $this->getPromptByNameRequest($name, $contentType);
 
         return $this->client
@@ -830,7 +866,7 @@ class PromptApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -889,13 +925,13 @@ class PromptApi
     /**
      * Operation getPromptCatalog
      *
-     * Catalog returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
+     * Returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptCatalog'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CatalogList
+     * @return \Hanzo\Cloud\Model\PromptCatalogList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPromptCatalog(string $contentType = self::contentTypes['getPromptCatalog'][0])
     {
@@ -906,13 +942,13 @@ class PromptApi
     /**
      * Operation getPromptCatalogWithHttpInfo
      *
-     * Catalog returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
+     * Returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptCatalog'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CatalogList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PromptCatalogList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPromptCatalogWithHttpInfo(string $contentType = self::contentTypes['getPromptCatalog'][0])
     {
@@ -944,7 +980,13 @@ class PromptApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CatalogList',
+                        '\Hanzo\Cloud\Model\PromptCatalogList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -966,7 +1008,7 @@ class PromptApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CatalogList',
+                '\Hanzo\Cloud\Model\PromptCatalogList',
                 $request,
                 $response,
             );
@@ -975,7 +1017,15 @@ class PromptApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CatalogList',
+                        '\Hanzo\Cloud\Model\PromptCatalogList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -990,7 +1040,7 @@ class PromptApi
     /**
      * Operation getPromptCatalogAsync
      *
-     * Catalog returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
+     * Returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptCatalog'] to see the possible values for this operation
      *
@@ -1010,7 +1060,7 @@ class PromptApi
     /**
      * Operation getPromptCatalogAsyncWithHttpInfo
      *
-     * Catalog returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
+     * Returns the read-only starter prompt library shipped with the binary — reference content every tenant sees the same, NOT the caller&#39;s own prompts and never mixed into them.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptCatalog'] to see the possible values for this operation
      *
@@ -1019,7 +1069,7 @@ class PromptApi
      */
     public function getPromptCatalogAsyncWithHttpInfo(string $contentType = self::contentTypes['getPromptCatalog'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\CatalogList';
+        $returnType = '\Hanzo\Cloud\Model\PromptCatalogList';
         $request = $this->getPromptCatalogRequest($contentType);
 
         return $this->client
@@ -1082,7 +1132,7 @@ class PromptApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1141,13 +1191,13 @@ class PromptApi
     /**
      * Operation getPromptMetrics
      *
-     * Metrics returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
+     * Returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptMetrics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MetricList
+     * @return \Hanzo\Cloud\Model\PromptMetricList|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPromptMetrics(string $contentType = self::contentTypes['getPromptMetrics'][0])
     {
@@ -1158,13 +1208,13 @@ class PromptApi
     /**
      * Operation getPromptMetricsWithHttpInfo
      *
-     * Metrics returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
+     * Returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptMetrics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MetricList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PromptMetricList|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPromptMetricsWithHttpInfo(string $contentType = self::contentTypes['getPromptMetrics'][0])
     {
@@ -1196,7 +1246,13 @@ class PromptApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MetricList',
+                        '\Hanzo\Cloud\Model\PromptMetricList',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1218,7 +1274,7 @@ class PromptApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MetricList',
+                '\Hanzo\Cloud\Model\PromptMetricList',
                 $request,
                 $response,
             );
@@ -1227,7 +1283,15 @@ class PromptApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MetricList',
+                        '\Hanzo\Cloud\Model\PromptMetricList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1242,7 +1306,7 @@ class PromptApi
     /**
      * Operation getPromptMetricsAsync
      *
-     * Metrics returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
+     * Returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptMetrics'] to see the possible values for this operation
      *
@@ -1262,7 +1326,7 @@ class PromptApi
     /**
      * Operation getPromptMetricsAsyncWithHttpInfo
      *
-     * Metrics returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
+     * Returns real per-prompt statistics for the caller&#39;s org: how many versions each prompt has, which one is current, and when it was created and last changed.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPromptMetrics'] to see the possible values for this operation
      *
@@ -1271,7 +1335,7 @@ class PromptApi
      */
     public function getPromptMetricsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPromptMetrics'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MetricList';
+        $returnType = '\Hanzo\Cloud\Model\PromptMetricList';
         $request = $this->getPromptMetricsRequest($contentType);
 
         return $this->client
@@ -1334,7 +1398,7 @@ class PromptApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1393,36 +1457,36 @@ class PromptApi
     /**
      * Operation postPrompt
      *
-     * Create records a prompt for the caller&#39;s org and answers 201 with it.
+     * Records a prompt for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\PromptReq $prompt_req prompt_req (required)
+     * @param  \Hanzo\Cloud\Model\PromptPromptReq $prompt_prompt_req prompt_prompt_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPrompt'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PromptDetail
+     * @return \Hanzo\Cloud\Model\PromptPromptDetail|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postPrompt($prompt_req, string $contentType = self::contentTypes['postPrompt'][0])
+    public function postPrompt($prompt_prompt_req, string $contentType = self::contentTypes['postPrompt'][0])
     {
-        list($response) = $this->postPromptWithHttpInfo($prompt_req, $contentType);
+        list($response) = $this->postPromptWithHttpInfo($prompt_prompt_req, $contentType);
         return $response;
     }
 
     /**
      * Operation postPromptWithHttpInfo
      *
-     * Create records a prompt for the caller&#39;s org and answers 201 with it.
+     * Records a prompt for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\PromptReq $prompt_req (required)
+     * @param  \Hanzo\Cloud\Model\PromptPromptReq $prompt_prompt_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPrompt'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PromptDetail, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PromptPromptDetail|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postPromptWithHttpInfo($prompt_req, string $contentType = self::contentTypes['postPrompt'][0])
+    public function postPromptWithHttpInfo($prompt_prompt_req, string $contentType = self::contentTypes['postPrompt'][0])
     {
-        $request = $this->postPromptRequest($prompt_req, $contentType);
+        $request = $this->postPromptRequest($prompt_prompt_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1450,7 +1514,13 @@ class PromptApi
             switch($statusCode) {
                 case 201:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PromptDetail',
+                        '\Hanzo\Cloud\Model\PromptPromptDetail',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1472,7 +1542,7 @@ class PromptApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PromptDetail',
+                '\Hanzo\Cloud\Model\PromptPromptDetail',
                 $request,
                 $response,
             );
@@ -1481,7 +1551,15 @@ class PromptApi
                 case 201:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PromptDetail',
+                        '\Hanzo\Cloud\Model\PromptPromptDetail',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1496,17 +1574,17 @@ class PromptApi
     /**
      * Operation postPromptAsync
      *
-     * Create records a prompt for the caller&#39;s org and answers 201 with it.
+     * Records a prompt for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\PromptReq $prompt_req (required)
+     * @param  \Hanzo\Cloud\Model\PromptPromptReq $prompt_prompt_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPrompt'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPromptAsync($prompt_req, string $contentType = self::contentTypes['postPrompt'][0])
+    public function postPromptAsync($prompt_prompt_req, string $contentType = self::contentTypes['postPrompt'][0])
     {
-        return $this->postPromptAsyncWithHttpInfo($prompt_req, $contentType)
+        return $this->postPromptAsyncWithHttpInfo($prompt_prompt_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1517,18 +1595,18 @@ class PromptApi
     /**
      * Operation postPromptAsyncWithHttpInfo
      *
-     * Create records a prompt for the caller&#39;s org and answers 201 with it.
+     * Records a prompt for the caller&#39;s org and answers 201 with it.
      *
-     * @param  \Hanzo\Cloud\Model\PromptReq $prompt_req (required)
+     * @param  \Hanzo\Cloud\Model\PromptPromptReq $prompt_prompt_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPrompt'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postPromptAsyncWithHttpInfo($prompt_req, string $contentType = self::contentTypes['postPrompt'][0])
+    public function postPromptAsyncWithHttpInfo($prompt_prompt_req, string $contentType = self::contentTypes['postPrompt'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PromptDetail';
-        $request = $this->postPromptRequest($prompt_req, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\PromptPromptDetail';
+        $request = $this->postPromptRequest($prompt_prompt_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1569,19 +1647,19 @@ class PromptApi
     /**
      * Create request for operation 'postPrompt'
      *
-     * @param  \Hanzo\Cloud\Model\PromptReq $prompt_req (required)
+     * @param  \Hanzo\Cloud\Model\PromptPromptReq $prompt_prompt_req (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postPrompt'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postPromptRequest($prompt_req, string $contentType = self::contentTypes['postPrompt'][0])
+    public function postPromptRequest($prompt_prompt_req, string $contentType = self::contentTypes['postPrompt'][0])
     {
 
-        // verify the required parameter 'prompt_req' is set
-        if ($prompt_req === null || (is_array($prompt_req) && count($prompt_req) === 0)) {
+        // verify the required parameter 'prompt_prompt_req' is set
+        if ($prompt_prompt_req === null || (is_array($prompt_prompt_req) && count($prompt_prompt_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $prompt_req when calling postPrompt'
+                'Missing the required parameter $prompt_prompt_req when calling postPrompt'
             );
         }
 
@@ -1598,18 +1676,18 @@ class PromptApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($prompt_req)) {
+        if (isset($prompt_prompt_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($prompt_req));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($prompt_prompt_req));
             } else {
-                $httpBody = $prompt_req;
+                $httpBody = $prompt_prompt_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

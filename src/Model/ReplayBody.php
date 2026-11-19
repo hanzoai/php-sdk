@@ -57,6 +57,7 @@ class ReplayBody implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'consent' => 'mixed',
         'distinct_id' => 'string',
         'events' => 'mixed[]',
         'session_id' => 'string',
@@ -71,6 +72,7 @@ class ReplayBody implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'consent' => null,
         'distinct_id' => null,
         'events' => null,
         'session_id' => null,
@@ -83,6 +85,7 @@ class ReplayBody implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'consent' => true,
         'distinct_id' => false,
         'events' => false,
         'session_id' => false,
@@ -175,6 +178,7 @@ class ReplayBody implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'consent' => 'consent',
         'distinct_id' => 'distinctId',
         'events' => 'events',
         'session_id' => 'sessionId',
@@ -187,6 +191,7 @@ class ReplayBody implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'consent' => 'setConsent',
         'distinct_id' => 'setDistinctId',
         'events' => 'setEvents',
         'session_id' => 'setSessionId',
@@ -199,6 +204,7 @@ class ReplayBody implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'consent' => 'getConsent',
         'distinct_id' => 'getDistinctId',
         'events' => 'getEvents',
         'session_id' => 'getSessionId',
@@ -262,6 +268,7 @@ class ReplayBody implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('consent', $data ?? [], null);
         $this->setIfExists('distinct_id', $data ?? [], null);
         $this->setIfExists('events', $data ?? [], null);
         $this->setIfExists('session_id', $data ?? [], null);
@@ -309,6 +316,40 @@ class ReplayBody implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets consent
+     *
+     * @return mixed|null
+     */
+    public function getConsent()
+    {
+        return $this->container['consent'];
+    }
+
+    /**
+     * Sets consent
+     *
+     * @param mixed|null $consent consent
+     *
+     * @return self
+     */
+    public function setConsent($consent)
+    {
+        if (is_null($consent)) {
+            array_push($this->openAPINullablesSetToNull, 'consent');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('consent', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['consent'] = $consent;
+
+        return $this;
+    }
 
     /**
      * Gets distinct_id

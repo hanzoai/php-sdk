@@ -130,16 +130,16 @@ class SearchApi
      *
      * Hybrid search over the org&#39;s own corpora
      *
-     * @param  \Hanzo\Cloud\Model\Request $request request (required)
+     * @param  \Hanzo\Cloud\Model\SearchRequest $search_request search_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['search'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Fusion
+     * @return \Hanzo\Cloud\Model\SearchFusion|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function search($request, string $contentType = self::contentTypes['search'][0])
+    public function search($search_request, string $contentType = self::contentTypes['search'][0])
     {
-        list($response) = $this->searchWithHttpInfo($request, $contentType);
+        list($response) = $this->searchWithHttpInfo($search_request, $contentType);
         return $response;
     }
 
@@ -148,16 +148,16 @@ class SearchApi
      *
      * Hybrid search over the org&#39;s own corpora
      *
-     * @param  \Hanzo\Cloud\Model\Request $request (required)
+     * @param  \Hanzo\Cloud\Model\SearchRequest $search_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['search'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Fusion, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\SearchFusion|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function searchWithHttpInfo($request, string $contentType = self::contentTypes['search'][0])
+    public function searchWithHttpInfo($search_request, string $contentType = self::contentTypes['search'][0])
     {
-        $request = $this->searchRequest($request, $contentType);
+        $request = $this->searchRequest($search_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -185,7 +185,13 @@ class SearchApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Fusion',
+                        '\Hanzo\Cloud\Model\SearchFusion',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -207,7 +213,7 @@ class SearchApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Fusion',
+                '\Hanzo\Cloud\Model\SearchFusion',
                 $request,
                 $response,
             );
@@ -216,7 +222,15 @@ class SearchApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Fusion',
+                        '\Hanzo\Cloud\Model\SearchFusion',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -233,15 +247,15 @@ class SearchApi
      *
      * Hybrid search over the org&#39;s own corpora
      *
-     * @param  \Hanzo\Cloud\Model\Request $request (required)
+     * @param  \Hanzo\Cloud\Model\SearchRequest $search_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['search'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function searchAsync($request, string $contentType = self::contentTypes['search'][0])
+    public function searchAsync($search_request, string $contentType = self::contentTypes['search'][0])
     {
-        return $this->searchAsyncWithHttpInfo($request, $contentType)
+        return $this->searchAsyncWithHttpInfo($search_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -254,16 +268,16 @@ class SearchApi
      *
      * Hybrid search over the org&#39;s own corpora
      *
-     * @param  \Hanzo\Cloud\Model\Request $request (required)
+     * @param  \Hanzo\Cloud\Model\SearchRequest $search_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['search'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function searchAsyncWithHttpInfo($request, string $contentType = self::contentTypes['search'][0])
+    public function searchAsyncWithHttpInfo($search_request, string $contentType = self::contentTypes['search'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Fusion';
-        $request = $this->searchRequest($request, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\SearchFusion';
+        $request = $this->searchRequest($search_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -304,19 +318,19 @@ class SearchApi
     /**
      * Create request for operation 'search'
      *
-     * @param  \Hanzo\Cloud\Model\Request $request (required)
+     * @param  \Hanzo\Cloud\Model\SearchRequest $search_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['search'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function searchRequest($request, string $contentType = self::contentTypes['search'][0])
+    public function searchRequest($search_request, string $contentType = self::contentTypes['search'][0])
     {
 
-        // verify the required parameter 'request' is set
-        if ($request === null || (is_array($request) && count($request) === 0)) {
+        // verify the required parameter 'search_request' is set
+        if ($search_request === null || (is_array($search_request) && count($search_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $request when calling search'
+                'Missing the required parameter $search_request when calling search'
             );
         }
 
@@ -333,18 +347,18 @@ class SearchApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($request)) {
+        if (isset($search_request)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($search_request));
             } else {
-                $httpBody = $request;
+                $httpBody = $search_request;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

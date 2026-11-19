@@ -130,16 +130,16 @@ class StandingApi
      *
      * Reports what keeping this entity costs every year, itemised.
      *
-     * @param  \Hanzo\Cloud\Model\UpkeepIn $upkeep_in upkeep_in (required)
+     * @param  \Hanzo\Cloud\Model\StandingUpkeepIn $standing_upkeep_in standing_upkeep_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postStandingUpkeep'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Upkeep
+     * @return \Hanzo\Cloud\Model\StandingUpkeep|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postStandingUpkeep($upkeep_in, string $contentType = self::contentTypes['postStandingUpkeep'][0])
+    public function postStandingUpkeep($standing_upkeep_in, string $contentType = self::contentTypes['postStandingUpkeep'][0])
     {
-        list($response) = $this->postStandingUpkeepWithHttpInfo($upkeep_in, $contentType);
+        list($response) = $this->postStandingUpkeepWithHttpInfo($standing_upkeep_in, $contentType);
         return $response;
     }
 
@@ -148,16 +148,16 @@ class StandingApi
      *
      * Reports what keeping this entity costs every year, itemised.
      *
-     * @param  \Hanzo\Cloud\Model\UpkeepIn $upkeep_in (required)
+     * @param  \Hanzo\Cloud\Model\StandingUpkeepIn $standing_upkeep_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postStandingUpkeep'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Upkeep, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\StandingUpkeep|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postStandingUpkeepWithHttpInfo($upkeep_in, string $contentType = self::contentTypes['postStandingUpkeep'][0])
+    public function postStandingUpkeepWithHttpInfo($standing_upkeep_in, string $contentType = self::contentTypes['postStandingUpkeep'][0])
     {
-        $request = $this->postStandingUpkeepRequest($upkeep_in, $contentType);
+        $request = $this->postStandingUpkeepRequest($standing_upkeep_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -185,7 +185,13 @@ class StandingApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Upkeep',
+                        '\Hanzo\Cloud\Model\StandingUpkeep',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -207,7 +213,7 @@ class StandingApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Upkeep',
+                '\Hanzo\Cloud\Model\StandingUpkeep',
                 $request,
                 $response,
             );
@@ -216,7 +222,15 @@ class StandingApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Upkeep',
+                        '\Hanzo\Cloud\Model\StandingUpkeep',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -233,15 +247,15 @@ class StandingApi
      *
      * Reports what keeping this entity costs every year, itemised.
      *
-     * @param  \Hanzo\Cloud\Model\UpkeepIn $upkeep_in (required)
+     * @param  \Hanzo\Cloud\Model\StandingUpkeepIn $standing_upkeep_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postStandingUpkeep'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postStandingUpkeepAsync($upkeep_in, string $contentType = self::contentTypes['postStandingUpkeep'][0])
+    public function postStandingUpkeepAsync($standing_upkeep_in, string $contentType = self::contentTypes['postStandingUpkeep'][0])
     {
-        return $this->postStandingUpkeepAsyncWithHttpInfo($upkeep_in, $contentType)
+        return $this->postStandingUpkeepAsyncWithHttpInfo($standing_upkeep_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -254,16 +268,16 @@ class StandingApi
      *
      * Reports what keeping this entity costs every year, itemised.
      *
-     * @param  \Hanzo\Cloud\Model\UpkeepIn $upkeep_in (required)
+     * @param  \Hanzo\Cloud\Model\StandingUpkeepIn $standing_upkeep_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postStandingUpkeep'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postStandingUpkeepAsyncWithHttpInfo($upkeep_in, string $contentType = self::contentTypes['postStandingUpkeep'][0])
+    public function postStandingUpkeepAsyncWithHttpInfo($standing_upkeep_in, string $contentType = self::contentTypes['postStandingUpkeep'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Upkeep';
-        $request = $this->postStandingUpkeepRequest($upkeep_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\StandingUpkeep';
+        $request = $this->postStandingUpkeepRequest($standing_upkeep_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -304,19 +318,19 @@ class StandingApi
     /**
      * Create request for operation 'postStandingUpkeep'
      *
-     * @param  \Hanzo\Cloud\Model\UpkeepIn $upkeep_in (required)
+     * @param  \Hanzo\Cloud\Model\StandingUpkeepIn $standing_upkeep_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postStandingUpkeep'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postStandingUpkeepRequest($upkeep_in, string $contentType = self::contentTypes['postStandingUpkeep'][0])
+    public function postStandingUpkeepRequest($standing_upkeep_in, string $contentType = self::contentTypes['postStandingUpkeep'][0])
     {
 
-        // verify the required parameter 'upkeep_in' is set
-        if ($upkeep_in === null || (is_array($upkeep_in) && count($upkeep_in) === 0)) {
+        // verify the required parameter 'standing_upkeep_in' is set
+        if ($standing_upkeep_in === null || (is_array($standing_upkeep_in) && count($standing_upkeep_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $upkeep_in when calling postStandingUpkeep'
+                'Missing the required parameter $standing_upkeep_in when calling postStandingUpkeep'
             );
         }
 
@@ -333,18 +347,18 @@ class StandingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($upkeep_in)) {
+        if (isset($standing_upkeep_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($upkeep_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($standing_upkeep_in));
             } else {
-                $httpBody = $upkeep_in;
+                $httpBody = $standing_upkeep_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

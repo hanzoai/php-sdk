@@ -137,7 +137,7 @@ class PrefApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PrefsView
+     * @return \Hanzo\Cloud\Model\PrefPrefsView|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getPref(string $contentType = self::contentTypes['getPref'][0])
     {
@@ -154,7 +154,7 @@ class PrefApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PrefsView, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PrefPrefsView|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPrefWithHttpInfo(string $contentType = self::contentTypes['getPref'][0])
     {
@@ -186,7 +186,13 @@ class PrefApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PrefsView',
+                        '\Hanzo\Cloud\Model\PrefPrefsView',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -208,7 +214,7 @@ class PrefApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PrefsView',
+                '\Hanzo\Cloud\Model\PrefPrefsView',
                 $request,
                 $response,
             );
@@ -217,7 +223,15 @@ class PrefApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PrefsView',
+                        '\Hanzo\Cloud\Model\PrefPrefsView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -261,7 +275,7 @@ class PrefApi
      */
     public function getPrefAsyncWithHttpInfo(string $contentType = self::contentTypes['getPref'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PrefsView';
+        $returnType = '\Hanzo\Cloud\Model\PrefPrefsView';
         $request = $this->getPrefRequest($contentType);
 
         return $this->client
@@ -324,7 +338,7 @@ class PrefApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );

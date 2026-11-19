@@ -235,6 +235,14 @@ class IngressApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -342,7 +350,7 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -457,6 +465,14 @@ class IngressApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -564,7 +580,7 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -679,6 +695,14 @@ class IngressApi
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -786,7 +810,7 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -851,7 +875,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IngressMiddlewares
+     * @return \Hanzo\Cloud\Model\IngressIngressMiddlewares|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIngressMiddlewares(string $contentType = self::contentTypes['getIngressMiddlewares'][0])
     {
@@ -868,7 +892,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IngressMiddlewares, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressIngressMiddlewares|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIngressMiddlewaresWithHttpInfo(string $contentType = self::contentTypes['getIngressMiddlewares'][0])
     {
@@ -900,7 +924,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IngressMiddlewares',
+                        '\Hanzo\Cloud\Model\IngressIngressMiddlewares',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -922,7 +952,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IngressMiddlewares',
+                '\Hanzo\Cloud\Model\IngressIngressMiddlewares',
                 $request,
                 $response,
             );
@@ -931,7 +961,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IngressMiddlewares',
+                        '\Hanzo\Cloud\Model\IngressIngressMiddlewares',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -975,7 +1013,7 @@ class IngressApi
      */
     public function getIngressMiddlewaresAsyncWithHttpInfo(string $contentType = self::contentTypes['getIngressMiddlewares'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IngressMiddlewares';
+        $returnType = '\Hanzo\Cloud\Model\IngressIngressMiddlewares';
         $request = $this->getIngressMiddlewaresRequest($contentType);
 
         return $this->client
@@ -1038,7 +1076,7 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1104,7 +1142,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Middleware
+     * @return \Hanzo\Cloud\Model\IngressMiddleware|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIngressMiddlewaresById($id, string $contentType = self::contentTypes['getIngressMiddlewaresById'][0])
     {
@@ -1122,7 +1160,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Middleware, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressMiddleware|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIngressMiddlewaresByIdWithHttpInfo($id, string $contentType = self::contentTypes['getIngressMiddlewaresById'][0])
     {
@@ -1154,7 +1192,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Middleware',
+                        '\Hanzo\Cloud\Model\IngressMiddleware',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1176,7 +1220,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Middleware',
+                '\Hanzo\Cloud\Model\IngressMiddleware',
                 $request,
                 $response,
             );
@@ -1185,7 +1229,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Middleware',
+                        '\Hanzo\Cloud\Model\IngressMiddleware',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1231,7 +1283,7 @@ class IngressApi
      */
     public function getIngressMiddlewaresByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getIngressMiddlewaresById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Middleware';
+        $returnType = '\Hanzo\Cloud\Model\IngressMiddleware';
         $request = $this->getIngressMiddlewaresByIdRequest($id, $contentType);
 
         return $this->client
@@ -1310,7 +1362,7 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1375,7 +1427,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IngressRoutes
+     * @return \Hanzo\Cloud\Model\IngressIngressRoutes|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIngressRoutes(string $contentType = self::contentTypes['getIngressRoutes'][0])
     {
@@ -1392,7 +1444,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IngressRoutes, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressIngressRoutes|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIngressRoutesWithHttpInfo(string $contentType = self::contentTypes['getIngressRoutes'][0])
     {
@@ -1424,7 +1476,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IngressRoutes',
+                        '\Hanzo\Cloud\Model\IngressIngressRoutes',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1446,7 +1504,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IngressRoutes',
+                '\Hanzo\Cloud\Model\IngressIngressRoutes',
                 $request,
                 $response,
             );
@@ -1455,7 +1513,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IngressRoutes',
+                        '\Hanzo\Cloud\Model\IngressIngressRoutes',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1499,7 +1565,7 @@ class IngressApi
      */
     public function getIngressRoutesAsyncWithHttpInfo(string $contentType = self::contentTypes['getIngressRoutes'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IngressRoutes';
+        $returnType = '\Hanzo\Cloud\Model\IngressIngressRoutes';
         $request = $this->getIngressRoutesRequest($contentType);
 
         return $this->client
@@ -1562,7 +1628,7 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1628,7 +1694,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Route
+     * @return \Hanzo\Cloud\Model\IngressRoute|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIngressRoutesById($id, string $contentType = self::contentTypes['getIngressRoutesById'][0])
     {
@@ -1646,7 +1712,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Route, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressRoute|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIngressRoutesByIdWithHttpInfo($id, string $contentType = self::contentTypes['getIngressRoutesById'][0])
     {
@@ -1678,7 +1744,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Route',
+                        '\Hanzo\Cloud\Model\IngressRoute',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1700,7 +1772,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Route',
+                '\Hanzo\Cloud\Model\IngressRoute',
                 $request,
                 $response,
             );
@@ -1709,7 +1781,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Route',
+                        '\Hanzo\Cloud\Model\IngressRoute',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1755,7 +1835,7 @@ class IngressApi
      */
     public function getIngressRoutesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getIngressRoutesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Route';
+        $returnType = '\Hanzo\Cloud\Model\IngressRoute';
         $request = $this->getIngressRoutesByIdRequest($id, $contentType);
 
         return $this->client
@@ -1834,7 +1914,7 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -1899,7 +1979,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IngressServices
+     * @return \Hanzo\Cloud\Model\IngressIngressServices|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIngressServices(string $contentType = self::contentTypes['getIngressServices'][0])
     {
@@ -1916,7 +1996,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IngressServices, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressIngressServices|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIngressServicesWithHttpInfo(string $contentType = self::contentTypes['getIngressServices'][0])
     {
@@ -1948,7 +2028,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IngressServices',
+                        '\Hanzo\Cloud\Model\IngressIngressServices',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -1970,7 +2056,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IngressServices',
+                '\Hanzo\Cloud\Model\IngressIngressServices',
                 $request,
                 $response,
             );
@@ -1979,7 +2065,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IngressServices',
+                        '\Hanzo\Cloud\Model\IngressIngressServices',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2023,7 +2117,7 @@ class IngressApi
      */
     public function getIngressServicesAsyncWithHttpInfo(string $contentType = self::contentTypes['getIngressServices'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IngressServices';
+        $returnType = '\Hanzo\Cloud\Model\IngressIngressServices';
         $request = $this->getIngressServicesRequest($contentType);
 
         return $this->client
@@ -2086,7 +2180,7 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2152,7 +2246,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Upstream
+     * @return \Hanzo\Cloud\Model\IngressUpstream|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIngressServicesById($id, string $contentType = self::contentTypes['getIngressServicesById'][0])
     {
@@ -2170,7 +2264,7 @@ class IngressApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Upstream, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressUpstream|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIngressServicesByIdWithHttpInfo($id, string $contentType = self::contentTypes['getIngressServicesById'][0])
     {
@@ -2202,7 +2296,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Upstream',
+                        '\Hanzo\Cloud\Model\IngressUpstream',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2224,7 +2324,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Upstream',
+                '\Hanzo\Cloud\Model\IngressUpstream',
                 $request,
                 $response,
             );
@@ -2233,7 +2333,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Upstream',
+                        '\Hanzo\Cloud\Model\IngressUpstream',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2279,7 +2387,7 @@ class IngressApi
      */
     public function getIngressServicesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getIngressServicesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Upstream';
+        $returnType = '\Hanzo\Cloud\Model\IngressUpstream';
         $request = $this->getIngressServicesByIdRequest($id, $contentType);
 
         return $this->client
@@ -2358,7 +2466,7 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2417,13 +2525,13 @@ class IngressApi
     /**
      * Operation getIngressStatus
      *
-     * Status reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
+     * Reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIngressStatus'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IngressStatus
+     * @return \Hanzo\Cloud\Model\IngressIngressStatus|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIngressStatus(string $contentType = self::contentTypes['getIngressStatus'][0])
     {
@@ -2434,13 +2542,13 @@ class IngressApi
     /**
      * Operation getIngressStatusWithHttpInfo
      *
-     * Status reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
+     * Reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIngressStatus'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IngressStatus, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressIngressStatus|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIngressStatusWithHttpInfo(string $contentType = self::contentTypes['getIngressStatus'][0])
     {
@@ -2472,7 +2580,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IngressStatus',
+                        '\Hanzo\Cloud\Model\IngressIngressStatus',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2494,7 +2608,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IngressStatus',
+                '\Hanzo\Cloud\Model\IngressIngressStatus',
                 $request,
                 $response,
             );
@@ -2503,7 +2617,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IngressStatus',
+                        '\Hanzo\Cloud\Model\IngressIngressStatus',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2518,7 +2640,7 @@ class IngressApi
     /**
      * Operation getIngressStatusAsync
      *
-     * Status reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
+     * Reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIngressStatus'] to see the possible values for this operation
      *
@@ -2538,7 +2660,7 @@ class IngressApi
     /**
      * Operation getIngressStatusAsyncWithHttpInfo
      *
-     * Status reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
+     * Reports the ingress edge&#39;s live posture: the role this instance runs in (app or edge), whether its listeners are bound and on which addresses, the ACME posture (staging flag and certificate cache directory), how many hosts the compiled route table currently serves, and how many the ACME HostPolicy will issue a certificate for.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIngressStatus'] to see the possible values for this operation
      *
@@ -2547,7 +2669,7 @@ class IngressApi
      */
     public function getIngressStatusAsyncWithHttpInfo(string $contentType = self::contentTypes['getIngressStatus'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IngressStatus';
+        $returnType = '\Hanzo\Cloud\Model\IngressIngressStatus';
         $request = $this->getIngressStatusRequest($contentType);
 
         return $this->client
@@ -2610,7 +2732,7 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2669,13 +2791,13 @@ class IngressApi
     /**
      * Operation getIngressTls
      *
-     * GetTLS returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
+     * Returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIngressTls'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\IngressTLS
+     * @return \Hanzo\Cloud\Model\IngressIngressTLS|\Hanzo\Cloud\Model\ProblemDetails
      */
     public function getIngressTls(string $contentType = self::contentTypes['getIngressTls'][0])
     {
@@ -2686,13 +2808,13 @@ class IngressApi
     /**
      * Operation getIngressTlsWithHttpInfo
      *
-     * GetTLS returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
+     * Returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIngressTls'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\IngressTLS, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressIngressTLS|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIngressTlsWithHttpInfo(string $contentType = self::contentTypes['getIngressTls'][0])
     {
@@ -2724,7 +2846,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\IngressTLS',
+                        '\Hanzo\Cloud\Model\IngressIngressTLS',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -2746,7 +2874,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\IngressTLS',
+                '\Hanzo\Cloud\Model\IngressIngressTLS',
                 $request,
                 $response,
             );
@@ -2755,7 +2883,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\IngressTLS',
+                        '\Hanzo\Cloud\Model\IngressIngressTLS',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2770,7 +2906,7 @@ class IngressApi
     /**
      * Operation getIngressTlsAsync
      *
-     * GetTLS returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
+     * Returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIngressTls'] to see the possible values for this operation
      *
@@ -2790,7 +2926,7 @@ class IngressApi
     /**
      * Operation getIngressTlsAsyncWithHttpInfo
      *
-     * GetTLS returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
+     * Returns the caller org&#39;s ACME intent together with the edge-wide TLS facts it lands in: which role this instance runs in, whether its listeners are bound, every host the ACME HostPolicy will issue a certificate for (the union across ALL orgs of TLS-marked routes and configured extraHosts, because one process holds one certificate cache), and the ACME directory and account email the process was started with.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIngressTls'] to see the possible values for this operation
      *
@@ -2799,7 +2935,7 @@ class IngressApi
      */
     public function getIngressTlsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIngressTls'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\IngressTLS';
+        $returnType = '\Hanzo\Cloud\Model\IngressIngressTLS';
         $request = $this->getIngressTlsRequest($contentType);
 
         return $this->client
@@ -2862,7 +2998,7 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
@@ -2923,16 +3059,16 @@ class IngressApi
      *
      * Creates or replaces one edge transform and hot-applies it.
      *
-     * @param  \Hanzo\Cloud\Model\Middleware $middleware middleware (required)
+     * @param  \Hanzo\Cloud\Model\IngressMiddleware $ingress_middleware ingress_middleware (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressMiddlewares'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Middleware
+     * @return \Hanzo\Cloud\Model\IngressMiddleware|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postIngressMiddlewares($middleware, string $contentType = self::contentTypes['postIngressMiddlewares'][0])
+    public function postIngressMiddlewares($ingress_middleware, string $contentType = self::contentTypes['postIngressMiddlewares'][0])
     {
-        list($response) = $this->postIngressMiddlewaresWithHttpInfo($middleware, $contentType);
+        list($response) = $this->postIngressMiddlewaresWithHttpInfo($ingress_middleware, $contentType);
         return $response;
     }
 
@@ -2941,16 +3077,16 @@ class IngressApi
      *
      * Creates or replaces one edge transform and hot-applies it.
      *
-     * @param  \Hanzo\Cloud\Model\Middleware $middleware (required)
+     * @param  \Hanzo\Cloud\Model\IngressMiddleware $ingress_middleware (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressMiddlewares'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Middleware, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressMiddleware|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIngressMiddlewaresWithHttpInfo($middleware, string $contentType = self::contentTypes['postIngressMiddlewares'][0])
+    public function postIngressMiddlewaresWithHttpInfo($ingress_middleware, string $contentType = self::contentTypes['postIngressMiddlewares'][0])
     {
-        $request = $this->postIngressMiddlewaresRequest($middleware, $contentType);
+        $request = $this->postIngressMiddlewaresRequest($ingress_middleware, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2978,7 +3114,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Middleware',
+                        '\Hanzo\Cloud\Model\IngressMiddleware',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3000,7 +3142,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Middleware',
+                '\Hanzo\Cloud\Model\IngressMiddleware',
                 $request,
                 $response,
             );
@@ -3009,7 +3151,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Middleware',
+                        '\Hanzo\Cloud\Model\IngressMiddleware',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3026,15 +3176,15 @@ class IngressApi
      *
      * Creates or replaces one edge transform and hot-applies it.
      *
-     * @param  \Hanzo\Cloud\Model\Middleware $middleware (required)
+     * @param  \Hanzo\Cloud\Model\IngressMiddleware $ingress_middleware (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressMiddlewares'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIngressMiddlewaresAsync($middleware, string $contentType = self::contentTypes['postIngressMiddlewares'][0])
+    public function postIngressMiddlewaresAsync($ingress_middleware, string $contentType = self::contentTypes['postIngressMiddlewares'][0])
     {
-        return $this->postIngressMiddlewaresAsyncWithHttpInfo($middleware, $contentType)
+        return $this->postIngressMiddlewaresAsyncWithHttpInfo($ingress_middleware, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3047,16 +3197,16 @@ class IngressApi
      *
      * Creates or replaces one edge transform and hot-applies it.
      *
-     * @param  \Hanzo\Cloud\Model\Middleware $middleware (required)
+     * @param  \Hanzo\Cloud\Model\IngressMiddleware $ingress_middleware (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressMiddlewares'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIngressMiddlewaresAsyncWithHttpInfo($middleware, string $contentType = self::contentTypes['postIngressMiddlewares'][0])
+    public function postIngressMiddlewaresAsyncWithHttpInfo($ingress_middleware, string $contentType = self::contentTypes['postIngressMiddlewares'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Middleware';
-        $request = $this->postIngressMiddlewaresRequest($middleware, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IngressMiddleware';
+        $request = $this->postIngressMiddlewaresRequest($ingress_middleware, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3097,19 +3247,19 @@ class IngressApi
     /**
      * Create request for operation 'postIngressMiddlewares'
      *
-     * @param  \Hanzo\Cloud\Model\Middleware $middleware (required)
+     * @param  \Hanzo\Cloud\Model\IngressMiddleware $ingress_middleware (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressMiddlewares'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIngressMiddlewaresRequest($middleware, string $contentType = self::contentTypes['postIngressMiddlewares'][0])
+    public function postIngressMiddlewaresRequest($ingress_middleware, string $contentType = self::contentTypes['postIngressMiddlewares'][0])
     {
 
-        // verify the required parameter 'middleware' is set
-        if ($middleware === null || (is_array($middleware) && count($middleware) === 0)) {
+        // verify the required parameter 'ingress_middleware' is set
+        if ($ingress_middleware === null || (is_array($ingress_middleware) && count($ingress_middleware) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $middleware when calling postIngressMiddlewares'
+                'Missing the required parameter $ingress_middleware when calling postIngressMiddlewares'
             );
         }
 
@@ -3126,18 +3276,18 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($middleware)) {
+        if (isset($ingress_middleware)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($middleware));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ingress_middleware));
             } else {
-                $httpBody = $middleware;
+                $httpBody = $ingress_middleware;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3194,16 +3344,16 @@ class IngressApi
      *
      * Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
      *
-     * @param  \Hanzo\Cloud\Model\Route $route route (required)
+     * @param  \Hanzo\Cloud\Model\IngressRoute $ingress_route ingress_route (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressRoutes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Route
+     * @return \Hanzo\Cloud\Model\IngressRoute|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postIngressRoutes($route, string $contentType = self::contentTypes['postIngressRoutes'][0])
+    public function postIngressRoutes($ingress_route, string $contentType = self::contentTypes['postIngressRoutes'][0])
     {
-        list($response) = $this->postIngressRoutesWithHttpInfo($route, $contentType);
+        list($response) = $this->postIngressRoutesWithHttpInfo($ingress_route, $contentType);
         return $response;
     }
 
@@ -3212,16 +3362,16 @@ class IngressApi
      *
      * Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
      *
-     * @param  \Hanzo\Cloud\Model\Route $route (required)
+     * @param  \Hanzo\Cloud\Model\IngressRoute $ingress_route (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressRoutes'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Route, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressRoute|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIngressRoutesWithHttpInfo($route, string $contentType = self::contentTypes['postIngressRoutes'][0])
+    public function postIngressRoutesWithHttpInfo($ingress_route, string $contentType = self::contentTypes['postIngressRoutes'][0])
     {
-        $request = $this->postIngressRoutesRequest($route, $contentType);
+        $request = $this->postIngressRoutesRequest($ingress_route, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3249,7 +3399,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Route',
+                        '\Hanzo\Cloud\Model\IngressRoute',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3271,7 +3427,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Route',
+                '\Hanzo\Cloud\Model\IngressRoute',
                 $request,
                 $response,
             );
@@ -3280,7 +3436,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Route',
+                        '\Hanzo\Cloud\Model\IngressRoute',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3297,15 +3461,15 @@ class IngressApi
      *
      * Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
      *
-     * @param  \Hanzo\Cloud\Model\Route $route (required)
+     * @param  \Hanzo\Cloud\Model\IngressRoute $ingress_route (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressRoutes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIngressRoutesAsync($route, string $contentType = self::contentTypes['postIngressRoutes'][0])
+    public function postIngressRoutesAsync($ingress_route, string $contentType = self::contentTypes['postIngressRoutes'][0])
     {
-        return $this->postIngressRoutesAsyncWithHttpInfo($route, $contentType)
+        return $this->postIngressRoutesAsyncWithHttpInfo($ingress_route, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3318,16 +3482,16 @@ class IngressApi
      *
      * Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
      *
-     * @param  \Hanzo\Cloud\Model\Route $route (required)
+     * @param  \Hanzo\Cloud\Model\IngressRoute $ingress_route (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressRoutes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIngressRoutesAsyncWithHttpInfo($route, string $contentType = self::contentTypes['postIngressRoutes'][0])
+    public function postIngressRoutesAsyncWithHttpInfo($ingress_route, string $contentType = self::contentTypes['postIngressRoutes'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Route';
-        $request = $this->postIngressRoutesRequest($route, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IngressRoute';
+        $request = $this->postIngressRoutesRequest($ingress_route, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3368,19 +3532,19 @@ class IngressApi
     /**
      * Create request for operation 'postIngressRoutes'
      *
-     * @param  \Hanzo\Cloud\Model\Route $route (required)
+     * @param  \Hanzo\Cloud\Model\IngressRoute $ingress_route (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressRoutes'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIngressRoutesRequest($route, string $contentType = self::contentTypes['postIngressRoutes'][0])
+    public function postIngressRoutesRequest($ingress_route, string $contentType = self::contentTypes['postIngressRoutes'][0])
     {
 
-        // verify the required parameter 'route' is set
-        if ($route === null || (is_array($route) && count($route) === 0)) {
+        // verify the required parameter 'ingress_route' is set
+        if ($ingress_route === null || (is_array($ingress_route) && count($ingress_route) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $route when calling postIngressRoutes'
+                'Missing the required parameter $ingress_route when calling postIngressRoutes'
             );
         }
 
@@ -3397,18 +3561,18 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($route)) {
+        if (isset($ingress_route)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($route));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ingress_route));
             } else {
-                $httpBody = $route;
+                $httpBody = $ingress_route;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3465,16 +3629,16 @@ class IngressApi
      *
      * Creates or replaces one backend pool and hot-applies it.
      *
-     * @param  \Hanzo\Cloud\Model\Upstream $upstream upstream (required)
+     * @param  \Hanzo\Cloud\Model\IngressUpstream $ingress_upstream ingress_upstream (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressServices'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Upstream
+     * @return \Hanzo\Cloud\Model\IngressUpstream|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function postIngressServices($upstream, string $contentType = self::contentTypes['postIngressServices'][0])
+    public function postIngressServices($ingress_upstream, string $contentType = self::contentTypes['postIngressServices'][0])
     {
-        list($response) = $this->postIngressServicesWithHttpInfo($upstream, $contentType);
+        list($response) = $this->postIngressServicesWithHttpInfo($ingress_upstream, $contentType);
         return $response;
     }
 
@@ -3483,16 +3647,16 @@ class IngressApi
      *
      * Creates or replaces one backend pool and hot-applies it.
      *
-     * @param  \Hanzo\Cloud\Model\Upstream $upstream (required)
+     * @param  \Hanzo\Cloud\Model\IngressUpstream $ingress_upstream (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressServices'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Upstream, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressUpstream|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIngressServicesWithHttpInfo($upstream, string $contentType = self::contentTypes['postIngressServices'][0])
+    public function postIngressServicesWithHttpInfo($ingress_upstream, string $contentType = self::contentTypes['postIngressServices'][0])
     {
-        $request = $this->postIngressServicesRequest($upstream, $contentType);
+        $request = $this->postIngressServicesRequest($ingress_upstream, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3520,7 +3684,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Upstream',
+                        '\Hanzo\Cloud\Model\IngressUpstream',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3542,7 +3712,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Upstream',
+                '\Hanzo\Cloud\Model\IngressUpstream',
                 $request,
                 $response,
             );
@@ -3551,7 +3721,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Upstream',
+                        '\Hanzo\Cloud\Model\IngressUpstream',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3568,15 +3746,15 @@ class IngressApi
      *
      * Creates or replaces one backend pool and hot-applies it.
      *
-     * @param  \Hanzo\Cloud\Model\Upstream $upstream (required)
+     * @param  \Hanzo\Cloud\Model\IngressUpstream $ingress_upstream (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressServices'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIngressServicesAsync($upstream, string $contentType = self::contentTypes['postIngressServices'][0])
+    public function postIngressServicesAsync($ingress_upstream, string $contentType = self::contentTypes['postIngressServices'][0])
     {
-        return $this->postIngressServicesAsyncWithHttpInfo($upstream, $contentType)
+        return $this->postIngressServicesAsyncWithHttpInfo($ingress_upstream, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3589,16 +3767,16 @@ class IngressApi
      *
      * Creates or replaces one backend pool and hot-applies it.
      *
-     * @param  \Hanzo\Cloud\Model\Upstream $upstream (required)
+     * @param  \Hanzo\Cloud\Model\IngressUpstream $ingress_upstream (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressServices'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIngressServicesAsyncWithHttpInfo($upstream, string $contentType = self::contentTypes['postIngressServices'][0])
+    public function postIngressServicesAsyncWithHttpInfo($ingress_upstream, string $contentType = self::contentTypes['postIngressServices'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Upstream';
-        $request = $this->postIngressServicesRequest($upstream, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IngressUpstream';
+        $request = $this->postIngressServicesRequest($ingress_upstream, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3639,19 +3817,19 @@ class IngressApi
     /**
      * Create request for operation 'postIngressServices'
      *
-     * @param  \Hanzo\Cloud\Model\Upstream $upstream (required)
+     * @param  \Hanzo\Cloud\Model\IngressUpstream $ingress_upstream (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIngressServices'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIngressServicesRequest($upstream, string $contentType = self::contentTypes['postIngressServices'][0])
+    public function postIngressServicesRequest($ingress_upstream, string $contentType = self::contentTypes['postIngressServices'][0])
     {
 
-        // verify the required parameter 'upstream' is set
-        if ($upstream === null || (is_array($upstream) && count($upstream) === 0)) {
+        // verify the required parameter 'ingress_upstream' is set
+        if ($ingress_upstream === null || (is_array($ingress_upstream) && count($ingress_upstream) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $upstream when calling postIngressServices'
+                'Missing the required parameter $ingress_upstream when calling postIngressServices'
             );
         }
 
@@ -3668,18 +3846,18 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($upstream)) {
+        if (isset($ingress_upstream)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($upstream));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ingress_upstream));
             } else {
-                $httpBody = $upstream;
+                $httpBody = $ingress_upstream;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -3737,16 +3915,16 @@ class IngressApi
      * Creates or replaces one edge transform and hot-applies it.
      *
      * @param  string $id ID identifies the transform within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id. (required)
-     * @param  \Hanzo\Cloud\Model\Middleware $middleware middleware (required)
+     * @param  \Hanzo\Cloud\Model\IngressMiddleware $ingress_middleware ingress_middleware (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressMiddlewaresById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Middleware
+     * @return \Hanzo\Cloud\Model\IngressMiddleware|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putIngressMiddlewaresById($id, $middleware, string $contentType = self::contentTypes['putIngressMiddlewaresById'][0])
+    public function putIngressMiddlewaresById($id, $ingress_middleware, string $contentType = self::contentTypes['putIngressMiddlewaresById'][0])
     {
-        list($response) = $this->putIngressMiddlewaresByIdWithHttpInfo($id, $middleware, $contentType);
+        list($response) = $this->putIngressMiddlewaresByIdWithHttpInfo($id, $ingress_middleware, $contentType);
         return $response;
     }
 
@@ -3756,16 +3934,16 @@ class IngressApi
      * Creates or replaces one edge transform and hot-applies it.
      *
      * @param  string $id ID identifies the transform within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id. (required)
-     * @param  \Hanzo\Cloud\Model\Middleware $middleware (required)
+     * @param  \Hanzo\Cloud\Model\IngressMiddleware $ingress_middleware (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressMiddlewaresById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Middleware, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressMiddleware|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putIngressMiddlewaresByIdWithHttpInfo($id, $middleware, string $contentType = self::contentTypes['putIngressMiddlewaresById'][0])
+    public function putIngressMiddlewaresByIdWithHttpInfo($id, $ingress_middleware, string $contentType = self::contentTypes['putIngressMiddlewaresById'][0])
     {
-        $request = $this->putIngressMiddlewaresByIdRequest($id, $middleware, $contentType);
+        $request = $this->putIngressMiddlewaresByIdRequest($id, $ingress_middleware, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3793,7 +3971,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Middleware',
+                        '\Hanzo\Cloud\Model\IngressMiddleware',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -3815,7 +3999,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Middleware',
+                '\Hanzo\Cloud\Model\IngressMiddleware',
                 $request,
                 $response,
             );
@@ -3824,7 +4008,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Middleware',
+                        '\Hanzo\Cloud\Model\IngressMiddleware',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3842,15 +4034,15 @@ class IngressApi
      * Creates or replaces one edge transform and hot-applies it.
      *
      * @param  string $id ID identifies the transform within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id. (required)
-     * @param  \Hanzo\Cloud\Model\Middleware $middleware (required)
+     * @param  \Hanzo\Cloud\Model\IngressMiddleware $ingress_middleware (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressMiddlewaresById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIngressMiddlewaresByIdAsync($id, $middleware, string $contentType = self::contentTypes['putIngressMiddlewaresById'][0])
+    public function putIngressMiddlewaresByIdAsync($id, $ingress_middleware, string $contentType = self::contentTypes['putIngressMiddlewaresById'][0])
     {
-        return $this->putIngressMiddlewaresByIdAsyncWithHttpInfo($id, $middleware, $contentType)
+        return $this->putIngressMiddlewaresByIdAsyncWithHttpInfo($id, $ingress_middleware, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3864,16 +4056,16 @@ class IngressApi
      * Creates or replaces one edge transform and hot-applies it.
      *
      * @param  string $id ID identifies the transform within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id. (required)
-     * @param  \Hanzo\Cloud\Model\Middleware $middleware (required)
+     * @param  \Hanzo\Cloud\Model\IngressMiddleware $ingress_middleware (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressMiddlewaresById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIngressMiddlewaresByIdAsyncWithHttpInfo($id, $middleware, string $contentType = self::contentTypes['putIngressMiddlewaresById'][0])
+    public function putIngressMiddlewaresByIdAsyncWithHttpInfo($id, $ingress_middleware, string $contentType = self::contentTypes['putIngressMiddlewaresById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Middleware';
-        $request = $this->putIngressMiddlewaresByIdRequest($id, $middleware, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IngressMiddleware';
+        $request = $this->putIngressMiddlewaresByIdRequest($id, $ingress_middleware, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3915,13 +4107,13 @@ class IngressApi
      * Create request for operation 'putIngressMiddlewaresById'
      *
      * @param  string $id ID identifies the transform within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id. (required)
-     * @param  \Hanzo\Cloud\Model\Middleware $middleware (required)
+     * @param  \Hanzo\Cloud\Model\IngressMiddleware $ingress_middleware (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressMiddlewaresById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putIngressMiddlewaresByIdRequest($id, $middleware, string $contentType = self::contentTypes['putIngressMiddlewaresById'][0])
+    public function putIngressMiddlewaresByIdRequest($id, $ingress_middleware, string $contentType = self::contentTypes['putIngressMiddlewaresById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -3931,10 +4123,10 @@ class IngressApi
             );
         }
 
-        // verify the required parameter 'middleware' is set
-        if ($middleware === null || (is_array($middleware) && count($middleware) === 0)) {
+        // verify the required parameter 'ingress_middleware' is set
+        if ($ingress_middleware === null || (is_array($ingress_middleware) && count($ingress_middleware) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $middleware when calling putIngressMiddlewaresById'
+                'Missing the required parameter $ingress_middleware when calling putIngressMiddlewaresById'
             );
         }
 
@@ -3959,18 +4151,18 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($middleware)) {
+        if (isset($ingress_middleware)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($middleware));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ingress_middleware));
             } else {
-                $httpBody = $middleware;
+                $httpBody = $ingress_middleware;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4028,16 +4220,16 @@ class IngressApi
      * Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
      *
      * @param  string $id ID identifies the route within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. (required)
-     * @param  \Hanzo\Cloud\Model\Route $route route (required)
+     * @param  \Hanzo\Cloud\Model\IngressRoute $ingress_route ingress_route (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressRoutesById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Route
+     * @return \Hanzo\Cloud\Model\IngressRoute|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putIngressRoutesById($id, $route, string $contentType = self::contentTypes['putIngressRoutesById'][0])
+    public function putIngressRoutesById($id, $ingress_route, string $contentType = self::contentTypes['putIngressRoutesById'][0])
     {
-        list($response) = $this->putIngressRoutesByIdWithHttpInfo($id, $route, $contentType);
+        list($response) = $this->putIngressRoutesByIdWithHttpInfo($id, $ingress_route, $contentType);
         return $response;
     }
 
@@ -4047,16 +4239,16 @@ class IngressApi
      * Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
      *
      * @param  string $id ID identifies the route within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. (required)
-     * @param  \Hanzo\Cloud\Model\Route $route (required)
+     * @param  \Hanzo\Cloud\Model\IngressRoute $ingress_route (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressRoutesById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Route, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressRoute|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putIngressRoutesByIdWithHttpInfo($id, $route, string $contentType = self::contentTypes['putIngressRoutesById'][0])
+    public function putIngressRoutesByIdWithHttpInfo($id, $ingress_route, string $contentType = self::contentTypes['putIngressRoutesById'][0])
     {
-        $request = $this->putIngressRoutesByIdRequest($id, $route, $contentType);
+        $request = $this->putIngressRoutesByIdRequest($id, $ingress_route, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4084,7 +4276,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Route',
+                        '\Hanzo\Cloud\Model\IngressRoute',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4106,7 +4304,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Route',
+                '\Hanzo\Cloud\Model\IngressRoute',
                 $request,
                 $response,
             );
@@ -4115,7 +4313,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Route',
+                        '\Hanzo\Cloud\Model\IngressRoute',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4133,15 +4339,15 @@ class IngressApi
      * Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
      *
      * @param  string $id ID identifies the route within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. (required)
-     * @param  \Hanzo\Cloud\Model\Route $route (required)
+     * @param  \Hanzo\Cloud\Model\IngressRoute $ingress_route (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressRoutesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIngressRoutesByIdAsync($id, $route, string $contentType = self::contentTypes['putIngressRoutesById'][0])
+    public function putIngressRoutesByIdAsync($id, $ingress_route, string $contentType = self::contentTypes['putIngressRoutesById'][0])
     {
-        return $this->putIngressRoutesByIdAsyncWithHttpInfo($id, $route, $contentType)
+        return $this->putIngressRoutesByIdAsyncWithHttpInfo($id, $ingress_route, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4155,16 +4361,16 @@ class IngressApi
      * Creates or replaces one routing rule and hot-applies the new table — there is no config file and no restart.
      *
      * @param  string $id ID identifies the route within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. (required)
-     * @param  \Hanzo\Cloud\Model\Route $route (required)
+     * @param  \Hanzo\Cloud\Model\IngressRoute $ingress_route (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressRoutesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIngressRoutesByIdAsyncWithHttpInfo($id, $route, string $contentType = self::contentTypes['putIngressRoutesById'][0])
+    public function putIngressRoutesByIdAsyncWithHttpInfo($id, $ingress_route, string $contentType = self::contentTypes['putIngressRoutesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Route';
-        $request = $this->putIngressRoutesByIdRequest($id, $route, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IngressRoute';
+        $request = $this->putIngressRoutesByIdRequest($id, $ingress_route, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4206,13 +4412,13 @@ class IngressApi
      * Create request for operation 'putIngressRoutesById'
      *
      * @param  string $id ID identifies the route within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. (required)
-     * @param  \Hanzo\Cloud\Model\Route $route (required)
+     * @param  \Hanzo\Cloud\Model\IngressRoute $ingress_route (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressRoutesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putIngressRoutesByIdRequest($id, $route, string $contentType = self::contentTypes['putIngressRoutesById'][0])
+    public function putIngressRoutesByIdRequest($id, $ingress_route, string $contentType = self::contentTypes['putIngressRoutesById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -4222,10 +4428,10 @@ class IngressApi
             );
         }
 
-        // verify the required parameter 'route' is set
-        if ($route === null || (is_array($route) && count($route) === 0)) {
+        // verify the required parameter 'ingress_route' is set
+        if ($ingress_route === null || (is_array($ingress_route) && count($ingress_route) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $route when calling putIngressRoutesById'
+                'Missing the required parameter $ingress_route when calling putIngressRoutesById'
             );
         }
 
@@ -4250,18 +4456,18 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($route)) {
+        if (isset($ingress_route)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($route));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ingress_route));
             } else {
-                $httpBody = $route;
+                $httpBody = $ingress_route;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4319,16 +4525,16 @@ class IngressApi
      * Creates or replaces one backend pool and hot-applies it.
      *
      * @param  string $id ID identifies the pool within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id. (required)
-     * @param  \Hanzo\Cloud\Model\Upstream $upstream upstream (required)
+     * @param  \Hanzo\Cloud\Model\IngressUpstream $ingress_upstream ingress_upstream (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressServicesById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Upstream
+     * @return \Hanzo\Cloud\Model\IngressUpstream|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putIngressServicesById($id, $upstream, string $contentType = self::contentTypes['putIngressServicesById'][0])
+    public function putIngressServicesById($id, $ingress_upstream, string $contentType = self::contentTypes['putIngressServicesById'][0])
     {
-        list($response) = $this->putIngressServicesByIdWithHttpInfo($id, $upstream, $contentType);
+        list($response) = $this->putIngressServicesByIdWithHttpInfo($id, $ingress_upstream, $contentType);
         return $response;
     }
 
@@ -4338,16 +4544,16 @@ class IngressApi
      * Creates or replaces one backend pool and hot-applies it.
      *
      * @param  string $id ID identifies the pool within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id. (required)
-     * @param  \Hanzo\Cloud\Model\Upstream $upstream (required)
+     * @param  \Hanzo\Cloud\Model\IngressUpstream $ingress_upstream (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressServicesById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Upstream, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressUpstream|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putIngressServicesByIdWithHttpInfo($id, $upstream, string $contentType = self::contentTypes['putIngressServicesById'][0])
+    public function putIngressServicesByIdWithHttpInfo($id, $ingress_upstream, string $contentType = self::contentTypes['putIngressServicesById'][0])
     {
-        $request = $this->putIngressServicesByIdRequest($id, $upstream, $contentType);
+        $request = $this->putIngressServicesByIdRequest($id, $ingress_upstream, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4375,7 +4581,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Upstream',
+                        '\Hanzo\Cloud\Model\IngressUpstream',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4397,7 +4609,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Upstream',
+                '\Hanzo\Cloud\Model\IngressUpstream',
                 $request,
                 $response,
             );
@@ -4406,7 +4618,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Upstream',
+                        '\Hanzo\Cloud\Model\IngressUpstream',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4424,15 +4644,15 @@ class IngressApi
      * Creates or replaces one backend pool and hot-applies it.
      *
      * @param  string $id ID identifies the pool within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id. (required)
-     * @param  \Hanzo\Cloud\Model\Upstream $upstream (required)
+     * @param  \Hanzo\Cloud\Model\IngressUpstream $ingress_upstream (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressServicesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIngressServicesByIdAsync($id, $upstream, string $contentType = self::contentTypes['putIngressServicesById'][0])
+    public function putIngressServicesByIdAsync($id, $ingress_upstream, string $contentType = self::contentTypes['putIngressServicesById'][0])
     {
-        return $this->putIngressServicesByIdAsyncWithHttpInfo($id, $upstream, $contentType)
+        return $this->putIngressServicesByIdAsyncWithHttpInfo($id, $ingress_upstream, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4446,16 +4666,16 @@ class IngressApi
      * Creates or replaces one backend pool and hot-applies it.
      *
      * @param  string $id ID identifies the pool within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id. (required)
-     * @param  \Hanzo\Cloud\Model\Upstream $upstream (required)
+     * @param  \Hanzo\Cloud\Model\IngressUpstream $ingress_upstream (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressServicesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIngressServicesByIdAsyncWithHttpInfo($id, $upstream, string $contentType = self::contentTypes['putIngressServicesById'][0])
+    public function putIngressServicesByIdAsyncWithHttpInfo($id, $ingress_upstream, string $contentType = self::contentTypes['putIngressServicesById'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Upstream';
-        $request = $this->putIngressServicesByIdRequest($id, $upstream, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IngressUpstream';
+        $request = $this->putIngressServicesByIdRequest($id, $ingress_upstream, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4497,13 +4717,13 @@ class IngressApi
      * Create request for operation 'putIngressServicesById'
      *
      * @param  string $id ID identifies the pool within the org: [A-Za-z0-9-_.], at most 128 chars. A create that omits it gets a generated one. Routes reference it by this id. (required)
-     * @param  \Hanzo\Cloud\Model\Upstream $upstream (required)
+     * @param  \Hanzo\Cloud\Model\IngressUpstream $ingress_upstream (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressServicesById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putIngressServicesByIdRequest($id, $upstream, string $contentType = self::contentTypes['putIngressServicesById'][0])
+    public function putIngressServicesByIdRequest($id, $ingress_upstream, string $contentType = self::contentTypes['putIngressServicesById'][0])
     {
 
         // verify the required parameter 'id' is set
@@ -4513,10 +4733,10 @@ class IngressApi
             );
         }
 
-        // verify the required parameter 'upstream' is set
-        if ($upstream === null || (is_array($upstream) && count($upstream) === 0)) {
+        // verify the required parameter 'ingress_upstream' is set
+        if ($ingress_upstream === null || (is_array($ingress_upstream) && count($ingress_upstream) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $upstream when calling putIngressServicesById'
+                'Missing the required parameter $ingress_upstream when calling putIngressServicesById'
             );
         }
 
@@ -4541,18 +4761,18 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($upstream)) {
+        if (isset($ingress_upstream)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($upstream));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ingress_upstream));
             } else {
-                $httpBody = $upstream;
+                $httpBody = $ingress_upstream;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -4607,36 +4827,36 @@ class IngressApi
     /**
      * Operation putIngressTls
      *
-     * PutTLS replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
+     * Replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
      *
-     * @param  \Hanzo\Cloud\Model\TLSConfig $tls_config tls_config (required)
+     * @param  \Hanzo\Cloud\Model\IngressTLSConfig $ingress_tls_config ingress_tls_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressTls'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\TLSConfig
+     * @return \Hanzo\Cloud\Model\IngressTLSConfig|\Hanzo\Cloud\Model\ProblemDetails
      */
-    public function putIngressTls($tls_config, string $contentType = self::contentTypes['putIngressTls'][0])
+    public function putIngressTls($ingress_tls_config, string $contentType = self::contentTypes['putIngressTls'][0])
     {
-        list($response) = $this->putIngressTlsWithHttpInfo($tls_config, $contentType);
+        list($response) = $this->putIngressTlsWithHttpInfo($ingress_tls_config, $contentType);
         return $response;
     }
 
     /**
      * Operation putIngressTlsWithHttpInfo
      *
-     * PutTLS replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
+     * Replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
      *
-     * @param  \Hanzo\Cloud\Model\TLSConfig $tls_config (required)
+     * @param  \Hanzo\Cloud\Model\IngressTLSConfig $ingress_tls_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressTls'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\TLSConfig, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\IngressTLSConfig|\Hanzo\Cloud\Model\ProblemDetails, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putIngressTlsWithHttpInfo($tls_config, string $contentType = self::contentTypes['putIngressTls'][0])
+    public function putIngressTlsWithHttpInfo($ingress_tls_config, string $contentType = self::contentTypes['putIngressTls'][0])
     {
-        $request = $this->putIngressTlsRequest($tls_config, $contentType);
+        $request = $this->putIngressTlsRequest($ingress_tls_config, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4664,7 +4884,13 @@ class IngressApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\TLSConfig',
+                        '\Hanzo\Cloud\Model\IngressTLSConfig',
+                        $request,
+                        $response,
+                    );
+                default:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $request,
                         $response,
                     );
@@ -4686,7 +4912,7 @@ class IngressApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\TLSConfig',
+                '\Hanzo\Cloud\Model\IngressTLSConfig',
                 $request,
                 $response,
             );
@@ -4695,7 +4921,15 @@ class IngressApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\TLSConfig',
+                        '\Hanzo\Cloud\Model\IngressTLSConfig',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                default:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ProblemDetails',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4710,17 +4944,17 @@ class IngressApi
     /**
      * Operation putIngressTlsAsync
      *
-     * PutTLS replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
+     * Replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
      *
-     * @param  \Hanzo\Cloud\Model\TLSConfig $tls_config (required)
+     * @param  \Hanzo\Cloud\Model\IngressTLSConfig $ingress_tls_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressTls'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIngressTlsAsync($tls_config, string $contentType = self::contentTypes['putIngressTls'][0])
+    public function putIngressTlsAsync($ingress_tls_config, string $contentType = self::contentTypes['putIngressTls'][0])
     {
-        return $this->putIngressTlsAsyncWithHttpInfo($tls_config, $contentType)
+        return $this->putIngressTlsAsyncWithHttpInfo($ingress_tls_config, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4731,18 +4965,18 @@ class IngressApi
     /**
      * Operation putIngressTlsAsyncWithHttpInfo
      *
-     * PutTLS replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
+     * Replaces the caller org&#39;s ACME intent and hot-applies what can be hot-applied.
      *
-     * @param  \Hanzo\Cloud\Model\TLSConfig $tls_config (required)
+     * @param  \Hanzo\Cloud\Model\IngressTLSConfig $ingress_tls_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressTls'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIngressTlsAsyncWithHttpInfo($tls_config, string $contentType = self::contentTypes['putIngressTls'][0])
+    public function putIngressTlsAsyncWithHttpInfo($ingress_tls_config, string $contentType = self::contentTypes['putIngressTls'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\TLSConfig';
-        $request = $this->putIngressTlsRequest($tls_config, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\IngressTLSConfig';
+        $request = $this->putIngressTlsRequest($ingress_tls_config, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4783,19 +5017,19 @@ class IngressApi
     /**
      * Create request for operation 'putIngressTls'
      *
-     * @param  \Hanzo\Cloud\Model\TLSConfig $tls_config (required)
+     * @param  \Hanzo\Cloud\Model\IngressTLSConfig $ingress_tls_config (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIngressTls'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putIngressTlsRequest($tls_config, string $contentType = self::contentTypes['putIngressTls'][0])
+    public function putIngressTlsRequest($ingress_tls_config, string $contentType = self::contentTypes['putIngressTls'][0])
     {
 
-        // verify the required parameter 'tls_config' is set
-        if ($tls_config === null || (is_array($tls_config) && count($tls_config) === 0)) {
+        // verify the required parameter 'ingress_tls_config' is set
+        if ($ingress_tls_config === null || (is_array($ingress_tls_config) && count($ingress_tls_config) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $tls_config when calling putIngressTls'
+                'Missing the required parameter $ingress_tls_config when calling putIngressTls'
             );
         }
 
@@ -4812,18 +5046,18 @@ class IngressApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            ['application/json', 'application/problem+json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($tls_config)) {
+        if (isset($ingress_tls_config)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($tls_config));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ingress_tls_config));
             } else {
-                $httpBody = $tls_config;
+                $httpBody = $ingress_tls_config;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

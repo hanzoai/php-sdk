@@ -316,7 +316,7 @@ class O11yO11yPublicDashboardWriteIn implements ModelInterface, ArrayAccess, \Js
     /**
      * Sets default_time_range
      *
-     * @param string|null $default_time_range default_time_range
+     * @param string|null $default_time_range DefaultTimeRange is the fixed window as a Go duration, e.g. 1h, 30m.
      *
      * @return self
      */
@@ -370,7 +370,7 @@ class O11yO11yPublicDashboardWriteIn implements ModelInterface, ArrayAccess, \Js
     /**
      * Sets time_range_enabled
      *
-     * @param bool|null $time_range_enabled time_range_enabled
+     * @param bool|null $time_range_enabled TimeRangeEnabled lets the public page pick its own time range; when false the share fixes DefaultTimeRange.
      *
      * @return self
      */
